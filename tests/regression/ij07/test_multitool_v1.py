@@ -1,12 +1,16 @@
 from collections import Counter
+from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import replace
 import json
+from types import SimpleNamespace
 
 import pytest
 
 from benchmarks.multitool_v1.dataset import FILES, ROOT, load_freeze
 from benchmarks.multitool_v1.generate import generate
+from benchmarks.multitool_v1 import run
+from benchmarks.multitool_v1.run import plan, run_case
 from benchmarks.multitool_v1.runtime import Scenario, score
 from benchmarks.multitool_v1.verify import replay_reference, verify_freeze
 
@@ -101,3 +105,107 @@ def test_freeze_regenerates_byte_identically_and_rejects_mutation(tmp_path):
     prompt_file.write_bytes(prompt_file.read_bytes() + b"\n")
     with pytest.raises(ValueError, match="digest mismatch"):
         load_freeze(tmp_path)
+
+
+class WireFixture:
+    """Supply known synthetic envelopes through the loop's real decoder."""
+
+    base_url = "fixture"
+
+    def __init__(self, messages, *, source_status="PASS"):
+        self.messages = iter(messages)
+        self.requests = []
+        self.source_status = source_status
+
+    def chat(self, _base_url, request):
+        message = next(self.messages)
+        reply = {"choices": [{"index": 0, "message": {"role": "assistant", **message},
+                              "finish_reason": "tool_calls" if message.get("tool_calls") else "stop"}],
+                 "usage": {"prompt_tokens": 12, "completion_tokens": 3}}
+        self.requests.append({"request": request, "raw_response": json.dumps(reply), "http_status": 200,
+                              "render_status": 200, "source_generation": {"status": self.source_status},
+                              "wall_ms": 10})
+        return reply
+
+
+def test_wired_loop_delivers_user_update_and_scores_model_calls(tmp_path):
+    case = load_freeze().active["MT-07-001"]
+    _, calls, final, *_ = replay_reference(case, tmp_path)
+    messages = [{"tool_calls": [{"id": call.call_id, "type": "function", "function": {
+        "name": call.name, "arguments": call.arguments_raw}} for call in calls if call.turn == turn]}
+                for turn in sorted({call.turn for call in calls})]
+    client = WireFixture([*messages, {"content": final}])
+    result = run_case(case, client, None, seed=48707)
+    assert result["status"] == "PASS"
+    assert result["model_calls"] == 3
+    assert result["prompt_tokens"] == 36
+    requests = result["requests"]
+    event = case.world["event"]
+    assert all(event["text"] not in item["content"] for item in requests[0]["request"]["messages"])
+    assert requests[1]["request"]["messages"][-1] == {"role": "user", "content": event["text"]}
+    assert result["delivered_events"] == [(0, event["id"])]
+    assert all(request["request"]["seed"] == 48707 for request in requests)
+
+
+def test_wired_loop_keeps_missing_observer_evidence_blocked(tmp_path):
+    case = load_freeze().controls["DIAG-NO-TOOL-EN"]
+    client = WireFixture([{"content": '{"status":"ready"}'}], source_status="BLOCKED")
+    result = run_case(case, client, None, seed=48707)
+    assert result["status"] == "BLOCKED"
+    assert result["trace_status"] == "PASS"
+
+
+def test_wire_plan_selects_exact_frozen_repeat_population():
+    freeze = load_freeze()
+    panel = plan(freeze, "repeat", [], first_seed=987)
+    assert len(panel) == 300 and len({row["key"] for row in panel}) == 300
+    assert {row["case_id"] for row in panel} == set(freeze.panel["case_ids"])
+    assert {row["seed"] for row in panel} == set(freeze.panel["seeds"])
+    with pytest.raises(ValueError, match="outside"):
+        plan(freeze, "primary", ["DIAG-NO-TOOL-EN"], first_seed=987)
+
+
+def test_checkpoint_resume_binds_evidence_and_preserves_interruptions(tmp_path, monkeypatch):
+    freeze = load_freeze()
+    case = freeze.controls["DIAG-NO-TOOL-EN"]
+    blocked = True
+    launches = []
+
+    @contextmanager
+    def synthetic_server(_binary, _model, backend, _env, _output, _port, _tag, observe):
+        assert observe
+        launches.append(backend)
+        capture = "BLOCKED" if blocked else "PASS"
+        yield WireFixture([{"content": '{"status":"ready"}'}], source_status=capture), {
+            "backend": backend, "gpu": {}, "build": "fixture", "args": [], "template_sha256": "fixture",
+            "layers_offloaded": 1, "layers_total": 1,
+        }
+
+    monkeypatch.setattr(run.historical_replay, "gpu_server", synthetic_server)
+    monkeypatch.setattr(run.qualify, "pid_counter_proof", lambda *_: {"status": "BLOCKED"})
+    roster = plan(freeze, "controls", [case.case_id], first_seed=42)
+    configuration = {"panel": "controls", "scope": "diagnostic", "roster": roster,
+                     "expected_template_sha256": "fixture"}
+    args = SimpleNamespace(backend="vulkan", resume=False, port=18718, batch_size=None)
+    resume = SimpleNamespace(**{**vars(args), "resume": True})
+    cases = {case.case_id: case}
+    status = run.execute_locked(args, configuration, cases, tmp_path, None, None, {})
+    assert status["tasks"] == {"PASS": 0, "FAIL": 0, "BLOCKED": 1, "NOT_RUN": 0}
+    assert status["runtime_interruptions"] == 1
+
+    blocked = False
+    status = run.execute_locked(resume, configuration, cases, tmp_path, None, None, {})
+    assert status["tasks"] == {"PASS": 1, "FAIL": 0, "BLOCKED": 0, "NOT_RUN": 0}
+    assert status["physical_evidence_status"] == "BLOCKED"
+    assert status["runtime_interruptions"] == 1
+    assert run.execute_locked(resume, configuration, cases, tmp_path, None, None, {}) == status
+    assert len(launches) == 2
+
+    with pytest.raises(ValueError, match="original run configuration"):
+        run.execute_locked(resume, {**configuration, "scope": "changed"}, cases, tmp_path, None, None, {})
+    path = next((tmp_path / "cases").glob("*.json"))
+    envelope = json.loads(path.read_bytes())
+    envelope["row"]["final"] = "forged"
+    path.write_text(json.dumps(envelope), encoding="utf-8")
+    with pytest.raises(ValueError, match="invalid checkpoint"):
+        run.execute_locked(resume, configuration, cases, tmp_path, None, None, {})

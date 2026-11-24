@@ -34,3 +34,15 @@ python -m pytest tests/regression/ij07/test_multitool_v1.py -q
 ```
 
 To regenerate a comparison copy, run `python -m benchmarks.multitool_v1.generate --output <new-directory>`. Verification checks the frozen bytes, strata, repeat panel and synthetic reference replay, including SQLite write evidence. The reference replay begins from the oracle and exists only to test the benchmark. Model qualification, GPU performance, and SDK execution remain `NOT_RUN` for this freeze. Template families repeat the same business domain and strict structured-answer format. Evaluation results describe generalization within those conditions.
+
+## Local Radeon runner
+
+`benchmarks.multitool_v1.run` verifies the exact P4b observer executable, DLLs, Q8_0 model and native template against the archived runtime identities. Live execution launches a private loopback server with full GPU offload, source-side generation capture and PID-bound GPU telemetry. The first-pass seed is 66007. The runner uses non-streaming requests, temperature zero, an 8K engine context and thinking disabled. The case allows at most 24 model turns and 32 proposals, with 1,536 output tokens per turn and a 600-second wall budget checked between model requests and before acting on responses.
+
+```powershell
+$env:PYTHONPATH = 'src'
+python -m benchmarks.multitool_v1.run --backend vulkan --runtime-root $RuntimeRoot --engine-dir $PinnedObserver --preflight-only
+python -m benchmarks.multitool_v1.run --backend vulkan --runtime-root $RuntimeRoot --engine-dir $PinnedObserver --case MT-01-001 --case MT-06-001 --case MT-07-001 --case MT-08-002 --output .runtime/multitool-diagnostic
+```
+
+Omitting `--case` selects the full primary panel. Use `--panel repeat` for the frozen repeat panel or `--panel controls` for the six zero-call controls. `--batch-size` limits additional attempts at each launch. Use `--resume` from the same source and runtime configuration to continue. Each assessed case has an atomic checkpoint with raw model requests and responses, observer traces, synthetic tool results and any SQLite snapshots. Missing transport, observer or GPU evidence is tracked as `BLOCKED`. Interrupted attempts are preserved independently of resumed verdicts. Raw artifacts remain local until machine-identifying information is reviewed. The runner measures real model execution in deterministic synthetic tool worlds, with no SDK or live business operations.

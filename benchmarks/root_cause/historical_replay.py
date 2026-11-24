@@ -52,7 +52,8 @@ def engine_runtime(directory, backend):
 
 
 @contextmanager
-def gpu_server(binary, model, backend, env, output, port, tag, observe, alias=ALIAS):
+def gpu_server(binary, model, backend, env, output, port, tag, observe, alias=ALIAS,
+               build_prefix="b12359-b1b770d90"):
     log = output / f"{tag}-server.log"
     trace = output / f"{tag}-generation.jsonl"
     samples = output / f"{tag}-gpu.jsonl"
@@ -91,7 +92,7 @@ def gpu_server(binary, model, backend, env, output, port, tag, observe, alias=AL
             raise CaptureError("loopback listener does not match the launched process")
         with client.opener.open(client.base_url + "/props", timeout=10) as reply:
             props = json.load(reply)
-        if (not props["build_info"].startswith("b12359-b1b770d90")
+        if (not props["build_info"].startswith(build_prefix)
                 or props["model_alias"] != alias or Path(props["model_path"]).resolve() != model
                 or not props["chat_template_caps"]["supports_tool_calls"]):
             raise CaptureError("live server identity or tool-call support differs")

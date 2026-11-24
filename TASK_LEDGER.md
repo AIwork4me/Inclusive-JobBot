@@ -18,6 +18,8 @@
 | IJ07-M3-MT | Real MULTITOOL-V1 qualification | NOT_RUN | `benchmarks/multitool_v1/README.md` |
 | IJ07-M4 | Full real two-track L0–L7 qualification | NOT_RUN | `benchmarks/agentic_planning_v1/README.md` |
 | IJ07-M7 | Six-arm JOB-V1 causal validation | NOT_RUN | `benchmarks/job_productivity_v1/holdout/README.md` |
+| IJ07-M3-MT-RUNNER | MULTITOOL-V1 Radeon runner and exact-resume software tests | PASS | `benchmarks/multitool_v1/README.md` |
+| IJ07-M6-STATISTICS | Independent paired comparison and repeat statistics software | PASS | `benchmarks/competitive_slm/STATISTICS.md` |
 
 Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`. "Progress" says
 whether work has started. Every finished task names its evidence.
