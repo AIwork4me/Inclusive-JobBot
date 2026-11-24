@@ -188,6 +188,9 @@
       "status": "PASS",
       "evidence": ["reports/IJ06_SECURE_GATEWAY_REPORT.md", "evidence/IJ06/security/"]
     },
+    "parser_root_cause": {"status": "PASS", "evidence": ["reports/IJ06_PARSER_ROOT_CAUSE_REPORT.md"]},
+    "p4b_parser_conformance": {"status": "PASS", "evidence": ["evidence/IJ06/parser/p4b-windows-dynamic-build.json"]},
+    "qwen3_reference_development": {"status": "PASS", "evidence": ["evidence/IJ06/performance/reference-qwen3-vulkan/summary.json"]},
     "sdk_vulkan": {"status": "BLOCKED", "evidence": ["evidence/IJ06/antigravity/vulkan.json"]},
     "sdk_rocm": {"status": "FAIL", "evidence": ["evidence/IJ06/antigravity/rocm.json"]},
     "document_review_development": {"status": "PASS", "evidence": ["evidence/IJ06/performance/summary.json"]},
@@ -197,9 +200,9 @@
   },
   "open_blockers": [
     "B-004",
-    "B-005",
     "B-006",
     "B-007",
-    "B-009"
+    "B-009",
+    "B-010"
   ]
 }

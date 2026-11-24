@@ -249,8 +249,22 @@ def main():
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--gate", action="append", choices=list(CASE_SPECS))
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--candidate-server", type=Path)
+    parser.add_argument("--candidate-pid", type=int)
+    parser.add_argument("--candidate-launch", type=Path)
     args = parser.parse_args()
-    engine, server, session = server_identity(args.base_url, args.model)
+    candidate = (args.candidate_server, args.candidate_pid, args.candidate_launch)
+    if any(candidate):
+        if not all(candidate):
+            parser.error("Candidate testing requires the binary, PID and launch record")
+        from benchmarks.tool_calling_v2.parser.run_wire import candidate_identity
+
+        directory = ROOT / "benchmarks/tool_calling_v2/parser"
+        patches = [directory / name for name in ("minicpm5-terminal-integrity.patch", "minicpm5-native-json-lexical.patch")]
+        engine, server, session = candidate_identity(args.base_url, args.model, args.candidate_server,
+                                                     patches, args.candidate_pid, args.candidate_launch)
+    else:
+        engine, server, session = server_identity(args.base_url, args.model)
     if server["backend"] != args.backend:
         parser.error("Managed backend differs from the explicitly requested backend")
     binary = Path(harness_package.__file__).with_name("localharness.exe")

@@ -83,11 +83,11 @@ See `BLOCKERS.md` for detail.
 
 | ID | Item | Owner |
 |---|---|---|
-| B-005 | C++ toolchain located outside PATH. Pinned upstream build and execution are separate checks. | project |
 | B-006 | No power meter: energy per task stays `NOT_RUN` | owner (hardware) |
 | B-007 | 24 h and 168 h soak tests need the machine awake for days | owner (power settings) |
 | B-004 | Long runs exceed one session; everything must stay resumable | project |
 | B-009 | The pinned native parser fails fixed fixtures | project |
+| B-010 | SDK offline gate requires complete process egress evidence | project |
 
 Open technical questions, none of them a blocker today:
 

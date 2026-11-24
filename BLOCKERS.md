@@ -80,14 +80,14 @@ reported with the real completed duration only.
 ## B-005 Upstream parser unit tests require the native C++ build
 
 - Priority: P1
-- Status: MITIGATED
+- Status: CLOSED (2026-11-24)
 - Owner: project
 - Found: 2026-11-24, IJ-0 tool-calling step
 
 The initial PATH probes found no toolchain. IJ-0.6 located an existing Visual
 Studio Community 2026 installation via `vswhere`, with MSVC 19.52, CMake
 4.3.1 and Ninja. Use its process-local developer environment. The pinned
-`test-chat` build and execution still need evidence.
+`test-chat` and the direct probe both built and ran. [Windows test-chat evidence](evidence/IJ06/parser/p0-windows-upstream-test-chat.log)
 
 **Workaround in use.** The fixture runner reaches the native parser through
 the public API via assistant prefix continuation. It verifies that successful
@@ -129,11 +129,22 @@ qualification is tracked independently.
 ## B-009 The pinned MiniCPM5 native parser fails the fixed fixtures
 
 - Priority: P0 for native tool-calling qualification
-- Status: OPEN
+- Status: MITIGATED
 - Owner: project
 
 The official llama.cpp b12359 native parser fails fixed expectations.
 Observed failures cover whitespace in a typed value, incomplete structured
-arguments, out-of-enum values and duplicate JSON keys. The benchmark host
-validates tool proposals independently. Qualify any parser fix or alternate
-engine identity as a separate run.
+arguments, out-of-enum values and duplicate JSON keys. P4b closes the measured
+native defects in fixture conformance on the separate CPU/Vulkan/ROCm candidate.
+The original pinned binary still fails the frozen suite. Independent model
+admission and production selection are pending. [Parser report](reports/IJ06_PARSER_ROOT_CAUSE_REPORT.md)
+
+## B-010 SDK process egress has no trusted observation or isolation
+
+- Priority: P0 for AG-11
+- Status: OPEN
+- Owner: project and machine owner if machine-level changes are needed
+
+Both SDK suites target a verified loopback inference service with API keys
+cleared. Full process egress isolation or complete trusted traffic observation
+is still needed. Preserve the network and remote session during this test.

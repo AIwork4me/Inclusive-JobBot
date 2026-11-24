@@ -1,0 +1,23 @@
+{
+  "upstream_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+  "configuration": "P4b dynamic Windows MSVC, official b12359 GPU plugins",
+  "source_diff_sha256": "5fc65958338e67933e7b2cea7380ccbc634d77ea6c037c64d70fe423661ac8b2",
+  "patches": {
+    "minicpm5-native-json-lexical.patch": "6d4f209bb5c4a3209d0616b8cb5e728fe4014a6f594979cdc9b622c95d951bc6",
+    "minicpm5-terminal-integrity.patch": "3cb17791d4305adfc51401af5289090bab1c6db4d4a0f05fff86eb0635a597b7"
+  },
+  "gpu_process_results": {
+    "vulkan": {
+      "pid": 11872,
+      "peak_compute_or_3d_percent": 95,
+      "peak_committed_bytes": 3293388800,
+      "layers_offloaded": 43
+    },
+    "rocm": {
+      "pid": 27484,
+      "peak_compute_or_3d_percent": 79,
+      "peak_committed_bytes": 3474788352,
+      "layers_offloaded": 43
+    }
+  }
+}

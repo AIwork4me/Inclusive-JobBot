@@ -7,6 +7,6 @@
 | JOB-V1 600 independent cases, arms A–F | NOT_RUN | 0/600 per arm |
 | Prespecified three-run reliability panel | NOT_RUN | 0 |
 
-The patched parser candidate needs independently verified GPU wire behavior before a dual-backend candidate freeze. The development rehearsal and V1 replay use separate evidence labels. They supply zero independent holdout cases. The candidate data freeze and full causal run are pending.
+P4b has scoped GPU fixture evidence on both backends. The independent dataset, oracle, whole runtime configuration and experimental arms still need a shared freeze. The development rehearsal and V1 replay use separate evidence labels. They supply zero independent holdout cases.
 
 The paired statistics implementation checks six complete arms, common case identities, a frozen repeat panel, exact McNemar and stratified paired bootstrap intervals. Its tests use synthetic data. [Statistics specification](../benchmarks/job_productivity_v1/STATISTICS.md)
