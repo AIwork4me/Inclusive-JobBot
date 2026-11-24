@@ -15,7 +15,7 @@ PRODUCT = re.compile(r"\bSKU-[A-Z0-9]{2,60}\b")
 SUPPLIER = re.compile(r"\bSUP-[A-Z0-9]{2,60}\b")
 WAREHOUSE = re.compile(r"\b(east|west|north|south)\b", re.I)
 CORRECTION = re.compile(r"\b(?:correction|corrected|instead|switched|void|replace)\b|更正|改用|改到|改查|作废", re.I)
-ORDER_TARGET = re.compile(r"(?:\b(?:link to|use|corrected (?:the )?order reference to)\b|改用|按)\s*"
+ORDER_TARGET = re.compile(r"(?:\b(?:link to|use|receipt corrected to|corrected (?:the )?order reference to)\b|改用|按)\s*"
                           r"((?:PO|ALT|OTHER|OLD)-[A-Z0-9]{2,60})\b", re.I)
 AMOUNT = r"([0-9]{1,12}(?:\.[0-9]{1,2})?)(?![0-9]|\.[0-9])"
 QUANTITIES = (

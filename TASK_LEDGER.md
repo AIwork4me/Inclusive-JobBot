@@ -43,6 +43,7 @@
 | IJ07-M4-ARCHIVE | Verify planning run journals, model captures and level summaries | PASS | `scripts/tools/archive_ij07_planning.py` |
 | IJ07-M7-MODEL-RUNNER | Five model treatments, frozen identity and executable preflight | PASS | `benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md` |
 | IJ07-M7-MODEL-DIAGNOSTIC | All 15 matched model treatment diagnostics assessed | PASS | `evidence/IJ07/job_ablation/model_diagnostic/coverage.json` |
+| IJ07-M7-F-CORRECTION | Reproduce and verify explicit mixed-language receipt correction in Arm F intake | PASS | `tests/regression/ij07/test_job_v1_arm_f.py` |
 | IJ07-M1-AION-SERIAL-CONTROL | Same-token CPU and Radeon explicit serial instruction control | PASS | `evidence/IJ07/model_identity/aion_tools/` |
 | IJ07-M1-AION-DEPENDENCY | Official CPU and Radeon WebGPU dependent tool diagnostic | FAIL | `evidence/IJ07/model_identity/aion_tools/` |
 | IJ07-M2-LIVE | Exact four-arm history, 2,000/2,000 physical GPU inference cases | PASS | `evidence/IJ07/historical_replay/full/summary.json` |

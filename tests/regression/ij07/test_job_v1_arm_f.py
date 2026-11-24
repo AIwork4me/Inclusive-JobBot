@@ -16,6 +16,15 @@ def test_deterministic_intake_extracts_explicit_product_fields():
     assert result.fields == {"sku": "SKU-A12", "warehouse": "east"}
 
 
+def test_customer_intake_uses_explicit_receipt_correction_in_mixed_language():
+    request = {"operator_message": "Please follow up on this support ticket.",
+               "attachments": [{"name": "ticket.txt", "text": "Package for PO-A12 is overdue."}]}
+    corrected = intake(request, ["The receipt corrected to PO-B34，旧号 PO-A12 作废。"])
+    assert corrected.fields == {"order_id": "PO-B34", "subject": "Late delivery"}
+    assert intake(request, ["Quantity corrected to PO-B34，旧号 PO-A12。"]).reason == "followup_ambiguous"
+    assert intake(request, ["Receipt corrected to PO-B34 or use PO-C56."]).reason == "followup_ambiguous"
+
+
 def test_conflicting_or_missing_inputs_stop_before_reads(tmp_path):
     freeze = load()
     for key, reason in (("JOB-DOC-076", "order_reference_missing"),
