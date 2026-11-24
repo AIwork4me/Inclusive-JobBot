@@ -111,6 +111,13 @@ Verbosity level 4 is used because it is the lowest level that prints the
 offload report and the buffer allocations. `ollama ps`, device enumeration or
 model load success alone never count.
 
+The offload line alone proves nothing: a CPU-only build prints
+`offloaded 43/43 layers to GPU` for `-ngl 99` although it has no GPU backend
+(observed during IJ-0.5). Launch scripts therefore request 0 GPU layers for a
+build without GPU backend libraries, and a GPU arm additionally requires
+Windows GPU counters to show engine activity and GPU memory for the server
+process.
+
 Why: a stale server on the same port once produced a false "ready" during
 development; the rule now makes that impossible.
 
@@ -134,3 +141,25 @@ development; the rule now makes that impossible.
   `scripts/tools/scan_sensitive.py` only.
 - Processes started from Git Bash must be stopped by their Windows process id,
   never by the MSYS pid; manual probes once left two servers on port 8080.
+
+## D-012 Benchmark datasets are generated, then frozen; tuning happens on the dev split only
+
+Tool-calling cases come from a seeded generator
+(`benchmarks/tool_calling/generators/generate_dataset.py`). It writes a 500-case
+test set and a 120-case development set with different seeds, and
+`generate_dataset.py --check` proves the committed files are what the
+generator produces. Runners refuse a file whose SHA256 differs from the frozen
+manifest and refuse to resume a run on a different dataset, engine or decode
+setting.
+
+Why: the frozen test set must stay independent from prompt and schema tuning.
+Reverse: never for the 500-case set; a new generator version means a new
+freeze and is recorded as such.
+
+## D-013 The engine parity workload is strict and is not a business benchmark
+
+`benchmarks/engine_qualification/workload.json` compares backends, so grading
+is deliberately literal: an answer that ignores "output only the number" fails
+even when the number is right. Its pass counts say nothing about job
+productivity; they only have to be equal across backends. Thinking items are
+reported as truncated when the think block uses up the token budget.

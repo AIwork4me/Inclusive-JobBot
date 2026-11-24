@@ -41,7 +41,7 @@ The pip-generated launcher is unsigned and was blocked. Scripts call
 ## B-003 Official ROCm build ships without hipBLAS; math libraries must be added
 
 - Priority: P0 for the ROCm/HIP arm
-- Status: OPEN (libraries installed; enumeration verified; Arm D of IJ-0.5 pending)
+- Status: CLOSED (closed 2026-11-24 by IJ-0.5)
 - Owner: project
 - Found: 2026-11-24, IJ-0.3
 
@@ -64,8 +64,7 @@ Installation script: `scripts/windows/install_rocm_runtime.ps1`.
 **Observed after the fix.** With the library directories on `PATH`, the ROCm
 build reports `ROCm0: AMD Radeon(TM) 8060S Graphics`.
 
-**Closure condition.** Arm D of IJ-0.5 (correctness on ROCm/HIP) passes.
-Until then `GFX1151_DUAL_GPU_BACKEND_QUALIFIED` cannot be granted.
+**Closure.** Arm D (ROCm/HIP, Q8_0) and Arm F-rocm (Q4_K_M) pass: 43/43 layers on the GPU, Compute engine median 81% and 73%, and the same 30/30 task and 10/10 structured outputs as the CPU on the same weights. Evidence: `reports/IJ0_GPU_BACKEND_QUALIFICATION.md`.
 
 ## B-004 Long-running qualification exceeds one working session
 
@@ -77,3 +76,43 @@ Until then `GFX1151_DUAL_GPU_BACKEND_QUALIFIED` cannot be granted.
 The 24-hour and 168-hour soak tests and large benchmark runs need real elapsed
 time. They are launched as resumable background jobs with checkpoints and are
 reported with the real completed duration only.
+
+## B-005 No C++ toolchain: upstream parser unit tests cannot be built locally
+
+- Priority: P1
+- Status: OPEN
+- Owner: machine owner
+- Found: 2026-11-24, IJ-0 tool-calling step
+
+The machine has no CMake, Ninja, MSVC or Clang. That blocks two things the
+change order allows: running llama.cpp's own `test-chat` at the pinned commit
+(PR #24889 added MiniCPM5 cases to it), and building a debug binary to capture
+raw model output before the parser sees it. Installing Visual Studio is a
+system-level change the project does not make on its own.
+
+**Workaround in use.** Parser fixtures are fed to the native parser through
+the public API (assistant prefix continuation); this is unverified until the
+fixture runner is executed. Upstream `test-chat` can also run in GitHub-hosted
+Linux CI.
+
+## B-006 Energy per successful task cannot be measured
+
+- Priority: P2
+- Status: OPEN
+- Owner: machine owner
+- Found: 2026-11-24
+
+There is no power meter and no trustworthy whole-machine power telemetry.
+Energy per task stays `NOT_RUN`; GPU TDP is not used as a substitute. If the
+owner has a wall-plug power meter, the measurement can be added.
+
+## B-007 Soak tests need the machine awake for seven days
+
+- Priority: P1 (for the 24 h and 168 h gates only)
+- Status: OPEN
+- Owner: machine owner
+- Found: 2026-11-24
+
+The 168-hour soak test needs real elapsed time with the machine awake and the
+remote session undisturbed. Sleep and hibernation settings are the owner's to
+change; the project does not touch power settings.

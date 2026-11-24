@@ -44,11 +44,9 @@ never changes that setting; `install_llama_cpp.ps1` reports a blocked binary.
 
 ## Tests
 
-```powershell
-python -m pytest
-```
-
-GitHub-hosted CI may use mocks for protocol and business logic and labels them
-as such. Real model and GPU results come only from the physical qualification
-machine; a personal Windows machine is never registered as a public
-self-hosted runner.
+There is no unit-test suite yet. Verification today means running the tools and
+benchmarks and keeping their output as evidence; `HANDOFF.md` lists the
+commands and says for each one whether it has been run. Mock-based CI, when it
+is added, is labelled as mock. Real model and GPU results come only from the
+physical qualification machine; a personal Windows machine is never registered
+as a public self-hosted runner.

@@ -1,70 +1,204 @@
 # Handoff
 
-Read this first when resuming. Last updated: 2026-11-24.
+Read this first when resuming. Last updated: 2026-11-24 (end of the first
+working session, before the owner decides on optional tools).
 
-## Where the work is
+Everything below was checked against the disk and the running system at the
+time of writing. If something here disagrees with what you find, trust the
+machine, fix this file, and say so in the commit.
 
-IJ-0 (ECO-01) is in progress through IJ-0.4. IJ-0.5 and everything after it
-have not started. IJ-1.0 missions M3-M10 have not started.
+## 1. Resume procedure
 
-Done and evidenced:
+Work from the repository root, the folder that contains this file.
 
-- M0 environment baseline collected (`evidence/M0/`,
-  `reports/M0_ENVIRONMENT_REPORT.md`). All 54 locked packages carry a SHA256
-  cross-checked with pypi.org, and a clean-environment `--require-hashes`
-  install rehearsal passed.
-- IJ-0.1 upstream audit. llama.cpp PR #24889 (native MiniCPM5 parser) is
-  merged; stable release `v1.0.0` ships binaries through build `b12359`.
-- IJ-0.2 MiniCPM5-2B from ModelScope at pinned revisions; 17 of 17 files match
-  the published SHA256.
-- IJ-0.3 official `b12359` builds installed under `runtime/llama-cpp/`:
-  CPU, Vulkan and ROCm each enumerate as expected.
-- IJ-0.4 launch, stop and check scripts verified on Vulkan with Q8_0 and an
-  8K context: 43/43 layers on the GPU, 9 of 9 API checks, first real
-  inference correct.
+```powershell
+git status --short                                      # must print nothing
+git log --oneline | Select-Object -First 12
+python scripts/tools/scan_sensitive.py                 # must report 0 findings
+Get-Process llama-server -ErrorAction SilentlyContinue # must print nothing
+```
 
-No llama-server is running right now.
+Then read section 6 (open items), section 7 (next steps) and section 8 (what
+the owner has to do). Nothing is running in the background right now.
 
-## Next steps, in order
+## 2. Where the work is
 
-1. IJ-0.5: Arms A-G in `reports/IJ0_GPU_BACKEND_QUALIFICATION.md`. Arms:
-   A CPU/F16, B Vulkan/F16, C Vulkan/Q8_0, D ROCm/Q8_0, E CPU/Q8_0,
-   F qualified-GPU/Q4_K_M, G Ollama/Q8_0 (optional). Collect llama.cpp logs,
-   Windows GPU counters and a same-weight CPU-versus-GPU Q8 comparison.
-2. Native tool calling: streaming and non-streaming through
-   `/v1/chat/completions` with tools, parser fixtures, the 500-case frozen
-   benchmark in `benchmarks/tool_calling/`.
-3. Antigravity SDK against llama-server (12 items in ECO-01 section 6).
-   Disable the default file, command, subagent and MCP capabilities first.
-4. Model Gateway refactor and contract tests.
-5. Performance qualification and engine selection; `configs/production.yaml`.
-6. Gates G0-G14 and the IJ-0 reports, then resume IJ-1.0.
-7. Create the GitHub repository and push (not done yet; see below).
+IJ-0 (change order ECO-01) is complete through IJ-0.5. The tool-calling step is
+in progress. Antigravity integration, the Model Gateway, the performance step
+and everything in IJ-1.0 (missions M3 to M10) have not started.
 
-## Repository state
+| Step | Status | What it established | Evidence |
+|---|---|---|---|
+| M0 environment | PASS | Hardware, OS, driver, tools and security state frozen | `evidence/M0/`, `reports/M0_ENVIRONMENT_REPORT.md` |
+| IJ-0.1 upstream audit | PASS | llama.cpp PR #24889 merged; stable `v1.0.0` ships build `b12359` | `reports/IJ0_UPSTREAM_AUDIT.md` |
+| IJ-0.2 models | PASS | MiniCPM5-2B from ModelScope, 17 of 17 files match SHA256 | `evidence/IJ0/model_identity.json` |
+| IJ-0.3 engine install | PASS | CPU, Vulkan and ROCm builds run and enumerate the GPU | `evidence/IJ0/engine_install.json` |
+| IJ-0.4 launch scripts | PASS | Start, stop, check; 9 of 9 API checks on Vulkan | `evidence/IJ0/server_api_check.json` |
+| IJ-0.5 GPU proof | PASS | Same output on CPU, Vulkan and ROCm/HIP; GPU execution shown four ways | `reports/IJ0_GPU_BACKEND_QUALIFICATION.md` |
+| TC tool calling | IN PROGRESS | First experiment 5 of 5; benchmark harness written but never run | `evidence/IJ0/protocol/tool_calling_smoke.json` |
 
-No git repository exists yet in this working directory and
-`AIwork4me/Inclusive-JobBot` does not exist on GitHub. Before the first commit:
-set the repository-local identity, run `python scripts/tools/scan_sensitive.py`,
-and commit on branch `mission/ij-1.0-windows-fullstack-qualification`.
+Gates: G0, G1, G2, G3, G4 are **PASS**. G5 to G14 are **NOT_RUN**. No verdict
+is granted yet; see `MISSION_STATE.json`.
 
-## Things that will trip you up
+## 3. Things written but not yet verified
+
+Treat these as unproven until they have been run:
+
+- `benchmarks/tool_calling/runner/run_benchmark.py` has never been executed.
+  The generator, the datasets, `tool_simulators.py` and `evaluate.py` have
+  only been checked by generating the datasets and parsing code.
+- The parser fixture runner does not exist. The plan is to feed each fixture in
+  `benchmarks/tool_calling/fixtures/minicpm5_parser_fixtures.json` to the
+  native parser as an assistant prefix through `/v1/chat/completions`. Whether
+  this llama.cpp build supports that is **untested**.
+- `benchmarks/tool_calling/README.md` and the tool-calling report generator are
+  not written.
+- There is no unit-test suite. `CONTRIBUTING.md` says so.
+
+## 4. Repository state
+
+- Local branch `mission/ij-1.0-windows-fullstack-qualification`, 10 commits,
+  working tree clean.
+- **No remote.** `AIwork4me/Inclusive-JobBot` does not exist on GitHub. Nothing
+  has been pushed or published.
+- Repository-local git identity: `AIwork4me <AIwork4me@qq.com>`. The global
+  git identity was not changed.
+- Not in git on purpose: `.venv`, `.tools`, `.runtime`, `.scratch`, `models/*`
+  except the manifest, `runtime/llama-cpp/*` except the README.
+
+## 5. What is on disk
+
+| Path | Content |
+|---|---|
+| `models/MiniCPM5-2B-GGUF/` | F16, Q8_0, Q4_K_M GGUF, SHA256 verified |
+| `models/MiniCPM5-2B/` | BF16 safetensors, config, tokenizer, `chat_template.jinja` |
+| `runtime/llama-cpp/cpu`, `vulkan`, `rocm` | official llama.cpp build `b12359` |
+| `runtime/llama-cpp/rocm-libs/` | ROCm 10.0.0 wheels (hipBLAS, rocBLAS, hipBLASLt), 2.8 GB |
+| `.tools/ollama-core/` | Ollama 0.40.17 portable copy; optional baseline, not running |
+| `.tools/downloads/` | verified release archives |
+| `.runtime/logs/` | server logs and script outputs |
+| `.runtime/gpu_run1/` | results of the first GPU run, used for the repeatability check |
+
+## 6. Open items
+
+See `BLOCKERS.md` for detail.
+
+| ID | Item | Owner |
+|---|---|---|
+| B-005 | No C++ toolchain: upstream `test-chat` and debug builds are not possible locally | owner (optional install) |
+| B-006 | No power meter: energy per task stays `NOT_RUN` | owner (hardware) |
+| B-007 | 24 h and 168 h soak tests need the machine awake for days | owner (power settings) |
+| B-004 | Long runs exceed one session; everything must stay resumable | project |
+
+Open technical questions, none of them a blocker today:
+
+- Does the native parser hold up across the 500 frozen cases? Only five
+  hand-written checks have run.
+- Does the prefix-continuation technique reach the native parser? Untested.
+- Which backend becomes the default? Vulkan decodes faster, ROCm/HIP
+  prefills faster in IJ-0.5; the performance step decides.
+- Upstream PR #32746 (recovery of malformed MiniCPM5 XML) was not merged. If
+  the fixtures show a parser defect, follow ECO-01 section 5.5.
+
+## 7. Next steps, in order
+
+### 7.1 Tool-calling benchmark on the development split
+
+```powershell
+pwsh -File scripts/windows/start_llama_server.ps1 -Backend vulkan -Model q8
+python benchmarks/tool_calling/runner/run_benchmark.py --dataset dev --limit 20
+```
+
+Expect to find defects in the runner, the simulators or the expectations on
+the first run. Fix them, then run the whole development split without
+`--limit`. Only tune prompts, tool descriptions and decode settings on the
+development split.
+
+### 7.2 The frozen 500-case test set
+
+```powershell
+python benchmarks/tool_calling/runner/run_benchmark.py --dataset test --resume
+pwsh -File scripts/windows/stop_llama_server.ps1
+pwsh -File scripts/windows/start_llama_server.ps1 -Backend rocm -Model q8
+python benchmarks/tool_calling/runner/run_benchmark.py --dataset test --output evidence/IJ0/protocol/tool_calling_test_rocm
+```
+
+The test file must still match `benchmarks/tool_calling/datasets/dataset.manifest.json`
+(generator 1.0.2). If a generator change becomes unavoidable, that is a new
+freeze: bump the version, regenerate, and say so in the report. Report the
+real numbers against the targets of ECO-01 section 5.4; do not adjust the
+targets.
+
+### 7.3 Parser fixtures
+
+Write `benchmarks/tool_calling/runner/run_parser_fixtures.py`. Probe first
+whether an assistant message with tools is continued (prefix) or treated as a
+finished turn. Expectations are already fixed in the fixture file.
+
+### 7.4 Antigravity SDK against llama-server
+
+`LocalOpenAIAgentConfig(model="minicpm5-2b", base_url="http://127.0.0.1:8080/v1")`.
+Disable file reads and writes, command execution, sub-agents and MCP in
+`CapabilitiesConfig`, and add `deny("*")` plus `allow(...)` for the job tools.
+`.lightweight()` alone is not a boundary. Then work through the 12 items of
+ECO-01 section 6 and capture the harness traffic under
+`evidence/IJ0/antigravity/`.
+
+### 7.5 After that
+
+Model Gateway refactor and contract tests, performance qualification and engine
+selection, gates G0 to G14 with the IJ-0 reports, GitHub publication, then
+IJ-1.0.
+
+## 8. What the owner has to do
+
+The project does not install system-level software and does not change
+Windows, security or power settings.
+
+**Optional, useful (blocker B-005)**: Visual Studio 2022 Build Tools with the
+"Desktop development with C++" workload, including the CMake and Ninja
+components. This lets the project build and run llama.cpp's own `test-chat` at
+commit `b1b770d9` on this machine and build a debug binary if raw model output
+has to be captured before the parser. Without it, upstream tests run only in
+GitHub-hosted Linux CI. It is checked with `cmake --version`, `ninja --version`
+and a build of `test-chat`.
+
+**Nothing else is required.** Node.js for the frontend can be a portable copy
+inside the repository. The AMD HIP SDK is not needed: the official ROCm build
+runs with the ROCm wheels. Ollama, PowerShell 7 and the ROCm SDK are not
+needed either.
+
+**Decisions that belong to the owner, when the time comes**: power settings
+for the soak tests (B-007), a power meter if energy per task is wanted (B-006),
+and the moment the repository becomes public.
+
+## 9. Things that will trip you up
 
 - The machine is reached over a remote display session. Never disable its
   network or interfere with the remote session.
-- Smart App Control is off because the owner turned it off on 2026-11-24. The
-  project never changes that setting.
+- Smart App Control is off because the owner turned it off on 2026-11-24.
+  The project never changes that setting.
 - `files.pythonhosted.org` and `raw.githubusercontent.com` are unreliable on
   this network. Use `gh api`, the Tsinghua PyPI mirror and
   `scripts/tools/parallel_fetch.py`.
-- `grep` is `ugrep` here. Use `scripts/tools/scan_sensitive.py` for leak checks.
-- From Git Bash, redirect a script's output to a file instead of piping it when
-  the script starts the server; otherwise the pipeline never ends.
-- Scripts run under Windows PowerShell 5.1: keep `.ps1` files ASCII.
-- The ROCm arm needs `install_rocm_runtime.ps1`; its wheels are 2.8 GB and its
-  `ggml-hip.dll` is 1.1 GB. Keep both out of git.
+- `grep` and `sed` here are not the GNU tools (`grep` is `ugrep`); backslash
+  patterns behave differently and a leak check with them was a false negative.
+  Use the Python tools: `scan_sensitive.py`, `redact_text.py`.
+- Python `-I` ignores `PYTHONIOENCODING`; call
+  `sys.stdout.reconfigure(encoding="utf-8")` before printing model output.
+- From Git Bash, write a script's output to a file instead of piping it when
+  the script starts the server, or the pipeline never ends.
+- Stop processes by their Windows process id. `$!` in Git Bash is an MSYS pid.
+- Windows PowerShell 5.1 reads BOM-less scripts in the local code page: keep
+  `.ps1` files ASCII. It also returns `$null` for a property that does not
+  exist; check that a property exists before trusting a 0.
+- PowerShell variable names are case-insensitive (`-Probe` and `$probe` are one
+  variable), and an unbound `[string]` parameter is `""`, not `$null`.
+- A CPU-only llama.cpp build logs `offloaded 43/43 layers to GPU` for
+  `-ngl 99`. The launch script forces 0 GPU layers for such builds.
+- The ROCm `ggml-hip.dll` is 1.1 GB and its wheels 2.8 GB. Keep them out of git.
 
-## Key identities
+## 10. Key identities
 
 | Item | Value |
 |---|---|
@@ -74,17 +208,19 @@ and commit on branch `mission/ij-1.0-windows-fullstack-qualification`.
 | MiniCPM5 parser merge | PR #24889, commit `c818263f2a5ddab028dea5f169ea2b2266421125` |
 | GGUF-embedded chat template | 9060 chars, SHA256 `cc945752db555d60949b16989df4ccfeb52a313d6b4b5c5229dd786e2e9fcf1c` |
 | Antigravity SDK | `google-antigravity` 0.1.24 (Apache-2.0) |
-| Ollama (baseline only) | v0.40.17 in `.tools/ollama-core` |
+| Tool-calling dataset | generator 1.0.2, manifest in `benchmarks/tool_calling/datasets/` |
+| Engine workload | v1.0.2, 52 items, manifest in `benchmarks/engine_qualification/` |
 
-## Everyday commands
+## 11. Everyday commands
 
 ```powershell
 pwsh -File scripts/windows/start_llama_server.ps1 -Backend vulkan -Model q8
 pwsh -File scripts/windows/check_llama_server.ps1 -Probe
 python scripts/tools/llama_server_api_check.py
+python scripts/tools/tool_calling_smoke.py
 pwsh -File scripts/windows/stop_llama_server.ps1
 ```
 
-Backends: `cpu`, `vulkan`, `rocm`. Models: `f16`, `q8`, `q4`. Defaults are in
-`configs/llama_cpp/launch.json`; the pinned engine is in
+Backends `cpu`, `vulkan`, `rocm`; models `f16`, `q8`, `q4`. Defaults are in
+`configs/llama_cpp/launch.json`, the pinned engine in
 `configs/llama_cpp/engine.json`.

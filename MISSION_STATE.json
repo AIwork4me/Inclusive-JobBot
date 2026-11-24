@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T05:40:00Z",
+  "updated_utc": "2026-11-24T05:45:00Z",
   "current_phase": "IJ-0",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -46,14 +46,19 @@
       ]
     },
     "IJ-0.5": {
-      "progress": "not_started",
-      "status": "NOT_RUN",
-      "evidence": []
+      "progress": "done",
+      "status": "PASS",
+      "evidence": [
+        "reports/IJ0_GPU_BACKEND_QUALIFICATION.md",
+        "evidence/IJ0/gpu/"
+      ]
     },
     "IJ-0.TC": {
-      "progress": "not_started",
+      "progress": "in_progress",
       "status": "NOT_RUN",
-      "evidence": []
+      "evidence": [
+        "evidence/IJ0/protocol/tool_calling_smoke.json"
+      ]
     },
     "IJ-0.AG": {
       "progress": "not_started",
@@ -115,8 +120,8 @@
     "G0": "PASS",
     "G1": "PASS",
     "G2": "PASS",
-    "G3": "NOT_RUN",
-    "G4": "NOT_RUN",
+    "G3": "PASS",
+    "G4": "PASS",
     "G5": "NOT_RUN",
     "G6": "NOT_RUN",
     "G7": "NOT_RUN",
@@ -149,7 +154,8 @@
     "ollama_baseline": "0.40.17"
   },
   "open_blockers": [
-    "B-003",
-    "B-004"
+    "B-005",
+    "B-006",
+    "B-007"
   ]
 }
