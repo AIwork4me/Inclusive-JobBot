@@ -77,18 +77,17 @@ The 24-hour and 168-hour soak tests and large benchmark runs need real elapsed
 time. They are launched as resumable background jobs with checkpoints and are
 reported with the real completed duration only.
 
-## B-005 No C++ toolchain: upstream parser unit tests cannot be built locally
+## B-005 Upstream parser unit tests require the native C++ build
 
 - Priority: P1
-- Status: OPEN
-- Owner: machine owner
+- Status: CLOSED (2026-11-24)
+- Owner: project
 - Found: 2026-11-24, IJ-0 tool-calling step
 
-The machine has no CMake, Ninja, MSVC or Clang. That blocks two things the
-change order allows: running llama.cpp's own `test-chat` at the pinned commit
-(PR #24889 added MiniCPM5 cases to it), and building a debug binary to capture
-raw model output before the parser sees it. Installing Visual Studio is a
-system-level change the project does not make on its own.
+The initial PATH probes found no toolchain. IJ-0.6 located an existing Visual
+Studio Community 2026 installation via `vswhere`, with MSVC 19.52, CMake
+4.3.1 and Ninja. Use its process-local developer environment. The pinned
+`test-chat` and the direct probe both built and ran. [Windows test-chat evidence](evidence/IJ06/parser/p0-windows-upstream-test-chat.log)
 
 **Workaround in use.** The fixture runner reaches the native parser through
 the public API via assistant prefix continuation. It verifies that successful
@@ -117,25 +116,35 @@ The 168-hour soak test needs real elapsed time with the machine awake and the
 remote session undisturbed. Sleep and hibernation settings are the owner's to
 change; the project does not touch power settings.
 
-## B-008 The original ECO-01 SDK checklist is unavailable in the checkout
+## B-008 The original ECO-01 SDK checklist was unavailable in the checkout
 
 - Priority: P0 for full SDK acceptance
-- Status: OPEN
-- Owner: project owner (provide the change order)
+- Status: CLOSED (2026-11-24)
+- Owner: project
 
-The handoff references a 12-item SDK acceptance checklist. The checkout and
-its Git history contain no copy. The SDK tool-loop smoke can be measured
-independently. The owner requested new thresholds, which are established in
-`docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md`.
+The owner provided the twelve gates in the IJ-0.6 mission. The restored
+requirements are in `docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md`. Technical
+qualification is tracked independently.
 
 ## B-009 The pinned MiniCPM5 native parser fails the fixed fixtures
 
 - Priority: P0 for native tool-calling qualification
-- Status: OPEN
+- Status: MITIGATED
 - Owner: project
 
 The official llama.cpp b12359 native parser fails fixed expectations.
 Observed failures cover whitespace in a typed value, incomplete structured
-arguments, out-of-enum values and duplicate JSON keys. The benchmark host
-validates tool proposals independently. Qualify any parser fix or alternate
-engine identity as a separate run.
+arguments, out-of-enum values and duplicate JSON keys. P4b closes the measured
+native defects in fixture conformance on the separate CPU/Vulkan/ROCm candidate.
+The original pinned binary still fails the frozen suite. Independent model
+admission and production selection are pending. [Parser report](reports/IJ06_PARSER_ROOT_CAUSE_REPORT.md)
+
+## B-010 SDK process egress has no trusted observation or isolation
+
+- Priority: P0 for AG-11
+- Status: OPEN
+- Owner: project and machine owner if machine-level changes are needed
+
+Both SDK suites target a verified loopback inference service with API keys
+cleared. Full process egress isolation or complete trusted traffic observation
+is still needed. Preserve the network and remote session during this test.

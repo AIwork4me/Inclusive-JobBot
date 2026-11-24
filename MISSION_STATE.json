@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T08:15:24Z",
-  "current_phase": "IJ-0",
+  "updated_utc": "2026-11-24T10:13:00Z",
+  "current_phase": "IJ-0.6",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
     "M0": {
@@ -74,8 +74,10 @@
     },
     "IJ-0.AG": {
       "progress": "in_progress",
-      "status": "BLOCKED",
+      "status": "FAIL",
       "evidence": [
+        "docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md",
+        "reports/IJ06_ANTIGRAVITY_QUALIFICATION.md",
         "evidence/IJ0/antigravity/local_tool_smoke_vulkan.json",
         "evidence/IJ0/antigravity/local_tool_smoke_rocm.json"
       ]
@@ -168,11 +170,58 @@
     "antigravity_sdk": "google-antigravity 0.1.24",
     "ollama_baseline": "0.40.17"
   },
+  "ij06": {
+    "baseline_git_sha": "0592c319ab341f70bda979874697386e33ccc680",
+    "tracking_issue": 1,
+    "freeze_and_audit": {
+      "status": "PASS",
+      "evidence": ["reports/IJ06_INITIAL_AUDIT.md", "evidence/IJ06/baseline_manifest.json"]
+    },
+    "evaluator_v2": {
+      "status": "PASS",
+      "evidence": ["reports/IJ06_EVALUATOR_V2_REPORT.md", "evidence/IJ06/evaluator_v2/"]
+    },
+    "historical_rescoring": {
+      "status": "PASS",
+      "evidence": ["reports/IJ06_BASELINE_RESCORING.md", "evidence/IJ06/rescoring/"]
+    },
+    "gateway_software_regression": {
+      "status": "PASS",
+      "evidence": ["reports/IJ06_SECURE_GATEWAY_REPORT.md", "evidence/IJ06/security/"]
+    },
+    "parser_root_cause": {"status": "PASS", "evidence": ["reports/IJ06_PARSER_ROOT_CAUSE_REPORT.md"]},
+    "p4b_parser_conformance": {"status": "PASS", "evidence": ["evidence/IJ06/parser/p4b-windows-dynamic-build.json"]},
+    "qwen3_reference_development": {"status": "PASS", "evidence": ["evidence/IJ06/performance/reference-qwen3-vulkan/summary.json"]},
+    "sdk_vulkan": {"status": "BLOCKED", "evidence": ["evidence/IJ06/antigravity/vulkan.json"]},
+    "sdk_rocm": {"status": "FAIL", "evidence": ["evidence/IJ06/antigravity/rocm.json"]},
+    "p4b_sdk_vulkan": {"status": "FAIL", "evidence": ["evidence/IJ06/antigravity/p4b-vulkan.json"]},
+    "p4b_sdk_rocm": {"status": "BLOCKED", "evidence": ["evidence/IJ06/antigravity/p4b-rocm.json"]},
+    "document_review_development": {"status": "PASS", "evidence": ["evidence/IJ06/performance/summary.json"]},
+    "independent_holdout": {"status": "NOT_RUN", "evidence": ["reports/IJ06_HOLDOUT_RESULTS.md"]},
+    "production_engine_selection": {"status": "NOT_RUN", "evidence": ["reports/IJ06_ENGINE_SELECTION.md"]},
+    "dxm2_contracts": {"status": "PASS", "evidence": ["portability/deepx-dxm2/"]},
+    "gates": {
+      "G-A": "PASS", "G-B": "PASS", "G-C": "PASS", "G-D": "PASS", "G-E": "PASS",
+      "G-F": "PASS", "G-G": "FAIL", "G-H": "PASS", "G-I": "NOT_RUN", "G-J": "NOT_RUN",
+      "G-K": "NOT_RUN", "G-L": "NOT_RUN", "G-M": "NOT_RUN", "G-N": "PASS", "G-O": "PASS"
+    },
+    "verdicts": {
+      "IJ06_NATIVE_PARSER_GO": "GRANTED",
+      "IJ06_EVALUATOR_V2_GO": "GRANTED",
+      "IJ06_SECURE_EXECUTION_GO": "NOT_GRANTED",
+      "IJ06_ANTIGRAVITY_SDK_GO": "NOT_GRANTED",
+      "IJ06_MODEL_ADMISSION_GO": "NOT_GRANTED",
+      "IJ06_PURPOSE_BUILT_EXECUTION_GO": "NOT_GRANTED",
+      "IJ06_GFX1151_DUAL_BACKEND_GO": "NOT_GRANTED",
+      "IJ06_ENGINE_SELECTION_GO": "NOT_GRANTED",
+      "IJ06_READY_FOR_IJ1_PRODUCT_DEVELOPMENT": "NOT_GRANTED"
+    }
+  },
   "open_blockers": [
-    "B-005",
+    "B-004",
     "B-006",
     "B-007",
-    "B-008",
-    "B-009"
+    "B-009",
+    "B-010"
   ]
 }

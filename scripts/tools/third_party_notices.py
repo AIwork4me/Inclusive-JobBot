@@ -36,7 +36,7 @@ def license_of(dist: metadata.Distribution) -> str:
   return "see project metadata"
 
 
-def rows(prefix: str) -> list[tuple[str, str, str]]:
+def rows() -> list[tuple[str, str, str]]:
   result = []
   for dist in sorted(metadata.distributions(), key=lambda d: d.metadata["Name"].lower()):
     name = dist.metadata["Name"]
@@ -49,7 +49,7 @@ def rows(prefix: str) -> list[tuple[str, str, str]]:
 
 
 def main() -> int:
-  python_rows = rows("project")
+  python_rows = rows()
   lines = [
       "# Third-party notices",
       "",
@@ -64,10 +64,9 @@ def main() -> int:
       "| Component | License | Source |",
       "|---|---|---|",
   ]
-  lines += [f"| {name} | lic | {url} |" for name, lic, url in NON_PYTHON]
+  lines += [f"| {name} | {lic} | {url} |" for name, lic, url in NON_PYTHON]
   lines += ["", "## Python packages in the project environment", "", "| Package | License | Homepage |", "|---|---|---|"]
-  lines += [f"| {name} | lic | {url} |" for name, lic, url in python_rows]
-  rocm_python = pathlib.Path(sys.executable).parents[2] / "runtime" / "llama-cpp" / "rocm-libs" / "Scripts" / "python.exe"
+  lines += [f"| {name} | {lic} | {url} |" for name, lic, url in python_rows]
   lines += [
       "",
       "Model weights and engine binaries are downloaded by scripts at install time",

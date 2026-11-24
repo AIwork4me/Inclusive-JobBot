@@ -1,0 +1,205 @@
+{
+  "evidence_type": "deterministic evaluator mutations using synthetic inputs and SQLite integration",
+  "qualification_run": false,
+  "real_model": false,
+  "gpu": false,
+  "command": "python -m pytest -q tests/evaluator --junitxml=.scratch/ij06-evaluator-tests.xml",
+  "python": "3.12.10",
+  "pytest": "9.2.0",
+  "jsonschema": "4.26.0",
+  "source_sha256": {
+    "benchmarks/tool_calling_v2/evaluator.py": "10f0b0e698ec26d1d3607c6b0ed2acd03ff8de8d31cd20ef0326ad505afc3c87",
+    "benchmarks/tool_calling_v2/legacy_oracle.py": "6c5f780982456b6aebf597fbd12080dd363ea554689b1c9689999e31ad18a898",
+    "benchmarks/tool_calling_v2/oracle.py": "1968241f5b08d6151fc77ab28ff4982cca2b2e079eb4b7cb4bd9b503244cca3b",
+    "benchmarks/tool_calling_v2/persisted.py": "d263bd07b7fe3f04f057048875130f10ed3f64fece6e636494351096437394a2",
+    "benchmarks/tool_calling_v2/rescore.py": "b84a056884364ea29840659aafe8448262a46abcd8cba46c0b249d9a01aa8897",
+    "tests/evaluator/test_sqlite_oracle.py": "23c350ac461f775dd48c68b74bd7f4c162d56a8fad8678f9607e0d83bcbc1a54",
+    "tests/evaluator/test_workflow_evaluator.py": "4ac180b12db6df6a3156db0b413f8ac0b8a6a7ce6540aff5704cb03b6d18a1dc",
+    "src/model_gateway/__init__.py": "dfa984fc3da9c32754f0085f6dfb0543c0dc7c98285da6bf1c228c1050fead71",
+    "src/model_gateway/authorization.py": "8badc2ae17ad0221ca6d819c8427e6d1fc1ec3126ea287ea16c32471e9146710",
+    "src/model_gateway/base.py": "bdc018cb711a4a6be4cf1b765f0024345d2a046bfc6a799240c78c6ef9ab2c5f",
+    "src/model_gateway/errors.py": "45bdfa84ad94d513c41f1913cc281cdc945cf75753bda9358b4c12aa925adc28",
+    "src/model_gateway/execution_policy.py": "e70369654f804bedec9aeb6972b7b8844dd3553bb6c2ad1ab8af25841745e6be",
+    "src/model_gateway/openai_protocol.py": "a42e035c0cdf1ec743e7313696cffe5e4b7feb8558cdd152b2bcd0f4acab012a",
+    "src/model_gateway/streaming.py": "f2b2c5d2cbdea4adad4c2d83199e28915d6ef7c6fcc2c207f7865981563b5a58",
+    "src/model_gateway/strict_json.py": "1e819ea444a012442b69c99cab65ee91a1b5129c54fd1d96da908c60a1961190",
+    "src/model_gateway/tool_validation.py": "e730d4aab5a778db72dbdce55c247412ddf40149603c30f28612634e10b46c54",
+    "src/business_tools/__init__.py": "565fa039b2c8856e781fac29829e8b175ba37dfa7ba9fa0a929b0a9c4f64b551",
+    "src/business_tools/store.py": "0a048790453ca374bd910ea7885ca21dae72503e7b7bf015011bf661eba24dc2"
+  },
+  "tests": [
+    {
+      "id": "tests.evaluator.test_sqlite_oracle::test_sqlite_ticket_state_is_verified_independently[valid_commit]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_sqlite_oracle::test_sqlite_ticket_state_is_verified_independently[wrong_persisted_association]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[later_args-FAIL-F03_MODEL_ARGUMENT_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[wrong_content-FAIL-F11_BUSINESS_STATE_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[extra_write-FAIL-F11_BUSINESS_STATE_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[unauthorized-FAIL-F08_AUTHORIZATION_DENIAL]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[fictional_final-FAIL-F12_FINAL_ANSWER_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[wrong_order-FAIL-F11_BUSINESS_STATE_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[wrong_resource-FAIL-F03_MODEL_ARGUMENT_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[reordered-PASS-None]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[parallel-PASS-None]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[missing-FAIL-F02_MODEL_TOOL_SELECTION_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[dangerous_extra-FAIL-F08_AUTHORIZATION_DENIAL]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[missing_effect-FAIL-F11_BUSINESS_STATE_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[unverified_source-FAIL-F09_SOP_DEPENDENCY_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[duplicated_call_id-FAIL-F05_PROTOCOL_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[duplicate_parameter-FAIL-F05_PROTOCOL_ERROR]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_mutations[unconfirmed-FAIL-F08_AUTHORIZATION_DENIAL]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_missing_required_steps_count_all_arguments",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_historical_commit_is_blocked_even_with_a_correct_receipt",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_same_turn_source_is_not_available_to_dependent_tool",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_historical_final_answer_normalizes_only_complete_numbers[\\u8ba2\\u5355\\u91d1\\u989d\\u4e3a **1,743.30 \\u5143**\\u3002-True]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_historical_final_answer_normalizes_only_complete_numbers[\\u8ba2\\u5355\\u91d1\\u989d\\u4e3a1743.3\\u5143\\u3002-True]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_historical_final_answer_normalizes_only_complete_numbers[\\u8ba2\\u5355\\u91d1\\u989d\\u4e3a 11,743.30 \\u5143\\u3002-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_historical_final_answer_normalizes_only_complete_numbers[\\u8ba2\\u5355\\u91d1\\u989d\\u4e3a 1743.31\\u3002-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_historical_final_answer_normalizes_only_complete_numbers[\\u8ba2\\u5355\\u91d1\\u989d\\u4e3a -1743.30\\u3002-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_historical_final_answer_normalizes_only_complete_numbers[\\u5e93\\u5b58\\u4e3a 13\\u3002-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_historical_final_answer_normalizes_only_complete_numbers[\\u8ba2\\u5355\\u53f7 PO-2026-0003\\u3002-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_nested_schema_uses_exact_decimals_and_strict_types[{\"nested\":{\"number\":0.10,\"count\":1}}-True]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_nested_schema_uses_exact_decimals_and_strict_types[{\"nested\":{\"number\":0.1,\"count\":true}}-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_nested_schema_uses_exact_decimals_and_strict_types[{\"nested\":{\"number\":0.1,\"count\":1.0}}-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_nested_schema_uses_exact_decimals_and_strict_types[{\"nested\":{\"number\":null,\"count\":1}}-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_nested_schema_uses_exact_decimals_and_strict_types[{\"nested\":{\"number\":0.1001,\"count\":1}}-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_nested_schema_uses_exact_decimals_and_strict_types[{\"nested\":{\"number\":0.1,\"count\":1,\"unexpected\":0}}-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_persisted_snapshot_adapter[valid-PASS]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_persisted_snapshot_adapter[wrong_audit_args-FAIL]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_persisted_snapshot_adapter[missing_audit_table-BLOCKED]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_persisted_snapshot_adapter[tampered_previous_event-FAIL]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_persisted_snapshot_adapter[rollback_with_effect-FAIL]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_persisted_snapshot_adapter[changed_proposed_state-FAIL]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_persisted_snapshot_adapter[extra_effect-FAIL]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.evaluator.test_workflow_evaluator::test_draft_is_an_explicit_effect_and_cannot_be_reclassified_as_commit",
+      "status": "PASS"
+    }
+  ],
+  "counts": {
+    "PASS": 42,
+    "FAIL": 0,
+    "NOT_RUN": 0
+  }
+}

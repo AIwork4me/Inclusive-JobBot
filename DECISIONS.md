@@ -172,3 +172,17 @@ parser correctness, task outcomes, argument quality, protocol parity and
 hard authorization checks. The generator 1.0.2 runs had started before this
 decision. Keep their original scores as a diagnostic baseline and apply
 the acceptance criteria to a fresh freeze with a reviewed scoring rubric.
+
+## D-015 Preserve the IJ-0 diagnostic baseline during IJ-0.6
+
+Baseline commit `0592c319ab341f70bda979874697386e33ccc680` anchors the V1
+generator, datasets, grader and evidence. Keep historical rescoring and
+independent qualification distinct. Use the recovered SDK specification and
+`docs/decisions/ADR-003-PURPOSE-BUILT-EXECUTION.md` for IJ-0.6.
+
+## D-016 Verify P4b as a separate parser candidate
+
+Keep original b12359 GPU binaries and V1 results intact. P4b uses the same
+pinned engine source plus the two MiniCPM5 parser patches and verified dynamic
+GPU plugins. Admit P4b at the scoped conformance gate. Record SDK and workload
+results separately and hold production selection open. [Evidence](reports/IJ06_PARSER_ROOT_CAUSE_REPORT.md)

@@ -17,7 +17,7 @@ whether work has started. Every finished task names its evidence.
 | TC-BASELINE | Execute the original 500-case frozen suite on both backends | done | PASS | `evidence/IJ0/protocol/tool_calling_test_vulkan/`, `evidence/IJ0/protocol/tool_calling_test_rocm/` |
 | TC-ACCEPT | Research and establish versioned tool-calling acceptance thresholds | done | PASS | `docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md` |
 | TC-HOLDOUT | Freeze and qualify a fresh holdout under ADR-002 | not started | NOT_RUN | - |
-| AG | Full Antigravity SDK integration checklist | smoke complete. Original checklist unavailable (B-008) | BLOCKED | `evidence/IJ0/antigravity/` |
+| AG | Full Antigravity SDK integration checklist | checklist restored. P4b still has one structured-output failure and a blocked offline gate | FAIL | `reports/IJ06_ANTIGRAVITY_QUALIFICATION.md` |
 | GW | Model Gateway refactor and contract tests | not started | NOT_RUN | - |
 | PERF | Performance qualification and engine selection | not started | NOT_RUN | - |
 
@@ -55,6 +55,27 @@ fixed are listed in `DECISIONS.md` D-009.
 | G12 | Backend selection supported by evidence | NOT_RUN | - |
 | G13 | Model Gateway contract | NOT_RUN | - |
 | G14 | GitHub evidence complete and reproducible | NOT_RUN | - |
+
+## IJ-0.6 mission
+
+| ID | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| IJ-0.6 audit | Verify local and remote baseline and restore SDK gates | done | PASS | `reports/IJ06_INITIAL_AUDIT.md`, `evidence/IJ06/baseline_manifest.json`, `docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md` |
+| IJ-0.6A | Six parser root causes and P4b native fixture conformance on CPU and both GPU backends | done | PASS | `reports/IJ06_PARSER_ROOT_CAUSE_REPORT.md`, `evidence/IJ06/parser/` |
+| IJ-0.6B | Evaluator V2 DAG and transactional oracle mutations | done | PASS | `reports/IJ06_EVALUATOR_V2_REPORT.md`, `evidence/IJ06/evaluator_v2/` |
+| IJ-0.6B rescore | Replay 1,000 archived diagnostic traces | done | PASS | `reports/IJ06_BASELINE_RESCORING.md`, `evidence/IJ06/rescoring/` |
+| IJ-0.6C software | Strict protocol, policy, and SQLite transaction regression | done | PASS | `reports/IJ06_SECURE_GATEWAY_REPORT.md`, `evidence/IJ06/security/` |
+| IJ-0.6D Vulkan | Real SDK, 11 exercised gates | offline blocked | BLOCKED | `evidence/IJ06/antigravity/vulkan.json` |
+| IJ-0.6D ROCm | Real SDK, 9 pass and 2 fail | offline also blocked | FAIL | `evidence/IJ06/antigravity/rocm.json` |
+| IJ-0.6D P4b Vulkan | Clean real SDK run, 10 pass and 1 fail | AG-11 blocked | FAIL | `evidence/IJ06/antigravity/p4b-vulkan.json` |
+| IJ-0.6D P4b ROCm | Clean real SDK run, 11 pass | AG-11 blocked | BLOCKED | `evidence/IJ06/antigravity/p4b-rocm.json` |
+| IJ-0.6E development | Document review draft and representative skill execution | done | PASS | `tests/sop/`, `evidence/IJ06/performance/summary.json` |
+| IJ-0.6E reference | Qwen3-8B Q8_0 on the same three development cases | done | PASS | `evidence/IJ06/performance/reference-qwen3-vulkan/summary.json` |
+| IJ-0.6F | Independent TC-V2 and JOB-V1 | pending freeze and full runs | NOT_RUN | `reports/IJ06_HOLDOUT_RESULTS.md` |
+| IJ-0.6G development | Dual-backend structured document-review rehearsal and GPU counters | done | PASS | `reports/IJ06_PERFORMANCE_REPORT.md` |
+| IJ-0.6G production | Full production workload comparison and default | pending | NOT_RUN | `reports/IJ06_ENGINE_SELECTION.md` |
+| IJ-0.6H CI | Hosted software and upstream C++ checks | complete for P4b implementation commit | PASS | `evidence/IJ06/ci.json` |
+| IJ-0.6 DX-M2 | Migration interface specifications | done | PASS | `portability/deepx-dxm2/` |
 
 ## IJ-1.0 missions
 
