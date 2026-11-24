@@ -148,3 +148,15 @@ admission and production selection are pending. [Parser report](reports/IJ06_PAR
 Both SDK suites target a verified loopback inference service with API keys
 cleared. Full process egress isolation or complete trusted traffic observation
 is still needed. Preserve the network and remote session during this test.
+
+## B-011 Historical V1 data lacks confirmed stateful write inputs
+
+- Priority: P0 for IJ-0.7 transactional and SDK replay evidence
+- Status: OPEN
+- Owner: project
+
+The frozen generator 1.0.2 tool signatures and in-memory synthetic receipts
+preserve experimental comparability. Some schemas omit resource and approval
+inputs required by the SQLite Gateway. Record the original diagnostic as
+executed and exercise the validated stateful path with independent, explicit
+inputs. [Historical replay](reports/IJ07_HISTORICAL_REPRODUCTION.md)

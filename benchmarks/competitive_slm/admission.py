@@ -2,6 +2,7 @@
 
 import argparse
 from contextlib import contextmanager
+from functools import partial
 import json
 from pathlib import Path
 import subprocess
@@ -73,8 +74,10 @@ def cpu_server(binary, model, port, log, alias):
             proc.wait(timeout=15)
 
 
-def request(client, alias, messages, wire, **kwargs):
+def request(client, alias, messages, wire, *, disable_thinking, **kwargs):
     body = {"model": alias, "messages": messages, "temperature": 0, "seed": 7107, "max_tokens": 1024, **kwargs}
+    if disable_thinking:
+        body["chat_template_kwargs"] = {"enable_thinking": False}
     started = time.perf_counter()
     status, media, data = client.post("/v1/chat/completions", body)
     wire.append({"request": body, "status": status, "response_type": media,
@@ -82,10 +85,10 @@ def request(client, alias, messages, wire, **kwargs):
     return status, data
 
 
-def chat_ok(client, alias, wire):
-    status, raw = request(client, alias, [
+def chat_ok(send):
+    status, raw = send([
         {"role": "user", "content": "Reply with exactly this text: RAD-7107"},
-    ], wire, max_tokens=128)
+    ], max_tokens=128)
     return status == 200 and json.loads(raw)["choices"][0]["message"].get("content", "").strip() == "RAD-7107"
 
 
@@ -95,20 +98,20 @@ def tool_signature(reply):
                  for call in choice["message"].get("tool_calls", []))
 
 
-def test_gpu(client, alias, report):
-    gates, wire = report["gates"], report["wire"]
+def test_gpu(send, report):
+    gates = report["gates"]
 
     def mark(name, passed):
         gates[name] = "PASS" if passed else "FAIL"
 
-    mark("ordinary_chat", chat_ok(client, alias, wire))
+    mark("ordinary_chat", chat_ok(send))
     messages = [{"role": "user", "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."}]
     kwargs = {"tools": TOOLS, "tool_choice": "auto", "parallel_tool_calls": False}
     first_calls = ()
     executed = []
     for turn in range(3):
         gate = ("native_call", "dependent_call", "result_roundtrip")[turn]
-        status, data = request(client, alias, messages, wire, **kwargs)
+        status, data = send(messages, **kwargs)
         if status != 200 or check_gateway(data, False)["status"] != "PASS":
             mark(gate, False)
             break
@@ -133,29 +136,29 @@ def test_gpu(client, alias, report):
                                            "content": json.dumps(FIXTURES[tool][1])}]
     report["executed_read_only_tools"] = executed
 
-    status, raw = request(client, alias, messages[:1], wire, **kwargs, stream=True,
-                          stream_options={"include_usage": True})
+    status, raw = send(messages[:1], **kwargs, stream=True, stream_options={"include_usage": True})
     mark("stream_parity", bool(first_calls) and status == 200 and check_gateway(raw, True)["status"] == "PASS"
          and tool_signature(protocol_reply(raw, True)) == first_calls)
 
     schema = {"type": "object", "properties": {"status": {"const": "ready"}},
               "required": ["status"], "additionalProperties": False}
-    status, raw = request(client, alias, [{"role": "user", "content": "Return a status object with status ready."}],
-                          wire, response_format={"type": "json_schema", "json_schema": {
-                              "name": "readiness", "strict": True, "schema": schema,
-                          }})
+    status, raw = send([{"role": "user", "content": "Return a status object with status ready."}],
+                       response_format={"type": "json_schema", "json_schema": {
+                           "name": "readiness", "strict": True, "schema": schema,
+                       }})
     parsed = None
     if status == 200:
         try:
             parsed = json.loads(json.loads(raw)["choices"][0]["message"].get("content") or "")
         except ValueError:
             pass
-    invalid, _ = request(client, alias, messages[:1], wire, tools=TOOLS,
-                         tool_choice={"type": "function", "function": {"name": "undefined_lookup"}})
+    invalid, _ = send(messages[:1], tools=TOOLS,
+                      tool_choice={"type": "function", "function": {"name": "undefined_lookup"}})
+    report["schema_probe"] = {"schema_exact": parsed == {"status": "ready"}, "invalid_choice_http_status": invalid}
     mark("schema_and_invalid_choice", parsed == {"status": "ready"} and 400 <= invalid < 500)
 
 
-def admit(candidate, output, port):
+def admit(candidate, output, port, engine_directory, disable_thinking):
     info = json.loads((ROOT / f"evidence/IJ07/model_identity/{candidate}.json").read_bytes())
     asset = info["runtime_asset"]
     directory = MODEL_ROOTS.get(candidate, ".runtime/ij07-candidates/" + asset["repo"].replace("/", "__"))
@@ -165,8 +168,11 @@ def admit(candidate, output, port):
     report = {
         "run_id": "ij07-admission-" + uuid4().hex, "candidate": candidate, "git": legacy.git_state(),
         "started_utc": legacy.utc_now(), "model_id": info["official_model_id"], "asset": asset,
-        "gates": dict.fromkeys(GATES, "NOT_RUN"), "wire": [],
+        "gates": dict.fromkeys(GATES, "NOT_RUN"), "wire": [], "requested_disable_thinking": disable_thinking,
     }
+    def send_for(client):
+        return partial(request, client, alias, wire=report["wire"], disable_thinking=disable_thinking)
+
     cpu_binary = ROOT / "runtime/llama-cpp/cpu/llama-server.exe"
     try:
         model_hash = legacy.sha256_of(model)
@@ -176,13 +182,13 @@ def admit(candidate, output, port):
         with cpu_server(cpu_binary, model, port, output / "cpu.log", alias) as (client, build):
             report["gates"]["load"] = "PASS"
             report["cpu"] = {"engine_sha256": legacy.sha256_of(cpu_binary), "build": build}
-            report["gates"]["cpu_reference"] = "PASS" if chat_ok(client, alias, report["wire"]) else "FAIL"
+            report["gates"]["cpu_reference"] = "PASS" if chat_ok(send_for(client)) else "FAIL"
         backend = "vulkan"
-        binary, engine, env = engine_runtime(ROOT / "runtime/llama-cpp/vulkan", backend)
+        binary, engine, env = engine_runtime(engine_directory, backend)
         report["gpu_engine"] = engine
         with gpu_server(binary, model, backend, env, output, port, "vulkan", False, alias=alias) as (client, launch):
             report["gpu"] = launch
-            test_gpu(client, alias, report)
+            test_gpu(send_for(client), report)
     except (CaptureError, OSError, ValueError, KeyError, subprocess.SubprocessError) as exc:
         # The raw process logs remain private. Public snapshots use an error type and stage.
         report["execution_interrupted"] = type(exc).__name__
@@ -204,9 +210,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--candidate", choices="ABDEFGH", required=True)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--engine-dir", default=ROOT / "runtime/llama-cpp/vulkan", type=Path)
+    parser.add_argument("--disable-thinking", action="store_true")
     parser.add_argument("--port", default=8095, type=int, choices=range(1024, 65536), metavar="PORT")
     args = parser.parse_args()
-    admit(args.candidate, args.output.resolve(), args.port)
+    admit(args.candidate, args.output.resolve(), args.port, args.engine_dir.resolve(), args.disable_thinking)
 
 
 if __name__ == "__main__":

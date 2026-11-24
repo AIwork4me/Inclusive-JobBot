@@ -6,9 +6,18 @@
 |---|---|---|---|
 | IJ07-M0 | Independent archival audit of IJ-0.6 and current Windows inventory | PASS | `reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md` |
 | IJ07-M1 | Official source identity and Q8_0 digest verification | PASS | `evidence/IJ07/model_identity/` |
-| IJ07-M1-GPU | Runtime admission on candidate and reference tracks | NOT_RUN | `benchmarks/competitive_slm/admission.py` |
-| IJ07-M2-OBSERVER | Build both source observer variants and exercise capture | PASS | `benchmarks/root_cause/README.md` |
-| IJ07-M2 | Four-arm historical replay and persisted state | NOT_RUN | `benchmarks/root_cause/README.md` |
+| IJ07-M1-GPU | Initial seven GGUF admission runs and anomaly checks | FAIL | `reports/IJ07_MODEL_ADMISSION_MATRIX.md` |
+| IJ07-M2-OBSERVER | Source observer on/off and both Radeon backends | PASS | `evidence/IJ07/historical_replay/observer_control/` |
+| IJ07-M2 | Four-arm historical replay with persisted state and SDK capture | BLOCKED | `reports/IJ07_HISTORICAL_REPRODUCTION.md` |
+| IJ07-M5-WIRE | Initial full archived failure indexing and protocol investigation | PASS | `reports/IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md` |
+| IJ07-M3-TC-FREEZE | TC-V2 holdout, distinct development split, state oracle and software replay | PASS | `benchmarks/tool_calling_v2/holdout/manifest.json` |
+| IJ07-M3-MT-FREEZE | MULTITOOL-V1 600 case freeze and synthetic verification | PASS | `benchmarks/multitool_v1/frozen/manifest.json` |
+| IJ07-M4-FREEZE | AGENTIC-PLAN-V1 800 case freeze and synthetic witness verification | PASS | `benchmarks/agentic_planning_v1/datasets/manifest.json` |
+| IJ07-M7-FREEZE | JOB-V1 600 case roster and stateful synthetic verification | PASS | `benchmarks/job_productivity_v1/holdout/frozen/manifest.json` |
+| IJ07-M3-TC | Real TC-V2 candidate qualification | NOT_RUN | `benchmarks/tool_calling_v2/holdout/README.md` |
+| IJ07-M3-MT | Real MULTITOOL-V1 qualification | NOT_RUN | `benchmarks/multitool_v1/README.md` |
+| IJ07-M4 | Full real two-track L0–L7 qualification | NOT_RUN | `benchmarks/agentic_planning_v1/README.md` |
+| IJ07-M7 | Six-arm JOB-V1 causal validation | NOT_RUN | `benchmarks/job_productivity_v1/holdout/README.md` |
 
 Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`. "Progress" says
 whether work has started. Every finished task names its evidence.

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T12:24:14Z",
+  "updated_utc": "2026-11-24T13:05:28Z",
   "current_phase": "IJ-0.7",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -224,8 +224,14 @@
     "draft_pr": 4,
     "candidate_identity": "configs/ij07/model_candidates.yaml",
     "historical_observer": "patches/ij07/llama-b12359-generation-observer.patch",
+    "verified_software_freezes": {
+      "tc_v2": "benchmarks/tool_calling_v2/holdout/manifest.json",
+      "multitool_v1": "benchmarks/multitool_v1/frozen/manifest.json",
+      "agentic_plan_v1": "benchmarks/agentic_planning_v1/datasets/manifest.json",
+      "job_v1": "benchmarks/job_productivity_v1/holdout/frozen/manifest.json"
+    },
     "gates": {
-      "G0": "PASS", "G1": "NOT_RUN", "G2": "NOT_RUN", "G3": "NOT_RUN",
+      "G0": "PASS", "G1": "FAIL", "G2": "BLOCKED", "G3": "PASS",
       "G4": "NOT_RUN", "G5": "NOT_RUN", "G6": "NOT_RUN", "G7": "NOT_RUN",
       "G8": "NOT_RUN", "G9": "NOT_RUN", "G10": "NOT_RUN", "G11": "NOT_RUN",
       "G12": "NOT_RUN", "G13": "NOT_RUN", "G14": "NOT_RUN", "G15": "NOT_RUN",
@@ -243,6 +249,7 @@
     "B-006",
     "B-007",
     "B-009",
-    "B-010"
+    "B-010",
+    "B-011"
   ]
 }

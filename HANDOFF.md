@@ -9,6 +9,15 @@ and the [execution plan](docs/IJ07_EXECUTION_PLAN.md). G0 has archival
 audit evidence. Follow the [audit report](reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md)
 for the regenerated figures, original failures and local hardware capture.
 
+The historical replay, candidate admissions and fresh holdout runners use
+separate identities. Start with the [historical runbook](benchmarks/root_cause/README.md)
+and the [TC-V2 runbook](benchmarks/tool_calling_v2/holdout/README.md).
+The latter uses separate SQLite stores and a trusted synthetic confirmation
+source. The [planning runbook](benchmarks/agentic_planning_v1/README.md)
+uses the native model and retains both Plan-first and Acting-first traces.
+The capture worktree stays pinned to the exact experiment commit. Continue
+reporting and software changes in the mission branch worktree.
+
 Read this first when resuming. Last updated: 2026-11-24.
 
 Everything below was checked against the disk and the running system at the
