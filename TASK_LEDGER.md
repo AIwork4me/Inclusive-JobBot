@@ -1,5 +1,15 @@
 # Task Ledger
 
+## IJ-0.7.1 Atlas
+
+| Task | Status | Evidence |
+|---|---|---|
+| IJ071-A0 | PASS | [Baseline audit](reports/ATLAS_A0_BASELINE_AUDIT.md) and [generated dashboard](reports/ATLAS_PROGRESS_DASHBOARD.md) |
+| IJ071-A1-SOURCE | PASS | [Source audit](reports/ATLAS_A1_BENCHMARK_VALIDITY.md) |
+| IJ071-A1-REFERENCE | PASS | [3,300 software control trials](reports/ATLAS_POSITIVE_NEGATIVE_CONTROL.md) |
+| IJ071-A1-GATE | BLOCKED | [Open validity requirements](reports/ATLAS_A1_BENCHMARK_VALIDITY.md) |
+| IJ071-A2?A11 | NOT_RUN | [Phase and gate records](atlas/progress.json) |
+
 ## IJ-0.7
 
 | ID | Task | Status | Evidence |

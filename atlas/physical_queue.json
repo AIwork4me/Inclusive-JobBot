@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "resource": "exclusive Windows Radeon 8060S GPU slot",
+  "entries": [
+    {
+      "id": "legacy-job-a",
+      "priority": "legacy_active",
+      "status": "BLOCKED",
+      "dependencies": [],
+      "planned": 600,
+      "checkpoint": "evidence/IJ071/legacy-job-a-checkpoint.json",
+      "reason": "A prior serialized controller owns the slot across JOB-V1 arms A?E, primary then repeat. Closed checkpoints advance in batches of at most 75.",
+      "next_command": null,
+      "planned_controller_trials": 3750,
+      "controller_log": "IJ-0.7 local .runtime/ij07-job-full-queue.log"
+    },
+    {
+      "id": "pc-s-qwen3-8b",
+      "priority": "P0",
+      "status": "NOT_RUN",
+      "dependencies": [
+        "exclusive_gpu_slot",
+        "Qwen3-8B multi-tool and planning profile adapters",
+        "live backend identity proof"
+      ],
+      "planned": 540,
+      "completed": 0,
+      "checkpoint": "atlas/benchmarks/pc_s_roster.json",
+      "resource_requirements": "Vulkan, pinned Qwen3-8B Q8_0, isolated local llama.cpp, 8K context initial profile",
+      "next_command": "python -m benchmarks.competitive_slm.tc_v2_candidate --candidate H --split dev --case TCV2-D-0065 --model ../../.tools/models/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output .runtime/atlas-pc-s-tc-first"
+    },
+    {
+      "id": "pc-p-paired-ablation",
+      "priority": "P0",
+      "status": "NOT_RUN",
+      "dependencies": [
+        "versioned contracts",
+        "frozen trial roster",
+        "PC-S",
+        "exclusive_gpu_slot"
+      ],
+      "planned": null,
+      "completed": 0,
+      "checkpoint": null,
+      "next_command": null
+    },
+    {
+      "id": "revised-full-matrix",
+      "priority": "P1",
+      "status": "NOT_RUN",
+      "dependencies": [
+        "A1",
+        "A2",
+        "A3",
+        "A4"
+      ],
+      "planned_per_main_model": 2700,
+      "completed": 0,
+      "checkpoint": null,
+      "next_command": null
+    }
+  ]
+}

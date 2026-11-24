@@ -1,5 +1,13 @@
 # Handoff
 
+## IJ-0.7.1 Atlas checkpoint
+
+See [baseline audit](reports/ATLAS_A0_BASELINE_AUDIT.md), [live progress entry](atlas/progress.json), and [tracking issue #5](https://github.com/AIwork4me/Inclusive-JobBot/issues/5). Work from branch `mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1`, stacked on the reviewed IJ-0.7 HEAD `888f910b99b90dd7a3ac0f8d8760c6a6bbdc4102`.
+
+A0 rechecks historical records. A1 remains BLOCKED pending full independent Witness, critical mutations across all suites, prompt ablations, and real strong-model controls. The 3,300 passed reference fixtures are software controls. Preserve the original workload identities and consult [the GPU queue](atlas/physical_queue.json) before reserving the Radeon slot.
+
+To regenerate the dashboard run `python scripts/tools/atlas_progress.py`. To regenerate the software-control records run `python scripts/tools/atlas_controls.py --output .runtime/atlas-controls.json`.
+
 ## IJ-0.7
 
 IJ-0.7 starts from the exact reviewed IJ-0.6 HEAD
