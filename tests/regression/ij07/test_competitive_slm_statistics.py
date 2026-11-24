@@ -45,6 +45,20 @@ def run(plan, bundle):
     return analyze(plan, bundle, expected_plan_sha256=digest(plan))
 
 
+def test_frozen_tc_v2_thinking_profile_is_explicit_and_matched():
+    plan, _ = example()
+    canonical = frozen_suite("TC-V2")
+    plan.update(suite="TC-V2", cases=canonical["cases"], dataset_sha256=canonical["dataset_sha256"],
+                repeat=canonical["repeat"], first_seed=canonical["first_seed"])
+    for identity in plan["arms"].values():
+        identity["thinking"] = "frozen_case_requirement"
+    bundle = {"schema_version": 1, "evidence_class": "synthetic_software_test", "runs": {}, "rows": []}
+    assert run(plan, bundle)["arms"]["A"]["first"]["overall"]["status_counts"]["NOT_RUN"] == 500
+    plan["arms"]["B"]["thinking"] = False
+    with pytest.raises(ValueError, match="matched controls"):
+        run(plan, bundle)
+
+
 def test_complete_pairs_reproduce_known_effect_and_adjustment():
     plan, bundle = example()
     for index in range(1, 5):

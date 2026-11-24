@@ -12,6 +12,7 @@ import subprocess
 import time
 from uuid import uuid4
 
+from benchmarks.competitive_slm import tc_v2_candidate
 from benchmarks.root_cause import generation_capture, historical_replay
 from benchmarks.root_cause.wire_profiles import decode_batched_completion
 from benchmarks.tool_calling_v2.evaluator import Call, VALIDATOR
@@ -28,6 +29,7 @@ from .runtime import Scenario, score
 
 ROOT, legacy = historical_replay.ROOT, historical_replay.legacy
 ALIAS = historical_replay.ALIAS
+CANDIDATES = ("B", "D", "F", "G")
 STATUSES = ("PASS", "FAIL", "BLOCKED", "NOT_RUN")
 LIMITS = {"max_turns": 24, "max_proposals": 32, "max_tokens_per_turn": 1536, "max_case_seconds": 600}
 FIRST_SEED = 66007
@@ -50,8 +52,8 @@ def plan(freeze, panel, selected, *, first_seed):
             for case_id in eligible if not selected or case_id in selected for seed in seeds]
 
 
-def request(messages, tools, seed):
-    return {"model": ALIAS, "messages": list(messages), "tools": tools, "tool_choice": "auto",
+def request(messages, tools, seed, *, alias=ALIAS):
+    return {"model": alias, "messages": list(messages), "tools": tools, "tool_choice": "auto",
             "parallel_tool_calls": True, "seed": seed, "temperature": 0, "stream": False,
             "cache_prompt": False, "max_tokens": LIMITS["max_tokens_per_turn"],
             "chat_template_kwargs": {"enable_thinking": False}}
@@ -78,7 +80,7 @@ def count_proposals(reply, validators, ids):
     return len(proposals), invalid
 
 
-def run_case(case, client, database, *, seed):
+def run_case(case, client, database, *, seed, alias=ALIAS):
     sandbox = Scenario(case, database)
     before = sandbox.snapshot()
     model = case.model_input()
@@ -102,7 +104,7 @@ def run_case(case, client, database, *, seed):
             note("F12_FINAL_ANSWER_ERROR", "case wall-time budget reached before a final answer")
             break
         try:
-            reply = client.chat(client.base_url, request(messages, tools, seed))
+            reply = client.chat(client.base_url, request(messages, tools, seed, alias=alias))
         except (OSError, http.client.HTTPException, generation_capture.CaptureError) as failure:
             note("F04_TRANSPORT_ERROR", type(failure).__name__)
             capture_status = "BLOCKED"
@@ -205,6 +207,27 @@ def run_case(case, client, database, *, seed):
             "before_sqlite": before, "after_sqlite": after, "requests": list(client.requests)}
 
 
+def resolve_runtime(args):
+    engine = args.engine_dir.resolve()
+    if args.candidate is None:
+        if args.runtime_root is None or args.model is not None:
+            raise ValueError("the default MiniCPM5 profile requires --runtime-root and its pinned model path")
+        return qualify.verify_runtime(args.backend, args.runtime_root.resolve(), engine)
+    if args.backend != "vulkan" or args.candidate not in CANDIDATES:
+        raise ValueError("strict MULTITOOL candidates use the verified Vulkan profile")
+    if args.model is None:
+        raise ValueError("strict candidate profile requires --model with the exact admitted Q8_0 GGUF")
+    model = args.model.resolve(strict=True)
+    verified = tc_v2_candidate.verify_runtime(args.candidate, model, engine)
+    # The admission verifier also supplies the TC-V2 workload limits, which
+    # are not the MULTITOOL limits. Only its runtime identity applies here.
+    identity = {key: value for key, value in verified.items() if key != "budgets"}
+    identity["expected_template_sha256"] = verified["template"]["sha256"]
+    identity["model_alias"] = f"ij07-candidate-{args.candidate.lower()}"
+    identity["context_tokens"] = verified["budgets"]["context_tokens"]
+    return engine / "llama-server.exe", model, identity, tc_v2_candidate.server_environment()
+
+
 def configuration(args, freeze, roster, identity, env):
     inventory = [*Path(__file__).parent.glob("*.py"),
                  *(ROOT / "benchmarks/tool_calling_v2").glob("*.py"),
@@ -215,6 +238,8 @@ def configuration(args, freeze, roster, identity, env):
                  ROOT / "benchmarks/tool_calling/runner/run_benchmark.py", ROOT / "scripts/windows/sample_gpu_counters.ps1",
                  ROOT / "scripts/windows/common.ps1", *(ROOT / "src/business_tools").glob("*.py"),
                  *(ROOT / "src/model_gateway").glob("*.py")]
+    if "candidate" in identity:
+        inventory.append(Path(tc_v2_candidate.__file__))
     environment = {key.upper(): value for key, value in env.items() if key.upper().startswith(ENV_PREFIXES)}
     return {"git": legacy.git_state(), **identity, "backend": args.backend, "port": args.port,
             "freeze_sha256": freeze.manifest["freeze_sha256"], "panel": args.panel,
@@ -252,6 +277,8 @@ def summary(run, done, interruptions):
                "planned": len(roster), "terminal": len(done), "tasks": dict(counts), "by_depth_observed": by_depth,
                "physical_evidence_status": gpu_status, "runtime_interruptions": len(interruptions),
                "synthetic_services": True, "sdk_used": False}
+    if "candidate" in config:
+        metrics["candidate"] = config["candidate"]
     if config["panel"] == "repeat":
         groups = {}
         for trial in roster:
@@ -296,9 +323,12 @@ def execute_locked(args, config, cases, output, binary, model, env):
         pending = pending[:args.batch_size]
     if pending:
         tag = uuid4().hex
+        alias = config.get("model_alias", ALIAS)
         try:
             with historical_replay.gpu_server(binary, model, args.backend, env, output, args.port, tag, True,
-                                              max_nonstream_calls=LIMITS["max_proposals"]) as (client, launch):
+                                              alias=alias, max_nonstream_calls=LIMITS["max_proposals"]) as (client, launch):
+                if "candidate" in config:
+                    tc_v2_candidate.verify_launch(launch, config)
                 if (launch["layers_offloaded"] != launch["layers_total"]
                         or launch["template_sha256"] != config["expected_template_sha256"]):
                     raise ValueError("live full offload or model template differs from pin")
@@ -311,7 +341,7 @@ def execute_locked(args, config, cases, output, binary, model, env):
                     case = cases[trial["case_id"]]
                     key = trial["key"]
                     database = databases / f"{key}--{uuid4().hex}.sqlite" if case.oracle["state"] is not None else None
-                    result = run_case(case, client, database, seed=trial["seed"])
+                    result = run_case(case, client, database, seed=trial["seed"], alias=alias)
                     if database is not None:
                         result.update(database=database.name, database_sha256=legacy.sha256_of(database))
                     if not qualify.record(result, key, tag, run, records, interruptions, done):
@@ -328,7 +358,7 @@ def execute_locked(args, config, cases, output, binary, model, env):
 def execute(args):
     freeze = load_freeze()
     roster = plan(freeze, args.panel, args.case, first_seed=FIRST_SEED)
-    binary, model, identity, env = qualify.verify_runtime(args.backend, args.runtime_root.resolve(), args.engine_dir.resolve())
+    binary, model, identity, env = resolve_runtime(args)
     config = configuration(args, freeze, roster, identity, env)
     if args.preflight_only:
         return {"status": "PASS", "physical_evidence_status": "NOT_RUN", "backend": args.backend,
@@ -343,7 +373,9 @@ def execute(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--backend", choices=qualify.ARM, required=True)
-    parser.add_argument("--runtime-root", type=Path, required=True)
+    parser.add_argument("--runtime-root", type=Path, help="root with the default MiniCPM5 and backend runtime")
+    parser.add_argument("--candidate", choices=CANDIDATES, help="opt into the strict-admission Vulkan profile")
+    parser.add_argument("--model", type=Path, help="explicit pinned Q8_0 GGUF for --candidate")
     parser.add_argument("--engine-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--port", type=int, choices=range(1024, 65536), metavar="PORT", default=18718)
@@ -361,7 +393,7 @@ def main():
         parser.error("an output directory is required for inference")
     try:
         result = execute(args)
-    except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
+    except (ImportError, OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
         parser.exit(2, f"BLOCKED: {error}\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return {"PASS": 0, "FAIL": 1, "BLOCKED": 2, "NOT_RUN": 2}[result["status"]]

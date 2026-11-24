@@ -35,6 +35,8 @@
 | IJ07-M6-STATISTICS | Independent paired comparison and repeat statistics software | PASS | `benchmarks/competitive_slm/STATISTICS.md` |
 | IJ07-M6-DEVELOPMENT | Same-case Vulkan development diagnostics for four contenders | FAIL | `reports/IJ07_COMPETITIVE_SLM_BENCHMARK.md` |
 | IJ07-M6-TC-BATCH | Shared Vulkan TC-V2 roster runner and exact-resume software checks | PASS | `benchmarks/competitive_slm/TC_V2_BATCH.md` |
+| IJ07-M6-TC-PLAN | Freeze six B/D/F/G contrasts and verify archive export software | PASS | `configs/ij07/tc_v2_competitive_plan.lock.json` |
+| IJ07-M6-MT-PLAN-RUNNERS | B/D/F/G multi-tool and two-track planning runner preflights with local weights | PASS | `benchmarks/agentic_planning_v1/README.md` |
 | IJ07-M4-ARCHIVE | Verify planning run journals, model captures and level summaries | PASS | `scripts/tools/archive_ij07_planning.py` |
 | IJ07-M7-MODEL-RUNNER | Five model treatments, frozen identity and executable preflight | PASS | `benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md` |
 | IJ07-M7-MODEL-DIAGNOSTIC | All 15 matched model treatment diagnostics assessed | PASS | `evidence/IJ07/job_ablation/model_diagnostic/coverage.json` |

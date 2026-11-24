@@ -20,6 +20,13 @@ holdouts, seed panels, confidence intervals and competitive verdict remain
 `NOT_RUN`. [Development records](../evidence/IJ07/competitive_slm/dev/)
 · [Comparison protocol](../benchmarks/competitive_slm/STATISTICS.md)
 
+The controlled Vulkan TC-V2 comparison freezes all six contrasts among B,
+D, F and G. Each arm has 500 first-pass, 500 streamed and 150 repeat trials
+in the execution roster. The six paired effects use first-pass holdout cases.
+The candidate MULTITOOL-V1 and two-track planning runners passed software
+preflights with the local admitted weights. Their physical suites remain
+`NOT_RUN`. [Frozen plan and lock](../configs/ij07/)
+
 On the separate official Aion ONNX INT4 path, CPU and Radeon WebGPU generated
 matching tokens. Both proposed `lookup_balance` using the company name before
 receiving the account ID. The harness stopped before executing either

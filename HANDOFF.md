@@ -31,7 +31,9 @@ regression. Assign a new output directory to a live test of that profile.
  [Full primary evidence](evidence/IJ07/multitool/primary-vulkan-full/)
 
 The [competitive TC-V2 batch runner](benchmarks/competitive_slm/TC_V2_BATCH.md)
-keeps the strict-admission Vulkan server loaded through a roster. The
+keeps the strict-admission Vulkan server loaded through a roster. Use the
+[frozen B/D/F/G plan](configs/ij07/tc_v2_competitive_plan.json) and the
+[journal archive runbook](benchmarks/competitive_slm/TC_V2_ARCHIVE.md). The
 [JOB-V1 model treatment runner](benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md)
 uses the same frozen inputs for A–E. Physical full-roster results are pending
 for both runners. Use the planning archive CLI to verify journals and produce

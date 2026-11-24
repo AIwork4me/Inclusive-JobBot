@@ -155,6 +155,37 @@ def test_wired_loop_keeps_missing_observer_evidence_blocked(tmp_path):
     assert result["trace_status"] == "PASS"
 
 
+def test_candidate_profile_changes_only_model_on_the_wire():
+    case = load_freeze().controls["DIAG-NO-TOOL-EN"]
+    normal = WireFixture([{"content": '{"status":"ready"}'}])
+    candidate = WireFixture([{"content": '{"status":"ready"}'}])
+    default_result = run_case(case, normal, None, seed=48707)
+    candidate_result = run_case(case, candidate, None, seed=48707, alias="ij07-candidate-b")
+    assert default_result["status"] == candidate_result["status"] == "PASS"
+    default_request = default_result["requests"][0]["request"]
+    candidate_request = candidate_result["requests"][0]["request"]
+    assert default_request["model"] == run.ALIAS
+    assert candidate_request == {**default_request, "model": "ij07-candidate-b"}
+
+
+def test_strict_candidate_uses_shared_multitool_budget_and_pinned_template(tmp_path, monkeypatch):
+    verified = {"candidate": "D", "template": {"sha256": "strict-embedded"}, "engine": {"exe_sha256": "exe"},
+                "budgets": {"model_turns": 7, "completion_tokens_per_turn": 768, "context_tokens": 8192}}
+    path = tmp_path / "pinned-Q8_0.gguf"
+    path.touch()
+    monkeypatch.setattr(run.tc_v2_candidate, "verify_runtime",
+                        lambda code, model, engine: verified if (code, model, engine) == ("D", path, tmp_path) else None)
+    monkeypatch.setattr(run.tc_v2_candidate, "server_environment", lambda: {"fixture": "1"})
+    args = SimpleNamespace(candidate="D", backend="vulkan", engine_dir=tmp_path, model=path, runtime_root=None)
+    binary, model, identity, env = run.resolve_runtime(args)
+    assert (binary, model, env) == (tmp_path / "llama-server.exe", path, {"fixture": "1"})
+    assert identity["model_alias"] == "ij07-candidate-d"
+    assert identity["expected_template_sha256"] == "strict-embedded"
+    assert "budgets" not in identity and "budgets" in verified
+    with pytest.raises(ValueError, match="Vulkan"):
+        run.resolve_runtime(SimpleNamespace(**{**vars(args), "backend": "rocm"}))
+
+
 def test_wire_plan_selects_exact_frozen_repeat_population():
     freeze = load_freeze()
     panel = plan(freeze, "repeat", [], first_seed=987)
@@ -165,6 +196,33 @@ def test_wire_plan_selects_exact_frozen_repeat_population():
         plan(freeze, "primary", ["DIAG-NO-TOOL-EN"], first_seed=987)
 
 
+def test_strict_launcher_handoff_reuses_decoder_and_checks_live_pin(tmp_path, monkeypatch):
+    freeze = load_freeze()
+    case = freeze.controls["DIAG-NO-TOOL-EN"]
+    wire = WireFixture([{"content": '{"status":"ready"}'}])
+    started = []
+    checked = []
+
+    @contextmanager
+    def synthetic_server(_binary, _model, backend, _env, _output, _port, _tag, observe, *, alias, max_nonstream_calls):
+        started.append((backend, observe, alias, max_nonstream_calls))
+        yield wire, {"backend": backend, "gpu": {}, "build": "fixture", "args": [],
+                     "template_sha256": "fixture", "layers_offloaded": 1, "layers_total": 1}
+
+    monkeypatch.setattr(run.historical_replay, "gpu_server", synthetic_server)
+    monkeypatch.setattr(run.tc_v2_candidate, "verify_launch", lambda launch, config: checked.append(config["candidate"]))
+    monkeypatch.setattr(run.qualify, "pid_counter_proof", lambda *_: {"status": "BLOCKED"})
+    roster = plan(freeze, "controls", [case.case_id], first_seed=42)
+    config = {"candidate": "B", "model_alias": "ij07-candidate-b", "panel": "controls", "scope": "diagnostic",
+              "roster": roster, "expected_template_sha256": "fixture"}
+    args = SimpleNamespace(backend="vulkan", resume=False, port=18718, batch_size=None)
+    summary = run.execute_locked(args, config, {case.case_id: case}, tmp_path, None, None, {})
+    assert started == [("vulkan", True, "ij07-candidate-b", run.LIMITS["max_proposals"])]
+    assert checked == ["B"] and summary["candidate"] == "B"
+    assert summary["physical_evidence_status"] == "BLOCKED"
+    assert wire.requests[0]["request"]["model"] == "ij07-candidate-b"
+
+
 def test_checkpoint_resume_binds_evidence_and_preserves_interruptions(tmp_path, monkeypatch):
     freeze = load_freeze()
     case = freeze.controls["DIAG-NO-TOOL-EN"]
@@ -172,8 +230,9 @@ def test_checkpoint_resume_binds_evidence_and_preserves_interruptions(tmp_path, 
     launches = []
 
     @contextmanager
-    def synthetic_server(_binary, _model, backend, _env, _output, _port, _tag, observe, *, max_nonstream_calls):
+    def synthetic_server(_binary, _model, backend, _env, _output, _port, _tag, observe, *, alias, max_nonstream_calls):
         assert observe
+        assert alias == run.ALIAS
         assert max_nonstream_calls == run.LIMITS["max_proposals"]
         launches.append(backend)
         capture = "BLOCKED" if blocked else "PASS"

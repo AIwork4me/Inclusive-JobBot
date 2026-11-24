@@ -53,3 +53,15 @@ budget. The current runner explicitly passes the task limit to the non-streamed
 benchmark decoder. The archived IJ-0.6 gateway remains byte-verified.
 Use a fresh output directory for that revised profile and keep
 the original run on its pinned source. [Wire control](../../reports/IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md#rc-18-多工具预算和-wire-上限不一致)
+
+## Strict-admission candidates
+
+Use `--candidate B`, `D`, `F` or `G` to select the strict Vulkan comparison track. Pass the explicit Q8_0 GGUF path and the engine directory that matches its strict admission report. Preflight rehashes the weights, executable and every DLL, checks the embedded native chat template, and validates the recorded full Radeon offload identity. At launch the same checks bind the native template, model alias and 8K context to the live process. Candidate profiles share the existing MULTITOOL case budget, tools, scorer, frozen case IDs and seeds.
+
+```powershell
+$env:PYTHONPATH = 'src'
+python -m benchmarks.multitool_v1.run --backend vulkan --candidate B --model $PinnedQ8 --engine-dir $StrictVulkanObserver --case MT-01-001 --case MT-06-001 --case MT-08-002 --preflight-only
+python -m benchmarks.multitool_v1.run --backend vulkan --candidate B --model $PinnedQ8 --engine-dir $StrictVulkanObserver --case MT-01-001 --case MT-06-001 --case MT-08-002 --output .runtime/multitool-b-diagnostic
+```
+
+Use distinct output directories for each profile and panel. Omitting `--candidate` keeps the existing MiniCPM5-2B profile and requires `--runtime-root`. The MiniCPM5 reference uses a different engine profile, so retain its engine identity when comparing results. Strict identity checks are software preflight. Actual candidate MULTITOOL outcomes require separate inference runs.

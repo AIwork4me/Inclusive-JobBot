@@ -28,10 +28,18 @@ turn and time budgets, and the context resource class. The arm configuration
 digest identifies the complete arm-specific configuration, including executable,
 libs, model source, artifact digest, native template, decoding and SDK identity.
 Use `controlled` or `best_practice` as `track`, a Boolean for `thinking` and
-the experiment's wire mode for `protocol`. Each prespecified comparison varies
+the experiment's wire mode for `protocol`. Controlled TC-V2 also accepts
+`frozen_case_requirement` when thinking follows the frozen case. Each prespecified comparison varies
 exactly one of model, backend, quantization, thinking or protocol. In a model
 comparison, arm-specific native templates and tool-call encodings can vary as
 part of the model configuration.
+
+The [controlled Vulkan TC-V2 plan](../../configs/ij07/tc_v2_competitive_plan.json)
+binds B, D, F and G, with all six pairwise model contrasts. Its
+[lock](../../configs/ij07/tc_v2_competitive_plan.lock.json) records the plan
+digest, exact execution checkout and timestamp. The original MiniCPM5 profile
+used a different experimental configuration. Follow the
+[archive runbook](TC_V2_ARCHIVE.md) to verify and normalize the raw journals.
 
 The normalized evidence bundle has `schema_version` 1, `evidence_class`, a `runs`
 map keyed by run ID and a `rows` array. Use `local_model` for admitted real

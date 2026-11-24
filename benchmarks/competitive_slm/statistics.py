@@ -180,8 +180,12 @@ def _validate_plan(plan, expected_plan_sha256):
     seen = set()
     for arm, identity in arms.items():
         _object(identity, (*ARM_FIELDS, "configuration_sha256"), f"configuration for arm {arm}")
+        thinking = identity["thinking"]
+        valid_thinking = type(thinking) is bool or (
+            plan["suite"] == "TC-V2" and identity["track"] == "controlled" and thinking == "frozen_case_requirement"
+        )
         _check(_text(arm) and all(_text(identity[key]) for key in ("model", "backend", "device", "quantization", "protocol"))
-               and identity["track"] in ("controlled", "best_practice") and type(identity["thinking"]) is bool
+               and identity["track"] in ("controlled", "best_practice") and valid_thinking
                and _sha(identity["controls_sha256"]) and _sha(identity["configuration_sha256"]),
                f"invalid arm identity: {arm}")
         _check(identity["configuration_sha256"] not in seen, "arm configurations must be distinct")

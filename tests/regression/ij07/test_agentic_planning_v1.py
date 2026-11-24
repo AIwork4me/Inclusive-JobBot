@@ -9,6 +9,7 @@ from benchmarks.agentic_planning_v1.freeze import FROZEN, build, verify
 from benchmarks.agentic_planning_v1.contract import request
 from benchmarks.agentic_planning_v1.oracle import score
 from benchmarks.agentic_planning_v1 import run
+from benchmarks.competitive_slm import tc_v2_candidate
 from benchmarks.agentic_planning_v1.runner import Boundary, run_trajectory
 from benchmarks.agentic_planning_v1.run import Checkpoint, roster
 from benchmarks.agentic_planning_v1.sandbox import SyntheticSandbox
@@ -299,3 +300,77 @@ def test_runner_entrypoint_resumes_the_other_track(corpus, monkeypatch, tmp_path
     assert summary["physical_execution_status"] == "NOT_RUN"
     assert len(calls) == 2
     assert len(list((output / "attempts").glob("*.jsonl"))) == 2
+
+
+def test_strict_candidate_profile_binds_launch_alias_and_preserves_plan_budget(corpus, monkeypatch, tmp_path):
+    public, private, _ = corpus
+    case = next(c for c in public if c["level"] == "L0")
+    graph = private[case["case_id"]]
+    final = completion(content=json.dumps(graph["final"]))
+    wire = WireFixture([final])
+    alias = "ij07-candidate-b"
+    model = tmp_path / "fixture-Q8_0.gguf"
+    model.touch()
+    profile = {"candidate": "B", "track": "controlled", "backend": "vulkan", "gpu": tc_v2_candidate.VULKAN_DEVICE,
+               "engine": {"exe_sha256": "fixture-engine", "layers": 1},
+               "model": {"official_model_id": "fixture/model", "runtime_repo": "fixture/GGUF",
+                         "runtime_revision": "fixture-revision", "model_sha256": "fixture-model",
+                         "filename": model.name, "quantization": "Q8_0"},
+               "template": {"sha256": "fixture-template"}, "provenance": {"admission_run_id": "fixture-admission"},
+               "budgets": tc_v2_candidate.BUDGETS, "source_observer_requested": True}
+    launches = []
+    launch_checks = []
+
+    def verify_candidate(name, path, engine):
+        assert (name, path, engine) == ("B", model, tmp_path)
+        return profile
+
+    @contextmanager
+    def launcher(binary, path, backend, env, output, port, tag, observe, server_alias):
+        assert (binary, path, backend, env, observe, server_alias) == (
+            tmp_path / "llama-server.exe", model, "vulkan", {"fixture": "process-only"}, True, alias)
+        launches.append(server_alias)
+        yield wire, {"build": "software-only-fixture", "backend": "vulkan", "template_sha256": "fixture-template"}
+
+    def launch_check(launch, admitted):
+        assert launch["template_sha256"] == admitted["template"]["sha256"]
+        assert not wire.requests
+        launch_checks.append(launch)
+
+    monkeypatch.setattr(tc_v2_candidate, "verify_runtime", verify_candidate)
+    monkeypatch.setattr(tc_v2_candidate, "server_environment", lambda: {"fixture": "process-only"})
+    monkeypatch.setattr(tc_v2_candidate, "verify_launch", launch_check)
+    monkeypatch.setattr(run.historical_replay, "gpu_server", launcher)
+    output = tmp_path / "run"
+    args = Namespace(panel="primary", tracks="A", case=[case["case_id"]], seed=41909,
+                     engine_dir=tmp_path, backend="vulkan", engine_sha256="fixture-engine", stream=False,
+                     thinking=False, temperature=0.0, max_tokens=2048, port=18420, output=output,
+                     resume=False, batch_size=0, preflight_only=True, candidate="B", model=model)
+
+    preflight = run.run_benchmark(args)
+    assert preflight["physical_execution_status"] == "NOT_RUN"
+    assert preflight["model"]["alias"] == alias and preflight["model"]["sha256"] == "fixture-model"
+    assert preflight["candidate_profile"]["provenance"]["admission_run_id"] == "fixture-admission"
+    assert not launches and not output.exists()
+    args.preflight_only = False
+    summary = run.run_benchmark(args)
+    config = run.read_json(output / "run.json")["configuration"]
+    assert len(launch_checks) == len(launches) == 1
+    assert summary["counts"]["PASS"] == 1 and summary["physical_execution_status"] == "NOT_RUN"
+    assert wire.requests[0]["request"]["model"] == alias
+    assert wire.requests[0]["request"]["max_tokens"] == config["settings"]["max_tokens"] == 2048
+    assert "budgets" not in config["candidate_profile"]
+    assert "benchmarks/competitive_slm/tc_v2_candidate.py" in config["sources"]
+
+    args.resume = True
+    profile["template"]["sha256"] = "different-template"
+    with pytest.raises(ValueError, match="exact original"):
+        run.run_benchmark(args)
+
+
+@pytest.mark.parametrize(("candidate", "has_model", "backend"),
+                         [("B", False, "vulkan"), ("F", True, "rocm"), (None, True, "vulkan"), ("E", True, "vulkan")])
+def test_candidate_profile_fails_closed_on_invalid_arguments(candidate, has_model, backend, tmp_path):
+    with pytest.raises(ValueError, match="candidate|Vulkan"):
+        run.prepare_runtime(Namespace(candidate=candidate, model=tmp_path if has_model else None,
+                                      backend=backend, engine_dir=tmp_path))

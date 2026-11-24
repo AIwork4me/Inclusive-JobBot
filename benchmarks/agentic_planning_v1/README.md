@@ -49,6 +49,25 @@ Both tracks are enabled by default. Omit `--case` on a fresh output directory fo
 
 The runner writes each request, raw observed response and tool observation to an fsync'd attempt journal. An interrupted attempt remains in `attempts/`. A successful terminal write in `cases/` binds to its journal hash and is required to skip that trial on resume. `summary.json` counts complete and pending trials. Local source capture, server logs and GPU counters stay in the output directory. The current implementation sends Chat Completions directly through the repository's native wire decoder. Antigravity SDK execution remains a separate qualification track.
 
+### Strict-admission Vulkan comparison
+
+Use `--candidate B|D|F|G --model PATH --backend vulkan` with the strict-admission Vulkan directory. The runner verifies the candidate's official and packaged model identity, GGUF digest, embedded native template, executable and DLL set against its strict-admission evidence. After launch it checks the native template digest, Vulkan device, source observer and full GPU offload before the first planning request. The process and requests use the same `ij07-candidate-<id>` alias as strict admission.
+
+| Candidate | Model | Local path under `.runtime/ij07-candidates/` |
+| --- | --- | --- |
+| B | LFM3-1.7B | `LiquidAI__LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf` |
+| D | Qwen3.5-2B | `unsloth__Qwen3.5-2B-GGUF/Qwen3.5-2B-Q8_0.gguf` |
+| F | Ministral-3-3B-Instruct-2512 | `mistralai__Ministral-3-3B-Instruct-2512-GGUF/Ministral-3-3B-Instruct-2512-Q8_0.gguf` |
+| G | Gemma-4-E2B-it | `ggml-org__gemma-4-E2B-it-GGUF/gemma-4-E2B-it-Q8_0.gguf` |
+
+```powershell
+$env:PYTHONPATH = (Resolve-Path src).Path
+$model = '.runtime/ij07-candidates/LiquidAI__LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf'
+.venv/Scripts/python.exe -m benchmarks.agentic_planning_v1.run --candidate B --model $model --backend vulkan --engine-dir .tools/ij07-toolchoice-p4b-vulkan --output .runtime/ij07-planning-candidate-b --case AP1-L2-001 --preflight-only
+```
+
+Preflight verifies files and the selected roster without launching a server. When the GPU is available, remove `--preflight-only` to run the selection. Use separate output directories for candidates, diagnostics, primary panels and repeat panels. Keep the same case roster, tracks and sampling settings for a controlled comparison. With the default settings all candidates use the frozen planning action and context budgets, up to 2,048 completion tokens per turn, temperature zero, non-streaming and requested thinking disabled. A MiniCPM5 comparison should use the same strict-admission engine directory and matching settings, with `--candidate` and `--model` omitted. Existing runs remain readable through the archive tool. Resume an earlier checkpoint using its exact runner revision.
+
 Use `contract.request(public_case, track)` to construct the messages and schemas. Give each case and track a new `SyntheticSandbox(private_graph["world"])`. Only service observations cross into model context. Keep world fixtures, graph nodes, witnesses and scoring results outside the model-facing context. Capture true model turns and tool calls with the full IJ-0.7 runtime identity and evidence contract.
 
 - **Track P** starts with a machine-readable plan. Capture the exact public plan and verify that it preceded the first tool action. Then continue with actual model decisions. The scorer validates actionable dependency and reference structure, confirms initially applicable graph subgoals and compares the observed outcome. Text in `subgoals`, `preconditions`, `success_conditions` and `stop_conditions` receives a shape check. The scorer uses actual graph behavior for business semantics. For an injected disruption, unknown downstream branches can remain conditional in the initial plan. They are scored from their actual execution.

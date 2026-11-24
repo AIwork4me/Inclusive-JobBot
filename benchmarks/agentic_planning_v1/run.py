@@ -13,6 +13,7 @@ import platform
 import re
 from uuid import uuid4
 
+from benchmarks.competitive_slm import tc_v2_candidate
 from benchmarks.root_cause import generation_capture, historical_replay
 from benchmarks.tool_calling_v2.parser import run_wire
 from model_gateway import openai_protocol, streaming, strict_json
@@ -26,6 +27,7 @@ ALIAS = historical_replay.ALIAS
 STATUSES = ("PASS", "FAIL", "BLOCKED", "NOT_RUN")
 SESSION_KEYS = ("backend", "gpu", "layers_offloaded", "layers_total", "build", "args", "template_sha256")
 RUNTIME_ENV_PREFIXES = ("LLAMA_", "GGML_", "HIP_", "ROCR_", "HSA_", "VK_")
+PLANNING_CANDIDATES = ("B", "D", "F", "G")
 
 
 def digest(value):
@@ -186,9 +188,34 @@ def model_identity():
                         "sha256": file["sha256"], "quantization": "Q8_0"}
 
 
-def source_identity():
+def prepare_runtime(args):
+    candidate = getattr(args, "candidate", None)
+    selected_model = getattr(args, "model", None)
+    engine_dir = args.engine_dir.resolve()
+    if candidate is None:
+        if selected_model is not None:
+            raise ValueError("--model requires a strict-admission candidate profile")
+        model, identity = model_identity()
+        binary, engine, env = historical_replay.engine_runtime(engine_dir, args.backend)
+        return model, identity, binary, engine, env, None
+    if candidate not in PLANNING_CANDIDATES or selected_model is None or args.backend != "vulkan":
+        raise ValueError("strict-admission candidate B, D, F or G requires --model and the Vulkan backend")
+    model = selected_model.resolve(strict=True)
+    runtime = tc_v2_candidate.verify_runtime(candidate, model, engine_dir)
+    artifact = runtime["model"]
+    identity = {**artifact, "alias": f"ij07-candidate-{candidate.lower()}",
+                "repo_id": artifact["runtime_repo"], "revision": artifact["runtime_revision"],
+                "sha256": artifact["model_sha256"]}
+    # The admission profile supplies identity and launch checks. Planning retains its own frozen limits.
+    profile = {key: value for key, value in runtime.items() if key != "budgets"}
+    return model, identity, engine_dir / "llama-server.exe", runtime["engine"], tc_v2_candidate.server_environment(), profile
+
+
+def source_identity(candidate=False):
     modules = (runner, historical_replay, generation_capture, legacy, run_wire, openai_protocol, streaming, strict_json)
     sources = (Path(__file__), *(Path(module.__file__) for module in modules))
+    if candidate:
+        sources += (Path(tc_v2_candidate.__file__), *(ROOT / name for name in tc_v2_candidate.SOURCE_PATCHES))
     return {path.resolve().relative_to(ROOT).as_posix(): legacy.sha256_of(path) for path in sources}
 
 
@@ -199,8 +226,8 @@ def run_benchmark(args):
     public = {case["case_id"]: case for case in cases}
     panel = read_json(FROZEN / "datasets/repeat_panel.json")
     trials = roster(cases, panel, args.panel, list(args.tracks), args.case, args.seed)
-    model, identity = model_identity()
-    binary, engine, env = historical_replay.engine_runtime(args.engine_dir.resolve(), args.backend)
+    model, identity, binary, engine, env, candidate = prepare_runtime(args)
+    alias = identity.get("alias", ALIAS)
     if args.engine_sha256 and engine["exe_sha256"] != args.engine_sha256:
         raise ValueError("llama-server binary digest differs from --engine-sha256")
     try:
@@ -211,14 +238,19 @@ def run_benchmark(args):
                 "max_tokens": args.max_tokens}
     environment = {key.upper(): value for key, value in env.items() if key.upper().startswith(RUNTIME_ENV_PREFIXES)}
     configuration = {"engine": engine, "model": identity, "backend": args.backend, "port": args.port,
-                     "git": legacy.git_state(), "sources": source_identity(), "python": platform.python_version(),
+                     "git": legacy.git_state(), "sources": source_identity(candidate is not None), "python": platform.python_version(),
                      "manifest": manifest, "sdk_installed": sdk, "sdk_used": False, "panel": args.panel,
                      "runtime_environment_sha256": digest(environment),
                      "selection": "diagnostic" if args.case else "complete_panel", "settings": settings, "trials": trials}
+    if candidate is not None:
+        configuration["candidate_profile"] = candidate
     if args.preflight_only:
-        return {"configuration_sha256": digest(configuration), "planned_trials": len(trials),
-                "first_trial": trials[0], "engine": engine, "model": identity, "backend": args.backend,
-                "physical_execution_status": "NOT_RUN"}
+        preview = {"configuration_sha256": digest(configuration), "planned_trials": len(trials),
+                   "first_trial": trials[0], "engine": engine, "model": identity, "backend": args.backend,
+                   "physical_execution_status": "NOT_RUN"}
+        if candidate is not None:
+            preview["candidate_profile"] = candidate
+        return preview
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     with legacy.output_lock(output):
@@ -228,13 +260,15 @@ def run_benchmark(args):
             pending = pending[:args.batch_size]
         if pending:
             tag = uuid4().hex
-            with historical_replay.gpu_server(binary, model, args.backend, env, output, args.port, tag, True) as (client, launch):
+            with historical_replay.gpu_server(binary, model, args.backend, env, output, args.port, tag, True, alias) as (client, launch):
+                if candidate is not None:
+                    tc_v2_candidate.verify_launch(launch, candidate)
                 checkpoint.session(launch)
                 for trial in pending:
                     case = public[trial["case_id"]]
                     with checkpoint.attempt(trial) as attempt:
                         result = runner.run_trajectory(case, graphs[case["case_id"]], client, track=trial["track"],
-                                                       seed=trial["seed"], journal=attempt.write, **settings)
+                                                       seed=trial["seed"], alias=alias, journal=attempt.write, **settings)
                         checkpoint.record(trial, result, attempt)
                     print(f"{trial['trial_id']} {result['status']}", flush=True)
         return checkpoint.summarize()
@@ -245,6 +279,8 @@ def main():
     parser.add_argument("--engine-dir", required=True, type=Path)
     parser.add_argument("--engine-sha256", help="Require this exact launcher SHA-256 at initial launch and resume")
     parser.add_argument("--backend", required=True, choices=("vulkan", "rocm"))
+    parser.add_argument("--candidate", choices=PLANNING_CANDIDATES, help="Use a strict-admission Vulkan candidate instead of MiniCPM5")
+    parser.add_argument("--model", type=Path, help="Local Q8_0 GGUF path for --candidate")
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--port", type=int, default=18717)
     parser.add_argument("--resume", action="store_true")
@@ -262,7 +298,10 @@ def main():
     if (not 1 <= args.port <= 65535 or args.batch_size < 0 or not 1 <= args.max_tokens <= 2048
             or not 0 <= args.seed < 2**32 - 1 or not math.isfinite(args.temperature) or not 0 <= args.temperature <= 2):
         parser.error("invalid port, batch limit, seed, token limit or temperature")
-    print(json.dumps(run_benchmark(args), indent=2, ensure_ascii=False))
+    try:
+        print(json.dumps(run_benchmark(args), indent=2, ensure_ascii=False))
+    except (ImportError, OSError, KeyError, ValueError) as failure:
+        parser.exit(2, f"BLOCKED: {failure}\n")
 
 
 if __name__ == "__main__":
