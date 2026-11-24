@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "arm": "D",
+  "label": "llama.cpp GPU ROCm/HIP, Q8_0",
+  "backend": "rocm",
+  "model": "q8",
+  "context_length": 8192,
+  "gpu_arm": true,
+  "started_utc": "2026-11-24T05:24:02+00:00",
+  "finished_utc": "2026-11-24T05:25:01+00:00",
+  "workload_sha256": "9442652900c46a90eabfad55b4131f2f16256ba32670666bb7d0a0b5642f01cc",
+  "request_count": 52,
+  "request_errors": 0,
+  "execution_status": "PASS",
+  "cold_first_request": {
+    "wall_ms": 1159,
+    "ttft_ms": 86,
+    "finish_reason": "stop",
+    "error": null
+  },
+  "sections": {
+    "chat": {
+      "count": 12,
+      "pass": 12,
+      "pass_rate": 1.0,
+      "failures": [],
+      "truncated_by_token_budget": [
+        "chat-07",
+        "chat-08",
+        "chat-09"
+      ]
+    },
+    "structured": {
+      "count": 10,
+      "pass": 10,
+      "pass_rate": 1.0,
+      "failures": [],
+      "truncated_by_token_budget": []
+    },
+    "tasks": {
+      "count": 30,
+      "pass": 28,
+      "pass_rate": 0.9333,
+      "failures": [
+        {
+          "id": "task-06",
+          "reason": "got '14.40'"
+        },
+        {
+          "id": "task-26",
+          "reason": "got '120.00 + 80.50 + 9.50 = 210.00'"
+        }
+      ],
+      "truncated_by_token_budget": []
+    }
+  },
+  "performance": {
+    "prompt_tokens": 1493,
+    "predicted_tokens": 3402,
+    "prompt_ms_total": 1395.9,
+    "predicted_ms_total": 51355.3,
+    "prompt_tokens_per_second": 1069.59,
+    "decode_tokens_per_second": 66.24,
+    "ttft_ms_mean": 50,
+    "ttft_ms_p95": 62,
+    "wall_ms_p50": 245,
+    "wall_ms_p95": 11779
+  },
+  "counters": {
+    "sample_timestamps": 65,
+    "duration_seconds": 54.96,
+    "counter_quality": "OK",
+    "invalid_utilization_samples": 0,
+    "engine_utilization": {
+      "3D": {
+        "samples": 65,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      },
+      "Compute": {
+        "samples": 65,
+        "median_percent": 81.0,
+        "p95_percent": 87.0,
+        "max_percent": 92.0,
+        "mean_percent": 78.2
+      },
+      "Copy": {
+        "samples": 65,
+        "median_percent": 2.0,
+        "p95_percent": 4.0,
+        "max_percent": 6.0,
+        "mean_percent": 1.83
+      },
+      "Security": {
+        "samples": 65,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      },
+      "Timer": {
+        "samples": 65,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      },
+      "Video": {
+        "samples": 65,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      }
+    },
+    "gpu_busy_fraction": 1.0,
+    "gpu_busy_threshold_percent": 5.0,
+    "timestamps_excluded_from_busy": 0,
+    "process_gpu_memory_max_mib": {
+      "dedicated": 2938.9,
+      "shared": 378.9
+    },
+    "adapter_gpu_memory_max_mib": {
+      "luid": [
+        "luid_0x00000000_0x000154E4_"
+      ],
+      "max_dedicated_mib": 4231.3,
+      "max_shared_mib": 502.2
+    },
+    "process": {
+      "cpu_mean_percent_of_machine": 2.53,
+      "cpu_max_percent_of_machine": 5.75,
+      "working_set_private_max_mib": 693.0,
+      "private_bytes_max_mib": 840.4,
+      "threads_max": 41
+    },
+    "sample_error_count": 0
+  }
+}

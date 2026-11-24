@@ -51,6 +51,12 @@ if (-not (Test-Path $modelFile)) { throw "Model '$Model' is not present at $($la
 
 $backendConfig = @($engine.backends | Where-Object { $_.name -eq $Backend })[0]
 $usesGpu = [bool]$backendConfig.gpu_libraries_present -and ($GpuLayers -ne 0)
+# A CPU-only build prints "offloaded N/N layers to GPU" for -ngl 99 although it
+# has no GPU backend, so that log line alone proves nothing. Never request GPU
+# layers where the build cannot use them, and record whether it could.
+$gpuLibrariesPresent = [bool]$backendConfig.gpu_libraries_present
+if (-not $gpuLibrariesPresent) { $GpuLayers = 0 }
+$usesGpu = $gpuLibrariesPresent -and ($GpuLayers -ne 0)
 
 # Only loopback is accepted: the engine is a local resource behind the JobBot API.
 $hostAddress = $launch.host
@@ -126,6 +132,7 @@ $state = [ordered]@{
   host = $hostAddress
   port = $Port
   backend = $Backend
+  gpu_backend_libraries_present = $gpuLibrariesPresent
   model = $Model
   model_file = $launch.models.$Model
   context_length = $ContextLength

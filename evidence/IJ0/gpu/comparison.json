@@ -1,0 +1,385 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-11-24T05:29:14+00:00",
+  "method": "greedy decoding, same frozen workload; text equality is checked after normalisation",
+  "pairs": [
+    {
+      "cpu_arm": "A",
+      "gpu_arm": "B",
+      "weights": "f16",
+      "sections": {
+        "chat": {
+          "count": 12,
+          "identical_text": 8,
+          "identical_text_rate": 0.6667,
+          "cpu_pass": 12,
+          "gpu_pass": 12,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [
+            "chat-01",
+            "chat-04",
+            "chat-08",
+            "chat-11"
+          ],
+          "truncated_cpu": [
+            "chat-08",
+            "chat-09"
+          ],
+          "truncated_gpu": [
+            "chat-09"
+          ]
+        },
+        "structured": {
+          "count": 10,
+          "identical_text": 10,
+          "identical_text_rate": 1.0,
+          "cpu_pass": 10,
+          "gpu_pass": 10,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        },
+        "tasks": {
+          "count": 30,
+          "identical_text": 30,
+          "identical_text_rate": 1.0,
+          "cpu_pass": 28,
+          "gpu_pass": 28,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        }
+      },
+      "decode_tokens_per_second": {
+        "cpu": 16.41,
+        "gpu": 33.57
+      }
+    },
+    {
+      "cpu_arm": "E",
+      "gpu_arm": "C",
+      "weights": "q8",
+      "sections": {
+        "chat": {
+          "count": 12,
+          "identical_text": 8,
+          "identical_text_rate": 0.6667,
+          "cpu_pass": 12,
+          "gpu_pass": 12,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [
+            "chat-01",
+            "chat-04",
+            "chat-08",
+            "chat-11"
+          ],
+          "truncated_cpu": [
+            "chat-07",
+            "chat-09"
+          ],
+          "truncated_gpu": [
+            "chat-07",
+            "chat-08",
+            "chat-09"
+          ]
+        },
+        "structured": {
+          "count": 10,
+          "identical_text": 10,
+          "identical_text_rate": 1.0,
+          "cpu_pass": 10,
+          "gpu_pass": 10,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        },
+        "tasks": {
+          "count": 30,
+          "identical_text": 30,
+          "identical_text_rate": 1.0,
+          "cpu_pass": 28,
+          "gpu_pass": 28,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        }
+      },
+      "decode_tokens_per_second": {
+        "cpu": 25.49,
+        "gpu": 73.97
+      }
+    },
+    {
+      "cpu_arm": "E",
+      "gpu_arm": "D",
+      "weights": "q8",
+      "sections": {
+        "chat": {
+          "count": 12,
+          "identical_text": 9,
+          "identical_text_rate": 0.75,
+          "cpu_pass": 12,
+          "gpu_pass": 12,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [
+            "chat-03",
+            "chat-04",
+            "chat-08"
+          ],
+          "truncated_cpu": [
+            "chat-07",
+            "chat-09"
+          ],
+          "truncated_gpu": [
+            "chat-07",
+            "chat-08",
+            "chat-09"
+          ]
+        },
+        "structured": {
+          "count": 10,
+          "identical_text": 10,
+          "identical_text_rate": 1.0,
+          "cpu_pass": 10,
+          "gpu_pass": 10,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        },
+        "tasks": {
+          "count": 30,
+          "identical_text": 30,
+          "identical_text_rate": 1.0,
+          "cpu_pass": 28,
+          "gpu_pass": 28,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        }
+      },
+      "decode_tokens_per_second": {
+        "cpu": 25.49,
+        "gpu": 66.24
+      }
+    },
+    {
+      "cpu_arm": "C",
+      "gpu_arm": "D",
+      "weights": "q8",
+      "sections": {
+        "chat": {
+          "count": 12,
+          "identical_text": 7,
+          "identical_text_rate": 0.5833,
+          "cpu_pass": 12,
+          "gpu_pass": 12,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [
+            "chat-01",
+            "chat-03",
+            "chat-04",
+            "chat-08",
+            "chat-11"
+          ],
+          "truncated_cpu": [
+            "chat-07",
+            "chat-08",
+            "chat-09"
+          ],
+          "truncated_gpu": [
+            "chat-07",
+            "chat-08",
+            "chat-09"
+          ]
+        },
+        "structured": {
+          "count": 10,
+          "identical_text": 10,
+          "identical_text_rate": 1.0,
+          "cpu_pass": 10,
+          "gpu_pass": 10,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        },
+        "tasks": {
+          "count": 30,
+          "identical_text": 30,
+          "identical_text_rate": 1.0,
+          "cpu_pass": 28,
+          "gpu_pass": 28,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        }
+      },
+      "decode_tokens_per_second": {
+        "cpu": 73.97,
+        "gpu": 66.24
+      }
+    },
+    {
+      "cpu_arm": "C",
+      "gpu_arm": "F-vulkan",
+      "weights": "q8",
+      "sections": {
+        "chat": {
+          "count": 12,
+          "identical_text": 4,
+          "identical_text_rate": 0.3333,
+          "cpu_pass": 12,
+          "gpu_pass": 12,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [
+            "chat-01",
+            "chat-02",
+            "chat-04",
+            "chat-05",
+            "chat-06",
+            "chat-08",
+            "chat-11",
+            "chat-12"
+          ],
+          "truncated_cpu": [
+            "chat-07",
+            "chat-08",
+            "chat-09"
+          ],
+          "truncated_gpu": [
+            "chat-07",
+            "chat-08",
+            "chat-09"
+          ]
+        },
+        "structured": {
+          "count": 10,
+          "identical_text": 9,
+          "identical_text_rate": 0.9,
+          "cpu_pass": 10,
+          "gpu_pass": 10,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [
+            "struct-10"
+          ],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        },
+        "tasks": {
+          "count": 30,
+          "identical_text": 29,
+          "identical_text_rate": 0.9667,
+          "cpu_pass": 28,
+          "gpu_pass": 27,
+          "pass_only_on_cpu": [
+            "task-03"
+          ],
+          "pass_only_on_gpu": [],
+          "different_text": [
+            "task-03"
+          ],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        }
+      },
+      "decode_tokens_per_second": {
+        "cpu": 73.97,
+        "gpu": 105.99
+      }
+    },
+    {
+      "cpu_arm": "D",
+      "gpu_arm": "F-rocm",
+      "weights": "q8",
+      "sections": {
+        "chat": {
+          "count": 12,
+          "identical_text": 2,
+          "identical_text_rate": 0.1667,
+          "cpu_pass": 12,
+          "gpu_pass": 12,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [
+            "chat-01",
+            "chat-02",
+            "chat-03",
+            "chat-04",
+            "chat-05",
+            "chat-06",
+            "chat-08",
+            "chat-10",
+            "chat-11",
+            "chat-12"
+          ],
+          "truncated_cpu": [
+            "chat-07",
+            "chat-08",
+            "chat-09"
+          ],
+          "truncated_gpu": [
+            "chat-07",
+            "chat-08",
+            "chat-09"
+          ]
+        },
+        "structured": {
+          "count": 10,
+          "identical_text": 9,
+          "identical_text_rate": 0.9,
+          "cpu_pass": 10,
+          "gpu_pass": 10,
+          "pass_only_on_cpu": [],
+          "pass_only_on_gpu": [],
+          "different_text": [
+            "struct-10"
+          ],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        },
+        "tasks": {
+          "count": 30,
+          "identical_text": 28,
+          "identical_text_rate": 0.9333,
+          "cpu_pass": 28,
+          "gpu_pass": 27,
+          "pass_only_on_cpu": [
+            "task-03"
+          ],
+          "pass_only_on_gpu": [],
+          "different_text": [
+            "task-03",
+            "task-06"
+          ],
+          "truncated_cpu": [],
+          "truncated_gpu": []
+        }
+      },
+      "decode_tokens_per_second": {
+        "cpu": 66.24,
+        "gpu": 95.32
+      }
+    }
+  ]
+}

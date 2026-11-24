@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "arm": "A",
+  "label": "llama.cpp CPU, F16",
+  "backend": "cpu",
+  "model": "f16",
+  "context_length": 8192,
+  "gpu_arm": false,
+  "started_utc": "2026-11-24T05:17:12+00:00",
+  "finished_utc": "2026-11-24T05:20:53+00:00",
+  "workload_sha256": "9442652900c46a90eabfad55b4131f2f16256ba32670666bb7d0a0b5642f01cc",
+  "request_count": 52,
+  "request_errors": 0,
+  "execution_status": "PASS",
+  "cold_first_request": {
+    "wall_ms": 742,
+    "ttft_ms": 123,
+    "finish_reason": "stop",
+    "error": null
+  },
+  "sections": {
+    "chat": {
+      "count": 12,
+      "pass": 12,
+      "pass_rate": 1.0,
+      "failures": [],
+      "truncated_by_token_budget": [
+        "chat-08",
+        "chat-09"
+      ]
+    },
+    "structured": {
+      "count": 10,
+      "pass": 10,
+      "pass_rate": 1.0,
+      "failures": [],
+      "truncated_by_token_budget": []
+    },
+    "tasks": {
+      "count": 30,
+      "pass": 28,
+      "pass_rate": 0.9333,
+      "failures": [
+        {
+          "id": "task-06",
+          "reason": "got '14.40'"
+        },
+        {
+          "id": "task-26",
+          "reason": "got '120.00 + 80.50 + 9.50 = 210.00'"
+        }
+      ],
+      "truncated_by_token_budget": []
+    }
+  },
+  "performance": {
+    "prompt_tokens": 1493,
+    "predicted_tokens": 3411,
+    "prompt_ms_total": 8218.4,
+    "predicted_ms_total": 207819.1,
+    "prompt_tokens_per_second": 181.67,
+    "decode_tokens_per_second": 16.41,
+    "ttft_ms_mean": 172,
+    "ttft_ms_p95": 332,
+    "wall_ms_p50": 977,
+    "wall_ms_p95": 47382
+  },
+  "counters": {
+    "sample_timestamps": 260,
+    "duration_seconds": 217.33,
+    "counter_quality": "OK",
+    "invalid_utilization_samples": 0,
+    "engine_utilization": {},
+    "gpu_busy_fraction": 0.0,
+    "gpu_busy_threshold_percent": 5.0,
+    "timestamps_excluded_from_busy": 0,
+    "process_gpu_memory_max_mib": null,
+    "adapter_gpu_memory_max_mib": null,
+    "process": {
+      "cpu_mean_percent_of_machine": 49.3,
+      "cpu_max_percent_of_machine": 52.88,
+      "working_set_private_max_mib": 594.7,
+      "private_bytes_max_mib": 726.8,
+      "threads_max": 54
+    },
+    "sample_error_count": 0
+  }
+}

@@ -1,0 +1,570 @@
+{
+  "schema_version": 1,
+  "name": "ij0_engine_qualification_workload",
+  "version": "1.0.2",
+  "purpose": "Fixed inputs for the IJ-0.5 engine arms. Same prompts, same weights family, greedy decoding, so that CPU, Vulkan and ROCm/HIP runs can be compared. This is an engine parity and sanity workload, not a business benchmark.",
+  "decode": {
+    "temperature": 0,
+    "stream": true,
+    "chat_template_kwargs_note": "enable_thinking is set per item through the 'thinking' field"
+  },
+  "chat": [
+    {
+      "id": "chat-01",
+      "thinking": false,
+      "max_tokens": 96,
+      "messages": [
+        {
+          "role": "user",
+          "content": "用一句话说明什么是采购订单。"
+        }
+      ]
+    },
+    {
+      "id": "chat-02",
+      "thinking": false,
+      "max_tokens": 96,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain in one sentence what a delivery note is."
+        }
+      ]
+    },
+    {
+      "id": "chat-03",
+      "thinking": false,
+      "max_tokens": 96,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是一名仓库文员，回答不超过 40 个字。"
+        },
+        {
+          "role": "user",
+          "content": "入库单和送货单有什么区别？"
+        }
+      ]
+    },
+    {
+      "id": "chat-04",
+      "thinking": false,
+      "max_tokens": 96,
+      "messages": [
+        {
+          "role": "user",
+          "content": "把这句话改写成礼貌的客服回复：你的订单还没发货。"
+        }
+      ]
+    },
+    {
+      "id": "chat-05",
+      "thinking": false,
+      "max_tokens": 96,
+      "messages": [
+        {
+          "role": "user",
+          "content": "List three fields found on a purchase order."
+        }
+      ]
+    },
+    {
+      "id": "chat-06",
+      "thinking": false,
+      "max_tokens": 96,
+      "messages": [
+        {
+          "role": "user",
+          "content": "把下面的文字翻译成英文：请提供订单号以便查询。"
+        }
+      ]
+    },
+    {
+      "id": "chat-07",
+      "thinking": true,
+      "max_tokens": 800,
+      "messages": [
+        {
+          "role": "user",
+          "content": "一个订单有 3 件商品，单价分别是 12.50、7.25 和 20.00 元，总价是多少？请一步步计算。"
+        }
+      ]
+    },
+    {
+      "id": "chat-08",
+      "thinking": true,
+      "max_tokens": 800,
+      "messages": [
+        {
+          "role": "user",
+          "content": "If a supplier delivers 120 units but the purchase order says 100, what should a document reviewer do? Think it through."
+        }
+      ]
+    },
+    {
+      "id": "chat-09",
+      "thinking": true,
+      "max_tokens": 800,
+      "messages": [
+        {
+          "role": "user",
+          "content": "客户说商品有质量问题要求退款，客服应该先确认哪些信息？"
+        }
+      ]
+    },
+    {
+      "id": "chat-10",
+      "thinking": true,
+      "max_tokens": 800,
+      "messages": [
+        {
+          "role": "user",
+          "content": "28 和 42 的最大公约数是多少？"
+        }
+      ]
+    },
+    {
+      "id": "chat-11",
+      "thinking": false,
+      "max_tokens": 128,
+      "messages": [
+        {
+          "role": "user",
+          "content": "用三个要点总结单据审核员的工作。"
+        }
+      ]
+    },
+    {
+      "id": "chat-12",
+      "thinking": false,
+      "max_tokens": 128,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Write a two-line product description for a blue stainless steel water bottle, 750 ml."
+        }
+      ]
+    }
+  ],
+  "structured": [
+    {
+      "id": "struct-01",
+      "max_tokens": 160,
+      "expect_keys": [
+        "order_id",
+        "amount"
+      ],
+      "expect_values": {
+        "order_id": "PO-123",
+        "amount": "88.00"
+      },
+      "prompt": "从下面的文本中提取信息，只输出一个 JSON 对象，不要输出其他内容。键为 order_id 和 amount，值为字符串，amount 不带货币符号。文本：订单号：PO-123，金额：¥88.00",
+      "thinking": false
+    },
+    {
+      "id": "struct-02",
+      "max_tokens": 160,
+      "expect_keys": [
+        "supplier",
+        "contact"
+      ],
+      "expect_values": {
+        "supplier": "华东科技",
+        "contact": "李明"
+      },
+      "prompt": "从下面的文本中提取信息，只输出一个 JSON 对象，不要输出其他内容。键为 supplier 和 contact，值为字符串。文本：供应商：华东科技；联系人：李明",
+      "thinking": false
+    },
+    {
+      "id": "struct-03",
+      "max_tokens": 160,
+      "expect_keys": [
+        "name",
+        "quantity",
+        "unit"
+      ],
+      "expect_values": {
+        "name": "A4 复印纸",
+        "quantity": "20",
+        "unit": "箱"
+      },
+      "prompt": "从下面的文本中提取信息，只输出一个 JSON 对象，不要输出其他内容。键为 name、quantity、unit，值都为字符串，quantity 为纯数字、不带单位。文本：商品名称：A4 复印纸，数量：20 箱",
+      "thinking": false
+    },
+    {
+      "id": "struct-04",
+      "max_tokens": 160,
+      "expect_keys": [
+        "id",
+        "items",
+        "total"
+      ],
+      "prompt": "只输出一个 JSON 对象，包含三个键：id（字符串 \"DOC-7\"）、items（包含两个数字 3 和 5 的数组）、total（数字 8）。不要输出其他内容。",
+      "thinking": false
+    },
+    {
+      "id": "struct-05",
+      "max_tokens": 160,
+      "expect_keys": [
+        "ok",
+        "reason"
+      ],
+      "prompt": "只输出一个 JSON 对象，包含两个键：ok（布尔值 false）和 reason（字符串 \"数量不符\"）。不要输出其他内容。",
+      "thinking": false
+    },
+    {
+      "id": "struct-06",
+      "max_tokens": 160,
+      "expect_keys": [
+        "category",
+        "priority"
+      ],
+      "expect_values": {
+        "category": "物流",
+        "priority": "高"
+      },
+      "prompt": "把下面的工单分类并只输出一个 JSON 对象，键为 category 和 priority，值为字符串。category 只能是 退款、物流、咨询 之一，priority 只能是 高、中、低 之一。工单：客户投诉包裹已经损坏，要求今天处理完毕。",
+      "thinking": false
+    },
+    {
+      "id": "struct-07",
+      "max_tokens": 160,
+      "expect_keys": [
+        "approved",
+        "issues"
+      ],
+      "prompt": "只输出一个 JSON 对象，包含两个键：approved（布尔值 false）和 issues（包含两个字符串 \"金额不一致\" 和 \"缺少订单号\" 的数组）。不要输出其他内容。",
+      "thinking": false
+    },
+    {
+      "id": "struct-08",
+      "max_tokens": 200,
+      "expect_keys": [
+        "date",
+        "amount"
+      ],
+      "expect_values": {
+        "date": "2026-11-24",
+        "amount": "1234.56"
+      },
+      "prompt": "从下面的文本中提取信息，只输出一个 JSON 对象，不要输出其他内容。date 使用 YYYY-MM-DD 格式，amount 为不带千分位的字符串。文本：开票日期为 2026 年 11 月 24 日，合计人民币 1,234.56 元。",
+      "thinking": false
+    },
+    {
+      "id": "struct-09",
+      "max_tokens": 160,
+      "expect_keys": [
+        "sorted"
+      ],
+      "expect_values": {
+        "sorted": "3, 7, 19, 42, 88"
+      },
+      "prompt": "只输出一个 JSON 对象，键为 sorted，值为把 42, 7, 19, 3, 88 从小到大排列后用逗号连接的字符串。",
+      "thinking": false
+    },
+    {
+      "id": "struct-10",
+      "max_tokens": 160,
+      "expect_keys": [
+        "customer",
+        "phone"
+      ],
+      "prompt": "下面是一段客户留言。只输出一个 JSON 对象，键为 customer 和 phone；留言中没有提到的信息用 null 表示。留言：我是王芳，请问发票什么时候开？",
+      "thinking": false
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-01",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "391"
+      ],
+      "prompt": "计算 17 × 23，只输出结果数字。"
+    },
+    {
+      "id": "task-02",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "12"
+      ],
+      "prompt": "计算 144 ÷ 12，只输出结果数字。"
+    },
+    {
+      "id": "task-03",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "1000"
+      ],
+      "prompt": "计算 (125 + 375) × 2，只输出结果数字。"
+    },
+    {
+      "id": "task-04",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "1,234,567"
+      ],
+      "prompt": "把 1234567 写成带千分位的格式，只输出结果。"
+    },
+    {
+      "id": "task-05",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "3.14"
+      ],
+      "prompt": "把 3.14159 保留两位小数，只输出结果。"
+    },
+    {
+      "id": "task-06",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "15.60",
+        "15.6"
+      ],
+      "prompt": "金额 120.00 元的 13% 是多少？保留两位小数，只输出数字。"
+    },
+    {
+      "id": "task-07",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "2026-11-24"
+      ],
+      "prompt": "把 2026年11月24日 转换成 YYYY-MM-DD 格式，只输出结果。"
+    },
+    {
+      "id": "task-08",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "PO-2026-0087"
+      ],
+      "prompt": "从下面的句子中找出订单号，只输出订单号。句子：客户张三的订单 PO-2026-0087 已经发货。"
+    },
+    {
+      "id": "task-09",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "1234.56"
+      ],
+      "prompt": "从下面的文本中提取合计金额，只输出不带千分位和货币符号的数字。文本：合计：人民币 1,234.56 元"
+    },
+    {
+      "id": "task-10",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "物流"
+      ],
+      "prompt": "把下面的工单分类为 退款、物流、咨询 之一，只输出类别。工单：我的包裹三天了还没发货。"
+    },
+    {
+      "id": "task-11",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "退款"
+      ],
+      "prompt": "把下面的工单分类为 退款、物流、咨询 之一，只输出类别。工单：这个商品我想退掉，怎么申请？"
+    },
+    {
+      "id": "task-12",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "咨询"
+      ],
+      "prompt": "把下面的工单分类为 退款、物流、咨询 之一，只输出类别。工单：你们营业时间是几点到几点？"
+    },
+    {
+      "id": "task-13",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "物流"
+      ],
+      "prompt": "把下面的工单分类为 退款、物流、咨询 之一，只输出类别。工单：快递显示已签收，但我没有收到货。"
+    },
+    {
+      "id": "task-14",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "apple"
+      ],
+      "prompt": "“苹果”的英文单词是什么？只输出这个单词。"
+    },
+    {
+      "id": "task-15",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "invoice"
+      ],
+      "prompt": "“发票”的英文单词是什么？只输出这个单词。"
+    },
+    {
+      "id": "task-16",
+      "thinking": false,
+      "max_tokens": 96,
+      "expected": [
+        "{\"order_id\":\"PO-123\",\"amount\":\"88.00\"}"
+      ],
+      "json_expect": {
+        "order_id": "PO-123",
+        "amount": "88.00"
+      },
+      "prompt": "把下面的信息写成 JSON 对象，键为 order_id 和 amount，值为字符串，amount 不带货币符号和单位，只输出 JSON。信息：订单号 PO-123，金额 88.00 元"
+    },
+    {
+      "id": "task-17",
+      "thinking": false,
+      "max_tokens": 96,
+      "expected": [
+        "{\"supplier\":\"华东科技\",\"contact\":\"李明\"}"
+      ],
+      "json_expect": {
+        "supplier": "华东科技",
+        "contact": "李明"
+      },
+      "prompt": "把下面的信息写成 JSON 对象，键为 supplier 和 contact，值为字符串，只输出 JSON。信息：供应商 华东科技，联系人 李明"
+    },
+    {
+      "id": "task-18",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "3, 7, 19, 42, 88",
+        "3,7,19,42,88",
+        "3 7 19 42 88"
+      ],
+      "prompt": "把 42, 7, 19, 3, 88 从小到大排列，用逗号分隔，只输出结果。"
+    },
+    {
+      "id": "task-19",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "88"
+      ],
+      "prompt": "42, 7, 19, 3, 88 中最大的数是多少？只输出这个数。"
+    },
+    {
+      "id": "task-20",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "A, B, C",
+        "A,B,C",
+        "A B C"
+      ],
+      "prompt": "去掉重复项后按原顺序输出：A, B, A, C, B。只输出结果。"
+    },
+    {
+      "id": "task-21",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "2500"
+      ],
+      "prompt": "2.5 千克等于多少克？只输出数字。"
+    },
+    {
+      "id": "task-22",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "30"
+      ],
+      "prompt": "200 的 15% 是多少？只输出数字。"
+    },
+    {
+      "id": "task-23",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "purchase order"
+      ],
+      "prompt": "把“采购订单”翻译成英文，只输出英文短语。"
+    },
+    {
+      "id": "task-24",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "是"
+      ],
+      "prompt": "数量 15 大于 12 吗？只回答“是”或“否”。"
+    },
+    {
+      "id": "task-25",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "否"
+      ],
+      "prompt": "金额 -5.00 大于 0 吗？只回答“是”或“否”。"
+    },
+    {
+      "id": "task-26",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "210.00",
+        "210.0",
+        "210"
+      ],
+      "prompt": "计算 120.00 + 80.50 + 9.50，只输出结果数字。"
+    },
+    {
+      "id": "task-27",
+      "thinking": false,
+      "max_tokens": 48,
+      "expected": [
+        "100.01"
+      ],
+      "prompt": "99.99 和 100.01 哪个更大？只输出较大的数字。"
+    },
+    {
+      "id": "task-28",
+      "thinking": true,
+      "max_tokens": 800,
+      "expected": [
+        "391"
+      ],
+      "prompt": "计算 17 × 23，只输出结果数字。"
+    },
+    {
+      "id": "task-29",
+      "thinking": true,
+      "max_tokens": 800,
+      "expected": [
+        "15.60",
+        "15.6"
+      ],
+      "prompt": "金额 120.00 元的 13% 是多少？保留两位小数，只输出数字。"
+    },
+    {
+      "id": "task-30",
+      "thinking": true,
+      "max_tokens": 800,
+      "expected": [
+        "3, 7, 19, 42, 88",
+        "3,7,19,42,88",
+        "3 7 19 42 88"
+      ],
+      "prompt": "把 42, 7, 19, 3, 88 从小到大排列，用逗号分隔，只输出结果。"
+    }
+  ],
+  "change_log": [
+    "1.0.1: thinking items raised to 800 max tokens after the first smoke run ran out of tokens inside the think block; explicit thinking=false on structured items",
+    "1.0.2: prompts for struct-01, struct-03 and task-16 now state that amounts and quantities carry no symbol or unit; non-thinking tasks allow 48 tokens"
+  ]
+}
