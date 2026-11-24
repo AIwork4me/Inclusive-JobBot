@@ -1,0 +1,7 @@
+{
+  "version":"1.0.0",
+  "steps":[
+    {"id":"order","operation":"get_order","depends_on":[]},
+    {"id":"assessment","operation":"recommend_ticket","depends_on":["order"]}
+  ]
+}

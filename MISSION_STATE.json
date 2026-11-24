@@ -187,7 +187,13 @@
     "gateway_software_regression": {
       "status": "PASS",
       "evidence": ["reports/IJ06_SECURE_GATEWAY_REPORT.md", "evidence/IJ06/security/"]
-    }
+    },
+    "sdk_vulkan": {"status": "BLOCKED", "evidence": ["evidence/IJ06/antigravity/vulkan.json"]},
+    "sdk_rocm": {"status": "FAIL", "evidence": ["evidence/IJ06/antigravity/rocm.json"]},
+    "document_review_development": {"status": "PASS", "evidence": ["evidence/IJ06/performance/summary.json"]},
+    "independent_holdout": {"status": "NOT_RUN", "evidence": ["reports/IJ06_HOLDOUT_RESULTS.md"]},
+    "production_engine_selection": {"status": "NOT_RUN", "evidence": ["reports/IJ06_ENGINE_SELECTION.md"]},
+    "dxm2_contracts": {"status": "PASS", "evidence": ["portability/deepx-dxm2/"]}
   },
   "open_blockers": [
     "B-004",

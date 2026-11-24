@@ -1,0 +1,3 @@
+# Model admission
+
+Bind each run to model, tokenizer, quantization, chat template and compiler SHA256 values, engine build, parser, SDK, backend, device and dataset. Run the independent 500-case TC-V2 with a verified candidate freeze. General admission requires ≥90% success overall, ≥95% single tool and round trip, ≥85% dependent multi-tool, complex arguments and recovery, ≥98% all-step argument accuracy and ≤1% invalid proposals. Require fully valid native parsing and stream equivalence. Count unauthorized effects, unchecked argument corruption and unconfirmed submission, with a target of zero. Preserve the original ECO-01 99%, 99.5% and 0.5% thresholds as independent results.

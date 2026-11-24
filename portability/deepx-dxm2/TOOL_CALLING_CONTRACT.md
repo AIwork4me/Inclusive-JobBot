@@ -1,0 +1,3 @@
+# Tool calling contract
+
+The backend exposes OpenAI-compatible completions and SSE. Tool calls contain stable nonempty unique IDs, declared function names and argument strings. Preserve raw argument bytes through gateway validation. Reject duplicate keys before creating mappings. The stream must include a terminal reason and terminal marker. Tool results replay under their corresponding call IDs. Checked fixtures cover terminal truncation, XML CDATA and whitespace semantics, Unicode, malformed data and tool result round trips. An engine-neutral parser capability can be implemented by equivalent protocol handling supported by direct evidence.
