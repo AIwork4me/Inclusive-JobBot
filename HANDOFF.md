@@ -17,15 +17,16 @@ python scripts/tools/scan_sensitive.py                 # must report 0 findings
 Get-Process llama-server -ErrorAction SilentlyContinue
 ```
 
-Then read sections 6–8. If a qualification run is active, check its log and
-checkpoint before starting or stopping the managed server.
+Then read sections 6–8. The two baseline runs and strict smoke tests finished,
+and the managed server was stopped.
 
 ## 2. Where the work is
 
-IJ-0 (change order ECO-01) is complete through IJ-0.5. The tool-calling
-qualification is in progress. Antigravity has a local read-only smoke probe.
-The Model Gateway, the performance step and IJ-1.0 missions M3 to M10 are
-pending.
+IJ-0 (change order ECO-01) is complete through IJ-0.5. The pinned b12359
+tool-calling qualification has a failing native parser gate. Both baseline
+runs finished. Antigravity passed the local read-only loop on both backends.
+The full SDK checklist, Model Gateway, performance qualification and IJ-1.0
+missions M3 to M10 are pending.
 
 | Step | Status | What it established | Evidence |
 |---|---|---|---|
@@ -35,10 +36,13 @@ pending.
 | IJ-0.3 engine install | PASS | CPU, Vulkan and ROCm builds run and enumerate the GPU | `evidence/IJ0/engine_install.json` |
 | IJ-0.4 launch scripts | PASS | Start, stop, check; 9 of 9 API checks on Vulkan | `evidence/IJ0/server_api_check.json` |
 | IJ-0.5 GPU proof | PASS | Same output on CPU, Vulkan and ROCm/HIP; GPU execution shown four ways | `reports/IJ0_GPU_BACKEND_QUALIFICATION.md` |
-| TC tool calling | FAIL | Corrected Vulkan development run 100/120. Vulkan native parser fixtures 21/26. Paired frozen test runs in progress. | `.runtime/tool-calling/` |
+| TC tool calling | FAIL | Vulkan development 100/120. Frozen baseline 433/500 Vulkan, 432/500 ROCm. Strict native parser fixtures 20/26 on each. | `reports/IJ0_TOOL_CALLING_BENCHMARK.md` |
+| TC acceptance criteria | PASS | New project thresholds established from published research. | `docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md` |
+| AG read-only loop | PASS | Real MiniCPM5 tool call, simulator result and exact final status on each backend. | `evidence/IJ0/antigravity/` |
 
-Gates G0 through G4 are **PASS** and G5 is **FAIL** on the fixed native parser
-fixtures. See `MISSION_STATE.json` for the remaining gates and verdicts.
+Gates G0–G4 and G6–G8 are **PASS**. G5 is **FAIL** on the fixed native parser
+fixtures. The 500-case coverage gate concerns execution of the original split.
+The independent holdout under ADR-002 is **NOT_RUN**.
 
 ## 3. Tool-calling reproduction
 
@@ -95,32 +99,21 @@ Open technical questions, none of them a blocker today:
 
 ## 7. Next steps, in order
 
-### 7.1 Complete the evidence review
+### 7.1 Resolve the native parser gate
 
-The whole development split has run. Any further prompt, tool schema or
-decoding experiments belong on the development split. The frozen test split
-uses the original requests and expectations.
-
-The paired benchmark checkpoints and logs are under `.runtime/tool-calling/`.
-If an arm is interrupted, start the matching backend and resume its benchmark:
-
-```powershell
-.venv/Scripts/python.exe benchmarks/tool_calling/runner/run_benchmark.py --dataset test --resume --output .runtime/tool-calling/test-vulkan
-```
-
-Use `test-rocm` for the ROCm arm. The report generator validates both completed
-runs against the frozen generator 1.0.2 manifest. Keep the numbers and fixture
-failures as a diagnostic baseline. The new qualification criteria are in
-`docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md`.
+Review the six strict fixture failures in `reports/IJ0_TOOL_CALLING_BENCHMARK.md`
+before choosing a parser fix or alternate engine identity. Any prompt, schema
+or decoding experiments belong on the development split. The frozen generator
+1.0.2 results are a diagnostic baseline. Freeze the new rubric and independent
+holdout before the next qualification under ADR-002.
 
 ### 7.2 Antigravity SDK against llama-server
 
-`LocalOpenAIAgentConfig(model="minicpm5-2b", base_url="http://127.0.0.1:8080/v1")`.
-Disable file reads and writes, command execution, sub-agents and MCP in
-`CapabilitiesConfig`, and add `deny("*")` plus `allow(...)` for the job tools.
-`.lightweight()` alone is not a boundary. Then work through the 12 items of
-ECO-01 section 6 and capture the harness traffic under
-`evidence/IJ0/antigravity/`.
+The read-only smoke command and evidence are in
+`benchmarks/tool_calling/runner/run_antigravity_smoke.py` and
+`evidence/IJ0/antigravity/`. The command explicitly allowlists one synthetic
+lookup and disables built-in tools, subagents and MCP. Finish the full SDK
+checklist when B-008 is resolved.
 
 ### 7.3 After that
 

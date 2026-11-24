@@ -13,9 +13,11 @@ whether work has started. Every finished task names its evidence.
 | IJ-0.3 | Official llama.cpp b12359 install: CPU, Vulkan and ROCm builds enumerate as expected | done | PASS | `evidence/IJ0/engine_install.json`, `evidence/IJ0/rocm_runtime_install.json` |
 | IJ-0.4 | Launch scripts and API checks on Vulkan, Q8_0, 8K context | done for Vulkan; other backends exercised in IJ-0.5 | PASS | `evidence/IJ0/server_api_check.json` |
 | IJ-0.5 | GPU execution proof, Arms A-F (G optional, NOT_RUN) | done | PASS | `reports/IJ0_GPU_BACKEND_QUALIFICATION.md`, `evidence/IJ0/gpu/` |
-| TC | Native tool calling and frozen benchmark | in progress | FAIL | `evidence/IJ0/protocol/tool_calling_dev_vulkan/`, `evidence/IJ0/protocol/tool_calling_test_vulkan/`, `evidence/IJ0/protocol/parser_fixtures_vulkan/` |
+| TC | Qualify native tool calling on pinned b12359 | done for current candidate | FAIL | `reports/IJ0_TOOL_CALLING_BENCHMARK.md` |
+| TC-BASELINE | Execute the original 500-case frozen suite on both backends | done | PASS | `evidence/IJ0/protocol/tool_calling_test_vulkan/`, `evidence/IJ0/protocol/tool_calling_test_rocm/` |
 | TC-ACCEPT | Research and establish versioned tool-calling acceptance thresholds | done | PASS | `docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md` |
-| AG | Antigravity SDK end-to-end integration (12 items) | not started | NOT_RUN | - |
+| TC-HOLDOUT | Freeze and qualify a fresh holdout under ADR-002 | not started | NOT_RUN | - |
+| AG | Full Antigravity SDK integration checklist | smoke complete. Original checklist unavailable (B-008) | BLOCKED | `evidence/IJ0/antigravity/` |
 | GW | Model Gateway refactor and contract tests | not started | NOT_RUN | - |
 | PERF | Performance qualification and engine selection | not started | NOT_RUN | - |
 
@@ -43,10 +45,10 @@ fixed are listed in `DECISIONS.md` D-009.
 | G2 | Windows llama-server runs natively | PASS | `evidence/IJ0/server_api_check.json` |
 | G3 | CPU reference path | PASS | `reports/IJ0_GPU_BACKEND_QUALIFICATION.md` |
 | G4 | At least one Radeon GPU backend correctness-verified | PASS | `evidence/IJ0/gpu/comparison.json` |
-| G5 | Native MiniCPM5 tool calling | FAIL | Native parser fixture evidence under `evidence/IJ0/protocol/parser_fixtures_vulkan/`. |
-| G6 | 500-case tool-calling benchmark executed in full | NOT_RUN | - |
-| G7 | Antigravity SDK real tool-call loop | NOT_RUN | - |
-| G8 | Streaming and non-streaming protocol (plain chat and single tool call verified; benchmark pending) | NOT_RUN | `evidence/IJ0/server_api_check.json`, `evidence/IJ0/protocol/tool_calling_smoke.json` |
+| G5 | Native MiniCPM5 tool calling | FAIL | Strict fixtures 20/26 on each backend. `reports/IJ0_TOOL_CALLING_BENCHMARK.md` |
+| G6 | 500-case tool-calling benchmark executed in full | PASS | Both original 500-case runs complete. `reports/IJ0_TOOL_CALLING_BENCHMARK.md` |
+| G7 | Antigravity SDK real tool-call loop | PASS | Both local read-only smoke tests. `evidence/IJ0/antigravity/` |
+| G8 | Streaming and non-streaming protocol | PASS | 50/50 tool-call parity and 30/30 thinking-separation cases on each backend. `reports/IJ0_TOOL_CALLING_BENCHMARK.md`, `evidence/IJ0/server_api_check.json` |
 | G9 | Unauthorized tool and argument injection protection | NOT_RUN | - |
 | G10 | Fully local operation | NOT_RUN | - |
 | G11 | Performance and quantization comparison | NOT_RUN | - |

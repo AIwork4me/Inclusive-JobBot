@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T08:08:09Z",
+  "updated_utc": "2026-11-24T08:15:24Z",
   "current_phase": "IJ-0",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -54,20 +54,31 @@
       ]
     },
     "IJ-0.TC": {
-      "progress": "in_progress",
+      "progress": "done",
       "status": "FAIL",
       "evidence": [
         "evidence/IJ0/protocol/tool_calling_smoke.json",
         "evidence/IJ0/protocol/tool_calling_dev_vulkan/",
         "evidence/IJ0/protocol/tool_calling_test_vulkan/",
-        "evidence/IJ0/protocol/parser_fixtures_vulkan/",
+        "evidence/IJ0/protocol/tool_calling_test_rocm/",
+        "evidence/IJ0/protocol/parser_fixtures_strict_vulkan/",
+        "evidence/IJ0/protocol/parser_fixtures_strict_rocm/",
+        "reports/IJ0_TOOL_CALLING_BENCHMARK.md",
         "docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md"
       ]
     },
-    "IJ-0.AG": {
+    "IJ-0.TC.HOLDOUT": {
       "progress": "not_started",
       "status": "NOT_RUN",
       "evidence": []
+    },
+    "IJ-0.AG": {
+      "progress": "in_progress",
+      "status": "BLOCKED",
+      "evidence": [
+        "evidence/IJ0/antigravity/local_tool_smoke_vulkan.json",
+        "evidence/IJ0/antigravity/local_tool_smoke_rocm.json"
+      ]
     },
     "IJ-0.GW": {
       "progress": "not_started",
@@ -127,9 +138,9 @@
     "G3": "PASS",
     "G4": "PASS",
     "G5": "FAIL",
-    "G6": "NOT_RUN",
-    "G7": "NOT_RUN",
-    "G8": "NOT_RUN",
+    "G6": "PASS",
+    "G7": "PASS",
+    "G8": "PASS",
     "G9": "NOT_RUN",
     "G10": "NOT_RUN",
     "G11": "NOT_RUN",

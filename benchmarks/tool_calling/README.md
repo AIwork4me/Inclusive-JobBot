@@ -25,7 +25,7 @@ before each test run and stop it after the last case. Write the samples to
 `gpu.jsonl` in the arm's output directory. To render a report from both arms:
 
 ```powershell
-.venv/Scripts/python.exe benchmarks/tool_calling/runner/report_benchmark.py .runtime/tool-calling/test-vulkan .runtime/tool-calling/test-rocm --output reports/IJ0_TOOL_CALLING_BENCHMARK.md
+.venv/Scripts/python.exe benchmarks/tool_calling/runner/report_benchmark.py .runtime/tool-calling/test-vulkan .runtime/tool-calling/test-rocm --output .runtime/tool-calling/reproduced-report.md
 ```
 
 ## Evidence and interpretation
@@ -52,3 +52,6 @@ before each test run and stop it after the last case. Write the samples to
 - The Antigravity smoke command is
   `run_antigravity_smoke.py`. It exercises one local, read-only loop and records
   the SDK's transcript. The full SDK qualification follows ECO-01 §6.
+
+See the [baseline report](../../reports/IJ0_TOOL_CALLING_BENCHMARK.md)
+and the [new acceptance thresholds](../../docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md).

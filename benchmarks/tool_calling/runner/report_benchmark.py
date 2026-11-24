@@ -40,9 +40,9 @@ def audit_ticket_arguments(cases: list[dict], rows: list[dict]) -> tuple[int, li
     if priority_match is None:
       raise ValueError(f"Missing priority in frozen ticket case {case['id']}")
     priority = priority_match[1]
-    want = {"subject": "回访预约", "priority": priority, "tags": ["回访", f"{priority}优先级"]}
+    want = {"subject": "回访预约", "priority": priority, "tags": sorted(["回访", f"{priority}优先级"])}
     created = [
-        call["arguments"]
+        {**call["arguments"], "tags": sorted(call["arguments"]["tags"])}
         for step in row["steps"] for call in step.get("tool_calls", [])
         if call["name"] == "create_ticket" and (call.get("tool_result") or {}).get("status") == "created"
     ]
@@ -196,6 +196,12 @@ def render(paths: list[pathlib.Path], fixture_paths: list[pathlib.Path] | None =
     stream = metrics["by_category"]["streaming_tool_call"]
     parity.append(f"{stream['stream_non_stream_identical']}/{stream['stream_non_stream_checked']}")
   lines.append(f"| Identical tool names and raw argument strings | {parity[0]} | {parity[1]} |")
+  lines.extend([
+      "",
+      "The original 500-case scores can be compared descriptively with the new 90% task floor.",
+      "The new argument floor requires checking all required tool steps. The original first-turn",
+      "metric does not measure that requirement.",
+  ])
 
   if fixture_paths:
     fixture_digest = sha256_of(DATASET_DIR.parent / "fixtures/minicpm5_parser_fixtures.json")
