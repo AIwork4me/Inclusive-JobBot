@@ -1,0 +1,84 @@
+{
+    "schema_version":  1,
+    "collected_utc":  "2026-11-24T03:27:21Z",
+    "collector":  "scripts/windows/collect_environment.ps1",
+    "controllers":  [
+                        {
+                            "name":  "AMD Radeon(TM) 8060S Graphics",
+                            "driver_version":  "32.0.22018.5",
+                            "driver_date":  "2025-09-17",
+                            "pnp_device_id":  "PCI\\VEN_1002\u0026DEV_1586\u0026SUBSYS_8D01103C\u0026REV_D1\\4\u002685C8329\u00260\u00260041",
+                            "adapter_ram_reported_bytes":  4293918720,
+                            "video_processor":  "AMD Radeon Graphics Processor (0x1586)",
+                            "status":  "OK"
+                        },
+                        {
+                            "name":  "Microsoft Remote Display Adapter",
+                            "driver_version":  "10.0.26100.9818",
+                            "driver_date":  "2006-06-21",
+                            "pnp_device_id":  "SWD\\REMOTEDISPLAYENUM\\RDPIDD_INDIRECTDISPLAY\u0026SESSIONID_0002",
+                            "adapter_ram_reported_bytes":  null,
+                            "video_processor":  null,
+                            "status":  "OK"
+                        }
+                    ],
+    "display_class_registry":  [
+                                   {
+                                       "description":  "AMD Radeon(TM) 8060S Graphics",
+                                       "driver_version":  "32.0.22018.5",
+                                       "dedicated_memory_bytes":  34359738368,
+                                       "matching_device_id":  "PCI\\VEN_1002\u0026DEV_1586\u0026SUBSYS_8D01103C\u0026REV_D1"
+                                   },
+                                   {
+                                       "description":  "Microsoft Remote Display Adapter",
+                                       "driver_version":  "10.0.26100.9818",
+                                       "dedicated_memory_bytes":  null,
+                                       "matching_device_id":  "RdpIdd_IndirectDisplay"
+                                   },
+                                   {
+                                       "description":  "Microsoft Remote Display Adapter",
+                                       "driver_version":  "10.0.26100.9818",
+                                       "dedicated_memory_bytes":  null,
+                                       "matching_device_id":  "RdpIdd_IndirectDisplay"
+                                   },
+                                   {
+                                       "description":  "Microsoft Remote Display Adapter",
+                                       "driver_version":  "10.0.26100.9818",
+                                       "dedicated_memory_bytes":  null,
+                                       "matching_device_id":  "RdpIdd_IndirectDisplay"
+                                   }
+                               ],
+    "vulkan":  {
+                   "available":  true,
+                   "devices":  [
+                                   {
+                                       "index":  "GPU0",
+                                       "apiVersion":  "1.4.320",
+                                       "driverVersion":  "2.0.359",
+                                       "vendorID":  "0x1002",
+                                       "deviceID":  "0x1586",
+                                       "deviceType":  "PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU",
+                                       "deviceName":  "AMD Radeon(TM) 8060S Graphics",
+                                       "driverID":  "DRIVER_ID_AMD_PROPRIETARY",
+                                       "driverName":  "AMD proprietary driver",
+                                       "driverInfo":  "25.20.18 (LLPC)"
+                                   }
+                               ]
+               },
+    "system_hip_runtime":  [
+                               {
+                                   "name":  "amdhip64_6.dll",
+                                   "file_version":  "10.0.3652.0",
+                                   "description":  "AMD Accelerated Parallel Processing amdhip64 6.4 Runtime"
+                               },
+                               {
+                                   "name":  "amdhip64_7.dll",
+                                   "file_version":  "10.0.3661.0",
+                                   "description":  "AMD Accelerated Parallel Processing amdhip64 7.0 Runtime"
+                               }
+                           ],
+    "notes":  [
+                  "The 8060S is an integrated GPU in unified memory; AdapterRAM and qwMemorySize report the dedicated UMA segment, not the GPU\u0027s usable memory.",
+                  "The gfx1151 architecture identifier is reported by the ROCm and Vulkan runtimes, see tools.llama_cpp in environment.json and evidence/IJ0/gpu/."
+              ]
+}

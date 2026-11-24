@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "inclusive-jobbot"
+version = "0.1.0a0"
+description = "Purpose-built Edge AI for Accessible Employment: a local-first JobBot runtime powered by MiniCPM5-2B, llama.cpp and the Google Antigravity SDK"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.12"
+dependencies = [
+    "google-antigravity==0.1.24",
+]
+
+[project.optional-dependencies]
+model-download = [
+    "modelscope==1.40.3",
+]
+model-inspection = [
+    "gguf==0.19.0",
+]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

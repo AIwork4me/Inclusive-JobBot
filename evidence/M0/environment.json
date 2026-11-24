@@ -1,0 +1,96 @@
+{
+    "schema_version":  1,
+    "collected_utc":  "2026-11-24T03:27:19Z",
+    "collector":  "scripts/windows/collect_environment.ps1",
+    "redactions":  [
+                       "user profile path",
+                       "user name",
+                       "host name",
+                       "domain"
+                   ],
+    "os":  {
+               "caption":  "Microsoft Windows 11 专业版",
+               "display_version":  "25H2",
+               "version":  "10.0.26200",
+               "build_number":  "26200",
+               "ubr":  9974,
+               "architecture":  "64 位",
+               "installation_type":  null,
+               "locale":  "zh-CN",
+               "ui_language":  "zh-CN",
+               "time_zone":  "China Standard Time"
+           },
+    "hardware":  {
+                     "manufacturer":  "HP",
+                     "model":  "HP ZBook Ultra G1a 14 inch Mobile Workstation PC",
+                     "system_type":  "x64-based PC",
+                     "cpu":  {
+                                 "name":  "AMD RYZEN AI MAX+ PRO 395 w/ Radeon 8060S",
+                                 "physical_cores":  16,
+                                 "logical_processors":  32,
+                                 "max_clock_mhz":  3000
+                             },
+                     "memory":  {
+                                    "installed_gb":  128,
+                                    "os_visible_gb":  95.78,
+                                    "modules":  8,
+                                    "speed_mtps":  8000
+                                },
+                     "remote_display_adapter_present":  true
+                 },
+    "security":  {
+                     "smart_app_control":  "Off",
+                     "defender_realtime_protection":  true,
+                     "code_integrity_policy_enforcement":  2,
+                     "usermode_code_integrity_policy_enforcement":  0,
+                     "virtualization_based_security_status":  2,
+                     "powershell_execution_policy":  {
+                                                         "local_machine":  "Undefined",
+                                                         "current_user":  "Undefined",
+                                                         "effective":  "Bypass"
+                                                     },
+                     "note":  "Smart App Control was turned off by the machine owner on 2026-11-24; see BLOCKERS.md B-001."
+                 },
+    "tools":  {
+                  "powershell":  {
+                                     "edition":  "Desktop",
+                                     "version":  "5.1.26100.9818"
+                                 },
+                  "python":  "Python 3.12.10",
+                  "git":  "git version 2.56.1.windows.1",
+                  "github_cli":  "gh version 2.105.0 (2026-11-17)\nhttps://github.com/cli/cli/releases/tag/v2.105.0",
+                  "node":  null,
+                  "ollama_portable":  {
+                                          "present":  true,
+                                          "client_version":  "Warning: client version is 0.40.17",
+                                          "role":  "optional compatibility baseline only (ECO-01)"
+                                      },
+                  "llama_cpp":  {
+                                    "cpu":  {
+                                                "version":  "version: 1.0.0-dev (build 12359, commit b1b770d90)\r\nbuilt with Clang 20.1.8 for Windows x86_64",
+                                                "list_devices_exit_code":  0,
+                                                "list_devices_stdout":  "Available devices:\r\n  (none)",
+                                                "list_devices_stderr":  ""
+                                            },
+                                    "rocm":  {
+                                                 "version":  "version: 1.0.0-dev (build 12359, commit b1b770d90)\r\nbuilt with Clang 20.1.8 for Windows x86_64",
+                                                 "list_devices_exit_code":  0,
+                                                 "list_devices_stdout":  "Available devices:\r\n  (none)",
+                                                 "list_devices_stderr":  ""
+                                             },
+                                    "vulkan":  {
+                                                   "version":  "version: 1.0.0-dev (build 12359, commit b1b770d90)\r\nbuilt with Clang 20.1.8 for Windows x86_64",
+                                                   "list_devices_exit_code":  0,
+                                                   "list_devices_stdout":  "Available devices:\r\n  Vulkan0: AMD Radeon(TM) 8060S Graphics (111227 MiB, 105666 MiB free)",
+                                                   "list_devices_stderr":  ""
+                                               }
+                                },
+                  "network":  {
+                                  "proxy_variables_set":  {
+                                                              "http_proxy":  false,
+                                                              "https_proxy":  false,
+                                                              "no_proxy":  false
+                                                          }
+                              }
+              }
+}
