@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "run_time_utc": "2026-11-24T04:22:45+00:00",
+  "verifier": "scripts/tools/model_identity.py",
+  "listing_source": "archived",
+  "models": [
+    {
+      "role": "gguf-inference",
+      "model_id": "OpenBMB/MiniCPM5-2B-GGUF",
+      "revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+      "license": "apache-2.0",
+      "local_dir": "models/MiniCPM5-2B-GGUF",
+      "file_count": 6,
+      "pass_count": 6,
+      "unexpected_local_files": [],
+      "files": [
+        {
+          "path": ".gitattributes",
+          "expected_size": 2075,
+          "expected_sha256": "247a3cfc672484dd40bdf07af0f83ee7a4457e9a995dadb47eedc36c630103b6",
+          "committed_at": "2026-08-27T09:05:00+00:00",
+          "actual_size": 2075,
+          "actual_sha256": "247a3cfc672484dd40bdf07af0f83ee7a4457e9a995dadb47eedc36c630103b6",
+          "status": "PASS"
+        },
+        {
+          "path": "MiniCPM5-2B-F16.gguf",
+          "expected_size": 5039006688,
+          "expected_sha256": "0ffba3682a853295566b98bc38c0ab755d6b2d91b994bc031ed727a08cfcdf25",
+          "committed_at": "2026-09-07T18:17:15+00:00",
+          "actual_size": 5039006688,
+          "actual_sha256": "0ffba3682a853295566b98bc38c0ab755d6b2d91b994bc031ed727a08cfcdf25",
+          "status": "PASS"
+        },
+        {
+          "path": "MiniCPM5-2B-Q4_K_M.gguf",
+          "expected_size": 1561318368,
+          "expected_sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+          "committed_at": "2026-09-07T18:17:15+00:00",
+          "actual_size": 1561318368,
+          "actual_sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+          "status": "PASS"
+        },
+        {
+          "path": "MiniCPM5-2B-Q8_0.gguf",
+          "expected_size": 2679710688,
+          "expected_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+          "committed_at": "2026-09-07T18:17:15+00:00",
+          "actual_size": 2679710688,
+          "actual_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+          "status": "PASS"
+        },
+        {
+          "path": "README-cn.md",
+          "expected_size": 110408,
+          "expected_sha256": "238ccbcbf91736c0f85a01f7965acd57b86466818b8811e9d5d3d5bf37a84330",
+          "committed_at": "2026-09-12T12:28:29+00:00",
+          "actual_size": 110408,
+          "actual_sha256": "238ccbcbf91736c0f85a01f7965acd57b86466818b8811e9d5d3d5bf37a84330",
+          "status": "PASS"
+        },
+        {
+          "path": "README.md",
+          "expected_size": 112758,
+          "expected_sha256": "aa1c0fac166d44aaf0d0529731137028252ff8207eb51e795aeca96195283879",
+          "committed_at": "2026-11-11T12:14:43+00:00",
+          "actual_size": 112758,
+          "actual_sha256": "aa1c0fac166d44aaf0d0529731137028252ff8207eb51e795aeca96195283879",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "role": "bf16-reference",
+      "model_id": "OpenBMB/MiniCPM5-2B",
+      "revision": "4e7a94716d4526da493d68962f475390e852954b",
+      "license": "apache-2.0",
+      "local_dir": "models/MiniCPM5-2B",
+      "file_count": 11,
+      "pass_count": 11,
+      "unexpected_local_files": [],
+      "files": [
+        {
+          "path": ".gitattributes",
+          "expected_size": 2128,
+          "expected_sha256": "aa671e37e29590509ffdb037a97e5ef6a81b635a2edf7f395c1d4c4c5b5f5a4b",
+          "committed_at": "2026-08-27T09:09:34+00:00",
+          "actual_size": 2128,
+          "actual_sha256": "aa671e37e29590509ffdb037a97e5ef6a81b635a2edf7f395c1d4c4c5b5f5a4b",
+          "status": "PASS"
+        },
+        {
+          "path": "README-cn.md",
+          "expected_size": 110251,
+          "expected_sha256": "5b3ed834cd8d7b5630ef9bb14a52a96180f566a65b6fdc3df609651b3d777b2b",
+          "committed_at": "2026-09-12T12:28:29+00:00",
+          "actual_size": 110251,
+          "actual_sha256": "5b3ed834cd8d7b5630ef9bb14a52a96180f566a65b6fdc3df609651b3d777b2b",
+          "status": "PASS"
+        },
+        {
+          "path": "README.md",
+          "expected_size": 112168,
+          "expected_sha256": "59e93770502358d56b30b8e2ef7e744cf7fc91bfb923c7c787876defac35cdbe",
+          "committed_at": "2026-11-09T12:42:03+00:00",
+          "actual_size": 112168,
+          "actual_sha256": "59e93770502358d56b30b8e2ef7e744cf7fc91bfb923c7c787876defac35cdbe",
+          "status": "PASS"
+        },
+        {
+          "path": "chat_template.jinja",
+          "expected_size": 5435,
+          "expected_sha256": "bc1f78ef8a86b6bdf64a056cf89dd0ac506db4f198ab363d85168e2500ab44dd",
+          "committed_at": "2026-09-29T12:12:26+00:00",
+          "actual_size": 5435,
+          "actual_sha256": "bc1f78ef8a86b6bdf64a056cf89dd0ac506db4f198ab363d85168e2500ab44dd",
+          "status": "PASS"
+        },
+        {
+          "path": "config.json",
+          "expected_size": 704,
+          "expected_sha256": "59613157e5357d62bcb121e04cb90f2170b43d789b142380c12c3d4277d95180",
+          "committed_at": "2026-09-07T18:16:54+00:00",
+          "actual_size": 704,
+          "actual_sha256": "59613157e5357d62bcb121e04cb90f2170b43d789b142380c12c3d4277d95180",
+          "status": "PASS"
+        },
+        {
+          "path": "generation_config.json",
+          "expected_size": 213,
+          "expected_sha256": "9ac4f32e5f32358697a9f438a3ea89ef80e6ba786c72c49e932f9f21c122fdb1",
+          "committed_at": "2026-09-07T18:16:54+00:00",
+          "actual_size": 213,
+          "actual_sha256": "9ac4f32e5f32358697a9f438a3ea89ef80e6ba786c72c49e932f9f21c122fdb1",
+          "status": "PASS"
+        },
+        {
+          "path": "model-00000-of-00001.safetensors",
+          "expected_size": 5033557096,
+          "expected_sha256": "14fb8e7f0a18d53d1f239773758bf581cee7e456a4523a54622c3a245b64402c",
+          "committed_at": "2026-09-07T18:16:54+00:00",
+          "actual_size": 5033557096,
+          "actual_sha256": "14fb8e7f0a18d53d1f239773758bf581cee7e456a4523a54622c3a245b64402c",
+          "status": "PASS"
+        },
+        {
+          "path": "model.safetensors.index.json",
+          "expected_size": 31378,
+          "expected_sha256": "6d839cd76e8395de548a0e6cc310386f66d1ecbb2c75d198a8dfd3d70892b756",
+          "committed_at": "2026-09-07T18:16:54+00:00",
+          "actual_size": 31378,
+          "actual_sha256": "6d839cd76e8395de548a0e6cc310386f66d1ecbb2c75d198a8dfd3d70892b756",
+          "status": "PASS"
+        },
+        {
+          "path": "special_tokens_map.json",
+          "expected_size": 551,
+          "expected_sha256": "82d96d7a9e6ced037f12394b7ea6a5b02e6ca87e0d11edaa8d60d9be857ce7db",
+          "committed_at": "2026-08-27T12:50:04+00:00",
+          "actual_size": 551,
+          "actual_sha256": "82d96d7a9e6ced037f12394b7ea6a5b02e6ca87e0d11edaa8d60d9be857ce7db",
+          "status": "PASS"
+        },
+        {
+          "path": "tokenizer.json",
+          "expected_size": 9894271,
+          "expected_sha256": "3e065a558a034185fe299917b398685c1facd0169a9eea1e629eb30c171fed81",
+          "committed_at": "2026-08-27T12:50:04+00:00",
+          "actual_size": 9894271,
+          "actual_sha256": "3e065a558a034185fe299917b398685c1facd0169a9eea1e629eb30c171fed81",
+          "status": "PASS"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "expected_size": 94391,
+          "expected_sha256": "e9b1064649e771d7a8e15637c68b2d2749724877ba3648bd74a4ece31c26303b",
+          "committed_at": "2026-09-07T18:16:54+00:00",
+          "actual_size": 94391,
+          "actual_sha256": "e9b1064649e771d7a8e15637c68b2d2749724877ba3648bd74a4ece31c26303b",
+          "status": "PASS"
+        }
+      ]
+    }
+  ],
+  "status": "PASS",
+  "fail_count": 0
+}
