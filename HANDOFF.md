@@ -208,7 +208,8 @@ and the moment the repository becomes public.
 | MiniCPM5 parser merge | PR #24889, commit `c818263f2a5ddab028dea5f169ea2b2266421125` |
 | GGUF-embedded chat template | 9060 chars, SHA256 `cc945752db555d60949b16989df4ccfeb52a313d6b4b5c5229dd786e2e9fcf1c` |
 | Antigravity SDK | `google-antigravity` 0.1.24 (Apache-2.0) |
-| Tool-calling dataset | generator 1.0.2, manifest in `benchmarks/tool_calling/datasets/` |
+| Tool-calling test set | generator 1.0.2, 500 cases, SHA256 `ce6bf6bf433baab69e511328faae42c34d6a245e44dfd432e2a30f94c84e6add` |
+| Tool-calling development set | generator 1.0.2, 120 cases, SHA256 `e5e2308ff8b4fe5a13dfdd9d279018845e20fcf8d9e151ea8ccd8fef3a03a5fa` |
 | Engine workload | v1.0.2, 52 items, manifest in `benchmarks/engine_qualification/` |
 
 ## 11. Everyday commands

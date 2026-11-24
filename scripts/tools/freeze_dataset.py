@@ -80,6 +80,10 @@ def main() -> int:
       "files": entries,
   }
   for path in files:
+    if path.suffix == ".jsonl":
+      lines = [line for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+      manifest["case_count"] = (manifest["case_count"] or 0) + len(lines)
+      manifest.setdefault("case_count_by_file", {})[path.name] = len(lines)
     if path.suffix == ".json":
       try:
         data = json.loads(path.read_text(encoding="utf-8"))
