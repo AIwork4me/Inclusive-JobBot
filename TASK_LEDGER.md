@@ -5,8 +5,10 @@
 | ID | Task | Status | Evidence |
 |---|---|---|---|
 | IJ07-M0 | Independent archival audit of IJ-0.6 and current Windows inventory | PASS | `reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md` |
-| IJ07-M1 | Competitive model research and runtime admission | NOT_RUN | `docs/IJ07_EXECUTION_PLAN.md` |
-| IJ07-M2 | Four-arm historical replay and pre-parser capture | NOT_RUN | `docs/IJ07_EXECUTION_PLAN.md` |
+| IJ07-M1 | Official source identity and Q8_0 digest verification | PASS | `evidence/IJ07/model_identity/` |
+| IJ07-M1-GPU | Runtime admission on candidate and reference tracks | NOT_RUN | `benchmarks/competitive_slm/admission.py` |
+| IJ07-M2-OBSERVER | Build both source observer variants and exercise capture | PASS | `benchmarks/root_cause/README.md` |
+| IJ07-M2 | Four-arm historical replay and persisted state | NOT_RUN | `benchmarks/root_cause/README.md` |
 
 Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`. "Progress" says
 whether work has started. Every finished task names its evidence.
