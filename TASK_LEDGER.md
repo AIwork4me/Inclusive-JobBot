@@ -24,12 +24,15 @@
 | IJ07-M5-MT-WIRE-FULL | Reprocess all 25 known wire limit rejections on unchanged raw responses | PASS | `evidence/IJ07/root_causes/multitool_batch_limit_full_control.json` |
 | IJ07-M5-MT-WIRE-LIVE | Two corrected Vulkan wire-profile diagnostics' business scores | FAIL | `evidence/IJ07/multitool/wire-fix-diagnostic/` |
 | IJ07-M4 | Full physical two-track L0–L7 first-pass study and archive | PASS | `evidence/IJ07/planning/primary-vulkan-full/diagnostic.json` |
+| IJ07-M4-REPEAT | 960 original-profile Vulkan trials, 160 cases with three seeds in both tracks | PASS | `evidence/IJ07/planning/repeat-vulkan-full/diagnostic.json` |
+| IJ07-M4-REPEAT-OUTCOMES | Repeated planning task success across both original tracks | FAIL | `evidence/IJ07/planning/repeat-vulkan-full/diagnostic.json` |
 | IJ07-M4-LEVEL | Original Vulkan profile continuous level qualification | FAIL | `reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md` |
 | IJ07-M4-L0-EXECUTION | Both tracks' real L0 roster and archived source proof | PASS | `evidence/IJ07/planning/primary-l0-checkpoint/diagnostic.json` |
 | IJ07-M4-L0-CAPABILITY | Both tracks' L0 research threshold | FAIL | `reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md` |
 | IJ07-M5-PLANNING-REFERENCE | Correct the Chinese reference boundary and replay 100 exact first-turn proposals | PASS | `evidence/IJ07/root_causes/planning_reference_boundary_control.json` |
 | IJ07-M5-PLANNING-PROMPT | CPU development control for the first-turn plan contract | FAIL | `evidence/IJ07/root_causes/planning_prompt_stage_cpu.json` |
 | IJ07-M5-PRIMARY-FAILURE-INDEX | Link 2,071 MULTITOOL and planning failures to exact captures and available controls | PASS | `evidence/IJ07/root_causes/physical_primary_failure_index.jsonl` |
+| IJ07-M5-FAILURE-REGISTER | Index historical, TC-V2, MULTITOOL and planning fault records under the requested taxonomy | PASS | `evidence/IJ07/root_causes/failure_ledger.json` |
 | IJ07-M7 | Six-arm JOB-V1 causal validation | NOT_RUN | `benchmarks/job_productivity_v1/holdout/README.md` |
 | IJ07-M3-MT-RUNNER | MULTITOOL-V1 Radeon runner and exact-resume software tests | PASS | `benchmarks/multitool_v1/README.md` |
 | IJ07-M6-STATISTICS | Independent paired comparison and repeat statistics software | PASS | `benchmarks/competitive_slm/STATISTICS.md` |

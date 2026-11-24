@@ -31,8 +31,8 @@ Windows 11 build 26200、AMD Ryzen AI MAX+ PRO 395、Radeon 8060S gfx1151、
 TC-V2 Vulkan 首试 349/500，ROCm/HIP 首试 347/500，均低于 90% 门槛。
 两个后端各完成 500 次流式配对、150 次重复和 146 条固定夹具。 [独立准入](IJ07_TC_V2_QUALIFICATION.md)
 MULTITOOL-V1 的 Vulkan 首轮 600 条全部完成，129 条通过。2–3 步为 44/120，
-16–20 步为 9/120。首个检查点发现 14 个正确批次被 16 调用的 wire 上限拒绝。
-对同一字节的解码复验保留了原有业务判定。 [TC-V2 运行](../benchmarks/tool_calling_v2/holdout/README.md)
+16–20 步为 9/120。全量复核发现 25 个原始响应触发 16 调用的 wire 上限。
+修订配置对这 25 条原样响应均可解码，并保留原有业务判定。 [TC-V2 运行](../benchmarks/tool_calling_v2/holdout/README.md)
  · [多工具实测](IJ07_MULTITOOL_CAPABILITY_REPORT.md)
 
 ## F. 自主规划
@@ -41,6 +41,10 @@ L0–L7 各 100 条，Plan-first 与 Acting-first 的全量首轮均完成且分
 原配置的所有等级均未通过。2,719 次请求均绑定解析前输出。Acting-first
 记录 1,422 个模型动作，Plan-first 的首轮计划均未达到执行合同。
 中文引用校验的修订使用独立证据身份。 [规划结果](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
+ · [L0–L7 资格](IJ07_AGENTIC_L0_L7_CAPABILITY.md) · [长链路执行](IJ07_LONG_HORIZON_EXECUTION.md)
+
+原配置的三种子面板完成 960/960，两轨均为 0/480。每轨 Pass@3 和 Pass^3
+均为 0/160。 [三种子档案](../evidence/IJ07/planning/repeat-vulkan-full/)
 
 ## G. 同规模竞争
 
@@ -49,6 +53,7 @@ MiniCPM5 在该配置的原生调用检查失败。四个候选在同一开发�
 LFM3 通过，其余三个因 Markdown 围栏未满足纯 JSON 约定。Aion 的 CPU 和 Radeon WebGPU 普通对话通过，依赖工具
 探针均在获得账号前使用了错误的账号参数。完整配对和可靠性排名待跑。
  [候选矩阵](IJ07_MODEL_ADMISSION_MATRIX.md) · [竞争诊断](IJ07_COMPETITIVE_SLM_BENCHMARK.md)
+ · [配对统计](IJ07_MODEL_AB_TEST_STATISTICS.md)
 
 ## H. 源码根因
 
@@ -56,6 +61,7 @@ LFM3 通过，其余三个因 Markdown 围栏未满足纯 JSON 约定。Aion 的
 CPU RED/GREEN 和实测 Vulkan 拒绝已留档。空 tags 的源码记录把第一次差异定位到
 生成层。CPU 单变量对照中，加入 `minItems: 2` 后 15/15 语义通过，F16 仅通过 1/15。
 历史原文和训练成因仍无法确定。 [源码调查](IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md)
+ · [故障分类与逐案索引](IJ07_FAILURE_TAXONOMY.md)
 
 ## I. SDK 和权限
 
@@ -68,6 +74,7 @@ CPU 对照中原提示为 1/3。明确要求取工具 `result` 字符串的独�
 600 条 JOB-V1 跨文档审核、商品信息和售后。无模型 F 臂为 592/600 首试通过，
 342 条实际业务完成。A–E 真机诊断 15 条，E 通过 1/3，其余四臂各 0/3。
 六组全量配对贡献与调用比待测。 [岗位阶段结果](IJ07_PURPOSE_BUILT_VALIDATION.md)
+ · [因果消融](IJ07_PURPOSE_BUILT_CAUSAL_ABLATION.md) · [业务价值](IJ07_BUSINESS_VALUE_VALIDATION.md)
 
 ## K. GPU 与端侧约束
 
@@ -83,7 +90,7 @@ Radeon 的历史负载数据支持两后端可执行性与资源估算。并发�
 
 模型负责提出方案或字段。根据输入结构和风险选用确定性规则、专业知识、SOP、
 模型或人工审查。所有写操作继续使用严格的权限及确认边界。
- [架构分层](IJ07_JOBBOT_ARCHITECTURE_RECOMMENDATION.md)
+ [架构分层](IJ07_JOBBOT_ARCHITECTURE_RECOMMENDATION.md) · [模型选型边界](IJ07_MODEL_SELECTION_RECOMMENDATION.md)
 
 ## N. 剩余验证
 

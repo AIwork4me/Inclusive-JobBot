@@ -27,6 +27,7 @@ jobs:
         env:
           PYTHONPATH: src
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ07/planning/primary-vulkan-full
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ07/planning/repeat-vulkan-full
       - run: python -m scripts.tools.index_ij07_multitool_planning_failures evidence/IJ07 evidence/IJ07/root_causes/physical_primary_failure_index.jsonl --check
       - run: python -m scripts.tools.summarize_ij07_multitool_repeat evidence/IJ07/multitool/repeat-vulkan-full evidence/IJ07/multitool/repeat-vulkan-full/reliability.json --check
         env:

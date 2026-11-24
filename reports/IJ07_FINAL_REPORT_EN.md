@@ -22,16 +22,19 @@ Aion ONNX build passed ordinary text generation on CPU and Radeon WebGPU.
 The independent TC-V2, MULTITOOL-V1, AGENTIC-PLAN-V1 and JOB-V1 rosters
 have independent software-verified oracles. MULTITOOL completed all 600
 primary trials and passed 129. Task success went from 44/120 at 2–3 steps
-to 9/120 at 16–20 steps. Its first published checkpoint exposed a mismatch
-between the wire's 16-call limit and the 32-proposal task budget. All 14
-affected responses passed the bounded wire-control replay. Four planning
+to 9/120 at 16–20 steps. The complete archive identifies 25 rejected batches
+at the wire's 16-call limit, with a 32-proposal task budget. All 25 affected
+responses passed the bounded wire-control replay. Four planning
 diagnostics failed on the real Vulkan backend. The full L0–L7 first-pass
 roster then scored 0/800 on each track, with all 2,719 requests source-bound.
+Both tracks scored 0/480 in the complete three-seed panel and 0/160 for
+both Pass@3 and Pass^3. [Planning repeat archive](../evidence/IJ07/planning/repeat-vulkan-full/)
 The original profile includes a confirmed Chinese reference handling defect. SDK AG-06
 passed once in three repetitions for both Radeon backends. AG-11 remains
 blocked. Production readiness requires full independent qualification,
 actual state effects, six-arm job comparisons, and deployment results.
  [Gate matrix](IJ07_GATE_MATRIX.md) · [Interim white paper](IJ07_AGENTIC_CAPABILITY_WHITEPAPER_EN.md)
+ · [Failure ledger](../evidence/IJ07/root_causes/failure_ledger.json)
 
 Independent TC-V2 first attempts passed 349/500 on Vulkan and 347/500 on
 ROCm/HIP, both below the 90% threshold. Each backend completed 500 paired
@@ -47,6 +50,7 @@ miss the bare-object contract, and Qwen3.5 also included prose.
 Aion's separate CPU and Radeon WebGPU dependency probe found a premature,
 ungrounded account balance call on both runtimes.
  [Competitive diagnostics](IJ07_COMPETITIVE_SLM_BENCHMARK.md)
+ · [Prespecified comparison](../configs/ij07/tc_v2_competitive_plan.lock.json)
 
 The branch is stacked on the exact IJ-0.6 reviewed commit
 `d2e5b31aa1f0894638f7b648a4cf3591fbb71e6e`.

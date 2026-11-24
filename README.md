@@ -26,8 +26,8 @@ tracks completed L0–L7 and passed 0/800 each under the original
 run configuration. [Independent planning](reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
 Independent tests, SDK results and production gates are tracked in the
 [IJ-0.7 stage report](reports/IJ07_FINAL_REPORT_EN.md).
-Nothing in this repository is a claim of production readiness, of real employee
-validation, or of DEEPX DX-M2 hardware results.
+Production readiness is `BLOCKED`. The measured business workloads use
+synthetic data. DEEPX DX-M2 physical validation is `NOT_RUN`.
 
 See [AGENTS.md](AGENTS.md) for the working rules, [HANDOFF.md](HANDOFF.md) for
 the current state, and [reports/](reports/) for evidence-backed reports.

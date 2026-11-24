@@ -25,3 +25,9 @@ MULTITOOL-V1 ran all 300 fixed repeats on Vulkan. For 100 prespecified cases,
 22 passed every seed and 78 failed every seed. Both Pass@3 and Pass^3
 were 22%. The raw case and GPU evidence includes the original 16-call
 wire cap. [Multi-tool repeat panel](../evidence/IJ07/multitool/repeat-vulkan-full/reliability.json)
+
+AGENTIC-PLAN-V1 recorded 960/960 frozen repeats in six physical sessions.
+All 1,584 model requests have source-bound observations. Both tracks failed
+all 480 trials. Within each track, the 160 fixed cases have zero Pass@3 and
+Pass^3 successes across the three seeds.
+ [Planning repeat panel](../evidence/IJ07/planning/repeat-vulkan-full/diagnostic.json)

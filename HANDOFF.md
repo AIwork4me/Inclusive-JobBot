@@ -45,10 +45,10 @@ entry level. Use a new output directory for live runs of the corrected
 Chinese reference profile. [Planning archive](evidence/IJ07/planning/primary-vulkan-full/)
 
 The original MULTITOOL repeat panel completed 300/300 physical trials.
-The original planning repeat panel uses `.runtime/ij07-planning-repeat-vulkan`
-with the exact frozen 960-trial roster. The strict B/D/F/G TC-V2 batch queue
-follows that panel in the same single-GPU slot.
- [Multi-tool repeat archive](evidence/IJ07/multitool/repeat-vulkan-full/)
+The original planning repeat panel completed all 960 frozen trials. Each
+track failed all 480. The strict B/D/F/G TC-V2 batch queue follows that panel
+in the same single-GPU slot.
+ [Multi-tool repeat archive](evidence/IJ07/multitool/repeat-vulkan-full/) · [Planning repeat archive](evidence/IJ07/planning/repeat-vulkan-full/)
 
 Read this first when resuming. Last updated: 2026-11-24.
 

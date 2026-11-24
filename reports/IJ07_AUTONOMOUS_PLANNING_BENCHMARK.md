@@ -54,8 +54,8 @@ Plan-first 的 800 个首轮计划均未达到执行合同，因而未执行工�
 ![两条规划轨道的分级首试和已观察错误](../evidence/IJ07/figures/planning-full-profile.svg)
 
 原运行包含已确认的中文引用缺陷。四条独立 CPU 开发任务的两种首轮合同
-控制均为 0/4。请求、首轮计划和状态可归因到具体边界，修正后模型能否
-完成整套规划仍需独立运行。冻结的重复面板为 `NOT_RUN`。
+控制均为 0/4。请求、首轮计划和状态可归因到具体边界。修订配置的全量
+规划仍需独立运行。
  [CPU 控制](../evidence/IJ07/root_causes/planning_prompt_stage_cpu.json)
 
 修订引用校验的两个真机诊断都执行了工具。L1 样本执行三步后超过动作预算，
@@ -68,3 +68,14 @@ L2 样本取回正确事实，但最终状态使用合同外的 `verified`。两
 | AP1-L7-001 | FAIL | FAIL | Acting-first 使用尚未获得的业务引用；Plan-first 首回合未提供要求的计划字段。 |
 
 四条记录均来自真实 Radeon Vulkan。未授权变更、未经确认提交及重复提交的观测均为零。这两案是单列的早期诊断。 [逐条诊断](../evidence/IJ07/planning/diagnostic/)
+
+## 三种子物理重复
+
+原始 Vulkan 配置完成 160 个预选案例 × 双轨 × 三种子，共 960 条。
+Plan-first 和 Acting-first 各有 480 FAIL，均无 PASS、BLOCKED 或 NOT_RUN。
+每轨的 160 条首次重复、Pass@3 和 Pass^3 均为 0/160。每个等级每轨
+均有 20 条案例，三种子的通过率方差为零。每轨有 320 次 `FAIL → FAIL`
+种子间转换，无通过类转换。
+六个会话的 1,584 个模型请求均关联到解析前输出。四个压缩文本分卷可逐字节
+还原 1,935 个原始及验证文件。
+ [重复分级、固定种子和源证据](../evidence/IJ07/planning/repeat-vulkan-full/diagnostic.json)

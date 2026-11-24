@@ -239,7 +239,13 @@
         "trials_per_candidate": 1150,
         "runbook": "benchmarks/competitive_slm/TC_V2_BATCH.md",
         "statistics_plan": "configs/ij07/tc_v2_competitive_plan.lock.json",
-        "archive_runbook": "benchmarks/competitive_slm/TC_V2_ARCHIVE.md"
+        "archive_runbook": "benchmarks/competitive_slm/TC_V2_ARCHIVE.md",
+        "first_started_arm": {
+          "arm": "B",
+          "run_id": "ij07-competitive-tcv2-roster-aedb6f5e2e63416586f6d06c9c431bf1",
+          "started_utc": "2026-11-24T18:10:49+00:00",
+          "configuration_sha256": "bd9ab2d62b8fc1f75e1139934ea9bf38ca42dbb1bf940943b2ae14e5a98947af"
+        }
       },
       "competitive_multitool_and_planning": {
         "software_status": "PASS",
@@ -333,10 +339,15 @@
       "evidence": "evidence/IJ07/planning/primary-vulkan-full/diagnostic.json"
     },
     "planning_repeat": {
-      "progress": "in_progress",
+      "progress": "done",
       "planned": 960,
+      "archived_trials": 960,
+      "physical_execution_status": "PASS",
+      "task_qualification": "FAIL",
+      "acting_first": {"PASS": 0, "FAIL": 480},
+      "plan_first": {"PASS": 0, "FAIL": 480},
       "profile": "original Vulkan profile",
-      "local_run_directory": ".runtime/ij07-planning-repeat-vulkan"
+      "evidence": "evidence/IJ07/planning/repeat-vulkan-full/diagnostic.json"
     },
     "planning_reference_boundary": {
       "same_response_regression": "PASS",

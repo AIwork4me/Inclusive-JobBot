@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "record_unit": "Rows in each source index. Different tracks, phases and studies may share a case ID.",
+  "coverage": {
+    "historical_replay": {
+      "path": "evidence/IJ07/root_causes/failure_ledger_full.jsonl",
+      "records": 726,
+      "sha256": "2e540790ba702357ba29cb5f51bc435398688c54e165df77ca0f52f0937d6dee",
+      "confidence_counts": {"SUPPORTED_BUT_INCOMPLETE": 314, "UNVERIFIED": 412}
+    },
+    "tc_v2": {
+      "path": "evidence/IJ07/tc_v2/holdout/failure_index.jsonl",
+      "records": 683,
+      "sha256": "ae5113047908d6eb30c8289350691c4e492f426391c32beaacd8144140697202",
+      "fault_isolation_counts": {"NOT_RUN": 683}
+    },
+    "multitool_and_planning_primary": {
+      "path": "evidence/IJ07/root_causes/physical_primary_failure_index.jsonl",
+      "records": 2071,
+      "sha256": "491ffd85d58fb057ddccd7d879eee8fd8310e2f0bea7642dfd919cbd284f8238",
+      "study_counts": {"AGENTIC-PLAN-V1": 1600, "MULTITOOL-V1": 471}
+    }
+  },
+  "taxonomy": "reports/IJ07_FAILURE_TAXONOMY.md",
+  "investigation_status": "BLOCKED"
+}
