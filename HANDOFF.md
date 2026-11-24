@@ -57,8 +57,8 @@ Treat these as unproven until they have been run:
 
 ## 4. Repository state
 
-- Local branch `mission/ij-1.0-windows-fullstack-qualification`, 10 commits,
-  working tree clean.
+- Local branch `mission/ij-1.0-windows-fullstack-qualification`; all work is
+  committed and the working tree is clean (`git log --oneline` lists it).
 - **No remote.** `AIwork4me/Inclusive-JobBot` does not exist on GitHub. Nothing
   has been pushed or published.
 - Repository-local git identity: `AIwork4me <AIwork4me@qq.com>`. The global
