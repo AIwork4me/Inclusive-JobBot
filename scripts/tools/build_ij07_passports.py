@@ -129,6 +129,10 @@ def passports():
                     backend: profile["repeat"] for backend, profile in result["tc_v2"].items()
                 }
             plan = EVIDENCE / "planning/primary-vulkan-full/diagnostic.json"
+            repeated = EVIDENCE / "multitool/repeat-vulkan-full/reliability.json"
+            if repeated.is_file():
+                record = read(repeated)
+                result["multitool_repeat"] = {key: record[key] for key in ("run_id", "scope", "all")}
             if plan.is_file():
                 report = read(plan)
                 result["full_planning"] = {key: report[key] for key in ("run_id", "overall", "levels", "evidence")}

@@ -196,6 +196,27 @@ def render_planning_full(data, output):
     save_svg(fig, output / "planning-full-profile.svg")
 
 
+def render_multitool_repeat(data, output):
+    if data["all"]["panel_cases"] != 100 or data["all"]["status"] != "PASS":
+        raise ValueError("repeat figure requires the complete 100-case panel")
+    groups = ["2-3", "4-5", "6-10", "11-15", "16-20"]
+    locations = list(range(len(groups)))
+    fig, axis = plt.subplots(figsize=(8.5, 4.5), layout="constrained")
+    style(axis, "MULTITOOL-V1 · three-seed Vulkan reliability", "Percent of selected cases")
+    for metric, title, offset, color in (
+        ("pass_at_3", "At least one success", -0.18, COLORS[0]),
+        ("pass_all_3", "All three successful", 0.18, COLORS[1]),
+    ):
+        rates = [100 * data["strata"][f"depth_bin/{group}"][metric]["rate"] for group in groups]
+        bars = axis.bar([index + offset for index in locations], rates, width=0.34, label=title, color=color)
+        axis.bar_label(bars, fmt="%.0f", padding=3)
+    axis.set_xticks(locations, [f"{key}\nn=20" for key in groups])
+    axis.set_ylim(0, 112)
+    axis.legend(loc="upper right", frameon=False, ncols=2)
+    axis.set_xlabel("Required tool calls in the fixed repeat panel")
+    save_svg(fig, output / "multitool-repeat-reliability.svg")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--evidence", type=Path, default=Path("evidence/IJ07"))
@@ -212,6 +233,9 @@ def main():
     plan = args.evidence / "planning/primary-vulkan-full/diagnostic.json"
     if plan.is_file():
         render_planning_full(load(plan), args.output)
+    repeat = args.evidence / "multitool/repeat-vulkan-full/reliability.json"
+    if repeat.is_file():
+        render_multitool_repeat(load(repeat), args.output)
 
 
 if __name__ == "__main__":

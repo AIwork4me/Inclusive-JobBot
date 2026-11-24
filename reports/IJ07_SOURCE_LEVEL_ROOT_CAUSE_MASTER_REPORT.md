@@ -39,6 +39,11 @@ Planning Boundary 使用 Unicode 单词边界提取公开输入的引用，紧�
 0/4。模型的字段错误形式发生变化，单独移除该说明不足以恢复计划合同。
  [CPU 开发输入对照](../evidence/IJ07/root_causes/planning_prompt_stage_cpu.json)
 
+471 条 MULTITOOL 和 1,600 条规划首轮失败均索引到原始分卷及检查点摘要。
+规划记录还保留逐回合日志定位。索引标注已观察到的拒绝或判定边界，单变量
+对照覆盖的记录另有链接。超出已复验范围的成因仍待单案验证。
+ [2,071 条真机失败索引](../evidence/IJ07/root_causes/physical_primary_failure_index.jsonl)
+
 ## RC-04 / RC-13 空 tags 生成与目标不一致
 
 模型在四臂的 `tc-seq-0001` 直接生成空数组。原始工具 Schema 允许空数组，目标明确要求两条标签。空数组在所见原生解析、JSON 和历史模拟处理过程保持为空。当前证据确定错误出现于解析前，原始历史调用及空数组成因分别保留 `ROOT_CAUSE_UNVERIFIED`。 [逐案分析](IJ07_MULTITOOL_FAILURE_ROOT_CAUSE.md)

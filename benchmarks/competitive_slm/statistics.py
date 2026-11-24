@@ -294,7 +294,7 @@ def _transition_matrix(counts, labels):
     return {left: {right: counts[left, right] for right in labels} for left in labels}
 
 
-def _repeat_summary(rows, ids, seeds):
+def repeat_summary(rows, ids, seeds):
     observed = [[_status(rows, case_id, "repeat", index) for index in range(1, 4)] for case_id in ids]
     first, second, third = zip(*observed)
     per_seed = {str(seed): _proportion(values) for seed, values in zip(seeds, (first, second, third))}
@@ -406,7 +406,7 @@ def analyze(plan, bundle, *, expected_plan_sha256):
     arms = {
         arm: {"identity": plan["arms"][arm],
               "first": {key: _proportion([_status(rows, case, "first") for case in ids]) for key, ids in groups.items()},
-              "repeat": {key: _repeat_summary(rows, ids, seeds) for key, ids in repeat_groups.items()}}
+              "repeat": {key: repeat_summary(rows, ids, seeds) for key, ids in repeat_groups.items()}}
         for arm, rows in sorted(indexed.items())
     }
     contrasts = {}

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T17:08:00Z",
+  "updated_utc": "2026-11-24T17:44:37Z",
   "current_phase": "IJ-0.7",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -264,6 +264,12 @@
       "status": "FAIL",
       "vulkan": {"PASS": 1, "FAIL": 2},
       "rocm": {"PASS": 1, "FAIL": 2},
+      "cpu_prompt_control": {
+        "frozen": {"PASS": 1, "FAIL": 2},
+        "result_field_instruction": {"PASS": 3, "FAIL": 0},
+        "revised_gpu_profile": "NOT_RUN",
+        "evidence": "evidence/IJ07/antigravity/ag06_prompt_cpu_control.json"
+      },
       "AG-11": "BLOCKED"
     },
     "tc_v2_vulkan": {
@@ -299,6 +305,15 @@
       "ij06_gateway_bytes_preserved": true,
       "evidence": "evidence/IJ07/root_causes/multitool_batch_limit_full_control.json"
     },
+    "multitool_v1_repeat": {
+      "physical_execution_status": "PASS",
+      "planned": 300,
+      "terminal": 300,
+      "selected_cases": 100,
+      "pass_at_3": 22,
+      "pass_all_3": 22,
+      "evidence": "evidence/IJ07/multitool/repeat-vulkan-full/reliability.json"
+    },
     "planning_primary": {
       "progress": "done",
       "archived_levels": ["L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7"],
@@ -308,6 +323,12 @@
       "acting_first": {"PASS": 0, "FAIL": 800},
       "plan_first": {"PASS": 0, "FAIL": 800},
       "evidence": "evidence/IJ07/planning/primary-vulkan-full/diagnostic.json"
+    },
+    "planning_repeat": {
+      "progress": "in_progress",
+      "planned": 960,
+      "profile": "original Vulkan profile",
+      "local_run_directory": ".runtime/ij07-planning-repeat-vulkan"
     },
     "planning_reference_boundary": {
       "same_response_regression": "PASS",

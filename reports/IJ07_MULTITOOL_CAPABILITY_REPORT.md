@@ -46,12 +46,21 @@
 | Wire 可见无效提议 | 0/4,878 |
 | 额外或重复调用 | 1,147/4,351 个已进入评估的调用 |
 | 在预算内给出最终响应 | 515/600 |
-| Pass@3 和 Pass^3 | NOT_RUN |
+| 三种子 Pass@3 和 Pass^3 | 均为 22/100 |
 
 工具选择按照独立图分配的节点计算，参数与依赖单独评分。最终响应受纯 JSON
 约定约束。38 条预期安全终止未达到完整任务判定，SQLite 审计没有发现未授权写入。
  [机器可读指标](../evidence/IJ07/multitool/primary-vulkan-full/metrics.json)
  · [复杂度报告](IJ07_MULTITOOL_COMPLEXITY_DECAY.md)
+
+## 100 案例的三种子重复
+
+原始 Vulkan 配置完成 300/300 条，66 次通过、234 次失败。种子 48707、65719 和
+98123 的通过率均为 22%。22 个案例三次均通过，78 个案例三次均失败，逐案
+通过状态无变化。Pass@3 与 Pass^3 均为 22/100，Wilson 95% 区间为
+15.00–31.07%。温度保持 0。 [三种子记录和失败类型转移](../evidence/IJ07/multitool/repeat-vulkan-full/reliability.json)
+
+![各深度三种子可靠性](../evidence/IJ07/figures/multitool-repeat-reliability.svg)
 
 ## 同一生成的 Wire 对照
 

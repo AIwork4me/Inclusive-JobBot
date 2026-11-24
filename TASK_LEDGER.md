@@ -17,7 +17,7 @@
 | IJ07-M3-TC | Dual-backend TC-V2 qualification, 2,592 physical trial records | FAIL | `reports/IJ07_TC_V2_QUALIFICATION.md` |
 | IJ07-M3-MT | MULTITOOL-V1 physical primary panel and stratified measurement, 600/600 | PASS | `reports/IJ07_MULTITOOL_CAPABILITY_REPORT.md` |
 | IJ07-M3-MT-OUTCOMES | MULTITOOL-V1 primary task outcomes, 129 PASS and 471 FAIL | FAIL | `evidence/IJ07/multitool/primary-vulkan-full/coverage.json` |
-| IJ07-M3-MT-REPEAT | MULTITOOL-V1 frozen 100-case three-seed panel | NOT_RUN | `benchmarks/multitool_v1/frozen/repeat_panel.json` |
+| IJ07-M3-MT-REPEAT | MULTITOOL-V1 physical 100-case three-seed panel, 300/300 | PASS | `evidence/IJ07/multitool/repeat-vulkan-full/reliability.json` |
 | IJ07-M3-MT-CHECKPOINT | Verify and archive first 213 of 600 Radeon Vulkan trials | PASS | `evidence/IJ07/multitool/primary-vulkan-checkpoint/coverage.json` |
 | IJ07-M5-MT-WIRE-BUDGET | Isolate and verify the decoder batch control on 14 unchanged raw responses | PASS | `evidence/IJ07/root_causes/multitool_batch_limit_control.json` |
 | IJ07-M5-MT-IJ06-COMPAT | Preserve the exact frozen gateway and isolate the batch profile in IJ-0.7 | PASS | `benchmarks/root_cause/wire_profiles.py` |
@@ -29,6 +29,7 @@
 | IJ07-M4-L0-CAPABILITY | Both tracks' L0 research threshold | FAIL | `reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md` |
 | IJ07-M5-PLANNING-REFERENCE | Correct the Chinese reference boundary and replay 100 exact first-turn proposals | PASS | `evidence/IJ07/root_causes/planning_reference_boundary_control.json` |
 | IJ07-M5-PLANNING-PROMPT | CPU development control for the first-turn plan contract | FAIL | `evidence/IJ07/root_causes/planning_prompt_stage_cpu.json` |
+| IJ07-M5-PRIMARY-FAILURE-INDEX | Link 2,071 MULTITOOL and planning failures to exact captures and available controls | PASS | `evidence/IJ07/root_causes/physical_primary_failure_index.jsonl` |
 | IJ07-M7 | Six-arm JOB-V1 causal validation | NOT_RUN | `benchmarks/job_productivity_v1/holdout/README.md` |
 | IJ07-M3-MT-RUNNER | MULTITOOL-V1 Radeon runner and exact-resume software tests | PASS | `benchmarks/multitool_v1/README.md` |
 | IJ07-M6-STATISTICS | Independent paired comparison and repeat statistics software | PASS | `benchmarks/competitive_slm/STATISTICS.md` |
@@ -45,6 +46,7 @@
 | IJ07-M4-DIAGNOSTIC | Four physical trials in planning and acting modes | FAIL | `reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md` |
 | IJ07-M5-API | Tool-choice validation patch RED/GREEN and candidate rerun | PASS | `reports/IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md` |
 | IJ07-M8-AG06 | Repeated real SDK structured output test on both backends | FAIL | `evidence/IJ07/antigravity/` |
+| IJ07-M8-AG06-PROMPT | Real SDK CPU control of explicit result-field extraction | PASS | `evidence/IJ07/antigravity/ag06_prompt_cpu_control.json` |
 | IJ07-M8-GPU | Historical Radeon diagnostic performance/resource profiles | PASS | `reports/IJ07_GPU_PERFORMANCE.md` |
 | IJ07-M7-F | Deterministic Arm F first-pass commercial target | FAIL | `reports/IJ07_PURPOSE_BUILT_VALIDATION.md` |
 

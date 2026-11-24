@@ -60,6 +60,7 @@ CPU RED/GREEN 和实测 Vulkan 拒绝已留档。空 tags 的源码记录把第�
 ## I. SDK 和权限
 
 AG-06 在 Vulkan、ROCm/HIP 分别 1 PASS、2 FAIL。AG-11 缺完整进程出站观察。
+CPU 对照中原提示为 1/3。明确要求取工具 `result` 字符串的独立配置为 3/3。
 安全软件回归与模拟业务状态保留在独立证据中。 [SDK 运行](../evidence/IJ07/antigravity/)
 
 ## J. 岗位系统价值
