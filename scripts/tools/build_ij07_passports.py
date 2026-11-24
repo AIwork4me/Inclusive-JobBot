@@ -44,6 +44,10 @@ def passports():
                 for backend in ("cpu", "webgpu")
                 for record in [read(EVIDENCE / f"model_identity/aion_tools/{backend}-strict.json")]
             }
+            control = read(EVIDENCE / "model_identity/aion_tools/cpu-serial-control.json")
+            result["explicit_instruction_cpu_control"] = {
+                key: control[key] for key in ("run_id", "backend", "profile", "status")
+            }
         else:
             result["runtime_admission"] = {
                 arm: {key: record[key] for key in ("run_id", "asset", "gates", "status", "gpu_engine", "gpu")}
@@ -73,6 +77,11 @@ def passports():
             }
             result["planning_diagnostic"] = read(EVIDENCE / "planning/diagnostic/summary.json")["counts"]
             result["multitool_diagnostic"] = read(EVIDENCE / "multitool/diagnostic/summary.json")["tasks"]
+            checkpoint = read(EVIDENCE / "multitool/primary-vulkan-checkpoint/coverage.json")
+            result["multitool_primary_checkpoint"] = {
+                field: checkpoint[field]
+                for field in ("run_id", "coverage_complete", "terminal", "planned", "terminal_outcomes", "strata")
+            }
             result["tc_v2"] = {}
             for backend in ("vulkan", "rocm"):
                 path = EVIDENCE / f"tc_v2/holdout/{backend}/summary.json"

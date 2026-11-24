@@ -23,6 +23,9 @@
 | IJ07-M3-MT-RUNNER | MULTITOOL-V1 Radeon runner and exact-resume software tests | PASS | `benchmarks/multitool_v1/README.md` |
 | IJ07-M6-STATISTICS | Independent paired comparison and repeat statistics software | PASS | `benchmarks/competitive_slm/STATISTICS.md` |
 | IJ07-M6-DEVELOPMENT | Same-case Vulkan development diagnostics for four contenders | FAIL | `reports/IJ07_COMPETITIVE_SLM_BENCHMARK.md` |
+| IJ07-M6-TC-BATCH | Shared Vulkan TC-V2 roster runner and exact-resume software checks | PASS | `benchmarks/competitive_slm/TC_V2_BATCH.md` |
+| IJ07-M4-ARCHIVE | Verify planning run journals, model captures and level summaries | PASS | `scripts/tools/archive_ij07_planning.py` |
+| IJ07-M7-MODEL-RUNNER | Five model treatments, frozen identity and executable preflight | PASS | `benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md` |
 | IJ07-M1-AION-DEPENDENCY | Official CPU and Radeon WebGPU dependent tool diagnostic | FAIL | `evidence/IJ07/model_identity/aion_tools/` |
 | IJ07-M2-LIVE | Exact four-arm history, 2,000/2,000 physical GPU inference cases | PASS | `evidence/IJ07/historical_replay/full/summary.json` |
 | IJ07-M2-UPSTREAM | Pinned b12675 fixtures and prior-failure checks | FAIL | `evidence/IJ07/historical_replay/upstream_b12675/report.json` |

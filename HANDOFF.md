@@ -29,6 +29,13 @@ wire limit. Its first archived batch contains 213 terminal records. The
 explicit 32-call profile has a separate wire-only regression. Assign a new
 output directory to any live test of that profile.
 
+The [competitive TC-V2 batch runner](benchmarks/competitive_slm/TC_V2_BATCH.md)
+keeps the strict-admission Vulkan server loaded through a roster. The
+[JOB-V1 model treatment runner](benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md)
+uses the same frozen inputs for A–E. Physical full-roster results are pending
+for both runners. Use the planning archive CLI to verify journals and produce
+separate Plan-first and Acting-first coverage by level.
+
 Read this first when resuming. Last updated: 2026-11-24.
 
 Everything below was checked against the disk and the running system at the

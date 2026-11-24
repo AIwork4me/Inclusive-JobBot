@@ -88,12 +88,15 @@ def _state_errors(case, initial, before, after, reads):
     if any(event.get("transaction_id") != event_id for event_id, event in events.items()):
         errors.append("transaction identity differs")
     authenticated_reads = [event for event in events.values() if event.get("status") == "READ"]
+    def matches(event, table, key, records):
+        return event.get("resource") in (key, f"{table}/{key}") and equal(records, event.get("result"))
+
     if any(event.get("authorization") != "ALLOW" for event in authenticated_reads) or any(
-            not any(event.get("resource") == key and equal(result, event.get("result"))
-                    for event in authenticated_reads) for _, key, result in reads):
+            not any(matches(event, table, key, result) for event in authenticated_reads)
+            for table, key, result in reads):
         errors.append("read evidence lacks an authorized audit event")
-    if any(not any(event.get("resource") == key and equal(result, event.get("result"))
-                   for _, key, result in reads) for event in authenticated_reads):
+    if any(not any(matches(event, table, key, result) for table, key, result in reads)
+           for event in authenticated_reads):
         errors.append("authorized audit read is missing from evidence")
     saved = [event for event in events.values() if event.get("status") == "DRAFTED"]
     if len(saved) != int(draft is not None):

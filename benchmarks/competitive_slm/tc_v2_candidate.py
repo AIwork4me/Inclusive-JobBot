@@ -171,6 +171,10 @@ class BudgetedCapture(CaptureClient):
             raise CaptureError("competitive candidate requires the source generation observer")
         self.opener = build_opener(ProxyHandler({}), NoRedirect())
         self.alias = alias
+        self.begin_trial()
+
+    def begin_trial(self):
+        self.requests.clear()
         self.deadline = time.monotonic() + BUDGETS["wall_clock_seconds_per_case"]
         self.rendered = None
         self.budget_error = None
@@ -256,15 +260,8 @@ def check_shared_limits():
         raise ValueError("shared TC-V2 runner and candidate budget version differ")
 
 
-def run_one(args, runtime, model, engine_dir):
-    check_shared_limits()
-    case, trial = select_case(args.split, args.case, args.stream, args.repeat_index)
-    if case["split"] == "holdout":
-        profile = frozen_suite("TC-V2")
-        if not any(row["case_id"] == trial["case_id"] and row["pairing_sha256"] == trial["pairing_sha256"]
-                   for row in profile["cases"]):
-            raise ValueError("frozen TC-V2 statistics roster differs from the selected case")
-    files = [Path(__file__), *dataset.HERE.glob("*.py"), *(ROOT / "benchmarks/tool_calling_v2").glob("*.py"),
+def build_configuration(runtime, dataset_sha256, manifest_sha256, *, extra_files=()):
+    files = [Path(__file__), *extra_files, *dataset.HERE.glob("*.py"), *(ROOT / "benchmarks/tool_calling_v2").glob("*.py"),
              *(ROOT / "src/business_tools").glob("*.py"), *(ROOT / "src/model_gateway").glob("*.py"),
              ROOT / "benchmarks/root_cause/generation_capture.py", ROOT / "benchmarks/root_cause/historical_replay.py",
              ROOT / "benchmarks/tool_calling_v2/parser/run_wire.py", ROOT / "scripts/tools/verify_ij06_evidence.py",
@@ -273,18 +270,46 @@ def run_one(args, runtime, model, engine_dir):
         **runtime, "git": legacy.git_state(), "sdk_installed": version("google-antigravity"), "sdk_used": False,
         "code_sha256": {file.relative_to(ROOT).as_posix(): legacy.sha256_of(file) for file in sorted(files)},
         "patch_sha256": {name: legacy.sha256_of(ROOT / name) for name in SOURCE_PATCHES},
-        "dataset_sha256": trial["dataset_sha256"], "dataset_manifest_sha256": trial["manifest_sha256"],
+        "dataset_sha256": dataset_sha256, "dataset_manifest_sha256": manifest_sha256,
     }
     configuration["controls_sha256"] = digest({
-        "dataset_sha256": configuration["dataset_sha256"], "dataset_manifest_sha256": trial["manifest_sha256"],
+        "dataset_sha256": dataset_sha256, "dataset_manifest_sha256": manifest_sha256,
         "budgets": configuration["budgets"], "code_sha256": configuration["code_sha256"],
     })
+    return configuration
+
+
+def server_environment():
+    return {key: value for key, value in os.environ.items() if
+            not key.upper().startswith(("LLAMA_ARG_", "GGML_BACKEND_PATH", "LLAMA_IJ07_TRACE_PATH"))}
+
+
+def verify_launch(launch, runtime):
+    if (launch["backend"] != "vulkan" or launch["owns_port"] is not True
+            or launch["gpu"] != runtime["gpu"] or launch["build"] != runtime["engine"]["build"]
+            or launch["template_sha256"] != runtime["template"]["sha256"]
+            or launch["layers_offloaded"] != runtime["engine"]["layers"]
+            or launch["layers_offloaded"] != launch["layers_total"]
+            or launch["args"][launch["args"].index("--ctx-size") + 1] != str(BUDGETS["context_tokens"])
+            or not launch["trace_file"]):
+        raise CaptureError("live Vulkan configuration differs from the pinned identity")
+
+
+def run_one(args, runtime, model, engine_dir):
+    check_shared_limits()
+    case, trial = select_case(args.split, args.case, args.stream, args.repeat_index)
+    if case["split"] == "holdout":
+        profile = frozen_suite("TC-V2")
+        if not any(row["case_id"] == trial["case_id"] and row["pairing_sha256"] == trial["pairing_sha256"]
+                   for row in profile["cases"]):
+            raise ValueError("frozen TC-V2 statistics roster differs from the selected case")
+    configuration = build_configuration(runtime, trial["dataset_sha256"], trial["manifest_sha256"])
     arm_configuration_sha256 = digest(configuration)
     run_configuration = {"arm_configuration_sha256": arm_configuration_sha256, "trial": trial, "port": args.port}
     run_id = "ij07-competitive-tcv2-" + uuid4().hex
     metadata = {
         "run_id": run_id, "evidence_class": "local_model",
-        "scope": "single competitive TC-V2 trajectory", "configuration": configuration,
+        "scope": "single competitive TC-V2 trajectory", "purpose": "diagnostic", "configuration": configuration,
         "configuration_sha256": arm_configuration_sha256, "run_configuration": run_configuration,
         "run_configuration_sha256": digest(run_configuration), "started_utc": legacy.utc_now(), "status": "NOT_RUN",
         "gpu_execution_status": "NOT_RUN", "source_capture_status": "NOT_RUN",
@@ -295,17 +320,10 @@ def run_one(args, runtime, model, engine_dir):
     database = output / "case.sqlite"
     alias = "ij07-candidate-" + runtime["candidate"].lower()
     result = launch = None
-    env = {key: value for key, value in os.environ.items() if
-           not key.upper().startswith(("LLAMA_ARG_", "GGML_BACKEND_PATH", "LLAMA_IJ07_TRACE_PATH"))}
     try:
-        with gpu_server(engine_dir / "llama-server.exe", model, "vulkan", env, output, args.port, "vulkan", True,
-                        alias=alias) as (client, launch):
-            if (launch["gpu"] != runtime["gpu"] or launch["build"] != runtime["engine"]["build"]
-                    or launch["template_sha256"] != runtime["template"]["sha256"]
-                    or launch["layers_offloaded"] != runtime["engine"]["layers"]
-                    or launch["layers_offloaded"] != launch["layers_total"]
-                    or launch["args"][launch["args"].index("--ctx-size") + 1] != str(BUDGETS["context_tokens"])):
-                raise CaptureError("live Vulkan configuration differs from the pinned identity")
+        with gpu_server(engine_dir / "llama-server.exe", model, "vulkan", server_environment(), output, args.port,
+                        "vulkan", True, alias=alias) as (client, launch):
+            verify_launch(launch, runtime)
             wire = BudgetedCapture(args.port, client.trace_path, alias)
             result = runner.run_trajectory(case, wire, database, stream=trial["stream"], seed=trial["seed"])
             result["budget_error"] = wire.budget_error

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T15:22:00Z",
+  "updated_utc": "2026-11-24T15:38:00Z",
   "current_phase": "IJ-0.7",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -231,6 +231,27 @@
       "job_v1": "benchmarks/job_productivity_v1/holdout/frozen/manifest.json"
     },
     "competitive_statistics": "benchmarks/competitive_slm/STATISTICS.md",
+    "remaining_run_software": {
+      "competitive_tc_v2_batch": {
+        "software_status": "PASS",
+        "full_inference_status": "NOT_RUN",
+        "candidates": ["B", "D", "F", "G"],
+        "trials_per_candidate": 1150,
+        "runbook": "benchmarks/competitive_slm/TC_V2_BATCH.md"
+      },
+      "job_v1_model_arms": {
+        "software_status": "PASS",
+        "full_inference_status": "NOT_RUN",
+        "arms": ["A", "B", "C", "D", "E"],
+        "first_pass_per_arm": 600,
+        "runbook": "benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md"
+      },
+      "planning_archive": {
+        "software_status": "PASS",
+        "full_inference_status": "NOT_RUN",
+        "evidence": "evidence/IJ07/planning/diagnostic_verified_summary.json"
+      }
+    },
     "historical_generation_replay": {
       "status": "PASS",
       "real_cases": 2000,

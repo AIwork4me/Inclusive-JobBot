@@ -22,3 +22,7 @@ Gateway 和 SQLite 模拟流程。其六臂计划覆盖三种岗位、600 个任
 
 A–E 实测均为 `NOT_RUN`。暂无配对技术贡献、调用成本比或完整任务效率结论。
 F 臂观测首试正确率低于 99% 商业目标。 [无模型入口](../benchmarks/job_productivity_v1/holdout/ARM_F.md)
+
+A–E 已具备可运行的同一留出集入口，固定 Q8_0 权重并使用共同的 SQLite、权限
+和独立评分。共享评分器修订后，重新验证了 F 的 750 条首轮及重复判定。
+ [模型组运行规范](../benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md)
