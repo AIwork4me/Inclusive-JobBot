@@ -40,6 +40,24 @@ def count_trials(rows, planned):
     }
 
 
+def repeat_outcomes(rows, panel):
+    roster = {(case, seed) for case in panel["case_ids"] for seed in panel["seeds"]}
+    by_trial = {(row["case_id"], row["seed"]): row["status"] for row in rows}
+    if (len(roster) != len(panel["case_ids"]) * 3 or len(by_trial) != len(rows)
+            or not by_trial.keys() <= roster or set(by_trial.values()) - set(STATUSES)):
+        raise ValueError("Invalid multitool repeat roster or outcome")
+    any_counts, all_counts = Counter(), Counter()
+    for case in panel["case_ids"]:
+        states = {by_trial.get((case, seed), "NOT_RUN") for seed in panel["seeds"]}
+        unresolved = "BLOCKED" if "BLOCKED" in states else "NOT_RUN"
+        any_counts["PASS" if "PASS" in states else "FAIL" if states == {"FAIL"} else unresolved] += 1
+        all_counts["FAIL" if "FAIL" in states else "PASS" if states == {"PASS"} else unresolved] += 1
+    return {"repeat_case_count": len(panel["case_ids"]),
+            "repeat_cases_passing_any": any_counts["PASS"], "repeat_cases_passing_all": all_counts["PASS"],
+            "pass_at_three": {s: any_counts[s] for s in STATUSES},
+            "pass_all_three": {s: all_counts[s] for s in STATUSES}}
+
+
 def historical(root):
     result = {}
 
@@ -52,22 +70,31 @@ def historical(root):
 
     replay = root / "historical_replay/full"
     requests = 0
-    all_rows = []
+    original_rows, rescored_rows = [], []
     for arm in ("R0-V", "R0-R", "R1-V", "R1-R"):
         folder = replay / arm
-        evidence = {
+        source_ids = [
             row["completion_id"]
             for file in folder.glob("*-generation.jsonl.gz")
             for row in jsonl(file)
-        }
+        ]
+        evidence = set(source_ids)
+        if len(source_ids) != len(evidence):
+            raise ValueError(f"Duplicate generation completion: {arm}")
         trials = list(jsonl(folder / "results.jsonl.gz"))
         captures = [c["source_generation"]["completion_id"] for row in trials for c in row["capture"]]
         if set(captures) != evidence or len(captures) != len(evidence):
             raise ValueError(f"Source capture mismatch: {arm}")
         requests += len(captures)
-        all_rows.extend({**r["rescored_v2"], "trial": (arm, r["id"])} for r in trials)
-    add("historical-replay", all_rows, 2000, lambda r: r["trial"], replay,
-        unique_cases=len({r["trial"][1] for r in all_rows}), model_requests=requests)
+        for row in trials:
+            key = (arm, row["id"])
+            original_rows.append({"status": row["status"], "trial": key})
+            rescored_rows.append({"status": row["rescored_v2"]["status"], "trial": key})
+    unique_cases = len({r["trial"][1] for r in original_rows})
+    add("historical-replay-original", original_rows, 2000, lambda r: r["trial"], replay,
+        unique_cases=unique_cases, model_requests=requests)
+    add("historical-replay-v2-rescore", rescored_rows, 2000, lambda r: r["trial"], replay,
+        unique_cases=unique_cases, unit="diagnostic_replay", subset_of="historical-replay-original")
 
     for backend in ("vulkan", "rocm"):
         file = root / f"tc_v2/holdout/{backend}/terminal.jsonl.gz"
@@ -88,18 +115,11 @@ def historical(root):
     for panel, planned in (("primary", 600), ("repeat", 300)):
         file = root / f"multitool/{panel}-vulkan-full/terminal.jsonl.gz"
         rows = [entry["row"] for entry in jsonl(file)]
-        outcomes = defaultdict(list)
-        for row in rows:
-            outcomes[row["case_id"]].append(row["status"])
         add(f"multitool-{panel}", rows, planned, lambda r: (r["case_id"], r["seed"]), file,
-            unique_cases=len(outcomes), model_requests=sum(r["model_calls"] for r in rows))
+            unique_cases=len({row["case_id"] for row in rows}), model_requests=sum(r["model_calls"] for r in rows))
         if panel == "repeat":
-            if any(len(items) != 3 for items in outcomes.values()) or len(outcomes) != 100:
-                raise ValueError("Incomplete multitool reliability panel")
-            result[f"multitool-{panel}"].update(
-                repeat_cases_passing_any=sum("PASS" in items for items in outcomes.values()),
-                repeat_cases_passing_all=sum(set(items) == {"PASS"} for items in outcomes.values()),
-            )
+            roster = document(ROOT / "benchmarks/multitool_v1/frozen/repeat_panel.json")
+            result[f"multitool-{panel}"].update(repeat_outcomes(rows, roster))
 
     for panel, planned in (("primary", 800), ("repeat", 480)):
         folder = root / f"planning/{panel}-vulkan-full"
@@ -130,13 +150,26 @@ def historical(root):
             completed_business_tasks=sum(r["completed"] for r in rows),
             model_requests=sum(r["model_calls"] for r in rows))
 
+    file = root.parent / "IJ071/legacy-job-a-checkpoint.json"
+    snapshot = document(file)
+    counts = {status: snapshot["outcomes"].get(status, 0) for status in STATUSES}
+    planned, executed = snapshot["planned"], snapshot["checkpoint_rows"]
+    valid = snapshot["closed_session_evidence_rows"]
+    if not 0 <= valid <= counts["PASS"] + counts["FAIL"] <= executed <= planned or sum(counts.values()) != planned:
+        raise ValueError("Inconsistent legacy JOB-V1 checkpoint")
+    result["job-a-observed-checkpoint"] = {
+        "source": file.relative_to(root.parent).as_posix(), "unit": "running_checkpoint",
+        "planned": planned, "executed": executed, "valid_evidence": valid, "outcomes": counts,
+        "coverage": executed / planned, "strict_pass_rate": counts["PASS"] / planned,
+        "model_requests": snapshot["model_requests_in_checkpoint_rows"],
+    }
+
     file = root / "competitive_slm/tc-v2-B-first-checkpoint/trials.jsonl.gz"
     add("competitive-b-first-checkpoint", jsonl(file), 1150, lambda r: r["key"], file, unique_cases=500)
     for candidate in ("B", "D", "F", "G"):
         file = root.parent / f"IJ071/legacy_competitive/{candidate}/trials.jsonl.gz"
-        if file.exists():
-            add(f"competitive-{candidate.lower()}-legacy-full", jsonl(file), 1150, lambda r: r["key"],
-                file, unique_cases=500)
+        add(f"competitive-{candidate.lower()}-legacy-full", jsonl(file), 1150, lambda r: r["key"],
+            file, unique_cases=500)
 
     for backend in ("vulkan", "rocm"):
         file = root / f"antigravity/{backend}/report.json"

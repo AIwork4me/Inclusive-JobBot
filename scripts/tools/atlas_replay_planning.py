@@ -1,5 +1,6 @@
 """Compute secondary outcomes for the frozen IJ-0.7 primary planning archive."""
 
+from argparse import ArgumentParser
 from collections import Counter, defaultdict
 import json
 from pathlib import Path
@@ -40,4 +41,14 @@ def replay():
 
 
 if __name__ == "__main__":
-    print(json.dumps(replay(), indent=2, sort_keys=True))
+    parser = ArgumentParser(description=__doc__)
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args()
+    result = replay()
+    if args.check:
+        path = ROOT / "evidence/IJ071/planning-diagnostic-layered.json"
+        if result != json.loads(path.read_bytes()):
+            parser.exit(1, "Archived layered diagnostic differs\n")
+        print("Layered planning diagnostic matches archive")
+    else:
+        print(json.dumps(result, indent=2, sort_keys=True))

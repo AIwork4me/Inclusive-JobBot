@@ -2,6 +2,7 @@
 
 from argparse import ArgumentParser
 from collections import Counter
+import gzip
 import json
 from pathlib import Path
 import sys
@@ -156,13 +157,21 @@ def run(directory):
 
 def main():
     parser = ArgumentParser(description=__doc__)
-    parser.add_argument("--output", type=Path, required=True)
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--output", type=Path)
+    mode.add_argument("--check", action="store_true")
     args = parser.parse_args()
     with TemporaryDirectory(prefix="atlas-controls-") as directory:
         result = run(Path(directory))
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n",
-                           encoding="utf-8", newline="\n")
+    if args.check:
+        path = ROOT / "evidence/IJ071/controls-reconciled.json.gz"
+        with gzip.open(path, "rt", encoding="utf-8") as stream:
+            if result != json.load(stream):
+                parser.exit(1, "Archived Atlas control results differ\n")
+    else:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n",
+                               encoding="utf-8", newline="\n")
     print({key: cohort["counts"] for key, cohort in result["cohorts"].items()})
     return int(any(cohort["counts"].get("FAIL") or cohort["counts"].get("BLOCKED")
                    for cohort in result["cohorts"].values()))

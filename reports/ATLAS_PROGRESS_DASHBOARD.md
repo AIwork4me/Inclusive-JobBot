@@ -25,7 +25,8 @@ Formal gates passed 1/30. A1 counts refer to software fixture execution. Dashes 
 
 | Run | Planned | Executed | Valid | PASS | FAIL | BLOCKED | NOT_RUN | Coverage | Strict result rate |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| [historical-replay](../evidence/IJ07/historical_replay/full) | 2000 | 2000 | 1846 | 1680 | 166 | 154 | 0 | 100.0% | 84.0% |
+| [historical-replay-original](../evidence/IJ07/historical_replay/full) | 2000 | 2000 | 2000 | 1730 | 270 | 0 | 0 | 100.0% | 86.5% |
+| [historical-replay-v2-rescore](../evidence/IJ07/historical_replay/full) | 2000 | 2000 | 1846 | 1680 | 166 | 154 | 0 | 100.0% | 84.0% |
 | [tc-v2-vulkan-first](../evidence/IJ07/tc_v2/holdout/vulkan/terminal.jsonl.gz) | 500 | 500 | 500 | 349 | 151 | 0 | 0 | 100.0% | 69.8% |
 | [tc-v2-vulkan-stream](../evidence/IJ07/tc_v2/holdout/vulkan/terminal.jsonl.gz) | 500 | 500 | 500 | 349 | 151 | 0 | 0 | 100.0% | 69.8% |
 | [tc-v2-vulkan-repeat](../evidence/IJ07/tc_v2/holdout/vulkan/terminal.jsonl.gz) | 150 | 150 | 150 | 114 | 36 | 0 | 0 | 100.0% | 76.0% |
@@ -45,6 +46,7 @@ Formal gates passed 1/30. A1 counts refer to software fixture execution. Dashes 
 | [planning-repeat-combined](../evidence/IJ07/planning/repeat-vulkan-full) | 960 | 960 | 960 | 0 | 960 | 0 | 0 | 100.0% | 0.0% |
 | [job-f-primary](../evidence/IJ07/job_ablation/F/primary/records.jsonl.gz) | 600 | 600 | 600 | 592 | 8 | 0 | 0 | 100.0% | 98.7% |
 | [job-f-correction](../evidence/IJ07/job_ablation/F/receipt-correction/corrected/primary/records.jsonl.gz) | 600 | 600 | 600 | 600 | 0 | 0 | 0 | 100.0% | 100.0% |
+| [job-a-observed-checkpoint](../evidence/IJ071/legacy-job-a-checkpoint.json) | 600 | 252 | 225 | 23 | 229 | 0 | 348 | 42.0% | 3.8% |
 | [competitive-b-first-checkpoint](../evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint/trials.jsonl.gz) | 1150 | 200 | 200 | 15 | 185 | 0 | 950 | 17.4% | 1.3% |
 | [competitive-b-legacy-full](../evidence/IJ071/legacy_competitive/B/trials.jsonl.gz) | 1150 | 1150 | 1150 | 207 | 943 | 0 | 0 | 100.0% | 18.0% |
 | [competitive-d-legacy-full](../evidence/IJ071/legacy_competitive/D/trials.jsonl.gz) | 1150 | 1150 | 1150 | 365 | 785 | 0 | 0 | 100.0% | 31.7% |

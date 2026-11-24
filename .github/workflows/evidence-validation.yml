@@ -18,6 +18,8 @@ jobs:
       - run: python scripts/tools/verify_atlas_artifacts.py
       - run: python scripts/tools/atlas_progress.py --check
       - run: python scripts/tools/atlas_reference_panel.py --check
+      - run: python scripts/tools/atlas_replay_planning.py --check
+      - run: python scripts/tools/atlas_controls.py --check
       - run: python scripts/tools/verify_ij06_evidence.py
       - run: python -m scripts.tools.audit_ij07_baseline --check
       - run: python -m scripts.tools.verify_ij07_artifacts
@@ -34,6 +36,9 @@ jobs:
       - run: |
           digest=$(python -c 'import json; print(json.load(open("configs/ij07/tc_v2_competitive_plan.lock.json"))["plan_sha256"])')
           python -m benchmarks.competitive_slm.tc_v2_archive verify --plan configs/ij07/tc_v2_competitive_plan.json --plan-sha256 "$digest" --archive evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint
+          for arm in B D F G; do
+            python -m benchmarks.competitive_slm.tc_v2_archive verify --plan configs/ij07/tc_v2_competitive_plan.json --plan-sha256 "$digest" --archive "evidence/IJ071/legacy_competitive/$arm"
+          done
         env:
           PYTHONPATH: src
       - run: python -m scripts.tools.index_ij07_multitool_planning_failures evidence/IJ07 evidence/IJ07/root_causes/physical_primary_failure_index.jsonl --check

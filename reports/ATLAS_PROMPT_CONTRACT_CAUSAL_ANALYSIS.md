@@ -13,4 +13,4 @@ IJ-0.7 P0 在同一 system 消息同时要求初始计划和最终答案。运�
 | P4 | P1 加语义等价的简明工具描述 | NOT_RUN |
 | P5 | 显式预注册交互项 | NOT_RUN |
 
-PC-S 使用本机已下载的 Qwen3-8B Q8_0 候选。正式模型发布资料注明其工具调用用途以及思考、非思考模式的参数差异。Atlas 仍需锁定独立分层 100 TC-V2、120 MULTITOOL、160 规划任务 × 2 轨的控制 roster，并固定采样条件，记录延迟与调用轮次。既有 Arm A 在使用 Vulkan，当前 PC-S 为 NOT_RUN。 [官方模型卡](https://huggingface.co/Qwen/Qwen3-8B) · [本地候选 pin](../configs/qwen3_8b_reference.json) ? [?? roster](../atlas/benchmarks/pc_s_roster.json) ? [????](../evidence/IJ071/qwen3-8b-runtime-preflight.json)
+PC-S 使用本机已下载的 Qwen3-8B Q8_0。已冻结 100 条 TC-V2、120 条 MULTITOOL 和 160 条规划任务，规划每条运行双轨，共 540 次诊断试次。三套任务各自平衡中文和英文。权重、引擎与模板哈希已通过静态预检。采样配置及真实推理仍待执行，当前 PC-S 为 NOT_RUN。 [官方模型卡](https://huggingface.co/Qwen/Qwen3-8B) · [诊断 roster](../atlas/benchmarks/pc_s_roster.json) · [静态预检](../evidence/IJ071/qwen3-8b-runtime-preflight.json)

@@ -256,7 +256,23 @@
     "ATLAS_V1_RELEASE_VERDICT": "BLOCKED"
   },
   "historical": {
-    "historical-replay": {
+    "historical-replay-original": {
+      "planned": 2000,
+      "executed": 2000,
+      "valid_evidence": 2000,
+      "outcomes": {
+        "PASS": 1730,
+        "FAIL": 270,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.865,
+      "source": "IJ07/historical_replay/full",
+      "unique_cases": 500,
+      "model_requests": 4422
+    },
+    "historical-replay-v2-rescore": {
       "planned": 2000,
       "executed": 2000,
       "valid_evidence": 1846,
@@ -270,7 +286,8 @@
       "strict_pass_rate": 0.84,
       "source": "IJ07/historical_replay/full",
       "unique_cases": 500,
-      "model_requests": 4422
+      "unit": "diagnostic_replay",
+      "subset_of": "historical-replay-original"
     },
     "tc-v2-vulkan-first": {
       "planned": 500,
@@ -461,8 +478,21 @@
       "source": "IJ07/multitool/repeat-vulkan-full/terminal.jsonl.gz",
       "unique_cases": 100,
       "model_requests": 1830,
+      "repeat_case_count": 100,
       "repeat_cases_passing_any": 22,
-      "repeat_cases_passing_all": 22
+      "repeat_cases_passing_all": 22,
+      "pass_at_three": {
+        "PASS": 22,
+        "FAIL": 78,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "pass_all_three": {
+        "PASS": 22,
+        "FAIL": 78,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      }
     },
     "planning-primary-A": {
       "planned": 800,
@@ -579,6 +609,22 @@
       "unit": "diagnostic_replay",
       "completed_business_tasks": 350,
       "model_requests": 0
+    },
+    "job-a-observed-checkpoint": {
+      "source": "IJ071/legacy-job-a-checkpoint.json",
+      "unit": "running_checkpoint",
+      "planned": 600,
+      "executed": 252,
+      "valid_evidence": 225,
+      "outcomes": {
+        "PASS": 23,
+        "FAIL": 229,
+        "BLOCKED": 0,
+        "NOT_RUN": 348
+      },
+      "coverage": 0.42,
+      "strict_pass_rate": 0.03833333333333333,
+      "model_requests": 1978
     },
     "competitive-b-first-checkpoint": {
       "planned": 1150,
