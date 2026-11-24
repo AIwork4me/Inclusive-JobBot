@@ -35,11 +35,25 @@ def passports():
                 for backend in ("cpu", "webgpu")
                 for record in [read(EVIDENCE / f"model_identity/aion_reference/{backend}.json")]
             }
+            result["dependent_tool_diagnostic"] = {
+                backend: {
+                    "run_id": record["run_id"], "status": record["status"],
+                    "first_boundary": record["trials"][0].get("failure"),
+                    "independent_streaming": record["independent_streaming"],
+                }
+                for backend in ("cpu", "webgpu")
+                for record in [read(EVIDENCE / f"model_identity/aion_tools/{backend}-strict.json")]
+            }
         else:
             result["runtime_admission"] = {
                 arm: {key: record[key] for key in ("run_id", "asset", "gates", "status", "gpu_engine", "gpu")}
                 for arm in ("admission", "admission_strict")
                 for record in [read(EVIDENCE / f"model_identity/{arm}/{candidate}/report.json")]
+            }
+        if candidate in "BDFG":
+            trial = read(EVIDENCE / f"competitive_slm/dev/{candidate}/result.json")["row"]
+            result["shared_development_diagnostic"] = {
+                field: trial[field] for field in ("case_id", "run_id", "status", "argument_correct", "argument_total", "findings")
             }
         if candidate == "A":
             result["historical_diagnostic"] = {
@@ -71,6 +85,10 @@ def passports():
                 result["qualification"] = "FAIL" if any(
                     row["status"] == "FAIL" for row in result["tc_v2"].values()
                 ) else "BLOCKED"
+                for backend, profile in result["tc_v2"].items():
+                    coverage = read(EVIDENCE / f"tc_v2/holdout/{backend}/coverage.json")
+                    profile["first_pass_by_language"] = coverage["first_pass_by_language"]
+                    profile["wilson95_first_pass"] = coverage["wilson95_first_pass"]
         yield candidate, result
     job_primary = read(EVIDENCE / "job_ablation/F/primary/summary.json")
     job_repeat = read(EVIDENCE / "job_ablation/F/repeat/summary.json")

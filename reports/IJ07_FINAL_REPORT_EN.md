@@ -27,10 +27,19 @@ blocked. Production readiness requires full independent qualification,
 actual state effects, six-arm job comparisons, and deployment results.
  [Gate matrix](IJ07_GATE_MATRIX.md) · [Interim white paper](IJ07_AGENTIC_CAPABILITY_WHITEPAPER_EN.md)
 
-The independent Vulkan TC-V2 first pass achieved 349/500, below the 90%
-threshold. Deterministic JOB-V1 Arm F achieved 592/600 semantic passes and
+Independent TC-V2 first attempts passed 349/500 on Vulkan and 347/500 on
+ROCm/HIP, both below the 90% threshold. Each backend completed 500 paired
+streamed runs, 150 repeat trials and 146 fixed fixtures. Deterministic
+JOB-V1 Arm F achieved 592/600 semantic passes and
 342 actual business completions. The remaining five JOB-V1 arms are pending.
  [Independent TC-V2](IJ07_TC_V2_QUALIFICATION.md) · [JOB-V1 Arm F](IJ07_PURPOSE_BUILT_VALIDATION.md)
+
+Four contenders retrieved and computed the correct value on the same read-only
+development task. LFM3 passed. Markdown fences caused the other three to
+miss the bare-object contract, and Qwen3.5 also included prose.
+Aion's separate CPU and Radeon WebGPU dependency probe found a premature,
+ungrounded account balance call on both runtimes.
+ [Competitive diagnostics](IJ07_COMPETITIVE_SLM_BENCHMARK.md)
 
 The branch is stacked on the exact IJ-0.6 reviewed commit
 `d2e5b31aa1f0894638f7b648a4cf3591fbb71e6e`.

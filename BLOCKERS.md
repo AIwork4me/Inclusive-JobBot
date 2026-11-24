@@ -160,3 +160,16 @@ preserve experimental comparability. Some schemas omit resource and approval
 inputs required by the SQLite Gateway. Record the original diagnostic as
 executed and exercise the validated stateful path with independent, explicit
 inputs. [Historical replay](reports/IJ07_HISTORICAL_REPRODUCTION.md)
+
+## B-012 MiniCPM5 fails independent sequential tool qualification
+
+- Priority: P0 for IJ-0.7 model and production qualification
+- Status: OPEN
+- Owner: project
+
+The P4b observer candidate passed 25/100 independent sequential cases on
+each Radeon backend. Both full TC-V2 first-pass rates were below 90%.
+Trace the omitted calls, incorrect arguments and final facts through the
+preserved raw requests and checkpoint hashes before testing any revised
+model profile. Keep the completed holdout immutable.
+[TC-V2 qualification](reports/IJ07_TC_V2_QUALIFICATION.md)

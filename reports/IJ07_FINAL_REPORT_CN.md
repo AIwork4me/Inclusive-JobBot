@@ -28,8 +28,8 @@ Windows 11 build 26200、AMD Ryzen AI MAX+ PRO 395、Radeon 8060S gfx1151、
 
 ## E. 独立原生工具调用
 
-TC-V2 Vulkan 首试 349/500，低于 90% 门槛。冻结管线支持隔离 SQLite、
-确认模拟及完整流式配对。 [独立准入](IJ07_TC_V2_QUALIFICATION.md)
+TC-V2 Vulkan 首试 349/500，ROCm/HIP 首试 347/500，均低于 90% 门槛。
+两个后端各完成 500 次流式配对、150 次重复和 146 条固定夹具。 [独立准入](IJ07_TC_V2_QUALIFICATION.md)
 MULTITOOL-V1 冻结 600 条。四条 Vulkan 诊断任务均失败，缺失工具、
 选择错误恢复动作或结构化结果不符。 [TC-V2 运行](../benchmarks/tool_calling_v2/holdout/README.md)
  · [多工具实测](IJ07_MULTITOOL_CAPABILITY_REPORT.md)
@@ -42,14 +42,17 @@ L0–L7 各 100 条，Plan-first 与 Acting-first 各有独立协议。实际诊
 ## G. 同规模竞争
 
 第二轮统一 Vulkan 探针中，LFM3、Qwen3.5、Ministral 和 Gemma 在该配置下通过。
-MiniCPM5 在该配置的原生调用检查失败。Aion 的 CPU 和 Radeon WebGPU 普通对话
-通过独立参考路径。完整配对和可靠性排名待跑。 [候选矩阵](IJ07_MODEL_ADMISSION_MATRIX.md)
+MiniCPM5 在该配置的原生调用检查失败。四个候选在同一开发案例均算出正确结果，
+LFM3 通过，其余三个因 Markdown 围栏未满足纯 JSON 约定。Aion 的 CPU 和 Radeon WebGPU 普通对话通过，依赖工具
+探针均在获得账号前使用了错误的账号参数。完整配对和可靠性排名待跑。
+ [候选矩阵](IJ07_MODEL_ADMISSION_MATRIX.md) · [竞争诊断](IJ07_COMPETITIVE_SLM_BENCHMARK.md)
 
 ## H. 源码根因
 
 证实旧 API 对对象型 `tool_choice` 的隐式回退。最小补丁将错误返回为 HTTP 400，
 CPU RED/GREEN 和实测 Vulkan 拒绝已留档。空 tags 的源码记录把第一次差异定位到
-生成层，历史原文和训练成因仍无法确定。 [源码调查](IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md)
+生成层。CPU 单变量对照中，加入 `minItems: 2` 后 15/15 语义通过，F16 仅通过 1/15。
+历史原文和训练成因仍无法确定。 [源码调查](IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md)
 
 ## I. SDK 和权限
 

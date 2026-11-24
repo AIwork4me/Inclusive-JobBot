@@ -14,9 +14,10 @@ P4b preserved the complete per-case outcomes on each backend. In all four
 arms, the same 15 cases generated empty tags before parsing. The protocol
 preserved those arrays. Another repeated case retrieved the correct facts
 and attributed them to the wrong order in the final answer. The original
-historical raw generations were unavailable. The observations locate the
-new failures and leave prompt, schema, sampling, precision and training
-contributions open. [Per-case causal evidence](IJ07_MULTITOOL_FAILURE_ROOT_CAUSE.md)
+historical raw generations were unavailable. Adding an array minimum to
+the schema alone on CPU passed all 15 semantic replays. Keeping the original
+schema and switching to F16 passed 1/15. Model training contributions
+remain open. [Per-case causal evidence](IJ07_MULTITOOL_FAILURE_ROOT_CAUSE.md)
 
 ![Four-arm V2 outcomes](../evidence/IJ07/figures/historical-outcomes.svg)
 
@@ -35,9 +36,9 @@ probe. Granite and Qwen3-8B passed as additional size references.
 MiniCPM5's revised non-thinking profile failed its initial native tool call
 while passing the schema and negative-path checks. Aion generated the
 expected ordinary text on CPU and on Radeon with the official ONNX WebGPU
-build. Appoint model and runtime together for each experiment. The data
-has insufficient matched independent tasks to rank any model's complex
-planning, Chinese workflow performance or deployment efficiency.
+build. Both reference runtimes produced a premature dependent balance call
+in the tool diagnostic. Complex planning, Chinese workflow performance
+and deployment efficiency still require matched ranking experiments.
  [Candidate matrix](IJ07_MODEL_ADMISSION_MATRIX.md)
 
 AG-06 succeeded in one of three repetitions on each backend. Failing SDK
@@ -54,6 +55,11 @@ recovery choices, and final-output mismatch. The full frozen independent
 cases and repeat panels are needed for confidence intervals, defensible
 capability levels, depth curves, and model-to-model differences.
  [Planning](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md) · [Multi-tool](IJ07_MULTITOOL_CAPABILITY_REPORT.md)
+
+Independent TC-V2 first attempts passed 349/500 on Vulkan and 347/500 on
+ROCm/HIP. Both achieved 25/100 on sequential tool cases against an 85%
+gate. Across the 50 fixed repeat-panel cases, 38 and 37 passed every trial,
+respectively. [Independent TC-V2](IJ07_TC_V2_QUALIFICATION.md)
 
 Preserve deterministic validation, explicit proposal provenance, and trusted
 confirmation as the common decision boundary. The structured IJ-0.6 job

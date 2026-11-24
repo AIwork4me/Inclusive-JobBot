@@ -374,6 +374,86 @@
   },
   "scope": "interim diagnostic",
   "tc_v2": {
+    "rocm": {
+      "first_pass": {
+        "argument_accuracy": 0.756993006993007,
+        "business_state": {
+          "FAIL": 50,
+          "PASS": 450
+        },
+        "case_rates": {
+          "argument_types": 0.9875,
+          "error_recovery": 1.0,
+          "overall": 0.694,
+          "sequential_multi_tool": 0.25,
+          "single_tool": 0.5,
+          "streaming_tool_call": 0.5,
+          "thinking_separation": 1.0,
+          "tool_result_round_trip": 0.9875,
+          "unauthorized_injection": 0.9666666666666667
+        },
+        "findings": {
+          "F02_MODEL_TOOL_SELECTION_ERROR": 252,
+          "F03_MODEL_ARGUMENT_ERROR": 1,
+          "F11_BUSINESS_STATE_ERROR": 100,
+          "F12_FINAL_ANSWER_ERROR": 153
+        },
+        "invalid_proposal_rate": 0.0,
+        "invalid_proposals": 0,
+        "planned": 500,
+        "proposals": 492,
+        "terminal": 500
+      },
+      "first_pass_by_language": {
+        "en": {
+          "FAIL": 51,
+          "PASS": 199
+        },
+        "zh": {
+          "FAIL": 102,
+          "PASS": 148
+        }
+      },
+      "gates": {
+        "argument_accuracy": "FAIL",
+        "authorization_and_write_safety": "BLOCKED",
+        "coverage_and_provenance": "BLOCKED",
+        "invalid_proposals": "PASS",
+        "native_parser": "PASS",
+        "repeat_panel": "PASS",
+        "streaming_and_thinking": "FAIL",
+        "success": "FAIL"
+      },
+      "repeat": {
+        "by_seed": {
+          "101": 0.74,
+          "211": 0.74,
+          "307": 0.74
+        },
+        "completed": 150,
+        "failure_classes": {
+          "F02_MODEL_TOOL_SELECTION_ERROR": 69,
+          "F03_MODEL_ARGUMENT_ERROR": 3,
+          "F11_BUSINESS_STATE_ERROR": 30,
+          "F12_FINAL_ANSWER_ERROR": 39
+        },
+        "first_pass": 0.74,
+        "pass_all_3": 0.74,
+        "pass_at_3": 0.74,
+        "planned": 150,
+        "seed_rate_variance": 1.232595164407831e-32,
+        "transitions": {
+          "FAIL->FAIL": 26,
+          "PASS->PASS": 74
+        }
+      },
+      "run_id": "ij07-tcv2-be92ce2e76da4a5bb76a6b23af49e615",
+      "status": "FAIL",
+      "wilson95_first_pass": [
+        0.652255219632054,
+        0.7327865362688636
+      ]
+    },
     "vulkan": {
       "first_pass": {
         "argument_accuracy": 0.7596153846153846,
@@ -402,6 +482,16 @@
         "planned": 500,
         "proposals": 494,
         "terminal": 500
+      },
+      "first_pass_by_language": {
+        "en": {
+          "FAIL": 50,
+          "PASS": 200
+        },
+        "zh": {
+          "FAIL": 101,
+          "PASS": 149
+        }
       },
       "gates": {
         "argument_accuracy": "FAIL",
@@ -436,7 +526,11 @@
         }
       },
       "run_id": "ij07-tcv2-b9cf4a498f064a728bc9bd66f9d47b36",
-      "status": "FAIL"
+      "status": "FAIL",
+      "wilson95_first_pass": [
+        0.6563723120570819,
+        0.7366084491201434
+      ]
     }
   }
 }

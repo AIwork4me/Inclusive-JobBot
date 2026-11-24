@@ -12,6 +12,10 @@ P4b 修复固定原生夹具中的真实解析缺陷。在相同历史权重、�
 改变已观测任务判定。每臂在 15 个历史空标签案例中直接生成空数组。模式在解析前
 已出现，API 按该值传递。独立对照还复现最终回答关联错订单的问题。 [失败因果分析](IJ07_MULTITOOL_FAILURE_ROOT_CAUSE.md)
 
+同一 CPU 权重仅增加 `tags.minItems: 2`，15 个空标签案例全部通过语义检查。
+保留原模式并切换 F16，只有 1/15 语义通过。状态写入资格仍由完整业务评分决定。
+ [控制变量证据](../evidence/IJ07/root_causes/ticket_tags_counterfactual/)
+
 ![四臂 V2 判定](../evidence/IJ07/figures/historical-outcomes.svg)
 
 ## 运行时与模型边界
@@ -30,8 +34,8 @@ P4b 修复固定原生夹具中的真实解析缺陷。在相同历史权重、�
 
 修正配置下 LFM3、Qwen3.5、Ministral 和 Gemma 通过统一 Vulkan 准入探针，
 Granite 和 Qwen3-8B 分别提供规模扩展及大模型参考。MiniCPM5 在这个关闭思考的
-配置中未通过首轮工具调用。Aion CPU 和 Radeon WebGPU 真机完成普通对话，工具
-规划能力与统一运行时排名未测。当前数据可选择后续实验臂，无法实证模型的长链、
+配置中未通过首轮工具调用。Aion CPU 和 Radeon WebGPU 真机完成普通对话，两条
+路径的依赖探针均过早发出余额查询。当前数据可选择后续实验臂，尚无模型的长链、
 中文岗位、恢复、可靠性和边缘部署综合排序。 [能力矩阵](IJ07_MODEL_ADMISSION_MATRIX.md)
 
 两条规划任务、每条两种轨道共四次诊断均失败。可见偏差含计划结构、提前使用未获
@@ -39,6 +43,10 @@ Granite 和 Qwen3-8B 分别提供规模扩展及大模型参考。MiniCPM5 在�
 正式数据冻结包括 TC-V2 500 条、MULTITOOL-V1 600 条、AGENTIC-PLAN-V1 800 条，
 以及各自的重复面板。能力档案给出当前证据边界。 [规划](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
  · [多工具](IJ07_MULTITOOL_CAPABILITY_REPORT.md) · [档案](../evidence/IJ07/model_passports/)
+
+独立 TC-V2 的 Vulkan 首试结果为 349/500，ROCm/HIP 为 347/500。两边的连续多
+工具均为 25/100，低于 85% 门槛。同一 50 个重复案例三次全通过的分别有 38 和 37 个。
+ [独立 TC-V2](IJ07_TC_V2_QUALIFICATION.md)
 
 ## 业务决策与端侧部署
 

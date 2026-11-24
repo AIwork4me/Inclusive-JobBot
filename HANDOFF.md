@@ -18,6 +18,13 @@ uses the native model and retains both Plan-first and Acting-first traces.
 The capture worktree stays pinned to the exact experiment commit. Continue
 reporting and software changes in the mission branch worktree.
 
+The four historical arms and both independent TC-V2 backend profiles
+finished. See the [dual-backend report](reports/IJ07_TC_V2_QUALIFICATION.md)
+and [JOB-V1 Arm F results](reports/IJ07_PURPOSE_BUILT_VALIDATION.md).
+Use the [multi-tool runbook](benchmarks/multitool_v1/README.md) for the full
+primary roster and the planning runbook for the paired tracks. Retain exact
+runtime and source identity when resuming an interrupted output directory.
+
 Read this first when resuming. Last updated: 2026-11-24.
 
 Everything below was checked against the disk and the running system at the

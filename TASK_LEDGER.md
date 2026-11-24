@@ -14,12 +14,14 @@
 | IJ07-M3-MT-FREEZE | MULTITOOL-V1 600 case freeze and synthetic verification | PASS | `benchmarks/multitool_v1/frozen/manifest.json` |
 | IJ07-M4-FREEZE | AGENTIC-PLAN-V1 800 case freeze and synthetic witness verification | PASS | `benchmarks/agentic_planning_v1/datasets/manifest.json` |
 | IJ07-M7-FREEZE | JOB-V1 600 case roster and stateful synthetic verification | PASS | `benchmarks/job_productivity_v1/holdout/frozen/manifest.json` |
-| IJ07-M3-TC | Real TC-V2 candidate qualification | FAIL | `reports/IJ07_TC_V2_QUALIFICATION.md` |
+| IJ07-M3-TC | Dual-backend TC-V2 qualification, 2,592 physical trial records | FAIL | `reports/IJ07_TC_V2_QUALIFICATION.md` |
 | IJ07-M3-MT | Real MULTITOOL-V1 qualification | NOT_RUN | `benchmarks/multitool_v1/README.md` |
 | IJ07-M4 | Full real two-track L0–L7 qualification | NOT_RUN | `benchmarks/agentic_planning_v1/README.md` |
 | IJ07-M7 | Six-arm JOB-V1 causal validation | NOT_RUN | `benchmarks/job_productivity_v1/holdout/README.md` |
 | IJ07-M3-MT-RUNNER | MULTITOOL-V1 Radeon runner and exact-resume software tests | PASS | `benchmarks/multitool_v1/README.md` |
 | IJ07-M6-STATISTICS | Independent paired comparison and repeat statistics software | PASS | `benchmarks/competitive_slm/STATISTICS.md` |
+| IJ07-M6-DEVELOPMENT | Same-case Vulkan development diagnostics for four contenders | FAIL | `reports/IJ07_COMPETITIVE_SLM_BENCHMARK.md` |
+| IJ07-M1-AION-DEPENDENCY | Official CPU and Radeon WebGPU dependent tool diagnostic | FAIL | `evidence/IJ07/model_identity/aion_tools/` |
 | IJ07-M2-LIVE | Exact four-arm history, 2,000/2,000 physical GPU inference cases | PASS | `evidence/IJ07/historical_replay/full/summary.json` |
 | IJ07-M2-UPSTREAM | Pinned b12675 fixtures and prior-failure checks | FAIL | `evidence/IJ07/historical_replay/upstream_b12675/report.json` |
 | IJ07-M3-MT-DIAGNOSTIC | Four initial physical multi-tool cases | FAIL | `reports/IJ07_MULTITOOL_CAPABILITY_REPORT.md` |

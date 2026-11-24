@@ -19,4 +19,5 @@ jobs:
       - run: python -m scripts.tools.audit_ij07_baseline --check
       - run: python -m scripts.tools.verify_ij07_artifacts
       - run: python -m scripts.tools.build_ij07_passports --check
+      - run: python -m scripts.tools.index_ij07_tc_v2_failures evidence/IJ07/tc_v2/holdout --check
       - run: python -m pytest -q -o asyncio_mode= tests/evidence
