@@ -11,6 +11,10 @@
 - **Independent TC-V2 fell short on both backends.** First attempts passed
   349/500 on Vulkan and 347/500 on ROCm/HIP against a 90% gate.
   [Independent tool qualification](IJ07_TC_V2_QUALIFICATION.md)
+- **The multi-tool primary run exposed a wire budget mismatch.** In the
+  213-case checkpoint, 14 batches exceeded the decoder's 16-call default.
+  A scoped profile accepted all 14 preserved responses. Model-task scores
+  remain tied to the original run. [Multi-tool results](IJ07_MULTITOOL_CAPABILITY_REPORT.md)
 - **Four small or effective-scale model families passed a revised runtime
   admission probe.** Complete matched benchmarks and model rankings remain
   pending. MiniCPM5 failed its tool check in the revised configuration.

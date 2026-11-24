@@ -16,6 +16,7 @@ from uuid import uuid4
 from benchmarks.tool_calling.runner import run_benchmark as legacy
 from benchmarks.tool_calling_v2 import rescore
 
+from model_gateway.openai_protocol import MAX_CALLS
 from .generation_capture import CaptureClient, CaptureError
 
 
@@ -53,7 +54,7 @@ def engine_runtime(directory, backend):
 
 @contextmanager
 def gpu_server(binary, model, backend, env, output, port, tag, observe, alias=ALIAS,
-               build_prefix="b12359-b1b770d90"):
+               build_prefix="b12359-b1b770d90", *, max_nonstream_calls=MAX_CALLS):
     log = output / f"{tag}-server.log"
     trace = output / f"{tag}-generation.jsonl"
     samples = output / f"{tag}-gpu.jsonl"
@@ -70,7 +71,7 @@ def gpu_server(binary, model, backend, env, output, port, tag, observe, alias=AL
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
     )
     sampler = None
-    client = CaptureClient(port, trace if observe else None)
+    client = CaptureClient(port, trace if observe else None, max_nonstream_calls=max_nonstream_calls)
     try:
         for _ in range(90):
             if server.poll() is not None:

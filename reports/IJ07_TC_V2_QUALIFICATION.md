@@ -35,3 +35,5 @@
 输出夹具已保存强制 EOS 和同 PID GPU 证据。原始摘要保留 `coverage_and_provenance:
 BLOCKED`。分阶段补充证明对两个后端的任务和固定夹具分别复核 GPU 和采集要求。
  [Vulkan 原始归档](../evidence/IJ07/tc_v2/holdout/vulkan/) · [ROCm/HIP 原始归档](../evidence/IJ07/tc_v2/holdout/rocm/)
+
+![Radeon TC-V2 首试、参数、语言和重复可靠性](../evidence/IJ07/figures/tc-v2-qualification.svg)

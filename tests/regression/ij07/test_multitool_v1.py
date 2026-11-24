@@ -172,8 +172,9 @@ def test_checkpoint_resume_binds_evidence_and_preserves_interruptions(tmp_path, 
     launches = []
 
     @contextmanager
-    def synthetic_server(_binary, _model, backend, _env, _output, _port, _tag, observe):
+    def synthetic_server(_binary, _model, backend, _env, _output, _port, _tag, observe, *, max_nonstream_calls):
         assert observe
+        assert max_nonstream_calls == run.LIMITS["max_proposals"]
         launches.append(backend)
         capture = "BLOCKED" if blocked else "PASS"
         yield WireFixture([{"content": '{"status":"ready"}'}], source_status=capture), {

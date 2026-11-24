@@ -30,8 +30,9 @@ Windows 11 build 26200、AMD Ryzen AI MAX+ PRO 395、Radeon 8060S gfx1151、
 
 TC-V2 Vulkan 首试 349/500，ROCm/HIP 首试 347/500，均低于 90% 门槛。
 两个后端各完成 500 次流式配对、150 次重复和 146 条固定夹具。 [独立准入](IJ07_TC_V2_QUALIFICATION.md)
-MULTITOOL-V1 冻结 600 条。四条 Vulkan 诊断任务均失败，缺失工具、
-选择错误恢复动作或结构化结果不符。 [TC-V2 运行](../benchmarks/tool_calling_v2/holdout/README.md)
+MULTITOOL-V1 冻结 600 条。Vulkan 首轮已发布的 213 条检查点有 91 条通过。
+首轮还发现 14 个呼叫批次被 16 调用的 wire 上限拒绝。对同一字节的解码复验保留了
+原有判定。 [TC-V2 运行](../benchmarks/tool_calling_v2/holdout/README.md)
  · [多工具实测](IJ07_MULTITOOL_CAPABILITY_REPORT.md)
 
 ## F. 自主规划

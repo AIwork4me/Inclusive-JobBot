@@ -8,7 +8,7 @@ from urllib.request import ProxyHandler, Request, build_opener
 
 from benchmarks.tool_calling_v2.parser.run_wire import raw_stream, split_sse
 from model_gateway.errors import GatewayError
-from model_gateway.openai_protocol import decode_completion
+from model_gateway.openai_protocol import MAX_CALLS, decode_completion
 from model_gateway.streaming import StreamAssembler
 
 
@@ -60,7 +60,7 @@ def correlate(rows, reply, stream):
     return trace
 
 
-def check_gateway(raw, stream):
+def check_gateway(raw, stream, *, max_nonstream_calls=MAX_CALLS):
     try:
         if stream:
             gate = StreamAssembler()
@@ -68,15 +68,16 @@ def check_gateway(raw, stream):
                 gate.feed(event)
             gate.finish()
         else:
-            decode_completion(raw)
+            decode_completion(raw, max_calls=max_nonstream_calls)
     except (GatewayError, ValueError) as exc:
         return {"status": "FAIL", "error": str(exc)}
     return {"status": "PASS"}
 
 
 class CaptureClient:
-    def __init__(self, port, trace_path=None):
+    def __init__(self, port, trace_path=None, *, max_nonstream_calls=MAX_CALLS):
         self.base_url = f"http://127.0.0.1:{port}"
+        self.max_nonstream_calls = max_nonstream_calls
         self.trace_path = Path(trace_path) if trace_path else None
         self.position = self.trace_path.stat().st_size if self.trace_path and self.trace_path.exists() else 0
         self.opener = build_opener(ProxyHandler({}))
@@ -128,7 +129,8 @@ class CaptureClient:
             "request": request, "render_status": render_status, "render_response": render.decode("utf-8"),
             "http_status": status, "content_type": content_type,
             "raw_response": raw.decode("utf-8"), "source_generation": source,
-            "gateway_protocol": check_gateway(raw, stream) if status == 200 else {"status": "NOT_RUN"},
+            "gateway_protocol": (check_gateway(raw, stream, max_nonstream_calls=self.max_nonstream_calls)
+                                 if status == 200 else {"status": "NOT_RUN"}),
             "wall_ms": wall_ms,
         })
         if "error" not in reply and status == 200:

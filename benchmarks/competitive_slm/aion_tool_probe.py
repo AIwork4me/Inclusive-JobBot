@@ -62,7 +62,7 @@ def generate(model, tokenizer, template, messages):
             "same_sequence_stream_parity": "PASS" if answer == "".join(deltas) else "FAIL"}
 
 
-def run(model_dir, output, provider):
+def run(model_dir, output, provider, *, serial_instruction=False):
     import onnxruntime_genai as genai
 
     identity = json.loads((legacy.ROOT / "evidence/IJ07/model_identity/C.json").read_bytes())
@@ -85,8 +85,13 @@ def run(model_dir, output, provider):
     trace = {"run_id": "ij07-aion-tools-" + uuid4().hex, "git": legacy.git_state(), "device": model.device_type,
              "pid": os.getpid(), "source_sha256": digest(Path(__file__)),
              "backend": provider, "package_version": genai.__version__, "official_onnx_identity": assets,
-             "tools": TOOLS, "trials": [], "independent_streaming": "NOT_RUN", "status": "FAIL"}
-    messages = [{"role": "user", "content": "Find the balance for Orchid Works. Return the account ID and the CNY balance."}]
+             "tools": TOOLS, "trials": [], "independent_streaming": "NOT_RUN", "status": "FAIL",
+             "profile": "explicit_serial_instruction" if serial_instruction else "baseline"}
+    user = "Find the balance for Orchid Works. Return the account ID and the CNY balance."
+    if serial_instruction:
+        user += (" Call lookup_account first and wait for its response. Use exactly the returned account_id "
+                 "in a later lookup_balance call. Send at most one tool call per turn.")
+    messages = [{"role": "user", "content": user}]
     for expected in ("lookup_account", "lookup_balance"):
         row = generate(model, tokenizer, template, messages)
         trace["trials"].append(row)
@@ -107,7 +112,7 @@ def run(model_dir, output, provider):
         if "AC-18405" in traced and "1742" in traced.replace(",", ""):
             trace["status"] = "PASS"
     legacy.write_json(output, trace)
-    print(provider, trace["status"], f'{len(trace["trials"])} calls')
+    print(provider, trace["status"], f'{len(trace["trials"])} captured generations')
 
 
 @contextmanager
@@ -142,15 +147,16 @@ def main():
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--provider", choices=("cpu", "webgpu"), required=True)
+    parser.add_argument("--serial-instruction", action="store_true", help="Run the diagnostic prompt control")
     args = parser.parse_args()
     if args.output.exists():
         parser.error("choose a new evidence file")
     args.output.parent.mkdir(parents=True, exist_ok=True)
     if args.provider == "webgpu":
         with sample_gpu(args.output.resolve()):
-            run(args.model_dir.resolve(), args.output.resolve(), args.provider)
+            run(args.model_dir.resolve(), args.output.resolve(), args.provider, serial_instruction=args.serial_instruction)
     else:
-        run(args.model_dir.resolve(), args.output.resolve(), args.provider)
+        run(args.model_dir.resolve(), args.output.resolve(), args.provider, serial_instruction=args.serial_instruction)
 
 
 if __name__ == "__main__":

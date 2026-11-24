@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T14:26:31Z",
+  "updated_utc": "2026-11-24T15:22:00Z",
   "current_phase": "IJ-0.7",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -257,6 +257,15 @@
       "evidence": "evidence/IJ07/tc_v2/holdout/rocm/summary.json"
     },
     "tc_v2_failure_index": "evidence/IJ07/tc_v2/holdout/failure_index.jsonl",
+    "multitool_v1_first_pass": {
+      "status": "NOT_RUN",
+      "progress": "in_progress",
+      "published_checkpoint": 213,
+      "planned": 600,
+      "PASS": 91,
+      "FAIL": 122,
+      "evidence": "evidence/IJ07/multitool/primary-vulkan-checkpoint/coverage.json"
+    },
     "job_v1_arm_f": {
       "status": "FAIL",
       "first_pass_correct": 592,

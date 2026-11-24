@@ -7,10 +7,10 @@
 | G2 | BLOCKED | 2,000/2,000 historical model cases complete. The historical host supplies synthetic receipts, leaving independent SQLite effects and SDK phases pending. [Replay](IJ07_HISTORICAL_REPRODUCTION.md) |
 | G3 | PASS | Source capture for 4,422/4,422 requests; same-build observer control verified. [Observer](../evidence/IJ07/historical_replay/observer_control/comparison.json) |
 | G4 | FAIL | Independent first attempts passed 349/500 on Vulkan and 347/500 on ROCm/HIP. All 500 stream pairs and 150 repeat trials ran per backend. [TC-V2](IJ07_TC_V2_QUALIFICATION.md) |
-| G5 | NOT_RUN | Full 600-case qualification is pending. Four live diagnostic cases fail. [Multi-tool](IJ07_MULTITOOL_CAPABILITY_REPORT.md) |
+| G5 | NOT_RUN | The 600-case run has a published 213-terminal checkpoint with 91 passes and 122 failures. Full-panel qualification remains pending. [Multi-tool](IJ07_MULTITOOL_CAPABILITY_REPORT.md) |
 | G6 | NOT_RUN | Full L0–L7 execution is pending. Four diagnostic track trials fail. [Planning](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md) |
 | G7 | BLOCKED | Historical verdict layers have case-linked investigations. TC-V2 failures are indexed to raw captures. Further source controls remain outstanding. [Historical ledger](../evidence/IJ07/root_causes/failure_ledger_full.jsonl) · [TC-V2 index](../evidence/IJ07/tc_v2/holdout/failure_index.jsonl) |
-| G8 | BLOCKED | Tool-choice defect has source and CPU RED/GREEN evidence plus Vulkan anomaly retests. Additional confirmed or suspected failure families need controlled regressions. [Root causes](IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md) |
+| G8 | BLOCKED | Tool-choice and batch-limit defects have controlled regressions. Additional failure families and the repaired batch profile's full business results remain open. [Root causes](IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md) |
 | G9 | FAIL | AG-06 passed 1/3 per backend. AG-11 remains blocked on trusted egress observation. [SDK runs](../evidence/IJ07/antigravity/) |
 | G10 | NOT_RUN | Four contenders ran one matched development case. Complete matched holdout inference remains pending. [Competitive diagnostics](IJ07_COMPETITIVE_SLM_BENCHMARK.md) |
 | G11 | NOT_RUN | MiniCPM5 completed the TC-V2 repeats and F the JOB-V1 repeats. Full reliability scoring remains pending. |

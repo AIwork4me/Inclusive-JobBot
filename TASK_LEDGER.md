@@ -16,6 +16,8 @@
 | IJ07-M7-FREEZE | JOB-V1 600 case roster and stateful synthetic verification | PASS | `benchmarks/job_productivity_v1/holdout/frozen/manifest.json` |
 | IJ07-M3-TC | Dual-backend TC-V2 qualification, 2,592 physical trial records | FAIL | `reports/IJ07_TC_V2_QUALIFICATION.md` |
 | IJ07-M3-MT | Real MULTITOOL-V1 qualification | NOT_RUN | `benchmarks/multitool_v1/README.md` |
+| IJ07-M3-MT-CHECKPOINT | Verify and archive first 213 of 600 Radeon Vulkan trials | PASS | `evidence/IJ07/multitool/primary-vulkan-checkpoint/coverage.json` |
+| IJ07-M5-MT-WIRE-BUDGET | Isolate and verify the decoder batch control on 14 unchanged raw responses | PASS | `evidence/IJ07/root_causes/multitool_batch_limit_control.json` |
 | IJ07-M4 | Full real two-track L0–L7 qualification | NOT_RUN | `benchmarks/agentic_planning_v1/README.md` |
 | IJ07-M7 | Six-arm JOB-V1 causal validation | NOT_RUN | `benchmarks/job_productivity_v1/holdout/README.md` |
 | IJ07-M3-MT-RUNNER | MULTITOOL-V1 Radeon runner and exact-resume software tests | PASS | `benchmarks/multitool_v1/README.md` |

@@ -46,3 +46,9 @@ python -m benchmarks.multitool_v1.run --backend vulkan --runtime-root $RuntimeRo
 ```
 
 Omitting `--case` selects the full primary panel. Use `--panel repeat` for the frozen repeat panel or `--panel controls` for the six zero-call controls. `--batch-size` limits additional attempts at each launch. Use `--resume` from the same source and runtime configuration to continue. Each assessed case has an atomic checkpoint with raw model requests and responses, observer traces, synthetic tool results and any SQLite snapshots. Missing transport, observer or GPU evidence is tracked as `BLOCKED`. Interrupted attempts are preserved independently of resumed verdicts. Raw artifacts remain local until machine-identifying information is reviewed. The runner measures real model execution in deterministic synthetic tool worlds, with no SDK or live business operations.
+
+The original primary panel ran from commit `9d031fe95622bed88588f1c11a13d073748b26bf`.
+Its fixed wire cap of 16 could reject a batch within the task's 32-proposal
+budget. The current runner explicitly passes the task limit to the non-streamed
+decoder. Use a fresh output directory for that revised profile and keep
+the original run on its pinned source. [Wire control](../../reports/IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md#rc-18-多工具预算和-wire-上限不一致)

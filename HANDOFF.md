@@ -24,6 +24,10 @@ and [JOB-V1 Arm F results](reports/IJ07_PURPOSE_BUILT_VALIDATION.md).
 Use the [multi-tool runbook](benchmarks/multitool_v1/README.md) for the full
 primary roster and the planning runbook for the paired tracks. Retain exact
 runtime and source identity when resuming an interrupted output directory.
+The live MULTITOOL-V1 primary run uses the original profile with the 16-call
+wire limit. Its first archived batch contains 213 terminal records. The
+explicit 32-call profile has a separate wire-only regression. Assign a new
+output directory to any live test of that profile.
 
 Read this first when resuming. Last updated: 2026-11-24.
 

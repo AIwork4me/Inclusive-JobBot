@@ -74,6 +74,21 @@ def test_terminal_wire_rejects_invalid_tool_message(message):
     assert problem.value.code == "PROTOCOL_ERROR"
 
 
+def test_nonstream_uses_explicit_bounded_batch_profile():
+    calls = [{**CALL, "id": f"call-{index}"} for index in range(17)]
+    raw = data(completion(tool_calls=calls))
+    with pytest.raises(GatewayError, match="invalid tool call batch"):
+        decode_completion(raw)
+    assert len(decode_completion(raw, max_calls=32).calls) == 17
+    with pytest.raises(GatewayError, match="invalid tool call batch"):
+        decode_completion(raw, max_calls=16)
+    with pytest.raises(ValueError, match="batch limit"):
+        decode_completion(raw, max_calls=33)
+    malformed = data(completion(tool_calls=[*calls[:-1], calls[0]]))
+    with pytest.raises(GatewayError, match="duplicate tool call ID"):
+        decode_completion(malformed, max_calls=32)
+
+
 @pytest.mark.parametrize("events", [
     [],
     [b"[DONE]"],

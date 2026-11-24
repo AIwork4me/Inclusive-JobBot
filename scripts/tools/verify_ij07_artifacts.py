@@ -16,6 +16,7 @@ GLOBS = (
     "benchmarks/multitool_v1/**/*", "benchmarks/root_cause/**/*", "benchmarks/tool_calling_v2/holdout/**/*",
     "configs/ij07/**/*", "patches/ij07/**/*", "scripts/tools/*ij07*.py",
     "tests/regression/ij07/*.py", "docs/IJ07_EXECUTION_PLAN.md",
+    "src/model_gateway/openai_protocol.py", "tests/gateway/test_wire.py",
     "portability/deepx-dxm2/IJ07_DEPLOYMENT_REQUIREMENTS.md",
 )
 

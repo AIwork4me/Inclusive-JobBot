@@ -26,3 +26,10 @@ receiving the account ID. The harness stopped before executing either
 proposal. Incremental decoding matches whole-sequence decoding for this
 generation. Independent streaming and a successful tool-result round trip
 remain pending. [Aion dependency probe](../evidence/IJ07/model_identity/aion_tools/)
+
+The CPU instruction control explicitly set the tool order, required a wait,
+and limited the model to one proposal per turn. It completed both synthetic
+reads and returned the balance. The Radeon baseline and CPU baseline retain
+their failed results. The GPU instruction control is pending, and the
+explicit workflow measures instruction following on one diagnostic.
+ [CPU instruction control](../evidence/IJ07/model_identity/aion_tools/cpu-serial-control.json)

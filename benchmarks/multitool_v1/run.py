@@ -139,7 +139,7 @@ def run_case(case, client, database, *, seed):
         proposal_count += proposed
         invalid_count += invalid
         try:
-            answer = decode_completion(capture["raw_response"])
+            answer = decode_completion(capture["raw_response"], max_calls=LIMITS["max_proposals"])
             if any(call.call_id in ids for call in answer.calls):
                 raise ValueError("tool call ID was reused across assistant turns")
         except (GatewayError, ValueError) as failure:
@@ -295,7 +295,8 @@ def execute_locked(args, config, cases, output, binary, model, env):
     if pending:
         tag = uuid4().hex
         try:
-            with historical_replay.gpu_server(binary, model, args.backend, env, output, args.port, tag, True) as (client, launch):
+            with historical_replay.gpu_server(binary, model, args.backend, env, output, args.port, tag, True,
+                                              max_nonstream_calls=LIMITS["max_proposals"]) as (client, launch):
                 if (launch["layers_offloaded"] != launch["layers_total"]
                         or launch["template_sha256"] != config["expected_template_sha256"]):
                     raise ValueError("live full offload or model template differs from pin")

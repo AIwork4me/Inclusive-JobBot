@@ -8,6 +8,19 @@
 
 CPU 单变量 RED/GREEN 覆盖 8 个请求形状 × JSON/SSE。非法数字和对象从 HTTP 200 变为 400，无效字符串仍为 400，五组合法相邻条件的语义一致。补丁另用于第二轮物理 Radeon 候选试验，七个 GGUF 均显式返回 400。RC-11 根因为 `CONFIRMED_CAUSAL`，此次二进制保持独立身份。 [CPU 配对数据](../evidence/IJ07/root_causes/explicit_tool_choice_cpu.json) · [GPU 候选数据](../evidence/IJ07/model_identity/admission_strict/)
 
+![CPU 对照中的 HTTP 校验](../evidence/IJ07/figures/tool-choice-control.svg)
+
+上游评审草稿包括最小请求、兼容行为与确切回归。 [评审草稿](../patches/ij07/EXPLICIT_TOOL_CHOICE_UPSTREAM_DRAFT.md)
+
+## RC-18 多工具预算和 wire 上限不一致
+
+MULTITOOL-V1 硬预算允许每任务 32 次提议，非流式解码默认最多接受 16 个同批调用。
+首轮检查点内 14 次响应在解析前与 wire 已形成完整工具调用，原解码仍以
+`invalid tool call batch` 拒绝。只改变解码上限的字节级对照使 14/14 可被解码。
+默认与流式限制保持 16。MULTITOOL 运行器显式选用 32，并仍在操作前校验全任务
+提议预算、结构、调用身份和工具权限。原始业务判定和后续真实得分独立记录。
+ [原样复验](../evidence/IJ07/root_causes/multitool_batch_limit_control.json)
+
 ## RC-04 / RC-13 空 tags 生成与目标不一致
 
 模型在四臂的 `tc-seq-0001` 直接生成空数组。原始工具 Schema 允许空数组，目标明确要求两条标签。空数组在所见原生解析、JSON 和历史模拟处理过程保持为空。当前证据确定错误出现于解析前，原始历史调用及空数组成因分别保留 `ROOT_CAUSE_UNVERIFIED`。 [逐案分析](IJ07_MULTITOOL_FAILURE_ROOT_CAUSE.md)
