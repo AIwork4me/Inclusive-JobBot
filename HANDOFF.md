@@ -55,8 +55,10 @@ sampled only the configured end-of-sequence token.
 
 - Local qualification work is on `codex/ij0-tool-calling`, based on
   `mission/ij-1.0-windows-fullstack-qualification`.
-- **No remote.** `AIwork4me/Inclusive-JobBot` does not exist on GitHub. Nothing
-  has been pushed or published.
+- GitHub default branch `codex/ij0-tool-calling` and local HEAD matched
+  `0592c319ab341f70bda979874697386e33ccc680` at the IJ-0.6 audit.
+  New work uses `mission/ij-0.6-root-cause-and-purpose-built-execution`
+  and tracking issue [#1](https://github.com/AIwork4me/Inclusive-JobBot/issues/1).
 - Repository-local git identity: `AIwork4me <AIwork4me@qq.com>`. The global
   git identity was not changed.
 - Not in git on purpose: `.venv`, `.tools`, `.runtime`, `.scratch`, `models/*`
@@ -81,11 +83,10 @@ See `BLOCKERS.md` for detail.
 
 | ID | Item | Owner |
 |---|---|---|
-| B-005 | No C++ toolchain: upstream `test-chat` and debug builds are not possible locally | owner (optional install) |
+| B-005 | C++ toolchain located outside PATH. Pinned upstream build and execution are separate checks. | project |
 | B-006 | No power meter: energy per task stays `NOT_RUN` | owner (hardware) |
 | B-007 | 24 h and 168 h soak tests need the machine awake for days | owner (power settings) |
 | B-004 | Long runs exceed one session; everything must stay resumable | project |
-| B-008 | The checkout lacks the original SDK acceptance checklist | project owner |
 | B-009 | The pinned native parser fails fixed fixtures | project |
 
 Open technical questions, none of them a blocker today:
@@ -113,7 +114,7 @@ The read-only smoke command and evidence are in
 `benchmarks/tool_calling/runner/run_antigravity_smoke.py` and
 `evidence/IJ0/antigravity/`. The command explicitly allowlists one synthetic
 lookup and disables built-in tools, subagents and MCP. Finish the full SDK
-checklist when B-008 is resolved.
+checklist in `docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md`.
 
 ### 7.3 After that
 
@@ -126,18 +127,10 @@ IJ-1.0.
 The project does not install system-level software and does not change
 Windows, security or power settings.
 
-**Optional, useful (blocker B-005)**: Visual Studio 2022 Build Tools with the
-"Desktop development with C++" workload, including the CMake and Ninja
-components. This lets the project build and run llama.cpp's own `test-chat` at
-commit `b1b770d9` on this machine and build a debug binary if raw model output
-has to be captured before the parser. Without it, upstream tests run only in
-GitHub-hosted Linux CI. It is checked with `cmake --version`, `ninja --version`
-and a build of `test-chat`.
-
-**Required for full SDK acceptance (B-008)**: provide the originating SDK
-checklist or approve a replacement. PowerShell 7 is optional. The project
-scripts also run with Windows PowerShell `-ExecutionPolicy RemoteSigned` for
-each invocation on this machine.
+Visual Studio Community 2026 includes MSVC, CMake and Ninja. Initialize the
+developer environment in a child process when building `test-chat`.
+PowerShell 7 is optional. The project scripts also run with Windows PowerShell
+`-ExecutionPolicy RemoteSigned` for each invocation on this machine.
 
 **Decisions that belong to the owner, when the time comes**: power settings
 for the soak tests (B-007), a power meter if energy per task is wanted (B-006),

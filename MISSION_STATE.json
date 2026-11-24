@@ -74,8 +74,9 @@
     },
     "IJ-0.AG": {
       "progress": "in_progress",
-      "status": "BLOCKED",
+      "status": "NOT_RUN",
       "evidence": [
+        "docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md",
         "evidence/IJ0/antigravity/local_tool_smoke_vulkan.json",
         "evidence/IJ0/antigravity/local_tool_smoke_rocm.json"
       ]
@@ -168,11 +169,19 @@
     "antigravity_sdk": "google-antigravity 0.1.24",
     "ollama_baseline": "0.40.17"
   },
+  "ij06": {
+    "baseline_git_sha": "0592c319ab341f70bda979874697386e33ccc680",
+    "tracking_issue": 1,
+    "freeze_and_audit": {
+      "status": "PASS",
+      "evidence": ["reports/IJ06_INITIAL_AUDIT.md", "evidence/IJ06/baseline_manifest.json"]
+    }
+  },
   "open_blockers": [
+    "B-004",
     "B-005",
     "B-006",
     "B-007",
-    "B-008",
     "B-009"
   ]
 }

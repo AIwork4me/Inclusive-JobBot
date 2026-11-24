@@ -17,7 +17,7 @@ whether work has started. Every finished task names its evidence.
 | TC-BASELINE | Execute the original 500-case frozen suite on both backends | done | PASS | `evidence/IJ0/protocol/tool_calling_test_vulkan/`, `evidence/IJ0/protocol/tool_calling_test_rocm/` |
 | TC-ACCEPT | Research and establish versioned tool-calling acceptance thresholds | done | PASS | `docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md` |
 | TC-HOLDOUT | Freeze and qualify a fresh holdout under ADR-002 | not started | NOT_RUN | - |
-| AG | Full Antigravity SDK integration checklist | smoke complete. Original checklist unavailable (B-008) | BLOCKED | `evidence/IJ0/antigravity/` |
+| AG | Full Antigravity SDK integration checklist | checklist restored. Prior read-only smoke complete | NOT_RUN | `docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md`, `evidence/IJ0/antigravity/` |
 | GW | Model Gateway refactor and contract tests | not started | NOT_RUN | - |
 | PERF | Performance qualification and engine selection | not started | NOT_RUN | - |
 
@@ -55,6 +55,12 @@ fixed are listed in `DECISIONS.md` D-009.
 | G12 | Backend selection supported by evidence | NOT_RUN | - |
 | G13 | Model Gateway contract | NOT_RUN | - |
 | G14 | GitHub evidence complete and reproducible | NOT_RUN | - |
+
+## IJ-0.6 mission
+
+| ID | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| IJ-0.6 audit | Verify local and remote baseline and restore SDK gates | done | PASS | `reports/IJ06_INITIAL_AUDIT.md`, `evidence/IJ06/baseline_manifest.json`, `docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md` |
 
 ## IJ-1.0 missions
 
