@@ -1,0 +1,24 @@
+# Inclusive JobBot
+
+Purpose-built Edge AI for Accessible Employment.
+
+Inclusive JobBot turns a small local language model (OpenBMB MiniCPM5-2B) into a
+job assistant that an employee with accessibility needs can understand, control
+and audit. The model only proposes; deterministic business rules, schema
+validation, permission checks and human confirmation decide.
+
+- Inference: llama.cpp `llama-server` on Windows AMD Radeon (gfx1151), fully local.
+- Agent orchestration: Google Antigravity Python SDK.
+- Weights: MiniCPM5-2B from ModelScope, SHA256 verified.
+
+Status: mission `IJ-0` (engine and native tool-calling qualification) in progress.
+Nothing in this repository is a claim of production readiness, of real employee
+validation, or of DEEPX DX-M2 hardware results.
+
+See [AGENTS.md](AGENTS.md) for the working rules, [HANDOFF.md](HANDOFF.md) for
+the current state, and [reports/](reports/) for evidence-backed reports.
+
+## License
+
+Apache-2.0 for original code in this repository. Third-party components keep
+their own licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

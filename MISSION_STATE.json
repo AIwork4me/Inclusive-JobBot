@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-1.0",
+  "change_order": "ECO-01",
+  "updated_utc": "2026-11-24T05:40:00Z",
+  "current_phase": "IJ-0",
+  "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
+  "missions": {
+    "M0": {
+      "progress": "done",
+      "status": "PASS",
+      "evidence": [
+        "evidence/M0/",
+        "reports/M0_ENVIRONMENT_REPORT.md"
+      ]
+    },
+    "IJ-0.1": {
+      "progress": "done",
+      "status": "PASS",
+      "evidence": [
+        "reports/IJ0_UPSTREAM_AUDIT.md",
+        "evidence/IJ0/upstream_source_manifest.json"
+      ]
+    },
+    "IJ-0.2": {
+      "progress": "done",
+      "status": "PASS",
+      "evidence": [
+        "models/model_manifest.json",
+        "evidence/IJ0/model_identity.json"
+      ]
+    },
+    "IJ-0.3": {
+      "progress": "done",
+      "status": "PASS",
+      "evidence": [
+        "evidence/IJ0/engine_install.json",
+        "evidence/IJ0/rocm_runtime_install.json"
+      ]
+    },
+    "IJ-0.4": {
+      "progress": "done",
+      "status": "PASS",
+      "evidence": [
+        "evidence/IJ0/server_api_check.json"
+      ]
+    },
+    "IJ-0.5": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "IJ-0.TC": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "IJ-0.AG": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "IJ-0.GW": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "IJ-0.PERF": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "M3": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "M4": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "M5": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "M6": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "M7": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "M8": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "M9": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "M10": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "NOT_RUN",
+    "G4": "NOT_RUN",
+    "G5": "NOT_RUN",
+    "G6": "NOT_RUN",
+    "G7": "NOT_RUN",
+    "G8": "NOT_RUN",
+    "G9": "NOT_RUN",
+    "G10": "NOT_RUN",
+    "G11": "NOT_RUN",
+    "G12": "NOT_RUN",
+    "G13": "NOT_RUN",
+    "G14": "NOT_RUN"
+  },
+  "verdicts": {
+    "IJ0_LLAMA_CPP_PRIMARY_ENGINE_GO": "NOT_GRANTED",
+    "GFX1151_DUAL_GPU_BACKEND_QUALIFIED": "NOT_GRANTED",
+    "MINICPM5_NATIVE_TOOL_CALLING_GO": "NOT_GRANTED",
+    "MINICPM5_TOOL_CALLING_ADAPTER_QUALIFIED": "NOT_APPLICABLE",
+    "IJ1_SOFTWARE_TECHNOLOGY_GO": "NOT_GRANTED",
+    "CUSTOMER_POC_TECHNICALLY_READY": "NOT_GRANTED",
+    "PTMF": "PTMF_PENDING_CUSTOMER_AND_USER_VALIDATION",
+    "DXM2": "DXM2_PHYSICAL_VALIDATION_NOT_RUN"
+  },
+  "identities": {
+    "llama_cpp_release": "v1.0.0",
+    "llama_cpp_build": "b12359",
+    "llama_cpp_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+    "minicpm5_parser_merge_commit": "c818263f2a5ddab028dea5f169ea2b2266421125",
+    "modelscope_gguf_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+    "modelscope_bf16_revision": "4e7a94716d4526da493d68962f475390e852954b",
+    "antigravity_sdk": "google-antigravity 0.1.24",
+    "ollama_baseline": "0.40.17"
+  },
+  "open_blockers": [
+    "B-003",
+    "B-004"
+  ]
+}
