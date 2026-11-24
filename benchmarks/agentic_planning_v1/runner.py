@@ -20,7 +20,8 @@ from .sandbox import SyntheticSandbox
 PLAN_FIELDS = {"goal", "subgoals", "actions", "success_conditions", "stop_conditions"}
 PLAN_TRANSITION = "Continue with the task. Use the available tools as needed, or return the final JSON."
 THINKING_TAG = re.compile(r"<\s*/?\s*think\b", re.IGNORECASE)
-REFERENCES = re.compile(r"\bREF-\d+-\d+\b")
+# The reference alphabet is ASCII. Han text can adjoin a complete identifier.
+REFERENCES = re.compile(r"(?<![A-Za-z0-9_-])REF-[0-9]+-[0-9]+(?![A-Za-z0-9_-])")
 STATEFUL_TOOLS = {"stage", "request_confirmation", "commit"}
 ROUTED_FIELDS = {
     "id": {"id", "linked_id", "policy_id", "partner_id", "audit_id", "audit_primary_id"},

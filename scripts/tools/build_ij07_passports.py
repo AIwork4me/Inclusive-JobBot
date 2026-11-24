@@ -82,6 +82,13 @@ def passports():
                 field: checkpoint[field]
                 for field in ("run_id", "coverage_complete", "terminal", "planned", "terminal_outcomes", "strata")
             }
+            full = EVIDENCE / "multitool/primary-vulkan-full/coverage.json"
+            if full.is_file():
+                coverage = read(full)
+                result["multitool_primary_full"] = {
+                    field: coverage[field]
+                    for field in ("run_id", "coverage_complete", "terminal", "planned", "terminal_outcomes", "strata")
+                }
             result["tc_v2"] = {}
             for backend in ("vulkan", "rocm"):
                 path = EVIDENCE / f"tc_v2/holdout/{backend}/summary.json"

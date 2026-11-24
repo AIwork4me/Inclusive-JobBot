@@ -61,6 +61,12 @@ ROCm/HIP. Both achieved 25/100 on sequential tool cases against an 85%
 gate. Across the 50 fixed repeat-panel cases, 38 and 37 passed every trial,
 respectively. [Independent TC-V2](IJ07_TC_V2_QUALIFICATION.md)
 
+The original MULTITOOL-V1 profile passed 129 of 600 physical Vulkan trials.
+The pass rate was 36.67% at 2–3 steps and 7.50% at 16–20. Its wire decoder
+rejected 25 otherwise decodable batches. A bounded decoding profile accepted
+all 25 archived responses. The resulting business task rate remains open.
+ [Multi-tool depth analysis](IJ07_MULTITOOL_COMPLEXITY_DECAY.md)
+
 Preserve deterministic validation, explicit proposal provenance, and trusted
 confirmation as the common decision boundary. The structured IJ-0.6 job
 rehearsal provides observations on three tasks. The independent job

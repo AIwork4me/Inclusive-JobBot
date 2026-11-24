@@ -429,13 +429,55 @@ def archive(source, output):
     return report
 
 
+def archive_closed_prefix(source, output, count):
+    """Archive the original journals from completed sessions of a live roster."""
+    live_bytes = (source / "run.json").read_bytes()
+    run = json.loads(live_bytes)
+    if not 1 <= count <= len(run["sessions"]):
+        raise ValueError("closed session count is outside the live run")
+    sessions = run["sessions"][:count]
+    with TemporaryDirectory() as temporary:
+        prefix = Path(temporary)
+        for session in sessions:
+            counter = session["counter_file"]
+            stop = counter.removesuffix("-gpu.jsonl") + "-gpu-stop"
+            if not safe_file(source, stop).is_file():
+                raise ValueError("requested GPU session still runs")
+            for field in ("trace_file", "counter_file"):
+                name = session[field]
+                copyfile(safe_file(source, name), prefix / name)
+        for folder in ("cases", "attempts"):
+            (prefix / folder).mkdir()
+        for file in sorted((source / "cases").glob("*.json")):
+            case = document(file)
+            if case["server_session"] <= count:
+                copyfile(file, prefix / "cases" / file.name)
+        for file in sorted((source / "attempts").glob("*.jsonl")):
+            with file.open(encoding="utf-8") as handle:
+                header = handle.readline()
+            if header.endswith("\n") and json.loads(header)["server_session"] <= count:
+                copyfile(file, prefix / "attempts" / file.name)
+        (prefix / "run.json").write_bytes(encode({
+            **run, "sessions": sessions, "closed_prefix": {
+                "count": count, "live_run_json_sha256": sha256(live_bytes).hexdigest(),
+            },
+        }))
+        return archive(prefix, output)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--output", type=Path, help="Write a new byte-preserving evidence archive")
+    parser.add_argument("--closed-session-count", type=int, help="Archive a prefix of fully closed sessions")
     args = parser.parse_args()
     try:
-        report = archive(args.source, args.output) if args.output else analyze(args.source)
+        if args.closed_session_count is not None:
+            if args.output is None:
+                parser.error("--closed-session-count requires --output")
+            report = archive_closed_prefix(args.source, args.output, args.closed_session_count)
+        else:
+            report = archive(args.source, args.output) if args.output else analyze(args.source)
     except (OSError, ValueError, KeyError) as error:
         parser.exit(2, f"FAIL: {error}\n")
     print(json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True, allow_nan=False))

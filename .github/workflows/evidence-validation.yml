@@ -20,4 +20,10 @@ jobs:
       - run: python -m scripts.tools.verify_ij07_artifacts
       - run: python -m scripts.tools.build_ij07_passports --check
       - run: python -m scripts.tools.index_ij07_tc_v2_failures evidence/IJ07/tc_v2/holdout --check
+      - run: python -m scripts.tools.summarize_ij07_multitool evidence/IJ07/multitool/primary-vulkan-full evidence/IJ07/multitool/primary-vulkan-full/metrics.json --check
+        env:
+          PYTHONPATH: src
+      - run: python -m scripts.tools.archive_ij07_planning --source evidence/IJ07/planning/primary-l0-checkpoint > /dev/null
+        env:
+          PYTHONPATH: src
       - run: python -m pytest -q -o asyncio_mode= tests/evidence

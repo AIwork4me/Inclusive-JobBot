@@ -9,9 +9,20 @@ from benchmarks.agentic_planning_v1.freeze import FROZEN, build, verify
 from benchmarks.agentic_planning_v1.contract import request
 from benchmarks.agentic_planning_v1.oracle import score
 from benchmarks.agentic_planning_v1 import run
-from benchmarks.agentic_planning_v1.runner import run_trajectory
+from benchmarks.agentic_planning_v1.runner import Boundary, run_trajectory
 from benchmarks.agentic_planning_v1.run import Checkpoint, roster
 from benchmarks.agentic_planning_v1.sandbox import SyntheticSandbox
+from model_gateway import Proposal
+
+
+def test_reference_boundary_accepts_chinese_adjacency_without_admitting_identifier_fragments():
+    case = {"prompt": "查询库存差异REF-1-07201现行状态。忽略 REF-2-07202-extra。",
+            "tools": ["status"]}
+    observed = Proposal("call-1", "status", '{"reference":"REF-1-07201"}')
+    assert Boundary(case).validate((observed,), 1) == [{"reference": "REF-1-07201"}]
+    fragment = Proposal("call-2", "status", '{"reference":"REF-2-07202"}')
+    with pytest.raises(ValueError, match="reference was unavailable"):
+        Boundary(case).validate((fragment,), 1)
 
 
 @pytest.fixture(scope="module")

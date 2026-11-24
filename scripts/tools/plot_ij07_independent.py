@@ -105,6 +105,66 @@ def render_multitool_checkpoint(evidence, output):
     save_svg(fig, output / "multitool-checkpoint-depth.svg")
 
 
+def render_multitool_full(data, output):
+    if data["terminals"] != 600 or not data["coverage_complete"]:
+        raise ValueError("full MULTITOOL figures require 600 terminal cases")
+    depths = ("2-3", "4-5", "6-10", "11-15", "16-20")
+    values = [data["by_depth"][depth] for depth in depths]
+    metrics = (
+        ("Task and argument success", "Percent"),
+        ("Error-recovery task success", "Percent"),
+        ("Case wall time", "P95 seconds"),
+        ("Inference per case", "Mean model calls"),
+    )
+    fig, axes = plt.subplots(2, 2, figsize=(9.7, 6.4), layout="constrained")
+    for axis, (title, units) in zip(axes.flat, metrics, strict=True):
+        style(axis, title, units)
+        axis.set_xlabel("Required tool steps")
+    x_values = list(range(len(depths)))
+    rates = [100 * value["task_success"]["rate"] for value in values]
+    interval = [[100 * rate for rate in value["wilson95_terminal"]] for value in values]
+    axes[0, 0].errorbar(x_values, rates,
+                       yerr=[[rate - limits[0] for rate, limits in zip(rates, interval, strict=True)],
+                             [limits[1] - rate for rate, limits in zip(rates, interval, strict=True)]],
+                       fmt="o-", capsize=4, color=COLORS[0], label="Task success (95% Wilson)")
+    axes[0, 0].plot(x_values, [100 * value["argument_accuracy"]["rate"] for value in values],
+                   "s--", color=COLORS[1], label="Argument fields")
+    axes[0, 0].legend(frameon=False, loc="upper right")
+    axes[0, 1].plot(x_values, [100 * value["recovery_task_success"]["rate"] for value in values],
+                   "o-", color=COLORS[0])
+    axes[1, 0].plot(x_values, [value["latency_ms_p95_nearest_rank"] / 1000 for value in values],
+                   "o-", color=COLORS[0])
+    axes[1, 1].plot(x_values, [value["model_calls_mean"] for value in values], "o-", color=COLORS[0])
+    for axis in axes.flat:
+        axis.set_xticks(x_values, depths)
+        axis.set_ylim(bottom=0)
+    axes[0, 0].set_ylim(top=106)
+    axes[0, 1].set_ylim(top=106)
+    fig.suptitle("MULTITOOL-V1 · 600 physical Vulkan trials", fontweight="bold")
+    save_svg(fig, output / "multitool-full-depth.svg")
+
+    fig, axes = plt.subplots(3, 1, figsize=(9, 8), layout="constrained")
+    style(axes[0], "First unverified required node", "Cases")
+    steps = list(range(1, 21))
+    counts = data["first_unverified_tool_step"]
+    axes[0].bar(steps, [counts.get(str(step), 0) for step in steps], color=COLORS[0], width=0.73)
+    style(axes[1], "Conditional node verification", "Percent")
+    conditional = data["conditional_step_success"]
+    observed = [step for step in steps if str(step) in conditional]
+    axes[1].plot(observed, [100 * conditional[str(step)]["rate"] for step in observed],
+                 "o-", color=COLORS[1])
+    axes[1].set_ylim(0, 106)
+    for axis in axes[:2]:
+        axis.set_xticks(steps)
+    axes[1].set_xlabel("Position in the frozen topological oracle order")
+    style(axes[2], "Recorded tokens per case", "Mean prompt + output")
+    axes[2].plot(x_values, [value["token_mean"] for value in values], "o-", color=COLORS[0])
+    axes[2].set_xticks(x_values, depths)
+    axes[2].set_xlabel("Required tool steps")
+    axes[2].set_ylim(bottom=0)
+    save_svg(fig, output / "multitool-full-step-evidence.svg")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--evidence", type=Path, default=Path("evidence/IJ07"))
@@ -115,6 +175,9 @@ def main():
     render_tc_v2(args.evidence, args.output)
     render_tool_choice(args.evidence, args.output)
     render_multitool_checkpoint(args.evidence, args.output)
+    full = args.evidence / "multitool/primary-vulkan-full/metrics.json"
+    if full.is_file():
+        render_multitool_full(load(full), args.output)
 
 
 if __name__ == "__main__":

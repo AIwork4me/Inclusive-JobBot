@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T15:45:45Z",
+  "updated_utc": "2026-11-24T16:25:00Z",
   "current_phase": "IJ-0.7",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -279,20 +279,39 @@
     },
     "tc_v2_failure_index": "evidence/IJ07/tc_v2/holdout/failure_index.jsonl",
     "multitool_v1_first_pass": {
-      "status": "NOT_RUN",
-      "progress": "in_progress",
-      "published_checkpoint": 213,
+      "status": "FAIL",
+      "progress": "done",
+      "physical_execution_status": "PASS",
+      "terminal": 600,
       "planned": 600,
-      "PASS": 91,
-      "FAIL": 122,
-      "evidence": "evidence/IJ07/multitool/primary-vulkan-checkpoint/coverage.json"
+      "PASS": 129,
+      "FAIL": 471,
+      "BLOCKED": 0,
+      "NOT_RUN": 0,
+      "evidence": "evidence/IJ07/multitool/primary-vulkan-full/coverage.json"
     },
     "multitool_wire_profile": {
       "same_response_regression": "PASS",
-      "verified_responses": 14,
+      "verified_responses": 25,
       "live_business_result": "NOT_RUN",
       "ij06_gateway_bytes_preserved": true,
-      "evidence": "evidence/IJ07/root_causes/multitool_batch_limit_control.json"
+      "evidence": "evidence/IJ07/root_causes/multitool_batch_limit_full_control.json"
+    },
+    "planning_primary": {
+      "progress": "in_progress",
+      "archived_level": "L0",
+      "physical_execution_status": "PASS",
+      "archived_trials": 200,
+      "planned": 1600,
+      "acting_first": {"PASS": 0, "FAIL": 100},
+      "plan_first": {"PASS": 0, "FAIL": 100},
+      "evidence": "evidence/IJ07/planning/primary-l0-checkpoint/diagnostic.json"
+    },
+    "planning_reference_boundary": {
+      "same_response_regression": "PASS",
+      "verified_responses": 100,
+      "live_business_result": "NOT_RUN",
+      "evidence": "evidence/IJ07/root_causes/planning_reference_boundary_control.json"
     },
     "job_v1_arm_f": {
       "status": "FAIL",
@@ -303,10 +322,19 @@
     },
     "gates": {
       "G0": "PASS", "G1": "FAIL", "G2": "BLOCKED", "G3": "PASS",
-      "G4": "FAIL", "G5": "NOT_RUN", "G6": "NOT_RUN", "G7": "BLOCKED",
-      "G8": "BLOCKED", "G9": "FAIL", "G10": "NOT_RUN", "G11": "NOT_RUN",
+      "G4": "PASS", "G5": "PASS", "G6": "NOT_RUN", "G7": "BLOCKED",
+      "G8": "BLOCKED", "G9": "BLOCKED", "G10": "NOT_RUN", "G11": "NOT_RUN",
       "G12": "NOT_RUN", "G13": "BLOCKED", "G14": "BLOCKED", "G15": "PASS",
       "G16": "BLOCKED", "G17": "NOT_RUN"
+    },
+    "qualification_verdicts": {
+      "IJ07_RESEARCH_COMPLETION_VERDICT": "BLOCKED",
+      "IJ07_NATIVE_TOOL_CALLING_VERDICT": "FAIL",
+      "IJ07_AUTONOMOUS_PLANNING_VERDICT": "FAIL",
+      "IJ07_COMPETITIVE_BENCHMARK_VERDICT": "NOT_RUN",
+      "IJ07_RUNTIME_QUALIFICATION_VERDICT": "FAIL",
+      "IJ07_PURPOSE_BUILT_VALIDATION_VERDICT": "NOT_RUN",
+      "IJ07_PRODUCTION_READINESS_VERDICT": "BLOCKED"
     },
     "audit_evidence": [
       "reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md",

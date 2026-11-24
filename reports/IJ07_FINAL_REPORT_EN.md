@@ -20,11 +20,13 @@ Aion ONNX build passed ordinary text generation on CPU and Radeon WebGPU.
  · [Admissions](IJ07_MODEL_ADMISSION_MATRIX.md)
 
 The independent TC-V2, MULTITOOL-V1, AGENTIC-PLAN-V1 and JOB-V1 rosters
-have independent software-verified oracles. The published 213-case
-MULTITOOL checkpoint contains 91 passes. It exposed a separate mismatch
+have independent software-verified oracles. MULTITOOL completed all 600
+primary trials and passed 129. Task success went from 44/120 at 2–3 steps
+to 9/120 at 16–20 steps. Its first published checkpoint exposed a mismatch
 between the wire's 16-call limit and the 32-proposal task budget. All 14
 affected responses passed the bounded wire-control replay. Four planning
-diagnostics failed on the real Vulkan backend. SDK AG-06
+diagnostics failed on the real Vulkan backend. Both complete L0 tracks
+also passed 0/100 each. The higher-level roster is running. SDK AG-06
 passed once in three repetitions for both Radeon backends. AG-11 remains
 blocked. Production readiness requires full independent qualification,
 actual state effects, six-arm job comparisons, and deployment results.

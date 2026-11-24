@@ -24,10 +24,11 @@ and [JOB-V1 Arm F results](reports/IJ07_PURPOSE_BUILT_VALIDATION.md).
 Use the [multi-tool runbook](benchmarks/multitool_v1/README.md) for the full
 primary roster and the planning runbook for the paired tracks. Retain exact
 runtime and source identity when resuming an interrupted output directory.
-The live MULTITOOL-V1 primary run uses the original profile with the 16-call
-wire limit. Its first archived batch contains 213 terminal records. The
-explicit 32-call profile has a separate wire-only regression. Assign a new
-output directory to any live test of that profile.
+The MULTITOOL-V1 primary run completed 600/600 trials with the original
+16-call wire limit. Keep the first 213-case archive as the wire control's
+exact input. The explicit 32-call profile has a separate wire-only
+regression. Assign a new output directory to a live test of that profile.
+ [Full primary evidence](evidence/IJ07/multitool/primary-vulkan-full/)
 
 The [competitive TC-V2 batch runner](benchmarks/competitive_slm/TC_V2_BATCH.md)
 keeps the strict-admission Vulkan server loaded through a roster. The
@@ -35,6 +36,11 @@ keeps the strict-admission Vulkan server loaded through a roster. The
 uses the same frozen inputs for A–E. Physical full-roster results are pending
 for both runners. Use the planning archive CLI to verify journals and produce
 separate Plan-first and Acting-first coverage by level.
+
+The first full planning session covered both L0 tracks with 200 verified
+terminal trials. The full-run process uses the unchanged P4b observer and
+plans 200 trials per batch under the original 1,600-trial roster.
+ [Planning L0 session](evidence/IJ07/planning/primary-l0-checkpoint/)
 
 Read this first when resuming. Last updated: 2026-11-24.
 

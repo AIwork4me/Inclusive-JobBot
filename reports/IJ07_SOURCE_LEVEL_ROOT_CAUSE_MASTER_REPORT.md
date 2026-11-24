@@ -21,6 +21,19 @@ MULTITOOL-V1 硬预算允许每任务 32 次提议，非流式解码默认最多
 提议预算、结构、调用身份和工具权限。原始业务判定和后续真实得分独立记录。
  [原样复验](../evidence/IJ07/root_causes/multitool_batch_limit_control.json)
 
+600 条归档覆盖 25 个同类 wire 拒绝。修订配置解码通过 25/25，
+其中 19 个批次与无依赖任务的完整独立图一致。
+ [全量对照](../evidence/IJ07/root_causes/multitool_batch_limit_full_control.json)
+
+## 双轨规划中的中文引用边界
+
+Acting-first 的 L1/L2 首轮样本存在源生成与 HTTP 一致的合法 `reference`。
+Planning Boundary 使用 Unicode 单词边界提取公开输入的引用，紧邻汉字的 ASCII
+编号从许可集合中消失。修订以明确的 ASCII 编号字母表判定边界，并拒绝更长标识
+的片段。逐一使用 100 条原请求的同一提议验证，原校验拒绝 100 条，修订通过
+100 条。该复验没有执行工具。L0 的模型与合同失败不受此改动影响。
+ [原始参数、token、拒绝原因和复验](../evidence/IJ07/root_causes/planning_reference_boundary_control.json)
+
 ## RC-04 / RC-13 空 tags 生成与目标不一致
 
 模型在四臂的 `tc-seq-0001` 直接生成空数组。原始工具 Schema 允许空数组，目标明确要求两条标签。空数组在所见原生解析、JSON 和历史模拟处理过程保持为空。当前证据确定错误出现于解析前，原始历史调用及空数组成因分别保留 `ROOT_CAUSE_UNVERIFIED`。 [逐案分析](IJ07_MULTITOOL_FAILURE_ROOT_CAUSE.md)
