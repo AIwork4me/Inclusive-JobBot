@@ -17,16 +17,19 @@ python scripts/tools/scan_sensitive.py                 # must report 0 findings
 Get-Process llama-server -ErrorAction SilentlyContinue
 ```
 
-Then read sections 6–8. The two baseline runs and strict smoke tests finished,
-and the managed server was stopped.
+For IJ-0.6 read the [closure matrix](reports/IJ06_P0_CLOSURE_MATRIX.md)
+and [open risks](reports/IJ06_OPEN_RISKS.md). The managed and candidate
+servers were stopped after the dual-backend trials.
 
 ## 2. Where the work is
 
-IJ-0 (change order ECO-01) is complete through IJ-0.5. The pinned b12359
-tool-calling qualification has a failing native parser gate. Both baseline
-runs finished. Antigravity passed the local read-only loop on both backends.
-The full SDK checklist, Model Gateway, performance qualification and IJ-1.0
-missions M3 to M10 are pending.
+IJ-0 is complete through IJ-0.5. IJ-0.6 reproduced the original b12359
+parser failures and qualified P4b against the expanded fixed suite on both
+GPU backends. The original baseline failed its frozen strict fixtures.
+Evaluator V2 replayed 1,000 archived traces. The Gateway and SQLite simulator
+passed software regression, and the SDK and SOP trials produced real
+local development evidence. Full SDK, independent holdouts, production
+backend selection and IJ-1.0 qualification are pending.
 
 | Step | Status | What it established | Evidence |
 |---|---|---|---|
@@ -86,7 +89,7 @@ See `BLOCKERS.md` for detail.
 | B-006 | No power meter: energy per task stays `NOT_RUN` | owner (hardware) |
 | B-007 | 24 h and 168 h soak tests need the machine awake for days | owner (power settings) |
 | B-004 | Long runs exceed one session; everything must stay resumable | project |
-| B-009 | The pinned native parser fails fixed fixtures | project |
+| B-009 | The pinned native parser fails fixed fixtures. P4b has passed the fixed conformance suite. | project |
 | B-010 | SDK offline gate requires complete process egress evidence | project |
 
 Open technical questions, none of them a blocker today:
@@ -102,11 +105,10 @@ Open technical questions, none of them a blocker today:
 
 ### 7.1 Resolve the native parser gate
 
-Review the six strict fixture failures in `reports/IJ0_TOOL_CALLING_BENCHMARK.md`
-before choosing a parser fix or alternate engine identity. Any prompt, schema
-or decoding experiments belong on the development split. The frozen generator
-1.0.2 results are a diagnostic baseline. Freeze the new rubric and independent
-holdout before the next qualification under ADR-002.
+Use the P4b source and candidate hashes in
+`reports/IJ06_PARSER_ROOT_CAUSE_REPORT.md`. The frozen generator 1.0.2
+results and V2 replay are diagnostics. Freeze the new independent data,
+oracle and candidate configurations before model admission.
 
 ### 7.2 Antigravity SDK against llama-server
 
@@ -114,7 +116,8 @@ The read-only smoke command and evidence are in
 `benchmarks/tool_calling/runner/run_antigravity_smoke.py` and
 `evidence/IJ0/antigravity/`. The command explicitly allowlists one synthetic
 lookup and disables built-in tools, subagents and MCP. Finish the full SDK
-checklist in `docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md`.
+checklist in `docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md`. Resolve the remaining
+structured-output and process egress cases listed in the SDK report.
 
 ### 7.3 After that
 

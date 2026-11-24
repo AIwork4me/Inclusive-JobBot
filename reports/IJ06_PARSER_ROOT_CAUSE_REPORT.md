@@ -66,4 +66,6 @@ A private XML parser was unnecessary for the demonstrated repairs. The local pat
 
 [Build and process identity](../evidence/IJ06/parser/p4b-windows-dynamic-build.json) · [P4b Vulkan wire](../evidence/IJ06/parser/p4b-windows-vulkan-wire/summary.json) · [P4b ROCm wire](../evidence/IJ06/parser/p4b-windows-rocm-wire/summary.json) · [Pinned Windows test-chat](../evidence/IJ06/parser/p0-windows-upstream-test-chat.log)
 
+Both P4b 146-case GPU replays repeated the same counts from clean `fa50525ebf99fff98149746c05fadc472c8462ec`. [Clean Vulkan replay](../evidence/IJ06/parser/p4b-clean-windows-vulkan/summary.json) · [Clean ROCm replay](../evidence/IJ06/parser/p4b-clean-windows-rocm/summary.json)
+
 [Reproduction](../benchmarks/tool_calling_v2/parser/README.md)

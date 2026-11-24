@@ -54,6 +54,16 @@ def validate_baseline(root):
     return len(manifest["files"])
 
 
+def validate_artifacts(root, path):
+    manifest = read_json(path)
+    files = manifest["files"]
+    if not files or path.relative_to(root).as_posix() in files:
+        raise ValueError("invalid or self-referencing artifact manifest")
+    for name, expected in files.items():
+        manifest_file(root, {"path": name, "sha256": expected})
+    return len(files)
+
+
 def utc_time(value):
     stamp = datetime.fromisoformat(value)
     if stamp.utcoffset() != timedelta():
@@ -186,6 +196,9 @@ def main():
     args = parser.parse_args()
     try:
         print(f"PASS: {validate_baseline(ROOT)} preserved baseline files")
+        artifacts = ROOT / "reports/IJ06_ARTIFACT_MANIFEST.json"
+        if artifacts.is_file():
+            print(f"PASS: {validate_artifacts(ROOT, artifacts)} IJ-0.6 artifacts")
         if args.run:
             for_error = validate_run(read_json(args.run), args.run.parent, set(args.required_gate))
             if for_error:

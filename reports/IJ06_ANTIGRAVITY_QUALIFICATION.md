@@ -21,6 +21,8 @@ Vulkan passed 11 of 12 gates with one blocked. ROCm passed 9 of 12 with two fail
 
 An earlier diagnostic run found `tool_choice: none` when the SDK had zero model-output retries, even with a registered callback. Increasing the output-token budget alone retained the symptom. An otherwise identical scoped run with one configured output retry sent `tool_choice: auto` and generated a native callback. The final run bounds API retries separately from output retries. This is observed interaction in SDK 0.1.24, with harness internals unverified. [SDK retry configuration](https://github.com/google-antigravity/antigravity-sdk-python/blob/main/skills/google-antigravity-sdk/examples/getting_started/customizing_retries.md)
 
+The clean P4b reruns began at `fa50525ebf99fff98149746c05fadc472c8462ec`. Vulkan passed 10 gates, failed AG-06, and remained blocked on AG-11. Its structured status contained a serialized `result` object. ROCm passed 11 gates and remained blocked on AG-11. A single run per configuration cannot isolate which differences came from inference variability. [P4b Vulkan](../evidence/IJ06/antigravity/p4b-vulkan.json) · [P4b ROCm](../evidence/IJ06/antigravity/p4b-rocm.json)
+
 The original read-only SDK smoke remains PASS. The updated integration supplies real model calls and persists synthetic document-review drafts in the development rehearsal. Human submission was exercised by the separate simulator regression. Full SDK qualification remains open.
 
 Run from the repository with the requested Q8_0 backend ready.

@@ -14,4 +14,6 @@ The generator v1.0.2 reproduced both committed splits, 120 development and 500 d
 
 Local Q8_0 bytes match SHA256 `c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078`. Both launcher binaries hash to `38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995`. Runtime DLLs distinguish the backends. The installed SDK is 0.1.24. Live GPU and full binary/template verification belongs to the execution evidence.
 
+Follow-up verification checked all 17 local GGUF and BF16 files by size and SHA256. ModelScope's current repository heads matched `8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59` and `4e7a94716d4526da493d68962f475390e852954b` respectively.
+
 GitHub lists [llama.cpp v1.0.0](https://github.com/ggml-org/llama.cpp/releases/latest) as the latest stable release, with release target `2d8a32502909ca065c41c4cf5f2fb1c427c047fc`. The pinned Windows binaries use build commit `b1b770d90d94cad9e9ea5b993bdbc383a522fb28`. The build and release identities must be tracked separately. PR [#24889](https://github.com/ggml-org/llama.cpp/pull/24889) merged. PR [#23802](https://github.com/ggml-org/llama.cpp/pull/23802) and PR [#32746](https://github.com/ggml-org/llama.cpp/pull/32746) closed unmerged.

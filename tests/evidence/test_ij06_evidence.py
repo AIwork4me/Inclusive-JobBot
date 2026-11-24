@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from scripts.tools.verify_ij06_evidence import validate_run
+from scripts.tools.verify_ij06_evidence import validate_artifacts, validate_run
 
 
 def digest(path):
@@ -122,3 +122,14 @@ def test_holdout_template_overlap(run):
     path.write_text('{"id":"distinct","template_id":"review"}\n', encoding="utf-8")
     document["files"]["development"]["sha256"] = digest(path)
     assert any("overlap" in issue for issue in validate_run(document, root, {"parser", "safety"}))
+
+
+def test_public_artifact_manifest_rejects_replaced_bytes(tmp_path):
+    evidence = tmp_path / "trace.json"
+    evidence.write_text('{"status":"PASS"}', encoding="utf-8")
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(json.dumps({"files": {"trace.json": digest(evidence)}}), encoding="utf-8")
+    assert validate_artifacts(tmp_path, manifest) == 1
+    evidence.write_text('{"status":"FAIL"}', encoding="utf-8")
+    with pytest.raises(ValueError, match="digest mismatch"):
+        validate_artifacts(tmp_path, manifest)
