@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "verified_utc": "2026-11-24T03:50:00Z",
+  "verification_method": "Live GitHub REST API (gh api) and ModelScope file API queries; source files read at pinned commits.",
+  "llama_cpp": {
+    "repository": "https://github.com/ggml-org/llama.cpp",
+    "license": "MIT",
+    "native_parser_pr": {
+      "number": 24889,
+      "url": "https://github.com/ggml-org/llama.cpp/pull/24889",
+      "title": "chat : implement minicpm5 parser",
+      "author": "aldehir",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-06-28T14:53:33Z",
+      "merge_commit": "c818263f2a5ddab028dea5f169ea2b2266421125",
+      "additions": 482,
+      "deletions": 0,
+      "files": [
+        {
+          "path": "common/chat.cpp",
+          "additions": 151
+        },
+        {
+          "path": "common/jinja/value.cpp",
+          "additions": 44
+        },
+        {
+          "path": "models/templates/openbmb-MiniCPM5-1B.jinja",
+          "additions": 179
+        },
+        {
+          "path": "tests/test-chat.cpp",
+          "additions": 78
+        },
+        {
+          "path": "tests/test-jinja.cpp",
+          "additions": 30
+        }
+      ]
+    },
+    "earlier_pr": {
+      "number": 23802,
+      "url": "https://github.com/ggml-org/llama.cpp/pull/23802",
+      "title": "Add minicpm5 tool call parser",
+      "author": "zhangtao2-1",
+      "merged": false,
+      "closed_at": "2026-06-29T09:25:56Z"
+    },
+    "stable_release": {
+      "tag": "v1.0.0",
+      "published_at": "2026-11-13T10:20:19Z",
+      "tag_commit": "2d8a32502909ca065c41c4cf5f2fb1c427c047fc",
+      "binaries_via": "nightly-tag.txt asset",
+      "binaries_tag": "b12359",
+      "asset_count_of_release_entry": 1
+    },
+    "binary_build": {
+      "tag": "b12359",
+      "commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+      "published_at": "2026-11-13T10:21:06Z",
+      "prerelease": true,
+      "asset_count": 38,
+      "relation_to_stable_tag": "b1b770d9 is 1 commit behind the v1.0.0 tag commit; the only commit in between is 2d8a325029 'CUDA: split the PAD_REFLECT_1D grid to stay within the HIP grid limit (#32179)'.",
+      "contains_parser_merge": true,
+      "commits_from_parser_merge_to_stable_tag": 2527
+    },
+    "windows_assets": [
+      {
+        "name": "llama-b12359-bin-win-cpu-x64.zip",
+        "size": 25097509,
+        "sha256": "837c1655e87df3b66989f4be33a792a1399c785bf259038dc75c900096683e69",
+        "url": "https://github.com/ggml-org/llama.cpp/releases/download/b12359/llama-b12359-bin-win-cpu-x64.zip",
+        "authenticode": "NotSigned"
+      },
+      {
+        "name": "llama-b12359-bin-win-vulkan-x64.zip",
+        "size": 38090643,
+        "sha256": "e8d18c6e4210cca87e7307c2ea78363ac8d158e4e1397358ec96ab70b53a0d5e",
+        "url": "https://github.com/ggml-org/llama.cpp/releases/download/b12359/llama-b12359-bin-win-vulkan-x64.zip",
+        "authenticode": "NotSigned"
+      },
+      {
+        "name": "llama-b12359-bin-win-rocm-10.0-x64.zip",
+        "size": 280132437,
+        "sha256": "d5021cebbd3bd50a7cab3b9f121a887e45df76c360ecfa927940aac3bb64a982",
+        "url": "https://github.com/ggml-org/llama.cpp/releases/download/b12359/llama-b12359-bin-win-rocm-10.0-x64.zip",
+        "authenticode": "NotSigned",
+        "contents": "complete build: 56 entries = the 52 files of the CPU build plus ggml-hip.dll, amdhip64_7.dll, rocm_kpack.dll, amd_comgr.dll; no hipBLAS, rocBLAS or hipBLASLt"
+      }
+    ],
+    "sha256_source": "GitHub release asset digest field returned by the REST API",
+    "build_flags": {
+      "source": ".github/workflows/release.yml at commit b1b770d9",
+      "windows_cpu": {
+        "runner": "windows-2025-vs2026",
+        "cmake": [
+          "-G Ninja Multi-Config",
+          "-DCMAKE_TOOLCHAIN_FILE=cmake/x64-windows-llvm.cmake",
+          "-DLLAMA_BUILD_BORINGSSL=ON",
+          "-DGGML_NATIVE=OFF",
+          "-DGGML_BACKEND_DL=ON",
+          "-DGGML_CPU_ALL_VARIANTS=ON",
+          "-DGGML_OPENMP=ON",
+          "-DGGML_OPENMP_FETCH=ON"
+        ]
+      },
+      "windows_vulkan": {
+        "runner": "windows-2025",
+        "vulkan_sdk": "1.4.357.0",
+        "cmake": [
+          "-DGGML_VULKAN=ON"
+        ],
+        "target": "ggml-vulkan",
+        "note": "Only the backend library is built; the CPU build is merged in during the release step."
+      },
+      "windows_rocm": {
+        "runner": "windows-2022",
+        "rocm_version": "10.0.0",
+        "rocm_source": "rocm[libraries,devel]==10.0.0 wheels from https://stable.repo.amd.com/rocm/whl-next/",
+        "cmake": [
+          "-DGGML_BACKEND_DL=ON",
+          "-DGGML_HIP=ON",
+          "-DAMDGPU_TARGETS=gfx1010;gfx1011;gfx1012;gfx1030;gfx1031;gfx1032;gfx1033;gfx1034;gfx1035;gfx1036;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201"
+        ],
+        "gfx1151_in_targets": true,
+        "included_in_archive": [
+          "ggml-hip.dll",
+          "amdhip64_7.dll",
+          "rocm_kpack.dll",
+          "amd_comgr.dll",
+          "CPU build files"
+        ],
+        "not_in_archive": "hipBLAS, rocBLAS and hipBLASLt DLLs; the workflow comment says they resolve through PATH"
+      }
+    },
+    "parser_at_build_commit": {
+      "implementation": "common/parsers/minicpm5.cpp",
+      "factory": "common_chat_params_init_minicpm5",
+      "declaration": "common/parsers/parsers.h",
+      "selection": "common/chat.cpp lines 1417-1422",
+      "selection_rule": "template source contains all of: 'Tool usage guidelines:', '<function name=\"', '<param name=\"'",
+      "bundled_template": "models/templates/openbmb-MiniCPM5-1B.jinja (9062 bytes, byte-identical to the ModelScope MiniCPM5-1B chat_template.jinja)",
+      "parser_properties": [
+        "PEG parser generated at request time from the declared tool schemas",
+        "only declared tool names and declared parameter names can match",
+        "string parameters accept plain or CDATA-wrapped values; other types are parsed by their JSON schema",
+        "lazy grammar constrains generation once '<function' is emitted",
+        "message shape: optional <think> block, optional content, then tool calls until end of output",
+        "multiple calls in one message require parallel_tool_calls"
+      ]
+    },
+    "post_release_changes": [
+      {
+        "kind": "pull_request",
+        "number": 32746,
+        "title": "chat : recover MiniCPM5 XML calls and replay Responses tool search",
+        "author": "cyxu0401",
+        "created_at": "2026-11-21T16:37:29Z",
+        "closed_at": "2026-11-22T02:58:17Z",
+        "merged": false,
+        "relevance": "Proposed recovery of malformed MiniCPM5 XML (missing parameter end tags, CDATA boundaries, text between calls). Not merged, so the stable build has no such recovery."
+      },
+      {
+        "kind": "pull_request",
+        "number": 29307,
+        "title": "chat : implement token aware parsing",
+        "author": "aldehir",
+        "merged": true,
+        "merged_at": "2026-11-22T17:36:04Z",
+        "relevance": "General token-aware parsing. Touches common/parsers/minicpm5.cpp with a two-line change (p.ac to p.through for string values); newer than the stable build."
+      }
+    ]
+  },
+  "chat_templates": {
+    "wire_protocol_identical": true,
+    "differences": "The GGUF-embedded template and the 1B template split assistant content on <tool_sep> so content and tool-call XML are replayed in order; the BF16 repository chat_template.jinja appends all tool calls after the content. All three satisfy the llama.cpp selection rule.",
+    "templates": [
+      {
+        "name": "gguf_embedded",
+        "location": "tokenizer.chat_template in MiniCPM5-2B-F16/Q8_0/Q4_K_M GGUF (identical in all three)",
+        "length_chars": 9060,
+        "sha256": "cc945752db555d60949b16989df4ccfeb52a313d6b4b5c5229dd786e2e9fcf1c",
+        "uses_tool_sep": true,
+        "inserts_empty_think_block": true,
+        "role": "default for llama-server (--jinja)"
+      },
+      {
+        "name": "bf16_repo_chat_template_jinja",
+        "location": "OpenBMB/MiniCPM5-2B chat_template.jinja at revision 4e7a94716d45",
+        "length_bytes": 5435,
+        "sha256": "bc1f78ef8a86b6bdf64a056cf89dd0ac506db4f198ab363d85168e2500ab44dd",
+        "uses_tool_sep": false,
+        "inserts_empty_think_block": true,
+        "role": "Transformers default; available to llama-server via --chat-template-file"
+      },
+      {
+        "name": "minicpm5_1b",
+        "location": "OpenBMB/MiniCPM5-1B chat_template.jinja; byte-identical to llama.cpp models/templates/openbmb-MiniCPM5-1B.jinja",
+        "length_bytes": 9062,
+        "uses_tool_sep": true,
+        "inserts_empty_think_block": false,
+        "role": "reference only"
+      }
+    ]
+  },
+  "sglang_reference": {
+    "repository": "https://github.com/sgl-project/sglang",
+    "parser_file": "python/sglang/srt/function_call/minicpm5_detector.py",
+    "parser_file_size": 12796,
+    "usage_from_model_card": "The MiniCPM5-2B GGUF model card names SGLang with --tool-call-parser minicpm5 as the recommended tool-calling backend; the file's existence and size were verified, its logic was not audited."
+  },
+  "antigravity_sdk": {
+    "pypi_name": "google-antigravity",
+    "version": "0.1.24",
+    "license": "Apache-2.0",
+    "uploaded_utc": "2026-11-19T15:44:26Z",
+    "requires_python": ">=3.10",
+    "windows_wheel": {
+      "name": "google_antigravity-0.1.24-py3-none-win_amd64.whl",
+      "size": 42817643
+    },
+    "repository": "https://github.com/google-antigravity/antigravity-sdk-python",
+    "repository_license": "Apache-2.0",
+    "repository_pushed_at": "2026-11-19T15:43:05Z",
+    "local_config_class": "google.antigravity.LocalOpenAIAgentConfig(model, base_url)",
+    "default_capabilities_of_local_openai_config": {
+      "file_reads": true,
+      "file_writes": true,
+      "command_execution": true,
+      "subagents": true,
+      "mcp": true
+    },
+    "harness_binary": "google/antigravity/bin/localharness.exe",
+    "harness_binary_authenticode": "NotSigned",
+    "harness_binary_launch_verified": true,
+    "llama_server_compatibility": "PENDING live verification (ECO-01 section 6)"
+  }
+}
