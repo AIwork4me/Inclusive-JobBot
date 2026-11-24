@@ -50,5 +50,6 @@ Omitting `--case` selects the full primary panel. Use `--panel repeat` for the f
 The original primary panel ran from commit `9d031fe95622bed88588f1c11a13d073748b26bf`.
 Its fixed wire cap of 16 could reject a batch within the task's 32-proposal
 budget. The current runner explicitly passes the task limit to the non-streamed
-decoder. Use a fresh output directory for that revised profile and keep
+benchmark decoder. The archived IJ-0.6 gateway remains byte-verified.
+Use a fresh output directory for that revised profile and keep
 the original run on its pinned source. [Wire control](../../reports/IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md#rc-18-多工具预算和-wire-上限不一致)

@@ -13,12 +13,13 @@ import time
 from uuid import uuid4
 
 from benchmarks.root_cause import generation_capture, historical_replay
+from benchmarks.root_cause.wire_profiles import decode_batched_completion
 from benchmarks.tool_calling_v2.evaluator import Call, VALIDATOR
 from benchmarks.tool_calling_v2.holdout import qualify
 from benchmarks.tool_calling_v2.holdout.runner import parser_rejections
 from benchmarks.tool_calling_v2.oracle import decode_object
 from business_tools import encode_state
-from model_gateway import GatewayError, decode_completion
+from model_gateway import GatewayError
 from model_gateway.openai_protocol import decode_proposal
 
 from .dataset import ROOT as FROZEN, canonical, load_freeze
@@ -139,7 +140,7 @@ def run_case(case, client, database, *, seed):
         proposal_count += proposed
         invalid_count += invalid
         try:
-            answer = decode_completion(capture["raw_response"], max_calls=LIMITS["max_proposals"])
+            answer = decode_batched_completion(capture["raw_response"], max_calls=LIMITS["max_proposals"])
             if any(call.call_id in ids for call in answer.calls):
                 raise ValueError("tool call ID was reused across assistant turns")
         except (GatewayError, ValueError) as failure:
@@ -210,6 +211,7 @@ def configuration(args, freeze, roster, identity, env):
                  *(ROOT / "benchmarks/tool_calling_v2/holdout").glob("*.py"),
                  *(ROOT / "benchmarks/tool_calling_v2/parser").glob("*.py"),
                  ROOT / "benchmarks/root_cause/generation_capture.py", ROOT / "benchmarks/root_cause/historical_replay.py",
+                 ROOT / "benchmarks/root_cause/wire_profiles.py",
                  ROOT / "benchmarks/tool_calling/runner/run_benchmark.py", ROOT / "scripts/windows/sample_gpu_counters.ps1",
                  ROOT / "scripts/windows/common.ps1", *(ROOT / "src/business_tools").glob("*.py"),
                  *(ROOT / "src/model_gateway").glob("*.py")]

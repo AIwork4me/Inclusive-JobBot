@@ -8,8 +8,9 @@ import json
 from pathlib import Path
 
 from benchmarks.root_cause.generation_capture import check_gateway
+from benchmarks.root_cause.wire_profiles import MAX_NONSTREAM_CALLS
 from benchmarks.multitool_v1.dataset import canonical, load_freeze
-from model_gateway.openai_protocol import MAX_CALLS, MAX_NONSTREAM_CALLS
+from model_gateway.openai_protocol import MAX_CALLS
 
 
 def probe(source):

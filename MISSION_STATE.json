@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T15:38:00Z",
+  "updated_utc": "2026-11-24T15:45:45Z",
   "current_phase": "IJ-0.7",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -286,6 +286,13 @@
       "PASS": 91,
       "FAIL": 122,
       "evidence": "evidence/IJ07/multitool/primary-vulkan-checkpoint/coverage.json"
+    },
+    "multitool_wire_profile": {
+      "same_response_regression": "PASS",
+      "verified_responses": 14,
+      "live_business_result": "NOT_RUN",
+      "ij06_gateway_bytes_preserved": true,
+      "evidence": "evidence/IJ07/root_causes/multitool_batch_limit_control.json"
     },
     "job_v1_arm_f": {
       "status": "FAIL",

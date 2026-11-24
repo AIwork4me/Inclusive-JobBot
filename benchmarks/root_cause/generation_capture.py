@@ -10,6 +10,7 @@ from benchmarks.tool_calling_v2.parser.run_wire import raw_stream, split_sse
 from model_gateway.errors import GatewayError
 from model_gateway.openai_protocol import MAX_CALLS, decode_completion
 from model_gateway.streaming import StreamAssembler
+from .wire_profiles import decode_batched_completion
 
 
 MAX_BODY = 4 * 1024 * 1024
@@ -67,8 +68,10 @@ def check_gateway(raw, stream, *, max_nonstream_calls=MAX_CALLS):
             for event in split_sse(raw):
                 gate.feed(event)
             gate.finish()
+        elif max_nonstream_calls == MAX_CALLS:
+            decode_completion(raw)
         else:
-            decode_completion(raw, max_calls=max_nonstream_calls)
+            decode_batched_completion(raw, max_calls=max_nonstream_calls)
     except (GatewayError, ValueError) as exc:
         return {"status": "FAIL", "error": str(exc)}
     return {"status": "PASS"}

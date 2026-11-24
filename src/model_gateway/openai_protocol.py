@@ -10,7 +10,6 @@ from .strict_json import strict_object
 
 MAX_WIRE_BYTES = 512 * 1024
 MAX_CALLS = 16
-MAX_NONSTREAM_CALLS = 32
 NAME = re.compile(r"[A-Za-z0-9_-]{1,64}")
 CALL_ID = re.compile(r"[A-Za-z0-9_-]{1,128}")
 
@@ -46,9 +45,7 @@ def parse_proposal(proposal: Proposal) -> dict:
     return strict_object(proposal.arguments_raw)
 
 
-def assemble(message: dict, finish_reason: str, *, max_calls: int = MAX_CALLS) -> Completion:
-    if type(max_calls) is not int or not 1 <= max_calls <= MAX_NONSTREAM_CALLS:
-        raise ValueError("non-streamed tool batch limit must be between 1 and 32")
+def assemble(message: dict, finish_reason: str) -> Completion:
     require(isinstance(message, dict) and message.get("role") == "assistant",
             "expected an assistant message")
     require("function_call" not in message, "legacy function calls are unsupported")
@@ -56,7 +53,7 @@ def assemble(message: dict, finish_reason: str, *, max_calls: int = MAX_CALLS) -
     calls = message.get("tool_calls")
     if calls is None:
         calls = []
-    require(isinstance(calls, list) and len(calls) <= max_calls, "invalid tool call batch")
+    require(isinstance(calls, list) and len(calls) <= MAX_CALLS, "invalid tool call batch")
     require(bool(calls) == (finish_reason == "tool_calls"), "tool call batch and finish reason disagree")
     proposals = tuple(decode_proposal(call) for call in calls)
     require(len({item.call_id for item in proposals}) == len(proposals), "duplicate tool call ID")
@@ -64,7 +61,7 @@ def assemble(message: dict, finish_reason: str, *, max_calls: int = MAX_CALLS) -
                       text_field(message.get("reasoning_content"), "reasoning"), finish_reason)
 
 
-def decode_completion(raw: bytes | str, *, max_calls: int = MAX_CALLS) -> Completion:
+def decode_completion(raw: bytes | str) -> Completion:
     envelope = strict_object(raw, max_bytes=MAX_WIRE_BYTES)
     if isinstance(envelope.get("error"), dict):
         raise GatewayError(ErrorCode.MODEL_ERROR, "model returned an error envelope")
@@ -74,4 +71,4 @@ def decode_completion(raw: bytes | str, *, max_calls: int = MAX_CALLS) -> Comple
     require(isinstance(choice, dict), "invalid completion choice")
     index = choice.get("index", 0)
     require(type(index) is int and index == 0, "invalid completion choice index")
-    return assemble(choice.get("message"), choice.get("finish_reason"), max_calls=max_calls)
+    return assemble(choice.get("message"), choice.get("finish_reason"))
