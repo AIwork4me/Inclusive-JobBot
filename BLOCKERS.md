@@ -117,14 +117,25 @@ The 168-hour soak test needs real elapsed time with the machine awake and the
 remote session undisturbed. Sleep and hibernation settings are the owner's to
 change; the project does not touch power settings.
 
-## B-008 The ECO-01 acceptance text is unavailable in the checkout
+## B-008 The original ECO-01 SDK checklist is unavailable in the checkout
 
-- Priority: P0 for formal IJ-0 sign-off
+- Priority: P0 for full SDK acceptance
 - Status: OPEN
 - Owner: project owner (provide the change order)
 
-The handoff and ADR reference ECO-01, but the checkout and its Git history
-contain no copy of the change order. In particular, section 5.4 supplies the
-benchmark thresholds and section 6 supplies the SDK acceptance checklist.
-Measured results can be collected against the frozen dataset and fixtures
-while the change order is located.
+The handoff references a 12-item SDK acceptance checklist. The checkout and
+its Git history contain no copy. The SDK tool-loop smoke can be measured
+independently. The owner requested new thresholds, which are established in
+`docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md`.
+
+## B-009 The pinned MiniCPM5 native parser fails the fixed fixtures
+
+- Priority: P0 for native tool-calling qualification
+- Status: OPEN
+- Owner: project
+
+The official llama.cpp b12359 native parser fails fixed expectations.
+Observed failures cover whitespace in a typed value, incomplete structured
+arguments, out-of-enum values and duplicate JSON keys. The benchmark host
+validates tool proposals independently. Qualify any parser fix or alternate
+engine identity as a separate run.

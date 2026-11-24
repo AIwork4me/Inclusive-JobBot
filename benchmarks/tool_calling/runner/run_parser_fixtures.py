@@ -10,7 +10,7 @@ import sys
 import urllib.request
 import uuid
 
-from run_benchmark import HERE, chat, git_state, output_lock, utc_now, write_json
+from run_benchmark import HERE, chat, git_state, output_lock, parse_tool_arguments, utc_now, write_json
 from server_identity import ROOT, read_json, server_identity, sha256_of
 
 FIXTURE_PATH = HERE.parent / "fixtures/minicpm5_parser_fixtures.json"
@@ -39,7 +39,7 @@ def score(fixture: dict, message: dict) -> list[str]:
   expected = fixture["expected"]
   try:
     calls = [
-        {"name": call["function"]["name"], "arguments": json.loads(call["function"]["arguments"])}
+        {"name": call["function"]["name"], "arguments": parse_tool_arguments(call["function"]["arguments"])}
         for call in message.get("tool_calls") or []
         if call["type"] == "function" and call["id"]
     ]
@@ -137,6 +137,7 @@ def main() -> int:
         "engine": engine, "server": server, "session": session, "git": git_state(),
         "fixture_version": document["version"], "fixture_sha256": sha256_of(FIXTURE_PATH),
         "runner_sha256": sha256_of(HERE / "run_parser_fixtures.py"),
+        "support_sha256": {name: sha256_of(HERE / name) for name in ("run_benchmark.py", "server_identity.py")},
         "sdk": {"used": False, "version": None},
         "eos_token_id": eos,
     }

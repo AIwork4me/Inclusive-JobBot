@@ -74,6 +74,14 @@ class CheckpointAndFixtureTests(unittest.TestCase):
       with self.assertRaises(ValueError):
         read_checkpoint(path, ["a", "b"])
 
+  def test_checkpoint_recovers_only_a_torn_last_record(self):
+    with tempfile.TemporaryDirectory() as directory:
+      path = Path(directory) / "results.jsonl"
+      path.write_bytes(b'{"id":"a"}\n{"id":"b')
+      self.assertEqual(list(read_checkpoint(path, ["a", "b"], recover_tail=True)), ["a"])
+      self.assertEqual(path.read_bytes(), b'{"id":"a"}\n')
+      self.assertEqual([item.read_bytes() for item in path.parent.glob("*.part")], [b'{"id":"b'])
+
   def test_fixture_prefix_preserves_reasoning_and_content(self):
     self.assertEqual(
         assistant_prefix("<think>\nthink\n</think>\n\ntext"),
@@ -86,6 +94,14 @@ class CheckpointAndFixtureTests(unittest.TestCase):
     self.assertTrue(score(fixture, {"tool_calls": [call]}))
     call["function"]["arguments"] = '{"n": 1}'
     self.assertEqual(score(fixture, {"tool_calls": [call]}), [])
+
+  def test_fixture_does_not_discard_duplicate_fields(self):
+    fixture = {
+        "expect_mode": "no_fabrication", "native_output": "",
+        "expected": {"allowed_calls": [{"name": "test", "arguments": {"n": 1}}]},
+    }
+    call = {"id": "call", "type": "function", "function": {"name": "test", "arguments": '{"n": 2, "n": 1}'}}
+    self.assertTrue(score(fixture, {"tool_calls": [call]}))
 
 
 if __name__ == "__main__":

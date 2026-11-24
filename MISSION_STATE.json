@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T07:44:44Z",
+  "updated_utc": "2026-11-24T08:08:09Z",
   "current_phase": "IJ-0",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -57,7 +57,11 @@
       "progress": "in_progress",
       "status": "FAIL",
       "evidence": [
-        "evidence/IJ0/protocol/tool_calling_smoke.json"
+        "evidence/IJ0/protocol/tool_calling_smoke.json",
+        "evidence/IJ0/protocol/tool_calling_dev_vulkan/",
+        "evidence/IJ0/protocol/tool_calling_test_vulkan/",
+        "evidence/IJ0/protocol/parser_fixtures_vulkan/",
+        "docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md"
       ]
     },
     "IJ-0.AG": {
@@ -157,6 +161,7 @@
     "B-005",
     "B-006",
     "B-007",
-    "B-008"
+    "B-008",
+    "B-009"
   ]
 }

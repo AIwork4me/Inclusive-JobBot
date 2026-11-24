@@ -44,9 +44,9 @@ never changes that setting; `install_llama_cpp.ps1` reports a blocked binary.
 
 ## Tests
 
-There is no unit-test suite yet. Verification today means running the tools and
-benchmarks and keeping their output as evidence; `HANDOFF.md` lists the
-commands and says for each one whether it has been run. Mock-based CI, when it
-is added, is labelled as mock. Real model and GPU results come only from the
-physical qualification machine; a personal Windows machine is never registered
-as a public self-hosted runner.
+Run `.venv/Scripts/python.exe -m unittest discover -s tests -v` for the
+benchmark harness regression tests. The
+[tool-calling benchmark guide](benchmarks/tool_calling/README.md) gives the
+commands for collecting real model and GPU evidence on the physical
+qualification machine. Mock-based CI, when added, is labelled as mock.
+A personal Windows machine is never registered as a public self-hosted runner.

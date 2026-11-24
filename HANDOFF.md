@@ -1,7 +1,6 @@
 # Handoff
 
-Read this first when resuming. Last updated: 2026-11-24 (end of the first
-working session, before the owner decides on optional tools).
+Read this first when resuming. Last updated: 2026-11-24.
 
 Everything below was checked against the disk and the running system at the
 time of writing. If something here disagrees with what you find, trust the
@@ -12,20 +11,21 @@ machine, fix this file, and say so in the commit.
 Work from the repository root, the folder that contains this file.
 
 ```powershell
-git status --short                                      # must print nothing
+git status --short --branch
 git log --oneline | Select-Object -First 12
 python scripts/tools/scan_sensitive.py                 # must report 0 findings
-Get-Process llama-server -ErrorAction SilentlyContinue # must print nothing
+Get-Process llama-server -ErrorAction SilentlyContinue
 ```
 
-Then read section 6 (open items), section 7 (next steps) and section 8 (what
-the owner has to do). Nothing is running in the background right now.
+Then read sections 6–8. If a qualification run is active, check its log and
+checkpoint before starting or stopping the managed server.
 
 ## 2. Where the work is
 
-IJ-0 (change order ECO-01) is complete through IJ-0.5. The tool-calling step is
-in progress. Antigravity integration, the Model Gateway, the performance step
-and everything in IJ-1.0 (missions M3 to M10) have not started.
+IJ-0 (change order ECO-01) is complete through IJ-0.5. The tool-calling
+qualification is in progress. Antigravity has a local read-only smoke probe.
+The Model Gateway, the performance step and IJ-1.0 missions M3 to M10 are
+pending.
 
 | Step | Status | What it established | Evidence |
 |---|---|---|---|
@@ -35,30 +35,22 @@ and everything in IJ-1.0 (missions M3 to M10) have not started.
 | IJ-0.3 engine install | PASS | CPU, Vulkan and ROCm builds run and enumerate the GPU | `evidence/IJ0/engine_install.json` |
 | IJ-0.4 launch scripts | PASS | Start, stop, check; 9 of 9 API checks on Vulkan | `evidence/IJ0/server_api_check.json` |
 | IJ-0.5 GPU proof | PASS | Same output on CPU, Vulkan and ROCm/HIP; GPU execution shown four ways | `reports/IJ0_GPU_BACKEND_QUALIFICATION.md` |
-| TC tool calling | IN PROGRESS | First experiment 5 of 5; benchmark harness written but never run | `evidence/IJ0/protocol/tool_calling_smoke.json` |
+| TC tool calling | FAIL | Corrected Vulkan development run 100/120. Vulkan native parser fixtures 21/26. Paired frozen test runs in progress. | `.runtime/tool-calling/` |
 
-Gates: G0, G1, G2, G3, G4 are **PASS**. G5 to G14 are **NOT_RUN**. No verdict
-is granted yet; see `MISSION_STATE.json`.
+Gates G0 through G4 are **PASS** and G5 is **FAIL** on the fixed native parser
+fixtures. See `MISSION_STATE.json` for the remaining gates and verdicts.
 
-## 3. Things written but not yet verified
+## 3. Tool-calling reproduction
 
-Treat these as unproven until they have been run:
-
-- `benchmarks/tool_calling/runner/run_benchmark.py` has never been executed.
-  The generator, the datasets, `tool_simulators.py` and `evaluate.py` have
-  only been checked by generating the datasets and parsing code.
-- The parser fixture runner does not exist. The plan is to feed each fixture in
-  `benchmarks/tool_calling/fixtures/minicpm5_parser_fixtures.json` to the
-  native parser as an assistant prefix through `/v1/chat/completions`. Whether
-  this llama.cpp build supports that is **untested**.
-- `benchmarks/tool_calling/README.md` and the tool-calling report generator are
-  not written.
-- There is no unit-test suite. `CONTRIBUTING.md` says so.
+See `benchmarks/tool_calling/README.md` for the fixture, benchmark, reporting
+and regression commands. Parser fixtures reach the native parser through
+assistant prefix continuation. Successful responses prove that the model
+sampled only the configured end-of-sequence token.
 
 ## 4. Repository state
 
-- Local branch `mission/ij-1.0-windows-fullstack-qualification`; all work is
-  committed and the working tree is clean (`git log --oneline` lists it).
+- Local qualification work is on `codex/ij0-tool-calling`, based on
+  `mission/ij-1.0-windows-fullstack-qualification`.
 - **No remote.** `AIwork4me/Inclusive-JobBot` does not exist on GitHub. Nothing
   has been pushed or published.
 - Repository-local git identity: `AIwork4me <AIwork4me@qq.com>`. The global
@@ -89,12 +81,13 @@ See `BLOCKERS.md` for detail.
 | B-006 | No power meter: energy per task stays `NOT_RUN` | owner (hardware) |
 | B-007 | 24 h and 168 h soak tests need the machine awake for days | owner (power settings) |
 | B-004 | Long runs exceed one session; everything must stay resumable | project |
+| B-008 | The checkout lacks the original SDK acceptance checklist | project owner |
+| B-009 | The pinned native parser fails fixed fixtures | project |
 
 Open technical questions, none of them a blocker today:
 
-- Does the native parser hold up across the 500 frozen cases? Only five
-  hand-written checks have run.
-- Does the prefix-continuation technique reach the native parser? Untested.
+- Which parser fix or alternate engine identity should qualify under the
+  new thresholds in ADR-002?
 - Which backend becomes the default? Vulkan decodes faster, ROCm/HIP
   prefills faster in IJ-0.5; the performance step decides.
 - Upstream PR #32746 (recovery of malformed MiniCPM5 XML) was not merged. If
@@ -102,40 +95,25 @@ Open technical questions, none of them a blocker today:
 
 ## 7. Next steps, in order
 
-### 7.1 Tool-calling benchmark on the development split
+### 7.1 Complete the evidence review
+
+The whole development split has run. Any further prompt, tool schema or
+decoding experiments belong on the development split. The frozen test split
+uses the original requests and expectations.
+
+The paired benchmark checkpoints and logs are under `.runtime/tool-calling/`.
+If an arm is interrupted, start the matching backend and resume its benchmark:
 
 ```powershell
-pwsh -File scripts/windows/start_llama_server.ps1 -Backend vulkan -Model q8
-python benchmarks/tool_calling/runner/run_benchmark.py --dataset dev --limit 20
+.venv/Scripts/python.exe benchmarks/tool_calling/runner/run_benchmark.py --dataset test --resume --output .runtime/tool-calling/test-vulkan
 ```
 
-Expect to find defects in the runner, the simulators or the expectations on
-the first run. Fix them, then run the whole development split without
-`--limit`. Only tune prompts, tool descriptions and decode settings on the
-development split.
+Use `test-rocm` for the ROCm arm. The report generator validates both completed
+runs against the frozen generator 1.0.2 manifest. Keep the numbers and fixture
+failures as a diagnostic baseline. The new qualification criteria are in
+`docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md`.
 
-### 7.2 The frozen 500-case test set
-
-```powershell
-python benchmarks/tool_calling/runner/run_benchmark.py --dataset test --resume
-pwsh -File scripts/windows/stop_llama_server.ps1
-pwsh -File scripts/windows/start_llama_server.ps1 -Backend rocm -Model q8
-python benchmarks/tool_calling/runner/run_benchmark.py --dataset test --output evidence/IJ0/protocol/tool_calling_test_rocm
-```
-
-The test file must still match `benchmarks/tool_calling/datasets/dataset.manifest.json`
-(generator 1.0.2). If a generator change becomes unavoidable, that is a new
-freeze: bump the version, regenerate, and say so in the report. Report the
-real numbers against the targets of ECO-01 section 5.4; do not adjust the
-targets.
-
-### 7.3 Parser fixtures
-
-Write `benchmarks/tool_calling/runner/run_parser_fixtures.py`. Probe first
-whether an assistant message with tools is continued (prefix) or treated as a
-finished turn. Expectations are already fixed in the fixture file.
-
-### 7.4 Antigravity SDK against llama-server
+### 7.2 Antigravity SDK against llama-server
 
 `LocalOpenAIAgentConfig(model="minicpm5-2b", base_url="http://127.0.0.1:8080/v1")`.
 Disable file reads and writes, command execution, sub-agents and MCP in
@@ -144,7 +122,7 @@ Disable file reads and writes, command execution, sub-agents and MCP in
 ECO-01 section 6 and capture the harness traffic under
 `evidence/IJ0/antigravity/`.
 
-### 7.5 After that
+### 7.3 After that
 
 Model Gateway refactor and contract tests, performance qualification and engine
 selection, gates G0 to G14 with the IJ-0 reports, GitHub publication, then
@@ -163,10 +141,10 @@ has to be captured before the parser. Without it, upstream tests run only in
 GitHub-hosted Linux CI. It is checked with `cmake --version`, `ninja --version`
 and a build of `test-chat`.
 
-**Nothing else is required.** Node.js for the frontend can be a portable copy
-inside the repository. The AMD HIP SDK is not needed: the official ROCm build
-runs with the ROCm wheels. Ollama, PowerShell 7 and the ROCm SDK are not
-needed either.
+**Required for full SDK acceptance (B-008)**: provide the originating SDK
+checklist or approve a replacement. PowerShell 7 is optional. The project
+scripts also run with Windows PowerShell `-ExecutionPolicy RemoteSigned` for
+each invocation on this machine.
 
 **Decisions that belong to the owner, when the time comes**: power settings
 for the soak tests (B-007), a power meter if energy per task is wanted (B-006),

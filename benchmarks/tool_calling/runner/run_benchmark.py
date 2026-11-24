@@ -21,6 +21,7 @@ import argparse
 import datetime as dt
 import http.client
 import json
+import math
 import os
 import pathlib
 import subprocess
@@ -75,17 +76,65 @@ def output_lock(output: pathlib.Path):
 
 def write_json(path: pathlib.Path, value: dict) -> None:
   temporary = path.with_suffix(".tmp")
-  temporary.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+  temporary.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
   temporary.replace(path)
 
 
-def read_checkpoint(path: pathlib.Path, selected_ids: list[str]) -> dict[str, dict]:
+def read_checkpoint(path: pathlib.Path, selected_ids: list[str], *, recover_tail: bool = False, run: dict | None = None) -> dict[str, dict]:
   if not path.exists():
     return {}
-  rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+  data = path.read_bytes()
+  complete = data
+  damaged = b""
+  if recover_tail and data and not data.endswith(b"\n"):
+    head, separator, tail = data.rpartition(b"\n")
+    try:
+      json.loads(tail.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+      complete, damaged = head + separator, tail
+    else:
+      complete = data + b"\n"
+  lines = complete.removesuffix(b"\n").split(b"\n") if complete else []
+  rows = [json.loads(line) for line in lines]
   if [row["id"] for row in rows] != selected_ids[:len(rows)]:
     raise ValueError("Checkpoint IDs are duplicated, out of order or outside the run selection")
+  if run and any(
+      row["run_id"] != run["run_id"]
+      or not 1 <= row["server_session"] <= len(run["sessions"])
+      or row["status"] != ("PASS" if row["pass"] else "FAIL")
+      for row in rows
+  ):
+    raise ValueError("Checkpoint records do not bind to the recorded run and server sessions")
+  if complete != data:
+    if damaged:
+      path.with_name(f"{path.name}.{uuid.uuid4().hex}.part").write_bytes(damaged)
+    temporary = path.with_suffix(".tmp")
+    temporary.write_bytes(complete)
+    temporary.replace(path)
   return {row["id"]: row for row in rows}
+
+
+def parse_tool_arguments(raw: str) -> dict:
+  def unique_object(pairs):
+    value = {}
+    for key, item in pairs:
+      if key in value:
+        raise ValueError("Duplicate JSON key in tool arguments")
+      value[key] = item
+    return value
+
+  def finite_number(token: str) -> float:
+    number = float(token)
+    if not math.isfinite(number):
+      raise ValueError("Non-finite JSON number in tool arguments")
+    return number
+
+  if not isinstance(raw, str):
+    raise ValueError("Tool arguments must be a JSON string")
+  value = json.loads(raw, object_pairs_hook=unique_object, parse_float=finite_number, parse_constant=finite_number)
+  if not isinstance(value, dict):
+    raise ValueError("Tool arguments must decode to a JSON object")
+  return value
 
 
 def chat(base_url: str, body: dict) -> dict:
@@ -195,14 +244,13 @@ def run_case(case: dict, base_url: str, model: str) -> dict:
       function = call.get("function") or {}
       raw_arguments = function.get("arguments") or ""
       try:
-        parsed = json.loads(raw_arguments)
-      except json.JSONDecodeError:
+        parsed = parse_tool_arguments(raw_arguments)
+      except ValueError:
         parsed = None
-      json_object = isinstance(parsed, dict)
       name = function.get("name") or ""
       entry = {
           "name": name,
-          "arguments": parsed if json_object else None,
+          "arguments": parsed,
           "arguments_raw": raw_arguments,
           "id": call.get("id"),
           "type": call.get("type"),
@@ -399,7 +447,7 @@ def run_cases(args, dataset_path: pathlib.Path, dataset_sha256: str, cases: list
     if any(previous.get(key) != value for key, value in run.items()):
       raise ValueError("The checkpoint does not match the current dataset, code, engine or server configuration")
     run = previous
-    done = read_checkpoint(results_path, selected_ids)
+    done = read_checkpoint(results_path, selected_ids, recover_tail=True, run=run)
   else:
     if results_path.exists():
       raise ValueError("Results exist without run metadata")
@@ -426,6 +474,7 @@ def run_cases(args, dataset_path: pathlib.Path, dataset_sha256: str, cases: list
       result["server_session"] = len(run["sessions"])
       handle.write(json.dumps(result, ensure_ascii=False) + "\n")
       handle.flush()
+      os.fsync(handle.fileno())
       results.append(result)
       print(f"[{index}/{len(cases)}] {case['id']} {'PASS' if result['pass'] else 'FAIL'} {result['failures'][:2]}")
 

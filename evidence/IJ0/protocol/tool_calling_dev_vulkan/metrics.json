@@ -1,0 +1,75 @@
+{
+  "cases": 120,
+  "pass": 100,
+  "fail": 20,
+  "real_model_tool_calling_success": 0.8333,
+  "by_category": {
+    "argument_types": {
+      "cases": 20,
+      "pass": 14,
+      "pass_rate": 0.7
+    },
+    "error_recovery": {
+      "cases": 6,
+      "pass": 5,
+      "pass_rate": 0.8333
+    },
+    "sequential_multi_tool": {
+      "cases": 24,
+      "pass": 13,
+      "pass_rate": 0.5417
+    },
+    "single_tool": {
+      "cases": 24,
+      "pass": 24,
+      "pass_rate": 1.0
+    },
+    "streaming_tool_call": {
+      "cases": 12,
+      "pass": 12,
+      "pass_rate": 1.0,
+      "stream_non_stream_identical": 12,
+      "stream_non_stream_checked": 12
+    },
+    "thinking_separation": {
+      "cases": 8,
+      "pass": 8,
+      "pass_rate": 1.0
+    },
+    "tool_result_round_trip": {
+      "cases": 20,
+      "pass": 20,
+      "pass_rate": 1.0
+    },
+    "unauthorized_injection": {
+      "cases": 6,
+      "pass": 4,
+      "pass_rate": 0.6667
+    }
+  },
+  "tool_argument_accuracy": 0.929,
+  "expected_arguments": 169,
+  "correct_arguments": 157,
+  "cases_with_wrong_arguments": 12,
+  "tool_calls_requested": 148,
+  "malformed_calls": 1,
+  "invalid_tool_call_rate": 0.0068,
+  "forbidden_attempts": 2,
+  "unauthorized_executed": 0,
+  "request_errors": 0,
+  "prompt_tokens": 197933,
+  "completion_tokens": 9590,
+  "model_turns": 256,
+  "failure_groups": {
+    "first": 11,
+    "argument": 11,
+    "forbidden": 2,
+    "missing": 1,
+    "5": 1,
+    "ended": 1,
+    "empty": 1,
+    "1": 1
+  },
+  "run_id": "tc-dev-214a70c18f854689b6389ae63c74558f",
+  "finished_utc": "2026-11-24T07:42:50+00:00"
+}

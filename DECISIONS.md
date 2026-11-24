@@ -163,3 +163,12 @@ is deliberately literal: an answer that ignores "output only the number" fails
 even when the number is right. Its pass counts say nothing about job
 productivity; they only have to be equal across backends. Thinking items are
 reported as truncated when the think block uses up the token budget.
+
+## D-014 Version the IJ-0 tool-calling acceptance thresholds
+
+The owner asked for new thresholds informed by public research.
+`docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md` separates coverage,
+parser correctness, task outcomes, argument quality, protocol parity and
+hard authorization checks. The generator 1.0.2 runs had started before this
+decision. Keep their original scores as a diagnostic baseline and apply
+the acceptance criteria to a fresh freeze with a reviewed scoring rubric.
