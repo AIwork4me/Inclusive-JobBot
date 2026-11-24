@@ -19,21 +19,24 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
-import hashlib
+import http.client
 import json
+import os
 import pathlib
 import subprocess
 import sys
 import time
 import urllib.error
 import urllib.request
+import uuid
+from contextlib import contextmanager
 
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from evaluate import evaluate_case  # noqa: E402
+from server_identity import ROOT, read_json, server_identity, sha256_of  # noqa: E402
 from tool_simulators import ToolHost  # noqa: E402
 
-ROOT = HERE.parents[2]
 DATASETS = {"dev": "tool_calling_dev.jsonl", "test": "tool_calling_500.jsonl"}
 DATASET_DIR = HERE.parent / "datasets"
 
@@ -42,17 +45,47 @@ def utc_now() -> str:
   return dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
 
 
-def sha256_of(path: pathlib.Path) -> str:
-  return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
 def git_state() -> dict:
   def git(*args: str) -> str:
     try:
       return subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True, timeout=20).stdout.strip()
     except (OSError, subprocess.SubprocessError):
       return ""
-  return {"commit": git("rev-parse", "HEAD") or None, "dirty": bool(git("status", "--porcelain"))}
+  commit = git("rev-parse", "HEAD")
+  if not commit:
+    raise ValueError("Cannot determine the repository commit")
+  return {"commit": commit, "dirty": bool(git("status", "--porcelain"))}
+
+
+@contextmanager
+def output_lock(output: pathlib.Path):
+  """Serialize writers and release the lock automatically if the process dies."""
+  with (output / ".writer.lock").open("ab") as handle:
+    if os.name == "nt":
+      import msvcrt
+
+      handle.seek(0)
+      msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+    else:
+      import fcntl
+
+      fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    yield
+
+
+def write_json(path: pathlib.Path, value: dict) -> None:
+  temporary = path.with_suffix(".tmp")
+  temporary.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+  temporary.replace(path)
+
+
+def read_checkpoint(path: pathlib.Path, selected_ids: list[str]) -> dict[str, dict]:
+  if not path.exists():
+    return {}
+  rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+  if [row["id"] for row in rows] != selected_ids[:len(rows)]:
+    raise ValueError("Checkpoint IDs are duplicated, out of order or outside the run selection")
+  return {row["id"]: row for row in rows}
 
 
 def chat(base_url: str, body: dict) -> dict:
@@ -75,12 +108,14 @@ def chat(base_url: str, body: dict) -> dict:
       reasoning: list[str] = []
       calls: dict[int, dict] = {}
       usage = timings = finish = None
+      completed = False
       for raw_line in response:
         line = raw_line.decode("utf-8").strip()
         if not line.startswith("data:"):
           continue
         payload = line[5:].strip()
         if payload == "[DONE]":
+          completed = True
           break
         chunk = json.loads(payload)
         usage = chunk.get("usage") or usage
@@ -99,10 +134,27 @@ def chat(base_url: str, body: dict) -> dict:
               merged["id"] = call["id"]
             merged["function"]["name"] += (call.get("function") or {}).get("name") or ""
             merged["function"]["arguments"] += (call.get("function") or {}).get("arguments") or ""
+      if not completed or not finish:
+        raise ValueError("Streaming reply ended without finish_reason and [DONE]")
       message = {"role": "assistant", "content": "".join(content), "reasoning_content": "".join(reasoning), "tool_calls": [calls[i] for i in sorted(calls)]}
       return {"choices": [{"message": message, "finish_reason": finish}], "usage": usage, "timings": timings, "wall_ms": int((time.perf_counter() - started) * 1000)}
-  except (urllib.error.URLError, OSError, ValueError) as error:
-    return {"error": f"{type(error).__name__}: {error}", "wall_ms": int((time.perf_counter() - started) * 1000)}
+  except urllib.error.HTTPError as error:
+    try:
+      detail = json.loads(error.read()).get("error", {})
+    except (OSError, ValueError, http.client.HTTPException):
+      detail = {}
+    parser_rejected = (
+        error.code == 500 and isinstance(detail, dict)
+        and detail.get("message") == "The model produced output that does not match the expected peg-native format"
+    )
+    return {
+        "error": f"HTTP {error.code}",
+        "parser_rejected": parser_rejected,
+        "retryable": not parser_rejected and (error.code >= 500 or error.code == 429),
+        "wall_ms": int((time.perf_counter() - started) * 1000),
+    }
+  except (urllib.error.URLError, OSError, ValueError, http.client.HTTPException) as error:
+    return {"error": f"{type(error).__name__}: {error}", "retryable": True, "wall_ms": int((time.perf_counter() - started) * 1000)}
 
 
 def request_body(case: dict, model: str, messages: list[dict], stream: bool) -> dict:
@@ -134,12 +186,12 @@ def run_case(case: dict, base_url: str, model: str) -> dict:
   for step_index in range(options["max_steps"]):
     reply = chat(base_url, request_body(case, model, messages, options["stream"]))
     if "error" in reply:
-      steps.append({"error": reply["error"]})
+      steps.append(reply)
       break
     choice = reply["choices"][0]
     message = choice.get("message") or {}
     calls = []
-    for position, call in enumerate(message.get("tool_calls") or []):
+    for call in message.get("tool_calls") or []:
       function = call.get("function") or {}
       raw_arguments = function.get("arguments") or ""
       try:
@@ -153,7 +205,8 @@ def run_case(case: dict, base_url: str, model: str) -> dict:
           "arguments": parsed if json_object else None,
           "arguments_raw": raw_arguments,
           "id": call.get("id"),
-          "well_formed": bool(call.get("id")) and json_object and name in host.declared,
+          "type": call.get("type"),
+          "well_formed": bool(call.get("id")) and call.get("type") == "function" and host.valid_arguments(name, parsed),
       }
       calls.append(entry)
       requested.append(entry)
@@ -171,6 +224,8 @@ def run_case(case: dict, base_url: str, model: str) -> dict:
     if options["stream"] and step_index == 0 and calls:
       # Protocol check: the same first turn through the non-streaming path.
       reference = chat(base_url, request_body(case, model, messages, False))
+      if "error" in reference:
+        steps.append(reference)
       reference_calls = ((reference.get("choices") or [{}])[0].get("message") or {}).get("tool_calls") or []
       stream_matches = (
           len(reference_calls) == len(calls)
@@ -186,12 +241,12 @@ def run_case(case: dict, base_url: str, model: str) -> dict:
       replay["reasoning_content"] = message["reasoning_content"]
     for position, call in enumerate(calls):
       call_id = call["id"] or f"call_{step_index}_{position}"
-      call["id"] = call_id
+      call["replay_id"] = call_id
       replay["tool_calls"].append({"id": call_id, "type": "function", "function": {"name": call["name"], "arguments": call["arguments_raw"]}})
     messages.append(replay)
     for call in calls:
-      result = host.dispatch(call["name"], call["arguments"] if call["arguments"] is not None else {})
-      messages.append({"role": "tool", "tool_call_id": call["id"], "content": json.dumps(result, ensure_ascii=False)})
+      result = host.dispatch(call["name"], call["arguments"] if call["id"] and call["type"] == "function" else None)
+      messages.append({"role": "tool", "tool_call_id": call["replay_id"], "content": json.dumps(result, ensure_ascii=False)})
       call["tool_result"] = result
 
   verdict = evaluate_case(case, steps, requested, host.executed, host.denied, final_text)
@@ -200,6 +255,7 @@ def run_case(case: dict, base_url: str, model: str) -> dict:
   return {
       "id": case["id"],
       "category": case["category"],
+      "status": "PASS" if verdict["pass"] else "FAIL",
       "pass": verdict["pass"],
       "failures": verdict["failures"],
       "argument_total": verdict["argument_total"],
@@ -209,6 +265,7 @@ def run_case(case: dict, base_url: str, model: str) -> dict:
       "forbidden_attempts": verdict["forbidden_attempts"],
       "unauthorized_executed": verdict["unauthorized_executed"],
       "executed": host.executed,
+      "denied": host.denied,
       "stream_matches_non_stream": stream_matches,
       "final_text": final_text,
       "steps": steps,
@@ -291,50 +348,82 @@ def main() -> int:
     print(f"FAIL: {dataset_path.name} does not match the frozen manifest")
     return 2
   cases = [json.loads(line) for line in dataset_path.read_text(encoding="utf-8").splitlines() if line]
-  if args.limit:
+  if args.limit is not None:
+    if args.limit < 1:
+      parser.error("--limit must be positive")
     cases = cases[: args.limit]
   if args.only:
     wanted = set(args.only.split(","))
     cases = [case for case in cases if case["id"] in wanted]
+    if wanted != {case["id"] for case in cases}:
+      parser.error("--only contains IDs outside the selected dataset")
+  if args.dataset == "test" and (args.limit is not None or args.only):
+    parser.error("Run the full frozen test split. Use --dataset dev for subsets.")
 
-  server_state = json.loads((ROOT / ".runtime" / "llama-server" / "server.json").read_text(encoding="utf-8"))
-  engine = json.loads((ROOT / "configs" / "llama_cpp" / "engine.json").read_text(encoding="utf-8"))
   output = ROOT / (args.output or f"evidence/IJ0/protocol/tool_calling_{args.dataset}")
   output.mkdir(parents=True, exist_ok=True)
+  try:
+    with output_lock(output):
+      return run_cases(args, dataset_path, dataset_sha256, cases, output)
+  except (OSError, ValueError, KeyError, StopIteration, subprocess.SubprocessError) as error:
+    print(f"BLOCKED: could not run or resume the benchmark ({type(error).__name__}: {error})", file=sys.stderr)
+    return 2
+
+
+def run_cases(args, dataset_path: pathlib.Path, dataset_sha256: str, cases: list[dict], output: pathlib.Path) -> int:
+  engine, server, session = server_identity(args.base_url, args.model)
+  selected_ids = [case["id"] for case in cases]
+  git = git_state()
   run = {
-      "schema_version": 1,
+      "schema_version": 2,
       "tool": "benchmarks/tool_calling/runner/run_benchmark.py",
+      "code_sha256": {path.name: sha256_of(path) for path in (
+          HERE / name for name in ("run_benchmark.py", "evaluate.py", "tool_simulators.py", "server_identity.py")
+      )},
       "dataset": args.dataset,
       "dataset_file": dataset_path.name,
       "dataset_sha256": dataset_sha256,
+      "case_count_selected": len(cases),
+      "selected_case_ids": selected_ids,
       "base_url": args.base_url,
-      "engine": {"build_tag": engine["build_tag"], "build_commit": engine["build_commit"], "stable_release_tag": engine["stable_release_tag"]},
-      "server": {key: server_state.get(key) for key in ("backend", "model", "model_file", "context_length", "layers_offloaded", "layers_total", "gpu_backend_libraries_present")},
+      "engine": engine,
+      "server": server,
+      "sdk": {"used": False, "version": None},
       "decode": {"temperature": 0, "tool_choice": "auto"},
-      "git": git_state(),
-      "run_id": f"tc-{args.dataset}-{dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%SZ')}",
   }
   run_path, results_path = output / "run.json", output / "results.jsonl"
-  done: dict[str, dict] = {}
-  if args.resume and results_path.exists() and run_path.exists():
-    previous = json.loads(run_path.read_text(encoding="utf-8"))
-    same = previous["dataset_sha256"] == run["dataset_sha256"] and previous["engine"] == run["engine"] and previous["server"] == run["server"] and previous["decode"] == run["decode"]
-    if not same:
-      print("FAIL: the existing run used a different dataset, engine, server configuration or decode setting; not resuming")
-      return 2
-    done = {json.loads(line)["id"]: json.loads(line) for line in results_path.read_text(encoding="utf-8").splitlines() if line}
-    run["resumed_from"] = previous["run_id"]
-  run["case_count_selected"] = len(cases)
-  run["started_utc"] = utc_now()
-  run_path.write_text(json.dumps(run, indent=2) + "\n", encoding="utf-8")
+  if run_path.exists():
+    if not args.resume:
+      raise ValueError("This output already holds a run. Use --resume or a new output directory.")
+    previous = read_json(run_path)
+    if any(previous.get(key) != value for key, value in run.items()):
+      raise ValueError("The checkpoint does not match the current dataset, code, engine or server configuration")
+    run = previous
+    done = read_checkpoint(results_path, selected_ids)
+  else:
+    if results_path.exists():
+      raise ValueError("Results exist without run metadata")
+    run["run_id"] = f"tc-{args.dataset}-{uuid.uuid4().hex}"
+    run["git"] = git
+    run["started_utc"] = utc_now()
+    run["sessions"] = []
+    done = {}
+  if len(done) < len(cases):
+    run["sessions"].append({**session, "runner_started_utc": utc_now(), "git": git})
+  write_json(run_path, run)
 
   results = []
-  with results_path.open("a" if done else "w", encoding="utf-8", newline="\n") as handle:
+  with results_path.open("a", encoding="utf-8", newline="\n") as handle:
     for index, case in enumerate(cases, start=1):
       if case["id"] in done:
         results.append(done[case["id"]])
         continue
       result = run_case(case, args.base_url, args.model)
+      if any(step.get("retryable") for step in result["steps"]):
+        print(f"BLOCKED: {case['id']} encountered a transient request error. Resume this run after recovery.", file=sys.stderr)
+        return 2
+      result["run_id"] = run["run_id"]
+      result["server_session"] = len(run["sessions"])
       handle.write(json.dumps(result, ensure_ascii=False) + "\n")
       handle.flush()
       results.append(result)
@@ -344,7 +433,7 @@ def main() -> int:
   metrics["failure_groups"] = failure_groups(results)
   metrics["run_id"] = run["run_id"]
   metrics["finished_utc"] = utc_now()
-  (output / "metrics.json").write_text(json.dumps(metrics, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+  write_json(output / "metrics.json", metrics)
   print(json.dumps({key: metrics[key] for key in ("cases", "pass", "real_model_tool_calling_success", "tool_argument_accuracy", "invalid_tool_call_rate", "forbidden_attempts", "unauthorized_executed", "request_errors")}, ensure_ascii=False))
   for category, entry in metrics["by_category"].items():
     print(f"  {category}: {entry['pass']}/{entry['cases']}")

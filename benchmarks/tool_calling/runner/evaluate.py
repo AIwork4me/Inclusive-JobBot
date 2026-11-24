@@ -21,14 +21,18 @@ import unicodedata
 NUMERIC = re.compile(r"^[\d.,]+$")
 
 
-def normalize_scalar(value):
-  if isinstance(value, bool):
-    return value
-  if isinstance(value, (int, float)):
-    return round(float(value), 6)
-  if value is None:
-    return None
-  return unicodedata.normalize("NFKC", str(value)).strip()
+def equal_argument(want, got) -> bool:
+  if type(want) in (int, float) and type(got) in (int, float):
+    return round(want, 6) == round(got, 6)
+  if type(want) is not type(got):
+    return False
+  if isinstance(want, dict):
+    return want.keys() == got.keys() and all(equal_argument(value, got[key]) for key, value in want.items())
+  if isinstance(want, list):
+    return len(want) == len(got) and all(equal_argument(left, right) for left, right in zip(want, got))
+  if isinstance(want, str):
+    return unicodedata.normalize("NFKC", want).strip() == unicodedata.normalize("NFKC", got).strip()
+  return want == got
 
 
 def contains(text: str, needle: str) -> bool:
@@ -49,17 +53,13 @@ def compare_arguments(expected: dict, got) -> tuple[list[str], int, int]:
   for key, want in expected.items():
     if key not in got:
       problems.append(f"missing argument {key}")
-    elif normalize_scalar(got[key]) == normalize_scalar(want):
+    elif equal_argument(want, got[key]):
       correct += 1
     else:
       problems.append(f"argument {key}: expected {want!r}, got {got[key]!r}")
   for key in sorted(set(got) - set(expected)):
     problems.append(f"unexpected argument {key}")
   return problems, correct, len(expected)
-
-
-def first_requested(requested: list[dict]) -> dict | None:
-  return requested[0] if requested else None
 
 
 def evaluate_case(case: dict, steps: list[dict], requested: list[dict], executed: list[str], denied: list[str], final_text: str) -> dict:
@@ -72,18 +72,17 @@ def evaluate_case(case: dict, steps: list[dict], requested: list[dict], executed
   if wanted_first is None and expected.get("first_call"):
     wanted_first = [expected["first_call"]]
   if wanted_first:
-    first_step = steps[0]["tool_calls"] if steps else []
+    first_step = steps[0].get("tool_calls", []) if steps else []
     if len(first_step) != len(wanted_first):
       failures.append(f"first step requested {len(first_step)} call(s), expected {len(wanted_first)}")
+    argument_total = sum(len(call["arguments"]) for call in wanted_first)
     for want, got in zip(wanted_first, first_step):
       if got["name"] != want["name"]:
         failures.append(f"first call is {got['name']}, expected {want['name']}")
-        argument_total += len(want["arguments"])
       else:
-        problems, correct, total = compare_arguments(want["arguments"], got["arguments"])
+        problems, correct, _ = compare_arguments(want["arguments"], got["arguments"])
         failures.extend(problems)
         argument_correct += correct
-        argument_total += total
 
   sequence = expected.get("sequence")
   if sequence and executed[: len(sequence)] != sequence:
@@ -102,7 +101,19 @@ def evaluate_case(case: dict, steps: list[dict], requested: list[dict], executed
   if invalid:
     failures.append(f"{len(invalid)} malformed or undeclared tool call(s)")
 
-  if steps and steps[-1]["tool_calls"]:
+  for step in steps:
+    if step.get("error"):
+      failures.append(f"request error: {step['error']}")
+    if step.get("stream_matches_non_stream") is False:
+      failures.append("streaming tool calls differ from non-streaming")
+
+  if case.get("category") == "thinking_separation":
+    if not any(step.get("reasoning", "").strip() for step in steps):
+      failures.append("missing separate reasoning content")
+    if any("<think>" in step.get("content", "") or "</think>" in step.get("content", "") for step in steps):
+      failures.append("reasoning tags leaked into visible content")
+
+  if steps and steps[-1].get("tool_calls"):
     failures.append("ended on tool calls without a final answer")
   if not final_text.strip() and not expected.get("allow_empty_answer"):
     failures.append("empty final answer")

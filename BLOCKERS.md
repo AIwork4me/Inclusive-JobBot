@@ -90,9 +90,9 @@ change order allows: running llama.cpp's own `test-chat` at the pinned commit
 raw model output before the parser sees it. Installing Visual Studio is a
 system-level change the project does not make on its own.
 
-**Workaround in use.** Parser fixtures are fed to the native parser through
-the public API (assistant prefix continuation); this is unverified until the
-fixture runner is executed. Upstream `test-chat` can also run in GitHub-hosted
+**Workaround in use.** The fixture runner reaches the native parser through
+the public API via assistant prefix continuation. It verifies that successful
+replies sampled only EOS. Upstream `test-chat` can also run in GitHub-hosted
 Linux CI.
 
 ## B-006 Energy per successful task cannot be measured
@@ -116,3 +116,15 @@ owner has a wall-plug power meter, the measurement can be added.
 The 168-hour soak test needs real elapsed time with the machine awake and the
 remote session undisturbed. Sleep and hibernation settings are the owner's to
 change; the project does not touch power settings.
+
+## B-008 The ECO-01 acceptance text is unavailable in the checkout
+
+- Priority: P0 for formal IJ-0 sign-off
+- Status: OPEN
+- Owner: project owner (provide the change order)
+
+The handoff and ADR reference ECO-01, but the checkout and its Git history
+contain no copy of the change order. In particular, section 5.4 supplies the
+benchmark thresholds and section 6 supplies the SDK acceptance checklist.
+Measured results can be collected against the frozen dataset and fixtures
+while the change order is located.

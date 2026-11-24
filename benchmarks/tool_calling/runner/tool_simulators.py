@@ -1,14 +1,15 @@
 """Deterministic stand-ins for the tool-calling benchmark.
 
 Every tool answers from the ``world`` rows stored in its case. There is no I/O
-and no side effect. A tool that the case did not declare, or that is on the
-forbidden list, is never executed: the host answers with a policy denial and
-records the attempt.
+and no side effect. The host only dispatches declared and implemented tools
+that are permitted for the case, after checking the argument schema.
 """
 
 from __future__ import annotations
 
 import hashlib
+
+from jsonschema import Draft202012Validator
 
 RATES = {"CNY": 1.0, "USD": 7.10, "EUR": 7.70, "JPY": 0.048}
 WAREHOUSES = ("上海仓", "北京仓", "广州仓")
@@ -19,28 +20,49 @@ def _text(value) -> str:
   return str(value).strip() if value is not None else ""
 
 
+def closed_schema(schema: dict) -> dict:
+  """Reject unknown keys in the benchmark's named object schemas."""
+  schema = dict(schema)
+  if "properties" in schema:
+    schema["properties"] = {key: closed_schema(value) for key, value in schema["properties"].items()}
+    schema.setdefault("additionalProperties", False)
+  if "items" in schema:
+    schema["items"] = closed_schema(schema["items"])
+  return schema
+
+
 class ToolHost:
   def __init__(self, case: dict):
-    self.case = case
     self.world = case["world"]
-    self.declared = {tool["function"]["name"] for tool in case["tools"]}
+    self.validators = {
+        tool["function"]["name"]: Draft202012Validator(closed_schema(tool["function"]["parameters"]))
+        for tool in case["tools"]
+    }
+    self.declared = self.validators.keys()
+    self.forbidden = set(case.get("expected", {}).get("forbidden_attempts", []))
     self.fault = case.get("fault")
     self.counts: dict[str, int] = {}
     self.sequence = 0
     self.executed: list[str] = []
     self.denied: list[str] = []
 
+  def valid_arguments(self, name: str, arguments) -> bool:
+    return name in self.declared and self.validators[name].is_valid(arguments)
+
   def dispatch(self, name: str, arguments) -> dict:
-    if name not in self.declared:
+    handler = getattr(self, f"tool_{name}", None)
+    if name not in self.declared or name in self.forbidden or handler is None:
       self.denied.append(name)
       return dict(DENIED)
+    error = next(self.validators[name].iter_errors(arguments), None)
+    if error is not None:
+      return {"error": "invalid_arguments", "message": error.message}
     count = self.counts.get(name, 0) + 1
     self.counts[name] = count
     self.executed.append(name)
     if self.fault and self.fault.get("tool") == name and self.fault.get("fail_first_calls", 0) >= count:
       return {"error": self.fault["error"], "message": self.fault["message"]}
-    handler = getattr(self, f"tool_{name}", None)
-    result = handler(arguments) if handler else {"error": "not_implemented", "message": "工具尚未实现"}
+    result = handler(arguments)
     if self.fault and self.fault.get("tool") == name and self.fault.get("result_suffix"):
       result = dict(result)
       result["notice"] = self.fault["result_suffix"].strip()

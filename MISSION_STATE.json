@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T05:45:00Z",
+  "updated_utc": "2026-11-24T07:44:44Z",
   "current_phase": "IJ-0",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -55,7 +55,7 @@
     },
     "IJ-0.TC": {
       "progress": "in_progress",
-      "status": "NOT_RUN",
+      "status": "FAIL",
       "evidence": [
         "evidence/IJ0/protocol/tool_calling_smoke.json"
       ]
@@ -122,7 +122,7 @@
     "G2": "PASS",
     "G3": "PASS",
     "G4": "PASS",
-    "G5": "NOT_RUN",
+    "G5": "FAIL",
     "G6": "NOT_RUN",
     "G7": "NOT_RUN",
     "G8": "NOT_RUN",
@@ -156,6 +156,7 @@
   "open_blockers": [
     "B-005",
     "B-006",
-    "B-007"
+    "B-007",
+    "B-008"
   ]
 }
