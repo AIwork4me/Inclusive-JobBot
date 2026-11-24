@@ -1,0 +1,22 @@
+{
+    "schema_version":  1,
+    "installed_utc":  "2026-11-24T03:53:17Z",
+    "installer":  "scripts/windows/install_rocm_runtime.ps1",
+    "package_spec":  "rocm[libraries]==10.0.0",
+    "index_url":  "https://stable.repo.amd.com/rocm/whl-next/",
+    "venv_dir":  "runtime/llama-cpp/rocm-libs",
+    "packages":  [
+                     "rocm==10.0.0",
+                     "rocm-sdk-core==10.0.0",
+                     "rocm-sdk-libraries==10.0.0"
+                 ],
+    "library_directories":  [
+                                "runtime/llama-cpp/rocm-libs/Lib/site-packages/_rocm_sdk_libraries/bin",
+                                "runtime/llama-cpp/rocm-libs/Lib/site-packages/_rocm_sdk_core/bin"
+                            ],
+    "required_dlls_missing":  [
+
+                              ],
+    "list_devices_output":  "Available devices:\r\n  ROCm0: AMD Radeon(TM) 8060S Graphics (91612 MiB, 91452 MiB free)",
+    "status":  "PASS"
+}

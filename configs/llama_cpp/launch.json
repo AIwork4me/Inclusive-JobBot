@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "note": "Defaults for start_llama_server.ps1. Every value can be overridden with a script parameter.",
+  "host": "127.0.0.1",
+  "port": 8080,
+  "alias": "minicpm5-2b",
+  "context_length": 8192,
+  "gpu_layers": 99,
+  "parallel_slots": 1,
+  "startup_timeout_seconds": 900,
+  "log_verbosity": 4,
+  "probe_prompt": "请用一句话介绍你自己。",
+  "state_dir": ".runtime/llama-server",
+  "log_dir": ".runtime/logs",
+  "models": {
+    "f16": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-F16.gguf",
+    "q8": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf",
+    "q4": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q4_K_M.gguf"
+  },
+  "model_sha256": {
+    "f16": "full digest in models/model_manifest.json",
+    "q8": "full digest in models/model_manifest.json",
+    "q4": "full digest in models/model_manifest.json"
+  }
+}

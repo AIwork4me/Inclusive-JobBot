@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "note": "Single source of truth for the pinned llama.cpp engine. install_llama_cpp.ps1 and install_rocm_runtime.ps1 read this file. Change it only together with a new qualification run.",
+  "repository": "https://github.com/ggml-org/llama.cpp",
+  "license": "MIT",
+  "stable_release_tag": "v1.0.0",
+  "stable_release_commit": "2d8a32502909ca065c41c4cf5f2fb1c427c047fc",
+  "build_tag": "b12359",
+  "build_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+  "download_base_url": "https://github.com/ggml-org/llama.cpp/releases/download/b12359",
+  "download_dir": ".tools/downloads/llama-b12359",
+  "runtime_dir": "runtime/llama-cpp",
+  "assets": [
+    {
+      "file": "llama-b12359-bin-win-cpu-x64.zip",
+      "size": 25097509,
+      "sha256": "837c1655e87df3b66989f4be33a792a1399c785bf259038dc75c900096683e69",
+      "sha256_source": "GitHub release asset digest"
+    },
+    {
+      "file": "llama-b12359-bin-win-vulkan-x64.zip",
+      "size": 38090643,
+      "sha256": "e8d18c6e4210cca87e7307c2ea78363ac8d158e4e1397358ec96ab70b53a0d5e",
+      "sha256_source": "GitHub release asset digest"
+    },
+    {
+      "file": "llama-b12359-bin-win-rocm-10.0-x64.zip",
+      "size": 280132437,
+      "sha256": "d5021cebbd3bd50a7cab3b9f121a887e45df76c360ecfa927940aac3bb64a982",
+      "sha256_source": "GitHub release asset digest"
+    }
+  ],
+  "backends": [
+    {
+      "name": "cpu",
+      "archives": ["llama-b12359-bin-win-cpu-x64.zip"],
+      "gpu_libraries_present": false
+    },
+    {
+      "name": "vulkan",
+      "archives": ["llama-b12359-bin-win-vulkan-x64.zip"],
+      "gpu_libraries_present": true
+    },
+    {
+      "name": "rocm",
+      "archives": ["llama-b12359-bin-win-rocm-10.0-x64.zip"],
+      "gpu_libraries_present": true,
+      "requires_rocm_runtime": true
+    }
+  ],
+  "rocm_runtime": {
+    "package_spec": "rocm[libraries]==10.0.0",
+    "index_url": "https://stable.repo.amd.com/rocm/whl-next/",
+    "venv_dir": "runtime/llama-cpp/rocm-libs",
+    "required_dlls": ["hipblas.dll", "rocblas.dll", "amdhip64_7.dll"]
+  },
+  "build_flags": {
+    "source": ".github/workflows/release.yml at the build commit",
+    "cpu": "-G Ninja Multi-Config -DCMAKE_TOOLCHAIN_FILE=cmake/x64-windows-llvm.cmake -DLLAMA_BUILD_BORINGSSL=ON -DGGML_NATIVE=OFF -DGGML_BACKEND_DL=ON -DGGML_CPU_ALL_VARIANTS=ON -DGGML_OPENMP=ON -DGGML_OPENMP_FETCH=ON",
+    "vulkan": "-DGGML_VULKAN=ON (Vulkan SDK 1.4.357.0), backend library only, merged with the CPU build",
+    "rocm": "-DGGML_BACKEND_DL=ON -DGGML_HIP=ON -DAMDGPU_TARGETS=gfx1010;gfx1011;gfx1012;gfx1030;gfx1031;gfx1032;gfx1033;gfx1034;gfx1035;gfx1036;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201 (ROCm 10.0.0 wheels)"
+  }
+}
