@@ -1,0 +1,156 @@
+{
+  "authored_source_sha256": {
+    "dataset.py": "d6d850de4f9cdcf86f4e498ce636216a3b7f791b3405bf29b12f6aa71c445e34",
+    "host.py": "28009f83d67455b7bc94fd4589cc6a3298354cfc1f6e1ebd5e3606977b449a4d",
+    "oracle.py": "fff94227b68ea27d1cbb7a17f10fe2d0764d215d57da3d8581e3837a6eebe0ae",
+    "templates.py": "1ae891701117692d16dbe961be3a203888527d4b737508ac35220c4c69f62b8c"
+  },
+  "first_pass_seed": 47,
+  "format": "TC-V2/1.0",
+  "inputs": {
+    "tool_calling_500.jsonl": {
+      "overlap": {
+        "case_ids": 0,
+        "normalized_user_prompts": 0,
+        "tool_names": 0
+      },
+      "sha256": "ce6bf6bf433baab69e511328faae42c34d6a245e44dfd432e2a30f94c84e6add"
+    },
+    "tool_calling_dev.jsonl": {
+      "overlap": {
+        "case_ids": 0,
+        "normalized_user_prompts": 0,
+        "tool_names": 0
+      },
+      "sha256": "e5e2308ff8b4fe5a13dfdd9d279018845e20fcf8d9e151ea8ccd8fef3a03a5fa"
+    }
+  },
+  "repeat": {
+    "cases": [
+      "TCV2-H-0025",
+      "TCV2-H-0041",
+      "TCV2-H-0073",
+      "TCV2-H-0076",
+      "TCV2-H-0100",
+      "TCV2-H-0103",
+      "TCV2-H-0104",
+      "TCV2-H-0120",
+      "TCV2-H-0127",
+      "TCV2-H-0177",
+      "TCV2-H-0183",
+      "TCV2-H-0192",
+      "TCV2-H-0193",
+      "TCV2-H-0201",
+      "TCV2-H-0252",
+      "TCV2-H-0263",
+      "TCV2-H-0268",
+      "TCV2-H-0279",
+      "TCV2-H-0285",
+      "TCV2-H-0288",
+      "TCV2-H-0302",
+      "TCV2-H-0309",
+      "TCV2-H-0311",
+      "TCV2-H-0315",
+      "TCV2-H-0318",
+      "TCV2-H-0345",
+      "TCV2-H-0347",
+      "TCV2-H-0350",
+      "TCV2-H-0363",
+      "TCV2-H-0366",
+      "TCV2-H-0372",
+      "TCV2-H-0373",
+      "TCV2-H-0397",
+      "TCV2-H-0404",
+      "TCV2-H-0413",
+      "TCV2-H-0423",
+      "TCV2-H-0428",
+      "TCV2-H-0431",
+      "TCV2-H-0434",
+      "TCV2-H-0435",
+      "TCV2-H-0437",
+      "TCV2-H-0439",
+      "TCV2-H-0440",
+      "TCV2-H-0444",
+      "TCV2-H-0447",
+      "TCV2-H-0477",
+      "TCV2-H-0479",
+      "TCV2-H-0480",
+      "TCV2-H-0492",
+      "TCV2-H-0493"
+    ],
+    "seeds": [
+      101,
+      211,
+      307
+    ],
+    "selection": "Five per template, hash-ranked within language, 25 English and 25 Chinese total"
+  },
+  "seed_labels": {
+    "dev": "IJ07-TCV2-001-D",
+    "holdout": "IJ07-TCV2-001-H",
+    "panel": "IJ07-TCV2-001-R"
+  },
+  "split": {
+    "dev": {
+      "case_count": 120,
+      "category_counts": {
+        "argument_types": 15,
+        "error_recovery": 15,
+        "sequential_multi_tool": 15,
+        "single_tool": 15,
+        "streaming_tool_call": 15,
+        "thinking_separation": 15,
+        "tool_result_round_trip": 15,
+        "unauthorized_injection": 15
+      },
+      "language_counts": {
+        "en": 60,
+        "zh": 60
+      },
+      "path": "tc_v2_dev.jsonl",
+      "sha256": "3cb578ba7cfc4c1e65fe196f0cb4ec2613aa7f59b19b480c0f34648c85f09628",
+      "template_counts": {
+        "dev_free_units": 15,
+        "dev_join_lane": 15,
+        "dev_paired_form": 15,
+        "dev_peer_inspection": 15,
+        "dev_retired_depot": 15,
+        "dev_threshold": 15,
+        "dev_unsigned_lane": 15,
+        "dev_wire_lane": 15
+      }
+    },
+    "holdout": {
+      "case_count": 500,
+      "category_counts": {
+        "argument_types": 80,
+        "error_recovery": 30,
+        "sequential_multi_tool": 100,
+        "single_tool": 100,
+        "streaming_tool_call": 50,
+        "thinking_separation": 30,
+        "tool_result_round_trip": 80,
+        "unauthorized_injection": 30
+      },
+      "language_counts": {
+        "en": 250,
+        "zh": 250
+      },
+      "path": "tc_v2_500.jsonl",
+      "sha256": "34fae92ce5fe0ea14d69c4dfd4d2852414f30e85a1576875caa47219b3b03e76",
+      "template_counts": {
+        "allocation_form": 80,
+        "confirmed_bin": 50,
+        "price_roundtrip": 80,
+        "reasoned_band": 30,
+        "restricted_bin": 14,
+        "service_fallback": 30,
+        "sku_wire": 50,
+        "stock_cell": 100,
+        "unsigned_bin": 16,
+        "warehouse_fork": 50
+      }
+    }
+  },
+  "streaming_pair": "every holdout case, full independent trajectory"
+}

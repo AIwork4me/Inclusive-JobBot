@@ -116,6 +116,10 @@ The 168-hour soak test needs real elapsed time with the machine awake and the
 remote session undisturbed. Sleep and hibernation settings are the owner's to
 change; the project does not touch power settings.
 
+The IJ-0.7 read-only power query showed timeout 0 for both AC and DC idle
+sleep in the active scheme. The uninterrupted test interval and single-GPU
+availability remain unverified. No power policy change was applied.
+
 ## B-008 The original ECO-01 SDK checklist was unavailable in the checkout
 
 - Priority: P0 for full SDK acceptance
@@ -148,3 +152,28 @@ admission and production selection are pending. [Parser report](reports/IJ06_PAR
 Both SDK suites target a verified loopback inference service with API keys
 cleared. Full process egress isolation or complete trusted traffic observation
 is still needed. Preserve the network and remote session during this test.
+
+## B-011 Historical V1 data lacks confirmed stateful write inputs
+
+- Priority: P0 for IJ-0.7 transactional and SDK replay evidence
+- Status: OPEN
+- Owner: project
+
+The frozen generator 1.0.2 tool signatures and in-memory synthetic receipts
+preserve experimental comparability. Some schemas omit resource and approval
+inputs required by the SQLite Gateway. Record the original diagnostic as
+executed and exercise the validated stateful path with independent, explicit
+inputs. [Historical replay](reports/IJ07_HISTORICAL_REPRODUCTION.md)
+
+## B-012 MiniCPM5 fails independent sequential tool qualification
+
+- Priority: P0 for IJ-0.7 model and production qualification
+- Status: OPEN
+- Owner: project
+
+The P4b observer candidate passed 25/100 independent sequential cases on
+each Radeon backend. Both full TC-V2 first-pass rates were below 90%.
+Trace the omitted calls, incorrect arguments and final facts through the
+preserved raw requests and checkpoint hashes before testing any revised
+model profile. Keep the completed holdout immutable.
+[TC-V2 qualification](reports/IJ07_TC_V2_QUALIFICATION.md)

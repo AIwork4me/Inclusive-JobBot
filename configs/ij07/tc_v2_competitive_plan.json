@@ -1,0 +1,3655 @@
+{
+  "arms": {
+    "B": {
+      "backend": "vulkan",
+      "configuration_sha256": "bd9ab2d62b8fc1f75e1139934ea9bf38ca42dbb1bf940943b2ae14e5a98947af",
+      "controls_sha256": "a2c9c1456cb5743fcb108d0dece1e5f0888c3c1d8d3a33b2aac863980ce7c597",
+      "device": "gfx1151",
+      "model": "LiquidAI/LFM3-1.7B",
+      "protocol": "native-tool-calling",
+      "quantization": "Q8_0",
+      "thinking": "frozen_case_requirement",
+      "track": "controlled"
+    },
+    "D": {
+      "backend": "vulkan",
+      "configuration_sha256": "84498107ce5c4648a2fa749f0da9b2e306a9df5badb8ff8b6ab7fee004e2ea38",
+      "controls_sha256": "a2c9c1456cb5743fcb108d0dece1e5f0888c3c1d8d3a33b2aac863980ce7c597",
+      "device": "gfx1151",
+      "model": "Qwen/Qwen3.5-2B",
+      "protocol": "native-tool-calling",
+      "quantization": "Q8_0",
+      "thinking": "frozen_case_requirement",
+      "track": "controlled"
+    },
+    "F": {
+      "backend": "vulkan",
+      "configuration_sha256": "b295a98501bb5e1050d0597602b220370a9c859439302564324c127f111b1168",
+      "controls_sha256": "a2c9c1456cb5743fcb108d0dece1e5f0888c3c1d8d3a33b2aac863980ce7c597",
+      "device": "gfx1151",
+      "model": "mistralai/Ministral-3-3B-Instruct-2512-GGUF",
+      "protocol": "native-tool-calling",
+      "quantization": "Q8_0",
+      "thinking": "frozen_case_requirement",
+      "track": "controlled"
+    },
+    "G": {
+      "backend": "vulkan",
+      "configuration_sha256": "4a35d3d7280e53cc405482a3519c3cfddaf3b49cd6cbba67f1d491efdaef4656",
+      "controls_sha256": "a2c9c1456cb5743fcb108d0dece1e5f0888c3c1d8d3a33b2aac863980ce7c597",
+      "device": "gfx1151",
+      "model": "google/gemma-4-E2B-it",
+      "protocol": "native-tool-calling",
+      "quantization": "Q8_0",
+      "thinking": "frozen_case_requirement",
+      "track": "controlled"
+    }
+  },
+  "bootstrap": {
+    "samples": 10000,
+    "seed": 20261124
+  },
+  "cases": [
+    {
+      "case_id": "TCV2-H-0001",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "c507117657d9ca24d8a91d8a45f7ae8ef6ed50fc32c95b9434ea0c5d3aca2ec9",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0002",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "34c717edd451526c18ed24cafc15a5f3cd824c1da70274210167be3473c27837",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0003",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "f44d9bd6446b717e9e4c1bb91820438dd69a5677c4177c7d9c440a3c4c52ba5f",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0004",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "34c53b69d9d3503c16876861705a978deba17c696c9a60fd26aab6787832f318",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0005",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "94cf07532a1d2078ca1095fc9e0a18f081e0b28912624f9398ba4a46307d3ce5",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0006",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "2541ba210691470c80a833fe0d3b49608b00a3e146e802e55c7c255de2accae0",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0007",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "58a3328689389e885e1cba9dffd5866b942efd0c80a531892097851f07420691",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0008",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "26beaa7a00cedb3f8ed7a09a3597f8820d5a6e0e7e0ead03f9b5540592fb10e3",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0009",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "e5a7d19f1b9a71b2c964676efae9fcf82710345247183b0cbfa4199a6e12fef9",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0010",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "d053d6bd0506eeb233516dc4de984c8b9c42037fce8c3ac9ffe450288e4ebfa3",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0011",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "90493a8aebb1a9c7e3e7538bd71d499e9c78b0e18cfa5d5c35e8f098d198410c",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0012",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "09e5d1a292ef70cd9ae5d41295a5bf2905b2eb7fb38d11b86e0ad624ac6e7f7a",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0013",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "8ba62494bf41af2e8b8c7531da919132808fc7ce9a255bb9b609eb98b5f6f1c7",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0014",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "85d3c28ec0c0222bf3841e4bbac4219971fd1d1e94d0674b7d97bd7cecaedded",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0015",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "badd910e698a2a433a5f9f190d9557a073e9ce207f543840010b7c56b0745ba4",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0016",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "b688199085ef46098c48c0d6a4b6542e4ec6098bc2ccea782cfefb598b30b715",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0017",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "14b63e1165c7056bd6d820fb5a7b7036c6419ac1c68ee5ec01a62aab602966a9",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0018",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "85b3cc918ca91ea64b472f177ed4dae63a4db95a85784581fe282a48671d0b8d",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0019",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "8d6c15c9a67a314b93194d03a0c700b01d14b7a56ee15ce35f1fb7f168c94845",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0020",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "896ff0f9674d2b8e0a6418ad5e9c7eb53780227db5bd958e9665506a8fab3a3b",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0021",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "1835f4e4ebd47255435b3c71e5ffad7f5013f01aefb856b271160e38e5b6fb2c",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0022",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "bb69e03cf0ac973fc24c168d719e474be091338f89f68adafb966179efbeeae9",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0023",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "5310ee014b0935f9f603827efc1b1f2cec4bf4589820008fe046b991a56785b4",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0024",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "7904a26582eab670a3014072d9115253a86bb958d225ce4c9e8134bebc6481cc",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0025",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "2827cdb1b72851568ffef2a9a95809c1dca9295a3e3d26e8f8ca94ccf828e376",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0026",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "e068f20b571b59163ae70d85f409bd759ebdbde0ce188dd5c547e501b4973152",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0027",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "2e9e753532e80b02b2c1c5ed067a72e807b099071f372062da46a6ca62962afe",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0028",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "1aed2e252fd032cc9cee2ece8ad451af48f50d9ce1054c7b6f8c13ae9c00a441",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0029",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "68a9956bd7bdcb9e0a1ed4480d7993f5ff754a08454eaebece8d8cf9ff6a11d8",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0030",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "3bc52562d101525f16b3e38f3fd5c84606bc9d117750aa0f3afceae673705d25",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0031",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "aa8c20d8ea6e564d04ad30b68b3ee73592080966473286621fe5ae31fe43646b",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0032",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "d49cc9379e3adaabd916e7a20e90aceb44b9600d6f42fe903473c03dec347747",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0033",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "d7dacd7be4394bbbe0a86f06ec1de27e09a6c31b7d9a086a4a145dcd2593cc9e",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0034",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "b43d6b367d6ff40d83b893d28c9a7978edd039c895bf70ff47c037a4c6eced7d",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0035",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "1ce931e742b9334194b32feabf2b0e66cb43d887fb8c19461befdb70186de92f",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0036",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "2ccc47271d02d223629b0fde8dade7ad19570fbc601b852ea95b09a551138701",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0037",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "ab41ef4eeccb2e25a482a2ee3a1821ea8a622ffdf379d9df61d670fe03d8e99a",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0038",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "4e1565c4f3cf4d4a9be8ca25bee174d2fdef757e073dde2b0f77252b1fe62d07",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0039",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "97157c57024e9aed1dbbf813df518ab0e5c23591d76e170a3982a75c13a9f660",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0040",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "ff8c2a91b5cd4de9ac9ca151b1dfac4af317e1e77443f01956fbaa9b73591d03",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0041",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "429c215de3944fd205894887b6482784d7921362534c60dcc3536875ce13e111",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0042",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "8f9a5f30635b3eb8861ece109a931f5034b858156833896ae14312815d7f8b4f",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0043",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "2b862f7b7d9b4f5a50ee8f01866ca933238ecf39d4af2c0d56bda09eb459fc4f",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0044",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "d94a173788b46145f88e0c442154b526b6fc23fbc5c60cfbd5343204a3dd9490",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0045",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "aa94dd2ebaa664eadfdbe7ca41c4925e5ecc73b148919869816e43ba52d13909",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0046",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "7fe59e3ff6ed12306045853091bcbc20b0a4e0fab8db1986f2b16f89088c5e39",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0047",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "924f20c490d3174b2bbb1f7ada694d956b7644792f56e4e1b2524e9badd905dc",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0048",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "fb65ecb40e69f00ec4aa02be6cabd0983bd385b3c5c643efce7f3f270d6de73b",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0049",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "56f91c9d5db9eec335e50e7118d7f4c17dc4211887f0b7558f942ae81ca63a80",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0050",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "4b76e382825603adb7757dec036946cb6502d802b5fb9285c58b85c78f429ad8",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0051",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "0cda3a0662c9ba7cd21cd595c29f2cb3e9900daa36bce204cf712c74bc2855d5",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0052",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "cbd987305476159943e49f919efcded78ea9459466f4db7daaf88694111a11b7",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0053",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "513c4fd13206888d2ec3f8aa44ccfe53c4bbc88c518a83b06028d633132c53c9",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0054",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "6bd81f7db30a64715786a9f99c45b2dc31cff26ffb2e6eba184b7d8320fe32c3",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0055",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "54601b0ac5665bc946551af2eecec8f168a30297b24f8d5808d05fed365f4bbc",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0056",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "8097f45dbabb992325506d06f1851f956d71bda8ee649496d22e562b430a8bb5",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0057",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "a0e74315ad0b458d3f45f79bf5a66fb0e76be68606686bc137426fb1a4e524c4",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0058",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "2d055b3126e2cf563e67858beec07e1c48771bf6a111f7eba8b70ad104fbe25c",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0059",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "0e4d134c13873975a888d269ad7477140d83311432d1de58f8e7a2bf3a967bbf",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0060",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "22425e1ebd3a3446f394790b70d07fa30760f44aaf112d61dd7e5db6426cddf2",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0061",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "afa0e488a2d00b408b77e4431065106c5ccae0bf4e3a11d00f8861f08bc0e50c",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0062",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "75edb37066e84a80612aa05cd64d15b24a7aa603c614253c85f2821f86cfff73",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0063",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "97341a179caccaa7572b42479582b988839fe9b0d4f67f3f36ad7046425fcce8",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0064",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "1de686bb445a0b7c4bc38b111c0021ff110f148a71c4c0de65a4fc38443f65e2",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0065",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "e73451b52d12f68cffe734d3c783bd7d9bc9c90f39db806e5fd5508009543893",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0066",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "493068ef51e5ed6a4a19c2c2e91260064d07739ecbaa4fa339bd463a4210ee9b",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0067",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "54b53c4e2c86e4ca0e31c5eccbe0bd092353a4704fc6aebff7ae826b94a4203c",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0068",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "c32d7fd27ff76a71ee28d2ce4b289c958a84d7946b6961651c2cc79a6807b28c",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0069",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "5eb8d4b6cc3775c85718974cace06be49322c240ee219e0a7b7cdd0a64c31bb5",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0070",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "a5d9ce9cf0a0c85366062b136cfcec3153dc6affc56ec774d922565326b3d21b",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0071",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "65b254bd095691be09fe941da03c9a4353414b71f8dbd08754a4923d8e9fb256",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0072",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "f0cc04a3e78b4a6d90edc7fe7c87d3066b662495edd3e44da5232391fb0067e6",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0073",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "8f71c050e95b1edd4e9ac4c8bd188076f659a11f07451be11e75c84cc67e1f72",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0074",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "4d7ca51c1abd572e95d0a37064f608093a8b1ed0927750b54b878b7dc4b77dfb",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0075",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "d551bdb7dcbf10839ba117bcc91061cc9080ece0aa3057cbe5a597b3ac85f05f",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0076",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "7101ec26a4baa6fbfdfc1146cadb94d8128d43a0d47f04d4228aeff747b13ce9",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0077",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "ffe8c0aeb2cca2238651fe1b818823a753c5cdcae526efae183e289f18ba7530",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0078",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "f12c4ce21e9202e758e008ea3d352058ac271be752dac0edb31ee86eeca08c7d",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0079",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "b70c8436d5318718572df3bf8fa8c5fb7f40c1634d4df533bac204392b833ec3",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0080",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "63748ca6cd7efc700c71483f6db0fc7cd556097a36ce1e15febfed8c82f717f4",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0081",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "af27e76fb746315757a49fb09f18ac95c671a59cf493ed59aa10bcd8d226bdac",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0082",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "c1fd770b20bb727c1c57e1f306c957bffe9bccb40f4a7eac37108d07ae697352",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0083",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "1cf04f2e4445053af5865a1f4c8e4596d7956fae48f9ade9c1c806fbfb042966",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0084",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "cd61517526d74caee3a884fd61088f9ca743b11396b1bf1131acafc4c9b5031a",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0085",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "23dcb7fe7809768e23c868922c869074ac61ff58899a3a273e97f2dd852f41ea",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0086",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "730394903b70bc8482e084a5a9dafd61da9ea2b22b698dd0d146993d52e141e1",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0087",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "debb589f822f600b6504802663ec82d05ed5c31521dca51770fa35dc4b566bff",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0088",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "4d547971b8b332d96e67c88ea7a47851e9de03722d6d687a08618409923fb0da",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0089",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "d70e3533758e8cb5b70bf6472be8f91e7e94b6490417f8ab1ec0535784c55ed5",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0090",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "cda7998d5d46e062c968ea342a6c34acef07b89fd282c7eee92d336d6c8af8c3",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0091",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "99765c14825556c5305937574a94cf849c6e63c204bfd8e95923ae3ae0879044",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0092",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "85a20d34a45ef59d5a1bb78d3869fdc65cd4810491890fe3f9f4492c6fe85c22",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0093",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "b6e0d9fbb5018e2bcbe3add57f5c49b3a582067c56a501cbed3d294287e088e5",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0094",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "85cd7d0eeb414572b33de4789daec20fdfa32c3eab6f6079fd02b2cbf4baeb5b",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0095",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "8c09ca5343b69d2b6318b488505cfef39a30c3d89224b11e53e8bedb11a94677",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0096",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "9137df59683dde33183eecc6ac7be6085a6d991c60118bd2c97bca6817d2bcd1",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0097",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "f137d2d7d714dca3e9a57f2924dbda932c85c88b76b88835b308ec4122f44e17",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0098",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "2377ed3ff618861e45d0dbaed9884dabf1e14c5dc56306ac57e556c07547b4bc",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0099",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "5434c72876cb60858715a4a24e5ed6e067ccc049e793fa6e89843b771eb9525a",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0100",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "0365f56c484b60d131ae93d592ecf40f7aee2e3a8082d4d6b9b6289fa90d9cb8",
+      "task_type": "single_tool"
+    },
+    {
+      "case_id": "TCV2-H-0101",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "2a2b47c5bf6b5341264682b220e8fe31034ce737e47205469b9a6de77c103fc3",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0102",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "985e8ea318fcf143dcb6a48b62462a97af078a92801f2d4ed8340a0c421dfc9f",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0103",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "225ac5569c063445eeb0f8d2725777cd7ab13b908ed0eff2b937f6f9bfbb3e81",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0104",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "7727846adc7fff2cafc2d477b2cc43ba6852204ca3990351113b931bb8022eef",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0105",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "2e633a2a67c7fae2f48b30bb5b224b0165859f71ef58a9c49c20d8fe3c39215a",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0106",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "2bb2feaeabbff57bd119938bcac1da26d1de0e2a87712576422e227e261c7599",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0107",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "b8cf0aabbececc831dc2e69d6e9edbd6118c484d424eb5c5e5c1f8eca81dcb1e",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0108",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "dbf1f313f290d7125e99870c2cc16f0af8952de68ea5a4a1ee02337273106f43",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0109",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "ede7cb3d9045084d318cb4422060c4ef61cc23ce01090ce5916f762f34576f9f",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0110",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "5e9e197d3b7e4c58e171ede2a6cfba80b680aeb3a02cfe83bfb2a361016cfa51",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0111",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "24b5fc8fa19522d520e30b7df04a4179346f07975c80df21b488eb04e14f42db",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0112",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "ebf9624e36047f771cda55188fc744c97d67edc7b363fb0459f47855ae2be4f2",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0113",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "7d32974791f3fc563830fe091d63a98d685ca7b4db39de789e5122c61e55cee3",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0114",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "85c37a48fcd1320a97940fea2ce51fe83e5b631b3e51d4d5ffeb55900d0dd627",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0115",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "5ecf0bac4be2ddbe0d570d6a475433a6103dac6634e76ab4db6d498aa0c6e748",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0116",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "b1e485c029b31232d209560f930c3a1f3d84da052cc8fcae90203b9a8b4e4569",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0117",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "bd3fb7047513d5bb050567d87d118b045e6fbc300625776316288aa6fc96b14e",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0118",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "a3080cea5a116da6b8d063fd7f5a399a4ee189df1d3f439135eae338743cc3be",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0119",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "3038dddd997790f1a7d49a76e2748c7c7ed6b9095b22968e8af92ae5e0928b97",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0120",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "80225bb1bd6ac03f2b21001f46a52815383cf2e27d986352931e48215e43c4bf",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0121",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "376535ccc2ec9614235f5e827f36561f58e8b7ba70605cdeb5330f2ba90b532b",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0122",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "b02891eff91d3ef5d34dbc91c4e7280beec284d0464f5eb20931feabe7f7092b",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0123",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "2f1a69f14ee60a78d640880d72c670aedf9599899fefe7a3d1a01be7942fbca2",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0124",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "6dee422a99e86b071c4e4a58b47de16595f76918ee200bea7d50fcb013c07e2d",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0125",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "b9ee48b04664798658b01db1408e5f2ec4b76895e0efd7bc5dae9d96b4b957a7",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0126",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "ddb8cf0ddfe4a7a0097b7a3fad901fea86b1b4c039d7fca5ef19466902292296",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0127",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "c8aa3d70916c3f4ce53b08f27c0e3f68b0779055dd8dccec361fbf7389a37b90",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0128",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "8eacef3f8727d62104770a2d6305fdd86bc6ecc1485a9cd6a96f51f98090c657",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0129",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "f2854fcda48fca159d97940c93868607c8cca431db37345202734b579e03c282",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0130",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "48e8e59732226a52fbdc4c41ac377bae4a932a7941fe8c147c2fb547afcda28d",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0131",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "6f4a091876cc44913f82de373a47d6e87da9ba132cc3cddac1b3bdb886d80050",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0132",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "3e61916ba5a72e825b0a21cc25884aa1db5c4196c34270af2d75025efb2f0c7f",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0133",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "18af294e14cc0dc9776005db4bae3373524a7ad808d464dfb958ad91a5669ddd",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0134",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "d8e22f5136e704cd2806b2db192f95ea3e8ff0ad0d182b1d57086f6d73619b93",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0135",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "9ed87633dfb722d720c9f08ce0dc715ed9dc5dc3e64905304a9082cb529f876c",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0136",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "1932a24ecce8e16665680c450713d4db3c36e42d071f7f6cf6502f0973765727",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0137",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "83c94199e3d0e5c0daee66a2c9a9fe3d1f96d197ce22ee230c0ce2d4f05aca48",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0138",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "acb4b31ea89fa9aecea0108ef30ac1a86c057f934e885853b9c64cf62dae944b",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0139",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "d2f52bfba24f18088420f236820d1eadbca117b5f257ca6a504ae046ece9f1bf",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0140",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "5f361ade80f3ca18c77976262191efd770b016eceb905952d0e410559420cfa7",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0141",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "fb7ccc55b3d938a617c09492bf4fe774a789da209cbddf1607384807b193b50c",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0142",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "ba8f858f3b673d02ffb8aa3e76dbd940a2b06fa42007f0a584b693457e4199ab",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0143",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "9512f673ffaef28aa74d138cde94f7c1e6708c212910699c693923d9c526f304",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0144",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "e30d92c3e52f31f7708fd5e66c1facdc5b93debe8fb9e33f7c16c931133c7863",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0145",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "f4ecbb4ab92efb4fd7a732e5324e337b2d18c24f21a22735f15de03d235d8a4b",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0146",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "667dcee611eedad8c3d57edc9f958bbda6dbbd224356dcaed969d2d55a424d8f",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0147",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "4bb7dc31bb6165a60fee1f1e0073e005f6d1ace9f977f4d50a73c5aa2f4c3285",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0148",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "25ea4c87277e98076b7310e122232e71b234afb54da3bc26fa06a4fd0df56f10",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0149",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "5b8f4df4328d3c79b555f126106040fba6ce7020543c46f8d568c4877816245f",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0150",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "52236ff7298f8dd69ef00a57c049390118470ca83cd07c315aa2ae9f11067317",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0151",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "764e4594b919b34517f16e5508068f554362240542012f30697e112c0209103a",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0152",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "1158a7a9528c0e528764602412affd2f15b492911d1bedc6f197e409d181657a",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0153",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "7af20dcf9015f9f11f828c52703b155c6e307bf2d79b5b807ee9df9083a286ae",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0154",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "fd6417421aa575d979d05fe38454713850195b0a0e188befb20c57172c6198fb",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0155",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "7b4eb8051909e513f84128417232644ab024e999c2e454e350e2329dbbb54b5d",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0156",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "99e18310d37362a723a3631ffd1ec88b6de8c1c0575d9af1d6249e17d888abd1",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0157",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "101412aa14b9c93151fc36df06d6781b34bcfd1647f51be2cbf330e5831aa539",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0158",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "5fda1405d5bc422e3acf7feae7bed89c0b5c6bf0908427385000f03162c2467b",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0159",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "de528892c58e1eea7706fb17e0b27fc6f449b74dd3f6435c61e870e8f76bc5d8",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0160",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "82479dcba313f5136b94a81028210c0a43ef48d21f2b9939bc31c65aaf21d15c",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0161",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "65b84a9910f8caef1419570c021ec006506b23fdae29bf69fd8325dea8fd6ac5",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0162",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "ca6bba9ec74f7cf3d8b5a6d2625681e0f69aef2b019dc33ed1fba7b01a7236a6",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0163",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "36c548dbdbfb99ed66a87f4c5753c6c8f50043bdc1795a8b18303549fbc492c4",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0164",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "d2ab8f82451e81884bbf66dcb55c7df02bbfca5556b52a1d1a3059011ba01811",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0165",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "1d7d03e3557421b50d90f7e2b694b92ebe02ad12380ab23cbad8581b57afc6c9",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0166",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "6d60af5ea334e1731dd6d47de3c9f652ab5056debda05f2476b40a5f54c218e2",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0167",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "6537d3a8fdf51addcda15c6bc4c3970591017b059a8526232b5eaa96ab5e3918",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0168",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "4eb5cba8e1a2780841f750ae59d432963fbe815cf1ce27366dae64dc313cec8b",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0169",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "8ab40b84917098cb7b90744abeeae8acecbe4b5bec2eea90f89d3b73ec215a19",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0170",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "d294fd9b232d96fcda16f546f7b85cfa7b24fcaa006dbc08dd74761758aad080",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0171",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "5d1044ab41dde201a6642d750b197cf4e503c66a6fa09a2512ce443a26a67f78",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0172",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "fcf26dabbfd5838aedbe3095b05dd17c9bbf5b3bdb9cb45878b4c0d7411ddb1c",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0173",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "91ea27a814e49587091a6a1411d954b761e4740456e1d7c98c2f89f221508994",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0174",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "41840b1822599e960bc7f73e7e3bd9d001ce3900271717e18fc18a1332b43f6b",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0175",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "69b8c496896903e8e8881dc4151d2c82585e35bb7915458d6d63716047113c0b",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0176",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "e1548a55f40b1a27cf88c166c8101586e3e794e5869f7444b46803dda39c9111",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0177",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "e488a270e257549b22605c4e8e09d1fdc2bd2ba617d141a3bfe4f493e11660a2",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0178",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "b079f00c68a9eeb146bafcd355c3a8b11d893db1cf9fbc26b6120bdb46651ce6",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0179",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "1f2812e2e6d310df290b8accbae18c3f37009b2cfcff4c53e8a47ccd9376c241",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0180",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "29ac3f12e4c7b8b09d510abd10d7ab5a4a204e9c11d18e5183fe1d9538bbc573",
+      "task_type": "tool_result_round_trip"
+    },
+    {
+      "case_id": "TCV2-H-0181",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "461578b5b6c7d15b1748c2bcaa9fd60ca6d43473cd0242fb8f568cfbf98f98a8",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0182",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "6a44c0b3373cd9a402ab73bee1cecb9b57b94c2372eb9f688e3591e758a27082",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0183",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "78eab5f69a277eff9b60aac81520bcb928a09a4eac5844c25d989b273635f3bb",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0184",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "f7ba6d7c496bc6b29c3f1fa533638dd52d28a235a18914d50ec3b525d9179568",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0185",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "9dc2a562f54bbedfe928ccfe5d1d5a1e40c08cbbae2bc8375843566af4eafebe",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0186",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "3fe0a628f00454eb4d86c2c3fe57a5703f0bc478adcf31c89da27407dcfe2a50",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0187",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "17a5aae55204c9ccabdb6eb35c80c5c8be2fd3802ed361892ea0380a40503971",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0188",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "59f7f32c30b11f05749ecf5b87b5722987de562645f953bdc3681cbd2ab5ff3c",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0189",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "c0a54e3b22e453de65bec88baf4a82a9781fad2f81c7f99bf9955062c97965fa",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0190",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "bbc03ae08b54481bba2e22d845cdc4ad0692b6dc502aff2e45da5112ee47a770",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0191",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "02b9de6782641e63d06f0f4ec8dbb0cc03407f9ac5473dfeb8037be6cfa869c6",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0192",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "90a08f6ff9589e07c378013e2e85674135c7d05683e2e9f65422c67b31c964f3",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0193",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "dc97b237d8f1dc8f28b75e90107d42a4d490686a2e3ed152e5d0945a05123776",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0194",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "ae33d0db5efe3f0e2a3d1d2552d65fe65f6fb8e4a95335f585007f5114d0d567",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0195",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "0e131dd568121f857a8b3eb078a30321497d040616c8bd1d188fd4db2e2082be",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0196",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "c5d7bf08793d4f7942631d73fd97582f75343bf0e17efb1d359176c8a04aa504",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0197",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "0571c697394b295f430a0c4a525a81f17570cdb3de010703adfa7c10fa5ddec4",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0198",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "73e5d555f816fbd1df0959c231b94227d62b07abed4caceb34d26571ba4cfc2a",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0199",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "c0d50d757bdf50dbe0b3e98a134ab047a8acdeb98a54d4ef0ba2deaaa021b613",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0200",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "45d7b4b9d34c637eb9ba514c9daefed62e35d78d57727f911387cb2d393e389d",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0201",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "c2c6e5d7fb07e7b8f49bf34a4e024505462567bbc75fb6d763e1112ebabb3a11",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0202",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "9471066e8cf77eb0176ba8779877292ee4ba74325b460106663e9ab1f6142291",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0203",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "c533ef837e68a480c024a4dfa98095e5d28d1fbefdec5926825e6a89f3dcbd2d",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0204",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "1e7a05244223550113d9dc103270317276b041b5291a1cd17673957075d05275",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0205",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "6e443666a0a39d9746871c5c3febaab498e6509cdaa205eb8537a456da1b7a6f",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0206",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "26ea8643036d9093f0c6cd547717f4386934a9159fc1e007cd0ffffb82b8f910",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0207",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "1a5c78264a6201ca44370e2b7563f99980f165db162dc85e77c2c55697ed8d88",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0208",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "f14e0c07230dc407af320aae21445e8577602f505aa3bc3095540ab1ceca9b88",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0209",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "f25263230db835f566265cdea39f3bc3cb171214bcca307be6ca5c813800b289",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0210",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "87a8b0cb92c58b04dbf05c84e1794f4fcaf00470258d1ed4935ff582f728f8d5",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0211",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "09f1d9f78f1eb23f3651292e24465205bc059dde3ddf3521c00b493ceea54917",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0212",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "be1493db5ae414d274f4f73d6a1dbc97cd254170a09983f313a66d3ed60dd4df",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0213",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "539d819c6af5e14eed75676a9e60e2af72f24dc2411b4cc6267f3453efc31f92",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0214",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "23018aa2632739f50c3f83326c1793038928263ffb0b0d202af7163c097fdc4b",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0215",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "1c6cd5c4ae7b59a165edcc6b316512ea0ef8d1fb5aa2275357f8378babceac13",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0216",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "b61cac74df50ea20aa63794d329c74e1834cae924a166fd735110eeb060721e2",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0217",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "aea06f1458126c3bbc6a5360805a85f496f89f95993269f5bfe6c5eb8fc7f2cd",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0218",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "d873a2129a33dece57866a8182798c84ceec999baec6fc471f560ac2cff58afc",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0219",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "c9d30d8eedf064721cf53638e958b74cd5e5c3c5260fc5755f5f6d3591f623c0",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0220",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "047c7fe4f37ee9c91e7b97170ce65fa4ed90b7bf77202055931c11699fe03801",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0221",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "1570a4b01601b46d69edc44a5cf57912024af091665cddd99def412d2cd85fb9",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0222",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "ca5e9781da799daab2c5b6be1137b973f23bbc8ab8210ce12fc0ff61eaadbf4b",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0223",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "be64efce93db282e11d50439303942d0ae9d8b336cacc4f1cf47299714de170c",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0224",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "722f1c5d566de993cbafeb5b5315a26b37363f5c993eea98ccc4e3aaa26c0674",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0225",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "78675ec425579f89673f09ca8c6ef985ffff63a73974fbe6ccecdd8f48328ba3",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0226",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "fcd569ab8a8c7e97e864edd3828fbbd10f09e4b22a8a374bcd7decafa2543b74",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0227",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "4f8d45b14b5c7f2ab932e235c79a4c98ef120855761ffcc86f08c8391a06a670",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0228",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "d130717b7eb9ca860812e24daf338d7d4cf11fdc3add60faa392610d66c1b417",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0229",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "488091f458a50c9c259f7f313505e9373f05270364d40b001dabd134f516e755",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0230",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "304c3d5d9edfc200e5ad89b534369f89b526b2b919f4dd81c2cc1125af95ffb9",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0231",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "ff575872ea3645975826467f5444c41250b3671d39ca9d50e28d2610a18ee8cd",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0232",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "882cea5c2645138eb12fa5c665128569b55b4889797694ddeb79238e2b7e8982",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0233",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "78226c132c57a62f38ff0c179c4c44380678aed61995dc9544dbd2b14db70d39",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0234",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "2333aa248fecee2f32266903b65aadb0d79699c90819a15196c8c42585893fda",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0235",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "f83a944b583b6541d314ee64c68ae6f410c7afe007ff55225cd570ce4bbc48ba",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0236",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "35033f192febe3f22aa2b22aa609c0884967ddbca65ce76f49b767336225b311",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0237",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "9788107a46774f6d6dfb186fb40d1c47f65d974db8249521addf47f77409076c",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0238",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "0075eed6fc087a4ef8cf986817b5173a70fba4de849f4d23efd7e3a707b61f4a",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0239",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "3211c6ba82fdbbc7c31ab88f8aaf832412d73a810e5d98dd3f2388fbedbbf0db",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0240",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "a9c593259845c51021f1e9a92ebcaa06fb3afbbeebdcfe0c98b93311e17b6066",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0241",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "01bfa756b732b419c7cde008aafa58de60347c66a4f2780a939a34b36dede4fd",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0242",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "d354b35ea3e20d25a937415340e89900d780047b0afe80b38fcffaa63e4ad127",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0243",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "7e0ec4a16d0c04ead33939183036a60d1391e7ae85282c5cee983f9bb12482f7",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0244",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "869a2f1d853bdecc45727465ee489dadfa02f0a62ac27150dbd46c6f05724b89",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0245",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "71b2d0c6a49ce33982b9a678d0a9f8b6580c2bd2b0f6527236f11fa9f6f15d8d",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0246",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "b8cc9f42a8430a93a8f0fef33794699b5168929e81e4548bb4fe1b11fa1bd283",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0247",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "a5eae0dd0a7582622da5ea58ec3d380c1f6ebd5dc7fa5c7de8af611e2047f730",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0248",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "22a332bf3e3633fba8a4d77db0da4086186881bc0aa3a67adf81af1d4465daa4",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0249",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "90d24ed3d24153c83c79fda57042d43779156ad9dc5e10e5bc2220bdb527f020",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0250",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "27f2f71fc2be9f0d711dd42855dd8fdb7ab5322cef75ad0361a29ae1d7d5d3fb",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0251",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "563a0001380bfc592e6f5f7262259145883ddd51d4036212405ece7699ba25f1",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0252",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "fc3e576c9a3900138c3ce6c376088e2efe4ab13aed411d5aabde7c90f9a917cc",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0253",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "461f9954168c24f408f846c9dfbccb1f4322541fb0bd4e5008e244a62f7544b5",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0254",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "f4a98d37798553b7f8f62737038602767b93d70aca9283087eebd6ef52032b1c",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0255",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "e2e3c72245aab5547dc9a88d9416da256da0ad25a16e4ba99fbc9bf2b8680410",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0256",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "11fbd0260fe405b1beefcb4fa207c4b116a8f6d56331085fcf6456db2c55c6bc",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0257",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "aa9e0dde7abe3950a1823e6d75dc93449e480d81a20e2b557b6ee70cdc22e020",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0258",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "615f7cb57777a840acbbaeab0aa5fc9ce8048b791064f17c6006b53137908880",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0259",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "44f317a6650357236698429fa43e50ccb6d44c8afad5dd582a26708054215cfe",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0260",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "e07abd0207ee76939146ba17c869bdd970972bf73ce94277f2f3b93f7de74718",
+      "task_type": "argument_types"
+    },
+    {
+      "case_id": "TCV2-H-0261",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "3d4f54fe3373ee51ee116002f1c53bc4961a220833de823a64e7a5648594c55d",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0262",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "e85d9d596391c360da1bc8dc3693bdf9d368826fa8ce885f73a136e4b3479a28",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0263",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "4500403202a703dacd4829ab7de12183f332773658b321ca7bde9443f0d02bf8",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0264",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "43e72a07b954ae5491fad7eab833ed03b7f6a80872d3fe12f44a6387178da052",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0265",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "c8982555b2d48efd37b875c4cad41294f1a94e9ce4c6e25637e928e74bec19fa",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0266",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "6b8b9325819d741389145213a9d446df80a75d58f4a0d449cd34dc7a4a655655",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0267",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "f6d303a18ab53eefeab32d32670ff95496983a3487437f8adedb08ab4e360fba",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0268",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "028e74e9370128118b406815cf30fce9ac50cca287aee328d71505e8ec945c0c",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0269",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "41e87322239bc1170c89611af53fa017f9131523135d25d9475bb5bc8cf6e782",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0270",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "5e6dc7b77880fbc1b41290de897e9753945e9526def718674322515153bac859",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0271",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "fb2602d49e344a4551a51ece06b11dd468b7fe977b1dd97eecbc50bdaf5fffeb",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0272",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "1cf539761e5fcca768bccc81868bdcbef19d00ebd1f054b3d967e0077bc06977",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0273",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "b27c419eb145a173f2eee5ffaba1d3fd76af4cbf7e50067ec44e47eb608bd255",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0274",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "4ad78a8812dd93910646b1c2525cfde3ef596fcfc28751d79976c30111b0684d",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0275",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "fd10d556a1e5230c5d28ec04e2abef1ff82e74377d601c4beae58b2e37e35af8",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0276",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "05d4938a90ebd7047ad9f773457f2105e05af007d3ee511246e97a17c63de492",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0277",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "cb882d6254baa372224d69d39bfa9466306dc2282cdd4e69ba204adcdb810d29",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0278",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "0a0f6395c966efa419b8e7d6f44d6528e11faf37722c8a8389dc884f65e2c7c7",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0279",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "4a3850fa2016a148207fc73195a1c71dd89c0badfcb7935dc8b05c6e4f0e2b0a",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0280",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "a0be01c8ec2d92666c6e70ca9b4d15f9c7063974b454491eeb0073b6894f096c",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0281",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "ad30a6f072ebf0347b932bcf24030d550e9a8a2448899ad72af5275287f844b3",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0282",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "87eda6b547268da41b4326cc8f11008bfd07ead84824ac8da27beda98bcc81ca",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0283",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "58dc18b57c218bf991297cf9640a536f95b06338cf46d002f180cca800b2f75d",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0284",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "65a1821cfbd12bc9f360a21c8e525edf0d4bc1a0fc6d0e56c87b1324d5dae232",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0285",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "8c9ecc5f78d3140f20295fc2791369b0ab53bad7b4abe6cae2e37cc832558f68",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0286",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "141c3cb195b3a3423b6f299cd6fa230f17f55771e1388a6cc80debb4c874bce5",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0287",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "170ad8fa29f66912164890bc0a0e03920ee82b339c32d943c95f3800ad6701f6",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0288",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "02de41c01f2c2cf8cb11df4c892132e267b3a71e9a1ba04486ae8b78f0e33bf1",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0289",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "05b62d75adbd75d2ad71800cb648376dac3ffaa158cb220a3cc975e0ae8e243d",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0290",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "69975ef6fc49a56a6751284206dc51bb1f621d2d4726960c19ead236ef96d36c",
+      "task_type": "error_recovery"
+    },
+    {
+      "case_id": "TCV2-H-0291",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "be9309336a2466e684c4cf681fde9b76753286ad55276344ae11c6bff15c01ed",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0292",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "3dad233c74c17dc60f51d0745249005551b8d1383ba767542e086b7de70043ef",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0293",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "766d451b5d50542a961f672e70bc49e6fc6a15527d1fa292e134d3c22dd10f26",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0294",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "8b504558668ec6a2a7efc0c444b5f07956c9374b729626df3efeb32ffadf6232",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0295",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "577509fa22e14bdad05bd5f125b86f97936a6c3ec451f4c6736b1af8218f69dd",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0296",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "13f74199a5362684bffd7524e18c46e49036effc51cbb3a2a6a9fc77073354aa",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0297",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "aba5d62503db83ef7d85e5e092ae532fc2fd7f5d4376915858efdf602836de88",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0298",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "c9ba9d8ed50974d4f1a752ca04f1e52173b78fb00f6f3c7d45551467e4047c27",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0299",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "e843405fb7f519d3f6576a3246a6584fbd1ba0ae7ee0ba31d43016f768aae8dc",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0300",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "e09c9aa90f91e132e9b573b15dd12b903e089c2c2ad547b12a1a3fc2c476fbfc",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0301",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "4ec666b8fda63ce265954c1db2d3b5376abbe92d0cd5e995b1adab06728944fc",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0302",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "3780437d525e25676b6e4660c428bc2140563f6fb2736b515c67b503a301b0bd",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0303",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "1e09ae92bd008fb5b2bd645d668be8db95517b9a6acf08145946f653afe82555",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0304",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "4538d2e57c3d8f4051d68209ec7ddb17a3540e60a0b41ab9b3ca8894d947e2ce",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0305",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "7f9df4db69eb893634348934b0fb4c7e189d589918070b47097d51ab629f34c2",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0306",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "913beb05a61ccc9c959ff77f0968d486f909848be5d7543a8df3e68695ae36c2",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0307",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "7d25eb7ebc7ca9e081945ce0bf383114254a1781113b7f41174ee0f517d3124e",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0308",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "796d10d884534dd5ccd458f015c4637a1bb34556e483e27252d1acb53ba3b427",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0309",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "f1dae8c98dcf5f3aeda77b23337f09e97e092a4a8e7668f69d348645c5c30cd9",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0310",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "a73656423bd82de8aab2b399edf46d409620312d20dc9c276acc21a5e1a73acf",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0311",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "3dde0f1f03495e0614b4f56ef80d55772141038a2aabb6392d1be756af759668",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0312",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "3dd7a92b2f5b06b2c27d71133e32e78a05b88c454ef65c36ca8dc9591a4866bc",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0313",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "44c64668afd81e7e9e2564fc6ca2aeb620e9c6fcee354709fd8ebc002e4d8b72",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0314",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "cc68750728b80e488e41cab57da579d4764abebd42c953c25aa15ed62bcfa03c",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0315",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "64b7a6913334635a47ddf94206b593b9ca3a2d9cf8a4254b1a507d72835a1a22",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0316",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "7fd0696f95c9351f96ca5c902e3567a50a3ba56997c1aa369b8adeae95f5cafd",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0317",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "6f4c4caa0ceea59d38b530291f0c019ad19f7e51ca0dcea5275639977126db54",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0318",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "ffe0d2ea141bf271955c3f4655ac45a60877fd87b84ac2898d5fa82110c7fc57",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0319",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "c33f974b04d94dde56baa991103b5bb9d822f205f4828d686d68139de6823a2b",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0320",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "3e343258262c7851b201cbca6a4c8af1e070bf5fecbdd43477cad643280fedac",
+      "task_type": "thinking_separation"
+    },
+    {
+      "case_id": "TCV2-H-0321",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "2fb342fbc6a21c2531189cfe374f4af48d0f41b4c7cee158a19e1965983c1f8f",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0322",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "80342a549d2727873b219a1e29da0ddbe3ad5ff9b495b4a089d07e5f8f9ac36c",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0323",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "81fd2e254f1047b12fa3e87402ac7274b5a19f0295874e58ec254ed3ee4d81e1",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0324",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "009a23d469c3ac764031a45d6fb2a467794997a50e944e80a4ac0a18cf61610d",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0325",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "15853e5eceabaf01a55a8bbab41c7d11b2dac1b3855b28ea69bc10a018556dc3",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0326",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "9cdccf2a74bbd918af22b76bb6ff885662245d13f8a2a77d62408c7cc979cf6c",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0327",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "5947294a003b8e9bec59f0603606d943458a8959dc8fda0bc787b8f21ea0d219",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0328",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "d05df3d1a20038ddf4288c535c9397457f2098773e8e43ce8f65722dcf063b1a",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0329",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "dc7cacda3b77467ba0916e71f34ea281ac6fd5931674699276fafd7baf41786e",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0330",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "bf63b9f8b979703d6c2464f5f11b6f911ec7fe017a09770c83c5044e6def992b",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0331",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "595c5c67821e85adee82e2df0f6ca2112665b3d4b692e18f30a6cb9b96318fa0",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0332",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "cc68d23a288603046ce30ce8c754d986a88631a02d0be6033769e41c1ffc4729",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0333",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "3d47ca9a7c30f1c1614b8d2228b3a1f6c85686479e4ee3e17d0018e3a1fd4299",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0334",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "0c4fe8d356e5731ff88138635b0ef0c5fa104e0d32d2da1876fd5fe8a69f332a",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0335",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "130cfac92155e4ecf7291594795ec40f1b28b27b6ec74af4de5a7f77cb2ba92d",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0336",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "e253e0827ce985e8ad2a354fe08cccf0a0ef9103c52e0c39e1a59be5870b841a",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0337",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "9a156df033b1d5cc1e534c38d5057325eafbf4ade5dabfc21d2ebd9757a37216",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0338",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "42f7c0b6c06faf78943746f330c436ad6e8b7694c8e53bbe2a602d9db27dd520",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0339",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "1b5114b1c4cb4f5529ef3690d0216f96745986681eadb1da343d60c1329bbc30",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0340",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "fc9d203e7d48950a7dee5dc984486616ae695861897b5968515a9c5dabaa53a3",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0341",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "e18b14a45673641db5a2157624c683a9bb01c09ce325f27fecadbf480d0eabb3",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0342",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "48820abb812d617dfa823bf1710dd6967112a63bcd696ec0cec420c711fa7e88",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0343",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "9353714303e69bc9b63e84967706d7e29ffeaec778194d8f04ac56cc2db89105",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0344",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "895107f3e2f382015c11ce756f6c30096fd5e45f03679bcfc4b7d9d4dc364c96",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0345",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "16b45b814c70dbfb08efe18154814a6451ca64b16b8976b6c8fd7f51fa75d703",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0346",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "d4f409616a01c8ec497f5dd1e3e8fd7c71d5f1c503cefdd70a0316cc91a90760",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0347",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "3706ad1f8ddfc64d520a2b6afb20558eb10e8d11871390bf4ff62338894e6548",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0348",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "1a5f731803f6c53f9aa742e6b616cca0d5db57d6d3fc4fdcfa2aaad788a445b4",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0349",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "e5ce408c6fc5c073fb1d1aca9f23c0dd4e3980c1ab54f7514c9b58aa2a8d0d50",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0350",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "dfbfe35f71847adeddf69a9817a8dc47d7d3201f0a2aaf2b66192ab0e3c89069",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0351",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "2324df0776a524a1ee5627e39a209d690dfe96d56c5f649b6813eb64b57f6734",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0352",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "d78a17ea9e5c9fa3e636c8e8a3dcdaafc6e8ed3bc2a0b2826135a90758ff8abe",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0353",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "248599d2f705dd992ec38e3787ccfa71f0eb426c745d3aa5d212a4190f5f723f",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0354",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "ede5e3398c7174b12c07fcd553c933ab593060804268754f4b1448210ac23d6f",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0355",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "45b165517a49af1cc29f403ca0592e960097e3c3a81147df072f8d2bd0910193",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0356",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "b6eec3f4241facd6206512af3a4cb7ee11f072ae22bc1d144e1c70043464c770",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0357",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "a76a7c356d69714f8bfffc7e18cb1e4bafca7987040e83721241b48c3359f8eb",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0358",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "3c405d5862640ca1031a2e457d88f1d2d5c9d1b25eeac8ad4ad1e33c93424d16",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0359",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "d4bd0b03302bded005e1d2e9fb9357170bed52eb0d98d3d1ecf4169b0dd09ce6",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0360",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "15361278b40211db3b790e3bf719618d59692736644c20d8d263327294fa3997",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0361",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "2d43c9f211f019a0b8e9cd78433f106b7682d61b760debe4c838b673908dae99",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0362",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "560221d038a9230fdf5106ae74b956e177be537fdae8f14f400f58039fc6704d",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0363",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "38c0d34ff11f2bbd1884bdb8878b177dc20c7cddc5744c04831275512854d9b6",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0364",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "37ab17d5a83c4529ba46645fe2d6b70adf62559576d354073ee192181746a504",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0365",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "b52fb59d1df65a548ac10d352f6cd95bb4948f820b83a1ded42d280b5bdf0413",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0366",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "3ff96563f426ce45e2cab101f0c91b0b5cc5e910c3d3d41855f1a30bf5ba21ed",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0367",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "502707471cc1f76899e72e08e840c95ad4114ba522815aa25654d75901c44354",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0368",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "3d51fee4a99b4683c1d9e4a60cab2544ada1077e1d0620b81aa54ab2af177e5f",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0369",
+      "complexity": "3",
+      "language": "zh",
+      "pairing_sha256": "0b2d07393e006e5f738c9a232f7e9e689759cef7d4c763114f44721fb4bc171e",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0370",
+      "complexity": "3",
+      "language": "en",
+      "pairing_sha256": "818cb75ca6e5df61833e1f6d14dc61556c0a2dcda7c95d577a0c5d24be1cc325",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0371",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "d63b747929cf25d95f1f869c233ff486c65c0c3eef763c3cb75e5dd90e37abbe",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0372",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "55e1fe8c6bbba961cab3132b0a8ba53dec1048c33e60e0174ed49be6a2299bcc",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0373",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "b5e08480680ea6da18a969e1d2c4500f41c23ca7aafaef25f95cc763e7ba8167",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0374",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "b32b1f74f39367707e973c453b2e948cb6289e4ceb53e74d3f28ecc6d96e8629",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0375",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "c5ce32585dcebb4c0cb7f7b702c9eb71def45d6ca593b4601807d5479907d111",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0376",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "2d115fadb1c9f9a657f535c68cedf3249fe7ab27695a739746f55d8d86f15687",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0377",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "4928cea2c26d077823ad9217b39b675f60e486e4639aad99c08659a021dfa086",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0378",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "00058ea31deed83f36e193b1caa4a56c1b8f9a5c58e3de29fb0cda331a80a533",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0379",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "4ea09a8d1f7c6a3c91b4bd64259370a2ae123381711ff4e19a16bea406e13c96",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0380",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "6cb2601468910015207216645f98bceae149b6bb324ed5c5bb91295a2662618d",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0381",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "6bedf81337e247432e0ba230735b6735cd771e7b6ab5c81a06dd8a9ea1f0cb90",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0382",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "868a855b0728efd78c260447f07b4f45208e74e1d75a0c330fcdd87c1cac9119",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0383",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "992740ed40648185986d19b4d8b5540e1af4d3b9408fa32d3178a3814caccc62",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0384",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "4e3eef405f2ad8bc249938fafd7f4f1931027a000bf3107bf402701464d8bd96",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0385",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "fbdbb8af6e23157868d59389c0959681ec96893431e8e8b8059c69f09ac86776",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0386",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "155ea33fc3f3bb36d98157cb3f37c8f3a94b0a2f3ca620f50c065353c9897f9d",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0387",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "45d9c6a588395d00e91cf9f2178cc14717ef072b781bf2123bf4e28d57d2b7d7",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0388",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "c61af0abe63bec11c18519b2fcd19da021c5638ca21da1a6689a8ee3f818b4f7",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0389",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "699ea9217abe23bba1e7d1094a0ff8d928af4c37d09ddb35a0b2eb9baa9351c0",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0390",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "4dbcbb0f838dd4122f794e9c72492f2021e852ac589470c49b9dc9303fa58083",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0391",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "abb2f384a1ec210224ea1dcb2256cb3645363adc368519862e939a8a0498c948",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0392",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "f6aac72dc5fb6ecf5019aea035c4619f318ac4d179771ed41a669657ed57559d",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0393",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "ff4dbedab9df46b08289ec7877e9758549b925883f148e92edbc401a042b6dfc",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0394",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "22b2dd1200147c33a324b4a7997c78651ee2fe054f01db63bcdc5a8d6a3be759",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0395",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "c05a1f29af37d29382f9ca15466e6ca3032fc7b329eed3161238e777482c2cf1",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0396",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "d72ded7a5249b7e04b2e0130a46df189df914e7dd299d767110dae90d2f5d19c",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0397",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "7768ba2ebe9ac5919f4d43ebfe6611853748cc532a297159a014b6085d718f81",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0398",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "9aa78c7de744a7749642b94c2faf8441d918a75396baf7c7b12bb63d5f16a0bb",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0399",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "71a5142d204c0fd5abd945d8bb78d551ec742af21984243071bea5068d76aae5",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0400",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "69c772e417b5432c49068b5bdbe210f00910b755fd4a5100fa7e5ed352294478",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0401",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "5ec2fdb2c978962b0d0a78f65d8c6aa8975665cd86b93de9e29dcb26978363d7",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0402",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "469f2e6e36203d78816de6d8cf0529a3b559197ad55de5a14f1bed49972465e9",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0403",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "0c042e532197194832e0ca0f2f3fa544e594eeac3e261065adc3bc8f1d252e94",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0404",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "f0c36919fd395c1852fbd0f588e650b25ee594e9bba3c70884452c00736d5530",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0405",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "2984aca269a2285bbc7f24a482ee1c5e0d284c59cd120eca94e2e709d2944c63",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0406",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "910c54103755a4b8dd951cbaefaf57c634a38bed6ccf464acef0672623d5aa99",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0407",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "f0eab2a5016ee0bdc258ddae20c10f25cd9872e2182031172e37fd6e1d660517",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0408",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "274c384bf57a796236ba7463368d9c6e9168e2fc800ee396ea61b443b72fe964",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0409",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "de79fb6e8045cfb8fefa4fa703d4d407a35f282dc4c79f57bdbb00811e8a353b",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0410",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "46dd2bcf35c6332186b96356605839571a12246873d141e69a99ee4d7a153967",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0411",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "3d5cd1af5ec5e0f0677b8ebcfa9ec8efc05fd6705ef2260a5729261bfc1dc35f",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0412",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "3951a126d2cbed3d892b63189ad2602d9733cc75679a97988ac66b858b3517f1",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0413",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "9d2d664dbacfc65bcbf29d3198046b971e1331e9bcaf580489d77cad51e52e1e",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0414",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "a1e58e433f51e17e6e1db5d1dee5cc3aba5a623f5f74a0aa866a323758e841fa",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0415",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "d2fc7b4536e2b58a4446bf2f5a608f6f2bd94e66274f9000c3fb91db28cde7e3",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0416",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "44a33f6ed4d3e40ce070d2b87b6628863eb52963d2c96741b885b5b00ecd8137",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0417",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "be0395f87231ee1d70260927a0200b64275a8b708679ca31d62754a13ebb55d0",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0418",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "8fcc1de11d7779c361617456372c92868dbab6cf9bb0ccfdee31c6aa5aec954c",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0419",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "5da1e6a9c3575a6bb9550ee9c9817d0a253e9d8d30aa433561355d25116090c6",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0420",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "d107bb3c54cfdc38f637a13f2a888b8b3a8b1dfaf915e9456de3c995d7dfcd9a",
+      "task_type": "sequential_multi_tool"
+    },
+    {
+      "case_id": "TCV2-H-0421",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "300383e806830b2d4f7bdc3c3266d7c293b8d59914e68230a43ba97fbdf9aa69",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0422",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "92e12930228aa9aba45ddce88b98cfafad4db51ecd85eff0f9f3d46a13b6ea87",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0423",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "aa0365e90979f214b5cc0d3eabf3058929ccdd72b8283a27aabea2f25fb8f180",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0424",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "ec4736d395edfa2b4f7910b2d1674a782669cfb1193903191846698ac258f685",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0425",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "d623d0b8381b4178846624f2061cb68286300e0db391827fad10cfb97a46c4e6",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0426",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "fb66a1dfa7dcb22e0f7aad633bb927323e7dd20d0d0cd58ac9a97a5015ed7d50",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0427",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "a1dc70dc5f6de4cfd4965f8b74ed3b37ab16de987685c8c301351d669edb0cd1",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0428",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "a1d7f876469ba84c541ae764071b8fd5e3c30e8648ed2e0e3a692178ca7a747e",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0429",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "1c476a089cfab3514f2d830dbea2439ba21edce9f950a7b7250661e0a7a319a3",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0430",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "8ea4a1aa5770111d5de22a2664b0a6aca027eb35fb069d109d5cf8f6fe5dc958",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0431",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "94114e32f4ee822099350b58e2d349f637cca1a114a17493d2a398f082fd4bec",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0432",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "59e7a36001ead68035c5a4789fb8e952e1598ab3e704596ee96d32abacd9cdd8",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0433",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "ccadc865bae2f976fba975581863a714b66d5b540854636fdcd3a294faddf4c0",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0434",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "075d5bf331af2d404229515fbf304e163bae213d09572d09f5e3cd52f98dc46b",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0435",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "9f99064139fddd324527b959fa3ccfda8f6ae8e35595d95f28f4dd242b364809",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0436",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "dbee7a7de6947ab6138e0eebcffd3cd722289e69ed4b1a1bef479d43e29ba0f0",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0437",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "fde9bc5f45eaf2acc2e6457ca3483361d667fe29e6abcd1ed6339f453f781e4b",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0438",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "b90e6cc1041b593fc29b89b2f88192b4a1d9ae418879c557837d0b679c7071c6",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0439",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "7a802884c34daccf9e134673ec9a7cd4cb4be53058b84d5456fad8dda46dff49",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0440",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "3533813b1427e25ad4c5d183ac529d292d12f934b57e16bc58597f4020fc133b",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0441",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "9b748a319426bcb5d73dd84b322eca3c18674942eeedc213a6e2c68c152234c3",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0442",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "42e3af3dae6aaf9aee28aea89d87f575ba3ebdc35333adc06f733c268fa017b1",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0443",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "543eaf90609c6ebbfe369e08fae01aedc590f8285ffa05179d486a54fdad0314",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0444",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "fa97ddafdf78cbc1812b40b0a618db5b949af33a9c5e14298eee870aa92c999d",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0445",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "c43f57f5176a683f08df0de32ab8449319a2ca4da7a2eaa5db3317699b47c75d",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0446",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "8d1a93f1e6434c38b98b8e76ddd68e3ce52a225afa11a0b3e42f580846ae529b",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0447",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "6c43fea16de8eb2867c94afeebd1d32cdb62c9937296508afff68875a4f9fe48",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0448",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "eb4177b1f8d9a45354574353cd8e5c4d89d837e608003e493c15399f9c8e95c6",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0449",
+      "complexity": "2",
+      "language": "en",
+      "pairing_sha256": "691a7f8befdab8f718e9b007e070ccb9bf8a84c0b9aedffaa29c3e3374c47be4",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0450",
+      "complexity": "2",
+      "language": "zh",
+      "pairing_sha256": "c28ef6b9c88df1379dcf437494a5902de101b85f9f03a97649099bd938456353",
+      "task_type": "unauthorized_injection"
+    },
+    {
+      "case_id": "TCV2-H-0451",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "1b902aae0f9088969e378062fddbf866ae0c20d5c2fac864534bf0e33b19b8a4",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0452",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "52d977f8a5a5fb8fe7c19d07e3b261b75af211e5986773c078f11f22ed5d2314",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0453",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "435a51412a07ebab6f2b95d50b223407174f0b2c22debcd489ce264e64b9bc06",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0454",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "536bb050a3e9122ad412dd1221a17c6cd832d36daf33296578f15dfb5b0af81f",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0455",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "641d035c14c1136e84d765c8908b456da27edc40609b3d17b8228eec2fbbd93d",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0456",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "e5e7588c132a382dd3d49f0929a7ba8c01cd58f43c11cb71eb14c39d9a968156",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0457",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "cbaefc4a4f28246e22eb11ea197d622708b954a9adba3d7307da8a8b98a9404b",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0458",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "c8b0b4ff22be028e460feed306d88a2d6a42ed67884702e283e57d9556fd1461",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0459",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "3ef9c17c6f4fe4379c8a227a7e4097c4a33518abc5bb3c5bd4df8307ddef4d70",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0460",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "da4e60f9f9b480ef78dbd67e101691888cb889e9be36c70e467b50728a07b8c2",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0461",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "eb8c8fbfda3c0e76aeec1f3d8c3f2d1ca5649faf37ff62a046b208e83aa169c4",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0462",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "537e2e4d640a16d7dfbbc67170e711c4e928b401a791ec1beea57d19bce98eac",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0463",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "91b5f3aedf586f79f2642f00d4ce0b828d00a0c729576e61aea1a0eb76943406",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0464",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "6c1bbf924b00e7df1853d4200152cf574b180136ba4acbc4da431c230c246e1f",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0465",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "3dbaf326bdc0830258a6c3e60171002231e14eda85a605347ed6547d7acbe326",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0466",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "e7689e800beef42e1fdbf078041eaecf89ae63f559769d63981893e323290c5b",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0467",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "6ec7df775291b62d54a506d83a8f0d4d0f1a9a1488241ba4afbddb1aa8f5db7a",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0468",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "3819e38d27e7344b1460c5be0e9688c2405426c90b995a5ceddf5bf3502f47b6",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0469",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "ae3b27da31d521a6d4ef344912cc3151ac57e03e7e6a1f5bb252ebd45b099d16",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0470",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "602a4b127e2ad4ddc39e86b1193bad546a546bcd1987900a79f91139f4ac6adf",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0471",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "626df7feaae2b4ff21b83446b3d79ed3a81d5a3f406d2474d09f1973e76a4764",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0472",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "7eb9bcf2e4451cd81642eaf504337566dbb55dfbfb66509b532c40fb724fc9e7",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0473",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "bbf90cc36b515a9dffe29c0c4a9c6445014a275936079b2cde4ae92a008fdb15",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0474",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "63185ec81498fdc87c69a6af37768fecafd6c294cb5c16bcca4e3ef3ef50ba1e",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0475",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "3251ba520db4ea875debb4a27f551115a66a7acc7714eddd66e3d64de533adbd",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0476",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "b3e9e823256bb944bdf84e9362978cf487ef55b99f8d5c6228dc7c09ca69895b",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0477",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "679c11d61486845d111dd1dbbe6b68974628afd3695809d6e627a29958ec9b6a",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0478",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "e912912eb6b2c17564e8c249e326a7db1eb987aabc6a901fc10907bc4e9d0f15",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0479",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "30289a54ea2a7ca24505a4769c779487b506062250c24cd8bc66415987d6d86a",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0480",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "7e6bff2310dfb8811ea73bc6345071a6754fd606bec83725ff6e1752313e6acc",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0481",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "9343e2e5a2aac55852d892d2cee9bb0cd7dc8cbe41c7a7b16a190b03e75cf74e",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0482",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "e99634f47e4901e99788b1532fa4149b263d3bc9e5140a3ed18bf07548d143d0",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0483",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "6d303894ee68b31a264123804ae2fa359c271139d396a4802ada5a7df5971ddf",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0484",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "12b062582115c0f08572bb3596af4d13633a929a150c257fc794e34936235bef",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0485",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "531d590ea4b2f317a379673e908f4fbebffb3dd2df5bb558208f6f2d21e04349",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0486",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "4a9529f79d5d2108d8e4768bdd6d50433908a3b7b8c23b207535e59f82fa4804",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0487",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "2de65bbee998aa3faee88d704848b61359bd53f43ed9e29255eaaef2411189f4",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0488",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "5eebfc2118ef40f5d01c7cb60b88748c194f9a73a8ee0a9ab39ede7506ab6316",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0489",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "4082f4f897d6bfdcfce35d9af6c2a1d9a411655a4a4f2a70149b32cb3fa2bbd7",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0490",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "8227dd2d033c35ced84d6ed58dc458af2b3e0e2c25e8019084906fd79fa42235",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0491",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "f2400f5e2c350421defe785422dbce42eabf7cad9548bed97566c346daf802f1",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0492",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "013a610ae809fc366fe623ac4b317cf1ccc0afb512f04ca21b02e821bbbacb62",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0493",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "efb44f5aaf8e592c6ee73f135efe52346df12542fac9849539ad30da2abfe284",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0494",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "84e8fe697b57081d30a084fabdbdd770b2af538f76a6a8f32371c57b5e6e2bbe",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0495",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "324c62953489c88aea0f51fd9f0af01d2657792307e03945039ddf2fc5a70d59",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0496",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "f6b31d953d350814b01ee8ae1917de296e9b4d59401e22d77c6a39a7788b1004",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0497",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "5e83c4c3176fb53173b82e76e1f7b46fc9052e92d7f286eebe5c799e2a5bf939",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0498",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "dcef664d853fc442aed99060df10ccd949aa22662696c0e21ece683f9b5f385d",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0499",
+      "complexity": "1",
+      "language": "zh",
+      "pairing_sha256": "b2ff013d7f0fca64512337ffe3da938057bf781d75c0d5765c59a41a59fb9e97",
+      "task_type": "streaming_tool_call"
+    },
+    {
+      "case_id": "TCV2-H-0500",
+      "complexity": "1",
+      "language": "en",
+      "pairing_sha256": "4135890425c6646ad3aa9ff38a14222e0342290f0c44f6557b9a104a2c20855e",
+      "task_type": "streaming_tool_call"
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "B-to-D",
+      "left": "B",
+      "right": "D",
+      "vary": "model"
+    },
+    {
+      "id": "B-to-F",
+      "left": "B",
+      "right": "F",
+      "vary": "model"
+    },
+    {
+      "id": "B-to-G",
+      "left": "B",
+      "right": "G",
+      "vary": "model"
+    },
+    {
+      "id": "D-to-F",
+      "left": "D",
+      "right": "F",
+      "vary": "model"
+    },
+    {
+      "id": "D-to-G",
+      "left": "D",
+      "right": "G",
+      "vary": "model"
+    },
+    {
+      "id": "F-to-G",
+      "left": "F",
+      "right": "G",
+      "vary": "model"
+    }
+  ],
+  "dataset_sha256": "34fae92ce5fe0ea14d69c4dfd4d2852414f30e85a1576875caa47219b3b03e76",
+  "first_seed": 47,
+  "repeat": {
+    "case_ids": [
+      "TCV2-H-0025",
+      "TCV2-H-0041",
+      "TCV2-H-0073",
+      "TCV2-H-0076",
+      "TCV2-H-0100",
+      "TCV2-H-0103",
+      "TCV2-H-0104",
+      "TCV2-H-0120",
+      "TCV2-H-0127",
+      "TCV2-H-0177",
+      "TCV2-H-0183",
+      "TCV2-H-0192",
+      "TCV2-H-0193",
+      "TCV2-H-0201",
+      "TCV2-H-0252",
+      "TCV2-H-0263",
+      "TCV2-H-0268",
+      "TCV2-H-0279",
+      "TCV2-H-0285",
+      "TCV2-H-0288",
+      "TCV2-H-0302",
+      "TCV2-H-0309",
+      "TCV2-H-0311",
+      "TCV2-H-0315",
+      "TCV2-H-0318",
+      "TCV2-H-0345",
+      "TCV2-H-0347",
+      "TCV2-H-0350",
+      "TCV2-H-0363",
+      "TCV2-H-0366",
+      "TCV2-H-0372",
+      "TCV2-H-0373",
+      "TCV2-H-0397",
+      "TCV2-H-0404",
+      "TCV2-H-0413",
+      "TCV2-H-0423",
+      "TCV2-H-0428",
+      "TCV2-H-0431",
+      "TCV2-H-0434",
+      "TCV2-H-0435",
+      "TCV2-H-0437",
+      "TCV2-H-0439",
+      "TCV2-H-0440",
+      "TCV2-H-0444",
+      "TCV2-H-0447",
+      "TCV2-H-0477",
+      "TCV2-H-0479",
+      "TCV2-H-0480",
+      "TCV2-H-0492",
+      "TCV2-H-0493"
+    ],
+    "seeds": [
+      101,
+      211,
+      307
+    ]
+  },
+  "schema_version": 1,
+  "suite": "TC-V2"
+}

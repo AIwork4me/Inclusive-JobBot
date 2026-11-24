@@ -1,5 +1,62 @@
 # Handoff
 
+## IJ-0.7
+
+IJ-0.7 starts from the exact reviewed IJ-0.6 HEAD
+`d2e5b31aa1f0894638f7b648a4cf3591fbb71e6e` on the separate mission branch.
+Follow [issue #3](https://github.com/AIwork4me/Inclusive-JobBot/issues/3)
+and the [execution plan](docs/IJ07_EXECUTION_PLAN.md). G0 has archival
+audit evidence. Follow the [audit report](reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md)
+for the regenerated figures, original failures and local hardware capture.
+
+The historical replay, candidate admissions and fresh holdout runners use
+separate identities. Start with the [historical runbook](benchmarks/root_cause/README.md)
+and the [TC-V2 runbook](benchmarks/tool_calling_v2/holdout/README.md).
+The latter uses separate SQLite stores and a trusted synthetic confirmation
+source. The [planning runbook](benchmarks/agentic_planning_v1/README.md)
+uses the native model and retains both Plan-first and Acting-first traces.
+The capture worktree stays pinned to the exact experiment commit. Continue
+reporting and software changes in the mission branch worktree.
+
+The four historical arms and both independent TC-V2 backend profiles
+finished. See the [dual-backend report](reports/IJ07_TC_V2_QUALIFICATION.md)
+and [JOB-V1 Arm F results](reports/IJ07_PURPOSE_BUILT_VALIDATION.md).
+Use the [multi-tool runbook](benchmarks/multitool_v1/README.md) for the full
+primary roster and the planning runbook for the paired tracks. Retain exact
+runtime and source identity when resuming an interrupted output directory.
+The MULTITOOL-V1 primary run completed 600/600 trials with the original
+16-call wire limit. Keep the first 213-case archive as the wire control's
+exact input. The explicit 32-call profile has a separate wire-only
+regression. Assign a new output directory to a live test of that profile.
+ [Full primary evidence](evidence/IJ07/multitool/primary-vulkan-full/)
+
+The [competitive TC-V2 batch runner](benchmarks/competitive_slm/TC_V2_BATCH.md)
+keeps the strict-admission Vulkan server loaded through a roster. Use the
+[frozen B/D/F/G plan](configs/ij07/tc_v2_competitive_plan.json) and the
+[journal archive runbook](benchmarks/competitive_slm/TC_V2_ARCHIVE.md). The
+[JOB-V1 model treatment runner](benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md)
+uses the same frozen inputs for A–E. Physical full-roster results are pending
+for both runners. Use the planning archive CLI to verify journals and produce
+separate Plan-first and Acting-first coverage by level.
+
+The original planning profile completed the full 1,600-trial roster in
+eight sessions using the unchanged P4b observer. Both tracks failed the
+entry level. Use a new output directory for live runs of the corrected
+Chinese reference profile. [Planning archive](evidence/IJ07/planning/primary-vulkan-full/)
+
+The original MULTITOOL repeat panel completed 300/300 physical trials.
+The original planning repeat panel completed all 960 frozen trials. Each
+track failed all 480. The strict B/D/F/G TC-V2 queue uses the same single-GPU
+slot. Its first B session verified 200 trials. The A–E JOB-V1 queue waits for
+all four competitive TC-V2 rosters before using the GPU. Each active run
+keeps its resumable local folder and exact runtime source identity.
+ [Multi-tool repeat archive](evidence/IJ07/multitool/repeat-vulkan-full/) · [Planning repeat archive](evidence/IJ07/planning/repeat-vulkan-full/)
+
+The [Arm F receipt-correction control](evidence/IJ07/job_ablation/F/receipt-correction/)
+reruns the observed holdout on two clean commits with source digests that
+differ only at `arm_f.py`. Keep these exploratory results separate from the
+original registered F archive and future independent qualification.
+
 Read this first when resuming. Last updated: 2026-11-24.
 
 Everything below was checked against the disk and the running system at the

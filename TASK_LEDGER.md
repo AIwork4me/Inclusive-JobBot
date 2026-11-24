@@ -1,5 +1,64 @@
 # Task Ledger
 
+## IJ-0.7
+
+| ID | Task | Status | Evidence |
+|---|---|---|---|
+| IJ07-M0 | Independent archival audit of IJ-0.6 and current Windows inventory | PASS | `reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md` |
+| IJ07-M1 | Official source identity and Q8_0 digest verification | PASS | `evidence/IJ07/model_identity/` |
+| IJ07-M1-GPU | Initial seven GGUF admission runs and anomaly checks | FAIL | `reports/IJ07_MODEL_ADMISSION_MATRIX.md` |
+| IJ07-M2-OBSERVER | Source observer on/off and both Radeon backends | PASS | `evidence/IJ07/historical_replay/observer_control/` |
+| IJ07-M2 | Four-arm historical replay with persisted state and SDK capture | BLOCKED | `reports/IJ07_HISTORICAL_REPRODUCTION.md` |
+| IJ07-M5-WIRE | Initial full archived failure indexing and protocol investigation | PASS | `reports/IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md` |
+| IJ07-M3-TC-FREEZE | TC-V2 holdout, distinct development split, state oracle and software replay | PASS | `benchmarks/tool_calling_v2/holdout/manifest.json` |
+| IJ07-M3-MT-FREEZE | MULTITOOL-V1 600 case freeze and synthetic verification | PASS | `benchmarks/multitool_v1/frozen/manifest.json` |
+| IJ07-M4-FREEZE | AGENTIC-PLAN-V1 800 case freeze and synthetic witness verification | PASS | `benchmarks/agentic_planning_v1/datasets/manifest.json` |
+| IJ07-M7-FREEZE | JOB-V1 600 case roster and stateful synthetic verification | PASS | `benchmarks/job_productivity_v1/holdout/frozen/manifest.json` |
+| IJ07-M3-TC | Dual-backend TC-V2 qualification, 2,592 physical trial records | FAIL | `reports/IJ07_TC_V2_QUALIFICATION.md` |
+| IJ07-M3-MT | MULTITOOL-V1 physical primary panel and stratified measurement, 600/600 | PASS | `reports/IJ07_MULTITOOL_CAPABILITY_REPORT.md` |
+| IJ07-M3-MT-OUTCOMES | MULTITOOL-V1 primary task outcomes, 129 PASS and 471 FAIL | FAIL | `evidence/IJ07/multitool/primary-vulkan-full/coverage.json` |
+| IJ07-M3-MT-REPEAT | MULTITOOL-V1 physical 100-case three-seed panel, 300/300 | PASS | `evidence/IJ07/multitool/repeat-vulkan-full/reliability.json` |
+| IJ07-M3-MT-CHECKPOINT | Verify and archive first 213 of 600 Radeon Vulkan trials | PASS | `evidence/IJ07/multitool/primary-vulkan-checkpoint/coverage.json` |
+| IJ07-M5-MT-WIRE-BUDGET | Isolate and verify the decoder batch control on 14 unchanged raw responses | PASS | `evidence/IJ07/root_causes/multitool_batch_limit_control.json` |
+| IJ07-M5-MT-IJ06-COMPAT | Preserve the exact frozen gateway and isolate the batch profile in IJ-0.7 | PASS | `benchmarks/root_cause/wire_profiles.py` |
+| IJ07-M5-MT-WIRE-FULL | Reprocess all 25 known wire limit rejections on unchanged raw responses | PASS | `evidence/IJ07/root_causes/multitool_batch_limit_full_control.json` |
+| IJ07-M5-MT-WIRE-LIVE | Two corrected Vulkan wire-profile diagnostics' business scores | FAIL | `evidence/IJ07/multitool/wire-fix-diagnostic/` |
+| IJ07-M4 | Full physical two-track L0–L7 first-pass study and archive | PASS | `evidence/IJ07/planning/primary-vulkan-full/diagnostic.json` |
+| IJ07-M4-REPEAT | 960 original-profile Vulkan trials, 160 cases with three seeds in both tracks | PASS | `evidence/IJ07/planning/repeat-vulkan-full/diagnostic.json` |
+| IJ07-M4-REPEAT-OUTCOMES | Repeated planning task success across both original tracks | FAIL | `evidence/IJ07/planning/repeat-vulkan-full/diagnostic.json` |
+| IJ07-M4-LEVEL | Original Vulkan profile continuous level qualification | FAIL | `reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md` |
+| IJ07-M4-L0-EXECUTION | Both tracks' real L0 roster and archived source proof | PASS | `evidence/IJ07/planning/primary-l0-checkpoint/diagnostic.json` |
+| IJ07-M4-L0-CAPABILITY | Both tracks' L0 research threshold | FAIL | `reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md` |
+| IJ07-M5-PLANNING-REFERENCE | Correct the Chinese reference boundary and replay 100 exact first-turn proposals | PASS | `evidence/IJ07/root_causes/planning_reference_boundary_control.json` |
+| IJ07-M5-PLANNING-PROMPT | CPU development control for the first-turn plan contract | FAIL | `evidence/IJ07/root_causes/planning_prompt_stage_cpu.json` |
+| IJ07-M5-PRIMARY-FAILURE-INDEX | Link 2,071 MULTITOOL and planning failures to exact captures and available controls | PASS | `evidence/IJ07/root_causes/physical_primary_failure_index.jsonl` |
+| IJ07-M5-FAILURE-REGISTER | Index historical, TC-V2, MULTITOOL and planning fault records under the requested taxonomy | PASS | `evidence/IJ07/root_causes/failure_ledger.json` |
+| IJ07-M7 | Six-arm JOB-V1 causal validation | NOT_RUN | `benchmarks/job_productivity_v1/holdout/README.md` |
+| IJ07-M3-MT-RUNNER | MULTITOOL-V1 Radeon runner and exact-resume software tests | PASS | `benchmarks/multitool_v1/README.md` |
+| IJ07-M6-STATISTICS | Independent paired comparison and repeat statistics software | PASS | `benchmarks/competitive_slm/STATISTICS.md` |
+| IJ07-M6-DEVELOPMENT | Same-case Vulkan development diagnostics for four contenders | FAIL | `reports/IJ07_COMPETITIVE_SLM_BENCHMARK.md` |
+| IJ07-M6-TC-BATCH | Shared Vulkan TC-V2 roster runner and exact-resume software checks | PASS | `benchmarks/competitive_slm/TC_V2_BATCH.md` |
+| IJ07-M6-TC-PLAN | Freeze six B/D/F/G contrasts and verify archive export software | PASS | `configs/ij07/tc_v2_competitive_plan.lock.json` |
+| IJ07-M6-TC-B-CHECKPOINT | Verify the first 200 ordered B trials and sealed Radeon evidence | PASS | `evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint/archive.json` |
+| IJ07-M6-MT-PLAN-RUNNERS | B/D/F/G multi-tool and two-track planning runner preflights with local weights | PASS | `benchmarks/agentic_planning_v1/README.md` |
+| IJ07-M4-ARCHIVE | Verify planning run journals, model captures and level summaries | PASS | `scripts/tools/archive_ij07_planning.py` |
+| IJ07-M7-MODEL-RUNNER | Five model treatments, frozen identity and executable preflight | PASS | `benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md` |
+| IJ07-M7-MODEL-DIAGNOSTIC | All 15 matched model treatment diagnostics assessed | PASS | `evidence/IJ07/job_ablation/model_diagnostic/coverage.json` |
+| IJ07-M7-F-CORRECTION | Reproduce and verify explicit mixed-language receipt correction in Arm F intake | PASS | `tests/regression/ij07/test_job_v1_arm_f.py` |
+| IJ07-M7-F-CONTROL | Paired post-hoc source-controlled original and repaired job panels | PASS | `evidence/IJ07/job_ablation/F/receipt-correction/comparison.json` |
+| IJ07-M7-F-CORRECTED-QUAL | Independent commercial measurement on a new frozen roster | NOT_RUN | `reports/IJ07_BUSINESS_VALUE_VALIDATION.md` |
+| IJ07-M1-AION-SERIAL-CONTROL | Same-token CPU and Radeon explicit serial instruction control | PASS | `evidence/IJ07/model_identity/aion_tools/` |
+| IJ07-M1-AION-DEPENDENCY | Official CPU and Radeon WebGPU dependent tool diagnostic | FAIL | `evidence/IJ07/model_identity/aion_tools/` |
+| IJ07-M2-LIVE | Exact four-arm history, 2,000/2,000 physical GPU inference cases | PASS | `evidence/IJ07/historical_replay/full/summary.json` |
+| IJ07-M2-UPSTREAM | Pinned b12675 fixtures and prior-failure checks | FAIL | `evidence/IJ07/historical_replay/upstream_b12675/report.json` |
+| IJ07-M3-MT-DIAGNOSTIC | Four initial physical multi-tool cases | FAIL | `reports/IJ07_MULTITOOL_CAPABILITY_REPORT.md` |
+| IJ07-M4-DIAGNOSTIC | Four physical trials in planning and acting modes | FAIL | `reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md` |
+| IJ07-M5-API | Tool-choice validation patch RED/GREEN and candidate rerun | PASS | `reports/IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md` |
+| IJ07-M8-AG06 | Repeated real SDK structured output test on both backends | FAIL | `evidence/IJ07/antigravity/` |
+| IJ07-M8-AG06-PROMPT | Real SDK CPU control of explicit result-field extraction | PASS | `evidence/IJ07/antigravity/ag06_prompt_cpu_control.json` |
+| IJ07-M8-GPU | Historical Radeon diagnostic performance/resource profiles | PASS | `reports/IJ07_GPU_PERFORMANCE.md` |
+| IJ07-M7-F | Deterministic Arm F first-pass commercial target | FAIL | `reports/IJ07_PURPOSE_BUILT_VALIDATION.md` |
+
 Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`. "Progress" says
 whether work has started. Every finished task names its evidence.
 

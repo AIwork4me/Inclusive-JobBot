@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T10:13:00Z",
-  "current_phase": "IJ-0.6",
+  "updated_utc": "2026-11-24T17:44:37Z",
+  "current_phase": "IJ-0.7",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
     "M0": {
@@ -217,11 +217,200 @@
       "IJ06_READY_FOR_IJ1_PRODUCT_DEVELOPMENT": "NOT_GRANTED"
     }
   },
+  "ij07": {
+    "baseline_git_sha": "d2e5b31aa1f0894638f7b648a4cf3591fbb71e6e",
+    "branch": "mission/ij-0.7-agentic-capability-qualification",
+    "tracking_issue": 3,
+    "draft_pr": 4,
+    "candidate_identity": "configs/ij07/model_candidates.yaml",
+    "historical_observer": "patches/ij07/llama-b12359-generation-observer.patch",
+    "verified_software_freezes": {
+      "tc_v2": "benchmarks/tool_calling_v2/holdout/manifest.json",
+      "multitool_v1": "benchmarks/multitool_v1/frozen/manifest.json",
+      "agentic_plan_v1": "benchmarks/agentic_planning_v1/datasets/manifest.json",
+      "job_v1": "benchmarks/job_productivity_v1/holdout/frozen/manifest.json"
+    },
+    "competitive_statistics": "benchmarks/competitive_slm/STATISTICS.md",
+    "remaining_run_software": {
+      "competitive_tc_v2_batch": {
+        "software_status": "PASS",
+        "full_inference_status": "NOT_RUN",
+        "candidates": ["B", "D", "F", "G"],
+        "trials_per_candidate": 1150,
+        "runbook": "benchmarks/competitive_slm/TC_V2_BATCH.md",
+        "statistics_plan": "configs/ij07/tc_v2_competitive_plan.lock.json",
+        "archive_runbook": "benchmarks/competitive_slm/TC_V2_ARCHIVE.md",
+        "first_started_arm": {
+          "arm": "B",
+          "run_id": "ij07-competitive-tcv2-roster-aedb6f5e2e63416586f6d06c9c431bf1",
+          "started_utc": "2026-11-24T18:10:49+00:00",
+          "configuration_sha256": "bd9ab2d62b8fc1f75e1139934ea9bf38ca42dbb1bf940943b2ae14e5a98947af",
+          "first_sealed_checkpoint": "evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint/archive.json"
+        }
+      },
+      "competitive_multitool_and_planning": {
+        "software_status": "PASS",
+        "full_inference_status": "NOT_RUN",
+        "candidates": ["B", "D", "F", "G"],
+        "runbook": "benchmarks/agentic_planning_v1/README.md"
+      },
+      "job_v1_model_arms": {
+        "software_status": "PASS",
+        "full_inference_status": "NOT_RUN",
+        "arms": ["A", "B", "C", "D", "E"],
+        "first_pass_per_arm": 600,
+        "runbook": "benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md"
+      },
+      "planning_archive": {
+        "software_status": "PASS",
+        "full_capture_status": "PASS",
+        "task_qualification": "FAIL",
+        "evidence": "evidence/IJ07/planning/primary-vulkan-full/diagnostic.json"
+      }
+    },
+    "historical_generation_replay": {
+      "status": "PASS",
+      "real_cases": 2000,
+      "source_captured_requests": 4422,
+      "persisted_state_and_sdk": "BLOCKED",
+      "evidence": "evidence/IJ07/historical_replay/full/summary.json"
+    },
+    "sdk_ag06": {
+      "status": "FAIL",
+      "vulkan": {"PASS": 1, "FAIL": 2},
+      "rocm": {"PASS": 1, "FAIL": 2},
+      "cpu_prompt_control": {
+        "frozen": {"PASS": 1, "FAIL": 2},
+        "result_field_instruction": {"PASS": 3, "FAIL": 0},
+        "revised_gpu_profile": "NOT_RUN",
+        "evidence": "evidence/IJ07/antigravity/ag06_prompt_cpu_control.json"
+      },
+      "AG-11": "BLOCKED"
+    },
+    "tc_v2_vulkan": {
+      "status": "FAIL",
+      "first_pass_correct": 349,
+      "first_pass_total": 500,
+      "evidence": "evidence/IJ07/tc_v2/holdout/vulkan/summary.json"
+    },
+    "tc_v2_rocm": {
+      "status": "FAIL",
+      "first_pass_correct": 347,
+      "first_pass_total": 500,
+      "evidence": "evidence/IJ07/tc_v2/holdout/rocm/summary.json"
+    },
+    "tc_v2_failure_index": "evidence/IJ07/tc_v2/holdout/failure_index.jsonl",
+    "multitool_v1_first_pass": {
+      "status": "FAIL",
+      "progress": "done",
+      "physical_execution_status": "PASS",
+      "terminal": 600,
+      "planned": 600,
+      "PASS": 129,
+      "FAIL": 471,
+      "BLOCKED": 0,
+      "NOT_RUN": 0,
+      "evidence": "evidence/IJ07/multitool/primary-vulkan-full/coverage.json"
+    },
+    "multitool_wire_profile": {
+      "same_response_regression": "PASS",
+      "verified_responses": 25,
+      "live_business_result": "FAIL",
+      "live_diagnostic_count": 2,
+      "ij06_gateway_bytes_preserved": true,
+      "evidence": "evidence/IJ07/root_causes/multitool_batch_limit_full_control.json"
+    },
+    "multitool_v1_repeat": {
+      "physical_execution_status": "PASS",
+      "planned": 300,
+      "terminal": 300,
+      "selected_cases": 100,
+      "pass_at_3": 22,
+      "pass_all_3": 22,
+      "evidence": "evidence/IJ07/multitool/repeat-vulkan-full/reliability.json"
+    },
+    "planning_primary": {
+      "progress": "done",
+      "archived_levels": ["L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7"],
+      "physical_execution_status": "PASS",
+      "archived_trials": 1600,
+      "planned": 1600,
+      "acting_first": {"PASS": 0, "FAIL": 800},
+      "plan_first": {"PASS": 0, "FAIL": 800},
+      "evidence": "evidence/IJ07/planning/primary-vulkan-full/diagnostic.json"
+    },
+    "planning_repeat": {
+      "progress": "done",
+      "planned": 960,
+      "archived_trials": 960,
+      "physical_execution_status": "PASS",
+      "task_qualification": "FAIL",
+      "acting_first": {"PASS": 0, "FAIL": 480},
+      "plan_first": {"PASS": 0, "FAIL": 480},
+      "profile": "original Vulkan profile",
+      "evidence": "evidence/IJ07/planning/repeat-vulkan-full/diagnostic.json"
+    },
+    "planning_reference_boundary": {
+      "same_response_regression": "PASS",
+      "verified_responses": 100,
+      "live_business_result": "FAIL",
+      "live_diagnostic_count": 2,
+      "evidence": "evidence/IJ07/root_causes/planning_reference_boundary_control.json"
+    },
+    "job_v1_arm_f": {
+      "status": "FAIL",
+      "first_pass_correct": 592,
+      "first_pass_total": 600,
+      "business_completions": 342,
+      "evidence": "evidence/IJ07/job_ablation/F/primary/summary.json"
+    },
+    "job_v1_arm_f_receipt_correction": {
+      "software_status": "PASS",
+      "separate_historical_panel_status": "PASS",
+      "independent_qualification": "NOT_RUN",
+      "old_roster_baseline_successes": 592,
+      "old_roster_corrected_successes": 600,
+      "old_roster_primary_trials": 600,
+      "regression": "tests/regression/ij07/test_job_v1_arm_f.py",
+      "evidence": "evidence/IJ07/job_ablation/F/receipt-correction/comparison.json"
+    },
+    "job_v1_model_diagnostics": {
+      "physical_execution_status": "PASS",
+      "model_cases": 15,
+      "first_passes": {"A": 0, "B": 0, "C": 0, "D": 0, "E": 1},
+      "full_panel_status": "NOT_RUN",
+      "evidence": "evidence/IJ07/job_ablation/model_diagnostic/coverage.json"
+    },
+    "gates": {
+      "G0": "PASS", "G1": "FAIL", "G2": "BLOCKED", "G3": "PASS",
+      "G4": "PASS", "G5": "PASS", "G6": "PASS", "G7": "BLOCKED",
+      "G8": "BLOCKED", "G9": "BLOCKED", "G10": "NOT_RUN", "G11": "NOT_RUN",
+      "G12": "NOT_RUN", "G13": "BLOCKED", "G14": "BLOCKED", "G15": "PASS",
+      "G16": "BLOCKED", "G17": "NOT_RUN"
+    },
+    "qualification_verdicts": {
+      "IJ07_RESEARCH_COMPLETION_VERDICT": "BLOCKED",
+      "IJ07_NATIVE_TOOL_CALLING_VERDICT": "FAIL",
+      "IJ07_AUTONOMOUS_PLANNING_VERDICT": "FAIL",
+      "IJ07_COMPETITIVE_BENCHMARK_VERDICT": "NOT_RUN",
+      "IJ07_RUNTIME_QUALIFICATION_VERDICT": "FAIL",
+      "IJ07_PURPOSE_BUILT_VALIDATION_VERDICT": "NOT_RUN",
+      "IJ07_PRODUCTION_READINESS_VERDICT": "BLOCKED"
+    },
+    "audit_evidence": [
+      "reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md",
+      "evidence/IJ07/baseline_manifest.json",
+      "evidence/IJ07/baseline_ci.json",
+      "evidence/IJ07/environment/windows.json"
+    ]
+  },
   "open_blockers": [
     "B-004",
     "B-006",
     "B-007",
     "B-009",
-    "B-010"
+    "B-010",
+    "B-011",
+    "B-012"
   ]
 }
