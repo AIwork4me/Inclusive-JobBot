@@ -9,6 +9,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -18,6 +19,11 @@ HASHES = (
     "dataset_sha256", "evaluator_sha256", "oracle_sha256", "tool_schema_sha256", "policy_sha256",
 )
 COMMIT_IDS = ("git_commit_sha", "engine_commit", "modelscope_revision")
+IJ06_ARCHIVE = "d2e5b31aa1f0894638f7b648a4cf3591fbb71e6e"
+IJ06_LIVING_FILES = {
+    "BLOCKERS.md", "DECISIONS.md", "HANDOFF.md", "MISSION_STATE.json", "TASK_LEDGER.md",
+    ".github/workflows/evidence-validation.yml", "scripts/tools/verify_ij06_evidence.py",
+}
 
 
 def digest(path):
@@ -61,6 +67,23 @@ def validate_artifacts(root, path):
         raise ValueError("invalid or self-referencing artifact manifest")
     for name, expected in files.items():
         manifest_file(root, {"path": name, "sha256": expected})
+    return len(files)
+
+
+def validate_ij06_artifacts(root):
+    path = root / "reports/IJ06_ARTIFACT_MANIFEST.json"
+    files = read_json(path)["files"]
+    if not files or path.relative_to(root).as_posix() in files:
+        raise ValueError("invalid or self-referencing IJ-0.6 artifact manifest")
+    for name, expected in files.items():
+        if name not in IJ06_LIVING_FILES:
+            manifest_file(root, {"path": name, "sha256": expected})
+            continue
+        blob = subprocess.run(
+            ["git", "show", f"{IJ06_ARCHIVE}:{name}"], cwd=root, check=True, capture_output=True,
+        ).stdout
+        if hashlib.sha256(blob).hexdigest() != expected:
+            raise ValueError(f"archived IJ-0.6 digest mismatch {name}")
     return len(files)
 
 
@@ -198,7 +221,7 @@ def main():
         print(f"PASS: {validate_baseline(ROOT)} preserved baseline files")
         artifacts = ROOT / "reports/IJ06_ARTIFACT_MANIFEST.json"
         if artifacts.is_file():
-            print(f"PASS: {validate_artifacts(ROOT, artifacts)} IJ-0.6 artifacts")
+            print(f"PASS: {validate_ij06_artifacts(ROOT)} IJ-0.6 artifacts")
         if args.run:
             for_error = validate_run(read_json(args.run), args.run.parent, set(args.required_gate))
             if for_error:
@@ -206,7 +229,7 @@ def main():
                     print(f"FAIL: {problem}", file=sys.stderr)
                 return 1
             print("PASS: qualification manifest structure and integrity")
-    except (OSError, ValueError, KeyError, TypeError, AttributeError) as error:
+    except (OSError, ValueError, KeyError, TypeError, AttributeError, subprocess.CalledProcessError) as error:
         print(f"FAIL: {error}", file=sys.stderr)
         return 1
     return 0

@@ -1,5 +1,14 @@
 # Handoff
 
+## IJ-0.7
+
+IJ-0.7 starts from the exact reviewed IJ-0.6 HEAD
+`d2e5b31aa1f0894638f7b648a4cf3591fbb71e6e` on the separate mission branch.
+Follow [issue #3](https://github.com/AIwork4me/Inclusive-JobBot/issues/3)
+and the [execution plan](docs/IJ07_EXECUTION_PLAN.md). G0 has archival
+audit evidence. Follow the [audit report](reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md)
+for the regenerated figures, original failures and local hardware capture.
+
 Read this first when resuming. Last updated: 2026-11-24.
 
 Everything below was checked against the disk and the running system at the

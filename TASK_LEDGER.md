@@ -1,5 +1,13 @@
 # Task Ledger
 
+## IJ-0.7
+
+| ID | Task | Status | Evidence |
+|---|---|---|---|
+| IJ07-M0 | Independent archival audit of IJ-0.6 and current Windows inventory | PASS | `reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md` |
+| IJ07-M1 | Competitive model research and runtime admission | NOT_RUN | `docs/IJ07_EXECUTION_PLAN.md` |
+| IJ07-M2 | Four-arm historical replay and pre-parser capture | NOT_RUN | `docs/IJ07_EXECUTION_PLAN.md` |
+
 Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`. "Progress" says
 whether work has started. Every finished task names its evidence.
 

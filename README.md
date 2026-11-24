@@ -12,6 +12,10 @@ validation, permission checks and human confirmation decide.
 - Weights: MiniCPM5-2B from ModelScope, SHA256 verified.
 
 Status: mission `IJ-0` (engine and native tool-calling qualification) in progress.
+The IJ-0.7 archival audit reproduced the two historical 500-case runs' scores
+from the saved records. Each backend had 84/100 semantically valid multi-tool
+traces and 77/100 complete diagnostic passes. See the
+[IJ-0.7 audit](reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md).
 Nothing in this repository is a claim of production readiness, of real employee
 validation, or of DEEPX DX-M2 hardware results.
 
