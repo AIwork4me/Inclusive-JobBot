@@ -61,6 +61,9 @@ fixed are listed in `DECISIONS.md` D-009.
 | ID | Task | Progress | Status | Evidence |
 |---|---|---|---|---|
 | IJ-0.6 audit | Verify local and remote baseline and restore SDK gates | done | PASS | `reports/IJ06_INITIAL_AUDIT.md`, `evidence/IJ06/baseline_manifest.json`, `docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md` |
+| IJ-0.6B | Evaluator V2 DAG and transactional oracle mutations | done | PASS | `reports/IJ06_EVALUATOR_V2_REPORT.md`, `evidence/IJ06/evaluator_v2/` |
+| IJ-0.6B rescore | Replay 1,000 archived diagnostic traces | done | PASS | `reports/IJ06_BASELINE_RESCORING.md`, `evidence/IJ06/rescoring/` |
+| IJ-0.6C software | Strict protocol, policy, and SQLite transaction regression | done | PASS | `reports/IJ06_SECURE_GATEWAY_REPORT.md`, `evidence/IJ06/security/` |
 
 ## IJ-1.0 missions
 

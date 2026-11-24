@@ -1,0 +1,891 @@
+{
+  "schema_version": 1,
+  "run_id": "ij06-security-13a95e7b506e4feaa47254e5ba4406f9",
+  "status": "PASS",
+  "evidence_type": "SOFTWARE_TESTS_WITH_HISTORICAL_WIRE_REPLAY_AND_MOCK_LOOPBACK_HTTP",
+  "qualification": false,
+  "git_commit_sha": "e58430feb2c3739258a7d7f5e80dd490e6311536",
+  "git_dirty_state": true,
+  "platform": "Windows",
+  "python": "3.12.10",
+  "dependency_versions": {
+    "pytest": "9.2.0",
+    "jsonschema": "4.26.0"
+  },
+  "start_time_utc": "2026-11-24T09:28:35.974386+00:00",
+  "end_time_utc": "2026-11-24T09:28:40.939155+00:00",
+  "source_manifest": {
+    "benchmarks/tool_calling/fixtures/minicpm5_parser_fixtures.json": "e1dd8382c633f5fb197a13cd95199596276f9043d06745395cea6ec5d3aacb0d",
+    "evidence/IJ0/protocol/parser_fixtures_strict_rocm/fixtures.json": "c0f2e531f17ba4f5a8b43e1cd54a2b879bded84949e1636867673792c6cf4f40",
+    "evidence/IJ0/protocol/parser_fixtures_strict_vulkan/fixtures.json": "b00cf679a0ff7338773259e1101dc0a2636f9c3196986fac6925de7bc5a31de8",
+    "pyproject.toml": "56bb32e3a54696f0596fdb0ff709daa577adc893ab065f6290161f9a533c93de",
+    "requirements.lock": "eb2a8a332c495aa7f2443fc65ffe724b8dd9b1a402cf3b9a23ead83e098f6b10",
+    "scripts/tools/run_ij06_security_tests.py": "95206858886fd57eda7a5c71c666013e826395298f58261b181f540113e18e58",
+    "scripts/windows/run_ij06_security_tests.ps1": "808c291888873709ff8a8577b3c490138031063a8e80814fbe5ae423f246c01a",
+    "src/business_tools/__init__.py": "039d5e0776678ab63ff4ab18ec671ad2833b236647fd4c34321339cd2fcbb2ee",
+    "src/business_tools/handlers.py": "8e88c32ac948844d7f540b1aabba4babd874706be5fb2f8c1dce16db9e3937c1",
+    "src/business_tools/store.py": "2df5b706d9ce63a476c46afd2c0819c3d53e0dedf31a19eba413207b99d7774c",
+    "src/model_gateway/__init__.py": "dfa984fc3da9c32754f0085f6dfb0543c0dc7c98285da6bf1c228c1050fead71",
+    "src/model_gateway/authorization.py": "8badc2ae17ad0221ca6d819c8427e6d1fc1ec3126ea287ea16c32471e9146710",
+    "src/model_gateway/base.py": "bdc018cb711a4a6be4cf1b765f0024345d2a046bfc6a799240c78c6ef9ab2c5f",
+    "src/model_gateway/capabilities.py": "82c8e76308f6f44831beaecdaa666e858d141e2c925317462d89c7962247db53",
+    "src/model_gateway/errors.py": "45bdfa84ad94d513c41f1913cc281cdc945cf75753bda9358b4c12aa925adc28",
+    "src/model_gateway/execution_policy.py": "3e3fdfed86797bc02959ec7e4b0dd0b566ef2841ebf5a60cf622199bb8b3093f",
+    "src/model_gateway/llama_cpp_backend.py": "c69871efdd629d88834e710879f2f445766e12658724f028c7068f6df4ad9bc0",
+    "src/model_gateway/metrics.py": "e413bd1c3bcb89db2be90d2fb707fb5662d1f4c2980adc3c10e167ab7b9ee6d2",
+    "src/model_gateway/openai_protocol.py": "a42e035c0cdf1ec743e7313696cffe5e4b7feb8558cdd152b2bcd0f4acab012a",
+    "src/model_gateway/streaming.py": "f2b2c5d2cbdea4adad4c2d83199e28915d6ef7c6fcc2c207f7865981563b5a58",
+    "src/model_gateway/strict_json.py": "1e819ea444a012442b69c99cab65ee91a1b5129c54fd1d96da908c60a1961190",
+    "src/model_gateway/tool_validation.py": "593dc1d75b8bce4e98ff293c32fc22581206f114f9b3ee8ba7ad9332bb032c33",
+    "tests/gateway/test_backend.py": "09f908541468610d49f765bd21e0cb880287ee62a2a9601dbd414cc44c71ca24",
+    "tests/gateway/test_schema.py": "fcb28c6d3da61dfbf99d3e63da5a855e9ca4ef24aa6f32db18c20a4414210c81",
+    "tests/gateway/test_strict_json.py": "88e24aba5782368d88d3fa5af7807fe1cb17963d96a0a5447b3893d31505b990",
+    "tests/gateway/test_wire.py": "ebd6bb49460775313c8266d4c463c716e4d2635d0c484ab055e6cc26a5b070b4",
+    "tests/security/test_draft_and_ticket.py": "f4c17c976a119d5f8edb855513ef82a355c48fbe379a1aae637485a9bc94957b",
+    "tests/security/test_gateway_execution.py": "47cbe043be9768f4932cbcf85b98e0b7b7fa076cc63071d643e72789c4817e90",
+    "tests/security/test_historical_parser_boundary.py": "8019d2a39b6728fc67d24a68cb6050246128318b343621dab45d55b585df6798"
+  },
+  "source_manifest_sha256": "660a614609486fdd296c90d818814d8e1edca35d7e859f536c5eea65feac4c21",
+  "pytest_exit_code": 0,
+  "counts": {
+    "PASS": 209
+  },
+  "cases": [
+    {
+      "id": "tests.gateway.test_backend::test_backend_sends_one_local_request_despite_environment_proxy",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_backend::test_redirect_does_not_change_backend_route",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_backend::test_per_request_model_override_rejected_before_http",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_backend::test_local_backend_requires_an_explicit_loopback_origin[http://example.com:8080]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_backend::test_local_backend_requires_an_explicit_loopback_origin[http://localhost:8080]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_backend::test_local_backend_requires_an_explicit_loopback_origin[https://127.0.0.1:8080]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_backend::test_local_backend_requires_an_explicit_loopback_origin[http://127.0.0.1]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_backend::test_local_backend_requires_an_explicit_loopback_origin[http://127.0.0.1:8080/v1]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_backend::test_local_backend_requires_an_explicit_loopback_origin[http://127.0.0.1:8080?alias=other]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_backend::test_local_backend_requires_an_explicit_loopback_origin[http://127.0.0.1:8080#token]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_backend::test_local_backend_requires_an_explicit_loopback_origin[http://local@127.0.0.1:8080]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_integer_fields_reject_numeric_coercion_even_nested[true]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_integer_fields_reject_numeric_coercion_even_nested[false]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_integer_fields_reject_numeric_coercion_even_nested[1.0]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_integer_fields_reject_numeric_coercion_even_nested[1e0]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_integer_fields_reject_numeric_coercion_even_nested[0.0]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_integer_fields_reject_numeric_coercion_even_nested[null]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_integer_fields_reject_numeric_coercion_even_nested[\"1\"]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_integer_fields_reject_numeric_coercion_even_nested[[]]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_literal_schema_values_are_not_rewritten",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_monetary_multiple_uses_exact_arithmetic",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_schema::test_openapi_schema_cannot_resolve_remote_documents",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[duplicate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[nested-duplicate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[array-object-duplicate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[escaped-duplicate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[null-duplicate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[boolean-duplicate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[array-duplicate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[duplicate-different-text]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[unicode-duplicate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[nan]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[positive-infinity]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[negative-infinity]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[nested-nan]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[large-exponent]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[tiny-exponent]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[huge-exponent]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[huge-integer]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[above-int64]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[below-int64]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[decimal-magnitude]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[scale]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[precision]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[array-root]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[string-root]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[true-root]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[false-root]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[null-root]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[number-root]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[empty]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[space]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[unclosed]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[wrong-close]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[missing-value]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[trailing-object-comma]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[trailing-array-comma]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[leading-zero]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[leading-plus]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[no-integer]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[no-fraction]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[no-exponent]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[non-json-escape]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[escaped-high-surrogate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[escaped-low-surrogate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[key-surrogate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[raw-surrogate]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[raw-null]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[raw-newline]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[invalid-utf8]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[bom]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[second-object]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[trailing-value]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[comment]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[non-string-key]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[wrong-separator]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[adjacent-literals]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[missing-comma]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[decoded-object]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[python-none]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[utf8-byte-limit]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_rejects_ambiguous_or_unbounded_arguments[nesting-limit]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_accepted_values_preserve_type_precision_and_whitespace[{\"x\":0.10}-expected0]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_accepted_values_preserve_type_precision_and_whitespace[{\"x\":1e-2}-expected1]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_accepted_values_preserve_type_precision_and_whitespace[{\"x\":-9223372036854775808}-expected2]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_accepted_values_preserve_type_precision_and_whitespace[{\"x\":9223372036854775807}-expected3]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_accepted_values_preserve_type_precision_and_whitespace[{\"x\":true,\"y\":false,\"z\":null}-expected4]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_accepted_values_preserve_type_precision_and_whitespace[{\"x\":\" \\u8bb0\\\\n  \"}-expected5]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_accepted_values_preserve_type_precision_and_whitespace[{\"x\":\"\\\\uD83D\\\\uDCDA\"}-expected6]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_strict_json::test_accepted_values_preserve_type_precision_and_whitespace[{\"x\":{\"v\":[1,2,\"\\u6587\\u672c\"]}}-expected7]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[1]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[2]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[3]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[5]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[8]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[13]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[16]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[19]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[22]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[25]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[27]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[30]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[33]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_argument_chunk_boundaries_produce_the_same_complete_proposal[37]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[role]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[content-type]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[reasoning-type]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[legacy]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[empty]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[map]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[missing-fields]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[call-type]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[empty-id]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[id-format]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[empty-name]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[name-format]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[decoded-arguments]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[array-arguments]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[duplicate-inner-fields]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[duplicate-call]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_terminal_wire_rejects_invalid_tool_message[invalid-batch-member]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[unstarted]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[done-only]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[incomplete-finish]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[missing-calls]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[stop-with-call]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[missing-done]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[missing-finish]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[index-gap]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[negative-index]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[boolean-index]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[too-many-calls]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[string-index]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[replaced-id]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[duplicate-id]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[duplicate-inner-fields]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[truncated-arguments]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[array-arguments]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[delta-after-finish]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[delta-after-done]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[double-done]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[wrong-role]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[legacy-function]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[wrong-choice]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[boolean-choice]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.gateway.test_wire::test_stream_rejects_incomplete_ambiguous_or_invalid_batch[duplicate-envelope-field]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_draft_and_ticket::test_draft_only_capability_can_only_insert_unsubmitted_review[review_drafts-False-True]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_draft_and_ticket::test_draft_only_capability_can_only_insert_unsubmitted_review[review_drafts-True-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_draft_and_ticket::test_draft_only_capability_can_only_insert_unsubmitted_review[review_drafts-0-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_draft_and_ticket::test_draft_only_capability_can_only_insert_unsubmitted_review[tickets-False-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_draft_and_ticket::test_draft_only_capability_can_only_insert_unsubmitted_review[approval_records-False-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_draft_and_ticket::test_create_ticket_persists_verified_relationship_and_arguments",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_denial_prevents_persistence_and_approval[another-actor]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_denial_prevents_persistence_and_approval[missing-actor]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_denial_prevents_persistence_and_approval[wrong-role]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_denial_prevents_persistence_and_approval[missing-role]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_denial_prevents_persistence_and_approval[draft]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_denial_prevents_persistence_and_approval[committed]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_denial_prevents_persistence_and_approval[missing-state]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_denial_prevents_persistence_and_approval[no-operation]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_denial_prevents_persistence_and_approval[empty-operation]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_denial_prevents_persistence_and_approval[missing-session]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[wrong-resource]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[surrounding-space]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[trailing-newline]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[lookalike-id]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[resource-list]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[null-resource]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[empty-subject]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[long-subject]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[numeric-subject]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[nested-subject]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[outside-enum]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[boolean-enum]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[array-enum]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[string-tags]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[boolean-tags]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[duplicate-tags]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[nested-tags]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[model-confirmation]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[model-actor]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_rejected_proposal_has_no_business_effect[model-operation]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_confirmation_binds_operation_to_session[changes0-True]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_confirmation_binds_operation_to_session[changes1-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_confirmation_binds_operation_to_session[changes2-False]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_confirmation_rejects_changed_argument",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_retry_with_new_id_preserves_receipt_and_duplicate_call_id_denied",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_unconfirmed_write_cannot_save_ticket",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_read_capability_cannot_write_even_if_its_handler_attempts_to",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_attempted_write_rolls_back_and_keeps_audit",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_retry_has_bounded_attempts_without_partial_commit",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_cancelled_call_never_reaches_handler",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_serialized_transactions_commit_once_with_concurrent_replay",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_cancel_after_a_write_rolls_back",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_expired_handler_cannot_commit_its_write",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_open_circuit_blocks_handler_and_reports_escalation",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_gateway_execution::test_metrics_keep_retry_cost_when_second_attempt_succeeds",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-valid-whitespace-between-tags-SCHEMA_ERROR-vulkan]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-valid-whitespace-between-tags-SCHEMA_ERROR-rocm]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-invalid-duplicate-param-PROTOCOL_ERROR-vulkan]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-invalid-duplicate-param-PROTOCOL_ERROR-rocm]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-invalid-missing-close-param-PROTOCOL_ERROR-vulkan]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-invalid-missing-close-param-PROTOCOL_ERROR-rocm]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-invalid-unclosed-function-PROTOCOL_ERROR-vulkan]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-invalid-unclosed-function-PROTOCOL_ERROR-rocm]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-invalid-enum-outside-schema-SCHEMA_ERROR-vulkan]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-invalid-enum-outside-schema-SCHEMA_ERROR-rocm]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-invalid-unclosed-cdata-PROTOCOL_ERROR-vulkan]",
+      "status": "PASS"
+    },
+    {
+      "id": "tests.security.test_historical_parser_boundary::test_original_native_parser_failure_is_blocked_at_gateway[fx-invalid-unclosed-cdata-PROTOCOL_ERROR-rocm]",
+      "status": "PASS"
+    }
+  ]
+}
