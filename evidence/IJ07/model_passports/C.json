@@ -1,0 +1,96 @@
+{
+  "candidate": "C",
+  "identity": {
+    "hf_gated": false,
+    "hf_repository_created_utc": "2026-11-18T17:05:50.000Z",
+    "hf_repository_updated_utc": "2026-11-18T22:31:44.000Z",
+    "hf_revision": "28902cbfd9f4e0347d6c853aa1301f5d559b2fc0",
+    "hf_safetensors_parameters": 2288831488,
+    "license_id": "mit",
+    "official_config_and_template": {
+      "chat_template.jinja": "36f20c222f9f7cc374987623008542e7c4d63d3b9c35fd6b05518a04af35df03",
+      "config.json": "6bdb33ee26e507289104baf6b9b31a158de01c1d85a521f29bfdea344b4d6328",
+      "config_fields": {
+        "architectures": [
+          "AionInstructForCausalLM"
+        ],
+        "auto_map": {
+          "AutoConfig": "configuration_aion_instruct.AionInstructConfig",
+          "AutoModel": "modeling_aion_instruct.AionInstructModel",
+          "AutoModelForCausalLM": "modeling_aion_instruct.AionInstructForCausalLM"
+        },
+        "max_position_embeddings": 32768,
+        "model_type": "aion_instruct",
+        "vocab_size": 200029
+      },
+      "tokenizer_config.json": "bd2681681a478d3fdd23b7fba09475e20f61d8de858ecef3db25f823960f386e"
+    },
+    "official_model_id": "microsoft/Aion-1.0-Instruct-2.3B",
+    "official_onnx_reference": {
+      "files": [
+        {
+          "Path": "chat_template.jinja",
+          "Revision": "e3ae2e5fe179d84a73d1ceb9e703a7798f121717",
+          "Sha256": "36f20c222f9f7cc374987623008542e7c4d63d3b9c35fd6b05518a04af35df03",
+          "Size": 4286
+        },
+        {
+          "Path": "model.onnx",
+          "Revision": "e3ae2e5fe179d84a73d1ceb9e703a7798f121717",
+          "Sha256": "3a3f5c67c1bcc70d3c81ab2350d7d3ad09419ce925f0ded96a3731725edcdb19",
+          "Size": 1092291
+        },
+        {
+          "Path": "model.onnx.data",
+          "Revision": "e3ae2e5fe179d84a73d1ceb9e703a7798f121717",
+          "Sha256": "685d5d028f951401cdbc427d613abf284232b89ed22187faa9caa12ac289b7c9",
+          "Size": 1291678720
+        }
+      ],
+      "repo": "microsoft/Aion-1.0-Instruct-2.3B-ONNX-WebGPU"
+    },
+    "official_tokenizer_files": [
+      "tokenizer.json",
+      "tokenizer_config.json"
+    ],
+    "official_url": "https://huggingface.co/microsoft/Aion-1.0-Instruct-2.3B"
+  },
+  "metrics": {
+    "autonomous_level": "NOT_RUN",
+    "chinese_independent": "NOT_RUN",
+    "dynamic_replanning": "NOT_RUN",
+    "independent_dependent_tools": "NOT_RUN",
+    "independent_parallel_tools": "NOT_RUN",
+    "independent_single_tool": "NOT_RUN",
+    "long_horizon": "NOT_RUN",
+    "maximum_verified_task_depth": "NOT_RUN",
+    "quantization_qualification": "NOT_RUN",
+    "repeat_reliability": "NOT_RUN"
+  },
+  "model_id": "microsoft/Aion-1.0-Instruct-2.3B",
+  "native_runtime_reference": {
+    "cpu": {
+      "backend": "cpu",
+      "reported_device_type": "CPU",
+      "run_id": "ij07-aion-18bbb16c1cb4450bb13620d80c82992d",
+      "status": "PASS",
+      "versions": {
+        "onnxruntime-genai": "0.14.1",
+        "onnxruntime-webgpu": "1.27.0"
+      }
+    },
+    "webgpu": {
+      "backend": "webgpu",
+      "reported_device_type": "WebGPU",
+      "run_id": "ij07-aion-4b85693bbb4348038e981b4e2c4c6dbe",
+      "status": "PASS",
+      "versions": {
+        "onnxruntime-genai": "0.14.1",
+        "onnxruntime-webgpu": "1.27.0"
+      }
+    }
+  },
+  "production_admission": "BLOCKED",
+  "qualification": "NOT_RUN",
+  "scope": "interim diagnostic"
+}

@@ -17,4 +17,6 @@ jobs:
       - run: python scripts/tools/scan_sensitive.py
       - run: python scripts/tools/verify_ij06_evidence.py
       - run: python -m scripts.tools.audit_ij07_baseline --check
+      - run: python -m scripts.tools.verify_ij07_artifacts
+      - run: python -m scripts.tools.build_ij07_passports --check
       - run: python -m pytest -q -o asyncio_mode= tests/evidence

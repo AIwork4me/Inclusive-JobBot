@@ -48,7 +48,10 @@ def run(model_dir, out, backend):
         config.clear_providers()
         if backend == "webgpu":
             config.append_provider("webgpu")
-            config.overlay(json.dumps({"model": {"decoder": {"session_options": {"disable_cpu_ep_fallback": True}}}}))
+            config.set_decoder_provider_options_hardware_vendor_id("webgpu", 0x1002)
+            config.set_decoder_provider_options_hardware_device_type("webgpu", "gpu")
+            config.overlay(json.dumps({"model": {"decoder": {"session_options": {"disable_cpu_ep_fallback": "1"}}}}))
+            result["requested_vendor_id"] = "0x1002"
             result["cpu_fallback_disabled"] = True
             sampler = subprocess.Popen(
                 ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File",

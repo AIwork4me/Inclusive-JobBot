@@ -15,4 +15,8 @@
 
 对七个运行项，b12359 都把未知命名工具的对象型 `tool_choice` 当作 `auto`，返回 HTTP 200 和工具调用。A 和 D 的 JSON Schema 请求还耗尽 1,024 生成 token。D 的 CPU/Vulkan 普通对话在相同预算下未输出要求的纯文本。正式留出评测尚未运行。G1 初轮准入为 `FAIL`，G10 为 `NOT_RUN`。 [逐候选响应及 GPU 证据](../evidence/IJ07/model_identity/admission/)
 
-C 的厂商 ONNX 格式存在，Windows Radeon 与 WebGPU 的实际编译、算子和执行证据尚未取得。正式竞争排名需至少四个通过准入且共同后端完整运行的模型家族。
+## 独立修正配置
+
+第二轮在同一 Radeon 上使用加入拒绝补丁的 P4b 版本，并请求关闭思考。B、D、E、F、G 与参考 H 通过十项探针。A 的普通对话和严格 Schema 探针通过，原生工具输入的首轮与流式配对失败。初轮结果保持原样。E 的总参数量超出 3.5B，G 单列为有效计算规模组。共同后端的独立全量成绩待验证。 [第二轮数据](../evidence/IJ07/model_identity/admission_strict/)
+
+C 的官方 ONNX INT4 模型通过 CPU 普通对话，以及 AMD 厂商 ID 约束、禁用 CPU 回退的 WebGPU 普通对话。当前会话包含进程 GPU 利用率和显存证据。其工具回传、流式语法及完整条件均未在该运行时完成，保持单独参考轨道。 [独立 ONNX 证据](../evidence/IJ07/model_identity/aion_reference/)

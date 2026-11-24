@@ -1,0 +1,55 @@
+{
+  "run_id": "ij07-aion-355d3a0f4cfd441291520cd3512e0247",
+  "git": {
+    "commit": "80870feb443f94a0390d5dbf3e60386a2d753c79",
+    "dirty": false
+  },
+  "model_id": "microsoft/Aion-1.0-Instruct-2.3B",
+  "backend": "webgpu",
+  "pid": 6264,
+  "started_utc": "2026-11-24T13:32:19+00:00",
+  "assets": [
+    {
+      "Path": "chat_template.jinja",
+      "Revision": "e3ae2e5fe179d84a73d1ceb9e703a7798f121717",
+      "Sha256": "36f20c222f9f7cc374987623008542e7c4d63d3b9c35fd6b05518a04af35df03",
+      "Size": 4286
+    },
+    {
+      "Path": "model.onnx",
+      "Revision": "e3ae2e5fe179d84a73d1ceb9e703a7798f121717",
+      "Sha256": "3a3f5c67c1bcc70d3c81ab2350d7d3ad09419ce925f0ded96a3731725edcdb19",
+      "Size": 1092291
+    },
+    {
+      "Path": "model.onnx.data",
+      "Revision": "e3ae2e5fe179d84a73d1ceb9e703a7798f121717",
+      "Sha256": "685d5d028f951401cdbc427d613abf284232b89ed22187faa9caa12ac289b7c9",
+      "Size": 1291678720
+    }
+  ],
+  "native_libraries": {
+    "onnxruntime/capi/dxcompiler.dll": "450adfba61a72ec3f8feaec38caa371692974b91ca20470a675214d30b7bf387",
+    "onnxruntime/capi/dxil.dll": "51326f698ac24e45d1d2f125868c66252b0c1c47b79b1427655c9ea50cfd4869",
+    "onnxruntime/capi/onnxruntime.dll": "a2cb98408f9a10f8976c0ec4d933b8732c021e9edef348ef7d87a62d05cdd1bc",
+    "onnxruntime/capi/onnxruntime_providers_shared.dll": "b595e7f99687840a5402a7c6f75352f3812c17e1b2eca9065a5ab618a1ee2921",
+    "onnxruntime/capi/onnxruntime_pybind11_state.pyd": "d4a20637fc007b0071a395735be8fbd5c74a100c847c9c58f5b244c3025699e8",
+    "onnxruntime_genai/onnxruntime-genai.dll": "5f79860ad35539e99b2293a7b841ef13fae65716e49c6038c1af8f52d3413ad1",
+    "onnxruntime_genai/onnxruntime_genai.cp312-win_amd64.pyd": "7cf5679ea6f41070ebc7154483c75eceb83b9f904ffae65849059caa5ca0b0c3"
+  },
+  "versions": {
+    "onnxruntime-webgpu": "1.27.0",
+    "onnxruntime-genai": "0.14.1"
+  },
+  "available_providers": [
+    "WebGpuExecutionProvider",
+    "CPUExecutionProvider"
+  ],
+  "ordinary_chat": "NOT_RUN",
+  "runtime_failure": {
+    "type": "RuntimeError",
+    "message": "JSON Error: model:decoder:session_options:disable_cpu_ep_fallback - Expected a string but saw a bool at line 1 index 74"
+  },
+  "finished_utc": "2026-11-24T13:32:19+00:00",
+  "status": "BLOCKED"
+}

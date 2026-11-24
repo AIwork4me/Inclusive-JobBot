@@ -6,6 +6,18 @@
 | `tc-seq-0043` | 四臂取得同一对订单结果。金额 3,554.72 对应 `PO-2026-3780`，最终回答把它归给 `PO-2026-3782`。 | 对象关联错误复现于最后回答。两个工具的提议与结果均已保存。 |
 | `tc-stream-0001` | 四臂捕获完整流式采样和非流式配对，V2 均通过。 | 同次流式与参考的函数和参数一致，支持探针自身运行。 |
 
-三条案例为作用域明确的诊断。每条的输入、SSE/JSON、精确采样 ID、模型原文和模拟结果均可核对。另 14 条共同含空 tags 的历史案例应以各自的新版轨迹判断。 [四臂探针](../evidence/IJ07/historical_replay/observer_control/) · [逐案调查索引](../evidence/IJ07/root_causes/failure_ledger.jsonl)
+四臂完整回放中，每一臂的同 15 个历史空 tags 案例都从解析前直接生成空数组，共 60 个生成层复现。逐案记录支持把本次失败定位到生成早于解析的边界。原始历史运行每例仍缺原文，输入设计和精度的因果贡献需要单变量实验。 [四臂探针](../evidence/IJ07/historical_replay/observer_control/) · [四臂汇总与逐案索引](../evidence/IJ07/historical_replay/full/summary.json)
+
+## CPU 单变量复验
+
+在相同 15 条历史失败和 P4b 的 CPU 模式上，对比原 Q8_0、仅修改 tags Schema 的 Q8_0、保持原 Schema 的 F16。
+
+| 条件 | API 空数组 | V2 语义 PASS / FAIL | V2 完整 FAIL / BLOCKED |
+|---|---:|---:|---:|
+| Q8_0，原 Schema | 15 | 0 / 15 | 15 / 0 |
+| Q8_0，仅 tags 增加 `minItems: 2` | 0 | 15 / 0 | 0 / 15 |
+| F16，原 Schema | 14 | 1 / 14 | 14 / 1 |
+
+更严格的数组下界使这 15 条历史案例生成了正确标签。模型仍自行生成标签内容。完整通过数受历史写入状态缺失限制。F16 保留 14 个空数组，表明精度改变不足以在该条件下消除这类错误。该证据来自历史失败集和 CPU，仅支持本次 Schema 反事实。 [控制原始记录及摘要](../evidence/IJ07/root_causes/ticket_tags_counterfactual/summary.json) · [复现入口](../benchmarks/root_cause/probe_ticket_tags.py)
 
 归档 V1 的工具顺序、首轮分组和答案格式规则能够造成评分差异。41/42 个原判 FAIL 的多工具案例在每个后端通过 V2 语义轨迹检查。V2 状态与语义不同步的案例保留独立记录。历史分数用于诊断。完整复现由 [回放报告](IJ07_HISTORICAL_REPRODUCTION.md) 更新。

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T13:23:41Z",
+  "updated_utc": "2026-11-24T14:26:31Z",
   "current_phase": "IJ-0.7",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -231,12 +231,38 @@
       "job_v1": "benchmarks/job_productivity_v1/holdout/frozen/manifest.json"
     },
     "competitive_statistics": "benchmarks/competitive_slm/STATISTICS.md",
+    "historical_generation_replay": {
+      "status": "PASS",
+      "real_cases": 2000,
+      "source_captured_requests": 4422,
+      "persisted_state_and_sdk": "BLOCKED",
+      "evidence": "evidence/IJ07/historical_replay/full/summary.json"
+    },
+    "sdk_ag06": {
+      "status": "FAIL",
+      "vulkan": {"PASS": 1, "FAIL": 2},
+      "rocm": {"PASS": 1, "FAIL": 2},
+      "AG-11": "BLOCKED"
+    },
+    "tc_v2_vulkan": {
+      "status": "FAIL",
+      "first_pass_correct": 349,
+      "first_pass_total": 500,
+      "evidence": "evidence/IJ07/tc_v2/holdout/vulkan/summary.json"
+    },
+    "job_v1_arm_f": {
+      "status": "FAIL",
+      "first_pass_correct": 592,
+      "first_pass_total": 600,
+      "business_completions": 342,
+      "evidence": "evidence/IJ07/job_ablation/F/primary/summary.json"
+    },
     "gates": {
       "G0": "PASS", "G1": "FAIL", "G2": "BLOCKED", "G3": "PASS",
-      "G4": "NOT_RUN", "G5": "NOT_RUN", "G6": "NOT_RUN", "G7": "NOT_RUN",
-      "G8": "NOT_RUN", "G9": "NOT_RUN", "G10": "NOT_RUN", "G11": "NOT_RUN",
-      "G12": "NOT_RUN", "G13": "NOT_RUN", "G14": "NOT_RUN", "G15": "NOT_RUN",
-      "G16": "NOT_RUN", "G17": "NOT_RUN"
+      "G4": "FAIL", "G5": "NOT_RUN", "G6": "NOT_RUN", "G7": "BLOCKED",
+      "G8": "BLOCKED", "G9": "FAIL", "G10": "NOT_RUN", "G11": "NOT_RUN",
+      "G12": "NOT_RUN", "G13": "BLOCKED", "G14": "BLOCKED", "G15": "PASS",
+      "G16": "BLOCKED", "G17": "NOT_RUN"
     },
     "audit_evidence": [
       "reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md",

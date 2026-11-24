@@ -100,8 +100,10 @@ def plan(cases, manifest, split):
 
 def pid_counter_proof(output, session):
     counter = output / session["counter_file"]
-    sources = {"counter": counter, "server": output / session["server_file"],
-               "source": output / session["trace_file"]}
+    sources = {"counter": counter, "server": output / session["server_file"]}
+    fixed_fixture = session.get("phase") == "fixed_fixture"
+    if not fixed_fixture:
+        sources["source"] = output / session["trace_file"]
     if not all(path.is_file() for path in sources.values()):
         return {"status": "BLOCKED", "reason": "GPU, boot or source capture missing"}
     try:
@@ -110,11 +112,16 @@ def pid_counter_proof(output, session):
     except (OSError, ValueError):
         return {"status": "BLOCKED", "reason": "incomplete GPU counters"}
     expected = {"3D", "Compute"} if session["backend"] == "vulkan" else {"Compute"}
+    pid_prefix = f"pid_{session['pid']}_"
     positive = sum(
-        row["kind"] == "gpu_engine" and row["instance"].startswith(f"pid_{session['pid']}_")
+        row["kind"] == "gpu_engine" and row.get("instance", "").startswith(pid_prefix)
         and row["engtype"] in expected and row["utilization"] > 0 for row in rows
     )
-    return {"status": "PASS" if positive else "BLOCKED", "positive_engine_samples": positive,
+    memory = any(row["kind"] == "gpu_process_memory" and row.get("instance", "").startswith(pid_prefix)
+                 and row.get("committed_bytes", 0) > 0 for row in rows)
+    return {"status": "PASS" if positive and memory else "BLOCKED",
+            "positive_engine_samples": positive, "process_memory_observed": memory,
+            "source_capture": "NOT_RUN" if fixed_fixture else "PASS",
             "sha256": {kind: binary_hash(path) for kind, path in sources.items()}}
 
 
@@ -312,6 +319,7 @@ def execute_locked(args, config, roster, fixture_data, cases, manifest, output, 
                 immutable = ("gpu", "build", "args", "template_sha256", "layers_offloaded", "layers_total")
                 if run["sessions"] and any(session[key] != next(iter(run["sessions"].values()))[key] for key in immutable):
                     raise ValueError("live GPU configuration changed on resume")
+                session["phase"] = "fixed_fixture" if args.fixtures else "trajectory"
                 run["sessions"][tag] = session
                 legacy.write_json(run_file, run)
                 deadline = time.monotonic() + SESSION_SECONDS

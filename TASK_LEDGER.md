@@ -14,12 +14,20 @@
 | IJ07-M3-MT-FREEZE | MULTITOOL-V1 600 case freeze and synthetic verification | PASS | `benchmarks/multitool_v1/frozen/manifest.json` |
 | IJ07-M4-FREEZE | AGENTIC-PLAN-V1 800 case freeze and synthetic witness verification | PASS | `benchmarks/agentic_planning_v1/datasets/manifest.json` |
 | IJ07-M7-FREEZE | JOB-V1 600 case roster and stateful synthetic verification | PASS | `benchmarks/job_productivity_v1/holdout/frozen/manifest.json` |
-| IJ07-M3-TC | Real TC-V2 candidate qualification | NOT_RUN | `benchmarks/tool_calling_v2/holdout/README.md` |
+| IJ07-M3-TC | Real TC-V2 candidate qualification | FAIL | `reports/IJ07_TC_V2_QUALIFICATION.md` |
 | IJ07-M3-MT | Real MULTITOOL-V1 qualification | NOT_RUN | `benchmarks/multitool_v1/README.md` |
 | IJ07-M4 | Full real two-track L0–L7 qualification | NOT_RUN | `benchmarks/agentic_planning_v1/README.md` |
 | IJ07-M7 | Six-arm JOB-V1 causal validation | NOT_RUN | `benchmarks/job_productivity_v1/holdout/README.md` |
 | IJ07-M3-MT-RUNNER | MULTITOOL-V1 Radeon runner and exact-resume software tests | PASS | `benchmarks/multitool_v1/README.md` |
 | IJ07-M6-STATISTICS | Independent paired comparison and repeat statistics software | PASS | `benchmarks/competitive_slm/STATISTICS.md` |
+| IJ07-M2-LIVE | Exact four-arm history, 2,000/2,000 physical GPU inference cases | PASS | `evidence/IJ07/historical_replay/full/summary.json` |
+| IJ07-M2-UPSTREAM | Pinned b12675 fixtures and prior-failure checks | FAIL | `evidence/IJ07/historical_replay/upstream_b12675/report.json` |
+| IJ07-M3-MT-DIAGNOSTIC | Four initial physical multi-tool cases | FAIL | `reports/IJ07_MULTITOOL_CAPABILITY_REPORT.md` |
+| IJ07-M4-DIAGNOSTIC | Four physical trials in planning and acting modes | FAIL | `reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md` |
+| IJ07-M5-API | Tool-choice validation patch RED/GREEN and candidate rerun | PASS | `reports/IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md` |
+| IJ07-M8-AG06 | Repeated real SDK structured output test on both backends | FAIL | `evidence/IJ07/antigravity/` |
+| IJ07-M8-GPU | Historical Radeon diagnostic performance/resource profiles | PASS | `reports/IJ07_GPU_PERFORMANCE.md` |
+| IJ07-M7-F | Deterministic Arm F first-pass commercial target | FAIL | `reports/IJ07_PURPOSE_BUILT_VALIDATION.md` |
 
 Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`. "Progress" says
 whether work has started. Every finished task names its evidence.

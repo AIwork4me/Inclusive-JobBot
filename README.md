@@ -16,6 +16,10 @@ The IJ-0.7 archival audit reproduced the two historical 500-case runs' scores
 from the saved records. Each backend had 84/100 semantically valid multi-tool
 traces and 77/100 complete diagnostic passes. See the
 [IJ-0.7 audit](reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md).
+The new four-arm history replay completed 2,000 real Radeon cases. P4b
+preserved the full diagnostic verdict of every case on each backend.
+Independent tests, SDK results and production gates are tracked in the
+[IJ-0.7 stage report](reports/IJ07_FINAL_REPORT_EN.md).
 Nothing in this repository is a claim of production readiness, of real employee
 validation, or of DEEPX DX-M2 hardware results.
 
