@@ -16,3 +16,7 @@ MiniCPM5 的双后端结果各具独立身份。Vulkan 的 349/500 与 ROCm/HIP 
 347/500 是该模型在原 P4b 配置上的能力估计。四候选各一案的开发证据
 只覆盖书面 JSON 合同。正式候选配对效果、显著性、非劣效和综合排名均维持
 `NOT_RUN`，直到完整配对验收。 [MiniCPM5 结果](IJ07_TC_V2_QUALIFICATION.md) · [候选开发结果](IJ07_COMPETITIVE_SLM_BENCHMARK.md)
+
+LFM3 的首个封存会话覆盖按固定顺序提交的 200 条首轮，15 PASS、185 FAIL、
+0 BLOCKED。该臂其余 950 个试次当时为 NOT_RUN。其中包括剩余首轮、流式和
+重复。配对推断仍使用预设完整样本。 [封存快照和摘要](../evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint/)

@@ -52,6 +52,7 @@ L0–L7 各 100 条，Plan-first 与 Acting-first 的全量首轮均完成且分
 MiniCPM5 在该配置的原生调用检查失败。四个候选在同一开发案例均算出正确结果，
 LFM3 通过，其余三个因 Markdown 围栏未满足纯 JSON 约定。Aion 的 CPU 和 Radeon WebGPU 普通对话通过，依赖工具
 探针均在获得账号前使用了错误的账号参数。完整配对和可靠性排名待跑。
+LFM3 的正式首个封存会话为 15 PASS、185 FAIL，另有 950 个计划试次待判。
  [候选矩阵](IJ07_MODEL_ADMISSION_MATRIX.md) · [竞争诊断](IJ07_COMPETITIVE_SLM_BENCHMARK.md)
  · [配对统计](IJ07_MODEL_AB_TEST_STATISTICS.md)
 
@@ -73,6 +74,8 @@ CPU 对照中原提示为 1/3。明确要求取工具 `result` 字符串的独�
 
 600 条 JOB-V1 跨文档审核、商品信息和售后。无模型 F 臂为 592/600 首试通过，
 342 条实际业务完成。A–E 真机诊断 15 条，E 通过 1/3，其余四臂各 0/3。
+修复八条更正的识别问题后，同一旧样本的单变量回放为 600/600，业务完成 350 条。
+修订配置仍需新冻结集做独立商业资格验证。
 六组全量配对贡献与调用比待测。 [岗位阶段结果](IJ07_PURPOSE_BUILT_VALIDATION.md)
  · [因果消融](IJ07_PURPOSE_BUILT_CAUSAL_ABLATION.md) · [业务价值](IJ07_BUSINESS_VALUE_VALIDATION.md)
 

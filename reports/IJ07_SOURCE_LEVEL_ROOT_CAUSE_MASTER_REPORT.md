@@ -50,9 +50,22 @@ Planning Boundary 使用 Unicode 单词边界提取公开输入的引用，紧�
 
 CPU 对照保留原权重、任务和采样，只为该诊断-臂在数组 Schema 指定 `minItems: 2`。该字段经 `common/json-schema.cpp` 成为数组约束，再进入 `common/json-schema-to-grammar.cpp` 的 `build_repetition`。15/15 由语义失败变为语义通过。原 Schema 的 F16 仍有 14/15 空数组。Schema 是该诊断配置的可控因素。原始归档的不可观测生成及模型训练机制仍需独立证据。 [对照证据](../evidence/IJ07/root_causes/ticket_tags_counterfactual/summary.json)
 
+## JOB-V1 确定性收据更正边界
+
+`arm_f.corrected_field` 先识别更正意图，再以 `ORDER_TARGET` 提取唯一目标。
+原表达式遗漏 `receipt corrected to`，触发 `followup_ambiguous`，因而在权限和
+读工具之前停止。新增该明确表达式后，新目标仍要满足相同 Gateway 授权。
+独立构造的正例和无订单更正、目标冲突的反例通过回归。逐案单变量运行对比使用
+一致的源文件摘要，仅 `arm_f.py` 不同。两版完整保留各自的输入、原始业务审计、
+评分及 SQLite 摘要。 [源码回归](../tests/regression/ij07/test_job_v1_arm_f.py) · [单变量证据](../evidence/IJ07/job_ablation/F/receipt-correction/comparison.json)
+
 ## AG-06 结构化结果
 
-工具结果由 SDK 包为 `{"result": "ORDER-READY-X621"}` 后进入模型消息。两个失败臂的 SSE 中，模型的 `finish.status` 已是序列化后的整个对象，SDK 返回相同错误字符串。两个成功臂只选择真实状态值。此比较定位了错误首次可见的协议边界。未采集解析前生成，SDK 包装和提示的贡献仍需对照。AG-11 仍需可信进程级出站证据。 [SSE 独立复核](../evidence/IJ07/root_causes/ag06_archived_wire.json) · [验收规范](../docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md)
+工具结果由 SDK 包为 `{"result": "ORDER-READY-X621"}` 后进入模型消息。失败时，
+模型 SSE 的 `finish.status` 已包含序列化的整个对象，SDK 返回相同字符串。
+真实 SDK 的 CPU 单变量提示对照从 1/3 变为 3/3。解析前生成和修订提示的
+Radeon 资格仍待采。AG-11 需要可信进程级出站证据。
+ [SSE 独立复核](../evidence/IJ07/root_causes/ag06_archived_wire.json) · [SDK CPU 控制](../evidence/IJ07/antigravity/ag06_prompt_cpu_control.json) · [验收规范](../docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md)
 
 ## 上游比较
 

@@ -55,6 +55,7 @@ Granite 和 Qwen3-8B 分别提供规模扩展及大模型参考。MiniCPM5 在�
 AGENTIC-PLAN-V1 的原始 Vulkan 运行完成两轨 1,600 次评估，两轨分别
 通过 0/800。Plan-first 未通过首轮计划合同，Acting-first 在工具、状态与
 最终输出合同中有多处失败。中文编号提取是已确认的运行时影响之一。
+960 条三种子重复全部呈现 FAIL，每轨 Pass@3 与 Pass^3 都是 0/160。
  [全量自主规划](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
 
 ## 业务决策与端侧部署
@@ -62,7 +63,8 @@ AGENTIC-PLAN-V1 的原始 Vulkan 运行完成两轨 1,600 次评估，两轨分�
 在实际业务提交前保留独立规则、授权与确认。透明结构化输入可直接走 SOP；允许小模型
 提议不确定字段或已验证的只读工具流程。无效或高风险提议应记录并停止。现有三个
 结构化岗位开发样本只提供有限的系统贡献证据。JOB-V1 无模型 F 臂在 600 条任务中
-首试通过 592 条，实际业务完成 342 条。A–E 和配对贡献尚未完成，99% 和调用轮次
+首试通过 592 条，实际业务完成 342 条。只修复更正短语识别后，使用同一旧留出集的
+回放通过 600 条。A–E 全量和配对贡献尚未完成，独立 99% 和调用轮次
 十分之一仍是待验证目标。 [岗位结果](IJ07_PURPOSE_BUILT_VALIDATION.md) · [架构建议](IJ07_JOBBOT_ARCHITECTURE_RECOMMENDATION.md)
 
 历史负载的 ROCm/HIP prefill 较高且 Vulkan decode 较高，GFX1151 上具备足以支撑

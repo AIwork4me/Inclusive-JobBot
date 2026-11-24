@@ -7,6 +7,10 @@
 条首轮失败已关联检查点和原始日志。相同任务跨研究和阶段可能重复出现。
  [机器可读索引与摘要](../evidence/IJ07/root_causes/failure_ledger.json)
 
+候选 B 首个封存会话的 185 个失败保留故障标记与原始检查点摘要，
+逐案例因果验证待完成。JOB-V1 F 臂的八条原始失败已通过同一留出集
+的源码单变量控制定位。 [候选 B 快照](../evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint/) · [岗位反事实](../evidence/IJ07/job_ablation/F/receipt-correction/comparison.json)
+
 | 编码 | 调查层 | 已测判断或定位入口 |
 |---|---|---|
 | RC-00 | 数据集或任务定义 | 历史输入与独立 SQLite 授权字段的合同差异已记录。 |

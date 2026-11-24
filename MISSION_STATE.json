@@ -244,7 +244,8 @@
           "arm": "B",
           "run_id": "ij07-competitive-tcv2-roster-aedb6f5e2e63416586f6d06c9c431bf1",
           "started_utc": "2026-11-24T18:10:49+00:00",
-          "configuration_sha256": "bd9ab2d62b8fc1f75e1139934ea9bf38ca42dbb1bf940943b2ae14e5a98947af"
+          "configuration_sha256": "bd9ab2d62b8fc1f75e1139934ea9bf38ca42dbb1bf940943b2ae14e5a98947af",
+          "first_sealed_checkpoint": "evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint/archive.json"
         }
       },
       "competitive_multitool_and_planning": {
@@ -365,8 +366,13 @@
     },
     "job_v1_arm_f_receipt_correction": {
       "software_status": "PASS",
-      "separate_historical_panel_status": "NOT_RUN",
-      "regression": "tests/regression/ij07/test_job_v1_arm_f.py"
+      "separate_historical_panel_status": "PASS",
+      "independent_qualification": "NOT_RUN",
+      "old_roster_baseline_successes": 592,
+      "old_roster_corrected_successes": 600,
+      "old_roster_primary_trials": 600,
+      "regression": "tests/regression/ij07/test_job_v1_arm_f.py",
+      "evidence": "evidence/IJ07/job_ablation/F/receipt-correction/comparison.json"
     },
     "job_v1_model_diagnostics": {
       "physical_execution_status": "PASS",

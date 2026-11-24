@@ -116,6 +116,10 @@ The 168-hour soak test needs real elapsed time with the machine awake and the
 remote session undisturbed. Sleep and hibernation settings are the owner's to
 change; the project does not touch power settings.
 
+The IJ-0.7 read-only power query showed timeout 0 for both AC and DC idle
+sleep in the active scheme. The uninterrupted test interval and single-GPU
+availability remain unverified. No power policy change was applied.
+
 ## B-008 The original ECO-01 SDK checklist was unavailable in the checkout
 
 - Priority: P0 for full SDK acceptance

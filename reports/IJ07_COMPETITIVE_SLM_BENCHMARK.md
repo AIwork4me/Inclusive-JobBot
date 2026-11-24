@@ -27,9 +27,12 @@ The candidate MULTITOOL-V1 and two-track planning runners passed software
 preflights with the local admitted weights. Their physical suites remain
 `NOT_RUN`. [Frozen plan and lock](../configs/ij07/)
 
-The scheduled B full roster started on the frozen execution checkout. Its
-live configuration digest matches the prespecified B arm. The full comparison
-requires the sealed results for all four arms. [Comparison statistics](IJ07_MODEL_AB_TEST_STATISTICS.md)
+The B full roster started on the frozen execution checkout. Its live
+configuration digest matches the prespecified arm. The first sealed Vulkan
+session covers 200 of 1,150 scheduled trials, with 15 PASS, 185 FAIL,
+0 BLOCKED and 950 NOT_RUN. These are the first 200 ordered primary cases.
+The comparison requires the sealed results for all four arms.
+ [First verified checkpoint](../evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint/) · [Comparison statistics](IJ07_MODEL_AB_TEST_STATISTICS.md)
 
 On the separate official Aion ONNX INT4 path, CPU and Radeon WebGPU generated
 matching tokens. Both proposed `lookup_balance` using the company name before

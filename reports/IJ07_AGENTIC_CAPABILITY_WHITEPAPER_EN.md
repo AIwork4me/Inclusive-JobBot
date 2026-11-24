@@ -51,9 +51,9 @@ isolation. [SDK evidence](../evidence/IJ07/antigravity/)
 The first two planning cases failed on both the Plan-first and Acting-first
 tracks. The first four selected multi-tool diagnostics also failed. Their
 evidence shows missing calls, premature entity references, incorrect
-recovery choices, and final-output mismatch. The full frozen independent
-cases and repeat panels are needed for confidence intervals, defensible
-capability levels, depth curves, and model-to-model differences.
+recovery choices, and final-output mismatch. The completed MiniCPM5 panels
+provide depth and level estimates. Matched full-roster evidence is pending
+for the other candidates.
  [Planning](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md) · [Multi-tool](IJ07_MULTITOOL_CAPABILITY_REPORT.md)
 
 Independent TC-V2 first attempts passed 349/500 on Vulkan and 347/500 on
@@ -71,14 +71,17 @@ The unmodified AGENTIC-PLAN-V1 profile completed all 1,600 Radeon first
 attempts. Each track passed 0/800. Plan-first failed the initial contract
 on every case, and Acting-first executed 1,422 model-attributed tool actions.
 The original reference validator's defect is part of this measured profile.
+The complete repeat experiment adds 960 trials and 1,584 source-bound
+requests. Both tracks pass 0/480 trials and 0/160 cases across three seeds.
  [Full planning results](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
 
 Preserve deterministic validation, explicit proposal provenance, and trusted
 confirmation as the common decision boundary. The structured IJ-0.6 job
 rehearsal provides observations on three tasks. The independent job
 baseline scored 592/600 first-pass outcomes under deterministic Arm F,
-with 342 actual business completions. Arms A–E and paired causal estimates
-remain pending. The 99% target and tenfold interaction reduction still
+with 342 actual business completions. The receipt correction reached 600/600
+on a separate post-hoc replay. The full Arms A–E and paired causal estimates
+remain pending. The independent 99% target and tenfold interaction reduction still
 require corroboration. [JOB-V1 stage evidence](IJ07_PURPOSE_BUILT_VALIDATION.md)
  · [Architecture analysis](IJ07_JOBBOT_ARCHITECTURE_RECOMMENDATION.md)
 

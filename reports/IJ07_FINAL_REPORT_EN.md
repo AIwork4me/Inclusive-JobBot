@@ -42,6 +42,9 @@ streamed runs, 150 repeat trials and 146 fixed fixtures. Deterministic
 JOB-V1 Arm F achieved 592/600 semantic passes and
 342 actual business completions. A–E ran 15 Radeon diagnostics on three
 matched cases, with one pass on Arm E. Their full panels remain pending.
+An isolated receipt-correction change passed 600/600 on a post-hoc replay of
+the same frozen JOB-V1 cases. The original profile and independent commercial
+qualification retain separate outcomes.
  [Independent TC-V2](IJ07_TC_V2_QUALIFICATION.md) · [JOB-V1 Arm F](IJ07_PURPOSE_BUILT_VALIDATION.md)
 
 Four contenders retrieved and computed the correct value on the same read-only

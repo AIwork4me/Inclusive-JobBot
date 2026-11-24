@@ -46,9 +46,16 @@ Chinese reference profile. [Planning archive](evidence/IJ07/planning/primary-vul
 
 The original MULTITOOL repeat panel completed 300/300 physical trials.
 The original planning repeat panel completed all 960 frozen trials. Each
-track failed all 480. The strict B/D/F/G TC-V2 batch queue follows that panel
-in the same single-GPU slot.
+track failed all 480. The strict B/D/F/G TC-V2 queue uses the same single-GPU
+slot. Its first B session verified 200 trials. The A–E JOB-V1 queue waits for
+all four competitive TC-V2 rosters before using the GPU. Each active run
+keeps its resumable local folder and exact runtime source identity.
  [Multi-tool repeat archive](evidence/IJ07/multitool/repeat-vulkan-full/) · [Planning repeat archive](evidence/IJ07/planning/repeat-vulkan-full/)
+
+The [Arm F receipt-correction control](evidence/IJ07/job_ablation/F/receipt-correction/)
+reruns the observed holdout on two clean commits with source digests that
+differ only at `arm_f.py`. Keep these exploratory results separate from the
+original registered F archive and future independent qualification.
 
 Read this first when resuming. Last updated: 2026-11-24.
 
