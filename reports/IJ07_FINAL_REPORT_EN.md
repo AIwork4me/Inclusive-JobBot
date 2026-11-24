@@ -25,8 +25,9 @@ primary trials and passed 129. Task success went from 44/120 at 2–3 steps
 to 9/120 at 16–20 steps. Its first published checkpoint exposed a mismatch
 between the wire's 16-call limit and the 32-proposal task budget. All 14
 affected responses passed the bounded wire-control replay. Four planning
-diagnostics failed on the real Vulkan backend. Both complete L0 tracks
-also passed 0/100 each. The higher-level roster is running. SDK AG-06
+diagnostics failed on the real Vulkan backend. The full L0–L7 first-pass
+roster then scored 0/800 on each track, with all 2,719 requests source-bound.
+The original profile includes a confirmed Chinese reference handling defect. SDK AG-06
 passed once in three repetitions for both Radeon backends. AG-11 remains
 blocked. Production readiness requires full independent qualification,
 actual state effects, six-arm job comparisons, and deployment results.
@@ -36,7 +37,8 @@ Independent TC-V2 first attempts passed 349/500 on Vulkan and 347/500 on
 ROCm/HIP, both below the 90% threshold. Each backend completed 500 paired
 streamed runs, 150 repeat trials and 146 fixed fixtures. Deterministic
 JOB-V1 Arm F achieved 592/600 semantic passes and
-342 actual business completions. The remaining five JOB-V1 arms are pending.
+342 actual business completions. A–E ran 15 Radeon diagnostics on three
+matched cases, with one pass on Arm E. Their full panels remain pending.
  [Independent TC-V2](IJ07_TC_V2_QUALIFICATION.md) · [JOB-V1 Arm F](IJ07_PURPOSE_BUILT_VALIDATION.md)
 
 Four contenders retrieved and computed the correct value on the same read-only

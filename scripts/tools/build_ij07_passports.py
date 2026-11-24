@@ -1,6 +1,7 @@
 """Derive interim model capability passports from measured IJ-0.7 evidence."""
 
 import argparse
+import gzip
 import json
 from pathlib import Path
 
@@ -48,6 +49,9 @@ def passports():
             result["explicit_instruction_cpu_control"] = {
                 key: control[key] for key in ("run_id", "backend", "profile", "status")
             }
+            paired = EVIDENCE / "model_identity/aion_tools/serial-comparison.json"
+            if paired.is_file():
+                result["paired_cpu_radeon_instruction_control"] = read(paired)
         else:
             result["runtime_admission"] = {
                 arm: {key: record[key] for key in ("run_id", "asset", "gates", "status", "gpu_engine", "gpu")}
@@ -89,6 +93,14 @@ def passports():
                     field: coverage[field]
                     for field in ("run_id", "coverage_complete", "terminal", "planned", "terminal_outcomes", "strata")
                 }
+                result["metrics"]["independent_parallel_tools"] = coverage["strata"]["category"]["MT-01"]
+                result["metrics"]["long_horizon"] = coverage["strata"]["depth"]["16-20"]
+                with gzip.open(full.with_name("terminal.jsonl.gz"), "rt", encoding="utf-8") as handle:
+                    passed_depths = (row["required_tool_steps"] for row in (json.loads(line)["row"] for line in handle)
+                                     if row["status"] == "PASS")
+                    result["metrics"]["maximum_verified_task_depth"] = {
+                        "required_steps": max(passed_depths, default=None), "scope": "MULTITOOL-V1 original Vulkan profile"
+                    }
             result["tc_v2"] = {}
             for backend in ("vulkan", "rocm"):
                 path = EVIDENCE / f"tc_v2/holdout/{backend}/summary.json"
@@ -105,6 +117,35 @@ def passports():
                     coverage = read(EVIDENCE / f"tc_v2/holdout/{backend}/coverage.json")
                     profile["first_pass_by_language"] = coverage["first_pass_by_language"]
                     profile["wilson95_first_pass"] = coverage["wilson95_first_pass"]
+                for metric, component in (("independent_single_tool", "single_tool"),
+                                          ("independent_dependent_tools", "sequential_multi_tool")):
+                    result["metrics"][metric] = {
+                        backend: profile["first_pass"]["case_rates"][component] for backend, profile in result["tc_v2"].items()
+                    }
+                result["metrics"]["chinese_independent"] = {
+                    backend: profile["first_pass_by_language"]["zh"] for backend, profile in result["tc_v2"].items()
+                }
+                result["metrics"]["repeat_reliability"] = {
+                    backend: profile["repeat"] for backend, profile in result["tc_v2"].items()
+                }
+            plan = EVIDENCE / "planning/primary-vulkan-full/diagnostic.json"
+            if plan.is_file():
+                report = read(plan)
+                result["full_planning"] = {key: report[key] for key in ("run_id", "overall", "levels", "evidence")}
+                autonomy, replanning = {}, {}
+                for track, levels in report["levels"].items():
+                    passed_level = None
+                    for level in (f"L{index}" for index in range(8)):
+                        if levels[level]["qualification"]["status"] != "PASS":
+                            break
+                        passed_level = level
+                    autonomy[track] = passed_level
+                    replanning[track] = {
+                        level: row["score_metrics_assessable"]["dynamic_replanning_success"]
+                        for level, row in levels.items() if "dynamic_replanning_success" in row["score_metrics_assessable"]
+                    }
+                result["metrics"]["autonomous_level"] = {"qualified_level": autonomy, "scope": "original Vulkan profile"}
+                result["metrics"]["dynamic_replanning"] = replanning
         yield candidate, result
     job_primary = read(EVIDENCE / "job_ablation/F/primary/summary.json")
     job_repeat = read(EVIDENCE / "job_ablation/F/repeat/summary.json")

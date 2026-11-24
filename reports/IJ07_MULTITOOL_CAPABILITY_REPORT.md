@@ -66,3 +66,7 @@
 在全量归档中，原 wire 上限拦截 25 批，32 调用配置对同一批次全部放行。
 其中 19 批对应无依赖的独立图，工具名与完整参数均匹配。其余六批涉及依赖关系，
 该静态集合对照不适用。 [全量 wire 对照](../evidence/IJ07/root_causes/multitool_batch_limit_full_control.json)
+
+新配置的两个真机复验分别执行 17 和 18 个合成工具调用。MT-01-062 的最终 JSON
+与约定形状不同，MT-03-061 的后续提议超过任务预算。两条业务结果均为 `FAIL`。
+ [独立真机修订配置](../evidence/IJ07/multitool/wire-fix-diagnostic/)

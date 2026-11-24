@@ -52,6 +52,11 @@ Granite 和 Qwen3-8B 分别提供规模扩展及大模型参考。MiniCPM5 在�
 为 7.50%。原 wire 上限拦截 25 批，使用任务预算约束的解码配置放行了相同原文。
 完整业务回传收益仍待独立试验。 [多工具复杂度](IJ07_MULTITOOL_COMPLEXITY_DECAY.md)
 
+AGENTIC-PLAN-V1 的原始 Vulkan 运行完成两轨 1,600 次评估，两轨分别
+通过 0/800。Plan-first 未通过首轮计划合同，Acting-first 在工具、状态与
+最终输出合同中有多处失败。中文编号提取是已确认的运行时影响之一。
+ [全量自主规划](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
+
 ## 业务决策与端侧部署
 
 在实际业务提交前保留独立规则、授权与确认。透明结构化输入可直接走 SOP；允许小模型

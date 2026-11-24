@@ -37,9 +37,10 @@ MULTITOOL-V1 的 Vulkan 首轮 600 条全部完成，129 条通过。2–3 步�
 
 ## F. 自主规划
 
-L0–L7 各 100 条，Plan-first 与 Acting-first 各有独立协议。L0 两种轨道各完成
-100 条真实 Vulkan 试次，均为 0/100。另四条 L2 和 L7 诊断均失败。
-完整 L0–L7 及长链斜率仍在采集。 [规划结果](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
+L0–L7 各 100 条，Plan-first 与 Acting-first 的全量首轮均完成且分别为 0/800。
+原配置的所有等级均未通过。2,719 次请求均绑定解析前输出。Acting-first
+记录 1,422 个模型动作，Plan-first 的首轮计划均未达到执行合同。
+中文引用校验的修订使用独立证据身份。 [规划结果](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
 
 ## G. 同规模竞争
 
@@ -64,7 +65,8 @@ AG-06 在 Vulkan、ROCm/HIP 分别 1 PASS、2 FAIL。AG-11 缺完整进程出站
 ## J. 岗位系统价值
 
 600 条 JOB-V1 跨文档审核、商品信息和售后。无模型 F 臂为 592/600 首试通过，
-342 条实际业务完成。A–E 暂无实测，六组配对贡献与调用比待测。 [岗位阶段结果](IJ07_PURPOSE_BUILT_VALIDATION.md)
+342 条实际业务完成。A–E 真机诊断 15 条，E 通过 1/3，其余四臂各 0/3。
+六组全量配对贡献与调用比待测。 [岗位阶段结果](IJ07_PURPOSE_BUILT_VALIDATION.md)
 
 ## K. GPU 与端侧约束
 

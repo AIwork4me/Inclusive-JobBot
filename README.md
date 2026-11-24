@@ -21,6 +21,9 @@ preserved the full diagnostic verdict of every case on each backend.
 Independent TC-V2 first attempts passed 349/500 on Vulkan and 347/500 on
 ROCm/HIP, below the 90% gate. The deterministic JOB-V1 Arm F passed
 592/600 cases, with 342 verified business completions in synthetic worlds.
+MULTITOOL-V1 passed 129/600 on the original Vulkan profile. Both planning
+tracks completed L0–L7 and passed 0/800 each under the original
+run configuration. [Independent planning](reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
 Independent tests, SDK results and production gates are tracked in the
 [IJ-0.7 stage report](reports/IJ07_FINAL_REPORT_EN.md).
 Nothing in this repository is a claim of production readiness, of real employee

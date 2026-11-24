@@ -165,6 +165,37 @@ def render_multitool_full(data, output):
     save_svg(fig, output / "multitool-full-step-evidence.svg")
 
 
+def render_planning_full(data, output):
+    if data["evidence"]["recorded_trials"] != 1600 or data["evidence"]["physical_execution_status"] != "PASS":
+        raise ValueError("full planning figure requires all 1,600 verified trajectories")
+    levels = [f"L{level}" for level in range(8)]
+    tracks = ("A", "P")
+    groups = [[data["levels"][track][level] for level in levels] for track in tracks]
+    fig, axes = plt.subplots(2, 1, figsize=(9.8, 5.8), layout="constrained", height_ratios=(1, 2))
+    rates = [[100 * row["first_pass"]["verified_success_per_planned"] for row in group] for group in groups]
+    axes[0].imshow(rates, vmin=0, vmax=100, cmap="Blues", aspect="auto")
+    axes[0].set_yticks([0, 1], ["Acting-first", "Plan-first"])
+    gates = [group["qualification"]["threshold"] for group in groups[0]]
+    axes[0].set_xticks(list(range(8)), [f"{label}\nGate {threshold:.0%}" for label, threshold in zip(levels, gates, strict=True)])
+    for track_index, group in enumerate(groups):
+        for level_index, row in enumerate(group):
+            color = "white" if rates[track_index][level_index] >= 55 else "#263230"
+            axes[0].text(level_index, track_index, f"{row['counts']['PASS']}/100", color=color,
+                         ha="center", va="center", fontweight="bold")
+    style(axes[1], "Observed failure indicators by level", "Cases")
+    series = ((0, "PROPOSAL_REJECTED", "Acting proposal rejected", COLORS[0]),
+              (0, "FINAL_ANSWER_MISMATCH", "Acting final mismatch", "#B7533C"),
+              (1, "INITIAL_PLAN_REJECTED", "Initial plan rejected", COLORS[1]))
+    for track_index, key, label, color in series:
+        counts = [group["failure_indicators"].get(key, 0) for group in groups[track_index]]
+        axes[1].plot(levels, counts, "o-", label=label, color=color)
+    axes[1].set_ylim(0, 108)
+    handles, labels = axes[1].get_legend_handles_labels()
+    fig.legend(handles, labels, frameon=False, ncols=3, loc="outside lower center")
+    fig.suptitle("AGENTIC-PLAN-V1 · original Radeon Vulkan profile", fontweight="bold")
+    save_svg(fig, output / "planning-full-profile.svg")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--evidence", type=Path, default=Path("evidence/IJ07"))
@@ -178,6 +209,9 @@ def main():
     full = args.evidence / "multitool/primary-vulkan-full/metrics.json"
     if full.is_file():
         render_multitool_full(load(full), args.output)
+    plan = args.evidence / "planning/primary-vulkan-full/diagnostic.json"
+    if plan.is_file():
+        render_planning_full(load(plan), args.output)
 
 
 if __name__ == "__main__":

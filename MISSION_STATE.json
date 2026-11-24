@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-24T16:25:00Z",
+  "updated_utc": "2026-11-24T17:08:00Z",
   "current_phase": "IJ-0.7",
   "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
   "missions": {
@@ -248,8 +248,9 @@
       },
       "planning_archive": {
         "software_status": "PASS",
-        "full_inference_status": "NOT_RUN",
-        "evidence": "evidence/IJ07/planning/diagnostic_verified_summary.json"
+        "full_capture_status": "PASS",
+        "task_qualification": "FAIL",
+        "evidence": "evidence/IJ07/planning/primary-vulkan-full/diagnostic.json"
       }
     },
     "historical_generation_replay": {
@@ -293,24 +294,26 @@
     "multitool_wire_profile": {
       "same_response_regression": "PASS",
       "verified_responses": 25,
-      "live_business_result": "NOT_RUN",
+      "live_business_result": "FAIL",
+      "live_diagnostic_count": 2,
       "ij06_gateway_bytes_preserved": true,
       "evidence": "evidence/IJ07/root_causes/multitool_batch_limit_full_control.json"
     },
     "planning_primary": {
-      "progress": "in_progress",
-      "archived_level": "L0",
+      "progress": "done",
+      "archived_levels": ["L0", "L1", "L2", "L3", "L4", "L5", "L6", "L7"],
       "physical_execution_status": "PASS",
-      "archived_trials": 200,
+      "archived_trials": 1600,
       "planned": 1600,
-      "acting_first": {"PASS": 0, "FAIL": 100},
-      "plan_first": {"PASS": 0, "FAIL": 100},
-      "evidence": "evidence/IJ07/planning/primary-l0-checkpoint/diagnostic.json"
+      "acting_first": {"PASS": 0, "FAIL": 800},
+      "plan_first": {"PASS": 0, "FAIL": 800},
+      "evidence": "evidence/IJ07/planning/primary-vulkan-full/diagnostic.json"
     },
     "planning_reference_boundary": {
       "same_response_regression": "PASS",
       "verified_responses": 100,
-      "live_business_result": "NOT_RUN",
+      "live_business_result": "FAIL",
+      "live_diagnostic_count": 2,
       "evidence": "evidence/IJ07/root_causes/planning_reference_boundary_control.json"
     },
     "job_v1_arm_f": {
@@ -320,9 +323,16 @@
       "business_completions": 342,
       "evidence": "evidence/IJ07/job_ablation/F/primary/summary.json"
     },
+    "job_v1_model_diagnostics": {
+      "physical_execution_status": "PASS",
+      "model_cases": 15,
+      "first_passes": {"A": 0, "B": 0, "C": 0, "D": 0, "E": 1},
+      "full_panel_status": "NOT_RUN",
+      "evidence": "evidence/IJ07/job_ablation/model_diagnostic/coverage.json"
+    },
     "gates": {
       "G0": "PASS", "G1": "FAIL", "G2": "BLOCKED", "G3": "PASS",
-      "G4": "PASS", "G5": "PASS", "G6": "NOT_RUN", "G7": "BLOCKED",
+      "G4": "PASS", "G5": "PASS", "G6": "PASS", "G7": "BLOCKED",
       "G8": "BLOCKED", "G9": "BLOCKED", "G10": "NOT_RUN", "G11": "NOT_RUN",
       "G12": "NOT_RUN", "G13": "BLOCKED", "G14": "BLOCKED", "G15": "PASS",
       "G16": "BLOCKED", "G17": "NOT_RUN"

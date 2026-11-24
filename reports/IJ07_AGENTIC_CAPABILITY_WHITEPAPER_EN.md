@@ -67,6 +67,12 @@ rejected 25 otherwise decodable batches. A bounded decoding profile accepted
 all 25 archived responses. The resulting business task rate remains open.
  [Multi-tool depth analysis](IJ07_MULTITOOL_COMPLEXITY_DECAY.md)
 
+The unmodified AGENTIC-PLAN-V1 profile completed all 1,600 Radeon first
+attempts. Each track passed 0/800. Plan-first failed the initial contract
+on every case, and Acting-first executed 1,422 model-attributed tool actions.
+The original reference validator's defect is part of this measured profile.
+ [Full planning results](IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
+
 Preserve deterministic validation, explicit proposal provenance, and trusted
 confirmation as the common decision boundary. The structured IJ-0.6 job
 rehearsal provides observations on three tasks. The independent job

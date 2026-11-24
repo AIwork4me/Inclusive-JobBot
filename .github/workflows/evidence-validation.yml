@@ -26,4 +26,5 @@ jobs:
       - run: python -m scripts.tools.archive_ij07_planning --source evidence/IJ07/planning/primary-l0-checkpoint > /dev/null
         env:
           PYTHONPATH: src
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ07/planning/primary-vulkan-full
       - run: python -m pytest -q -o asyncio_mode= tests/evidence

@@ -37,10 +37,10 @@ uses the same frozen inputs for A–E. Physical full-roster results are pending
 for both runners. Use the planning archive CLI to verify journals and produce
 separate Plan-first and Acting-first coverage by level.
 
-The first full planning session covered both L0 tracks with 200 verified
-terminal trials. The full-run process uses the unchanged P4b observer and
-plans 200 trials per batch under the original 1,600-trial roster.
- [Planning L0 session](evidence/IJ07/planning/primary-l0-checkpoint/)
+The original planning profile completed the full 1,600-trial roster in
+eight sessions using the unchanged P4b observer. Both tracks failed the
+entry level. Use a new output directory for live runs of the corrected
+Chinese reference profile. [Planning archive](evidence/IJ07/planning/primary-vulkan-full/)
 
 Read this first when resuming. Last updated: 2026-11-24.
 

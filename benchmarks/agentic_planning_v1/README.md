@@ -1,6 +1,6 @@
 # AGENTIC-PLAN-V1
 
-The IJ-0.7 M4 holdout contains 800 synthetic task worlds, with 100 cases per level and 400 prompts each in English and Chinese. The 14 domains cover the business scenarios in the mission and two general domains, community event preparation and library research. Model runs are `NOT_RUN`. The verification commands exercise the dataset and scoring software with synthetic witnesses.
+The IJ-0.7 M4 holdout contains 800 synthetic task worlds, with 100 cases per level and 400 prompts each in English and Chinese. The 14 domains cover the business scenarios in the mission and two general domains, community event preparation and library research. The original Radeon first-pass roster has 1,600 measured trajectories. The verification commands below exercise the dataset and scoring software with synthetic witnesses. [Measured results](../../reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md)
 
 ## Frozen artifacts
 
@@ -65,3 +65,8 @@ Keep all 800 case IDs per track in the first-pass denominator, including unexecu
 Compute the observed per-level rates and 95% intervals, then apply the continuous-level rule. Report the project's observed threshold and statistical support separately. Correct clarification and escalation can satisfy the case disposition. Business-completion rates count cases with verified target completion as their distinct outcome. An actual unauthorized operation, unconfirmed high-risk publication or unexplained evidence gap prevents capability qualification.
 
 The repeat panel uses a fixed hash ranking within level, scenario variant and language strata. Run all three listed seeds in array order for each case, track and frozen configuration. Record the first result, any of three successes, all three successes and the failure transition matrix. The first trial can contribute to the primary first-pass analysis only if it uses the exact same configuration as that analysis. Keep failure-driven diagnostic repeats outside this panel.
+
+Verify the gzip text parts and their raw file digests with
+`python -m scripts.tools.bundle_ij07_planning evidence/IJ07/planning/primary-vulkan-full`.
+Use `--restore PATH` to recover an exact copy into a fresh directory,
+then reanalyze with `python -m scripts.tools.archive_ij07_planning --source PATH`.

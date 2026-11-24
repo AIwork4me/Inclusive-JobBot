@@ -22,10 +22,13 @@
 | IJ07-M5-MT-WIRE-BUDGET | Isolate and verify the decoder batch control on 14 unchanged raw responses | PASS | `evidence/IJ07/root_causes/multitool_batch_limit_control.json` |
 | IJ07-M5-MT-IJ06-COMPAT | Preserve the exact frozen gateway and isolate the batch profile in IJ-0.7 | PASS | `benchmarks/root_cause/wire_profiles.py` |
 | IJ07-M5-MT-WIRE-FULL | Reprocess all 25 known wire limit rejections on unchanged raw responses | PASS | `evidence/IJ07/root_causes/multitool_batch_limit_full_control.json` |
-| IJ07-M4 | Full real two-track L0–L7 qualification | NOT_RUN | `benchmarks/agentic_planning_v1/README.md` |
+| IJ07-M5-MT-WIRE-LIVE | Two corrected Vulkan wire-profile diagnostics' business scores | FAIL | `evidence/IJ07/multitool/wire-fix-diagnostic/` |
+| IJ07-M4 | Full physical two-track L0–L7 first-pass study and archive | PASS | `evidence/IJ07/planning/primary-vulkan-full/diagnostic.json` |
+| IJ07-M4-LEVEL | Original Vulkan profile continuous level qualification | FAIL | `reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md` |
 | IJ07-M4-L0-EXECUTION | Both tracks' real L0 roster and archived source proof | PASS | `evidence/IJ07/planning/primary-l0-checkpoint/diagnostic.json` |
 | IJ07-M4-L0-CAPABILITY | Both tracks' L0 research threshold | FAIL | `reports/IJ07_AUTONOMOUS_PLANNING_BENCHMARK.md` |
 | IJ07-M5-PLANNING-REFERENCE | Correct the Chinese reference boundary and replay 100 exact first-turn proposals | PASS | `evidence/IJ07/root_causes/planning_reference_boundary_control.json` |
+| IJ07-M5-PLANNING-PROMPT | CPU development control for the first-turn plan contract | FAIL | `evidence/IJ07/root_causes/planning_prompt_stage_cpu.json` |
 | IJ07-M7 | Six-arm JOB-V1 causal validation | NOT_RUN | `benchmarks/job_productivity_v1/holdout/README.md` |
 | IJ07-M3-MT-RUNNER | MULTITOOL-V1 Radeon runner and exact-resume software tests | PASS | `benchmarks/multitool_v1/README.md` |
 | IJ07-M6-STATISTICS | Independent paired comparison and repeat statistics software | PASS | `benchmarks/competitive_slm/STATISTICS.md` |
@@ -33,6 +36,8 @@
 | IJ07-M6-TC-BATCH | Shared Vulkan TC-V2 roster runner and exact-resume software checks | PASS | `benchmarks/competitive_slm/TC_V2_BATCH.md` |
 | IJ07-M4-ARCHIVE | Verify planning run journals, model captures and level summaries | PASS | `scripts/tools/archive_ij07_planning.py` |
 | IJ07-M7-MODEL-RUNNER | Five model treatments, frozen identity and executable preflight | PASS | `benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md` |
+| IJ07-M7-MODEL-DIAGNOSTIC | All 15 matched model treatment diagnostics assessed | PASS | `evidence/IJ07/job_ablation/model_diagnostic/coverage.json` |
+| IJ07-M1-AION-SERIAL-CONTROL | Same-token CPU and Radeon explicit serial instruction control | PASS | `evidence/IJ07/model_identity/aion_tools/` |
 | IJ07-M1-AION-DEPENDENCY | Official CPU and Radeon WebGPU dependent tool diagnostic | FAIL | `evidence/IJ07/model_identity/aion_tools/` |
 | IJ07-M2-LIVE | Exact four-arm history, 2,000/2,000 physical GPU inference cases | PASS | `evidence/IJ07/historical_replay/full/summary.json` |
 | IJ07-M2-UPSTREAM | Pinned b12675 fixtures and prior-failure checks | FAIL | `evidence/IJ07/historical_replay/upstream_b12675/report.json` |

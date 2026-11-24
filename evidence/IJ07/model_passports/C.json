@@ -110,6 +110,41 @@
       }
     }
   },
+  "paired_cpu_radeon_instruction_control": {
+    "file_sha256": {
+      "cpu-serial-paired-control.json": "d4987a7488b9a32244ddb0616c83ad84a71b48b29d603af66c8e382069336827",
+      "webgpu-serial-control.gpu.jsonl": "3fea5354bb910fee068fedc4d32ff4e19c5ecf3b22a65a16a40368fdeb8929db",
+      "webgpu-serial-control.json": "1004e182bec74852c5c582bc6ab44bd0e0af37c234c40ca343a7fef86df6b4b7"
+    },
+    "gpu_counter_proof": {
+      "peak_committed_bytes": 2027761664,
+      "pid": 20136,
+      "positive_engine_samples": 6
+    },
+    "run_ids": {
+      "cpu": "ij07-aion-tools-6736208e9cdf40769e7413f44a31a313",
+      "webgpu": "ij07-aion-tools-0a18cfd13c4f4dc8ade25bfbf223fce0"
+    },
+    "scope": "explicit ordered single-tool instruction control, one dependent synthetic task",
+    "status": {
+      "cpu": "PASS",
+      "webgpu": "PASS"
+    },
+    "turns": [
+      {
+        "prompt_tokens_identical": true,
+        "sampled_tokens_identical": true
+      },
+      {
+        "prompt_tokens_identical": true,
+        "sampled_tokens_identical": true
+      },
+      {
+        "prompt_tokens_identical": true,
+        "sampled_tokens_identical": true
+      }
+    ]
+  },
   "production_admission": "BLOCKED",
   "qualification": "NOT_RUN",
   "scope": "interim diagnostic"
