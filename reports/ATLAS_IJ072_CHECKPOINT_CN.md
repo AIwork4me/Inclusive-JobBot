@@ -1,6 +1,6 @@
 # IJ-0.7.2 A1 检查点
 
-**INCOMPLETE。** 正式 A1、F0、Atlas V1.0 发布及生产就绪均为 **BLOCKED**。现有 G00–G29 门禁仍为 **1/30 PASS**。新版竞争评测依赖 A1 放行。 [正式门禁](../atlas/gates.json) · [发布门禁](../atlas/release_gates.json) · [实时队列](../atlas/physical_queue.json)
+**INCOMPLETE。** 正式 A1、F0、Atlas V1.0 发布及生产就绪均为 **BLOCKED**。现有 G00–G29 门禁仍为 **1/30 PASS**。新版竞争评测依赖 A1 放行。 [正式门禁](../atlas/gates.json) · [发布门禁](../atlas/release_gates.json) · [物理试次队列](../atlas/physical_queue.json)
 
 ## 本轮实测和归档
 
@@ -12,6 +12,9 @@
 | Qwen3-14B PC-S TC-V2 开发面板 | 100 | 100 | 66 | 34 | 0 | 0 |
 | Qwen3-14B PC-S MULTITOOL-V1 | 120 | 120 | 45 | 75 | 0 | 0 |
 | Qwen3-14B PC-S Planning 双轨 | 320 | 320 | 35 | 285 | 0 | 0 |
+| 四模型 PC-P 提示消融 | 1,152 | 1,152 | 4 | 1,148 | 0 | 0 |
+| Qwen3-14B 草稿授权原配置 | 37 | 37 | 4 | 33 | 0 | 0 |
+| Qwen3-14B 草稿授权前轮审核配置 | 37 | 37 | 4 | 33 | 0 | 0 |
 | 旧 JOB-V1 Arm A 首试 | 600 | 600 | 23 | 577 | 0 | 0 |
 | 旧 JOB-V1 Arm B 首试 | 600 | 300 | 22 | 278 | 7 | 293 |
 
@@ -87,7 +90,9 @@ TC-V2 的 500/500 条和 MULTITOOL-V1 的 600/600 条公开输入 witness 全部
 
 TC-V2 扩展控制拒绝了 1,500 条不可用工具、未见业务编号、虚报成功或重复写入的轨迹变异。实际合成沙箱拒绝了 500 次未授权 ID、50 次无签名写请求，并阻止了 50 次重复写请求产生第二次业务变更。 [扩展授权和状态控制](../evidence/IJ072/benchmark_validity/tc-holdout-extended-controls.json.gz)
 
-在 37 个允许草拟的 MULTITOOL 用例中，原合成沙箱都允许先草拟后读取审核。新增显式的 `--require-observed-draft` 配置只在存在上一轮的有效审核观测时授权草拟。新配置拒绝了全部 37 个提前及同轮请求，允许随后合法草稿，重复调用没有产生第二次业务变化。600 个独立软件见证均通过。模型 GPU 回归暂为 NOT_RUN，已为同一批 37 条用例登记 Qwen3-14B 配对回归，并规定单独统计实际出现的提前草拟及持久化状态。 [根因与回归证据](../evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz) · [GPU 队列](../atlas/physical_queue.json)
+在 37 个允许草拟的 MULTITOOL 用例中，原合成沙箱都允许先草拟后读取审核。新增显式的 `--require-observed-draft` 配置只在存在上一轮的有效审核观测时授权草拟。新配置拒绝了全部 37 个提前及同轮请求，允许随后合法草稿，重复调用没有产生第二次业务变化。600 个独立软件见证均通过。另一个回归确认用户更新的送达会作废已有审核，重新读取后可在下一轮草拟。 [根因与回归证据](../evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz) · [范围更新测试](../tests/regression/ij07/test_multitool_v1.py)
+
+同一批 37 条用例的 Qwen3-14B 配对 GPU 回归共封存 74 条。两臂均通过同四个用例，分别持久化 4 条前轮审核完成的草稿，37/37 条状态与已观测动作一致。参考模型未产生提前草拟请求，物理提前拒绝子项为 NOT_RUN。 [物理配对与状态](../evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-guard-pairs.json)
 
 在 600 条 MULTITOOL 独立见证上追加对照，拒绝了 3,149 条变异，包括未知 ID、虚构工具结果、重复调用、同轮草拟及伪造写入授权。675 条等价变换通过，覆盖 JSON 字段顺序、空白和互相独立的库存读取顺序。75 条缺少审计的记录判为 BLOCKED。 [扩展软件证据](../evidence/IJ072/benchmark_validity/multitool-extended-controls.json.gz)
 
@@ -103,7 +108,7 @@ Plan-first 在启动沙箱前仅用公开输入生成条件计划，执行见证
 
 对 L4 和 L7 的 200 条见证仅归一化公开任务中的不透明编号。13 组共 29 条在组内拥有相同的公开合同和计划结构，实际合法路径随工具反馈变化。所列 29 条全部未通过冻结计划门槛。该结果提供了审查条件计划表示与动作预算的具体用例。 [条件路径审计](../evidence/IJ072/benchmark_validity/planning-public-ambiguity.json)
 
-冻结初始计划评分还未验证 `preconditions` 的含义。562 份原先通过且含动作的独立计划，把首个动作条件改成“永不执行此动作”后依旧被标记为可执行。40 次把提交条件改成“仅在外部用户明确拒绝批准后提交”的变异同样未被评分拒绝。602 条负向对照的结果为 FAIL。这些变异仅输入计划评分器，实际沙箱的审批和持久化证据见上一节。 [逐条条件变异](../evidence/IJ072/benchmark_validity/planning-precondition-controls.json) · [冻结评分源码](../benchmarks/agentic_planning_v1/oracle.py)
+冻结初始计划评分还未验证 `preconditions` 的含义。562 份原先通过且含动作的独立计划，把首个动作条件改成“永不执行此动作”后依旧被标记为可执行。40 次把提交条件改成“仅在外部用户明确拒绝批准后提交”的变异同样未被评分拒绝。602 条负向对照的结果为 FAIL。这些变异仅输入计划评分器。 [逐条条件变异](../evidence/IJ072/benchmark_validity/planning-precondition-controls.json) · [冻结评分源码](../benchmarks/agentic_planning_v1/oracle.py) · [沙箱权限对照](../evidence/IJ072/benchmark_validity/planning-advanced-mutations.json.gz)
 
 JOB-V1 冻结的 600 条主面板使用 Arm B 的公开工具定义，独立生成事实和草稿，通过实际工具与 SQLite 交叉校验。600/600 通过，其中 350 条完成业务，其余 250 条正确拒绝、澄清或转交。错误业务回答，以及适用用例中缺失的用户更新和持久化草稿，均由原评分拒绝。 [JOB-V1 独立见证](../evidence/IJ072/benchmark_validity/job-witness.json.gz)
 

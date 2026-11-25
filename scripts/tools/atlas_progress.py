@@ -315,6 +315,13 @@ def main():
         "planned": factorial["planned"], "assessed": factorial["sealed"], "outcomes": factorial["counts"],
         "source": factorial_path,
     }
+    for arm in ("legacy", "observed"):
+        draft_path = f"evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-{arm}/coverage.json"
+        draft = document(ROOT / draft_path)["run_end_summary"]
+        checkpoint_trials[f"Qwen3-14B MULTITOOL draft guard {arm}"] = {
+            "planned": draft["planned"], "assessed": draft["terminal"], "outcomes": draft["tasks"],
+            "source": draft_path,
+        }
     for arm, entry in jobs.items():
         row = entry["summary"]
         checkpoint_trials[f"Legacy JOB-V1 {arm} primary"] = {

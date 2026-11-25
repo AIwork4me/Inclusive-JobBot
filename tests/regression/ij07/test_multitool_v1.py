@@ -114,6 +114,28 @@ def test_observed_review_profile_requires_a_prior_turn_for_drafts(tmp_path):
     assert set(revised.snapshot()["review_drafts"]) == {reference}
 
 
+def test_observed_review_profile_requires_fresh_review_after_scope_update(tmp_path):
+    case = load_freeze().active["MT-08-018"]
+    reference = case.world["draft_ids"][0]
+    trigger = next(key for key in case.world["records"]["read_review"] if key != reference)
+    update = {"id": "scope-change", "after_tool": "read_review", "record_id": trigger,
+              "text": "Use the revised scope. Recheck the current review before drafting."}
+    revised = replace(case, world={**case.world, "event": update})
+    scenario = Scenario(revised, tmp_path / "scope.sqlite3", require_observed_draft=True)
+    current = json.dumps({"record_id": reference})
+    draft = json.dumps({"record_id": reference, "reason": "route_review"})
+
+    assert scenario.call("read", "read_review", current, turn=0)["draft_permission"] is True
+    scenario.call("update", "read_review", json.dumps({"record_id": trigger}), turn=1)
+    assert scenario.take_events() == [(update["id"], {"role": "user", "content": update["text"]})]
+    assert scenario.call("stale-grant", "create_hold_draft", draft, turn=2) == {"error": "POLICY_DENIED"}
+    assert scenario.snapshot()["review_drafts"] == {}
+
+    assert scenario.call("fresh-read", "read_review", current, turn=3)["draft_permission"] is True
+    assert scenario.call("draft", "create_hold_draft", draft, turn=4)["status"] == "drafted"
+    assert set(scenario.snapshot()["review_drafts"]) == {reference}
+
+
 def test_freeze_regenerates_byte_identically_and_rejects_mutation(tmp_path):
     generate(tmp_path)
     for name in (*FILES, "manifest.json"):

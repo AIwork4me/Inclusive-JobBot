@@ -72,16 +72,17 @@
     {
       "id": "multitool-draft-guard-paired",
       "priority": "P0",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "dependencies": ["pc-p-paired-ablation", "exclusive_gpu_slot"],
       "planned": 74,
-      "completed": 0,
-      "checkpoint": null,
+      "completed": 74,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-guard-pairs.json",
       "scope": "37 paired Qwen3-14B trials per runtime flag from the independent draft witness",
       "roster_source": "evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz",
       "runtime_commit": "230b51e611ef5ff0d2078db5f23b352c85ef4775",
       "runtime_worktree": ".scratch/ij072-draft-runtime",
-      "next_command": "python -m scripts.tools.atlas_pc_s --suite multi --candidate J --draft-guard-control legacy --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output ../ij071-atlas/.runtime/ij072-draft-legacy --batch-size 37"
+      "physical_early_denial": "NOT_RUN",
+      "next_command": null
     },
     {
       "id": "revised-full-matrix",

@@ -60,6 +60,7 @@ jobs:
           python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-j-tc
           python -m scripts.tools.atlas_compare_pc_s_multitool --check
           python -m scripts.tools.atlas_compare_pc_s_multitool --stream-pairs --check
+          python -m scripts.tools.atlas_compare_pc_s_multitool --draft-guard-pairs --check
         env:
           PYTHONPATH: src
       - run: python scripts/tools/verify_ij06_evidence.py

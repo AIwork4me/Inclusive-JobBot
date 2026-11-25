@@ -33,22 +33,19 @@ sealed all 1,152 physical trials. Its frozen runtime source is
 The [complete matrix](evidence/IJ072/benchmark_validity/pc-p-factorial-full-four-models.json)
 contains nine archived runs per model and exact per-case results.
 
-The next Radeon work is the 74-trial matched draft authorization regression.
-Use `.scratch/ij072-draft-runtime` at `230b51e611ef5ff0d2078db5f23b352c85ef4775`.
-Complete `legacy` and `observed` in order using the same model and observer.
-The launcher resumes a matching output directory and acquires the shared
-Radeon slot. A strict FAIL may still yield a complete physical batch.
+The [draft authorization comparison](evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-guard-pairs.json)
+sealed 37 physical pairs. Workstation source is `.scratch/ij072-draft-runtime`
+at `230b51e611ef5ff0d2078db5f23b352c85ef4775`. The software controls cover
+premature drafts and a moderation event that invalidates a prior review.
+The physical negative check is `NOT_RUN` because the reference model made
+only prior-reviewed draft calls in this matched cohort. Reproduction commands
+and exact source artifacts are recorded in the [reproduction guide](docs/ATLAS_A1_REPRODUCIBILITY.md).
 
-```powershell
-$env:PYTHONPATH = (Resolve-Path src).Path
-$arm = 'legacy'
-python -m scripts.tools.atlas_pc_s --suite multi --candidate J --draft-guard-control $arm --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output "../ij071-atlas/.runtime/ij072-draft-$arm" --batch-size 37
-```
-
-The raw competitive and JOB-V1 A/B reconciliation commands require the
-original workstation data. A1 must pass before revised large-scale qualification.
-The [score-blind review packet](reports/ATLAS_A1_BLIND_REVIEW.md) is prepared.
-Human assessments and reconciliation still need independent reviewers.
+Resume A1 with the [22-case score-blind review packet](reports/ATLAS_A1_BLIND_REVIEW.md).
+Reconcile the independent assessments with the 128 strict witness discrepancies
+and 602 contradictory precondition mutations before freezing a revised scorer.
+The raw competitive and JOB-V1 A/B reconciliation commands use the original
+workstation data. Revised large-scale qualification depends on A1.
 
 ## IJ-0.7.1 Atlas checkpoint
 

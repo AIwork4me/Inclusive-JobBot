@@ -27,6 +27,7 @@ python -m scripts.tools.atlas_compare_pc_p_factorial --wire B --check
 python -m scripts.tools.atlas_compare_pc_p_factorial --wire G --check
 python -m scripts.tools.atlas_compare_pc_p_factorial --wire H --check
 python -m scripts.tools.atlas_compare_pc_s_multitool --stream-pairs --check
+python -m scripts.tools.atlas_compare_pc_s_multitool --draft-guard-pairs --check
 python -m scripts.tools.atlas_multitool_witness --extended --check
 python -m scripts.tools.atlas_multitool_witness --unicode --check
 python -m scripts.tools.atlas_multitool_witness --observed-draft-controls --check
@@ -41,4 +42,14 @@ The factorial verifier reconstructs scores from the archived run fingerprints, c
 
 Use a separate clean Windows worktree for the exact source commit in the archive. Read the run configuration for each candidate and arm before launch. It binds the checked observer build, model and template hashes, settings, dataset, seed and runtime source. The observer runs a loopback llama.cpp server and stores PID-bound Radeon counters and sampled source records. Use new output paths for changed inputs and keep a single active run on the Radeon. [PC-P roster and treatments](../atlas/benchmarks/pc_p_factorial.json) · [Physical run identities](../evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json)
 
-The archived PC-S and PC-P runtime sources and the exact commands for the pending work are indexed from the [operator handoff](../HANDOFF.md). Qwen3-14B weights are pinned with a ModelScope revision and a file digest. Each PC-P bundle includes the sealed configuration and input hashes together with its trial data. [Qwen3-14B pin](../atlas/benchmarks/pc_s_qwen3_14b.json) · [Example PC-P archive](../evidence/IJ072/benchmark_validity/pc-p-a-clean-p3-032/bundle.json)
+The operator handoff indexes the archived PC-S and PC-P runtime sources and the current A1 resume point. Qwen3-14B weights are pinned with a ModelScope revision and a file digest. Each PC-P bundle includes the sealed configuration and input hashes together with its trial data. [Operator handoff](../HANDOFF.md) · [Qwen3-14B pin](../atlas/benchmarks/pc_s_qwen3_14b.json) · [Example PC-P archive](../evidence/IJ072/benchmark_validity/pc-p-a-clean-p3-032/bundle.json)
+
+The matched draft run used the clean workstation worktree `.scratch/ij072-draft-runtime` at `230b51e611ef5ff0d2078db5f23b352c85ef4775`. From that tree, use `legacy` and `observed` in order with the same pinned model and observer. The command below writes to a new reproduction output. A strict FAIL can still yield complete physical coverage.
+
+```powershell
+$env:PYTHONPATH = (Resolve-Path src).Path
+$arm = 'legacy'
+python -m scripts.tools.atlas_pc_s --suite multi --candidate J --draft-guard-control $arm --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output ".runtime/reproduce-draft-$arm" --batch-size 37
+```
+
+The draft proof binds prior observed reviews to model calls and independently recorded SQLite snapshots. [Legacy archive](../evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-legacy/coverage.json) · [Observed profile archive](../evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-observed/coverage.json)
