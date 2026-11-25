@@ -58,6 +58,30 @@ def repeat_outcomes(rows, panel):
             "pass_all_three": {s: all_counts[s] for s in STATUSES}}
 
 
+def independent_witnesses():
+    sources = {
+        "TC-V2": ("tc-holdout-witness.json",),
+        "MULTITOOL-V1": ("multitool-witness.json.gz",),
+        "Planning-Acting-first": ("planning-intent-controls.json", "planning-read-controls.json",
+                                  "planning-advanced-controls.json"),
+        "Planning-Plan-first": ("planning-plan-controls.json.gz",),
+        "JOB-V1": ("job-witness.json.gz",),
+    }
+    declared = document(ROOT / "MISSION_STATE.json")["atlas_ij072"]["public_witness_software"]
+    results = {}
+    for cohort, names in sources.items():
+        paths = [ROOT / "evidence/IJ072/benchmark_validity" / name for name in names]
+        trials = []
+        for path in paths:
+            payload = json.loads(gzip.decompress(path.read_bytes())) if path.suffix == ".gz" else document(path)
+            trials.extend((row["case_id"], row.get("status", row.get("oracle_status"))) for row in payload["trials"])
+        totals = count_trials(trials, declared[cohort]["planned"])
+        if {status: declared[cohort][status] for status in STATUSES} != totals["outcomes"]:
+            raise ValueError(f"independent {cohort} witness statuses differ from mission state")
+        results[cohort] = {**totals, "sources": [path.relative_to(ROOT).as_posix() for path in paths]}
+    return results
+
+
 def historical(root):
     result = {}
 
@@ -199,7 +223,8 @@ def dashboard(progress):
         lines.append("| " + " | ".join(map(str, cells)) + " |")
     gates = progress["gate_status_counts"]
     lines.extend(["", f"Formal gates passed {gates['PASS']}/{len(progress['gates'])}. "
-                  "A1 counts refer to software fixture execution. Dashes indicate an unavailable or inapplicable denominator. "
+                  "A1 counts in the workstream table refer to software fixture execution. "
+                  "Dashes indicate an unavailable or inapplicable denominator. "
                   "The historical rows below retain individual denominators and can overlap.", "",
                   "## IJ-0.7 historical evidence", "",
                   "| Run | Planned | Executed | Valid | PASS | FAIL | BLOCKED | NOT_RUN | Coverage | Strict result rate |",
@@ -212,7 +237,14 @@ def dashboard(progress):
         cells = [f"[{name}](../{row['source']})", row["planned"], row["assessed"],
                  *(row["outcomes"][state] for state in STATUSES)]
         checkpoint_lines.append("| " + " | ".join(map(str, cells)) + " |")
-    lines[historical_header:historical_header] = [*checkpoint_lines, ""]
+    witness_lines = ["## IJ-0.7.2 independent software witnesses", "",
+                     "| Cohort | Planned | PASS | FAIL | BLOCKED | NOT_RUN | Evidence |",
+                     "|---|---:|---:|---:|---:|---:|---|"]
+    for name, row in progress["ij072_software_witness"].items():
+        evidence = " · ".join(f"[Archive {index}](../{source})" for index, source in enumerate(row["sources"], 1))
+        cells = [name, row["planned"], *(row["outcomes"][state] for state in STATUSES), evidence]
+        witness_lines.append("| " + " | ".join(map(str, cells)) + " |")
+    lines[historical_header:historical_header] = [*checkpoint_lines, "", *witness_lines, ""]
     for name, row in progress["historical"].items():
         source = "evidence/" + row["source"]
         cells = [f"[{name}](../{source})", row["planned"], row["executed"], row["valid_evidence"],
@@ -289,7 +321,8 @@ def main():
             "planned": row["planned_rows"], "assessed": row["terminal_rows"], "outcomes": row["outcomes"],
             "source": job_path,
         }
-    progress = {"schema_version": 1, "ij072_trials": checkpoint_trials, "workstreams": workstreams, "gates": gates,
+    progress = {"schema_version": 1, "ij072_trials": checkpoint_trials,
+                "ij072_software_witness": independent_witnesses(), "workstreams": workstreams, "gates": gates,
                 "gate_status_counts": {s: gate_counts[s] for s in STATUSES},
                 "verdicts": document(ROOT / "atlas/verdicts.json"),
                 "historical": historical(ROOT / "evidence/IJ07")}

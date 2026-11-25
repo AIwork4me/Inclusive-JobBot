@@ -28,6 +28,7 @@ python -m scripts.tools.atlas_multitool_witness --extended --check
 python -m scripts.tools.atlas_multitool_witness --unicode --check
 python -m scripts.tools.atlas_multitool_witness --observed-draft-controls --check
 python -m scripts.tools.atlas_planning_plan_controls --check
+python -m scripts.tools.atlas_audit_plan_ambiguity --preconditions --check
 python -m pytest -q -o asyncio_mode= tests/evidence
 ```
 

@@ -1,4 +1,4 @@
-"""Compare the first complete matched PC-P factorial blocks."""
+"""Compare sealed matched PC-P factorial trial blocks."""
 
 from argparse import ArgumentParser
 from collections import Counter, defaultdict
@@ -97,7 +97,7 @@ def full_diagnostics(candidate, results, *, separate_plan_checks=False):
     cases = {row["case_id"]: row for row in results["cases"]}
     goals = {row["case_id"]: row["goal"] for row in load_jsonl(FROZEN / "task_graphs/holdout.jsonl")}
     by_stratum = defaultdict(lambda: defaultdict(lambda: defaultdict(Counter)))
-    stops, paired, detail = {}, {}, {}
+    stops, paired, detail, denominators = {}, {}, {}, {}
     for arm in results["run_ids"]:
         archive = EVIDENCE / f"pc-p-{candidate.lower()}-clean-{arm}-032"
         run, scored = selected_archive(archive, set(cases))
@@ -108,6 +108,7 @@ def full_diagnostics(candidate, results, *, separate_plan_checks=False):
             raise ValueError(f"first-response captures differ from {arm} scored trials")
         origins = {name: Counter() for name in ("shape", "finish_reason", "first_runner_finding")}
         changes = {name: Counter() for name in PRIMARY}
+        layer_counts = defaultdict(Counter)
         snapshots = {}
         for case_id, case in cases.items():
             trial = scored[case_id]
@@ -134,6 +135,8 @@ def full_diagnostics(candidate, results, *, separate_plan_checks=False):
                         "exact_objective": goal.get("objective") == expected["objective"],
                     }
             snapshots[case_id] = snapshot
+            for layer, status in case["arms"][arm].items():
+                layer_counts[layer][status] += 1
             for name, counts in origins.items():
                 counts[snapshot[name] or "none"] += 1
             for name in PRIMARY:
@@ -142,8 +145,14 @@ def full_diagnostics(candidate, results, *, separate_plan_checks=False):
                 baseline = case["arms"]["p0"][name]
                 changes[name][f"{baseline}->{score}"] += 1
         stops[arm], detail[arm], paired[arm] = origins, snapshots, changes
-    return {"stratum_outcomes": by_stratum, "paired_transitions_from_p0": paired,
-            "first_response_counts": stops, "first_response_by_case": detail}
+        denominators[arm] = {name: {"counts": dict(counts), "assessed": counts["PASS"] + counts["FAIL"],
+                                    "applicable": len(cases) - counts["NOT_APPLICABLE"]}
+                             for name, counts in layer_counts.items()}
+    report = {"stratum_outcomes": by_stratum, "paired_transitions_from_p0": paired,
+              "first_response_counts": stops, "first_response_by_case": detail}
+    if separate_plan_checks:
+        report["layer_denominators"] = denominators
+    return report
 
 
 def contrasts(arm_factors, counts, size):

@@ -99,6 +99,8 @@ Plan-first 在启动沙箱前仅用公开输入生成条件计划，执行见证
 
 对 L4 和 L7 的 200 条见证仅归一化公开任务中的不透明编号。13 组共 29 条在组内拥有相同的公开合同和计划结构，实际合法路径随工具反馈变化。所列 29 条全部未通过冻结计划门槛。该结果提供了审查条件计划表示与动作预算的具体用例。 [条件路径审计](../evidence/IJ072/benchmark_validity/planning-public-ambiguity.json)
 
+冻结初始计划评分还未验证 `preconditions` 的含义。562 份原先通过且含动作的独立计划，把首个动作条件改成“永不执行此动作”后依旧被标记为可执行。40 次把提交条件改成“仅在外部用户明确拒绝批准后提交”的变异同样未被评分拒绝。602 条负向对照的结果为 FAIL。这些变异仅输入计划评分器，实际沙箱的审批和持久化证据见上一节。 [逐条条件变异](../evidence/IJ072/benchmark_validity/planning-precondition-controls.json) · [冻结评分源码](../benchmarks/agentic_planning_v1/oracle.py)
+
 JOB-V1 冻结的 600 条主面板使用 Arm B 的公开工具定义，独立生成事实和草稿，通过实际工具与 SQLite 交叉校验。600/600 通过，其中 350 条完成业务，其余 250 条正确拒绝、澄清或转交。错误业务回答，以及适用用例中缺失的用户更新和持久化草稿，均由原评分拒绝。 [JOB-V1 独立见证](../evidence/IJ072/benchmark_validity/job-witness.json.gz)
 
 JOB-V1 扩展控制拒绝了 2,650 个含越权 ID、伪造审批、错误读取或重复草稿收据的变异。600 份缺失审计的用例均保留 BLOCKED。600 个字段重排和 125 个中文等价主题全部通过。实际 SQLite 沙箱拒绝了 600 个契约外提交请求，业务表与审批表未发生变化。 [扩展控制](../evidence/IJ072/benchmark_validity/job-extended-controls.json.gz)

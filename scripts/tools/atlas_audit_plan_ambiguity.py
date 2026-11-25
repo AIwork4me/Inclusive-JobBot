@@ -2,6 +2,7 @@
 
 from argparse import ArgumentParser
 from collections import Counter, defaultdict
+from copy import deepcopy
 import gzip
 from hashlib import sha256
 import json
@@ -9,6 +10,7 @@ from pathlib import Path
 
 from benchmarks.agentic_planning_v1.contract import request
 from benchmarks.agentic_planning_v1.freeze import FROZEN
+from benchmarks.agentic_planning_v1.oracle import initial_plan
 from benchmarks.agentic_planning_v1.run import load_jsonl
 from benchmarks.atlas_validity.planning_intent_witness import REFERENCE
 
@@ -17,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 EVIDENCE = ROOT / "evidence/IJ072/benchmark_validity"
 WITNESSES = EVIDENCE / "planning-plan-controls.json.gz"
 OUTPUT = EVIDENCE / "planning-public-ambiguity.json"
+PRECONDITIONS = EVIDENCE / "planning-precondition-controls.json"
 
 
 def signature(value):
@@ -58,20 +61,62 @@ def build():
             "cases_in_reported_groups": sum(len(group["cases"]) for group in examples), "groups": examples}
 
 
+def audit_preconditions():
+    witness_bytes = WITNESSES.read_bytes()
+    witness = json.loads(gzip.decompress(witness_bytes))
+    cases = {row["case_id"]: row for row in load_jsonl(FROZEN / "datasets/holdout.jsonl")}
+    graphs = {row["case_id"]: row for row in load_jsonl(FROZEN / "task_graphs/holdout.jsonl")}
+    trials = []
+    for row in witness["trials"]:
+        key = row["case_id"]
+        plan = row["initial_plan"]
+        if row["status"] != "PASS" or not plan["actions"]:
+            continue
+        baseline = initial_plan(cases[key], graphs[key], plan)
+        if not (baseline["goal_understood"] and baseline["executable"]):
+            raise ValueError(f"archived positive plan changed before mutation: {key}")
+        changes = [("disable_first_action", 0, "Never execute this action.")]
+        changes.extend(("require_denied_approval", index,
+                        "Commit only after the external user explicitly declines approval for this draft.")
+                       for index, action in enumerate(plan["actions"]) if action["tool"] == "commit")
+        for mutation, index, condition in changes:
+            revised = deepcopy(plan)
+            action = revised["actions"][index]
+            action["preconditions"] = [condition]
+            verdict = initial_plan(cases[key], graphs[key], revised)
+            trials.append({"case_id": key, "level": row["level"], "mutation": mutation,
+                           "action_id": action["id"], "tool": action["tool"], "precondition": condition,
+                           "status": "FAIL" if verdict["executable"] else "PASS",
+                           "oracle_errors": verdict["errors"]})
+    counts = defaultdict(Counter)
+    for row in trials:
+        counts[row["mutation"]][row["status"]] += 1
+    return {"scope": "frozen initial plan evaluator, strict positive independent witnesses containing actions",
+            "evidence_class": "deterministic_software_mutation", "dataset_sha256": witness["dataset_sha256"],
+            "independent_witness_archive_sha256": sha256(witness_bytes).hexdigest(),
+            "status_rule": "FAIL identifies a contradictory plan condition accepted by the frozen initial plan evaluator.",
+            "counts": counts, "trials": trials}
+
+
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--preconditions", action="store_true")
     args = parser.parse_args()
-    result = build()
+    result = audit_preconditions() if args.preconditions else build()
+    output = PRECONDITIONS if args.preconditions else OUTPUT
     raw = (json.dumps(result, indent=2, sort_keys=True) + "\n").encode()
     if args.check:
-        if OUTPUT.read_bytes() != raw:
+        if output.read_bytes() != raw:
             parser.error("conditional Planning source audit differs")
     else:
-        with OUTPUT.open("xb") as stream:
+        with output.open("xb") as stream:
             stream.write(raw)
-    print(result["groups_with_divergent_paths_and_failures"], result["groups_with_both_strict_outcomes"],
-          result["cases_in_reported_groups"])
+    if args.preconditions:
+        print(dict(result["counts"]))
+    else:
+        print(result["groups_with_divergent_paths_and_failures"], result["groups_with_both_strict_outcomes"],
+              result["cases_in_reported_groups"])
 
 
 if __name__ == "__main__":

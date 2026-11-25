@@ -101,6 +101,90 @@
       "source": "evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json"
     }
   },
+  "ij072_software_witness": {
+    "TC-V2": {
+      "planned": 500,
+      "executed": 500,
+      "valid_evidence": 500,
+      "outcomes": {
+        "PASS": 500,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "sources": [
+        "evidence/IJ072/benchmark_validity/tc-holdout-witness.json"
+      ]
+    },
+    "MULTITOOL-V1": {
+      "planned": 600,
+      "executed": 600,
+      "valid_evidence": 600,
+      "outcomes": {
+        "PASS": 600,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "sources": [
+        "evidence/IJ072/benchmark_validity/multitool-witness.json.gz"
+      ]
+    },
+    "Planning-Acting-first": {
+      "planned": 800,
+      "executed": 800,
+      "valid_evidence": 800,
+      "outcomes": {
+        "PASS": 800,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "sources": [
+        "evidence/IJ072/benchmark_validity/planning-intent-controls.json",
+        "evidence/IJ072/benchmark_validity/planning-read-controls.json",
+        "evidence/IJ072/benchmark_validity/planning-advanced-controls.json"
+      ]
+    },
+    "Planning-Plan-first": {
+      "planned": 800,
+      "executed": 800,
+      "valid_evidence": 800,
+      "outcomes": {
+        "PASS": 672,
+        "FAIL": 128,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.84,
+      "sources": [
+        "evidence/IJ072/benchmark_validity/planning-plan-controls.json.gz"
+      ]
+    },
+    "JOB-V1": {
+      "planned": 600,
+      "executed": 600,
+      "valid_evidence": 600,
+      "outcomes": {
+        "PASS": 600,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "sources": [
+        "evidence/IJ072/benchmark_validity/job-witness.json.gz"
+      ]
+    }
+  },
   "workstreams": {
     "A0": {
       "planned": 1,
