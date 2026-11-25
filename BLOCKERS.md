@@ -7,6 +7,7 @@
 | B-IJ071-01 | BLOCKED | Benchmark engineering | The Plan-first software witness failed the frozen initial plan gate in 128/800 cases. Cross-suite mutation coverage, independent bilingual review, stronger-model control, prompt ablations and revised scorer freeze remain open before A1 admission. |
 | B-IJ071-02 | BLOCKED | GPU experiment scheduling | The interrupted legacy JOB-V1 controller yielded the slot. Arm A is sealed. Arm B has seven unsealed records. Qwen3-8B PC-S is sealed. The Qwen3-14B reference trial roster has priority over the legacy queue. See `atlas/physical_queue.json`. |
 | B-IJ071-03 | CLOSED | Runtime engineering | The pinned Qwen3-8B launchers completed the frozen Planning and MULTITOOL PC-S trials with raw wire and GPU evidence. |
+| B-IJ072-01 | BLOCKED | Independent human reviewers | The 22-case score-blind packet is ready. Independent assessments and reconciliation are pending. See `reports/ATLAS_A1_BLIND_REVIEW.md`. |
 
 Status values: `OPEN`, `MITIGATED` (workaround in use, cause still present),
 `CLOSED`. "Owner" is who can remove the cause.

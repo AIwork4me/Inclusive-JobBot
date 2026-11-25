@@ -20,8 +20,8 @@ From a fresh checkout, verify the portable evidence with
 and `python -m scripts.tools.atlas_failure_ledger --check`.
 Qwen3-14B passed [admission](evidence/IJ072/model_identity/admission/J/report.json) and
 completed the [100-trial TC-V2 component](evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json).
-The [latest MULTITOOL checkpoint](evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-050/coverage.json)
-sealed 50/120 trials.
+The [latest MULTITOOL checkpoint](evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-075/coverage.json)
+sealed 75/120 trials.
 Resume MULTITOOL in the clean workstation worktree
 `.scratch/ij072-reference-runtime` at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
 Verify no process is holding the Radeon slot. Stop at a completed batch
@@ -46,6 +46,10 @@ Use the workstation `.scratch/ij072-prompt-runtime` worktree at
 `876ee84baa86f86399a5ae46bd7721671e16a090` with the same shared Radeon slot.
 Reuse the matching output directory for P1 or P3. Other arms require a
 fresh separate run directory.
+Candidate A resolves the pinned MiniCPM5 GGUF in the worktree's ignored
+model directory. Candidates B and G use the existing Q8_0 files under
+`../ij07-worktree/.runtime/ij07-candidates/`. The model hashes are checked
+for each launch.
 
 ```powershell
 $env:PYTHONPATH = (Resolve-Path src).Path
@@ -55,6 +59,8 @@ python -m scripts.tools.atlas_pc_p --candidate H --arm $arm --model ../../.tools
 
 The raw competitive and JOB-V1 A/B reconciliation commands require the
 original workstation data. A1 must pass before revised large-scale qualification.
+The [score-blind review packet](reports/ATLAS_A1_BLIND_REVIEW.md) is prepared.
+Human assessments and reconciliation still need independent reviewers.
 
 ## IJ-0.7.1 Atlas checkpoint
 

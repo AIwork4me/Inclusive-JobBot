@@ -18,11 +18,11 @@
       "size": 2280
     },
     "atlas/physical_queue.json": {
-      "sha256": "3c9d5b7fd286db9da5412ee2a10427c7677b003dc8f66fb0ba2cd7d0c226aedb",
+      "sha256": "d545bd3cd1fa099f381c44742e5249c3c0186c2c8b6bf28d95c96378cf2178be",
       "size": 3525
     },
     "atlas/progress.json": {
-      "sha256": "0bc903a290358c004e581f50743438b51031e2ae28b3ba80e8f026f05b79a7cb",
+      "sha256": "9c0d8638d4179bacfc9b0703e03b6ff822a87e0dc26a4251359c70f430b92f2c",
       "size": 20535
     },
     "atlas/release_gates.json": {
@@ -148,6 +148,14 @@
     "evidence/IJ071/windows-observation.json": {
       "sha256": "dc24c67e53c3df568a72f3be791aab18f882a6cfa8eddc8f57b88946ced6c83d",
       "size": 397
+    },
+    "evidence/IJ072/benchmark_validity/a1-blind-review-packet.json": {
+      "sha256": "182eb2a28ccfd63efe3575aa27cd9b62c3201120955b3a4d35ca32c09f45c027",
+      "size": 227462
+    },
+    "evidence/IJ072/benchmark_validity/a1-blind-review-provenance.json": {
+      "sha256": "91f52248736e2803aaa18538260710e85ead2e46f446971cba0c7f5a5ab1483b",
+      "size": 1773
     },
     "evidence/IJ072/benchmark_validity/job-witness.json.gz": {
       "sha256": "2e5580992bbb9b8b420d104c578f7c464cb62ca222185ff035136e44af6dc283",
@@ -369,6 +377,30 @@
       "sha256": "719cc9ec967e6b372c6d34d04069a8410045dac3e9822dc839483ae58aeb4855",
       "size": 370371
     },
+    "evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-075/256b488660d14f85a6a1a1059a15342e-gpu.jsonl.gz": {
+      "sha256": "345c420a64ff892be572478d9f28028c589d3ea9ab324baed08e85d5cad6d2f9",
+      "size": 61932
+    },
+    "evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-075/2b8f12c33ffe49d69245a477d97dee4a-gpu.jsonl.gz": {
+      "sha256": "5dfae19c956796c0f3c8b2943b271c9173541117941fef5d1d4e6c227c4fcf76",
+      "size": 57235
+    },
+    "evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-075/coverage.json": {
+      "sha256": "961b16ad0dcdb31d2039c2ae640aa7b94e67ed8298cbed7dfa9ce48851a54275",
+      "size": 4030
+    },
+    "evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-075/f209b561b5554e4dace354a7260d71ad-gpu.jsonl.gz": {
+      "sha256": "a0e5c994f16788962e38e37a5d6a01c0352ea7dfb84a6ba94918210d8e4644d8",
+      "size": 44831
+    },
+    "evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-075/run.json": {
+      "sha256": "6ebf8258a9e7e4fe575a610e84f3ebfa3bc8561bb49929f0a4ebad827e032b45",
+      "size": 19200
+    },
+    "evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-075/terminal.jsonl.gz": {
+      "sha256": "aad7f68e6bce816206902b01a74608dcb7b82ef8f9c47aeb8ac52b9d35299181",
+      "size": 484893
+    },
     "evidence/IJ072/benchmark_validity/pc-s-j-tc/raw-manifest.json": {
       "sha256": "6c4e3f3e2d0adef155ab803845b6811a649d67c8dc234f362bd9fc492a6cc8c6",
       "size": 34723
@@ -525,21 +557,29 @@
       "sha256": "f8391ef9fb4aeaac82d54fbfb211350e9203c990ad8e16da0ea71002330dc67e",
       "size": 5459
     },
+    "reports/ATLAS_A1_BLIND_REVIEW.md": {
+      "sha256": "7187ce6a108ad18e814ca81c157a0e75e610b02b601e3b3610816dc0d6be4993",
+      "size": 2544
+    },
     "reports/ATLAS_IJ072_CHECKPOINT_CN.md": {
-      "sha256": "744ed9e83f2e3e0cbdac1837b7a17d60973770f2674702b768fff9f9aafe4518",
-      "size": 11901
+      "sha256": "405054e6224f2b8aedc015b4a2fc051f4a3fa34356e82cc41253ff7eeca523e1",
+      "size": 12261
     },
     "reports/ATLAS_POSITIVE_NEGATIVE_CONTROL.md": {
       "sha256": "b5a14b7f4a999bbbb0526269d676b89856577bd987c419c5b4a387f26ffac6cb",
       "size": 1896
     },
     "reports/ATLAS_PROGRESS_DASHBOARD.md": {
-      "sha256": "396b3f4cd7ebbbbbe74cb62b66ab1ab225135b98e8c0b264ba8749731d0b57bd",
+      "sha256": "2e90824a2ec392894c2f742eafe47b77c6dffee67af20fde97e26d738b31c1ec",
       "size": 6868
     },
     "reports/ATLAS_PROMPT_CONTRACT_CAUSAL_ANALYSIS.md": {
       "sha256": "955cf5822712bdfe815a57e3cd4ec38bca602dcf311bba5e9e6f1874eaa0d950",
       "size": 1916
+    },
+    "scripts/tools/atlas_a1_review_packet.py": {
+      "sha256": "1c56a1881c13be6027feaa5495d8165ed4519d034efdc1ce023d4acb360b62cd",
+      "size": 5664
     },
     "scripts/tools/atlas_archive_pc_s_tc.py": {
       "sha256": "5901d6e0ae5fead86789bca88590532c967f63d461b0087ed259ac81ff3b4ce2",
@@ -602,7 +642,7 @@
       "size": 7522
     },
     "scripts/tools/atlas_progress.py": {
-      "sha256": "bcf58b808d435c93a8492746e4aed2b6e92f73de4c08f85bb9d6bc8f9d8a3e0b",
+      "sha256": "952e13106a99a7344c76fd1970deab0bfed54a37c468f2f7ef084f071029de72",
       "size": 16291
     },
     "scripts/tools/atlas_quote_controls.py": {

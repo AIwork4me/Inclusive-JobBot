@@ -259,7 +259,7 @@ def main():
     checkpoint_trials["PC-S Qwen3-8B MULTITOOL-V1"] = {
         "planned": multi["planned"], "assessed": multi["terminal"], "outcomes": multi["tasks"], "source": multi_path,
     }
-    larger_multi_path = "evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-050/coverage.json"
+    larger_multi_path = "evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-075/coverage.json"
     larger_multi = document(ROOT / larger_multi_path)["run_end_summary"]
     checkpoint_trials["PC-S Qwen3-14B MULTITOOL-V1"] = {
         "planned": larger_multi["planned"], "assessed": larger_multi["terminal"],
