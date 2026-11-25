@@ -32,6 +32,7 @@ def runner_arguments(suite, frozen):
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--suite", choices=SUITES, required=True)
+    parser.add_argument("--candidate", choices=("H", "J"), default="H")
     parser.add_argument("--model", type=Path, required=True)
     parser.add_argument("--engine-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
@@ -44,7 +45,7 @@ def main():
     if frozen != create():
         parser.error("PC-S roster differs from its frozen definition")
     module, selection = runner_arguments(args.suite, frozen)
-    command = [sys.executable, "-m", module, *selection, "--candidate", "H",
+    command = [sys.executable, "-m", module, *selection, "--candidate", args.candidate,
                "--model", str(args.model.resolve()), "--engine-dir", str(args.engine_dir.resolve())]
     output = args.output.resolve()
     if args.preflight:

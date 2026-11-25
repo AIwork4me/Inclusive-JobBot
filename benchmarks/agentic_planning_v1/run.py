@@ -27,7 +27,7 @@ ALIAS = historical_replay.ALIAS
 STATUSES = ("PASS", "FAIL", "BLOCKED", "NOT_RUN")
 SESSION_KEYS = ("backend", "gpu", "layers_offloaded", "layers_total", "build", "args", "template_sha256")
 RUNTIME_ENV_PREFIXES = ("LLAMA_", "GGML_", "HIP_", "ROCR_", "HSA_", "VK_")
-PLANNING_CANDIDATES = ("B", "D", "F", "G", "H")
+PLANNING_CANDIDATES = ("B", "D", "F", "G", "H", "J")
 
 
 def digest(value):

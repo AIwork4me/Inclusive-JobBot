@@ -13,11 +13,13 @@
 | MULTITOOL explicit 32-call streaming and non-streaming decoder budget | PASS | Software only. `tests/regression/ij07/test_batch_wire_profile.py` and `tests/regression/ij07/test_multitool_v1.py` |
 | PC-S MULTITOOL-V1 physical coverage | PASS | 120/120 assessed, 28 strict PASS and 92 FAIL. `evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json` |
 | L0 public-input intent witness and three mutations | PASS | 100/100 Acting-first exact matches. `evidence/IJ072/benchmark_validity/planning-intent-controls.json` |
-| PC-S physical Planning checkpoint | BLOCKED | 100/320 sealed with 4 strict PASS and 96 FAIL. `evidence/IJ072/benchmark_validity/pc-s-planning-checkpoint/diagnostic.json` |
-| PC-P paired Qwen3 L0 pilot | FAIL | P1 improves initial protocol 0/20 to 7/20. Strict results remain 0/20. `evidence/IJ072/benchmark_validity/pc-p-qwen3-l0-p0-p1.json` |
+| Qwen3-8B PC-S physical Planning coverage | PASS | 320/320 sealed with 4 strict PASS and 316 FAIL. `evidence/IJ072/benchmark_validity/pc-s-planning-full/diagnostic.json` |
+| PC-P paired L0 Plan-first pilot for MiniCPM5, LFM3, Gemma and Qwen3-8B | FAIL | 80 matched pairs. Initial protocol improved across the four models. Strict results remain 0/80 in each arm. `evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json` |
 | TC-V2 holdout public-input witness | PASS | 500/500 with actual synthetic tool execution and independently read SQLite state. `evidence/IJ072/benchmark_validity/tc-holdout-witness.json` |
 | MULTITOOL-V1 public-input witness | PASS | 600/600 with tool events and 75 direct SQLite draft-state checks. `evidence/IJ072/benchmark_validity/multitool-witness.json.gz` |
-| PC-S all suites and A1 evaluator qualification | BLOCKED | `atlas/physical_queue.json` |
+| Planning L1-L7 public-input Acting-first witness | PASS | 700/700 software trials with independent action selection. `evidence/IJ072/benchmark_validity/planning-read-controls.json` and `evidence/IJ072/benchmark_validity/planning-advanced-controls.json` |
+| Larger Qwen3-14B reference artifact and runtime admission | PASS | CPU identity and Radeon Vulkan native-tool probes. `evidence/IJ072/model_identity/admission/J/report.json` |
+| A1 evaluator qualification and stronger reference | BLOCKED | `atlas/physical_queue.json` |
 
 ## IJ-0.7.1 Atlas
 

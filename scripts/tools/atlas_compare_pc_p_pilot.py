@@ -15,6 +15,12 @@ from scripts.tools.bundle_ij07_planning import verify
 ROOT = Path(__file__).resolve().parents[2]
 EVIDENCE = ROOT / "evidence/IJ072/benchmark_validity"
 OUTPUT = EVIDENCE / "pc-p-qwen3-l0-p0-p1.json"
+MATRIX = EVIDENCE / "pc-p-l0-model-comparison.json"
+OTHER_MODELS = {
+    "a": "OpenBMB/MiniCPM5-2B-GGUF",
+    "b": "LiquidAI/LFM3-1.7B",
+    "g": "google/gemma-4-E2B-it",
+}
 
 
 def selected_archive(archive, selected):
@@ -38,16 +44,16 @@ def selected_archive(archive, selected):
     return run, cases
 
 
-def compare():
+def compare_pair(p0_archive, p1_archive, official_id):
     roster = document(ROOT / "atlas/benchmarks/pc_s_roster.json")["planning_v1"]["selection_by_stratum"]
     selected = set(roster["L0/en"] + roster["L0/zh"])
-    p0, original = selected_archive(EVIDENCE / "pc-s-planning-checkpoint", selected)
-    p1, revised = selected_archive(EVIDENCE / "pc-p-qwen3-l0-p1", selected)
+    p0, original = selected_archive(p0_archive, selected)
+    p1, revised = selected_archive(p1_archive, selected)
     left, right = p0["configuration"], p1["configuration"]
     omit = {"trials", "settings"}
     if (any(left[key] != right[key] for key in left.keys() - omit)
             or left["settings"] | {"prompt_contract": "p1"} != right["settings"]
-            or left["model"]["official_model_id"] != "Qwen/Qwen3-8B"):
+            or left["model"].get("official_model_id", left["model"]["repo_id"]) != official_id):
         raise ValueError("paired pilot changed an input other than the planned prompt treatment or scope")
     public = {row["case_id"]: row for row in load_jsonl(FROZEN / "datasets/holdout.jsonl")}
     oracle = {row["case_id"]: row for row in load_jsonl(FROZEN / "task_graphs/holdout.jsonl")}
@@ -78,20 +84,38 @@ def compare():
             "source_commit": left["git"]["commit"], "counts": counts, "endpoints": endpoints, "pairs": pairs}
 
 
+def compare():
+    return compare_pair(EVIDENCE / "pc-s-planning-checkpoint", EVIDENCE / "pc-p-qwen3-l0-p1", "Qwen/Qwen3-8B")
+
+
+def compare_matrix():
+    models = {"h": compare()}
+    for key, official_id in OTHER_MODELS.items():
+        base = f"pc-p-{key}-l0"
+        models[key] = compare_pair(EVIDENCE / f"{base}-p0", EVIDENCE / f"{base}-p1", official_id)
+    return {"scope": "P0/P1, L0 Plan-first; cross-model aggregate is descriptive",
+            "models": models, "total_pairs": sum(row["planned_pairs"] for row in models.values())}
+
+
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--matrix", action="store_true")
     args = parser.parse_args()
-    result = compare()
+    result = compare_matrix() if args.matrix else compare()
+    output_path = MATRIX if args.matrix else OUTPUT
     raw = (json.dumps(result, indent=2, sort_keys=True) + "\n").encode()
     if args.check:
-        if OUTPUT.read_bytes() != raw:
+        if output_path.read_bytes() != raw:
             parser.error("PC-P paired evidence differs")
     else:
-        with OUTPUT.open("xb") as handle:
+        with output_path.open("xb") as handle:
             handle.write(raw)
-    for arm, counts in result["counts"].items():
-        print(arm, counts)
+    if args.matrix:
+        print(f"{result['total_pairs']} paired L0 model diagnostics")
+    else:
+        for arm, counts in result["counts"].items():
+            print(arm, counts)
 
 
 if __name__ == "__main__":

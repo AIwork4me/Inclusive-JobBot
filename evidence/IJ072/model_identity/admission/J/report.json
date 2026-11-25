@@ -1,0 +1,555 @@
+{
+  "run_id": "ij07-admission-c726083099a54c36856e51b9d5f063d7",
+  "candidate": "J",
+  "git": {
+    "commit": "19184e58b33d1c758016dc2d241ed06c6ca92231",
+    "dirty": false
+  },
+  "started_utc": "2026-11-25T15:30:14+00:00",
+  "model_id": "Qwen/Qwen3-14B",
+  "asset": {
+    "repo": "Qwen/Qwen3-14B-GGUF",
+    "revision": "4195fe4e5e948e7d4c63e2eaa672a3a8338b4b8b",
+    "filename": "Qwen3-14B-Q8_0.gguf",
+    "expected_sha256": "a0dfe649137410b7d82f06a209240508e218f32f5b6fd81b69d6932160cfcd9d",
+    "size": 15698533728,
+    "observed_sha256": "a0dfe649137410b7d82f06a209240508e218f32f5b6fd81b69d6932160cfcd9d",
+    "status": "PASS"
+  },
+  "gates": {
+    "artifact_identity": "PASS",
+    "load": "PASS",
+    "cpu_reference": "PASS",
+    "gpu_execution": "PASS",
+    "ordinary_chat": "PASS",
+    "native_call": "PASS",
+    "result_roundtrip": "PASS",
+    "dependent_call": "PASS",
+    "stream_parity": "PASS",
+    "schema_and_invalid_choice": "PASS"
+  },
+  "wire": [
+    {
+      "request": {
+        "model": "ij07-candidate-j",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Reply with exactly this text: RAD-7107"
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 128,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"RAD-7107\"}}],\"created\":1795620630,\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":7,\"prompt_tokens\":24,\"total_tokens\":31,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"id\":\"chatcmpl-vBjHkR02LhS5ucOWJJFEeQcTBuiD0PGC\",\"timings\":{\"cache_n\":0,\"prompt_n\":24,\"prompt_ms\":668.447,\"prompt_per_token_ms\":27.851958333333332,\"prompt_per_second\":35.90411805274016,\"predicted_n\":7,\"predicted_ms\":1254.907,\"predicted_per_token_ms\":209.15116666666665,\"predicted_per_second\":4.781230800370068}}",
+      "wall_ms": 1937
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-j",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Reply with exactly this text: RAD-7107"
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 128,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"RAD-7107\"}}],\"created\":1795620639,\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":7,\"prompt_tokens\":24,\"total_tokens\":31,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"id\":\"chatcmpl-TE0uNjrjgYnrANu6mvBjU9SqLTCVy1aJ\",\"timings\":{\"cache_n\":0,\"prompt_n\":24,\"prompt_ms\":150.349,\"prompt_per_token_ms\":6.264541666666666,\"prompt_per_second\":159.62859746323556,\"predicted_n\":7,\"predicted_ms\":415.494,\"predicted_per_token_ms\":69.24900000000001,\"predicted_per_second\":14.44064174211902}}",
+      "wall_ms": 569
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-j",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_account",
+              "description": "Find the internal account ID for a company name.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "company"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_balance",
+              "description": "Return the balance in CNY for an internal account ID.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "account_id"
+                ],
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\": \\\"Orchid Works\\\"}\"},\"id\":\"D6IT4hI5gfsNC6ZJZeZXpw2v6ZNlHZeT\"}]}}],\"created\":1795620641,\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":23,\"prompt_tokens\":246,\"total_tokens\":269,\"prompt_tokens_details\":{\"cached_tokens\":1}},\"id\":\"chatcmpl-BIgMsbElNiNu2XW3U1hZL3ERmVXTUB0f\",\"timings\":{\"cache_n\":1,\"prompt_n\":245,\"prompt_ms\":472.883,\"prompt_per_token_ms\":1.930134693877551,\"prompt_per_second\":518.0985571483856,\"predicted_n\":23,\"predicted_ms\":1520.013,\"predicted_per_token_ms\":69.0915,\"predicted_per_second\":14.473560423496378}}",
+      "wall_ms": 2025
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-j",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "lookup_account",
+                  "arguments": "{\"company\": \"Orchid Works\"}"
+                },
+                "id": "D6IT4hI5gfsNC6ZJZeZXpw2v6ZNlHZeT"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "D6IT4hI5gfsNC6ZJZeZXpw2v6ZNlHZeT",
+            "content": "{\"account_id\": \"AC-18405\"}"
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_account",
+              "description": "Find the internal account ID for a company name.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "company"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_balance",
+              "description": "Return the balance in CNY for an internal account ID.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "account_id"
+                ],
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_balance\",\"arguments\":\"{\\\"account_id\\\": \\\"AC-18405\\\"}\"},\"id\":\"8OFZTgVjvvDX10D5twSmh1bjI3litdxx\"}]}}],\"created\":1795620643,\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":27,\"prompt_tokens\":294,\"total_tokens\":321,\"prompt_tokens_details\":{\"cached_tokens\":242}},\"id\":\"chatcmpl-mPVELcmfSTlkUutfHTxs8wjs1Z8t98YO\",\"timings\":{\"cache_n\":242,\"prompt_n\":52,\"prompt_ms\":140.229,\"prompt_per_token_ms\":2.6967115384615385,\"prompt_per_second\":370.82201256516123,\"predicted_n\":27,\"predicted_ms\":1792.514,\"predicted_per_token_ms\":68.94284615384615,\"predicted_per_second\":14.504768163595935}}",
+      "wall_ms": 1938
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-j",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "lookup_account",
+                  "arguments": "{\"company\": \"Orchid Works\"}"
+                },
+                "id": "D6IT4hI5gfsNC6ZJZeZXpw2v6ZNlHZeT"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "D6IT4hI5gfsNC6ZJZeZXpw2v6ZNlHZeT",
+            "content": "{\"account_id\": \"AC-18405\"}"
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "lookup_balance",
+                  "arguments": "{\"account_id\": \"AC-18405\"}"
+                },
+                "id": "8OFZTgVjvvDX10D5twSmh1bjI3litdxx"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "8OFZTgVjvvDX10D5twSmh1bjI3litdxx",
+            "content": "{\"currency\": \"CNY\", \"balance\": 1742}"
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_account",
+              "description": "Find the internal account ID for a company name.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "company"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_balance",
+              "description": "Return the balance in CNY for an internal account ID.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "account_id"
+                ],
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"The account ID for Orchid Works is **AC-18405**, and the balance in CNY is **1742**.\"}}],\"created\":1795620645,\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":32,\"prompt_tokens\":349,\"total_tokens\":381,\"prompt_tokens_details\":{\"cached_tokens\":290}},\"id\":\"chatcmpl-jgW6yjpnqdw0PoXIEO6bkX34ymN3GRLa\",\"timings\":{\"cache_n\":290,\"prompt_n\":59,\"prompt_ms\":143.894,\"prompt_per_token_ms\":2.4388813559322036,\"prompt_per_second\":410.0240454779212,\"predicted_n\":32,\"predicted_ms\":2145.118,\"predicted_per_token_ms\":69.19735483870967,\"predicted_per_second\":14.451419455712927}}",
+      "wall_ms": 2309
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-j",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_account",
+              "description": "Find the internal account ID for a company name.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "company"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_balance",
+              "description": "Return the balance in CNY for an internal account ID.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "account_id"
+                ],
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        },
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "status": 200,
+      "response_type": "text/event-stream",
+      "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795620646,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"PNdcvIAENgRAd8L1rvWSBJyza9T1rjF6\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795620646,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795620646,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"company\"}}]}}],\"created\":1795620646,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\":\"}}]}}],\"created\":1795620647,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" \\\"\"}}]}}],\"created\":1795620647,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"Or\"}}]}}],\"created\":1795620647,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795620647,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795620647,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795620647,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"}\"}}]}}],\"created\":1795620647,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795620647,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[],\"created\":1795620647,\"id\":\"chatcmpl-wV6oEy10IbfQahNzERYuevD1OAZ1D2re\",\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"usage\":{\"completion_tokens\":23,\"prompt_tokens\":246,\"total_tokens\":269,\"prompt_tokens_details\":{\"cached_tokens\":242}},\"timings\":{\"cache_n\":242,\"prompt_n\":4,\"prompt_ms\":80.026,\"prompt_per_token_ms\":20.0065,\"prompt_per_second\":49.98375527953415,\"predicted_n\":23,\"predicted_ms\":1550.22,\"predicted_per_token_ms\":70.46454545454546,\"predicted_per_second\":14.191534104836732}}\n\ndata: [DONE]\n\n",
+      "wall_ms": 1655
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-j",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return a status object with status ready."
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "readiness",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "const": "ready"
+                }
+              },
+              "required": [
+                "status"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\n  \\\"status\\\": \\\"ready\\\"\\n}\"}}],\"created\":1795620648,\"model\":\"ij07-candidate-j\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":14,\"prompt_tokens\":20,\"total_tokens\":34,\"prompt_tokens_details\":{\"cached_tokens\":1}},\"id\":\"chatcmpl-GJnNHCkaC254RVr1V0TS25It8KxvWGc4\",\"timings\":{\"cache_n\":1,\"prompt_n\":19,\"prompt_ms\":151.528,\"prompt_per_token_ms\":7.975157894736841,\"prompt_per_second\":125.38936698167996,\"predicted_n\":14,\"predicted_ms\":917.239,\"predicted_per_token_ms\":70.55684615384615,\"predicted_per_second\":14.172969095295773}}",
+      "wall_ms": 1116
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-j",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_account",
+              "description": "Find the internal account ID for a company name.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "company"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_balance",
+              "description": "Return the balance in CNY for an internal account ID.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "account_id"
+                ],
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": {
+          "type": "function",
+          "function": {
+            "name": "undefined_lookup"
+          }
+        },
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "status": 400,
+      "response_type": "application/json",
+      "response": "{\"error\":{\"code\":400,\"message\":\"tool_choice must be auto, none, or required\",\"type\":\"invalid_request_error\"}}",
+      "wall_ms": 3
+    }
+  ],
+  "requested_disable_thinking": true,
+  "cpu": {
+    "engine_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+    "build": "b12359-b1b770d90"
+  },
+  "gpu_engine": {
+    "exe_sha256": "9ed4473e7c31d8ce225ee6ec8b33f88ea9a51e7381bb08e899bd71fc15cfb9a8",
+    "dll_sha256": {
+      "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+      "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+      "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+      "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+      "llama-common.dll": "e7573a81ba8fc85bfe77797e643e05e7f6895d94c29e8301861460337ebbb30a",
+      "llama-server-impl.dll": "f19ed08afaa34b40173b200df9b495d2ce5d916ea390ad74a7902edd9dcc9659",
+      "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+      "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e"
+    }
+  },
+  "gpu": {
+    "pid": 7356,
+    "owns_port": true,
+    "launched_utc": "2026-11-25T15:30:39+00:00",
+    "backend": "vulkan",
+    "gpu": {
+      "name": "AMD Radeon(TM) 8060S Graphics",
+      "device": "Vulkan0",
+      "architecture": "gfx1151"
+    },
+    "layers_offloaded": 41,
+    "layers_total": 41,
+    "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+    "args": [
+      "--ctx-size",
+      "8192",
+      "--parallel",
+      "1",
+      "--n-gpu-layers",
+      "99",
+      "--device",
+      "Vulkan0",
+      "--jinja",
+      "--offline",
+      "--no-webui",
+      "--verbosity",
+      "4"
+    ],
+    "template_sha256": "57f1fd00f0013a2be96aa79b857391f27e23df5b5f847072b524c897e24d0361",
+    "counter_file": "vulkan-gpu.jsonl",
+    "trace_file": null
+  },
+  "executed_read_only_tools": [
+    "lookup_account",
+    "lookup_balance"
+  ],
+  "schema_probe": {
+    "schema_exact": true,
+    "invalid_choice_http_status": 400
+  },
+  "finished_utc": "2026-11-25T15:30:49+00:00",
+  "status": "PASS"
+}

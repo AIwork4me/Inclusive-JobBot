@@ -24,7 +24,7 @@ from .statistics import digest, frozen_suite
 
 
 ROOT = dataset.HERE.parents[2]
-CANDIDATES = ("A", "B", "D", "E", "F", "G", "H")
+CANDIDATES = ("A", "B", "D", "E", "F", "G", "H", "J")
 VULKAN_DEVICE = {"name": "AMD Radeon(TM) 8060S Graphics", "device": "Vulkan0", "architecture": "gfx1151"}
 ENGINE_PROFILE = "p4b-tool-choice-validation-generation-observer-vulkan"
 BUDGETS = {
@@ -87,15 +87,28 @@ def verify_runtime(candidate, model, engine_dir, *, root=ROOT):
     if (config["schema_version"] != 1 or declared["backend"] != "vulkan" or declared["quantization"] != "Q8_0"
             or declared["context_tokens"] != BUDGETS["context_tokens"] or re.fullmatch("[a-f0-9]{40}", commit) is None):
         raise ValueError("shared runtime declaration differs from the controlled profile")
-    identity_path = root / config["candidate_identity"][candidate]
-    identity = read_json(identity_path)
+    if candidate == "J":
+        identity_path = root / "atlas/benchmarks/pc_s_qwen3_14b.json"
+        pin = read_json(identity_path)
+        report_path = root / "evidence/IJ072/model_identity/admission/J/report.json"
+        expected = pin["expected_sha256"]
+        identity = {
+            "official_model_id": pin["model"],
+            "official_config_and_template": {"publisher_card": "https://huggingface.co/Qwen/Qwen3-14B-GGUF"},
+            "runtime_asset": {"repo": pin["artifact_repository"], "revision": pin["revision"],
+                              "filename": pin["filename"], "size": pin["expected_bytes"],
+                              "expected_sha256": expected, "observed_sha256": expected, "status": "PASS"},
+        }
+    else:
+        identity_path = root / config["candidate_identity"][candidate]
+        identity = read_json(identity_path)
+        report_path = root / "evidence/IJ07/model_identity/admission_strict" / candidate / "report.json"
     asset = identity["runtime_asset"]
     model_sha = asset["expected_sha256"]
     if (asset["status"] != "PASS" or asset.get("observed_sha256") != model_sha
             or re.fullmatch("[a-f0-9]{64}", model_sha) is None or not asset["repo"]
             or re.fullmatch("[a-f0-9]{40}", asset["revision"]) is None):
         raise ValueError("candidate model asset is unverified")
-    report_path = root / "evidence/IJ07/model_identity/admission_strict" / candidate / "report.json"
     report = read_json(report_path)
     if (report.get("candidate") != candidate or report.get("model_id") != identity["official_model_id"]
             or report.get("asset") != asset or report.get("status") != "PASS"

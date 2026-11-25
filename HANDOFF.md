@@ -3,39 +3,30 @@
 ## IJ-0.7.2 A1 checkpoint
 
 Status **INCOMPLETE**. Start with the [checkpoint report](reports/ATLAS_IJ072_CHECKPOINT_CN.md) and
-[physical queue](atlas/physical_queue.json). The Qwen3-8B TC-V2 PC-S component is
-sealed and archived, as is the 120-trial MULTITOOL component. The physical
-Planning component uses its frozen PC-S selection. Work from the existing PR #6 branch. Run one
-component at a time through the shared PC-S slot.
+[physical queue](atlas/physical_queue.json). The frozen 540-trial Qwen3-8B PC-S protocol is archived. Matched L0 P0/P1
+replays and the larger reference admission remain separate diagnostics. Work
+from the existing PR #6 branch. Reserve the Radeon for a single process at a
+time. The original JOB-V1 A and B run directories remain under the IJ-0.7
+worktree and keep their own identities and checkpoints.
 
-```powershell
-$env:PYTHONPATH = (Resolve-Path src).Path
-$pc = @('--model', '../../.tools/models/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf', '--engine-dir', '../../.tools/ij07-toolchoice-p4b-vulkan')
-python -m scripts.tools.atlas_pc_s --suite planning @pc --output .runtime/ij072-pc-s-planning
-```
-
-An existing `run.json` enables exact resume. Read its `configuration.git.commit` first.
-If the branch has moved, run from a clean detached worktree at that commit
-and pass the original output directory by absolute path. Check that the
-existing owner has released the Radeon slot before launching. The active Planning source is `6a7ea4f9d527fffeeb32d8ef88496916d9dbc8ed`.
-The workstation has an isolated checkout for that identity at `.scratch/ij072-plan-runtime`.
-With that checkout as the working directory, use the command above with
-`--output ../ij071-atlas/.runtime/ij072-pc-s-planning` to recover the same run.
-A sealed prefix can be archived while a later batch is active.
-The completed MULTITOOL run started at `05d0d1acba011dc940b4d7de5110f8fd33ea5baa`.
-The original JOB-V1 A and B run directories remain under the IJ-0.7 worktree
-and keep their own identities and checkpoints.
+The Qwen3 PC-S Planning source is `6a7ea4f9d527fffeeb32d8ef88496916d9dbc8ed`.
+A pinned local worktree at `.scratch/ij072-plan-runtime` preserves that runtime
+identity. The TC-V2 development and MULTITOOL sources are bound individually in
+their run manifests. Keep separate outputs for any changed runtime or prompt.
 
 From a fresh checkout, verify the portable evidence with
 `python scripts/tools/verify_atlas_artifacts.py`,
 `python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc`
 and `python -m scripts.tools.atlas_failure_ledger --check`.
-The larger reference has a [pinned ModelScope asset](atlas/benchmarks/pc_s_qwen3_14b.json).
-Use the pinned file only after its size and SHA256 match. With the GPU slot
-free, admit the reference with
+The larger reference passed the [Qwen3-14B admission](evidence/IJ072/model_identity/admission/J/report.json).
+Resume its frozen TC-V2 component through the queue. Use the same clean
+commit recorded by the first run. Stop only at a batch boundary and keep the
+original output directory.
 
 ```powershell
-python -m benchmarks.competitive_slm.admission --candidate J --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --cpu-bin ../../runtime/llama-cpp/cpu/llama-server.exe --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --disable-thinking --output .runtime/ij072-admission-j
+$env:PYTHONPATH = (Resolve-Path src).Path
+$strong = @('--candidate', 'J', '--model', '../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf', '--engine-dir', '../../.tools/ij07-toolchoice-p4b-vulkan')
+python -m scripts.tools.atlas_pc_s --suite tc @strong --output .runtime/ij072-pc-s-j-tc
 ```
 
 The raw competitive and JOB-V1 A/B reconciliation commands require the

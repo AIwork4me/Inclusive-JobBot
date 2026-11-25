@@ -340,7 +340,7 @@ def execute_locked(args, configuration, cases, roster, output, engine_dir, model
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--candidate", choices=(*BATCH_CANDIDATES, "H"), required=True)
+    parser.add_argument("--candidate", choices=(*BATCH_CANDIDATES, "H", "J"), required=True)
     parser.add_argument("--model", type=Path, required=True)
     parser.add_argument("--engine-dir", type=Path, required=True)
     parser.add_argument("--panel", choices=(*PANELS, "pc-s"), default="full")
@@ -351,8 +351,8 @@ def main():
     parser.add_argument("--port", type=int, choices=range(1024, 65536), default=8102, metavar="PORT")
     args = parser.parse_args()
     diagnostic = args.panel == "pc-s"
-    if diagnostic != (args.candidate == "H"):
-        parser.error("candidate H is reserved for the pc-s panel, which requires H")
+    if diagnostic != (args.candidate in {"H", "J"}):
+        parser.error("candidates H and J are reserved for the pc-s panel")
     scope = PC_S_SCOPE if diagnostic else RUN_SCOPE
     if args.batch_size is not None and args.batch_size < 1:
         parser.error("--batch-size must be positive")

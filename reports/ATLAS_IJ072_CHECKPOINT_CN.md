@@ -8,7 +8,7 @@
 |---|---:|---:|---:|---:|---:|---:|
 | Qwen3-8B PC-S TC-V2 开发面板 | 100 | 100 | 56 | 44 | 0 | 0 |
 | Qwen3-8B PC-S MULTITOOL-V1 | 120 | 120 | 28 | 92 | 0 | 0 |
-| Qwen3-8B PC-S Planning 双轨 | 320 | 100 | 4 | 96 | 0 | 220 |
+| Qwen3-8B PC-S Planning 双轨 | 320 | 320 | 4 | 316 | 0 | 0 |
 | 旧 JOB-V1 Arm A 首试 | 600 | 600 | 23 | 577 | 0 | 0 |
 | 旧 JOB-V1 Arm B 首试 | 600 | 300 | 22 | 278 | 7 | 293 |
 
@@ -16,9 +16,9 @@ Qwen3-8B Q8_0 使用 Vulkan0、Radeon 8060S gfx1151、37/37 层卸载及 8K 上�
 
 旧 A/B 恢复验证了 checkpoint、SQLite 与封存会话的 SHA256。Arm A、Arm B 的已封存部分实际业务完成数均为 0。Arm B 的 7 个未封存终态保留在原目录，本轮未计入 PASS 或 FAIL。原始 JOB-V1 目录继续用于精确身份恢复。 [A/B 检查点](../evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json)
 
-### MULTITOOL PC-S
+### MULTITOOL 与 Planning PC-S
 
-120 条试次全部封存了进程 GPU 计数器和生成轨迹。通过数随深度档位变化，从 2–3 步的 10/24 降至 11–15 步和 16–20 步各 4/24。32 调用预算已通过流式和非流式软件回归，物理流式配对待测。 [MULTITOOL 结果](../evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json) · [Planning 检查点](../evidence/IJ072/benchmark_validity/pc-s-planning-checkpoint/diagnostic.json)
+120 条试次全部封存了进程 GPU 计数器和生成轨迹。通过数随深度档位变化，从 2–3 步的 10/24 降至 11–15 步和 16–20 步各 4/24。Planning 首试全部完成，Acting-first 通过 4/160，Plan-first 通过 0/160。32 调用预算已通过流式和非流式软件回归，物理流式配对待测。 [MULTITOOL 结果](../evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json) · [Planning 完整归档](../evidence/IJ072/benchmark_validity/pc-s-planning-full/diagnostic.json)
 
 ## RC-02 四候选报价回传
 
@@ -35,16 +35,18 @@ Qwen3-8B Q8_0 使用 Vulkan0、Radeon 8060S gfx1151、37/37 层卸载及 8K 上�
 
 复查 1,600 条首试和 960 条重复。Plan-first 共 1,280 条在首轮计划校验处失败，终答阶段未执行。Acting-first 首试有 560 条在提议边界被拒，240 条进入终态评分。进入终态的 240 条中有 69 条符合终答结构，业务验证仍为 0/800。首试每轨有 110 条无适用工具执行指标。 [分层结果](../evidence/IJ072/root_causes/rc01-diagnostic.json)
 
-P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行和终答合同。保持冻结输入、权限、工具、模型预算和评估器。Acting-first 的提示保持原样。软件 RED/GREEN 验证了 P0/P1 的差异。Qwen3-8B 在冻结的 20 条 L0 Plan-first 配对中，P1 把初始协议通过从 0/20 提高到 7/20。严格端到端和业务结果均保持 0/20，P1 的 3 条虚报完成被安全评分识别。该实验只覆盖单模型 L0。 [配对证据](../evidence/IJ072/benchmark_validity/pc-p-qwen3-l0-p0-p1.json) [运行器](../benchmarks/agentic_planning_v1/runner.py) · [回归](../tests/regression/ij07/test_agentic_planning_v1.py)
+P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行和终答合同。保持冻结输入、权限、工具、模型预算和评估器。Acting-first 的提示保持原样。软件 RED/GREEN 验证了 P0/P1 的差异。Qwen3-8B 在冻结的 20 条 L0 Plan-first 配对中，P1 把初始协议通过从 0/20 提高到 7/20。严格端到端和业务结果均保持 0/20，P1 的 3 条虚报完成被安全评分识别。四模型 L0 配对共 80 对。MiniCPM5 初始协议通过从 0/20 到 3/20，LFM3 从 1/20 到 3/20，Gemma 从 0/20 到 1/20。两臂的严格通过均为 0/80。覆盖限于 L0，P2–P5 尚未执行。 [配对证据](../evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json) [运行器](../benchmarks/agentic_planning_v1/runner.py) · [回归](../tests/regression/ij07/test_agentic_planning_v1.py)
 
 ## A1 独立事实校验范围
 
-报价 witness 对全部 80 个用例使用公开提示、公开工具和实际工具返回生成答复，其中中英文各 40 条。复核程序直接从 SQLite 读取目录，并确认业务表未变化。字段重排通过。错误工具、错误参数、缺少动作、重复动作、错误报价、额外字段和围栏终答由原严格评分拒绝。报价变异结果单列为该任务族的软件证据。全量 TC-V2 和 MULTITOOL-V1 见证如下。Planning L1–L7、JOB-V1 和独立人工盲审仍是 F0 未完成项。 [Witness](../benchmarks/atlas_validity/quote_witness.py) · [80 条结果](../evidence/IJ072/benchmark_validity/quote-controls.json)
+报价 witness 对全部 80 个用例使用公开提示、公开工具和实际工具返回生成答复，其中中英文各 40 条。复核程序直接从 SQLite 读取目录，并确认业务表未变化。字段重排通过。错误工具、错误参数、缺少动作、重复动作、错误报价、额外字段和围栏终答由原严格评分拒绝。报价变异结果单列为该任务族的软件证据。全量 TC-V2 和 MULTITOOL-V1 见证如下。Planning Plan-first 独立预计划、JOB-V1 全量见证和独立人工盲审仍是 F0 未完成项。 [Witness](../benchmarks/atlas_validity/quote_witness.py) · [80 条结果](../evidence/IJ072/benchmark_validity/quote-controls.json)
 
 TC-V2 的 500/500 条和 MULTITOOL-V1 的 600/600 条公开输入 witness 全部通过原评分。前者独立读取 500 份 SQLite 业务状态，后者校验 75 份有持久化的审核任务。两套评测均拒绝了缺动作、错参数和错业务事实的变异。MULTITOOL 另外拒绝了缺失用户更新的试次变异。 [TC-V2 见证](../evidence/IJ072/benchmark_validity/tc-holdout-witness.json) · [MULTITOOL 见证](../evidence/IJ072/benchmark_validity/multitool-witness.json.gz)
 
 L0 公开提示 witness 在 Acting-first 的 100 条零动作任务全部匹配冻结 Oracle。错误对象、错误终止动作和错误事实各测试 100 次，均被评分拒绝。 [L0 见证结果](../evidence/IJ072/benchmark_validity/planning-intent-controls.json)
 
+L1–L3 的 300 条读取见证和 L4–L7 的 400 条执行见证均通过。全体 800 条 Acting-first 软件试次使用公开输入决定动作，并在旧沙箱中检查实际响应和终态。L4–L7 的状态检查覆盖动态修订、草稿、确认和交付，存储范围为沙箱进程内。 [L1–L3](../evidence/IJ072/benchmark_validity/planning-read-controls.json) · [L4–L7](../evidence/IJ072/benchmark_validity/planning-advanced-controls.json)
+
 ## 候选资料核对
 
-原有候选均保留。Microsoft 已提供 Aion 2.3B 的官方 WebGPU INT4 权重和运行说明，AMD 物理结果尚待验证。IBM 的 Granite 4.2 3B 模型卡确认支持原生工具定义，现有固定 llama.cpp 版本的现场准入仍待确认。LFM2.5-1.2B-Instruct 可作为同家族更低计算成本的扩展对照。已选用 Qwen3-14B Q8_0 作为进一步的同家族强对照，ModelScope 预期权重哈希已固定，物理准入未执行。Qwen3.8-27B 为另一个待核验候选。 [14B 权重身份](../atlas/benchmarks/pc_s_qwen3_14b.json) [Aion WebGPU 模型卡](https://huggingface.co/microsoft/Aion-1.0-Instruct-2.3B-ONNX-WebGPU) · [Granite 模型卡](https://huggingface.co/ibm-granite/granite-4.2-3b) · [LFM2.5 模型卡](https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct) · [Qwen3.8 模型卡](https://huggingface.co/Qwen/Qwen3.8-27B)
+原有候选均保留。Microsoft 已提供 Aion 2.3B 的官方 WebGPU INT4 权重和运行说明，AMD 物理结果尚待验证。IBM 的 Granite 4.2 3B 模型卡确认支持原生工具定义，现有固定 llama.cpp 版本的现场准入仍待确认。LFM2.5-1.2B-Instruct 可作为同家族更低计算成本的扩展对照。已选用 Qwen3-14B Q8_0 作为进一步的同家族强对照，已逐字节验证 ModelScope 权重，共通过 10/10 项 CPU 与 Radeon Vulkan 准入检查，GPU 实际卸载 41/41 层。完整强参照任务资格仍待实测。Qwen3.8-27B 为另一个待核验候选。 [14B 权重身份](../atlas/benchmarks/pc_s_qwen3_14b.json) [Aion WebGPU 模型卡](https://huggingface.co/microsoft/Aion-1.0-Instruct-2.3B-ONNX-WebGPU) · [Granite 模型卡](https://huggingface.co/ibm-granite/granite-4.2-3b) · [LFM2.5 模型卡](https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct) · [Qwen3.8 模型卡](https://huggingface.co/Qwen/Qwen3.8-27B)

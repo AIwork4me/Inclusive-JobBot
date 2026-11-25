@@ -5,7 +5,7 @@
 | ID | Status | Owner | Condition |
 |---|---|---|---|
 | B-IJ071-01 | BLOCKED | Benchmark engineering | Independent witness and cross-suite Mutation coverage, bilingual review, strong-model control, prompt ablations and revised scorer freeze remain open before A1 admission. |
-| B-IJ071-02 | BLOCKED | GPU experiment scheduling | The interrupted legacy JOB-V1 controller yielded the slot. Arm A is sealed. Arm B has seven unsealed records. The remaining PC-S experiments get priority. See `atlas/physical_queue.json`. |
+| B-IJ071-02 | BLOCKED | GPU experiment scheduling | The interrupted legacy JOB-V1 controller yielded the slot. Arm A is sealed. Arm B has seven unsealed records. Qwen3-8B PC-S is sealed. The Qwen3-14B reference trial roster has priority over the legacy queue. See `atlas/physical_queue.json`. |
 | B-IJ071-03 | BLOCKED | Runtime engineering | The strict planning and MULTITOOL launchers admit B/D/F/G. Qualify an explicit Qwen3-8B profile for PC-S with the same wire and source evidence. |
 
 Status values: `OPEN`, `MITIGATED` (workaround in use, cause still present),

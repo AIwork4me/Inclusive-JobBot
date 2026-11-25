@@ -37,10 +37,10 @@ def archive(source, output, *, pc_s=False):
 
         frozen = create()["multitool_v1"]
         selected = {case_id for group in frozen["selection_by_stratum"].values() for case_id in group}
-        if (config["candidate"] != "H" or config["panel"] != "primary"
+        if (config["candidate"] not in {"H", "J"} or config["panel"] != "primary"
                 or len(config["roster"]) != frozen["trial_count"]
                 or {row["case_id"] for row in config["roster"]} != selected):
-            raise ValueError("MULTITOOL PC-S run differs from the frozen Qwen3-8B roster")
+            raise ValueError("MULTITOOL PC-S run differs from the frozen Qwen reference roster")
     roster = {item["key"]: (item["case_id"], item["seed"]) for item in config["roster"]}
     final_summary = json.loads(summary_path.read_bytes()) if summary_path.is_file() else None
     paths = sorted((source / "cases").glob("*.json"))
@@ -119,7 +119,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--pc-s", action="store_true", help="verify the complete frozen Qwen3-8B diagnostic")
+    parser.add_argument("--pc-s", action="store_true", help="verify the complete frozen Qwen reference diagnostic")
     args = parser.parse_args()
     archive(args.source, args.output, pc_s=args.pc_s)
 

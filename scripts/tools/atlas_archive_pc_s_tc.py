@@ -12,8 +12,8 @@ from scripts.tools.scan_sensitive import scan
 
 def archive(source):
     run = json.loads((source / "run.json").read_bytes())
-    if run["scope"] != PC_S_SCOPE or run["configuration"]["candidate"] != "H":
-        raise ValueError("expected a PC-S Qwen3-8B TC-V2 run")
+    if run["scope"] != PC_S_SCOPE or run["configuration"]["candidate"] not in {"H", "J"}:
+        raise ValueError("expected a pinned PC-S Qwen reference TC-V2 run")
     rows = read_attempts(source, run)
     summary = summarize(run, rows)
     if summary != json.loads((source / "summary.json").read_bytes()):
