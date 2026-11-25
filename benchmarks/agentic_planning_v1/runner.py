@@ -13,7 +13,7 @@ from model_gateway.strict_json import strict_object
 from model_gateway.errors import GatewayError
 from model_gateway.streaming import StreamAssembler
 
-from .contract import TOOLS, request
+from .contract import POLICY, TOOLS, TRACK_PROMPTS, request
 from .oracle import score
 from .sandbox import SyntheticSandbox
 
@@ -105,12 +105,21 @@ def decode_wire(raw, stream):
 
 
 def run_trajectory(case, graph, client, *, track, seed, alias="minicpm5-2b", stream=False,
-                   temperature=0.0, max_tokens=2048, thinking=False, journal=None):
+                   temperature=0.0, max_tokens=2048, thinking=False, journal=None, prompt_contract="p0"):
     if graph["case_id"] != case["case_id"]:
         raise ValueError("trajectory graph identity mismatch")
     send = journal if journal is not None else lambda event: None
+    if prompt_contract not in {"p0", "p1"}:
+        raise ValueError("unknown prompt contract")
+    staged_plan = track == "P" and prompt_contract == "p1"
     wire = request(case, track)
     messages = wire["messages"]
+    if staged_plan:
+        plan_only = TRACK_PROMPTS["P"].removesuffix(" Then act using the available tools and observations.")
+        system_parts = [POLICY, plan_only]
+        if case.get("policy"):
+            system_parts.append(case["policy"])
+        messages[0]["content"] = "\n".join(system_parts)
     sandbox = SyntheticSandbox(graph["world"])
     initial_state = sandbox.snapshot()
     boundary = Boundary(case)
@@ -176,6 +185,8 @@ def run_trajectory(case, graph, client, *, track, seed, alias="minicpm5-2b", str
                 findings.append({"code": "INITIAL_PLAN_REJECTED", "detail": str(failure)})
                 break
             plan_before_tools = True
+            if staged_plan:
+                messages[0] = request(case, "A")["messages"][0]
             messages.extend([assistant, {"role": "user", "content": PLAN_TRANSITION}])
             continue
         if not choice.calls:

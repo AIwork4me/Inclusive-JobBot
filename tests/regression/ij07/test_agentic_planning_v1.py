@@ -185,7 +185,8 @@ def completion(*calls, content=None):
     }}]}
 
 
-def test_runner_replays_acting_and_plan_first_wire_fixtures(corpus):
+@pytest.mark.parametrize("prompt_contract", ("p0", "p1"))
+def test_runner_replays_acting_and_plan_first_wire_fixtures(corpus, prompt_contract):
     public, private, _ = corpus
     case = next(c for c in public if c["level"] == "L2")
     graph = private[case["case_id"]]
@@ -198,13 +199,19 @@ def test_runner_replays_acting_and_plan_first_wire_fixtures(corpus):
         client = WireFixture([*([completion(content=json.dumps(plan))] if track == "P" else []),
                               completion(*calls), completion(content=json.dumps(graph["final"]))])
         events = []
-        result = run_trajectory(case, graph, client, track=track, seed=41909, journal=events.append)
+        kwargs = {"prompt_contract": prompt_contract} if prompt_contract == "p1" else {}
+        result = run_trajectory(case, graph, client, track=track, seed=41909, journal=events.append, **kwargs)
         assert result["status"] == "PASS"
         assert [row["turn"] for row in result["records"]] == ([1, 1] if track == "P" else [0, 0])
         assert {event["kind"] for event in events} >= {"request", "capture", "observation"}
         if track == "P":
             assert client.requests[0]["request"]["tool_choice"] == "auto"
             assert result["plan_before_tools"]
+            first_system, second_system = [capture["request"]["messages"][0]["content"]
+                                           for capture in client.requests[:2]]
+            assert ("Return one JSON object" in first_system) == (prompt_contract == "p0")
+            assert "Return one JSON object" in second_system
+            assert ("Before invoking tools" in second_system) == (prompt_contract == "p0")
 
 
 def test_runner_rejects_same_turn_derived_id_before_any_batch_action(corpus):
@@ -302,16 +309,17 @@ def test_runner_entrypoint_resumes_the_other_track(corpus, monkeypatch, tmp_path
     assert len(list((output / "attempts").glob("*.jsonl"))) == 2
 
 
-def test_strict_candidate_profile_binds_launch_alias_and_preserves_plan_budget(corpus, monkeypatch, tmp_path):
+@pytest.mark.parametrize("candidate_id", ("B", "H"))
+def test_strict_candidate_profile_binds_launch_alias_and_preserves_plan_budget(candidate_id, corpus, monkeypatch, tmp_path):
     public, private, _ = corpus
     case = next(c for c in public if c["level"] == "L0")
     graph = private[case["case_id"]]
     final = completion(content=json.dumps(graph["final"]))
     wire = WireFixture([final])
-    alias = "ij07-candidate-b"
+    alias = f"ij07-candidate-{candidate_id.lower()}"
     model = tmp_path / "fixture-Q8_0.gguf"
     model.touch()
-    profile = {"candidate": "B", "track": "controlled", "backend": "vulkan", "gpu": tc_v2_candidate.VULKAN_DEVICE,
+    profile = {"candidate": candidate_id, "track": "controlled", "backend": "vulkan", "gpu": tc_v2_candidate.VULKAN_DEVICE,
                "engine": {"exe_sha256": "fixture-engine", "layers": 1},
                "model": {"official_model_id": "fixture/model", "runtime_repo": "fixture/GGUF",
                          "runtime_revision": "fixture-revision", "model_sha256": "fixture-model",
@@ -322,7 +330,7 @@ def test_strict_candidate_profile_binds_launch_alias_and_preserves_plan_budget(c
     launch_checks = []
 
     def verify_candidate(name, path, engine):
-        assert (name, path, engine) == ("B", model, tmp_path)
+        assert (name, path, engine) == (candidate_id, model, tmp_path)
         return profile
 
     @contextmanager
@@ -345,7 +353,7 @@ def test_strict_candidate_profile_binds_launch_alias_and_preserves_plan_budget(c
     args = Namespace(panel="primary", tracks="A", case=[case["case_id"]], seed=41909,
                      engine_dir=tmp_path, backend="vulkan", engine_sha256="fixture-engine", stream=False,
                      thinking=False, temperature=0.0, max_tokens=2048, port=18420, output=output,
-                     resume=False, batch_size=0, preflight_only=True, candidate="B", model=model)
+                     resume=False, batch_size=0, preflight_only=True, candidate=candidate_id, model=model)
 
     preflight = run.run_benchmark(args)
     assert preflight["physical_execution_status"] == "NOT_RUN"

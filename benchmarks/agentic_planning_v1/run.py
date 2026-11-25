@@ -27,7 +27,7 @@ ALIAS = historical_replay.ALIAS
 STATUSES = ("PASS", "FAIL", "BLOCKED", "NOT_RUN")
 SESSION_KEYS = ("backend", "gpu", "layers_offloaded", "layers_total", "build", "args", "template_sha256")
 RUNTIME_ENV_PREFIXES = ("LLAMA_", "GGML_", "HIP_", "ROCR_", "HSA_", "VK_")
-PLANNING_CANDIDATES = ("B", "D", "F", "G")
+PLANNING_CANDIDATES = ("B", "D", "F", "G", "H")
 
 
 def digest(value):
@@ -199,7 +199,7 @@ def prepare_runtime(args):
         binary, engine, env = historical_replay.engine_runtime(engine_dir, args.backend)
         return model, identity, binary, engine, env, None
     if candidate not in PLANNING_CANDIDATES or selected_model is None or args.backend != "vulkan":
-        raise ValueError("strict-admission candidate B, D, F or G requires --model and the Vulkan backend")
+        raise ValueError("strict-admission candidate requires --model and the Vulkan backend")
     model = selected_model.resolve(strict=True)
     runtime = tc_v2_candidate.verify_runtime(candidate, model, engine_dir)
     artifact = runtime["model"]
@@ -236,6 +236,8 @@ def run_benchmark(args):
         sdk = None
     settings = {"stream": args.stream, "thinking": args.thinking, "temperature": args.temperature,
                 "max_tokens": args.max_tokens}
+    if getattr(args, "prompt_contract", "p0") != "p0":
+        settings["prompt_contract"] = args.prompt_contract
     environment = {key.upper(): value for key, value in env.items() if key.upper().startswith(RUNTIME_ENV_PREFIXES)}
     configuration = {"engine": engine, "model": identity, "backend": args.backend, "port": args.port,
                      "git": legacy.git_state(), "sources": source_identity(candidate is not None), "python": platform.python_version(),
@@ -292,6 +294,8 @@ def main():
     parser.add_argument("--seed", type=int, default=41909, help="Seed for the primary panel")
     parser.add_argument("--max-tokens", type=int, default=2048)
     parser.add_argument("--temperature", type=float, default=0.0)
+    parser.add_argument("--prompt-contract", choices=("p0", "p1"), default="p0",
+                        help="p1 separates Plan-first initial instructions from acting and final output")
     parser.add_argument("--thinking", action="store_true")
     parser.add_argument("--stream", action="store_true")
     args = parser.parse_args()

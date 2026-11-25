@@ -29,7 +29,7 @@ from .runtime import Scenario, score
 
 ROOT, legacy = historical_replay.ROOT, historical_replay.legacy
 ALIAS = historical_replay.ALIAS
-CANDIDATES = ("B", "D", "F", "G")
+CANDIDATES = ("B", "D", "F", "G", "H")
 STATUSES = ("PASS", "FAIL", "BLOCKED", "NOT_RUN")
 LIMITS = {"max_turns": 24, "max_proposals": 32, "max_tokens_per_turn": 1536, "max_case_seconds": 600}
 FIRST_SEED = 66007

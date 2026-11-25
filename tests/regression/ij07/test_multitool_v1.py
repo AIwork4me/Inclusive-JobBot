@@ -168,18 +168,19 @@ def test_candidate_profile_changes_only_model_on_the_wire():
     assert candidate_request == {**default_request, "model": "ij07-candidate-b"}
 
 
-def test_strict_candidate_uses_shared_multitool_budget_and_pinned_template(tmp_path, monkeypatch):
-    verified = {"candidate": "D", "template": {"sha256": "strict-embedded"}, "engine": {"exe_sha256": "exe"},
+@pytest.mark.parametrize("candidate_id", ("D", "H"))
+def test_strict_candidate_uses_shared_multitool_budget_and_pinned_template(candidate_id, tmp_path, monkeypatch):
+    verified = {"candidate": candidate_id, "template": {"sha256": "strict-embedded"}, "engine": {"exe_sha256": "exe"},
                 "budgets": {"model_turns": 7, "completion_tokens_per_turn": 768, "context_tokens": 8192}}
     path = tmp_path / "pinned-Q8_0.gguf"
     path.touch()
     monkeypatch.setattr(run.tc_v2_candidate, "verify_runtime",
-                        lambda code, model, engine: verified if (code, model, engine) == ("D", path, tmp_path) else None)
+                        lambda code, model, engine: verified if (code, model, engine) == (candidate_id, path, tmp_path) else None)
     monkeypatch.setattr(run.tc_v2_candidate, "server_environment", lambda: {"fixture": "1"})
-    args = SimpleNamespace(candidate="D", backend="vulkan", engine_dir=tmp_path, model=path, runtime_root=None)
+    args = SimpleNamespace(candidate=candidate_id, backend="vulkan", engine_dir=tmp_path, model=path, runtime_root=None)
     binary, model, identity, env = run.resolve_runtime(args)
     assert (binary, model, env) == (tmp_path / "llama-server.exe", path, {"fixture": "1"})
-    assert identity["model_alias"] == "ij07-candidate-d"
+    assert identity["model_alias"] == f"ij07-candidate-{candidate_id.lower()}"
     assert identity["expected_template_sha256"] == "strict-embedded"
     assert "budgets" not in identity and "budgets" in verified
     with pytest.raises(ValueError, match="Vulkan"):

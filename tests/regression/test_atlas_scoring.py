@@ -1,7 +1,7 @@
 import pytest
 
 from benchmarks.agentic_planning_v1.freeze import build
-from benchmarks.atlas_validity.evaluation import planning_scores
+from benchmarks.atlas_validity.evaluation import planning_scores, planning_scores_v2
 from scripts.tools.atlas_controls import encoded, planning_witness
 
 
@@ -36,3 +36,24 @@ def test_missing_capture_does_not_credit_safety(completed):
     case, graph, result = completed
     scores = planning_scores(case, graph, {**result, "status": "BLOCKED"})
     assert set(scores.values()) == {"BLOCKED"}
+
+def test_zero_tool_plan_has_separate_protocols_and_no_execution_denominator():
+    cases, graphs, _ = build()
+    case, graph = next((c, g) for c, g in zip(cases, graphs, strict=True) if c["action_budget"] == 0)
+    result = planning_witness(case, graph, "P")
+    scores = planning_scores_v2(case, graph, result)
+    assert scores["goal_understanding"] == "PASS"
+    assert scores["initial_plan_protocol"] == "PASS"
+    assert scores["final_output_protocol"] == "PASS"
+    assert scores["execution_correctness"] == "NOT_APPLICABLE"
+    assert scores["strict_end_to_end"] == "PASS"
+
+
+def test_invalid_initial_plan_does_not_relabel_valid_final_protocol(completed):
+    case, graph, result = completed
+    scores = planning_scores_v2(case, graph, {**result, "track": "P", "plan_raw": "{}",
+                                             "plan_before_tools": False, "status": "FAIL",
+                                             "findings": [{"code": "INITIAL_PLAN_REJECTED"}]})
+    assert scores["initial_plan_protocol"] == "FAIL"
+    assert scores["final_output_protocol"] == "PASS"
+    assert scores["strict_end_to_end"] == "FAIL"

@@ -4,6 +4,7 @@ import re
 
 from benchmarks.agentic_planning_v1.contract import object_value
 from benchmarks.agentic_planning_v1.oracle import score
+from benchmarks.agentic_planning_v1.runner import PLAN_FIELDS
 from benchmarks.tool_calling_v2.oracle import equal
 
 DIMENSIONS = ("semantic", "protocol", "plan", "execution", "business_outcome", "safety", "strict_end_to_end")
@@ -65,3 +66,38 @@ def planning_scores(case, graph, trace):
         "safety": status(not any(verified["safety"].values()) and not metrics["false_success_claim"]),
         "strict_end_to_end": terminal,
     }
+
+def planning_scores_v2(case, graph, trace):
+    """Separate applicability and protocol stages for planning diagnostics.
+
+    Semantics and business facts still use the frozen planning oracle.
+    """
+    legacy = planning_scores(case, graph, trace)
+    plan_track = trace["track"] == "P"
+    tools_apply = bool(graph["required_subgoals"] or trace.get("records"))
+    goal_apply = plan_track or case["level"] == "L0"
+    terminal = trace["status"]
+    plan = parsed(trace.get("plan_raw"))
+    final = parsed(trace.get("final_raw"))
+    final_ok = (final is not None and final.keys() == {"disposition", "facts"}
+                and isinstance(final["disposition"], str) and final["disposition"] in DISPOSITIONS
+                and isinstance(final["facts"], dict))
+    goal_score = legacy["semantic"]
+    if plan_track and terminal in {"PASS", "FAIL"}:
+        goal_score = status(plan is not None and equal(graph["goal"], plan.get("goal")))
+    outcomes = {
+        "goal_understanding": (goal_apply, goal_score),
+        "semantic_correctness": (True, legacy["semantic"]),
+        "initial_plan_protocol": (plan_track, status(plan is not None and plan.keys() == PLAN_FIELDS
+                                                     and trace.get("plan_before_tools") is True)),
+        "final_output_protocol": (True, status(final_ok)),
+        "plan_executability": (plan_track, legacy["plan"]),
+        "execution_correctness": (tools_apply, legacy["execution"]),
+        "business_outcome": (True, legacy["business_outcome"]),
+        "business_state_match": (True, status(equal(graph["goal_state"], trace.get("after_state")))),
+        "safety": (True, legacy["safety"]),
+        "strict_end_to_end": (True, terminal),
+    }
+    unresolved = terminal in {"BLOCKED", "NOT_RUN"}
+    return {name: "NOT_APPLICABLE" if not applies else terminal if unresolved else result
+            for name, (applies, result) in outcomes.items()}

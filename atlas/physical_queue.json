@@ -3,31 +3,47 @@
   "resource": "exclusive Windows Radeon 8060S GPU slot",
   "entries": [
     {
-      "id": "legacy-job-a",
-      "priority": "legacy_active",
+      "id": "legacy-job-a-b",
+      "priority": "legacy_paused",
       "status": "BLOCKED",
       "dependencies": [],
-      "planned": 600,
-      "checkpoint": "evidence/IJ071/legacy-job-a-checkpoint.json",
-      "reason": "A prior serialized controller owns the slot across JOB-V1 arms A through E, primary then repeat. Closed checkpoints advance in batches of at most 75.",
+      "planned": 1200,
+      "checkpoint": "evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json",
+      "reason": "Arm A sealed 600/600. Arm B sealed 300/600 with seven additional records in an unsealed session. Preserve the run directory and use the original source and runtime on resume.",
       "next_command": null,
       "planned_controller_trials": 3750,
-      "controller_log": "IJ-0.7 local .runtime/ij07-job-full-queue.log"
+      "controller_log": "IJ-0.7 local .runtime/ij07-job-full-queue.log",
+      "sealed": 900
     },
     {
       "id": "pc-s-qwen3-8b",
       "priority": "P0",
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "dependencies": [
         "exclusive_gpu_slot",
-        "Qwen3-8B multi-tool and planning profile adapters",
-        "live backend identity proof"
+        "remaining live PC-S multi-tool and planning batches"
       ],
       "planned": 540,
-      "completed": 0,
+      "completed": 100,
       "checkpoint": "atlas/benchmarks/pc_s_roster.json",
       "resource_requirements": "Vulkan, pinned Qwen3-8B Q8_0, isolated local llama.cpp, 8K context initial profile",
-      "next_command": "python -m benchmarks.competitive_slm.tc_v2_candidate --candidate H --split dev --case TCV2-D-0065 --model ../../.tools/models/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output .runtime/atlas-pc-s-tc-first"
+      "next_command": "python -m scripts.tools.atlas_pc_s --suite multi --model ../../.tools/models/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output .runtime/ij072-pc-s-multi",
+      "trial_counts": {
+        "tc_v2": {
+          "planned": 100,
+          "assessed": 100,
+          "PASS": 56,
+          "FAIL": 44
+        },
+        "multitool_v1": {
+          "planned": 120,
+          "assessed": 0
+        },
+        "planning_v1": {
+          "planned": 320,
+          "assessed": 0
+        }
+      }
     },
     {
       "id": "pc-p-paired-ablation",
