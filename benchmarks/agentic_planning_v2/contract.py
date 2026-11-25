@@ -24,6 +24,15 @@ class FactKind(str, Enum):
 def value(term, observations):
     if not isinstance(term, dict):
         return term
+    if "first" in term:
+        for ref in term["first"]:
+            item = value(ref, observations)
+            if item is not UNKNOWN and item is not ABSENT:
+                return item
+        return UNKNOWN
+    if "if" in term:
+        condition = predicate(term["if"], observations)
+        return UNKNOWN if condition is UNKNOWN else term["then" if condition else "else"]
     source = term["from"]
     if source not in observations:
         return UNKNOWN

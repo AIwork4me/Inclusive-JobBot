@@ -37,13 +37,14 @@ def validate(plan, contract):
         if spec is None or set(node["arguments"]) != set(spec["inputs"]):
             return ["unavailable tool or invalid argument keys"]
         for key, term in node["arguments"].items():
-            if key in {"id", "peer_id", "draft_id", "approval", "audit_ref"} and not isinstance(term, dict):
+            if key in {"id", "peer_id", "draft_id", "approval", "audit_ref"} and (
+                    not isinstance(term, dict) or not (term.keys() == {"from", "field"} or term.keys() == {"first"})):
                 errors.append("identity must be bound to a known fact")
         if node["tool"] == "commit" and node["arguments"].get("approval") != {"from": "event", "field": "approval"}:
             errors.append("commit requires a trusted external grant reference")
         fields[name] = set(spec["outputs"])
     for name, node in nodes.items():
-        deps = set(node["depends_on"])
+        deps = set(node["depends_on"]) | set(node.get("observes", []))
         if deps - nodes.keys():
             errors.append("undefined dependency")
         for source, field in references([node["when"], *node["arguments"].values()]):
@@ -54,12 +55,25 @@ def validate(plan, contract):
             errors.append("undefined terminal reference")
     pending = set(nodes)
     while pending:
-        ready = {name for name in pending if not pending.intersection(nodes[name]["depends_on"])}
+        ready = {name for name in pending if not pending.intersection(nodes[name]["depends_on"] + nodes[name].get("observes", []))}
         if not ready:
             errors.append("cyclic dependencies")
             break
         pending -= ready
     return errors
+
+
+def next_action(plan, obs, used):
+    for node in plan["actions"]:
+        if node["id"] in used or not set(node["depends_on"]) <= obs.keys():
+            continue
+        if predicate(node["when"], obs) is not True:
+            continue
+        args = {k: value(v, obs) for k, v in node["arguments"].items()}
+        if any(v is UNKNOWN or v is ABSENT for v in args.values()):
+            continue
+        return node, args
+    return None
 
 
 def simulate(plan, contract, world):
@@ -74,21 +88,15 @@ def simulate(plan, contract, world):
     calls = []
     consumed = set()
     for _ in range(len(plan["actions"]) + 1):
-        stops = {s["disposition"] for s in plan["stops"] if predicate(s["when"], obs) is True}
+        stops = [s for s in plan["stops"] if predicate(s["when"], obs) is True]
         if stops:
-            passed = stops == {world["disposition"]} and len(calls) == len(world["steps"])
+            passed = len(stops) == 1 and stops[0]["disposition"] == world["disposition"] and len(calls) == len(world["steps"])
+            if "facts" in world:
+                resolved = {k: value(v, obs) for k, v in stops[0].get("facts", {}).items()}
+                passed = (passed and not any(v is UNKNOWN or v is ABSENT for v in resolved.values())
+                          and json.dumps(resolved, sort_keys=True) == json.dumps(world["facts"], sort_keys=True))
             return {"status": "PASS" if passed else "FAIL", "reason": "terminal", "calls": calls}
-        chosen = None
-        for node in plan["actions"]:
-            if node["id"] in used or not set(node["depends_on"]) <= obs.keys():
-                continue
-            if predicate(node["when"], obs) is not True:
-                continue
-            args = {k: value(v, obs) for k, v in node["arguments"].items()}
-            if any(v is UNKNOWN or v is ABSENT for v in args.values()):
-                continue
-            chosen = node, args
-            break
+        chosen = next_action(plan, obs, used)
         if chosen is None:
             return {"status": "FAIL", "reason": "no enabled transition", "calls": calls}
         node, args = chosen

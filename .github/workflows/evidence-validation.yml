@@ -16,6 +16,7 @@ jobs:
       - run: python -m pip install pytest==9.2.0 jsonschema==4.26.0
       - run: python scripts/tools/scan_sensitive.py
       - run: python scripts/tools/verify_atlas_artifacts.py
+      - run: python -m scripts.tools.ij073_verify
       - run: python scripts/tools/atlas_progress.py --check
       - run: python scripts/tools/atlas_reference_panel.py --check
       - run: python scripts/tools/atlas_replay_planning.py --check

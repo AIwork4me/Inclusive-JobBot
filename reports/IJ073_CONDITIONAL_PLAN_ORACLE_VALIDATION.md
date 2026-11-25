@@ -6,7 +6,7 @@
 |---|---|---|
 | A/D, 128 original failures among 800 plans | 47 of 128 match all executed calls under relaxed guards | Necessary observed-path check. Detailed breakdown in the [root-cause report](IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md). |
 | B, 602 interventions | 562/562 disabled-node and 40/40 declined-approval interventions each make at least one additional required effect unreachable | The original experimental interventions are encoded as ASTs. Every other prose guard is relaxed. The reachability algorithm sees only the graph, guard and public requirements. 582 have a baseline with all necessary effects reachable. The remaining 20 interventions affect 10 original plans missing the verification tool on a nominal success path. [Results](../evidence/IJ073/oracle/mutation_replay.json) |
-| C, 13 groups | Recomputed the old public grouping and distinct paths from the 200 source cases. Only 3/29 old graphs match the complete observed path. | A repaired common plan still needs independent public counterfactual testing. |
+| C, 13 groups | Recomputed the old public grouping and distinct paths from the 200 source cases. Only 3/29 old graphs match the complete observed path. | All 13 groups now execute one repaired graph per group and take distinct paths as observations change. |
 | D/E, 800 + 800 software traces | 1,600 matched final objects, observations and replayed synthetic business states | These calls were chosen by the separate software witness. [Replay](../evidence/IJ073/oracle/witness_replay.json) |
 | F, 1,600 physical first attempts + 960 repeats | 530 contained calls, all with matching sandbox observations and recorded end state. 393 had a recorded final output, none matched both expected object and state. 2,167 had no final output. | Offline replay verified every compressed part and member. Commit authorization was unexercised throughout. [Replay](../evidence/IJ073/oracle/archive_replay.json) |
 
@@ -15,6 +15,7 @@
 From the checkout root, use Python 3.12 with the repository's pinned jsonschema dependency and pytest. Each command emits JSON to stdout.
 
 ```text
+python -m scripts.tools.ij073_verify
 python -m scripts.tools.ij073_baseline
 python -m scripts.tools.ij073_plan_alignment
 python -m scripts.tools.ij073_mutation_replay
@@ -23,4 +24,10 @@ python -m scripts.tools.ij073_archive_replay
 python -m pytest -q tests/regression/test_ij073_conditional.py
 ```
 
-The candidate still needs independently authored full public transition domains for L0–L7, a repaired conditional witness for the incomplete graphs, policies for all request/retry/context budgets, runner integration, and independent qualification. Passing a fixed set of worlds is scoped to those worlds. The archive replay checks literal terminal objects and state. Semantic judgments and reviewer calibration belong to later gates.
+## Executed conditional witness
+
+A second experiment builds the typed graph solely from the public request, before opening the synthetic world. Action choice, argument binding, terminal disposition and final facts all come from the graph interpreter. Across 800 tasks, 62 distinct plan/contract pairs reproduced the correct observations, required actions, business state and answer. This includes the 128 cases with rejected historical plans. The archive contains the exact graphs, action-level observations, terminal answers and resource counts. Each of the 13 public-equivalent groups has one graph hash and multiple observed paths. [Plans and traces](../evidence/IJ073/oracle/executable_witness.json)
+
+Against these repaired graphs, disabling the corresponding first action changes the observed outcome in 562/562 cases. Changing the commit guard to require a decline changes 30/40 actual outcomes. The remaining 10 worlds already decline approval, so their real terminal outcome correctly stays the same. The guard disables the legal approval branch in all 40 under the single-variable approval counterfactual. [Paired interventions](../evidence/IJ073/oracle/guard_controls.json)
+
+The repaired graphs are software witnesses evaluated in frozen synthetic worlds. They establish feasibility on this suite. The evaluator still needs independent public-world controls and model-facing runner integration before formal freeze. The offline terminal replay compares literal objects and state. Semantic judgments and human calibration belong to later gates.

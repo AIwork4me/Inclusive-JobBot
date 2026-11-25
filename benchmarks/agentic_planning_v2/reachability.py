@@ -46,6 +46,6 @@ def may_hold(expr, partial):
         key = expr["ref"]
         return True if key["field"] in partial.get(key["from"], {}) else UNKNOWN
     for term in (expr["left"], expr["right"]):
-        if isinstance(term, dict) and term["field"] not in partial.get(term["from"], {}):
+        if isinstance(term, dict) and ("from" not in term or term["field"] not in partial.get(term["from"], {})):
             return UNKNOWN
     return predicate(expr, partial)
