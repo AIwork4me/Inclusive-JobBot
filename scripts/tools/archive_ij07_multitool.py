@@ -22,13 +22,13 @@ def rate_intervals(strata):
     }
 
 
-def archive(source, output, *, pc_s=False, pc_s_checkpoint=False):
+def archive(source, output, *, pc_s=False, pc_s_checkpoint=False, pc_s_stream_pairs=False):
     run_path = source / "run.json"
     summary_path = source / "summary.json"
     run = json.loads(run_path.read_bytes())
     config = run["configuration"]
     freeze = dataset.load_freeze()
-    reference = pc_s or pc_s_checkpoint
+    reference = pc_s or pc_s_checkpoint or pc_s_stream_pairs
     scope = "diagnostic" if reference else "full_panel"
     if (run["fingerprint"] != digest(config) or config["freeze_sha256"] != freeze.manifest["freeze_sha256"]
             or config["scope"] != scope):
@@ -37,9 +37,10 @@ def archive(source, output, *, pc_s=False, pc_s_checkpoint=False):
         from scripts.tools.atlas_reference_panel import create
 
         frozen = create()["multitool_v1"]
-        selected = {case_id for group in frozen["selection_by_stratum"].values() for case_id in group}
+        selected = {case_id for group in frozen["selection_by_stratum"].values()
+                    for case_id in (group[:1] if pc_s_stream_pairs else group)}
         if (config["candidate"] not in {"H", "J"} or config["panel"] != "primary"
-                or len(config["roster"]) != frozen["trial_count"]
+                or bool(config.get("stream")) != pc_s_stream_pairs or len(config["roster"]) != len(selected)
                 or {row["case_id"] for row in config["roster"]} != selected):
             raise ValueError("MULTITOOL PC-S run differs from the frozen Qwen reference roster")
     roster = {item["key"]: (item["case_id"], item["seed"]) for item in config["roster"]}
@@ -97,7 +98,7 @@ def archive(source, output, *, pc_s=False, pc_s_checkpoint=False):
                       or any(run["sessions"][tag].get("proof") != info or info["status"] != "PASS"
                              for tag, info in proof.items())):
         raise ValueError("MULTITOOL PC-S requires a closed physical checkpoint")
-    if pc_s and not resolved:
+    if (pc_s or pc_s_stream_pairs) and not resolved:
         raise ValueError("MULTITOOL PC-S full coverage requires all frozen trials")
     output.mkdir(parents=True, exist_ok=False)
     (output / "run.json").write_bytes(dataset.canonical(run))
@@ -125,8 +126,10 @@ def main():
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--pc-s", action="store_true", help="verify the complete frozen Qwen reference diagnostic")
     mode.add_argument("--pc-s-checkpoint", action="store_true", help="verify a closed batch of the frozen reference panel")
+    mode.add_argument("--pc-s-stream-pairs", action="store_true", help="verify the fixed depth/language streaming panel")
     args = parser.parse_args()
-    archive(args.source, args.output, pc_s=args.pc_s, pc_s_checkpoint=args.pc_s_checkpoint)
+    archive(args.source, args.output, pc_s=args.pc_s, pc_s_checkpoint=args.pc_s_checkpoint,
+            pc_s_stream_pairs=args.pc_s_stream_pairs)
 
 
 if __name__ == "__main__":

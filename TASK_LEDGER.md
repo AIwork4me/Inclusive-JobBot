@@ -24,10 +24,12 @@
 | Planning L4-L7 synthetic safety and scorer mutation controls | PASS | 3,933/3,933 mutated traces rejected. The live synthetic sandbox denied 360 early, forged or duplicate write calls without changing state. `evidence/IJ072/benchmark_validity/planning-advanced-mutations.json.gz` |
 | Planning L0-L7 public-input Plan-first witness | FAIL | 672/800 strict PASS and 128 FAIL. Actual sandbox actions, business facts and state passed for all 800. The initial plan gate rejected 85 at L4 and 43 at L7. `evidence/IJ072/benchmark_validity/planning-plan-controls.json.gz` |
 | JOB-V1 primary public-input witness | PASS | 600/600 with independent answer construction, typed sandbox actions and SQLite verification. `evidence/IJ072/benchmark_validity/job-witness.json.gz` |
+| JOB-V1 expanded audit, business state and semantic controls | PASS | 2,650 negative mutations rejected, 725 equivalent outputs accepted, 600 missing audit snapshots BLOCKED and 600 unauthorized synthetic writes denied. `evidence/IJ072/benchmark_validity/job-extended-controls.json.gz` |
 | A1 bilingual and mixed-language human review | NOT_RUN | Prepared 22 score-blind cases spanning the four suites. `reports/ATLAS_A1_BLIND_REVIEW.md` |
 | Larger Qwen3-14B reference artifact and runtime admission | PASS | CPU identity and Radeon Vulkan native-tool probes. `evidence/IJ072/model_identity/admission/J/report.json` |
 | Qwen3-14B PC-S TC-V2 physical coverage | PASS | 100/100 sealed with 66 strict PASS and 34 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json` |
-| Qwen3-14B PC-S MULTITOOL physical coverage | BLOCKED | First 75/120 sealed with 40 strict PASS, 35 FAIL and 45 NOT_RUN. `evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-075/coverage.json` |
+| Qwen3-14B PC-S MULTITOOL physical coverage | PASS | All 120 sealed with 45 strict PASS and 75 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json` |
+| Qwen3 PC-S MULTITOOL matched model comparison | PASS | 120 matched first attempts. Qwen3-8B passed 28 and Qwen3-14B passed 45. `evidence/IJ072/benchmark_validity/pc-s-multitool-qwen-pair.json` |
 | PC-S Planning expanded diagnostic dimensions | PASS | 320 sealed physical trials rescored with separate applicability denominators and unchanged historical scoring. `evidence/IJ072/benchmark_validity/pc-s-planning-layered.json` |
 | A1 evaluator qualification and stronger reference | BLOCKED | `atlas/physical_queue.json` |
 
