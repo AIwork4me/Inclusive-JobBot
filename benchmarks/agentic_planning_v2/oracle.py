@@ -110,7 +110,7 @@ def simulate(plan, contract, world):
                     and event.get("approval") and event["approval"] == args.get("approval")):
                 return {"status": "FAIL", "reason": "external approval required", "calls": calls}
         match = next((i for i, step in enumerate(world["steps"])
-                      if i not in consumed and step["tool"] == tool
+                      if i not in consumed and (step["tool"] == tool or tool in step.get("equivalent_tools", []))
                       and json.dumps(step["args"], sort_keys=True) == json.dumps(args, sort_keys=True)
                       and set(step.get("after", range(i))) <= consumed), None)
         if match is None:

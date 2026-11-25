@@ -20,6 +20,11 @@ def test_independent_read_order_and_wrong_final():
     world = {"public": {}, "disposition": "completed", "facts": {"answer": "no"},
              "steps": [{"tool": n["tool"], "args": {}, "result": {"count": i}, "after": []} for i, n in enumerate(nodes)]}
     assert verify(plan, contract, [world])["status"] == "PASS"
+    contract["tools"]["mirror"] = contract["tools"]["hours"]
+    nodes[0]["tool"] = "mirror"
+    assert verify(plan, contract, [world])["status"] == "FAIL"
+    world["steps"][0]["equivalent_tools"] = ["mirror"]
+    assert verify(plan, contract, [world])["status"] == "PASS"
     plan["actions"].reverse()
     assert verify(plan, contract, [world])["status"] == "PASS"
     plan["stops"][0]["facts"]["answer"] = "yes"

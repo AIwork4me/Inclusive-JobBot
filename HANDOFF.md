@@ -2,7 +2,7 @@
 
 ## IJ-0.7.3 conditional planning checkpoint
 
-Resume on PR #6. Use the [baseline](reports/IJ073_BASELINE_AUDIT.md), [root causes](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md) and [validation commands](reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md). The repaired witness now executes its declared graph in all 800 worlds, including the 128 original discrepancies and 13 public-equivalent groups. Run `python -m scripts.tools.ij073_verify` to reproduce all eight offline artifacts. The standalone public request/reply boundary and 21 independent control worlds have software coverage. Next qualify end-to-end model transport and independent safety verification, including rollback and audit completeness, before freezing the evaluator.
+Resume on PR #6. Use the [baseline](reports/IJ073_BASELINE_AUDIT.md), [root causes](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md) and [validation commands](reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md). The repaired witness now executes its declared graph in all 800 worlds, including the 128 original discrepancies and 13 public-equivalent groups. Run `python -m scripts.tools.ij073_verify` to reproduce all nine derived artifacts. The standalone public request/reply boundary and 21 independent control worlds have software coverage. Four local Qwen3-14B requests exercised the wire boundary and all failed the zero-tool development task. Conditional graph execution now exports per-call state transitions. Complete the independent cross-suite and safety qualification before evaluator freeze.
 
 ## IJ-0.7.2 A1 checkpoint
 
