@@ -39,10 +39,12 @@ P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行�
 
 ## A1 独立事实校验范围
 
-报价 witness 对全部 80 个用例使用公开提示、公开工具和实际工具返回生成答复，其中中英文各 40 条。复核程序直接从 SQLite 读取目录，并确认业务表未变化。字段重排通过。错误工具、错误参数、缺少动作、重复动作、错误报价、额外字段和围栏终答由原严格评分拒绝。这是报价单一任务族的软件证据，覆盖其余 TC-V2、MULTITOOL-V1、AGENTIC-PLAN-V1、JOB-V1 的独立 witness 和盲审仍是 F0 未完成项。 [Witness](../benchmarks/atlas_validity/quote_witness.py) · [80 条结果](../evidence/IJ072/benchmark_validity/quote-controls.json)
+报价 witness 对全部 80 个用例使用公开提示、公开工具和实际工具返回生成答复，其中中英文各 40 条。复核程序直接从 SQLite 读取目录，并确认业务表未变化。字段重排通过。错误工具、错误参数、缺少动作、重复动作、错误报价、额外字段和围栏终答由原严格评分拒绝。报价变异结果单列为该任务族的软件证据。全量 TC-V2 和 MULTITOOL-V1 见证如下。Planning L1–L7、JOB-V1 和独立人工盲审仍是 F0 未完成项。 [Witness](../benchmarks/atlas_validity/quote_witness.py) · [80 条结果](../evidence/IJ072/benchmark_validity/quote-controls.json)
+
+TC-V2 的 500/500 条和 MULTITOOL-V1 的 600/600 条公开输入 witness 全部通过原评分。前者独立读取 500 份 SQLite 业务状态，后者校验 75 份有持久化的审核任务。两套评测均拒绝了缺动作、错参数和错业务事实的变异。MULTITOOL 另外拒绝了缺失用户更新的试次变异。 [TC-V2 见证](../evidence/IJ072/benchmark_validity/tc-holdout-witness.json) · [MULTITOOL 见证](../evidence/IJ072/benchmark_validity/multitool-witness.json.gz)
 
 L0 公开提示 witness 在 Acting-first 的 100 条零动作任务全部匹配冻结 Oracle。错误对象、错误终止动作和错误事实各测试 100 次，均被评分拒绝。 [L0 见证结果](../evidence/IJ072/benchmark_validity/planning-intent-controls.json)
 
 ## 候选资料核对
 
-原有候选均保留。Microsoft 已提供 Aion 2.3B 的官方 WebGPU INT4 权重和运行说明，AMD 物理结果尚待验证。IBM 的 Granite 4.2 3B 模型卡确认支持原生工具定义，现有固定 llama.cpp 版本的现场准入仍待确认。LFM2.5-1.2B-Instruct 可作为同家族更低计算成本的扩展对照。Qwen3.8-27B 为 14B–32B 本地强对照候选，须单独冻结权重、运行时和提示后才可报告。 [Aion WebGPU 模型卡](https://huggingface.co/microsoft/Aion-1.0-Instruct-2.3B-ONNX-WebGPU) · [Granite 模型卡](https://huggingface.co/ibm-granite/granite-4.2-3b) · [LFM2.5 模型卡](https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct) · [Qwen3.8 模型卡](https://huggingface.co/Qwen/Qwen3.8-27B)
+原有候选均保留。Microsoft 已提供 Aion 2.3B 的官方 WebGPU INT4 权重和运行说明，AMD 物理结果尚待验证。IBM 的 Granite 4.2 3B 模型卡确认支持原生工具定义，现有固定 llama.cpp 版本的现场准入仍待确认。LFM2.5-1.2B-Instruct 可作为同家族更低计算成本的扩展对照。已选用 Qwen3-14B Q8_0 作为进一步的同家族强对照，ModelScope 预期权重哈希已固定，物理准入未执行。Qwen3.8-27B 为另一个待核验候选。 [14B 权重身份](../atlas/benchmarks/pc_s_qwen3_14b.json) [Aion WebGPU 模型卡](https://huggingface.co/microsoft/Aion-1.0-Instruct-2.3B-ONNX-WebGPU) · [Granite 模型卡](https://huggingface.co/ibm-granite/granite-4.2-3b) · [LFM2.5 模型卡](https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct) · [Qwen3.8 模型卡](https://huggingface.co/Qwen/Qwen3.8-27B)

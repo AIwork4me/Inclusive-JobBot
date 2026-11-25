@@ -30,6 +30,14 @@ From a fresh checkout, verify the portable evidence with
 `python scripts/tools/verify_atlas_artifacts.py`,
 `python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc`
 and `python -m scripts.tools.atlas_failure_ledger --check`.
+The larger reference has a [pinned ModelScope asset](atlas/benchmarks/pc_s_qwen3_14b.json).
+Use the pinned file only after its size and SHA256 match. With the GPU slot
+free, admit the reference with
+
+```powershell
+python -m benchmarks.competitive_slm.admission --candidate J --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --cpu-bin ../../runtime/llama-cpp/cpu/llama-server.exe --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --disable-thinking --output .runtime/ij072-admission-j
+```
+
 The raw competitive and JOB-V1 A/B reconciliation commands require the
 original workstation data. A1 must pass before revised large-scale qualification.
 

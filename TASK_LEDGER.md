@@ -15,6 +15,8 @@
 | L0 public-input intent witness and three mutations | PASS | 100/100 Acting-first exact matches. `evidence/IJ072/benchmark_validity/planning-intent-controls.json` |
 | PC-S physical Planning checkpoint | BLOCKED | 100/320 sealed with 4 strict PASS and 96 FAIL. `evidence/IJ072/benchmark_validity/pc-s-planning-checkpoint/diagnostic.json` |
 | PC-P paired Qwen3 L0 pilot | FAIL | P1 improves initial protocol 0/20 to 7/20. Strict results remain 0/20. `evidence/IJ072/benchmark_validity/pc-p-qwen3-l0-p0-p1.json` |
+| TC-V2 holdout public-input witness | PASS | 500/500 with actual synthetic tool execution and independently read SQLite state. `evidence/IJ072/benchmark_validity/tc-holdout-witness.json` |
+| MULTITOOL-V1 public-input witness | PASS | 600/600 with tool events and 75 direct SQLite draft-state checks. `evidence/IJ072/benchmark_validity/multitool-witness.json.gz` |
 | PC-S all suites and A1 evaluator qualification | BLOCKED | `atlas/physical_queue.json` |
 
 ## IJ-0.7.1 Atlas

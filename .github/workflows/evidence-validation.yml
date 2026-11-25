@@ -24,6 +24,8 @@ jobs:
           python -m scripts.tools.atlas_quote_controls evidence/IJ072/benchmark_validity/quote-controls.json --check
           python -m scripts.tools.atlas_failure_ledger --check
           python -m scripts.tools.atlas_planning_intent_controls --check
+          python -m scripts.tools.atlas_tc_holdout_witness --check
+          python -m scripts.tools.atlas_multitool_witness --check
           python -m scripts.tools.atlas_compare_pc_p_pilot --check
           python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc
         env:
