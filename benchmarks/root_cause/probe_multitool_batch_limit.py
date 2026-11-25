@@ -41,7 +41,7 @@ def probe(source):
                     "wire_sha256": hashlib.sha256(raw).hexdigest(),
                     "source_sha256": hashlib.sha256(samples).hexdigest(),
                     "default": check_gateway(raw, False),
-                    "multitool_profile": check_gateway(raw, False, max_nonstream_calls=MAX_NONSTREAM_CALLS),
+                    "multitool_profile": check_gateway(raw, False, max_calls=MAX_NONSTREAM_CALLS),
                 })
     if not trials or any(row["default"]["status"] != "FAIL" for row in trials):
         raise ValueError("expected failures did not reproduce on archived bytes")

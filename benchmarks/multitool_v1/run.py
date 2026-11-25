@@ -14,7 +14,8 @@ from uuid import uuid4
 
 from benchmarks.competitive_slm import tc_v2_candidate
 from benchmarks.root_cause import generation_capture, historical_replay
-from benchmarks.root_cause.wire_profiles import decode_batched_completion
+from benchmarks.root_cause.wire_profiles import decode_batched_completion, decode_batched_stream
+from benchmarks.tool_calling_v2.parser.run_wire import split_sse
 from benchmarks.tool_calling_v2.evaluator import Call, VALIDATOR
 from benchmarks.tool_calling_v2.holdout import qualify
 from benchmarks.tool_calling_v2.holdout.runner import parser_rejections
@@ -52,11 +53,14 @@ def plan(freeze, panel, selected, *, first_seed):
             for case_id in eligible if not selected or case_id in selected for seed in seeds]
 
 
-def request(messages, tools, seed, *, alias=ALIAS):
-    return {"model": alias, "messages": list(messages), "tools": tools, "tool_choice": "auto",
-            "parallel_tool_calls": True, "seed": seed, "temperature": 0, "stream": False,
+def request(messages, tools, seed, *, alias=ALIAS, stream=False):
+    body = {"model": alias, "messages": list(messages), "tools": tools, "tool_choice": "auto",
+            "parallel_tool_calls": True, "seed": seed, "temperature": 0, "stream": stream,
             "cache_prompt": False, "max_tokens": LIMITS["max_tokens_per_turn"],
             "chat_template_kwargs": {"enable_thinking": False}}
+    if stream:
+        body["stream_options"] = {"include_usage": True}
+    return body
 
 
 def count_proposals(reply, validators, ids):
@@ -80,7 +84,7 @@ def count_proposals(reply, validators, ids):
     return len(proposals), invalid
 
 
-def run_case(case, client, database, *, seed, alias=ALIAS):
+def run_case(case, client, database, *, seed, alias=ALIAS, stream=False):
     sandbox = Scenario(case, database)
     before = sandbox.snapshot()
     model = case.model_input()
@@ -104,7 +108,7 @@ def run_case(case, client, database, *, seed, alias=ALIAS):
             note("F12_FINAL_ANSWER_ERROR", "case wall-time budget reached before a final answer")
             break
         try:
-            reply = client.chat(client.base_url, request(messages, tools, seed, alias=alias))
+            reply = client.chat(client.base_url, request(messages, tools, seed, alias=alias, stream=stream))
         except (OSError, http.client.HTTPException, generation_capture.CaptureError) as failure:
             note("F04_TRANSPORT_ERROR", type(failure).__name__)
             capture_status = "BLOCKED"
@@ -142,7 +146,12 @@ def run_case(case, client, database, *, seed, alias=ALIAS):
         proposal_count += proposed
         invalid_count += invalid
         try:
-            answer = decode_batched_completion(capture["raw_response"], max_calls=LIMITS["max_proposals"])
+            raw = capture["raw_response"]
+            max_calls = LIMITS["max_proposals"]
+            if stream:
+                answer = decode_batched_stream(split_sse(raw.encode("utf-8")), max_calls=max_calls)
+            else:
+                answer = decode_batched_completion(raw, max_calls=max_calls)
             if any(call.call_id in ids for call in answer.calls):
                 raise ValueError("tool call ID was reused across assistant turns")
         except (GatewayError, ValueError) as failure:
@@ -242,6 +251,7 @@ def configuration(args, freeze, roster, identity, env):
         inventory.append(Path(tc_v2_candidate.__file__))
     environment = {key.upper(): value for key, value in env.items() if key.upper().startswith(ENV_PREFIXES)}
     return {"git": legacy.git_state(), **identity, "backend": args.backend, "port": args.port,
+            "stream": bool(getattr(args, "stream", False)),
             "freeze_sha256": freeze.manifest["freeze_sha256"], "panel": args.panel,
             "scope": "diagnostic" if args.case or args.panel == "controls" else "full_panel", "roster": roster,
             "manifest_sha256": legacy.sha256_of(FROZEN / "manifest.json"), "sdk_installed": version("google-antigravity"),
@@ -341,7 +351,7 @@ def execute_locked(args, config, cases, output, binary, model, env):
                     case = cases[trial["case_id"]]
                     key = trial["key"]
                     database = databases / f"{key}--{uuid4().hex}.sqlite" if case.oracle["state"] is not None else None
-                    result = run_case(case, client, database, seed=trial["seed"], alias=alias)
+                    result = run_case(case, client, database, seed=trial["seed"], alias=alias, stream=config.get("stream", False))
                     if database is not None:
                         result.update(database=database.name, database_sha256=legacy.sha256_of(database))
                     if not qualify.record(result, key, tag, run, records, interruptions, done):
@@ -383,6 +393,7 @@ def main():
     parser.add_argument("--case", action="append", default=[], help="limit a diagnostic to explicit frozen IDs")
     parser.add_argument("--batch-size", type=int, help="limit additional case attempts per launch")
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--stream", action="store_true", help="use the shared proposal budget with streaming")
     parser.add_argument("--preflight-only", action="store_true", help="verify identities without launching inference")
     args = parser.parse_args()
     if args.batch_size is not None and args.batch_size < 1:

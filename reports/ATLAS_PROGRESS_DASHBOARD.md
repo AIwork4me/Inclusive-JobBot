@@ -26,6 +26,7 @@ Formal gates passed 1/30. A1 counts refer to software fixture execution. Dashes 
 | Run | Planned | Assessed | PASS | FAIL | BLOCKED | NOT_RUN |
 |---|---:|---:|---:|---:|---:|---:|
 | [PC-S Qwen3-8B TC-V2 development](../evidence/IJ072/benchmark_validity/pc-s-tc/summary.json) | 100 | 100 | 56 | 44 | 0 | 0 |
+| [PC-S Qwen3-8B MULTITOOL-V1](../evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json) | 120 | 120 | 28 | 92 | 0 | 0 |
 | [Legacy JOB-V1 A primary](../evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json) | 600 | 600 | 23 | 577 | 0 | 0 |
 | [Legacy JOB-V1 B primary](../evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json) | 600 | 300 | 22 | 278 | 7 | 293 |
 

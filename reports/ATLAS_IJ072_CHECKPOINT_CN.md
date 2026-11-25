@@ -7,12 +7,17 @@
 | 实验 | 计划 | 有证据的试次 | PASS | FAIL | BLOCKED | NOT_RUN |
 |---|---:|---:|---:|---:|---:|---:|
 | Qwen3-8B PC-S TC-V2 开发面板 | 100 | 100 | 56 | 44 | 0 | 0 |
+| Qwen3-8B PC-S MULTITOOL-V1 | 120 | 120 | 28 | 92 | 0 | 0 |
 | 旧 JOB-V1 Arm A 首试 | 600 | 600 | 23 | 577 | 0 | 0 |
 | 旧 JOB-V1 Arm B 首试 | 600 | 300 | 22 | 278 | 7 | 293 |
 
 Qwen3-8B Q8_0 使用 Vulkan0、Radeon 8060S gfx1151、37/37 层卸载及 8K 上下文。每条试次绑定冻结开发集、引擎和模板哈希、运行配置、完整模型生成和 PID GPU 计数器。严格通过率为 56%，其中参数类型 0/14、顺序多工具 8/12、工具结果回传 3/12。名称为 `streaming_tool_call` 的 12 个任务使用本面板规定的非流式首试。 [运行配置](../evidence/IJ072/benchmark_validity/pc-s-tc/run.json) · [结果](../evidence/IJ072/benchmark_validity/pc-s-tc/summary.json) · [源码证据清单](../evidence/IJ072/benchmark_validity/pc-s-tc/raw-manifest.json)
 
 旧 A/B 恢复验证了 checkpoint、SQLite 与封存会话的 SHA256。Arm A、Arm B 的已封存部分实际业务完成数均为 0。Arm B 的 7 个未封存终态保留在原目录，本轮未计入 PASS 或 FAIL。原始 JOB-V1 目录继续用于精确身份恢复。 [A/B 检查点](../evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json)
+
+### MULTITOOL PC-S
+
+The 120-case Vulkan run has 28 strict passes and 92 failures, with sealed GPU process counters and source traces. The new 32-call streaming budget passed software parity checks. Live paired streaming qualification is pending. [MULTITOOL archive](../evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json)
 
 ## RC-02 四候选报价回传
 

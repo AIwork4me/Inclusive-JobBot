@@ -10,6 +10,7 @@ from .strict_json import strict_object
 
 MAX_WIRE_BYTES = 512 * 1024
 MAX_CALLS = 16
+MAX_BATCH_CALLS = 32
 NAME = re.compile(r"[A-Za-z0-9_-]{1,64}")
 CALL_ID = re.compile(r"[A-Za-z0-9_-]{1,128}")
 
@@ -45,7 +46,13 @@ def parse_proposal(proposal: Proposal) -> dict:
     return strict_object(proposal.arguments_raw)
 
 
-def assemble(message: dict, finish_reason: str) -> Completion:
+def validate_call_limit(max_calls: int) -> None:
+    if type(max_calls) is not int or not MAX_CALLS <= max_calls <= MAX_BATCH_CALLS:
+        raise ValueError("wire batch limit must be between 16 and 32")
+
+
+def assemble(message: dict, finish_reason: str, *, max_calls: int = MAX_CALLS) -> Completion:
+    validate_call_limit(max_calls)
     require(isinstance(message, dict) and message.get("role") == "assistant",
             "expected an assistant message")
     require("function_call" not in message, "legacy function calls are unsupported")
@@ -53,7 +60,7 @@ def assemble(message: dict, finish_reason: str) -> Completion:
     calls = message.get("tool_calls")
     if calls is None:
         calls = []
-    require(isinstance(calls, list) and len(calls) <= MAX_CALLS, "invalid tool call batch")
+    require(isinstance(calls, list) and len(calls) <= max_calls, "invalid tool call batch")
     require(bool(calls) == (finish_reason == "tool_calls"), "tool call batch and finish reason disagree")
     proposals = tuple(decode_proposal(call) for call in calls)
     require(len({item.call_id for item in proposals}) == len(proposals), "duplicate tool call ID")

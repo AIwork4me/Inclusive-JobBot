@@ -22,15 +22,25 @@ def rate_intervals(strata):
     }
 
 
-def archive(source, output):
+def archive(source, output, *, pc_s=False):
     run_path = source / "run.json"
     summary_path = source / "summary.json"
     run = json.loads(run_path.read_bytes())
     config = run["configuration"]
     freeze = dataset.load_freeze()
+    scope = "diagnostic" if pc_s else "full_panel"
     if (run["fingerprint"] != digest(config) or config["freeze_sha256"] != freeze.manifest["freeze_sha256"]
-            or config["scope"] != "full_panel"):
-        raise ValueError("MULTITOOL run identity differs from the requested full-panel freeze")
+            or config["scope"] != scope):
+        raise ValueError("MULTITOOL run identity differs from the requested freeze")
+    if pc_s:
+        from scripts.tools.atlas_reference_panel import create
+
+        frozen = create()["multitool_v1"]
+        selected = {case_id for group in frozen["selection_by_stratum"].values() for case_id in group}
+        if (config["candidate"] != "H" or config["panel"] != "primary"
+                or len(config["roster"]) != frozen["trial_count"]
+                or {row["case_id"] for row in config["roster"]} != selected):
+            raise ValueError("MULTITOOL PC-S run differs from the frozen Qwen3-8B roster")
     roster = {item["key"]: (item["case_id"], item["seed"]) for item in config["roster"]}
     final_summary = json.loads(summary_path.read_bytes()) if summary_path.is_file() else None
     paths = sorted((source / "cases").glob("*.json"))
@@ -82,6 +92,10 @@ def archive(source, output):
         "physical_sessions": proof,
         "source_capture_scope": "per-request generation traces; live sampler snapshots may continue growing",
     }
+    if pc_s and (not resolved or final_summary["physical_evidence_status"] != "PASS"
+                 or any(run["sessions"][tag]["proof"] != info or info["status"] != "PASS"
+                        for tag, info in proof.items())):
+        raise ValueError("MULTITOOL PC-S requires complete and sealed physical evidence")
     output.mkdir(parents=True, exist_ok=False)
     (output / "run.json").write_bytes(dataset.canonical(run))
     with (output / "terminal.jsonl.gz").open("wb") as handle:
@@ -105,8 +119,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--pc-s", action="store_true", help="verify the complete frozen Qwen3-8B diagnostic")
     args = parser.parse_args()
-    archive(args.source, args.output)
+    archive(args.source, args.output, pc_s=args.pc_s)
 
 
 if __name__ == "__main__":

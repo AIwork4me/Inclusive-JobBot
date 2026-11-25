@@ -4,21 +4,20 @@
 
 Status **INCOMPLETE**. Start with the [checkpoint report](reports/ATLAS_IJ072_CHECKPOINT_CN.md) and
 [physical queue](atlas/physical_queue.json). The Qwen3-8B TC-V2 PC-S component is
-sealed and archived. The physical MULTITOOL and Planning components use the
-same frozen PC-S roster. Work from the existing PR #6 branch. Run one
+sealed and archived, as is the 120-trial MULTITOOL component. The physical
+Planning component uses its frozen PC-S selection. Work from the existing PR #6 branch. Run one
 component at a time through the shared PC-S slot.
 
 ```powershell
 $env:PYTHONPATH = (Resolve-Path src).Path
 $pc = @('--model', '../../.tools/models/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf', '--engine-dir', '../../.tools/ij07-toolchoice-p4b-vulkan')
-python -m scripts.tools.atlas_pc_s --suite multi @pc --output .runtime/ij072-pc-s-multi
 python -m scripts.tools.atlas_pc_s --suite planning @pc --output .runtime/ij072-pc-s-planning
 ```
 
 An existing `run.json` enables exact resume. Read its `configuration.git.commit` first.
 If the branch has moved, run from a clean detached worktree at that commit
 and pass the original output directory by absolute path. Check that the
-existing owner has released the Radeon slot before launching. The current
+existing owner has released the Radeon slot before launching. The completed
 MULTITOOL run started at `05d0d1acba011dc940b4d7de5110f8fd33ea5baa`.
 The original JOB-V1 A and B run directories remain under the IJ-0.7 worktree
 and keep their own identities and checkpoints.

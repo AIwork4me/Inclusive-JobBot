@@ -270,3 +270,18 @@ def test_checkpoint_resume_binds_evidence_and_preserves_interruptions(tmp_path, 
     path.write_text(json.dumps(envelope), encoding="utf-8")
     with pytest.raises(ValueError, match="invalid checkpoint"):
         run.execute_locked(resume, configuration, cases, tmp_path, None, None, {})
+
+def test_multitool_stream_mode_reaches_real_runner_decoder():
+    case = load_freeze().controls["DIAG-NO-TOOL-EN"]
+
+    class SSEFixture(WireFixture):
+        def chat(self, url, request):
+            reply = super().chat(url, request)
+            content = reply["choices"][0]["message"]["content"]
+            choice = {"index": 0, "delta": {"role": "assistant", "content": content}, "finish_reason": "stop"}
+            self.requests[-1]["raw_response"] = f"data: {json.dumps({'choices': [choice]})}\n\ndata: [DONE]\n\n"
+            return reply
+
+    result = run_case(case, SSEFixture([{"content": '{"status":"ready"}'}]), None, seed=66007, stream=True)
+    assert result["status"] == "PASS"
+    assert result["requests"][0]["request"]["stream_options"] == {"include_usage": True}
