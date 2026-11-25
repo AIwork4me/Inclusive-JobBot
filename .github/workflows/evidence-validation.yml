@@ -41,6 +41,7 @@ jobs:
           python -m scripts.tools.atlas_audit_pc_p_schema --check
           python -m scripts.tools.atlas_audit_pc_p_schema --paired --check
           python -m scripts.tools.atlas_compare_pc_p_factorial --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --matrix --check
           python -m scripts.tools.atlas_planning_layered_report --check
           python -m scripts.tools.atlas_planning_layered_report --strong --check
           python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc
@@ -68,6 +69,7 @@ jobs:
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-160
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-240
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-full
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-p-h-clean-p0-032
       - run: |
           digest=$(python -c 'import json; print(json.load(open("configs/ij07/tc_v2_competitive_plan.lock.json"))["plan_sha256"])')
           python -m benchmarks.competitive_slm.tc_v2_archive verify --plan configs/ij07/tc_v2_competitive_plan.json --plan-sha256 "$digest" --archive evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint

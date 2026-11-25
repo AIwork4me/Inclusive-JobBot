@@ -27,13 +27,13 @@ sealed 320/320 trials. The larger reference's original source and outputs are
 linked to the clean workstation worktree `.scratch/ij072-reference-runtime`
 at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
 
-The [stratified PC-P panel](atlas/benchmarks/pc_p_factorial.json) has all nine
-treatments on its [first five Qwen3-8B cases](evidence/IJ072/benchmark_validity/pc-p-h-factorial-first-five.json).
+The [stratified PC-P panel](atlas/benchmarks/pc_p_factorial.json) has 207 sealed
+trials, covering all nine treatments on the [first five cases for all four models](evidence/IJ072/benchmark_validity/pc-p-factorial-first-five-four-models.json)
+and all [32 Qwen3-8B P0 trials](evidence/IJ072/benchmark_validity/pc-p-h-clean-p0-032/diagnostic.json).
 Use the workstation `.scratch/ij072-prompt-runtime` worktree at
 `876ee84baa86f86399a5ae46bd7721671e16a090` with the same shared Radeon slot.
 Verify the device is available and save results at completed batch boundaries.
-Reuse the matching Qwen3-8B output directory for each arm. Give each additional
-model and arm its own run directory.
+Reuse the matching output directory for each model and arm.
 Candidate A resolves the pinned MiniCPM5 GGUF in the worktree's ignored
 model directory. Candidates B and G use the existing Q8_0 files under
 `../ij07-worktree/.runtime/ij07-candidates/`. The model hashes are checked

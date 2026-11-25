@@ -98,8 +98,14 @@ def matrix():
     identities = {row["source_git"]["commit"] for row in results.values()}
     if len(identities) != 1:
         raise ValueError("four-model blocks use different experimental source commits")
+    strict = Counter()
+    for row in results.values():
+        for arm in row["counts"].values():
+            strict.update(arm["strict_end_to_end"])
     return {"scope": "All nine treatments across four models on the first five registered cases",
-            "trials": sum(len(row["cases"]) * len(row["counts"]) for row in results.values()), "models": results}
+            "trials": sum(len(row["cases"]) * len(row["counts"]) for row in results.values()),
+            "strict_outcomes": {status: strict[status] for status in ("PASS", "FAIL", "BLOCKED", "NOT_RUN")},
+            "models": results}
 
 
 def main():
