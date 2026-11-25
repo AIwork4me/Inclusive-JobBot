@@ -1,5 +1,9 @@
 # Handoff
 
+## IJ-0.7.3 conditional planning checkpoint
+
+Resume on PR #6. Use the [baseline](reports/IJ073_BASELINE_AUDIT.md), [root causes](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md) and [validation commands](reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md). The next engineering dependency is a conditional witness that executes its declared graph, including longer linked reads, recovery and scope revision. Recheck it against the 128 original discrepancies and public-equivalent worlds before freezing the evaluator.
+
 ## IJ-0.7.2 A1 checkpoint
 
 Status **INCOMPLETE**. Start with the [checkpoint report](reports/ATLAS_IJ072_CHECKPOINT_CN.md) and

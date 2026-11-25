@@ -1,5 +1,14 @@
 # Task Ledger
 
+## IJ-0.7.3
+
+| Task | Status | Evidence |
+|---|---|---|
+| Recount historical witness, physical reference and job panels | PASS | `evidence/IJ073/baseline.json` |
+| Replay historical synthetic calls, compare observed model traces and run necessary-effect interventions | PASS | `evidence/IJ073/oracle/` |
+| Qualify the complete conditional Oracle | NOT_RUN | `reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md` |
+| Qualify AEVE and perform full new model runs | NOT_RUN | `atlas/ij073/progress.json` |
+
 ## IJ-0.7.2 Atlas
 
 | Task | Status | Evidence |

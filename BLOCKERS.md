@@ -1,5 +1,10 @@
 # Blockers
 
+## IJ-0.7.3
+
+- Benchmark engineering owns the open Oracle qualification. In 81 of 128 originally rejected plans the archived independent path cannot be expressed using the proposed nodes even with relaxed guards. See the [per-case analysis](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md).
+- Independent reviewers own formal human calibration after the AEVE and review-packet freezes. The original 22-case packet remains unreviewed. Formal benchmark validity and new physical qualification depend on the specified gates.
+
 ## IJ-0.7.1 Atlas
 
 | ID | Status | Owner | Condition |
