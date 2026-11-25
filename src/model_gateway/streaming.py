@@ -4,16 +4,14 @@ from __future__ import annotations
 
 from .base import Completion
 from .errors import GatewayError
-from .openai_protocol import MAX_CALLS, MAX_WIRE_BYTES, assemble, require, text_field, validate_call_limit
+from .openai_protocol import MAX_CALLS, MAX_WIRE_BYTES, assemble, require, text_field
 from .strict_json import MAX_ARGUMENT_BYTES, strict_object
 
 
 class StreamAssembler:
     """Consumes SSE data-field values, including the terminal [DONE]."""
 
-    def __init__(self, *, max_calls: int = MAX_CALLS):
-        validate_call_limit(max_calls)
-        self._max_calls = max_calls
+    def __init__(self):
         self._size = 0
         self._done = False
         self._invalid = False
@@ -68,7 +66,7 @@ class StreamAssembler:
         self._reasoning.append(text_field(delta.get("reasoning_content"), "reasoning"))
         calls = delta.get("tool_calls")
         if calls is not None:
-            require(isinstance(calls, list) and len(calls) <= self._max_calls, "invalid stream call batch")
+            require(isinstance(calls, list) and len(calls) <= MAX_CALLS, "invalid stream call batch")
             self._push_calls(calls)
 
         finish_reason = choice.get("finish_reason")
@@ -82,7 +80,7 @@ class StreamAssembler:
             require(isinstance(piece, dict) and set(piece) <= {"index", "id", "type", "function"},
                     "invalid streamed tool call")
             index = piece.get("index")
-            require(type(index) is int and 0 <= index < self._max_calls, "invalid streamed tool index")
+            require(type(index) is int and 0 <= index < MAX_CALLS, "invalid streamed tool index")
             require(index not in event_indices, "duplicate tool index in one stream event")
             event_indices.add(index)
             call = self._calls.setdefault(index, {"function": {"name": "", "arguments": ""}})
@@ -109,5 +107,4 @@ class StreamAssembler:
              "reasoning_content": "".join(self._reasoning),
              "tool_calls": [self._calls[index] for index in range(len(self._calls))]},
             self._finish,
-            max_calls=self._max_calls,
         )

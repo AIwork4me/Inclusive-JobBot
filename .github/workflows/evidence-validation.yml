@@ -23,6 +23,8 @@ jobs:
       - run: |
           python -m scripts.tools.atlas_quote_controls evidence/IJ072/benchmark_validity/quote-controls.json --check
           python -m scripts.tools.atlas_failure_ledger --check
+          python -m scripts.tools.atlas_planning_intent_controls --check
+          python -m scripts.tools.atlas_compare_pc_p_pilot --check
           python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc
         env:
           PYTHONPATH: src
@@ -39,6 +41,7 @@ jobs:
           PYTHONPATH: src
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ07/planning/primary-vulkan-full
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ07/planning/repeat-vulkan-full
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-planning-checkpoint
       - run: |
           digest=$(python -c 'import json; print(json.load(open("configs/ij07/tc_v2_competitive_plan.lock.json"))["plan_sha256"])')
           python -m benchmarks.competitive_slm.tc_v2_archive verify --plan configs/ij07/tc_v2_competitive_plan.json --plan-sha256 "$digest" --archive evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint

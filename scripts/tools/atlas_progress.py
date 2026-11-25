@@ -253,6 +253,12 @@ def main():
     checkpoint_trials["PC-S Qwen3-8B MULTITOOL-V1"] = {
         "planned": multi["planned"], "assessed": multi["terminal"], "outcomes": multi["tasks"], "source": multi_path,
     }
+    plan_path = "evidence/IJ072/benchmark_validity/pc-s-planning-checkpoint/diagnostic.json"
+    plan = document(ROOT / plan_path)["overall"]
+    checkpoint_trials["PC-S Qwen3-8B Planning closed checkpoint"] = {
+        "planned": plan["planned_n"], "assessed": plan["assessable_n"], "outcomes": plan["counts"],
+        "source": plan_path,
+    }
     for arm, entry in jobs.items():
         row = entry["summary"]
         checkpoint_trials[f"Legacy JOB-V1 {arm} primary"] = {

@@ -8,6 +8,7 @@
 |---|---:|---:|---:|---:|---:|---:|
 | Qwen3-8B PC-S TC-V2 开发面板 | 100 | 100 | 56 | 44 | 0 | 0 |
 | Qwen3-8B PC-S MULTITOOL-V1 | 120 | 120 | 28 | 92 | 0 | 0 |
+| Qwen3-8B PC-S Planning 双轨 | 320 | 100 | 4 | 96 | 0 | 220 |
 | 旧 JOB-V1 Arm A 首试 | 600 | 600 | 23 | 577 | 0 | 0 |
 | 旧 JOB-V1 Arm B 首试 | 600 | 300 | 22 | 278 | 7 | 293 |
 
@@ -17,7 +18,7 @@ Qwen3-8B Q8_0 使用 Vulkan0、Radeon 8060S gfx1151、37/37 层卸载及 8K 上�
 
 ### MULTITOOL PC-S
 
-The 120-case Vulkan run has 28 strict passes and 92 failures, with sealed GPU process counters and source traces. The new 32-call streaming budget passed software parity checks. Live paired streaming qualification is pending. [MULTITOOL archive](../evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json)
+120 条试次全部封存了进程 GPU 计数器和生成轨迹。通过数随深度档位变化，从 2–3 步的 10/24 降至 11–15 步和 16–20 步各 4/24。32 调用预算已通过流式和非流式软件回归，物理流式配对待测。 [MULTITOOL 结果](../evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json) · [Planning 检查点](../evidence/IJ072/benchmark_validity/pc-s-planning-checkpoint/diagnostic.json)
 
 ## RC-02 四候选报价回传
 
@@ -34,11 +35,13 @@ The 120-case Vulkan run has 28 strict passes and 92 failures, with sealed GPU pr
 
 复查 1,600 条首试和 960 条重复。Plan-first 共 1,280 条在首轮计划校验处失败，终答阶段未执行。Acting-first 首试有 560 条在提议边界被拒，240 条进入终态评分。进入终态的 240 条中有 69 条符合终答结构，业务验证仍为 0/800。首试每轨有 110 条无适用工具执行指标。 [分层结果](../evidence/IJ072/root_causes/rc01-diagnostic.json)
 
-P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行和终答合同。保持冻结输入、权限、工具、模型预算和评估器。Acting-first 的提示保持原样。软件 RED/GREEN 验证了 P0/P1 的差异。真实模型的效应大小及 P2–P5 仍无完整数据。 [运行器](../benchmarks/agentic_planning_v1/runner.py) · [回归](../tests/regression/ij07/test_agentic_planning_v1.py)
+P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行和终答合同。保持冻结输入、权限、工具、模型预算和评估器。Acting-first 的提示保持原样。软件 RED/GREEN 验证了 P0/P1 的差异。Qwen3-8B 在冻结的 20 条 L0 Plan-first 配对中，P1 把初始协议通过从 0/20 提高到 7/20。严格端到端和业务结果均保持 0/20，P1 的 3 条虚报完成被安全评分识别。该实验只覆盖单模型 L0。 [配对证据](../evidence/IJ072/benchmark_validity/pc-p-qwen3-l0-p0-p1.json) [运行器](../benchmarks/agentic_planning_v1/runner.py) · [回归](../tests/regression/ij07/test_agentic_planning_v1.py)
 
 ## A1 独立事实校验范围
 
 报价 witness 对全部 80 个用例使用公开提示、公开工具和实际工具返回生成答复，其中中英文各 40 条。复核程序直接从 SQLite 读取目录，并确认业务表未变化。字段重排通过。错误工具、错误参数、缺少动作、重复动作、错误报价、额外字段和围栏终答由原严格评分拒绝。这是报价单一任务族的软件证据，覆盖其余 TC-V2、MULTITOOL-V1、AGENTIC-PLAN-V1、JOB-V1 的独立 witness 和盲审仍是 F0 未完成项。 [Witness](../benchmarks/atlas_validity/quote_witness.py) · [80 条结果](../evidence/IJ072/benchmark_validity/quote-controls.json)
+
+L0 公开提示 witness 在 Acting-first 的 100 条零动作任务全部匹配冻结 Oracle。错误对象、错误终止动作和错误事实各测试 100 次，均被评分拒绝。 [L0 见证结果](../evidence/IJ072/benchmark_validity/planning-intent-controls.json)
 
 ## 候选资料核对
 

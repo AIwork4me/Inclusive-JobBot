@@ -10,8 +10,11 @@
 | Planning P1 and separate protocol and execution diagnostic | PASS | Software regression only. `tests/regression/ij07/test_agentic_planning_v1.py` and `tests/regression/test_atlas_scoring.py` |
 | TC-V2 quote public-input software witnesses | PASS | 80/80, with SQLite state checks and seven rejected mutations. `evidence/IJ072/benchmark_validity/quote-controls.json` |
 | Source trace diagnostics for RC-01 and RC-02 | PASS | 2,880 indexed historical failed trials. Causal closure remains BLOCKED. `atlas/root_causes/failure_ledger.jsonl` |
-| MULTITOOL explicit 32-call streaming and non-streaming decoder budget | PASS | Software only. `tests/gateway/test_wire.py` and `tests/regression/ij07/test_multitool_v1.py` |
+| MULTITOOL explicit 32-call streaming and non-streaming decoder budget | PASS | Software only. `tests/regression/ij07/test_batch_wire_profile.py` and `tests/regression/ij07/test_multitool_v1.py` |
 | PC-S MULTITOOL-V1 physical coverage | PASS | 120/120 assessed, 28 strict PASS and 92 FAIL. `evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json` |
+| L0 public-input intent witness and three mutations | PASS | 100/100 Acting-first exact matches. `evidence/IJ072/benchmark_validity/planning-intent-controls.json` |
+| PC-S physical Planning checkpoint | BLOCKED | 100/320 sealed with 4 strict PASS and 96 FAIL. `evidence/IJ072/benchmark_validity/pc-s-planning-checkpoint/diagnostic.json` |
+| PC-P paired Qwen3 L0 pilot | FAIL | P1 improves initial protocol 0/20 to 7/20. Strict results remain 0/20. `evidence/IJ072/benchmark_validity/pc-p-qwen3-l0-p0-p1.json` |
 | PC-S all suites and A1 evaluator qualification | BLOCKED | `atlas/physical_queue.json` |
 
 ## IJ-0.7.1 Atlas

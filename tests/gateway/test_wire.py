@@ -113,20 +113,3 @@ def test_stream_rejects_incomplete_ambiguous_or_invalid_batch(events):
             stream.feed(event)
         stream.finish()
     assert problem.value.code == "PROTOCOL_ERROR"
-
-@pytest.mark.parametrize("count", (16, 17, 32, 33))
-def test_explicit_wire_budget_preserves_stream_and_completion_parity(count):
-    from benchmarks.root_cause.generation_capture import check_gateway
-
-    calls = [{"id": f"call-{i}", "type": "function",
-              "function": {"name": "test_read", "arguments": "{}"}} for i in range(count)]
-    complete = {"choices": [{"message": {"role": "assistant", "tool_calls": calls}, "finish_reason": "tool_calls"}]}
-    delta = {"choices": [{"index": 0,
-                          "delta": {"tool_calls": [{"index": i, **call} for i, call in enumerate(calls)]},
-                          "finish_reason": "tool_calls"}]}
-    raw_stream = f"data: {json.dumps(delta)}\n\ndata: [DONE]\n\n".encode()
-    raw_complete = json.dumps(complete).encode()
-    assert check_gateway(raw_stream, True, max_calls=32)["status"] == ("PASS" if count <= 32 else "FAIL")
-    assert check_gateway(raw_complete, False, max_calls=32)["status"] == ("PASS" if count <= 32 else "FAIL")
-    assert check_gateway(raw_stream, True)["status"] == ("PASS" if count <= 16 else "FAIL")
-    assert check_gateway(raw_complete, False)["status"] == ("PASS" if count <= 16 else "FAIL")

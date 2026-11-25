@@ -54,7 +54,10 @@ def main():
         return subprocess.call(command)
     if legacy.git_state()["dirty"]:
         parser.error("reference inference requires a clean source commit for exact resume")
-    slot = PC_S_ROSTER.parents[2] / ".runtime/ij072-pc-s-slot"
+    git_directory = subprocess.check_output(
+        ["git", "rev-parse", "--path-format=absolute", "--git-common-dir"], text=True,
+    ).strip()
+    slot = Path(git_directory).parent / ".runtime/ij072-pc-s-slot"
     slot.mkdir(parents=True, exist_ok=True)
     try:
         with legacy.output_lock(slot):

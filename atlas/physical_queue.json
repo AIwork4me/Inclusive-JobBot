@@ -24,8 +24,8 @@
         "remaining live PC-S planning batches"
       ],
       "planned": 540,
-      "completed": 220,
-      "checkpoint": "atlas/benchmarks/pc_s_roster.json",
+      "completed": 320,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-planning-checkpoint/diagnostic.json",
       "resource_requirements": "Vulkan, pinned Qwen3-8B Q8_0, isolated local llama.cpp, 8K context initial profile",
       "next_command": "python -m scripts.tools.atlas_pc_s --suite planning --model ../../.tools/models/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output .runtime/ij072-pc-s-planning",
       "trial_counts": {
@@ -43,14 +43,16 @@
         },
         "planning_v1": {
           "planned": 320,
-          "assessed": 0
+          "assessed": 100,
+          "PASS": 4,
+          "FAIL": 96
         }
       }
     },
     {
       "id": "pc-p-paired-ablation",
       "priority": "P0",
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "dependencies": [
         "versioned contracts",
         "frozen trial roster",
@@ -58,9 +60,10 @@
         "exclusive_gpu_slot"
       ],
       "planned": null,
-      "completed": 0,
-      "checkpoint": null,
-      "next_command": null
+      "completed": 20,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-p-qwen3-l0-p0-p1.json",
+      "next_command": null,
+      "reason": "Twenty paired L0 Plan-first diagnostics completed for H. Full models, strata and P2-P5 remain pending."
     },
     {
       "id": "revised-full-matrix",

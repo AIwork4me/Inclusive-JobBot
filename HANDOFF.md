@@ -17,8 +17,12 @@ python -m scripts.tools.atlas_pc_s --suite planning @pc --output .runtime/ij072-
 An existing `run.json` enables exact resume. Read its `configuration.git.commit` first.
 If the branch has moved, run from a clean detached worktree at that commit
 and pass the original output directory by absolute path. Check that the
-existing owner has released the Radeon slot before launching. The completed
-MULTITOOL run started at `05d0d1acba011dc940b4d7de5110f8fd33ea5baa`.
+existing owner has released the Radeon slot before launching. The active Planning source is `6a7ea4f9d527fffeeb32d8ef88496916d9dbc8ed`.
+The workstation has an isolated checkout for that identity at `.scratch/ij072-plan-runtime`.
+With that checkout as the working directory, use the command above with
+`--output ../ij071-atlas/.runtime/ij072-pc-s-planning` to recover the same run.
+A sealed prefix can be archived while a later batch is active.
+The completed MULTITOOL run started at `05d0d1acba011dc940b4d7de5110f8fd33ea5baa`.
 The original JOB-V1 A and B run directories remain under the IJ-0.7 worktree
 and keep their own identities and checkpoints.
 
