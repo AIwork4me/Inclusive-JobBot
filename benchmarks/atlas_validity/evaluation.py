@@ -74,11 +74,12 @@ def planning_scores_v2(case, graph, trace):
     """
     legacy = planning_scores(case, graph, trace)
     plan_track = trace["track"] == "P"
-    tools_apply = bool(graph["required_subgoals"] or trace.get("records"))
+    tools_apply = bool(graph["required_subgoals"])
     goal_apply = plan_track or case["level"] == "L0"
     terminal = trace["status"]
     plan = parsed(trace.get("plan_raw"))
-    final = parsed(trace.get("final_raw"))
+    final_raw = trace.get("final_raw")
+    final = parsed(final_raw)
     final_ok = (final is not None and final.keys() == {"disposition", "facts"}
                 and isinstance(final["disposition"], str) and final["disposition"] in DISPOSITIONS
                 and isinstance(final["facts"], dict))
@@ -87,10 +88,10 @@ def planning_scores_v2(case, graph, trace):
         goal_score = status(plan is not None and equal(graph["goal"], plan.get("goal")))
     outcomes = {
         "goal_understanding": (goal_apply, goal_score),
-        "semantic_correctness": (True, legacy["semantic"]),
+        "semantic_correctness": (True, "NOT_RUN" if final_raw is None else legacy["semantic"]),
         "initial_plan_protocol": (plan_track, status(plan is not None and plan.keys() == PLAN_FIELDS
                                                      and trace.get("plan_before_tools") is True)),
-        "final_output_protocol": (True, status(final_ok)),
+        "final_output_protocol": (True, "NOT_RUN" if final_raw is None else status(final_ok)),
         "plan_executability": (plan_track, legacy["plan"]),
         "execution_correctness": (tools_apply, legacy["execution"]),
         "business_outcome": (True, legacy["business_outcome"]),

@@ -20,6 +20,12 @@ jobs:
       - run: python scripts/tools/atlas_reference_panel.py --check
       - run: python scripts/tools/atlas_replay_planning.py --check
       - run: python scripts/tools/atlas_controls.py --check
+      - run: |
+          python -m scripts.tools.atlas_quote_controls evidence/IJ072/benchmark_validity/quote-controls.json --check
+          python -m scripts.tools.atlas_failure_ledger --check
+          python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc
+        env:
+          PYTHONPATH: src
       - run: python scripts/tools/verify_ij06_evidence.py
       - run: python -m scripts.tools.audit_ij07_baseline --check
       - run: python -m scripts.tools.verify_ij07_artifacts

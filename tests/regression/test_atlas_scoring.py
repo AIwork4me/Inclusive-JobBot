@@ -57,3 +57,13 @@ def test_invalid_initial_plan_does_not_relabel_valid_final_protocol(completed):
     assert scores["initial_plan_protocol"] == "FAIL"
     assert scores["final_output_protocol"] == "PASS"
     assert scores["strict_end_to_end"] == "FAIL"
+
+
+def test_final_protocol_stays_unmeasured_when_initial_plan_stops_trajectory(completed):
+    case, graph, result = completed
+    scores = planning_scores_v2(case, graph, {**result, "track": "P", "plan_raw": "{}",
+                                             "final_raw": None, "plan_before_tools": False, "status": "FAIL",
+                                             "findings": [{"code": "INITIAL_PLAN_REJECTED"}]})
+    assert scores["initial_plan_protocol"] == "FAIL"
+    assert scores["final_output_protocol"] == "NOT_RUN"
+    assert scores["strict_end_to_end"] == "FAIL"

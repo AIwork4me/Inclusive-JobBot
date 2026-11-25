@@ -72,6 +72,10 @@ def reconcile(raw_root):
         source = raw_root / f"ij07-competitive-full-{candidate}"
         archive = ROOT / "evidence/IJ071/legacy_competitive" / candidate
         identity = json.loads((archive / "archive.json").read_bytes())
+        run_file = source / "run.json"
+        if legacy.sha256_of(run_file) != identity["source_run_sha256"]:
+            raise ValueError(f"source run differs from archived identity for candidate {candidate}")
+        source_commit = json.loads(run_file.read_bytes())["configuration"]["git"]["commit"]
         trials_file = archive / "trials.jsonl.gz"
         if legacy.sha256_of(trials_file) != identity["files"][trials_file.name]["gzip_sha256"]:
             raise ValueError(f"archive changed for candidate {candidate}")
@@ -98,7 +102,7 @@ def reconcile(raw_root):
         for row in rows:
             counts.update({key: value for key, value in row.items() if type(value) is bool})
             counts[row["strict"]] += 1
-        report["candidates"][candidate] = {"run_id": identity["run_id"], "count": len(rows),
+        report["candidates"][candidate] = {"run_id": identity["run_id"], "source_commit": source_commit, "count": len(rows),
                                             "counts": dict(counts), "trials": rows}
     return report
 

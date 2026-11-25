@@ -204,6 +204,15 @@ def dashboard(progress):
                   "## IJ-0.7 historical evidence", "",
                   "| Run | Planned | Executed | Valid | PASS | FAIL | BLOCKED | NOT_RUN | Coverage | Strict result rate |",
                   "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|"])
+    historical_header = lines.index("## IJ-0.7 historical evidence")
+    checkpoint_lines = ["## IJ-0.7.2 executed checkpoints", "",
+                        "| Run | Planned | Assessed | PASS | FAIL | BLOCKED | NOT_RUN |",
+                        "|---|---:|---:|---:|---:|---:|---:|"]
+    for name, row in progress["ij072_trials"].items():
+        cells = [f"[{name}](../{row['source']})", row["planned"], row["assessed"],
+                 *(row["outcomes"][state] for state in STATUSES)]
+        checkpoint_lines.append("| " + " | ".join(map(str, cells)) + " |")
+    lines[historical_header:historical_header] = [*checkpoint_lines, ""]
     for name, row in progress["historical"].items():
         source = "evidence/" + row["source"]
         cells = [f"[{name}](../{source})", row["planned"], row["executed"], row["valid_evidence"],
@@ -232,7 +241,20 @@ def main():
     if any(row["status"] not in STATUSES for row in gates.values()):
         raise ValueError("Invalid formal gate status")
     gate_counts = Counter(row["status"] for row in gates.values())
-    progress = {"schema_version": 1, "workstreams": workstreams, "gates": gates,
+    tc_path = "evidence/IJ072/benchmark_validity/pc-s-tc/summary.json"
+    tc = document(ROOT / tc_path)
+    job_path = "evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json"
+    jobs = document(ROOT / job_path)["arms"]
+    checkpoint_trials = {"PC-S Qwen3-8B TC-V2 development": {
+        "planned": tc["planned"], "assessed": tc["assessed"], "outcomes": tc["status_counts"], "source": tc_path
+    }}
+    for arm, entry in jobs.items():
+        row = entry["summary"]
+        checkpoint_trials[f"Legacy JOB-V1 {arm} primary"] = {
+            "planned": row["planned_rows"], "assessed": row["terminal_rows"], "outcomes": row["outcomes"],
+            "source": job_path,
+        }
+    progress = {"schema_version": 1, "ij072_trials": checkpoint_trials, "workstreams": workstreams, "gates": gates,
                 "gate_status_counts": {s: gate_counts[s] for s in STATUSES},
                 "verdicts": document(ROOT / "atlas/verdicts.json"),
                 "historical": historical(ROOT / "evidence/IJ07")}

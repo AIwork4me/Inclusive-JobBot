@@ -8,6 +8,8 @@
 | PC-S TC-V2 physical coverage | PASS | 100/100 assessed, 56 strict PASS and 44 FAIL. `evidence/IJ072/benchmark_validity/pc-s-tc/summary.json` |
 | JOB-V1 legacy A/B checkpoint reconciliation | PASS | `evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json` |
 | Planning P1 and separate protocol and execution diagnostic | PASS | Software regression only. `tests/regression/ij07/test_agentic_planning_v1.py` and `tests/regression/test_atlas_scoring.py` |
+| TC-V2 quote public-input software witnesses | PASS | 80/80, with SQLite state checks and seven rejected mutations. `evidence/IJ072/benchmark_validity/quote-controls.json` |
+| Source trace diagnostics for RC-01 and RC-02 | PASS | 2,880 indexed historical failed trials. Causal closure remains BLOCKED. `atlas/root_causes/failure_ledger.jsonl` |
 | PC-S all suites and A1 evaluator qualification | BLOCKED | `atlas/physical_queue.json` |
 
 ## IJ-0.7.1 Atlas

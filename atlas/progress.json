@@ -1,5 +1,40 @@
 {
   "schema_version": 1,
+  "ij072_trials": {
+    "PC-S Qwen3-8B TC-V2 development": {
+      "planned": 100,
+      "assessed": 100,
+      "outcomes": {
+        "PASS": 56,
+        "FAIL": 44,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "source": "evidence/IJ072/benchmark_validity/pc-s-tc/summary.json"
+    },
+    "Legacy JOB-V1 A primary": {
+      "planned": 600,
+      "assessed": 600,
+      "outcomes": {
+        "BLOCKED": 0,
+        "FAIL": 577,
+        "NOT_RUN": 0,
+        "PASS": 23
+      },
+      "source": "evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json"
+    },
+    "Legacy JOB-V1 B primary": {
+      "planned": 600,
+      "assessed": 300,
+      "outcomes": {
+        "BLOCKED": 7,
+        "FAIL": 278,
+        "NOT_RUN": 293,
+        "PASS": 22
+      },
+      "source": "evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json"
+    }
+  },
   "workstreams": {
     "A0": {
       "planned": 1,
@@ -31,12 +66,12 @@
       "strict_pass_rate": 1.0,
       "status": "BLOCKED",
       "unit": "scheduled_positive_control_trial",
-      "evidence": "reports/ATLAS_A1_BENCHMARK_VALIDITY.md"
+      "evidence": "reports/ATLAS_IJ072_CHECKPOINT_CN.md"
     },
     "A2": {
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "unit": "failure_family",
-      "evidence": "reports/IJ07_SOURCE_LEVEL_ROOT_CAUSE_MASTER_REPORT.md",
+      "evidence": "atlas/root_causes/failure_ledger.jsonl",
       "outcomes": {}
     },
     "A3": {
@@ -130,7 +165,7 @@
     },
     "G03": {
       "name": "强模型及任务可解性",
-      "status": "NOT_RUN"
+      "status": "BLOCKED"
     },
     "G04": {
       "name": "规划零分系统性原因",
@@ -174,7 +209,7 @@
     },
     "G14": {
       "name": "源码调查追踪",
-      "status": "NOT_RUN"
+      "status": "BLOCKED"
     },
     "G15": {
       "name": "工程修复和回归",
@@ -240,8 +275,8 @@
   "gate_status_counts": {
     "PASS": 1,
     "FAIL": 0,
-    "BLOCKED": 4,
-    "NOT_RUN": 25
+    "BLOCKED": 6,
+    "NOT_RUN": 23
   },
   "verdicts": {
     "ATLAS_BENCHMARK_VALIDITY_VERDICT": "BLOCKED",
