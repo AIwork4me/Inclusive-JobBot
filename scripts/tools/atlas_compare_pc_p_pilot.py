@@ -33,7 +33,7 @@ def selected_archive(archive, selected):
         for entry in jsonl(part):
             if entry["name"] == "run.json":
                 run = json.loads(entry["raw_text"])
-            elif entry["name"].startswith("cases/AP1-L0-"):
+            elif entry["name"].startswith("cases/"):
                 row = json.loads(entry["raw_text"])
                 if row["track"] == "P" and row["case_id"] in selected:
                     if row["case_id"] in cases or row["run_id"] != diagnostic["run_id"]:

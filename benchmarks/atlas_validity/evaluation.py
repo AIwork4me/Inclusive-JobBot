@@ -102,3 +102,59 @@ def planning_scores_v2(case, graph, trace):
     unresolved = terminal in {"BLOCKED", "NOT_RUN"}
     return {name: "NOT_APPLICABLE" if not applies else terminal if unresolved else result
             for name, (applies, result) in outcomes.items()}
+
+
+def planning_layered_scores(case, graph, trace):
+    """Add action, dependency, recovery and state diagnostics to the frozen scores."""
+    layers = planning_scores_v2(case, graph, trace)
+    nodes = graph["nodes"]
+    selection_applies = bool(graph["required_subgoals"])
+    dependency_applies = any(node["requires"] or node["after"] for node in nodes.values())
+    state_applies = bool({"stage", "commit"}.intersection(case["tools"]))
+    disruption = nodes.get(graph["disruption"])
+    applicability = {
+        "tool_selection": selection_applies,
+        "tool_arguments": selection_applies,
+        "dependency_correctness": dependency_applies,
+        "dynamic_replanning": disruption is not None,
+        "persisted_state": state_applies,
+    }
+    terminal = trace["status"]
+    layers.update({name: terminal if applies and terminal in {"BLOCKED", "NOT_RUN"}
+                   else "NOT_RUN" if applies else "NOT_APPLICABLE"
+                   for name, applies in applicability.items()})
+    if terminal in {"BLOCKED", "NOT_RUN"}:
+        return layers
+    records = trace["records"]
+    if state_applies:
+        layers["persisted_state"] = layers["business_state_match"]
+    if not records:
+        return layers
+    by_tool = {}
+    for node in nodes.values():
+        by_tool.setdefault(node["tool"], []).append(node)
+    recovered_evidence = False
+    matched_dependencies = False
+    selected, arguments = [], []
+    for record in records:
+        row = record if type(record) is dict else {}
+        tool = row.get("tool")
+        candidates = by_tool.get(tool, ()) if type(tool) is str else ()
+        matches = [node for node in candidates if equal(node["args"], row.get("args"))]
+        selected.append(bool(candidates))
+        arguments.append(bool(matches))
+        matched_dependencies |= any(node["after"] or node["requires"] for node in matches)
+        if disruption is not None and disruption in matches:
+            recovered_evidence |= equal(disruption["observation"], row.get("observation"))
+    if selection_applies:
+        layers["tool_selection"] = status(all(selected))
+        layers["tool_arguments"] = status(all(arguments))
+    if dependency_applies and matched_dependencies:
+        verdict = score(case, graph, records, trace["after_state"], trace["final_raw"], track=trace["track"],
+                        plan=trace["plan_raw"], plan_before_tools=trace["plan_before_tools"],
+                        peak_context_tokens=trace["peak_context_tokens"])
+        layers["dependency_correctness"] = status(verdict["metrics"]["dependency_validity"] == 1)
+    if recovered_evidence:
+        layers["dynamic_replanning"] = status(layers["execution_correctness"] == "PASS"
+                                              and layers["business_outcome"] == "PASS")
+    return layers

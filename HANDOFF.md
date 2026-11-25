@@ -20,8 +20,8 @@ From a fresh checkout, verify the portable evidence with
 and `python -m scripts.tools.atlas_failure_ledger --check`.
 Qwen3-14B passed [admission](evidence/IJ072/model_identity/admission/J/report.json) and
 completed the [100-trial TC-V2 component](evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json).
-The [first MULTITOOL checkpoint](evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-025/coverage.json)
-sealed 25/120 trials.
+The [latest MULTITOOL checkpoint](evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-050/coverage.json)
+sealed 50/120 trials.
 Resume MULTITOOL in the clean workstation worktree
 `.scratch/ij072-reference-runtime` at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
 Verify no process is holding the Radeon slot. Stop at a completed batch
@@ -31,6 +31,26 @@ boundary and reuse the original output directory for every batch.
 $env:PYTHONPATH = (Resolve-Path src).Path
 $strong = @('--candidate', 'J', '--model', '../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf', '--engine-dir', '../../.tools/ij07-toolchoice-p4b-vulkan')
 python -m scripts.tools.atlas_pc_s --suite multi @strong --output ../ij071-atlas/.runtime/ij072-pc-s-j-multi --batch-size 25
+```
+
+When the stronger model finishes all 120 MULTITOOL cases, run its 320-trial
+Planning panel from the same reference worktree with a separate output.
+
+```powershell
+python -m scripts.tools.atlas_pc_s --suite planning @strong --output ../ij071-atlas/.runtime/ij072-pc-s-j-planning --batch-size 20
+```
+
+The [stratified PC-P panel](atlas/benchmarks/pc_p_factorial.json) has five
+[clean Qwen3-8B P1/P3 pairs](evidence/IJ072/benchmark_validity/pc-p-h-clean-p1-p3-005.json).
+Use the workstation `.scratch/ij072-prompt-runtime` worktree at
+`876ee84baa86f86399a5ae46bd7721671e16a090` with the same shared Radeon slot.
+Reuse the matching output directory for P1 or P3. Other arms require a
+fresh separate run directory.
+
+```powershell
+$env:PYTHONPATH = (Resolve-Path src).Path
+$arm = 'p1'
+python -m scripts.tools.atlas_pc_p --candidate H --arm $arm --model ../../.tools/models/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output "../ij071-atlas/.runtime/ij072-pc-p-h-clean-$arm" --batch-size 8
 ```
 
 The raw competitive and JOB-V1 A/B reconciliation commands require the

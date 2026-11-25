@@ -61,8 +61,12 @@
       "completed": 80,
       "checkpoint": "evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json",
       "factorial": "atlas/benchmarks/pc_p_factorial.json",
+      "factorial_checkpoint": "evidence/IJ072/benchmark_validity/pc-p-h-clean-p1-p3-005.json",
+      "factorial_trials_completed": 10,
+      "runtime_commit": "876ee84baa86f86399a5ae46bd7721671e16a090",
+      "runtime_worktree": ".scratch/ij072-prompt-runtime",
       "next_command": null,
-      "reason": "Four models completed 20 matched L0 P0/P1 pairs each. P2-P5 and additional levels remain pending."
+      "reason": "Four models completed 20 matched L0 P0/P1 pairs each. The stratified panel started with five clean Qwen3-8B P1/P3 pairs. The remaining cells and strata are pending."
     },
     {
       "id": "revised-full-matrix",
@@ -87,8 +91,8 @@
         "exclusive_gpu_slot"
       ],
       "planned": 540,
-      "completed": 125,
-      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-025/coverage.json",
+      "completed": 150,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-050/coverage.json",
       "runtime_commit": "cbe2107f434890f14ff3431cc16a4c0bf41fd752",
       "runtime_worktree": ".scratch/ij072-reference-runtime",
       "next_command": "python -m scripts.tools.atlas_pc_s --suite multi --candidate J --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output ../ij071-atlas/.runtime/ij072-pc-s-j-multi --batch-size 25"
