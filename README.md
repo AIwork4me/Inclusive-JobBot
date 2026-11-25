@@ -30,10 +30,12 @@ Production readiness is `BLOCKED`. The measured business workloads use
 synthetic data. DEEPX DX-M2 physical validation is `NOT_RUN`.
 
 IJ-0.7.2 Atlas status is **INCOMPLETE**. The benchmark validity and release gates
-remain **BLOCKED**. The checkpoint includes physical Qwen3-8B results, historical
+remain **BLOCKED**. The checkpoint includes both completed physical reference
+panels (Qwen3-8B and Qwen3-14B), the four-model prompt experiment, historical
 failure diagnostics and verified legacy JOB-V1 checkpoints.
 [Progress dashboard](reports/ATLAS_PROGRESS_DASHBOARD.md) ·
 [A1 checkpoint report](reports/ATLAS_IJ072_CHECKPOINT_CN.md) ·
+[Prompt experiment checkpoint](evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json) ·
 [Model passports](evidence/IJ07/model_passports/) ·
 [Release gates](atlas/release_gates.json)
 

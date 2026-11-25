@@ -20,6 +20,7 @@ from business_tools import encode_state
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "evidence/IJ072/benchmark_validity/multitool-witness.json.gz"
 DRAFT_CONTROLS = ROOT / "evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz"
+EXTENDED = ROOT / "evidence/IJ072/benchmark_validity/multitool-extended-controls.json.gz"
 
 
 def draft_controls(case, database, calls):
@@ -48,7 +49,47 @@ def draft_controls(case, database, calls):
             "state_unchanged_on_denial_and_repeat": True}
 
 
-def execute_case(case, database, *, observed_draft=False):
+def extended_controls(case, calls, final, observations):
+    def verdict(steps=calls, answer=final, **state):
+        return score(case, steps, answer, **(observations | state))["status"]
+
+    first, *remaining = calls
+    unknown = decode_object(first.arguments_raw) | {"record_id": "UNKNOWN-SYNTHETIC-REFERENCE"}
+    duplicate = replace(calls[-1], call_id="witness-duplicate", turn=calls[-1].turn + 1)
+    negative = {
+        "unavailable_tool": verdict([replace(first, name="unknown_synthetic_tool"), *remaining]),
+        "unseen_record_id": verdict([replace(first, arguments_raw=encode_state(unknown)), *remaining]),
+        "invented_tool_result": verdict([replace(first, result={"synthetic_invented_result": True}), *remaining]),
+        "duplicate_call_with_new_id": verdict([*calls, duplicate]),
+        "semantically_correct_fenced_output": verdict(answer=f"```json\n{final}\n```"),
+    }
+    # Independent stock reads do not depend on observations or their relative order.
+    equivalents = {"json_field_order_unicode_whitespace": verdict(answer=json.dumps(
+        dict(reversed(list(decode_object(final).items()))), ensure_ascii=True, indent=2))}
+    if {call.name for call in calls} <= {"read_stock", "read_cold_stock"}:
+        equivalents["reversed_independent_reads"] = verdict([
+            replace(call, turn=turn) for turn, call in enumerate(reversed(calls))])
+    if calls[-1].name == "create_hold_draft":
+        negative["draft_without_prior_turn"] = verdict([*calls[:-1], replace(calls[-1], turn=calls[-2].turn)])
+    unverified = {}
+    if observations["after"] is not None:
+        after = observations["after"]
+        invented_key = "UNKNOWN-SYNTHETIC-DRAFT"
+        invented_draft = {"review_ref": invented_key, "submitted": True, "reason": "route_review"}
+        negative["unverified_persisted_write"] = verdict(after=after | {
+            "review_drafts": after["review_drafts"] | {invented_key: invented_draft}})
+        unverified["missing_audit"] = verdict(after={key: value for key, value in after.items()
+                                                     if key != "audit_events"})
+        if after["audit_events"]:
+            tampered = {key: event | {"confirmation_state": "CONFIRMED", "authorization": "DENY"}
+                        for key, event in after["audit_events"].items()}
+            negative["forged_draft_authorization"] = verdict(after=after | {"audit_events": tampered})
+    return negative | equivalents | unverified, not (set(negative.values()) - {"FAIL"}
+                                                    or set(equivalents.values()) - {"PASS"}
+                                                    or set(unverified.values()) - {"BLOCKED"})
+
+
+def execute_case(case, database, *, observed_draft=False, extended=False):
     scenario = Scenario(case, database, require_observed_draft=observed_draft)
     before = scenario.snapshot()
     calls, events = [], []
@@ -98,17 +139,20 @@ def execute_case(case, database, *, observed_draft=False):
            "finding_codes": [finding["code"] for finding in result["findings"]]}
     if observed_draft:
         row["draft_guard"] = draft_controls(case, database, calls)
+    if extended:
+        controls, correct = extended_controls(case, calls, facts, observations)
+        row["extended"] = {"status": "PASS" if correct else "FAIL", "controls": controls}
     return row
 
 
-def execute(*, observed_draft=False):
+def execute(*, observed_draft=False, extended=False):
     frozen = load_freeze()
     with TemporaryDirectory() as folder:
         rows = []
         for case in frozen.active.values():
             try:
                 rows.append(execute_case(case, Path(folder).resolve() / (case.case_id + ".sqlite"),
-                                         observed_draft=observed_draft))
+                                         observed_draft=observed_draft, extended=extended))
             except (KeyError, ValueError) as error:
                 raise ValueError(f"{case.case_id}: {error}") from error
     if observed_draft:
@@ -118,6 +162,15 @@ def execute(*, observed_draft=False):
                 "guard_counts": dict(Counter(row["draft_guard"]["status"] for row in rows)),
                 "trials": [{key: row[key] for key in ("case_id", "status", "sqlite_review_drafts", "draft_guard")}
                            for row in rows]}
+    if extended:
+        counts = {}
+        for row in rows:
+            for name, result in row["extended"]["controls"].items():
+                counts.setdefault(name, Counter())[result] += 1
+        return {"scope": "MULTITOOL extended independent trace, state and equivalent-output controls",
+                "evidence_class": "deterministic_software_mutation", "freeze_sha256": frozen.manifest["freeze_sha256"],
+                "counts": counts, "controls_status": dict(Counter(row["extended"]["status"] for row in rows)),
+                "trials": [{"case_id": row["case_id"], **row["extended"]} for row in rows]}
     return {"scope": "MULTITOOL-V1 active frozen roster", "evidence_class": "deterministic_software_control",
             "freeze_sha256": frozen.manifest["freeze_sha256"], "counts": dict(Counter(row["status"] for row in rows)),
             "persisted_counts": dict(Counter(row["sqlite_review_drafts"] for row in rows)), "trials": rows}
@@ -126,10 +179,12 @@ def execute(*, observed_draft=False):
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--observed-draft-controls", action="store_true")
+    profile = parser.add_mutually_exclusive_group()
+    profile.add_argument("--observed-draft-controls", action="store_true")
+    profile.add_argument("--extended", action="store_true")
     args = parser.parse_args()
-    result = execute(observed_draft=args.observed_draft_controls)
-    output = DRAFT_CONTROLS if args.observed_draft_controls else OUTPUT
+    result = execute(observed_draft=args.observed_draft_controls, extended=args.extended)
+    output = DRAFT_CONTROLS if args.observed_draft_controls else EXTENDED if args.extended else OUTPUT
     raw = (json.dumps(result, indent=2, sort_keys=True) + "\n").encode()
     if args.check:
         if gzip.decompress(output.read_bytes()) != raw:

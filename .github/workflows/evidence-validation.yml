@@ -28,6 +28,7 @@ jobs:
           python -m scripts.tools.atlas_tc_holdout_witness --extended --check
           python -m scripts.tools.atlas_multitool_witness --check
           python -m scripts.tools.atlas_multitool_witness --observed-draft-controls --check
+          python -m scripts.tools.atlas_multitool_witness --extended --check
           python -m scripts.tools.atlas_compare_pc_p_pilot --matrix --check
           python -m scripts.tools.atlas_planning_read_controls --check
           python -m scripts.tools.atlas_planning_advanced_controls --check
@@ -45,7 +46,9 @@ jobs:
           python -m scripts.tools.atlas_compare_pc_p_factorial --check
           python -m scripts.tools.atlas_compare_pc_p_factorial --matrix --check
           python -m scripts.tools.atlas_compare_pc_p_factorial --full-h --check
-          python -m scripts.tools.atlas_compare_pc_p_factorial --wire-h --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --wire H --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --wire A --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --progress --check
           python -m scripts.tools.atlas_planning_layered_report --check
           python -m scripts.tools.atlas_planning_layered_report --strong --check
           python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc

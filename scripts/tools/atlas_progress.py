@@ -277,6 +277,12 @@ def main():
         "planned": larger_plan["planned_n"], "assessed": larger_plan["assessable_n"],
         "outcomes": larger_plan["counts"], "source": larger_plan_path,
     }
+    factorial_path = "evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json"
+    factorial = document(ROOT / factorial_path)
+    checkpoint_trials["PC-P four-model factorial"] = {
+        "planned": factorial["planned"], "assessed": factorial["sealed"], "outcomes": factorial["counts"],
+        "source": factorial_path,
+    }
     for arm, entry in jobs.items():
         row = entry["summary"]
         checkpoint_trials[f"Legacy JOB-V1 {arm} primary"] = {

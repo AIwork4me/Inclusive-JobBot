@@ -10,6 +10,7 @@ from benchmarks.agentic_planning_v1.freeze import FROZEN
 from benchmarks.agentic_planning_v1.run import load_jsonl
 from benchmarks.agentic_planning_v1.runner import PLAN_FIELDS
 from benchmarks.atlas_validity.evaluation import FENCE, parsed, planning_layered_scores
+from benchmarks.competitive_slm.tc_v2_batch import legacy
 from scripts.tools.atlas_audit_pc_p_schema import EVIDENCE, audit
 from scripts.tools.atlas_compare_pc_p_pilot import selected_archive
 from scripts.tools.atlas_pc_p import frozen_panel
@@ -20,7 +21,7 @@ OUTPUT = EVIDENCE / "pc-p-h-factorial-first-five.json"
 MATRIX = EVIDENCE / "pc-p-factorial-first-five-four-models.json"
 FULL_H = EVIDENCE / "pc-p-h-factorial-full.json"
 FULL_MATRIX = EVIDENCE / "pc-p-factorial-full-four-models.json"
-WIRE_H = EVIDENCE / "pc-p-h-factorial-wire.json"
+PROGRESS = EVIDENCE / "pc-p-factorial-progress.json"
 MODELS = {
     "A": ("MiniCPM5-2B", "OpenBMB/MiniCPM5-2B-GGUF"),
     "B": ("LFM3-1.7B", "LiquidAI/LFM3-1.7B"),
@@ -78,7 +79,7 @@ def initial_captures(archive):
     return captures
 
 
-def full_diagnostics(candidate, results):
+def full_diagnostics(candidate, results, *, separate_plan_checks=False):
     cases = {row["case_id"]: row for row in results["cases"]}
     by_stratum = defaultdict(lambda: defaultdict(lambda: defaultdict(Counter)))
     stops, paired, detail = {}, {}, {}
@@ -99,6 +100,13 @@ def full_diagnostics(candidate, results):
             findings = trial["findings"]
             snapshot["first_runner_finding"] = findings[0]["code"] if findings else None
             snapshot["plan_oracle_errors"] = trial["plan"]["errors"] if trial["plan"] is not None else []
+            if separate_plan_checks:
+                plan = trial["plan"]
+                observed = plan is not None and trial["plan_before_tools"] is True
+                snapshot["frozen_plan_goal_match"] = "NOT_RUN" if not observed else (
+                    "PASS" if plan["goal_understood"] else "FAIL")
+                snapshot["frozen_plan_execution_requirements"] = "NOT_RUN" if not observed else (
+                    "PASS" if plan["executable"] else "FAIL")
             snapshots[case_id] = snapshot
             for name, counts in origins.items():
                 counts[snapshot[name] or "none"] += 1
@@ -193,7 +201,7 @@ def matrix(*, full=False):
     if full:
         for candidate in frozen_panel()["candidate_profiles"]:
             row = results[MODELS[candidate][0]]
-            row["source_diagnostics"] = full_diagnostics(candidate, row)
+            row["source_diagnostics"] = full_diagnostics(candidate, row, separate_plan_checks=True)
     identities = {row["source_git"]["commit"] for row in results.values()}
     if len(identities) != 1:
         raise ValueError("four-model blocks use different experimental source commits")
@@ -209,6 +217,28 @@ def matrix(*, full=False):
             "models": results}
 
 
+def checkpoint():
+    panel = frozen_panel()
+    counts, models = Counter(), {}
+    for candidate in panel["candidate_profiles"]:
+        stem = f"pc-p-{candidate.lower()}-clean"
+        complete = all((EVIDENCE / f"{stem}-{arm}-032/bundle.json").is_file() for arm in panel["arm_factors"])
+        result = build(candidate, full=complete)
+        bins = Counter()
+        for row in result["counts"].values():
+            bins.update(row["strict_end_to_end"])
+        counts.update(bins)
+        models[MODELS[candidate][0]] = {"sealed": sum(bins.values()), "cases_per_treatment": len(result["cases"]),
+                                       "counts": dict(bins), "run_ids": result["run_ids"]}
+    sealed = sum(counts.values())
+    if sealed > panel["planned_trials"]:
+        raise ValueError("sealed source blocks exceed the registered trial count")
+    counts["NOT_RUN"] += panel["planned_trials"] - sealed
+    return {"planned": panel["planned_trials"], "sealed": sealed,
+            "counts": {name: counts[name] for name in ("PASS", "FAIL", "BLOCKED", "NOT_RUN")},
+            "models": models}
+
+
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
@@ -216,27 +246,35 @@ def main():
     mode.add_argument("--matrix", action="store_true")
     mode.add_argument("--full-h", action="store_true")
     mode.add_argument("--full-matrix", action="store_true")
-    mode.add_argument("--wire-h", action="store_true")
+    mode.add_argument("--wire", choices=MODELS)
+    mode.add_argument("--progress", action="store_true")
     args = parser.parse_args()
     if args.full_matrix:
         result, output = matrix(full=True), FULL_MATRIX
     elif args.matrix:
         result, output = matrix(), MATRIX
-    elif args.wire_h:
-        model = build(full=True)
+    elif args.wire:
+        model = build(args.wire, full=True)
         result = {"source_git": model["source_git"], "run_ids": model["run_ids"],
-                  **full_diagnostics("H", model)}
-        output = WIRE_H
+                  **full_diagnostics(args.wire, model)}
+        output = EVIDENCE / f"pc-p-{args.wire.lower()}-factorial-wire.json"
+    elif args.progress:
+        result, output = checkpoint(), PROGRESS
     else:
         result, output = build(full=args.full_h), FULL_H if args.full_h else OUTPUT
     raw = (json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
     if args.check:
         if output.read_bytes() != raw:
             parser.error("matched factorial evidence differs")
+    elif args.progress:
+        legacy.write_json(output, json.loads(raw))
     else:
         with output.open("xb") as stream:
             stream.write(raw)
-    if args.wire_h:
+    if args.progress:
+        print(f"{result['sealed']}/{result['planned']} sealed", result["counts"])
+        return
+    if args.wire:
         for arm, stats in result["first_response_counts"].items():
             print(arm, dict(stats["shape"]), dict(stats["finish_reason"]), dict(stats["first_runner_finding"]))
         return

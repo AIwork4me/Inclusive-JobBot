@@ -61,12 +61,12 @@
       "completed": 80,
       "checkpoint": "evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json",
       "factorial": "atlas/benchmarks/pc_p_factorial.json",
-      "factorial_checkpoint": "evidence/IJ072/benchmark_validity/pc-p-factorial-first-five-four-models.json",
-      "factorial_trials_completed": 423,
+      "factorial_checkpoint": "evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json",
+      "factorial_trials_completed": 666,
       "runtime_commit": "876ee84baa86f86399a5ae46bd7721671e16a090",
       "runtime_worktree": ".scratch/ij072-prompt-runtime",
-      "next_command": "python -m scripts.tools.atlas_pc_p --candidate A --arm p0 --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output ../ij071-atlas/.runtime/ij072-pc-p-a-clean-p0 --batch-size 27",
-      "reason": "Four models completed 20 matched L0 P0/P1 pairs each and the first five cases in all nine factorial treatments. Qwen3-8B completed the full factorial roster. The remaining three models continue on that roster."
+      "next_command": "python -m scripts.tools.atlas_pc_p --candidate B --arm p0 --model ../ij07-worktree/.runtime/ij07-candidates/LiquidAI__LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output ../ij071-atlas/.runtime/ij072-pc-p-b-clean-p0 --batch-size 27",
+      "reason": "MiniCPM5 and Qwen3-8B completed the full factorial roster. LFM3 and Gemma completed the first five cases in all nine treatments."
     },
     {
       "id": "multitool-draft-guard-paired",
@@ -78,7 +78,9 @@
       "checkpoint": null,
       "scope": "37 paired Qwen3-14B trials per runtime flag from the independent draft witness",
       "roster_source": "evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz",
-      "next_command": "python -m scripts.tools.atlas_pc_s --suite multi --candidate J --draft-guard-control legacy --model <pinned-Qwen3-14B-Q8_0> --engine-dir <pinned-Vulkan-observer> --output <new-legacy-run> --batch-size 37"
+      "runtime_commit": "230b51e611ef5ff0d2078db5f23b352c85ef4775",
+      "runtime_worktree": ".scratch/ij072-draft-runtime",
+      "next_command": "python -m scripts.tools.atlas_pc_s --suite multi --candidate J --draft-guard-control legacy --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output ../ij071-atlas/.runtime/ij072-draft-legacy --batch-size 37"
     },
     {
       "id": "revised-full-matrix",
