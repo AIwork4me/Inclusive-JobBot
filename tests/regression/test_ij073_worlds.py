@@ -1,9 +1,10 @@
-from copy import deepcopy
+import json
 
 from benchmarks.agentic_planning_v2.budgets import assess_budgets
 from benchmarks.agentic_planning_v2.execution import execute
-from benchmarks.agentic_planning_v2.oracle import validate, verify
+from benchmarks.agentic_planning_v2.oracle import verify
 from benchmarks.agentic_planning_v2.reachability import missing_effects
+from benchmarks.agentic_planning_v2.runner import evaluate_raw, plan_request
 
 
 def test_independent_read_order_and_wrong_final():
@@ -51,3 +52,17 @@ def test_scope_revision_invalidates_old_observation():
         return {"code": "ok", "data": {"id": "outdated"},
                 "external_event": {"source": "synthetic_external_user", "revised_reference": "new"}}
     assert execute(plan, {}, 2, invoke)["reason"] == "no enabled action"
+
+def test_model_boundary_and_public_inputs_only():
+    contract = {"goal": "clarify", "public_fields": ["subject"], "event_fields": [], "tools": {},
+                "action_budget": 0, "private_future": "sentinel"}
+    world = {"public": {"subject": "task"}, "disposition": "clarify", "steps": [], "facts": {"subject": "task"}}
+    plan = {"version": 2, "goal": "clarify", "actions": [], "stops": [
+        {"when": True, "disposition": "clarify", "facts": {"subject": {"from": "public", "field": "subject"}}}]}
+    request = plan_request("local", "Ask for missing input", world["public"], contract, {"tool_calls": 0})
+    assert "sentinel" not in json.dumps(request)
+    assert "response_format" not in request
+    assert evaluate_raw(json.dumps(plan), contract, [world])["status"] == "PASS"
+    assert evaluate_raw(json.dumps(plan), contract, [])["status"] == "BLOCKED"
+    for raw in ('{"version":2,"version":2}', '[]', 'not JSON'):
+        assert evaluate_raw(raw, contract, [world])["status"] == "FAIL"

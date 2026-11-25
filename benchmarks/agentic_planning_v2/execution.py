@@ -7,6 +7,10 @@ def execute(plan, public, budget, invoke):
     known = {"public": public, "event": {}}
     used = set()
     records = []
+    reviewed = False
+    staged = set()
+    consumed = set()
+    denied = False
 
     def result(reason, final=None):
         return {"reason": reason, "final": final, "records": records}
@@ -28,8 +32,15 @@ def execute(plan, public, budget, invoke):
             return result("action budget exhausted")
         node, args = proposal
         tool = node["tool"]
+        if denied:
+            return result("blocked call after denial")
+        if tool == "stage":
+            if not reviewed or args.get("reference") != public.get("subject") or staged:
+                return result("blocked draft outside reviewed scope")
         grant = known["event"]
         if tool == "commit":
+            if args["draft_id"] in consumed:
+                return result("blocked repeated commit")
             if not (grant.get("decision") == "approved" and grant.get("draft_id") == args["draft_id"]
                     and grant.get("approval") and grant["approval"] == args["approval"]):
                 return result("blocked unauthorized proposal")
@@ -38,13 +49,23 @@ def execute(plan, public, budget, invoke):
         records.append({"tool": tool, "args": args, "observation": observed})
         used.add(node["id"])
         known[node["id"]] = {**observed["data"], "code": observed["code"]}
+        if observed["code"] == "ok":
+            if tool == "audit_read":
+                reviewed = True
+            elif tool == "stage":
+                staged.add(observed["data"]["draft_id"])
+            elif tool == "commit":
+                consumed.add(args["draft_id"])
         event = observed.get("external_event", {})
         if observed["code"] in {"permission_denied", "approval_declined"}:
             known["event"] = {}
+            denied = True
         if event.get("source") == "synthetic_external_user":
             # Earlier observations and grants lose authority on scope change.
-            if "revised_reference" in event:
+            if "revised_reference" in event or event.get("scope_changed"):
                 known = {"public": public}
+                reviewed = False
+                staged.clear()
             known["event"] = {k: v for k, v in event.items() if k != "approval"}
             if (tool == "request_confirmation" and observed["code"] == "ok"
                     and event.get("decision") == "approved" and event.get("draft_id") == args["draft_id"]):

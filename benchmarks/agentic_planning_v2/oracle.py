@@ -123,7 +123,7 @@ def simulate(plan, contract, world):
             obs["event"] = {}
         obs[node["id"]] = step["result"]
         if "event" in step:
-            if step["event"].get("scope_changed"):
+            if step["event"].get("scope_changed") or "revised_reference" in step["event"]:
                 obs = {"public": obs["public"]}
             obs["event"] = step["event"]
     raise AssertionError("finite DAG traversal exceeded its bound")

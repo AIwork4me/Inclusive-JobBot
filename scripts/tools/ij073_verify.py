@@ -8,6 +8,7 @@ from scripts.tools.ij073_baseline import recount
 from scripts.tools.ij073_executable_witness import audit as executable
 from scripts.tools.ij073_guard_controls import audit as guards
 from scripts.tools.ij073_mutation_replay import run as mutations
+from scripts.tools.ij073_public_worlds import run as public_worlds
 from scripts.tools.ij073_plan_alignment import audit as align
 from scripts.tools.ij073_witness_replay import audit as witnesses
 
@@ -30,7 +31,7 @@ def main():
     args = parser.parse_args()
     sources = {"baseline": recount, "oracle/archive_replay": archived, "oracle/legacy_alignment": align,
                "oracle/mutation_replay": mutations, "oracle/witness_replay": witnesses, "oracle/executable_witness": executable,
-               "oracle/guard_controls": guards}
+               "oracle/guard_controls": guards, "oracle/public_worlds": public_worlds}
     for name, generate in sources.items():
         path = Path("evidence/IJ073") / (name + ".json")
         expected = encoded(generate())

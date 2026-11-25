@@ -6,6 +6,9 @@
 |---|---|---|
 | Recount historical witness, physical reference and job panels | PASS | `evidence/IJ073/baseline.json` |
 | Replay historical synthetic calls, compare observed model traces and run necessary-effect interventions | PASS | `evidence/IJ073/oracle/` |
+| Execute V2 witness graphs on 800 worlds, verify 13 equivalent groups and 602 paired interventions | PASS | `evidence/IJ073/oracle/executable_witness.json`, `evidence/IJ073/oracle/guard_controls.json` |
+| Check public reply boundary and 21 finite counterfactual worlds | PASS | `evidence/IJ073/oracle/public_worlds.json` |
+| Recheck installed MiniCPM artifacts and enumerate pinned backends | PASS | `evidence/IJ073/machine_inventory.json` |
 | Qualify the complete conditional Oracle | NOT_RUN | `reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md` |
 | Qualify AEVE and perform full new model runs | NOT_RUN | `atlas/ij073/progress.json` |
 

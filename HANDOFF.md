@@ -2,7 +2,7 @@
 
 ## IJ-0.7.3 conditional planning checkpoint
 
-Resume on PR #6. Use the [baseline](reports/IJ073_BASELINE_AUDIT.md), [root causes](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md) and [validation commands](reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md). The repaired witness now executes its declared graph in all 800 worlds, including the 128 original discrepancies and 13 public-equivalent groups. Run `python -m scripts.tools.ij073_verify` to reproduce all seven offline artifacts. Next qualify independent public-world controls and the model-facing V2 evaluation boundary.
+Resume on PR #6. Use the [baseline](reports/IJ073_BASELINE_AUDIT.md), [root causes](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md) and [validation commands](reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md). The repaired witness now executes its declared graph in all 800 worlds, including the 128 original discrepancies and 13 public-equivalent groups. Run `python -m scripts.tools.ij073_verify` to reproduce all eight offline artifacts. The standalone public request/reply boundary and 21 independent control worlds have software coverage. Next qualify end-to-end model transport and independent safety verification, including rollback and audit completeness, before freezing the evaluator.
 
 ## IJ-0.7.2 A1 checkpoint
 
@@ -94,7 +94,7 @@ keeps the strict-admission Vulkan server loaded through a roster. Use the
 [frozen B/D/F/G plan](configs/ij07/tc_v2_competitive_plan.json) and the
 [journal archive runbook](benchmarks/competitive_slm/TC_V2_ARCHIVE.md). The
 [JOB-V1 model treatment runner](benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md)
-uses the same frozen inputs for A鈥揈. Physical full-roster results are pending
+uses the same frozen inputs for A–E. Physical full-roster results are pending
 for both runners. Use the planning archive CLI to verify journals and produce
 separate Plan-first and Acting-first coverage by level.
 
@@ -106,10 +106,10 @@ Chinese reference profile. [Planning archive](evidence/IJ07/planning/primary-vul
 The original MULTITOOL repeat panel completed 300/300 physical trials.
 The original planning repeat panel completed all 960 frozen trials. Each
 track failed all 480. The strict B/D/F/G TC-V2 queue uses the same single-GPU
-slot. Its first B session verified 200 trials. The A鈥揈 JOB-V1 queue waits for
+slot. Its first B session verified 200 trials. The A–E JOB-V1 queue waits for
 all four competitive TC-V2 rosters before using the GPU. Each active run
 keeps its resumable local folder and exact runtime source identity.
- [Multi-tool repeat archive](evidence/IJ07/multitool/repeat-vulkan-full/) 路 [Planning repeat archive](evidence/IJ07/planning/repeat-vulkan-full/)
+ [Multi-tool repeat archive](evidence/IJ07/multitool/repeat-vulkan-full/) · [Planning repeat archive](evidence/IJ07/planning/repeat-vulkan-full/)
 
 The [Arm F receipt-correction control](evidence/IJ07/job_ablation/F/receipt-correction/)
 reruns the observed holdout on two clean commits with source digests that
@@ -159,7 +159,7 @@ backend selection and IJ-1.0 qualification are pending.
 | TC acceptance criteria | PASS | New project thresholds established from published research. | `docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md` |
 | AG read-only loop | PASS | Real MiniCPM5 tool call, simulator result and exact final status on each backend. | `evidence/IJ0/antigravity/` |
 
-Gates G0鈥揋4 and G6鈥揋8 are **PASS**. G5 is **FAIL** on the fixed native parser
+Gates G0–G4 and G6–G8 are **PASS**. G5 is **FAIL** on the fixed native parser
 fixtures. The 500-case coverage gate concerns execution of the original split.
 The independent holdout under ADR-002 is **NOT_RUN**.
 

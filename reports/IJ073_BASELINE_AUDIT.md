@@ -17,3 +17,7 @@ PR #6 的远端分支与工作树基线均为 `0ba158cf95cd802ca9f9091d6abc893dc
 | 历史盲审包 | 22 | 人工评审 NOT_RUN |
 
 在仓库根目录运行 `python -m scripts.tools.ij073_baseline` 可重新生成计数和输入哈希。物理结果沿用封存时的模型、设备及运行身份。本次执行的是离线重算。[任务进度](../atlas/ij073/progress.json)
+
+## Physical inventory
+
+Windows 11 build 26200 reports a Ryzen AI MAX+ PRO 395 and Radeon 8060S, driver 32.0.22018.5. Installed memory is 128 GiB. Six pinned MiniCPM weight/tokenizer/template files matched their hashes, as did the three pinned server binaries. Vulkan and ROCm each enumerated the Radeon. The SDK environment reports 0.1.24. These checks establish installed identity and enumeration only. [Inventory](../evidence/IJ073/machine_inventory.json) · [Initial ROCm probe diagnostic](../evidence/IJ073/inventory_probe_diagnostic.json)
