@@ -17,6 +17,7 @@
 | PC-P paired L0 Plan-first pilot for MiniCPM5, LFM3, Gemma and Qwen3-8B | FAIL | 80 matched pairs. Initial protocol improved across the four models. Strict results remain 0/80 in each arm. `evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json` |
 | PC-P P2-P5 interventions and fixed factorial roster | PASS | Software verification. 32 matched cases spanning L0-L7 and both languages. `atlas/benchmarks/pc_p_factorial.json` |
 | PC-P P0-P5 factorial physical panel | NOT_RUN | 1,152 registered trials. Native schema application requires capture verification. `atlas/benchmarks/pc_p_factorial.json` |
+| Qwen3-8B P3 native schema wire probe | PASS | Applied and schema-valid in 5/5 physical probe trials, with 0/5 strict PASS. The probe's dirty checkout excludes it from the formal factorial panel. `evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-probe.json` |
 | TC-V2 holdout public-input witness | PASS | 500/500 with actual synthetic tool execution and independently read SQLite state. `evidence/IJ072/benchmark_validity/tc-holdout-witness.json` |
 | MULTITOOL-V1 public-input witness | PASS | 600/600 with tool events and 75 direct SQLite draft-state checks. `evidence/IJ072/benchmark_validity/multitool-witness.json.gz` |
 | Planning L1-L7 public-input Acting-first witness | PASS | 700/700 software trials with independent action selection. `evidence/IJ072/benchmark_validity/planning-read-controls.json` and `evidence/IJ072/benchmark_validity/planning-advanced-controls.json` |
@@ -24,6 +25,7 @@
 | JOB-V1 primary public-input witness | PASS | 600/600 with independent answer construction, typed sandbox actions and SQLite verification. `evidence/IJ072/benchmark_validity/job-witness.json.gz` |
 | Larger Qwen3-14B reference artifact and runtime admission | PASS | CPU identity and Radeon Vulkan native-tool probes. `evidence/IJ072/model_identity/admission/J/report.json` |
 | Qwen3-14B PC-S TC-V2 physical coverage | PASS | 100/100 sealed with 66 strict PASS and 34 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json` |
+| Qwen3-14B PC-S MULTITOOL physical coverage | BLOCKED | First 25/120 sealed with 21 strict PASS, 4 FAIL and 95 NOT_RUN. `evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-025/coverage.json` |
 | A1 evaluator qualification and stronger reference | BLOCKED | `atlas/physical_queue.json` |
 
 ## IJ-0.7.1 Atlas

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "mission": "IJ-1.0",
   "change_order": "ECO-01",
-  "updated_utc": "2026-11-25T14:29:46.9925289+00:00",
+  "updated_utc": "2026-11-25T16:14:58Z",
   "current_phase": "IJ-0.7.2",
   "atlas_ij072": {
     "completion": "INCOMPLETE",
@@ -17,6 +17,7 @@
     "planning_acting_first_witness_software": {"planned": 800, "PASS": 800, "FAIL": 0, "BLOCKED": 0, "NOT_RUN": 0},
     "pc_p_pilot": "evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json",
     "pc_p_factorial": "atlas/benchmarks/pc_p_factorial.json",
+    "pc_p_native_schema_probe": {"physical_evidence": "PASS", "factorial_eligibility": "BLOCKED", "initial_shape_pass": 5, "strict_fail": 5},
     "quote_witness_software": {"planned": 80, "PASS": 80, "FAIL": 0, "BLOCKED": 0, "NOT_RUN": 0},
     "indexed_historical_failures": 2880,
     "public_witness_software": {
@@ -28,6 +29,7 @@
     },
     "alternate_reference_pin": "atlas/benchmarks/pc_s_qwen3_14b.json",
     "pc_s_qwen3_14b_tc_v2_first_attempts": {"planned": 100, "PASS": 66, "FAIL": 34, "BLOCKED": 0, "NOT_RUN": 0},
+    "pc_s_qwen3_14b_multitool_first_attempts": {"planned": 120, "PASS": 21, "FAIL": 4, "BLOCKED": 0, "NOT_RUN": 95},
     "release_gates": "atlas/release_gates.json",
     "benchmark_validity": "BLOCKED",
     "release": "BLOCKED",

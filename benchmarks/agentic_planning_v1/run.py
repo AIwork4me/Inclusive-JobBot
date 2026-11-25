@@ -238,9 +238,12 @@ def run_benchmark(args):
                 "max_tokens": args.max_tokens}
     if getattr(args, "prompt_contract", "p0") != "p0":
         settings["prompt_contract"] = args.prompt_contract
+    source = legacy.git_state()
+    if getattr(args, "require_clean_source", False) and source["dirty"]:
+        raise ValueError("the registered experiment requires a clean source at configuration capture")
     environment = {key.upper(): value for key, value in env.items() if key.upper().startswith(RUNTIME_ENV_PREFIXES)}
     configuration = {"engine": engine, "model": identity, "backend": args.backend, "port": args.port,
-                     "git": legacy.git_state(), "sources": source_identity(candidate is not None), "python": platform.python_version(),
+                     "git": source, "sources": source_identity(candidate is not None), "python": platform.python_version(),
                      "manifest": manifest, "sdk_installed": sdk, "sdk_used": False, "panel": args.panel,
                      "runtime_environment_sha256": digest(environment),
                      "selection": "diagnostic" if args.case else "complete_panel", "settings": settings, "trials": trials}
@@ -296,6 +299,8 @@ def main():
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--prompt-contract", choices=runner.PROMPT_ARMS, default="p0",
                         help="Select the frozen Plan-first prompt intervention")
+    parser.add_argument("--require-clean-source", action="store_true",
+                        help="Refuse to capture a registered experiment from a modified checkout")
     parser.add_argument("--thinking", action="store_true")
     parser.add_argument("--stream", action="store_true")
     args = parser.parse_args()

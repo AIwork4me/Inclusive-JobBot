@@ -50,6 +50,7 @@ def main():
     command = [sys.executable, "-m", "benchmarks.agentic_planning_v1.run",
                "--backend", profile["backend"], "--engine-dir", str(args.engine_dir.resolve()),
                "--tracks", panel["track"], "--panel", "primary", "--prompt-contract", args.arm,
+               "--require-clean-source",
                "--seed", str(panel["seed"]), "--max-tokens", str(profile["max_tokens"]),
                "--temperature", str(profile["temperature"]), "--output", str(output),
                "--batch-size", str(args.batch_size)]

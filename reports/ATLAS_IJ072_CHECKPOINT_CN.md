@@ -10,6 +10,7 @@
 | Qwen3-8B PC-S MULTITOOL-V1 | 120 | 120 | 28 | 92 | 0 | 0 |
 | Qwen3-8B PC-S Planning 双轨 | 320 | 320 | 4 | 316 | 0 | 0 |
 | Qwen3-14B PC-S TC-V2 开发面板 | 100 | 100 | 66 | 34 | 0 | 0 |
+| Qwen3-14B PC-S MULTITOOL-V1 | 120 | 25 | 21 | 4 | 0 | 95 |
 | 旧 JOB-V1 Arm A 首试 | 600 | 600 | 23 | 577 | 0 | 0 |
 | 旧 JOB-V1 Arm B 首试 | 600 | 300 | 22 | 278 | 7 | 293 |
 
@@ -22,6 +23,8 @@ Qwen3-14B Q8_0 同样使用 Radeon Vulkan 和 8K 上下文，在同一 100 条�
 ### MULTITOOL 与 Planning PC-S
 
 120 条试次全部封存了进程 GPU 计数器和生成轨迹。通过数随深度档位变化，从 2–3 步的 10/24 降至 11–15 步和 16–20 步各 4/24。Planning 首试全部完成，Acting-first 通过 4/160，Plan-first 通过 0/160。32 调用预算已通过流式和非流式软件回归，物理流式配对待测。 [MULTITOOL 结果](../evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json) · [Planning 完整归档](../evidence/IJ072/benchmark_validity/pc-s-planning-full/diagnostic.json)
+
+Qwen3-14B 的 MULTITOOL 首批封存 25 条，严格通过 21 条。在相同的 25 条上，8B 通过 12 条。两者同通过 11 条，仅 14B 通过 10 条，仅 8B 通过 1 条，两者同失败 3 条。该批次覆盖五个深度档位，其余 95 条未执行。 [14B 封存批次](../evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-025/coverage.json)
 
 ## RC-02 四候选报价回传
 
@@ -40,7 +43,9 @@ Qwen3-14B Q8_0 同样使用 Radeon Vulkan 和 8K 上下文，在同一 100 条�
 
 P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行和终答合同。保持冻结输入、权限、工具、模型预算和评估器。Acting-first 的提示保持原样。软件 RED/GREEN 验证了 P0/P1 的差异。Qwen3-8B 在冻结的 20 条 L0 Plan-first 配对中，P1 把初始协议通过从 0/20 提高到 7/20。严格端到端和业务结果均保持 0/20，P1 的 3 条虚报完成被安全评分识别。四模型 L0 配对共 80 对。MiniCPM5 初始协议通过从 0/20 到 3/20，LFM3 从 1/20 到 3/20，Gemma 从 0/20 到 1/20。两臂的严格通过均为 0/80。覆盖限于 L0，P2–P5 尚未执行。 [配对证据](../evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json) [运行器](../benchmarks/agentic_planning_v1/runner.py) · [回归](../tests/regression/ij07/test_agentic_planning_v1.py)
 
-后续 PC-P 面板已预注册 1,152 条 Plan-first 试次，覆盖四种模型、L0–L7 中英文共 32 个固定用例。P2 增加纯格式示例，P3 请求首轮原生 JSON Schema，P4 精简公开只读工具描述，P5 增加三种两因子组合及完整组合。动作参数、权限检查和评估规则沿用冻结版。当前验证为软件测试，P3 和相关组合还需从实际模板与生成记录核实约束有没有应用。 [面板](../atlas/benchmarks/pc_p_factorial.json) · [可恢复运行器](../scripts/tools/atlas_pc_p.py)
+后续 PC-P 面板已预注册 1,152 条 Plan-first 试次，覆盖四种模型、L0–L7 中英文共 32 个固定用例。P2 增加纯格式示例，P3 请求首轮原生 JSON Schema，P4 精简公开只读工具描述，P5 增加三种两因子组合及完整组合。动作参数、权限检查和评估规则沿用冻结版。 [面板](../atlas/benchmarks/pc_p_factorial.json) · [可恢复运行器](../scripts/tools/atlas_pc_p.py)
+
+Qwen3-8B P3 五次 Radeon 线路探测均通过格式校验，原始采样记录确认首轮使用相同的原生语法。四个 L0 用例计划超出零动作限制，一个 L1 用例提交了空的条件列表，五次严格结果均为 FAIL。归档操作使探测工作树在配置采样时被标记为 dirty，因此保留为线路诊断，正式面板仍需从干净的固定提交运行。运行器已在配置采样时增加干净工作树校验。 [线路审计](../evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-probe.json) · [GPU 轨迹](../evidence/IJ072/benchmark_validity/pc-p-h-factorial-p3-005/diagnostic.json)
 
 ## A1 独立事实校验范围
 

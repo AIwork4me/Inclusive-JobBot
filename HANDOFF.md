@@ -20,6 +20,8 @@ From a fresh checkout, verify the portable evidence with
 and `python -m scripts.tools.atlas_failure_ledger --check`.
 Qwen3-14B passed [admission](evidence/IJ072/model_identity/admission/J/report.json) and
 completed the [100-trial TC-V2 component](evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json).
+The [first MULTITOOL checkpoint](evidence/IJ072/benchmark_validity/pc-s-j-multi-checkpoint-025/coverage.json)
+sealed 25/120 trials.
 Resume MULTITOOL in the clean workstation worktree
 `.scratch/ij072-reference-runtime` at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
 Verify no process is holding the Radeon slot. Stop at a completed batch
