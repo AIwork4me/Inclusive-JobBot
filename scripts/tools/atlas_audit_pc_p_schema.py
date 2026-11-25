@@ -21,6 +21,8 @@ EVIDENCE = ROOT / "evidence/IJ072/benchmark_validity"
 ARCHIVE = EVIDENCE / "pc-p-h-factorial-p3-005"
 OUTPUT = EVIDENCE / "pc-p-h-p3-wire-probe.json"
 PAIRED_OUTPUT = EVIDENCE / "pc-p-h-clean-p1-p3-005.json"
+FULL_ARCHIVE = EVIDENCE / "pc-p-h-clean-p3-032"
+FULL_OUTPUT = EVIDENCE / "pc-p-h-p3-wire-full.json"
 
 
 def audit(archive=ARCHIVE):
@@ -98,10 +100,21 @@ def paired():
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--paired", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--paired", action="store_true")
+    mode.add_argument("--full", action="store_true")
     args = parser.parse_args()
-    result = paired() if args.paired else audit()
-    output = PAIRED_OUTPUT if args.paired else OUTPUT
+    if args.full:
+        result = audit(FULL_ARCHIVE)
+        expected = set(frozen_panel()["case_ids"])
+        if (result["factorial_eligibility"] != "PASS" or len(result["trials"]) != len(expected)
+                or {row["case_id"] for row in result["trials"]} != expected):
+            raise ValueError("native sampling proof does not cover the complete P3 roster")
+        result["scope"] = "complete 32-case Qwen3-8B P3 native sampler audit"
+        output = FULL_OUTPUT
+    else:
+        result = paired() if args.paired else audit()
+        output = PAIRED_OUTPUT if args.paired else OUTPUT
     raw = (json.dumps(result, indent=2, sort_keys=True) + "\n").encode()
     if args.check:
         if output.read_bytes() != raw:

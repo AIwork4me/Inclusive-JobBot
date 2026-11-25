@@ -54,7 +54,9 @@ P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行�
 
 Qwen3-8B P3 五次 Radeon 线路探测均通过格式校验，原始采样记录确认首轮使用相同的原生语法。四个 L0 用例计划超出零动作限制，一个 L1 用例提交了空的条件列表，五次严格结果均为 FAIL。归档操作使探测工作树在配置采样时被标记为 dirty，因此保留为线路诊断。运行器已在配置采样时增加干净工作树校验。 [线路审计](../evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-probe.json) · [GPU 轨迹](../evidence/IJ072/benchmark_validity/pc-p-h-factorial-p3-005/diagnostic.json)
 
-正式分层面板当前封存 207/1,152 条。MiniCPM5、LFM3、Gemma 和 Qwen3-8B 均在相同的四条 L0 和一条 L1 上运行了全部九个配置。含 Schema 的 80 次首轮均由采样日志证明启用了原生语法，并通过 Schema 结构校验。该首块 180 条严格端到端均为 FAIL。首块只有一条匹配用例提供工具定义。Qwen3-8B 的 P0 已扩大到全部 32 条 L0–L7，用例严格结果均为 FAIL。该扩大部分新增 27 条，剩余 945 条待执行。 [四模型首块及交互对照](../evidence/IJ072/benchmark_validity/pc-p-factorial-first-five-four-models.json) · [完整 Qwen3-8B P0](../evidence/IJ072/benchmark_validity/pc-p-h-clean-p0-032/diagnostic.json)
+正式分层面板当前封存 315/1,152 条。MiniCPM5、LFM3、Gemma 和 Qwen3-8B 均在相同的四条 L0 和一条 L1 上运行了全部九个配置。含 Schema 的 80 次首轮均由采样日志证明启用了原生语法，并通过 Schema 结构校验。该首块 180 条严格端到端均为 FAIL。首块只有一条匹配用例提供工具定义。 [四模型首块及交互对照](../evidence/IJ072/benchmark_validity/pc-p-factorial-first-five-four-models.json)
+
+Qwen3-8B 的 P0–P4 各完成全部 32 条 L0–L7，新增 135 条真实 Radeon 试次。初始协议分别通过 0、2、7、32、2 条。P2 得到一个可验证业务结果，其他四配置均为 0，严格端到端合计为 0/160。P3 的 32 条原生采样已逐条验明。P4 的 28 条工具用例保持请求结构、工具参数和结果字段，描述精简使首轮减少 4–44 个词元。剩余 837 条待执行。 [完整 P3 原生采样证据](../evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-full.json) · [完整 P4 工具定义检查](../evidence/IJ072/benchmark_validity/pc-p-h-p4-tool-definition-check.json)
 
 | 配置 | 初始协议通过 | 计划可执行性通过 | 可验证业务结果 | 严格端到端 |
 |---|---:|---:|---:|---:|

@@ -15,6 +15,7 @@ from scripts.tools.atlas_pc_p import frozen_panel
 
 OUTPUT = EVIDENCE / "pc-p-h-factorial-first-five.json"
 MATRIX = EVIDENCE / "pc-p-factorial-first-five-four-models.json"
+FULL_H = EVIDENCE / "pc-p-h-factorial-full.json"
 MODELS = {
     "A": ("MiniCPM5-2B", "OpenBMB/MiniCPM5-2B-GGUF"),
     "B": ("LFM3-1.7B", "LiquidAI/LFM3-1.7B"),
@@ -41,18 +42,19 @@ def contrasts(arm_factors, counts, size):
     return contrasts
 
 
-def build(candidate="H"):
+def build(candidate="H", *, full=False):
     label, model_id = MODELS[candidate]
     panel = frozen_panel()
     arms = panel["arm_factors"]
-    selected = set(sorted(panel["case_ids"])[:5])
+    selected = set(panel["case_ids"] if full else sorted(panel["case_ids"])[:5])
+    archive_suffix = f"{len(selected):03d}"
     cases = {row["case_id"]: row for row in load_jsonl(FROZEN / "datasets/holdout.jsonl")}
     graphs = {row["case_id"]: row for row in load_jsonl(FROZEN / "task_graphs/holdout.jsonl")}
     scores = {key: {} for key in sorted(selected)}
     run_ids, grammar, counts = {}, {}, {}
     source = tasks = config = None
     for arm, factors in arms.items():
-        archive = EVIDENCE / f"pc-p-{candidate.lower()}-clean-{arm}-005"
+        archive = EVIDENCE / f"pc-p-{candidate.lower()}-clean-{arm}-{archive_suffix}"
         run, rows = selected_archive(archive, selected)
         configuration = run["configuration"]
         model = configuration["model"]
@@ -81,11 +83,18 @@ def build(candidate="H"):
             for name in ENDPOINTS:
                 outcomes[name][layers[name]] += 1
         counts[arm] = outcomes
+    scope = (f"all 32 {label} matched cases across L0-L7 and both languages" if full
+             else f"first five {label} matched cases; four L0 cases and one L1 case")
+    interpretation = (
+        "Descriptive factorial contrasts use each arm's PASS count per 32 physical trials, including "
+        "unobserved downstream endpoints in the denominator. Results describe the fixed diagnostic cases in English and Chinese."
+        if full else "Descriptive factorial contrasts use each arm's PASS count per five physical trials, "
+        "including unobserved downstream endpoints in the denominator. The sample offers one case "
+        "with a public tool schema."
+    )
     return {
-        "scope": f"first five {label} matched cases; four L0 cases and one L1 case",
-        "interpretation": "Descriptive factorial contrasts use each arm's PASS count per five physical trials, "
-                          "including unobserved downstream endpoints in the denominator. The sample offers one case "
-                          "with a public tool schema.",
+        "scope": scope,
+        "interpretation": interpretation,
         "source_git": source, "run_ids": run_ids, "native_grammar_evidence": grammar,
         "counts": counts, "contrast_by_endpoint": contrasts(arms, counts, len(selected)),
         "cases": [{"case_id": key, "level": cases[key]["level"], "language": cases[key]["language"], "arms": value}
@@ -111,10 +120,12 @@ def matrix():
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--matrix", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--matrix", action="store_true")
+    mode.add_argument("--full-h", action="store_true")
     args = parser.parse_args()
-    result = matrix() if args.matrix else build()
-    output = MATRIX if args.matrix else OUTPUT
+    result = matrix() if args.matrix else build(full=args.full_h)
+    output = MATRIX if args.matrix else FULL_H if args.full_h else OUTPUT
     raw = (json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
     if args.check:
         if output.read_bytes() != raw:
