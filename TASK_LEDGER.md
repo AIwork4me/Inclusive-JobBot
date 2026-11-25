@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+AEVE local runtime and restartable queue implemented. The pinned family routing excludes the candidate family. Physical verdicts are recorded separately from model admission. See `evaluation/aeve/controller.py` and `evaluation/aeve/judge_registry.json`.
+
 | Task | Status | Evidence |
 |---|---|---|
 | Recount historical witness, physical reference and job panels | PASS | `evidence/IJ073/baseline.json` |
