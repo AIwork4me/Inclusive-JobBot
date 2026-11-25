@@ -18,8 +18,15 @@
     "pc_p_pilot": "evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json",
     "quote_witness_software": {"planned": 80, "PASS": 80, "FAIL": 0, "BLOCKED": 0, "NOT_RUN": 0},
     "indexed_historical_failures": 2880,
-    "public_witness_software": {"TC-V2": {"PASS": 500}, "MULTITOOL-V1": {"PASS": 600}, "Planning-Acting-first": {"PASS": 800}},
+    "public_witness_software": {
+      "TC-V2": {"planned": 500, "PASS": 500, "FAIL": 0, "BLOCKED": 0, "NOT_RUN": 0},
+      "MULTITOOL-V1": {"planned": 600, "PASS": 600, "FAIL": 0, "BLOCKED": 0, "NOT_RUN": 0},
+      "Planning-Acting-first": {"planned": 800, "PASS": 800, "FAIL": 0, "BLOCKED": 0, "NOT_RUN": 0},
+      "Planning-Plan-first": {"planned": 800, "PASS": 672, "FAIL": 128, "BLOCKED": 0, "NOT_RUN": 0},
+      "JOB-V1": {"planned": 600, "PASS": 600, "FAIL": 0, "BLOCKED": 0, "NOT_RUN": 0}
+    },
     "alternate_reference_pin": "atlas/benchmarks/pc_s_qwen3_14b.json",
+    "pc_s_qwen3_14b_tc_v2_first_attempts": {"planned": 100, "PASS": 66, "FAIL": 34, "BLOCKED": 0, "NOT_RUN": 0},
     "release_gates": "atlas/release_gates.json",
     "benchmark_validity": "BLOCKED",
     "release": "BLOCKED",

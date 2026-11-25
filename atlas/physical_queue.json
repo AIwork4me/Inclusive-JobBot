@@ -81,14 +81,16 @@
     {
       "id": "pc-s-qwen3-14b",
       "priority": "P0",
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "dependencies": [
         "exclusive_gpu_slot"
       ],
       "planned": 540,
-      "completed": 0,
-      "checkpoint": "evidence/IJ072/model_identity/admission/J/report.json",
-      "next_command": "python -m scripts.tools.atlas_pc_s --suite tc --candidate J --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output .runtime/ij072-pc-s-j-tc"
+      "completed": 100,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json",
+      "runtime_commit": "cbe2107f434890f14ff3431cc16a4c0bf41fd752",
+      "runtime_worktree": ".scratch/ij072-reference-runtime",
+      "next_command": "python -m scripts.tools.atlas_pc_s --suite multi --candidate J --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output ../ij071-atlas/.runtime/ij072-pc-s-j-multi --batch-size 25"
     }
   ]
 }

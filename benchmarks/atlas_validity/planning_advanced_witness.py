@@ -9,6 +9,18 @@ def response(subject, disposition="completed", **facts):
     return {"disposition": disposition, "facts": {"subject": subject, **facts}}
 
 
+def state_agrees(before, after, records, final):
+    mutated = any(row["tool"] in {"stage", "commit"} and row["observation"]["code"] == "ok" for row in records)
+    if not mutated:
+        return before == after
+    if final["disposition"] == "escalate":
+        return len(after["drafts"]) == 1 and not after["deliverables"]
+    facts = final["facts"]
+    if "draft_id" in facts:
+        return set(after["drafts"]) == {facts["draft_id"]} and not after["deliverables"]
+    return set(after["deliverables"]) == {facts.get("audit_ref")} and len(after["drafts"]) == 1
+
+
 def solve(wire, execute):
     prompt = wire["messages"][-1]["content"]
     public_policy = wire["messages"][0]["content"]

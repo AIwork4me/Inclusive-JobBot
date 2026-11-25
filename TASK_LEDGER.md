@@ -18,7 +18,10 @@
 | TC-V2 holdout public-input witness | PASS | 500/500 with actual synthetic tool execution and independently read SQLite state. `evidence/IJ072/benchmark_validity/tc-holdout-witness.json` |
 | MULTITOOL-V1 public-input witness | PASS | 600/600 with tool events and 75 direct SQLite draft-state checks. `evidence/IJ072/benchmark_validity/multitool-witness.json.gz` |
 | Planning L1-L7 public-input Acting-first witness | PASS | 700/700 software trials with independent action selection. `evidence/IJ072/benchmark_validity/planning-read-controls.json` and `evidence/IJ072/benchmark_validity/planning-advanced-controls.json` |
+| Planning L0-L7 public-input Plan-first witness | FAIL | 672/800 strict PASS and 128 FAIL. Actual sandbox actions, business facts and state passed for all 800. The initial plan gate rejected 85 at L4 and 43 at L7. `evidence/IJ072/benchmark_validity/planning-plan-controls.json.gz` |
+| JOB-V1 primary public-input witness | PASS | 600/600 with independent answer construction, typed sandbox actions and SQLite verification. `evidence/IJ072/benchmark_validity/job-witness.json.gz` |
 | Larger Qwen3-14B reference artifact and runtime admission | PASS | CPU identity and Radeon Vulkan native-tool probes. `evidence/IJ072/model_identity/admission/J/report.json` |
+| Qwen3-14B PC-S TC-V2 physical coverage | PASS | 100/100 sealed with 66 strict PASS and 34 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json` |
 | A1 evaluator qualification and stronger reference | BLOCKED | `atlas/physical_queue.json` |
 
 ## IJ-0.7.1 Atlas

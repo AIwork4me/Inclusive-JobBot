@@ -248,6 +248,12 @@ def main():
     checkpoint_trials = {"PC-S Qwen3-8B TC-V2 development": {
         "planned": tc["planned"], "assessed": tc["assessed"], "outcomes": tc["status_counts"], "source": tc_path
     }}
+    larger_tc_path = "evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json"
+    larger_tc = document(ROOT / larger_tc_path)
+    checkpoint_trials["PC-S Qwen3-14B TC-V2 development"] = {
+        "planned": larger_tc["planned"], "assessed": larger_tc["assessed"],
+        "outcomes": larger_tc["status_counts"], "source": larger_tc_path,
+    }
     multi_path = "evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json"
     multi = document(ROOT / multi_path)["run_end_summary"]
     checkpoint_trials["PC-S Qwen3-8B MULTITOOL-V1"] = {

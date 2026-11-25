@@ -18,15 +18,17 @@ From a fresh checkout, verify the portable evidence with
 `python scripts/tools/verify_atlas_artifacts.py`,
 `python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc`
 and `python -m scripts.tools.atlas_failure_ledger --check`.
-The larger reference passed the [Qwen3-14B admission](evidence/IJ072/model_identity/admission/J/report.json).
-Resume its frozen TC-V2 component through the queue. Use the same clean
-commit recorded by the first run. Stop only at a batch boundary and keep the
-original output directory.
+Qwen3-14B passed [admission](evidence/IJ072/model_identity/admission/J/report.json) and
+completed the [100-trial TC-V2 component](evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json).
+Resume MULTITOOL in the clean workstation worktree
+`.scratch/ij072-reference-runtime` at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
+Verify no process is holding the Radeon slot. Stop at a completed batch
+boundary and reuse the original output directory for every batch.
 
 ```powershell
 $env:PYTHONPATH = (Resolve-Path src).Path
 $strong = @('--candidate', 'J', '--model', '../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf', '--engine-dir', '../../.tools/ij07-toolchoice-p4b-vulkan')
-python -m scripts.tools.atlas_pc_s --suite tc @strong --output .runtime/ij072-pc-s-j-tc
+python -m scripts.tools.atlas_pc_s --suite multi @strong --output ../ij071-atlas/.runtime/ij072-pc-s-j-multi --batch-size 25
 ```
 
 The raw competitive and JOB-V1 A/B reconciliation commands require the

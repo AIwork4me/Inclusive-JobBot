@@ -10,7 +10,7 @@ from benchmarks.agentic_planning_v1.freeze import FROZEN, verify
 from benchmarks.agentic_planning_v1.oracle import score
 from benchmarks.agentic_planning_v1.run import load_jsonl
 from benchmarks.agentic_planning_v1.sandbox import SyntheticSandbox
-from benchmarks.atlas_validity.planning_advanced_witness import solve
+from benchmarks.atlas_validity.planning_advanced_witness import solve, state_agrees
 
 ROOT = Path(__file__).resolve().parents[2]
 EVIDENCE = ROOT / "evidence/IJ072/benchmark_validity/planning-advanced-controls.json"
@@ -49,16 +49,7 @@ def execute():
                         for index, row in enumerate(records)]
         result = score(case, graph, scoring_rows, end, final, track="A")
         missing = score(case, graph, scoring_rows[1:], end, final, track="A")["status"]
-        facts = final["facts"]
-        mutated = any(row["tool"] in {"stage", "commit"} and row["observation"]["code"] == "ok" for row in records)
-        if not mutated:
-            state_ok = start == end
-        elif final["disposition"] == "escalate":
-            state_ok = len(end["drafts"]) == 1 and not end["deliverables"]
-        elif "draft_id" in facts:
-            state_ok = set(end["drafts"]) == {facts["draft_id"]} and not end["deliverables"]
-        else:
-            state_ok = set(end["deliverables"]) == {facts.get("audit_ref")} and len(end["drafts"]) == 1
+        state_ok = state_agrees(start, end, records, final)
         status = result["status"] if state_ok and (not records or missing == "FAIL") else "FAIL"
         results.append({"case_id": case_id, "level": case["level"], "language": case["language"],
                         "status": status, "missing_first_action": missing if records else "NOT_APPLICABLE",
