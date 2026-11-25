@@ -294,8 +294,8 @@ def main():
     parser.add_argument("--seed", type=int, default=41909, help="Seed for the primary panel")
     parser.add_argument("--max-tokens", type=int, default=2048)
     parser.add_argument("--temperature", type=float, default=0.0)
-    parser.add_argument("--prompt-contract", choices=("p0", "p1"), default="p0",
-                        help="p1 separates Plan-first initial instructions from acting and final output")
+    parser.add_argument("--prompt-contract", choices=runner.PROMPT_ARMS, default="p0",
+                        help="Select the frozen Plan-first prompt intervention")
     parser.add_argument("--thinking", action="store_true")
     parser.add_argument("--stream", action="store_true")
     args = parser.parse_args()

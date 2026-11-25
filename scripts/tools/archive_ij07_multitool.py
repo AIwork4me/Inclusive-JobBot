@@ -22,17 +22,18 @@ def rate_intervals(strata):
     }
 
 
-def archive(source, output, *, pc_s=False):
+def archive(source, output, *, pc_s=False, pc_s_checkpoint=False):
     run_path = source / "run.json"
     summary_path = source / "summary.json"
     run = json.loads(run_path.read_bytes())
     config = run["configuration"]
     freeze = dataset.load_freeze()
-    scope = "diagnostic" if pc_s else "full_panel"
+    reference = pc_s or pc_s_checkpoint
+    scope = "diagnostic" if reference else "full_panel"
     if (run["fingerprint"] != digest(config) or config["freeze_sha256"] != freeze.manifest["freeze_sha256"]
             or config["scope"] != scope):
         raise ValueError("MULTITOOL run identity differs from the requested freeze")
-    if pc_s:
+    if reference:
         from scripts.tools.atlas_reference_panel import create
 
         frozen = create()["multitool_v1"]
@@ -92,10 +93,12 @@ def archive(source, output, *, pc_s=False):
         "physical_sessions": proof,
         "source_capture_scope": "per-request generation traces; live sampler snapshots may continue growing",
     }
-    if pc_s and (not resolved or final_summary["physical_evidence_status"] != "PASS"
-                 or any(run["sessions"][tag]["proof"] != info or info["status"] != "PASS"
-                        for tag, info in proof.items())):
-        raise ValueError("MULTITOOL PC-S requires complete and sealed physical evidence")
+    if reference and (final_summary is None or final_summary["physical_evidence_status"] != "PASS"
+                      or any(run["sessions"][tag].get("proof") != info or info["status"] != "PASS"
+                             for tag, info in proof.items())):
+        raise ValueError("MULTITOOL PC-S requires a closed physical checkpoint")
+    if pc_s and not resolved:
+        raise ValueError("MULTITOOL PC-S full coverage requires all frozen trials")
     output.mkdir(parents=True, exist_ok=False)
     (output / "run.json").write_bytes(dataset.canonical(run))
     with (output / "terminal.jsonl.gz").open("wb") as handle:
@@ -107,7 +110,7 @@ def archive(source, output, *, pc_s=False):
         snapshot = (source / name).read_bytes()
         snapshot_sha256 = hashlib.sha256(snapshot).hexdigest()
         recorded = session_proof.get("sha256", {}).get("counter")
-        if resolved and snapshot_sha256 != recorded:
+        if (resolved or reference) and snapshot_sha256 != recorded:
             raise ValueError(f"final session counter snapshot differs from proof: {tag}")
         session_proof["published_counter_sha256"] = snapshot_sha256
         (output / (name + ".gz")).write_bytes(gzip.compress(snapshot, mtime=0))
@@ -119,9 +122,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--pc-s", action="store_true", help="verify the complete frozen Qwen reference diagnostic")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--pc-s", action="store_true", help="verify the complete frozen Qwen reference diagnostic")
+    mode.add_argument("--pc-s-checkpoint", action="store_true", help="verify a closed batch of the frozen reference panel")
     args = parser.parse_args()
-    archive(args.source, args.output, pc_s=args.pc_s)
+    archive(args.source, args.output, pc_s=args.pc_s, pc_s_checkpoint=args.pc_s_checkpoint)
 
 
 if __name__ == "__main__":

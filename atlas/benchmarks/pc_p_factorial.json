@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "scope": "PC-P Plan-first descriptive causal panel",
+  "suite": "AGENTIC-PLAN-V1",
+  "candidate_profiles": ["A", "B", "G", "H"],
+  "track": "P",
+  "seed": 41909,
+  "profile": {"backend": "vulkan", "temperature": 0, "max_tokens": 2048, "thinking": false, "stream": false},
+  "source_roster": "atlas/benchmarks/pc_s_roster.json",
+  "selection_rule": "First two case IDs from each existing ordered level/language stratum of the frozen PC-S Planning roster",
+  "case_ids": [
+    "AP1-L0-009", "AP1-L0-011", "AP1-L0-025", "AP1-L0-099",
+    "AP1-L1-092", "AP1-L1-081", "AP1-L1-016", "AP1-L1-005",
+    "AP1-L2-013", "AP1-L2-044", "AP1-L2-023", "AP1-L2-070",
+    "AP1-L3-081", "AP1-L3-030", "AP1-L3-005", "AP1-L3-078",
+    "AP1-L4-084", "AP1-L4-085", "AP1-L4-014", "AP1-L4-099",
+    "AP1-L5-094", "AP1-L5-043", "AP1-L5-022", "AP1-L5-035",
+    "AP1-L6-061", "AP1-L6-022", "AP1-L6-051", "AP1-L6-042",
+    "AP1-L7-004", "AP1-L7-043", "AP1-L7-009", "AP1-L7-022"
+  ],
+  "arm_factors": {
+    "p0": [],
+    "p1": [],
+    "p2": ["example"],
+    "p3": ["schema"],
+    "p4": ["compact"],
+    "p5-es": ["example", "schema"],
+    "p5-ec": ["example", "compact"],
+    "p5-sc": ["schema", "compact"],
+    "p5": ["example", "schema", "compact"]
+  },
+  "planned_trials": 1152,
+  "outcomes": {
+    "primary": ["initial_plan_protocol", "strict_end_to_end", "business_outcome"],
+    "secondary": ["goal_understanding", "plan_executability", "final_output_protocol", "safety"],
+    "contrasts": "P0 against P1 isolates stage separation. P1 through P5 specify the full three-factor experiment. Use matched case/model/seed differences and the factorial difference of differences. Report denominators, levels and languages. Missing or unsupported engine runs remain explicit."
+  },
+  "evidence_rule": "Bind exact runtime, source, roster and treatment to wire and GPU evidence. Inspect rendered native grammar before counting a schema treatment as applied."
+}

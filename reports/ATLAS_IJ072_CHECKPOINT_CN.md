@@ -40,6 +40,8 @@ Qwen3-14B Q8_0 同样使用 Radeon Vulkan 和 8K 上下文，在同一 100 条�
 
 P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行和终答合同。保持冻结输入、权限、工具、模型预算和评估器。Acting-first 的提示保持原样。软件 RED/GREEN 验证了 P0/P1 的差异。Qwen3-8B 在冻结的 20 条 L0 Plan-first 配对中，P1 把初始协议通过从 0/20 提高到 7/20。严格端到端和业务结果均保持 0/20，P1 的 3 条虚报完成被安全评分识别。四模型 L0 配对共 80 对。MiniCPM5 初始协议通过从 0/20 到 3/20，LFM3 从 1/20 到 3/20，Gemma 从 0/20 到 1/20。两臂的严格通过均为 0/80。覆盖限于 L0，P2–P5 尚未执行。 [配对证据](../evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json) [运行器](../benchmarks/agentic_planning_v1/runner.py) · [回归](../tests/regression/ij07/test_agentic_planning_v1.py)
 
+后续 PC-P 面板已预注册 1,152 条 Plan-first 试次，覆盖四种模型、L0–L7 中英文共 32 个固定用例。P2 增加纯格式示例，P3 请求首轮原生 JSON Schema，P4 精简公开只读工具描述，P5 增加三种两因子组合及完整组合。动作参数、权限检查和评估规则沿用冻结版。当前验证为软件测试，P3 和相关组合还需从实际模板与生成记录核实约束有没有应用。 [面板](../atlas/benchmarks/pc_p_factorial.json) · [可恢复运行器](../scripts/tools/atlas_pc_p.py)
+
 ## A1 独立事实校验范围
 
 报价 witness 对全部 80 个用例使用公开提示、公开工具和实际工具返回生成答复，其中中英文各 40 条。复核程序直接从 SQLite 读取目录，并确认业务表未变化。字段重排通过。错误工具、错误参数、缺少动作、重复动作、错误报价、额外字段和围栏终答由原严格评分拒绝。报价变异结果单列为该任务族的软件证据。独立人工盲审仍待完成。 [Witness](../benchmarks/atlas_validity/quote_witness.py) · [80 条结果](../evidence/IJ072/benchmark_validity/quote-controls.json)

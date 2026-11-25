@@ -15,6 +15,8 @@
 | L0 public-input intent witness and three mutations | PASS | 100/100 Acting-first exact matches. `evidence/IJ072/benchmark_validity/planning-intent-controls.json` |
 | Qwen3-8B PC-S physical Planning coverage | PASS | 320/320 sealed with 4 strict PASS and 316 FAIL. `evidence/IJ072/benchmark_validity/pc-s-planning-full/diagnostic.json` |
 | PC-P paired L0 Plan-first pilot for MiniCPM5, LFM3, Gemma and Qwen3-8B | FAIL | 80 matched pairs. Initial protocol improved across the four models. Strict results remain 0/80 in each arm. `evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json` |
+| PC-P P2-P5 interventions and fixed factorial roster | PASS | Software verification. 32 matched cases spanning L0-L7 and both languages. `atlas/benchmarks/pc_p_factorial.json` |
+| PC-P P0-P5 factorial physical panel | NOT_RUN | 1,152 registered trials. Native schema application requires capture verification. `atlas/benchmarks/pc_p_factorial.json` |
 | TC-V2 holdout public-input witness | PASS | 500/500 with actual synthetic tool execution and independently read SQLite state. `evidence/IJ072/benchmark_validity/tc-holdout-witness.json` |
 | MULTITOOL-V1 public-input witness | PASS | 600/600 with tool events and 75 direct SQLite draft-state checks. `evidence/IJ072/benchmark_validity/multitool-witness.json.gz` |
 | Planning L1-L7 public-input Acting-first witness | PASS | 700/700 software trials with independent action selection. `evidence/IJ072/benchmark_validity/planning-read-controls.json` and `evidence/IJ072/benchmark_validity/planning-advanced-controls.json` |

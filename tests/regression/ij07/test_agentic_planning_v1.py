@@ -185,7 +185,7 @@ def completion(*calls, content=None):
     }}]}
 
 
-@pytest.mark.parametrize("prompt_contract", ("p0", "p1"))
+@pytest.mark.parametrize("prompt_contract", ("p0", "p1", "p2", "p3", "p4", "p5"))
 def test_runner_replays_acting_and_plan_first_wire_fixtures(corpus, prompt_contract):
     public, private, _ = corpus
     case = next(c for c in public if c["level"] == "L2")
@@ -199,7 +199,7 @@ def test_runner_replays_acting_and_plan_first_wire_fixtures(corpus, prompt_contr
         client = WireFixture([*([completion(content=json.dumps(plan))] if track == "P" else []),
                               completion(*calls), completion(content=json.dumps(graph["final"]))])
         events = []
-        kwargs = {"prompt_contract": prompt_contract} if prompt_contract == "p1" else {}
+        kwargs = {"prompt_contract": prompt_contract}
         result = run_trajectory(case, graph, client, track=track, seed=41909, journal=events.append, **kwargs)
         assert result["status"] == "PASS"
         assert [row["turn"] for row in result["records"]] == ([1, 1] if track == "P" else [0, 0])
@@ -207,11 +207,25 @@ def test_runner_replays_acting_and_plan_first_wire_fixtures(corpus, prompt_contr
         if track == "P":
             assert client.requests[0]["request"]["tool_choice"] == "auto"
             assert result["plan_before_tools"]
+            first_body, second_body = [capture["request"] for capture in client.requests[:2]]
             first_system, second_system = [capture["request"]["messages"][0]["content"]
                                            for capture in client.requests[:2]]
             assert ("Return one JSON object" in first_system) == (prompt_contract == "p0")
             assert "Return one JSON object" in second_system
             assert ("Before invoking tools" in second_system) == (prompt_contract == "p0")
+            assert ("Format example only" in first_system) == (prompt_contract in {"p2", "p5"})
+            assert "Format example only" not in second_system
+            assert ("response_format" in first_body) == (prompt_contract in {"p3", "p5"})
+            assert "response_format" not in second_body
+            original = request(case, "P")["tools"]
+            for actual, unchanged in zip(first_body["tools"], original, strict=True):
+                assert actual["function"]["name"] == unchanged["function"]["name"]
+                assert actual["function"]["parameters"] == unchanged["function"]["parameters"]
+            assert (first_body["tools"] == original) == (prompt_contract not in {"p4", "p5"})
+        else:
+            first = client.requests[0]["request"]
+            assert first["tools"] == request(case, "A")["tools"]
+            assert "response_format" not in first
 
 
 def test_runner_rejects_same_turn_derived_id_before_any_batch_action(corpus):
