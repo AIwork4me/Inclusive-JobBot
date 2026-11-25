@@ -16,6 +16,7 @@ from scripts.tools.atlas_pc_p import frozen_panel
 OUTPUT = EVIDENCE / "pc-p-h-factorial-first-five.json"
 MATRIX = EVIDENCE / "pc-p-factorial-first-five-four-models.json"
 FULL_H = EVIDENCE / "pc-p-h-factorial-full.json"
+FULL_MATRIX = EVIDENCE / "pc-p-factorial-full-four-models.json"
 MODELS = {
     "A": ("MiniCPM5-2B", "OpenBMB/MiniCPM5-2B-GGUF"),
     "B": ("LFM3-1.7B", "LiquidAI/LFM3-1.7B"),
@@ -102,8 +103,9 @@ def build(candidate="H", *, full=False):
     }
 
 
-def matrix():
-    results = {MODELS[candidate][0]: build(candidate) for candidate in frozen_panel()["candidate_profiles"]}
+def matrix(*, full=False):
+    results = {MODELS[candidate][0]: build(candidate, full=full)
+               for candidate in frozen_panel()["candidate_profiles"]}
     identities = {row["source_git"]["commit"] for row in results.values()}
     if len(identities) != 1:
         raise ValueError("four-model blocks use different experimental source commits")
@@ -111,7 +113,9 @@ def matrix():
     for row in results.values():
         for arm in row["counts"].values():
             strict.update(arm["strict_end_to_end"])
-    return {"scope": "All nine treatments across four models on the first five registered cases",
+    scope = ("All nine treatments across four models on the complete registered cases"
+             if full else "All nine treatments across four models on the first five registered cases")
+    return {"scope": scope,
             "trials": sum(len(row["cases"]) * len(row["counts"]) for row in results.values()),
             "strict_outcomes": {status: strict[status] for status in ("PASS", "FAIL", "BLOCKED", "NOT_RUN")},
             "models": results}
@@ -123,9 +127,14 @@ def main():
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--matrix", action="store_true")
     mode.add_argument("--full-h", action="store_true")
+    mode.add_argument("--full-matrix", action="store_true")
     args = parser.parse_args()
-    result = matrix() if args.matrix else build(full=args.full_h)
-    output = MATRIX if args.matrix else FULL_H if args.full_h else OUTPUT
+    if args.full_matrix:
+        result, output = matrix(full=True), FULL_MATRIX
+    elif args.matrix:
+        result, output = matrix(), MATRIX
+    else:
+        result, output = build(full=args.full_h), FULL_H if args.full_h else OUTPUT
     raw = (json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
     if args.check:
         if output.read_bytes() != raw:
@@ -133,7 +142,7 @@ def main():
     else:
         with output.open("xb") as stream:
             stream.write(raw)
-    models = result["models"] if args.matrix else {"Qwen3-8B": result}
+    models = result["models"] if args.matrix or args.full_matrix else {"Qwen3-8B": result}
     for model, row in models.items():
         print(model, {arm: (counts["initial_plan_protocol"].get("PASS", 0), counts["strict_end_to_end"].get("PASS", 0))
                       for arm, counts in row["counts"].items()})
