@@ -12,12 +12,14 @@ from benchmarks.multitool_v1.run import digest
 from benchmarks.tool_calling_v2.oracle import decode_object, equal
 from scripts.tools.atlas_reference_panel import create
 from scripts.tools.atlas_progress import document
+from scripts.tools.atlas_pc_s import draft_guard_roster
 
 
 ROOT = Path(__file__).resolve().parents[2]
 EVIDENCE = ROOT / "evidence/IJ072/benchmark_validity"
 OUTPUT = EVIDENCE / "pc-s-multitool-qwen-pair.json"
 STREAM_OUTPUT = EVIDENCE / "pc-s-j-multitool-streaming-pairs.json"
+DRAFT_OUTPUT = EVIDENCE / "pc-s-j-multitool-draft-guard-pairs.json"
 
 
 def load(archive, candidate):
@@ -126,13 +128,78 @@ def stream_pairs():
             "counts": dict(Counter(row["parity"] for row in rows)), "trials": rows}
 
 
+def draft_observations(row):
+    reviews, drafts = {}, []
+    reported_written = dict(row["before_sqlite"]["review_drafts"])
+    references_match = True
+    for call in row["calls"]:
+        args = payload(call["arguments_raw"])
+        if not isinstance(args, dict) or not isinstance(args.get("record_id"), str):
+            continue
+        key, turn, result = args["record_id"], call["turn"], call["result"]
+        if call["name"] == "read_review":
+            reviews.pop(key, None)
+            if result.get("superseded") is False and result.get("draft_permission") is True and result.get("current_ref") == key:
+                reviews[key] = turn
+        elif call["name"] == "create_hold_draft":
+            reviewed = key in reviews and reviews[key] < turn
+            drafted = result.get("status") == "drafted"
+            if drafted:
+                references_match &= result.get("draft_ref") == key
+                reported_written[key] = {"review_ref": key, "submitted": False, "reason": args.get("reason")}
+            drafts.append({"record_id": key, "turn": turn, "prior_exact_review": reviewed,
+                           "drafted": drafted, "error": result.get("error")})
+    after = row["after_sqlite"]["review_drafts"]
+    return {"strict": row["status"], "calls": drafts, "persisted_draft_count": len(after),
+            "state_matches_reported_actions": references_match and after == reported_written}
+
+
+def draft_guard_pairs():
+    arms = {name: load(EVIDENCE / f"pc-s-j-multitool-draft-{name}", "J") for name in ("legacy", "observed")}
+    (old_run, original), (new_run, guarded) = arms.values()
+    left, right = old_run["configuration"], new_run["configuration"]
+    if (left | {"require_observed_draft": True} != right or left.get("require_observed_draft")
+            or left["stream"] or original.keys() != guarded.keys()
+            or {row["case_id"] for row in guarded.values()} != set(draft_guard_roster())):
+        raise ValueError("draft guard pair changed a bound input beyond the registered runtime flag")
+    pairs = [{"case_id": original[key]["case_id"], "seed": original[key]["seed"],
+              "legacy": draft_observations(original[key]), "observed": draft_observations(guarded[key])}
+             for key in sorted(guarded)]
+    counts = {}
+    for arm in arms:
+        rows = [pair[arm] for pair in pairs]
+        calls = [call for row in rows for call in row["calls"]]
+        counts[arm] = {"strict": dict(Counter(row["strict"] for row in rows)),
+                       "draft_calls": len(calls),
+                       "drafted_after_prior_review": sum(c["drafted"] and c["prior_exact_review"] for c in calls),
+                       "drafted_without_prior_review": sum(c["drafted"] and not c["prior_exact_review"] for c in calls),
+                       "prior_review_missing_denials": sum(not c["prior_exact_review"] and c["error"] == "POLICY_DENIED"
+                                                          for c in calls),
+                       "persisted_draft_count": sum(row["persisted_draft_count"] for row in rows),
+                       "state_consistent_cases": sum(row["state_matches_reported_actions"] for row in rows)}
+    result = counts["observed"]
+    return {"scope": "37 paired physical Qwen3-14B MULTITOOL draft authorization diagnostics",
+            "source_commit": left["git"]["commit"], "dataset_sha256": left["freeze_sha256"],
+            "run_ids": {name: run["run_id"] for name, (run, _) in arms.items()}, "counts": counts,
+            "observed_without_prior_review": ("FAIL" if result["drafted_without_prior_review"] else
+                                              "PASS" if result["prior_review_missing_denials"] else "NOT_RUN"),
+            "observed_draft_state_reconciliation": "PASS" if result["state_consistent_cases"] == len(pairs) else "FAIL",
+            "trials": pairs}
+
+
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--stream-pairs", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--stream-pairs", action="store_true")
+    mode.add_argument("--draft-guard-pairs", action="store_true")
     args = parser.parse_args()
-    report = stream_pairs() if args.stream_pairs else build()
-    output = STREAM_OUTPUT if args.stream_pairs else OUTPUT
+    if args.draft_guard_pairs:
+        report, output = draft_guard_pairs(), DRAFT_OUTPUT
+    elif args.stream_pairs:
+        report, output = stream_pairs(), STREAM_OUTPUT
+    else:
+        report, output = build(), OUTPUT
     data = (json.dumps(report, indent=2, sort_keys=True) + "\n").encode()
     if args.check:
         if output.read_bytes() != data:
@@ -140,7 +207,7 @@ def main():
     else:
         with output.open("xb") as target:
             target.write(data)
-    print(report["counts"] if args.stream_pairs else report["overall"])
+    print(report["overall"] if "overall" in report else report["counts"])
 
 
 if __name__ == "__main__":

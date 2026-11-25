@@ -1,22 +1,26 @@
 """Compare the first complete matched PC-P factorial blocks."""
 
 from argparse import ArgumentParser
-from collections import Counter
+from collections import Counter, defaultdict
 from itertools import combinations
 import json
+from pathlib import Path
 
 from benchmarks.agentic_planning_v1.freeze import FROZEN
 from benchmarks.agentic_planning_v1.run import load_jsonl
-from benchmarks.atlas_validity.evaluation import planning_layered_scores
+from benchmarks.agentic_planning_v1.runner import PLAN_FIELDS
+from benchmarks.atlas_validity.evaluation import FENCE, parsed, planning_layered_scores
 from scripts.tools.atlas_audit_pc_p_schema import EVIDENCE, audit
 from scripts.tools.atlas_compare_pc_p_pilot import selected_archive
 from scripts.tools.atlas_pc_p import frozen_panel
+from scripts.tools.atlas_progress import jsonl
 
 
 OUTPUT = EVIDENCE / "pc-p-h-factorial-first-five.json"
 MATRIX = EVIDENCE / "pc-p-factorial-first-five-four-models.json"
 FULL_H = EVIDENCE / "pc-p-h-factorial-full.json"
 FULL_MATRIX = EVIDENCE / "pc-p-factorial-full-four-models.json"
+WIRE_H = EVIDENCE / "pc-p-h-factorial-wire.json"
 MODELS = {
     "A": ("MiniCPM5-2B", "OpenBMB/MiniCPM5-2B-GGUF"),
     "B": ("LFM3-1.7B", "LiquidAI/LFM3-1.7B"),
@@ -26,6 +30,86 @@ MODELS = {
 ENDPOINTS = ("initial_plan_protocol", "goal_understanding", "plan_executability", "semantic_correctness",
              "final_output_protocol", "safety", "business_outcome", "strict_end_to_end")
 FACTORS = ("example", "schema", "compact")
+PRIMARY = ("initial_plan_protocol", "business_outcome", "strict_end_to_end")
+
+
+def first_response(event):
+    if event is None:
+        return {"shape": "no_capture", "finish_reason": None, "completion_id": None}
+    wire = event["wire"]
+    result = {"shape": "unavailable_response", "finish_reason": None,
+              "completion_id": wire["source_generation"].get("completion_id")}
+    if wire["http_status"] != 200:
+        return result
+    try:
+        choice = json.loads(wire["raw_response"])["choices"][0]
+        message = choice["message"]
+    except (KeyError, IndexError, TypeError, ValueError):
+        return result
+    content = message.get("content") or ""
+    fenced = FENCE.fullmatch(content) if isinstance(content, str) else None
+    value = parsed(fenced["body"] if fenced else content)
+    if message.get("tool_calls"):
+        shape = "native_tool_calls"
+    elif value is None:
+        shape = "non_object" if content else "empty_content"
+    elif value.keys() == PLAN_FIELDS:
+        shape = "plan_object"
+    elif value.keys() == {"disposition", "facts"}:
+        shape = "final_object"
+    else:
+        shape = "other_object"
+    return {**result, "shape": f"fenced_{shape}" if fenced and value and not message.get("tool_calls") else shape,
+            "finish_reason": choice.get("finish_reason")}
+
+
+def initial_captures(archive):
+    captures = {}
+    for part in sorted(archive.glob("planning-part-*.jsonl.gz")):
+        for entry in jsonl(part):
+            if not entry["name"].startswith("attempts/"):
+                continue
+            trial = Path(entry["name"]).name.split(".", 1)[0]
+            if trial in captures:
+                raise ValueError(f"multiple first-response journals for {trial}")
+            capture = next((event for event in map(json.loads, entry["raw_text"].splitlines())
+                            if event["kind"] == "capture" and event["turn"] == 0), None)
+            captures[trial] = first_response(capture)
+    return captures
+
+
+def full_diagnostics(candidate, results):
+    cases = {row["case_id"]: row for row in results["cases"]}
+    by_stratum = defaultdict(lambda: defaultdict(lambda: defaultdict(Counter)))
+    stops, paired, detail = {}, {}, {}
+    for arm in results["run_ids"]:
+        archive = EVIDENCE / f"pc-p-{candidate.lower()}-clean-{arm}-032"
+        run, scored = selected_archive(archive, set(cases))
+        if run["run_id"] != results["run_ids"][arm]:
+            raise ValueError(f"first-response audit used the wrong {arm} archive")
+        captures = initial_captures(archive)
+        if captures.keys() != {row["trial"]["trial_id"] for row in scored.values()}:
+            raise ValueError(f"first-response captures differ from {arm} scored trials")
+        origins = {name: Counter() for name in ("shape", "finish_reason", "first_runner_finding")}
+        changes = {name: Counter() for name in PRIMARY}
+        snapshots = {}
+        for case_id, case in cases.items():
+            trial = scored[case_id]
+            snapshot = captures[trial["trial"]["trial_id"]]
+            findings = trial["findings"]
+            snapshot["first_runner_finding"] = findings[0]["code"] if findings else None
+            snapshot["plan_oracle_errors"] = trial["plan"]["errors"] if trial["plan"] is not None else []
+            snapshots[case_id] = snapshot
+            for name, counts in origins.items():
+                counts[snapshot[name] or "none"] += 1
+            for name in PRIMARY:
+                score = case["arms"][arm][name]
+                by_stratum[f"{case['level']}/{case['language']}"][arm][name][score] += 1
+                baseline = case["arms"]["p0"][name]
+                changes[name][f"{baseline}->{score}"] += 1
+        stops[arm], detail[arm], paired[arm] = origins, snapshots, changes
+    return {"stratum_outcomes": by_stratum, "paired_transitions_from_p0": paired,
+            "first_response_counts": stops, "first_response_by_case": detail}
 
 
 def contrasts(arm_factors, counts, size):
@@ -106,6 +190,10 @@ def build(candidate="H", *, full=False):
 def matrix(*, full=False):
     results = {MODELS[candidate][0]: build(candidate, full=full)
                for candidate in frozen_panel()["candidate_profiles"]}
+    if full:
+        for candidate in frozen_panel()["candidate_profiles"]:
+            row = results[MODELS[candidate][0]]
+            row["source_diagnostics"] = full_diagnostics(candidate, row)
     identities = {row["source_git"]["commit"] for row in results.values()}
     if len(identities) != 1:
         raise ValueError("four-model blocks use different experimental source commits")
@@ -128,11 +216,17 @@ def main():
     mode.add_argument("--matrix", action="store_true")
     mode.add_argument("--full-h", action="store_true")
     mode.add_argument("--full-matrix", action="store_true")
+    mode.add_argument("--wire-h", action="store_true")
     args = parser.parse_args()
     if args.full_matrix:
         result, output = matrix(full=True), FULL_MATRIX
     elif args.matrix:
         result, output = matrix(), MATRIX
+    elif args.wire_h:
+        model = build(full=True)
+        result = {"source_git": model["source_git"], "run_ids": model["run_ids"],
+                  **full_diagnostics("H", model)}
+        output = WIRE_H
     else:
         result, output = build(full=args.full_h), FULL_H if args.full_h else OUTPUT
     raw = (json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
@@ -142,6 +236,10 @@ def main():
     else:
         with output.open("xb") as stream:
             stream.write(raw)
+    if args.wire_h:
+        for arm, stats in result["first_response_counts"].items():
+            print(arm, dict(stats["shape"]), dict(stats["finish_reason"]), dict(stats["first_runner_finding"]))
+        return
     models = result["models"] if args.matrix or args.full_matrix else {"Qwen3-8B": result}
     for model, row in models.items():
         print(model, {arm: (counts["initial_plan_protocol"].get("PASS", 0), counts["strict_end_to_end"].get("PASS", 0))

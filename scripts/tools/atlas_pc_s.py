@@ -2,6 +2,7 @@
 
 from argparse import ArgumentParser
 import json
+import gzip
 from pathlib import Path
 import subprocess
 import sys
@@ -14,6 +15,16 @@ SUITES = {
     "multi": ("benchmarks.multitool_v1.run", "multitool_v1"),
     "planning": ("benchmarks.agentic_planning_v1.run", "planning_v1"),
 }
+ROOT = Path(__file__).resolve().parents[2]
+DRAFT_WITNESS = ROOT / "evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz"
+
+
+def draft_guard_roster():
+    witness = json.loads(gzip.decompress(DRAFT_WITNESS.read_bytes()))
+    selected = sorted(row["case_id"] for row in witness["trials"] if row["draft_guard"]["status"] == "PASS")
+    if len(set(selected)) != 37 or len(selected) != 37:
+        raise ValueError("prior-turn draft regression differs from the frozen software witness roster")
+    return selected
 
 
 def runner_arguments(suite, frozen):
@@ -38,6 +49,8 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--batch-size", type=int, default=25)
     parser.add_argument("--preflight", action="store_true")
+    parser.add_argument("--draft-guard-control", choices=("legacy", "observed"),
+                        help="run one arm of the 37-case MULTITOOL draft authorization diagnostic")
     args = parser.parse_args()
     if args.batch_size < 1:
         parser.error("--batch-size must be positive")
@@ -45,6 +58,14 @@ def main():
     if frozen != create():
         parser.error("PC-S roster differs from its frozen definition")
     module, selection = runner_arguments(args.suite, frozen)
+    if args.draft_guard_control:
+        if (args.suite, args.candidate) != ("multi", "J"):
+            parser.error("the draft guard diagnostic uses MULTITOOL and the Qwen3-14B reference")
+        selection = ["--backend", "vulkan", "--panel", "primary"]
+        for case_id in draft_guard_roster():
+            selection.extend(("--case", case_id))
+        if args.draft_guard_control == "observed":
+            selection.append("--require-observed-draft")
     command = [sys.executable, "-m", module, *selection, "--candidate", args.candidate,
                "--model", str(args.model.resolve()), "--engine-dir", str(args.engine_dir.resolve())]
     output = args.output.resolve()

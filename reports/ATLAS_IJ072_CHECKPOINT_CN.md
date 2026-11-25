@@ -60,6 +60,8 @@ Qwen3-8B 的 P0–P4 各完成全部 32 条 L0–L7。初始协议分别通过 0
 
 Qwen3-8B 全部九个配置共封存 288 条。示例加精简工具与 P5 全组合分别通过 2/32，严格通过出现在相同两个 L2 用例。四个含 Schema 的配置都达到 32/32 首轮协议通过，P3 单独使用时业务结果为 0/32，P5 全组合为 3/32。剩余 729 条属于另外三个模型的分层扩展面板。 [Qwen3-8B 完整九配置及交互对照](../evidence/IJ072/benchmark_validity/pc-p-h-factorial-full.json)
 
+Qwen3-8B 的原始 P0 首轮在 8 条用例直接输出终答对象，在另外 24 条发起原生工具调用。运行器在执行任何工具前拒绝了全部 32 条。移除首轮终答指令后，P1 仍有 28 条直接发起工具调用，只有 2 条按原冻结协议进入执行。逐条记录包含首轮响应形态、停止原因、运行器首个拒绝原因、各层级和语言的独立分母及配对变化。 [首轮线路与分层证据](../evidence/IJ072/benchmark_validity/pc-p-h-factorial-wire.json)
+
 | 配置 | 初始协议通过 | 计划可执行性通过 | 可验证业务结果 | 严格端到端 |
 |---|---:|---:|---:|---:|
 | P0 | 0/20 | 0/20 | 0/20 | 0/20 |
@@ -77,7 +79,7 @@ TC-V2 的 500/500 条和 MULTITOOL-V1 的 600/600 条公开输入 witness 全部
 
 TC-V2 扩展控制拒绝了 1,500 条不可用工具、未见业务编号、虚报成功或重复写入的轨迹变异。实际合成沙箱拒绝了 500 次未授权 ID、50 次无签名写请求，并阻止了 50 次重复写请求产生第二次业务变更。 [扩展授权和状态控制](../evidence/IJ072/benchmark_validity/tc-holdout-extended-controls.json.gz)
 
-在 37 个允许草拟的 MULTITOOL 用例中，原合成沙箱都允许先草拟后读取审核。新增显式的 `--require-observed-draft` 配置只在存在上一轮的有效审核观测时授权草拟。新配置拒绝了全部 37 个提前及同轮请求，允许随后合法草稿，重复调用没有产生第二次业务变化。600 个独立软件见证均通过。新配置的模型 GPU 回归暂为 NOT_RUN，历史轨迹和配置继续按原身份归档。 [根因与回归证据](../evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz)
+在 37 个允许草拟的 MULTITOOL 用例中，原合成沙箱都允许先草拟后读取审核。新增显式的 `--require-observed-draft` 配置只在存在上一轮的有效审核观测时授权草拟。新配置拒绝了全部 37 个提前及同轮请求，允许随后合法草稿，重复调用没有产生第二次业务变化。600 个独立软件见证均通过。模型 GPU 回归暂为 NOT_RUN，已为同一批 37 条用例登记 Qwen3-14B 配对回归，并规定单独统计实际出现的提前草拟及持久化状态。 [根因与回归证据](../evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz) · [GPU 队列](../atlas/physical_queue.json)
 
 L0 公开提示 witness 在 Acting-first 的 100 条零动作任务全部匹配冻结 Oracle。错误对象、错误终止动作和错误事实各测试 100 次，均被评分拒绝。 [L0 见证结果](../evidence/IJ072/benchmark_validity/planning-intent-controls.json)
 
