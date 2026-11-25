@@ -54,7 +54,9 @@ P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行�
 
 Qwen3-8B P3 五次 Radeon 线路探测均通过格式校验，原始采样记录确认首轮使用相同的原生语法。四个 L0 用例计划超出零动作限制，一个 L1 用例提交了空的条件列表，五次严格结果均为 FAIL。归档操作使探测工作树在配置采样时被标记为 dirty，因此保留为线路诊断。运行器已在配置采样时增加干净工作树校验。 [线路审计](../evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-probe.json) · [GPU 轨迹](../evidence/IJ072/benchmark_validity/pc-p-h-factorial-p3-005/diagnostic.json)
 
-正式分层面板当前封存 909/1,152 条，累计 4 PASS、905 FAIL、243 NOT_RUN。MiniCPM5、LFM3、Gemma 和 Qwen3-8B 均在相同的四条 L0 和一条 L1 上运行了全部九个配置。含 Schema 的 80 次首轮均由采样日志证明启用了原生语法，并通过 Schema 结构校验。该首块 180 条严格端到端均为 FAIL。首块只有一条匹配用例提供工具定义。 [各模型封存进度](../evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json) · [四模型首块及交互对照](../evidence/IJ072/benchmark_validity/pc-p-factorial-first-five-four-models.json)
+正式分层面板已封存 1,152/1,152 条真实 Radeon 推理。严格端到端为 4 PASS、1,148 FAIL、0 BLOCKED、0 NOT_RUN。四个含 Schema 的配置累计 512/512 首轮协议通过、49 次业务结果通过、2 次严格通过。所有配置共 53 次业务结果通过，四次严格通过来自 Qwen3-8B 的同两个 L2 用例。 [完整消融报告](ATLAS_PROMPT_CAUSAL_ABLATION_FINAL.md) · [固定矩阵](../evidence/IJ072/benchmark_validity/pc-p-factorial-full-four-models.json)
+
+四模型首块包含相同的四条 L0 和一条 L1，共 180 条严格 FAIL。该首块有 80 次 Schema 首轮请求和一条有工具定义的匹配用例。 [四模型首块及交互对照](../evidence/IJ072/benchmark_validity/pc-p-factorial-first-five-four-models.json)
 
 Qwen3-8B 的 P0–P4 各完成全部 32 条 L0–L7。初始协议分别通过 0、2、7、32、2 条。P2 得到一个可验证业务结果，其他四配置均为 0，严格端到端合计为 0/160。P3 的 32 条原生采样已逐条验明。P4 的 28 条工具用例保持请求结构、工具参数和结果字段，描述精简使首轮减少 4–44 个词元。 [完整 P3 原生采样证据](../evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-full.json) · [完整 P4 工具定义检查](../evidence/IJ072/benchmark_validity/pc-p-h-p4-tool-definition-check.json)
 
@@ -65,6 +67,8 @@ Qwen3-8B 的原始 P0 首轮在 8 条用例直接输出终答对象，在另外 
 MiniCPM5 已封存全部 288 条。P0 的 32 条在首轮全部被拒绝，其中 27 条直接调用工具、4 条输出其他 JSON 对象、1 条未输出 JSON 对象。P1 仍为 0/32 首轮协议通过。四个 Schema 配置合计 128/128 首轮协议通过。其中四份计划满足冻结执行要求，这四份均未匹配冻结目标。目标与计划执行联合评分为 0/128。P3 有一条可验证业务结果，九个配置均无严格通过。 [MiniCPM5 首轮线路与分层证据](../evidence/IJ072/benchmark_validity/pc-p-a-factorial-wire.json)
 
 LFM3 已封存全部 288 条。四个带 Schema 配置合计 128/128 首轮协议通过，获得 4 次可验证业务结果，严格结果均为 FAIL。P3 的 16 条后续响应被可见推理标记拒绝，首轮计划均已通过。这 16 条的模型采样字节、解析前字节和最终线路内容都出现该标记。 [LFM3 线路与分层证据](../evidence/IJ072/benchmark_validity/pc-p-b-factorial-wire.json) · [P3 原始归档](../evidence/IJ072/benchmark_validity/pc-p-b-clean-p3-032/bundle.json)
+
+Gemma 已封存全部 288 条。四个带 Schema 的配置各通过 32/32 首轮。40 次业务结果通过中有 37 次终答包含 Markdown 围栏，Gemma 的严格端到端为 0/288。 [Gemma 线路证据](../evidence/IJ072/benchmark_validity/pc-p-g-factorial-wire.json) · [完整终答与执行分层](../evidence/IJ072/benchmark_validity/pc-p-factorial-full-four-models.json)
 
 | 配置 | 初始协议通过 | 计划可执行性通过 | 可验证业务结果 | 严格端到端 |
 |---|---:|---:|---:|---:|

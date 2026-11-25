@@ -60,7 +60,7 @@ def first_response(event):
         shape = "final_object"
     else:
         shape = "other_object"
-    return {**result, "shape": f"fenced_{shape}" if fenced and value and not message.get("tool_calls") else shape,
+    return {**result, "shape": f"fenced_{shape}" if fenced and value is not None and not message.get("tool_calls") else shape,
             "finish_reason": choice.get("finish_reason")}
 
 
@@ -83,9 +83,11 @@ def initial_captures(archive, *, include_reasoning=False):
                 wire = last["wire"]
                 source = wire["source_generation"]
                 visible = decode_wire(wire["raw_response"], wire["request"]["stream"]).content
+                rendered = json.loads(wire["render_response"])["prompt"]
                 row["visible_reasoning_tag"] = {
                     "turn": last["turn"], "assistant_content": bool(THINKING_TAG.search(visible)),
                     "thinking_requested": wire["request"]["chat_template_kwargs"]["enable_thinking"],
+                    "rendered_prompt_closed_think_suffix": rendered.endswith("<think></think>"),
                     **{where: bool(THINKING_TAG.search(bytes.fromhex(source[field]).decode("utf-8", errors="replace")))
                        for where, field in (("sampled", "sampled_bytes_hex"), ("pre_parser", "pre_parser_bytes_hex"))},
                 }
@@ -119,6 +121,12 @@ def full_diagnostics(candidate, results, *, separate_plan_checks=False):
             if separate_plan_checks:
                 plan = trial["plan"]
                 observed = plan is not None and trial["plan_before_tools"] is True
+                final = trial["final_raw"]
+                fence = FENCE.fullmatch(final) if isinstance(final, str) else None
+                final_object = parsed(fence["body"] if fence else final)
+                snapshot["fenced_final_envelope"] = bool(fence and final_object is not None and
+                                                         final_object.keys() == {"disposition", "facts"})
+                snapshot["execution_trace_errors"] = trial["errors"]
                 snapshot["frozen_plan_goal_match"] = "NOT_RUN" if not observed else (
                     "PASS" if plan["goal_understood"] else "FAIL")
                 snapshot["frozen_plan_execution_requirements"] = "NOT_RUN" if not observed else (

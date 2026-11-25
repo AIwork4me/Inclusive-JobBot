@@ -31,7 +31,7 @@ Formal gates passed 1/30. A1 counts in the workstream table refer to software fi
 | [PC-S Qwen3-14B MULTITOOL-V1](../evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json) | 120 | 120 | 45 | 75 | 0 | 0 |
 | [PC-S Qwen3-8B Planning](../evidence/IJ072/benchmark_validity/pc-s-planning-full/diagnostic.json) | 320 | 320 | 4 | 316 | 0 | 0 |
 | [PC-S Qwen3-14B Planning](../evidence/IJ072/benchmark_validity/pc-s-j-planning-full/diagnostic.json) | 320 | 320 | 35 | 285 | 0 | 0 |
-| [PC-P four-model factorial](../evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json) | 1152 | 909 | 4 | 905 | 0 | 243 |
+| [PC-P four-model factorial](../evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json) | 1152 | 1152 | 4 | 1148 | 0 | 0 |
 | [Legacy JOB-V1 A primary](../evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json) | 600 | 600 | 23 | 577 | 0 | 0 |
 | [Legacy JOB-V1 B primary](../evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json) | 600 | 300 | 22 | 278 | 7 | 293 |
 

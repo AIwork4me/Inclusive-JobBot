@@ -35,6 +35,7 @@ panels (Qwen3-8B and Qwen3-14B), the four-model prompt experiment, historical
 failure diagnostics and verified legacy JOB-V1 checkpoints.
 [Progress dashboard](reports/ATLAS_PROGRESS_DASHBOARD.md) ·
 [A1 checkpoint report](reports/ATLAS_IJ072_CHECKPOINT_CN.md) ·
+[Prompt ablation results](reports/ATLAS_PROMPT_CAUSAL_ABLATION_FINAL.md) ·
 [Prompt experiment checkpoint](evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json) ·
 [Reproduce the A1 evidence](docs/ATLAS_A1_REPRODUCIBILITY.md) ·
 [Model passports](evidence/IJ07/model_passports/) ·

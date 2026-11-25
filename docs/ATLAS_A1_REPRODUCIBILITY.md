@@ -21,7 +21,10 @@ python -m scripts.tools.verify_ij07_artifacts
 python scripts/tools/atlas_progress.py --check
 python -m scripts.tools.atlas_failure_ledger --check
 python -m scripts.tools.atlas_compare_pc_p_factorial --progress --check
+python -m scripts.tools.atlas_compare_pc_p_factorial --full-matrix --check
 python -m scripts.tools.atlas_compare_pc_p_factorial --wire A --check
+python -m scripts.tools.atlas_compare_pc_p_factorial --wire B --check
+python -m scripts.tools.atlas_compare_pc_p_factorial --wire G --check
 python -m scripts.tools.atlas_compare_pc_p_factorial --wire H --check
 python -m scripts.tools.atlas_compare_pc_s_multitool --stream-pairs --check
 python -m scripts.tools.atlas_multitool_witness --extended --check

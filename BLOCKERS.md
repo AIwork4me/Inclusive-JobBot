@@ -4,8 +4,8 @@
 
 | ID | Status | Owner | Condition |
 |---|---|---|---|
-| B-IJ071-01 | BLOCKED | Benchmark engineering | The frozen Plan-first initial gate fails on 128/800 independent software witnesses. The revised scorer freeze and cross-suite qualification depend on the discrepancy review and the independent human assessments. Both 540-trial PC-S controls are sealed. The formal PC-P factorial evidence remains in progress. |
-| B-IJ071-02 | BLOCKED | GPU experiment scheduling | The interrupted legacy JOB-V1 controller yielded the slot. Arm A is sealed. Arm B has seven unsealed records. Finish formal PC-P and the matched draft authorization regression before allocating the slot to another physical queue. See `atlas/physical_queue.json`. |
+| B-IJ071-01 | BLOCKED | Benchmark engineering | The frozen Plan-first initial gate fails on 128/800 independent software witnesses. The revised scorer freeze and cross-suite qualification depend on the discrepancy review and the independent human assessments. Both 540-trial PC-S controls and all 1,152 PC-P physical trials are sealed. |
+| B-IJ071-02 | BLOCKED | GPU experiment scheduling | The interrupted legacy JOB-V1 controller yielded the slot. Arm A is sealed. Arm B has seven unsealed records. The matched draft authorization regression occupies the next eligible slot. See `atlas/physical_queue.json`. |
 | B-IJ071-03 | CLOSED | Runtime engineering | The pinned Qwen3-8B launchers completed the frozen Planning and MULTITOOL PC-S trials with raw wire and GPU evidence. |
 | B-IJ072-01 | BLOCKED | Independent human reviewers | The 22-case score-blind packet is ready. Independent assessments and reconciliation are pending. See `reports/ATLAS_A1_BLIND_REVIEW.md`. |
 | B-IJ072-02 | BLOCKED | Benchmark engineering and independent reviewers | The frozen initial plan evaluator accepts 602 contradictory action-condition mutations. The original traces and scores are preserved. A revised condition contract needs blind validation against the ambiguous public cases and independent positive and negative witnesses. See `evidence/IJ072/benchmark_validity/planning-precondition-controls.json`. |

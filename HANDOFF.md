@@ -27,22 +27,22 @@ sealed 320/320 trials. The larger reference's original source and outputs are
 linked to the clean workstation worktree `.scratch/ij072-reference-runtime`
 at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
 
-The [stratified PC-P panel](atlas/benchmarks/pc_p_factorial.json) has 909 sealed
-trials, combining the complete MiniCPM5, LFM3 and Qwen3-8B blocks with the first
-five cases for Gemma. [Verified checkpoint counts](evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json)
-Use the workstation `.scratch/ij072-prompt-runtime` worktree at
-`876ee84baa86f86399a5ae46bd7721671e16a090` with the same shared Radeon slot.
-Verify the device is available and save results at completed batch boundaries.
-Reuse the matching output directory for each model and arm.
-Candidate A resolves the pinned MiniCPM5 GGUF in the worktree's ignored
-model directory. Candidates B and G use the existing Q8_0 files under
-`../ij07-worktree/.runtime/ij07-candidates/`. The model hashes are checked
-for each launch.
+The [stratified PC-P experiment](reports/ATLAS_PROMPT_CAUSAL_ABLATION_FINAL.md)
+sealed all 1,152 physical trials. Its frozen runtime source is
+`876ee84baa86f86399a5ae46bd7721671e16a090` in `.scratch/ij072-prompt-runtime`.
+The [complete matrix](evidence/IJ072/benchmark_validity/pc-p-factorial-full-four-models.json)
+contains nine archived runs per model and exact per-case results.
+
+The next Radeon work is the 74-trial matched draft authorization regression.
+Use `.scratch/ij072-draft-runtime` at `230b51e611ef5ff0d2078db5f23b352c85ef4775`.
+Complete `legacy` and `observed` in order using the same model and observer.
+The launcher resumes a matching output directory and acquires the shared
+Radeon slot. A strict FAIL may still yield a complete physical batch.
 
 ```powershell
 $env:PYTHONPATH = (Resolve-Path src).Path
-$arm = 'p0'
-python -m scripts.tools.atlas_pc_p --candidate G --arm $arm --model ../ij07-worktree/.runtime/ij07-candidates/ggml-org__gemma-4-E2B-it-GGUF/gemma-4-E2B-it-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output "../ij071-atlas/.runtime/ij072-pc-p-g-clean-$arm" --batch-size 27
+$arm = 'legacy'
+python -m scripts.tools.atlas_pc_s --suite multi --candidate J --draft-guard-control $arm --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output "../ij071-atlas/.runtime/ij072-draft-$arm" --batch-size 37
 ```
 
 The raw competitive and JOB-V1 A/B reconciliation commands require the
