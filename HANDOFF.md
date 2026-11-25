@@ -27,13 +27,15 @@ sealed 320/320 trials. The larger reference's original source and outputs are
 linked to the clean workstation worktree `.scratch/ij072-reference-runtime`
 at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
 
-The [stratified PC-P panel](atlas/benchmarks/pc_p_factorial.json) has 315 sealed
+The [stratified PC-P panel](atlas/benchmarks/pc_p_factorial.json) has 369 sealed
 trials, covering all nine treatments on the [first five cases for all four models](evidence/IJ072/benchmark_validity/pc-p-factorial-first-five-four-models.json)
 and all 32 Qwen3-8B trials in [P0](evidence/IJ072/benchmark_validity/pc-p-h-clean-p0-032/diagnostic.json),
 [P1](evidence/IJ072/benchmark_validity/pc-p-h-clean-p1-032/diagnostic.json),
 [P2](evidence/IJ072/benchmark_validity/pc-p-h-clean-p2-032/diagnostic.json),
-[P3](evidence/IJ072/benchmark_validity/pc-p-h-clean-p3-032/diagnostic.json) and
-[P4](evidence/IJ072/benchmark_validity/pc-p-h-clean-p4-032/diagnostic.json).
+[P3](evidence/IJ072/benchmark_validity/pc-p-h-clean-p3-032/diagnostic.json),
+[P4](evidence/IJ072/benchmark_validity/pc-p-h-clean-p4-032/diagnostic.json),
+[P5 example and schema](evidence/IJ072/benchmark_validity/pc-p-h-clean-p5-es-032/diagnostic.json) and
+[P5 example and compact tools](evidence/IJ072/benchmark_validity/pc-p-h-clean-p5-ec-032/diagnostic.json).
 Use the workstation `.scratch/ij072-prompt-runtime` worktree at
 `876ee84baa86f86399a5ae46bd7721671e16a090` with the same shared Radeon slot.
 Verify the device is available and save results at completed batch boundaries.
@@ -45,7 +47,7 @@ for each launch.
 
 ```powershell
 $env:PYTHONPATH = (Resolve-Path src).Path
-$arm = 'p5-es'
+$arm = 'p5-sc'
 python -m scripts.tools.atlas_pc_p --candidate H --arm $arm --model ../../.tools/models/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output "../ij071-atlas/.runtime/ij072-pc-p-h-clean-$arm" --batch-size 27
 ```
 
