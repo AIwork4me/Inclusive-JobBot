@@ -1,5 +1,13 @@
 # Handoff
 
+## IJ-0.7.2 A1 checkpoint
+
+Status **INCOMPLETE**. Use the existing PR #6 worktree. Review
+[the physical queue](atlas/physical_queue.json) and verify the Radeon slot
+before back-to-back runs. Read the [PC-S TC-V2 runbook](benchmarks/competitive_slm/TC_V2_BATCH.md#pc-s-development-panel)
+for the frozen 100-case launch and resume command. Keep the legacy JOB-V1
+checkpoints and exact run identities. A1 and release remain blocked.
+
 ## IJ-0.7.1 Atlas checkpoint
 
 See [baseline audit](reports/ATLAS_A0_BASELINE_AUDIT.md), [live progress entry](atlas/progress.json), and [tracking issue #5](https://github.com/AIwork4me/Inclusive-JobBot/issues/5). Work from branch `mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1`, stacked on the reviewed IJ-0.7 HEAD `888f910b99b90dd7a3ac0f8d8760c6a6bbdc4102`.

@@ -1,5 +1,12 @@
 # Task Ledger
 
+## IJ-0.7.2 Atlas
+
+| Task | Status | Evidence |
+|---|---|---|
+| PC-S TC-V2 frozen development roster and resumable launch | PASS | Software only. `tests/regression/ij07/test_tc_v2_batch.py` |
+| PC-S all suites and A1 evaluator qualification | BLOCKED | `atlas/physical_queue.json` |
+
 ## IJ-0.7.1 Atlas
 
 | Task | Status | Evidence |

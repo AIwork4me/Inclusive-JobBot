@@ -26,9 +26,33 @@ ASSESSED = frozenset(STATUSES[:2])
 SESSION_IDENTITY = ("backend", "gpu", "build", "args", "template_sha256", "layers_offloaded", "layers_total")
 RUNTIME_ENV_PREFIXES = ("LLAMA_", "GGML_", "HIP_", "ROCR_", "HSA_", "VK_")
 RUN_SCOPE = "competitive TC-V2 frozen roster"
+PC_S_SCOPE = "Atlas PC-S TC-V2 development diagnostic"
+PC_S_ROSTER = Path(__file__).resolve().parents[2] / "atlas/benchmarks/pc_s_roster.json"
+
+
+def pc_s_roster():
+    from scripts.tools.atlas_reference_panel import create
+
+    frozen = json.loads(PC_S_ROSTER.read_bytes())
+    if frozen != create():
+        raise ValueError("PC-S diagnostic roster differs from its frozen definition")
+    panel = frozen["tc_v2"]
+    cases, manifest = dataset.load(panel["split"])
+    by_id = {case["id"]: case for case in cases}
+    manifest_sha256 = legacy.sha256_of(dataset.HERE / "manifest.json")
+    selected = [case_id for group in panel["selection_by_stratum"].values() for case_id in group]
+    roster = [{
+        "key": f"first--{case_id}", "case_id": case_id, "category": by_id[case_id]["category"],
+        "split": panel["split"], "phase": "first", "stream": False, "seed": manifest["first_pass_seed"],
+        "repeat_index": None, "attempt": 1, "pairing_sha256": digest(by_id[case_id]),
+        "dataset_sha256": panel["dataset_sha256"], "manifest_sha256": manifest_sha256,
+    } for case_id in selected]
+    return {case_id: by_id[case_id] for case_id in selected}, roster
 
 
 def make_roster(panel):
+    if panel == "pc-s":
+        return pc_s_roster()
     cases, manifest = dataset.load("holdout")
     by_id = {case["id"]: case for case in cases}
     profile = frozen_suite("TC-V2")
@@ -197,7 +221,7 @@ def summarize(run, records):
     coverage = _count(row["status"] for rows in by_phase.values() for row in rows)
     return {
         "run_id": run["run_id"], "run_configuration_sha256": run["run_configuration_sha256"],
-        "configuration_sha256": run["configuration_sha256"], "scope": RUN_SCOPE,
+        "configuration_sha256": run["configuration_sha256"], "scope": run["scope"],
         "coverage_status": ("PASS" if coverage["planned"] == coverage["assessed"] else
                             "NOT_RUN" if not records and not run["sessions"] else "BLOCKED"),
         **coverage, "phases": phase_summary, "streaming_pairs": _count(paired) if paired else None,
@@ -275,18 +299,18 @@ def _run_trial(run, trial, tag, cases, wire, output):
     return trajectory_status in ASSESSED and captured
 
 
-def execute_locked(args, configuration, cases, roster, output, engine_dir, model, env):
+def execute_locked(args, configuration, cases, roster, output, engine_dir, model, env, *, scope=RUN_SCOPE):
     run_file = output / "run.json"
     config_sha = digest(configuration)
     run_configuration = {
-        "scope": RUN_SCOPE, "arm_configuration_sha256": config_sha, "port": args.port, "roster": roster,
+        "scope": scope, "arm_configuration_sha256": config_sha, "port": args.port, "roster": roster,
         "environment_sha256": digest({key.upper(): value for key, value in env.items()
                                       if key.upper().startswith(RUNTIME_ENV_PREFIXES)}),
     }
     fingerprint = digest(run_configuration)
     if run_file.exists():
         run = candidate.read_json(run_file)
-        if (not args.resume or run.get("scope") != RUN_SCOPE or run.get("configuration_sha256") != config_sha
+        if (not args.resume or run.get("scope") != scope or run.get("configuration_sha256") != config_sha
                 or run.get("configuration") != configuration or run.get("run_configuration_sha256") != fingerprint
                 or run.get("run_configuration") != run_configuration):
             raise ValueError("resume requires the exact original competitive roster configuration")
@@ -295,7 +319,7 @@ def execute_locked(args, configuration, cases, roster, output, engine_dir, model
             raise ValueError("batch starts in a fresh output directory")
         run = {
             "run_id": "ij07-competitive-tcv2-roster-" + uuid4().hex, "started_utc": legacy.utc_now(),
-            "scope": RUN_SCOPE, "evidence_class": "local_model", "configuration": configuration,
+            "scope": scope, "evidence_class": "local_model", "configuration": configuration,
             "configuration_sha256": config_sha, "run_configuration": run_configuration,
             "run_configuration_sha256": fingerprint, "sessions": {},
         }
@@ -316,16 +340,20 @@ def execute_locked(args, configuration, cases, roster, output, engine_dir, model
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--candidate", choices=BATCH_CANDIDATES, required=True)
+    parser.add_argument("--candidate", choices=(*BATCH_CANDIDATES, "H"), required=True)
     parser.add_argument("--model", type=Path, required=True)
     parser.add_argument("--engine-dir", type=Path, required=True)
-    parser.add_argument("--panel", choices=PANELS, default="full")
+    parser.add_argument("--panel", choices=(*PANELS, "pc-s"), default="full")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--batch-size", type=int, help="additional first attempts per server invocation")
     parser.add_argument("--verify-runtime", action="store_true", help="verify identities and roster without inference")
     parser.add_argument("--port", type=int, choices=range(1024, 65536), default=8102, metavar="PORT")
     args = parser.parse_args()
+    diagnostic = args.panel == "pc-s"
+    if diagnostic != (args.candidate == "H"):
+        parser.error("candidate H is reserved for the pc-s panel, which requires H")
+    scope = PC_S_SCOPE if diagnostic else RUN_SCOPE
     if args.batch_size is not None and args.batch_size < 1:
         parser.error("--batch-size must be positive")
     if args.verify_runtime and (args.output or args.resume or args.batch_size is not None):
@@ -337,18 +365,21 @@ def main():
         model, engine = args.model.resolve(strict=True), args.engine_dir.resolve(strict=True)
         runtime = candidate.verify_runtime(args.candidate, model, engine)
         cases, roster = make_roster(args.panel)
+        extra_files = (Path(__file__), PC_S_ROSTER) if diagnostic else (Path(__file__),)
         configuration = candidate.build_configuration(
-            runtime, roster[0]["dataset_sha256"], roster[0]["manifest_sha256"], extra_files=(Path(__file__),),
+            runtime, roster[0]["dataset_sha256"], roster[0]["manifest_sha256"], extra_files=extra_files,
         )
         if args.verify_runtime:
             print(json.dumps({"identity_check": "PASS", "inference": "NOT_RUN",
-                              "scope": RUN_SCOPE, "candidate": args.candidate, "planned": len(roster),
+                              "scope": scope, "candidate": args.candidate, "planned": len(roster),
                               "roster_sha256": digest(roster), "configuration_sha256": digest(configuration)}, indent=2))
             return 0
         output = args.output.resolve()
         output.mkdir(parents=True, exist_ok=True)
         with legacy.output_lock(output):
-            result = execute_locked(args, configuration, cases, roster, output, engine, model, candidate.server_environment())
+            result = execute_locked(
+                args, configuration, cases, roster, output, engine, model, candidate.server_environment(), scope=scope,
+            )
     except (OSError, ValueError, KeyError, ImportError, http.client.HTTPException, subprocess.SubprocessError) as failure:
         parser.exit(2, f"BLOCKED: {failure}\n")
     print(f"{args.candidate} {args.panel}: {result['coverage_status']} ({result['assessed']}/{result['planned']} assessed)")

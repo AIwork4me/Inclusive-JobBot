@@ -39,3 +39,22 @@ checkpoint evidence. An interrupted attempt with missing evidence is
 unmeasured cases against the original denominators and omits aggregate rates
 that require complete evidence. A coverage `PASS` means the selected roster was
 assessed. Individual task results and paired outcomes remain separate.
+
+## PC-S development panel
+
+The Atlas PC-S diagnostic reuses the journaled runner with candidate H
+(Qwen3-8B Q8_0) and the 100 selected development cases in the frozen PC-S
+roster. Reserve the physical Radeon slot before invoking it. Run from the Atlas
+worktree with the checked local weight, engine files and Python environment.
+
+```powershell
+$env:PYTHONPATH = (Resolve-Path src).Path
+$pc = @('--candidate', 'H', '--panel', 'pc-s', '--model', $qwen3Gguf, '--engine-dir', $strictVulkanEngineDir)
+python -m benchmarks.competitive_slm.tc_v2_batch @pc --verify-runtime
+python -m benchmarks.competitive_slm.tc_v2_batch @pc --output .runtime/ij072-pc-s-tc --batch-size 25
+python -m benchmarks.competitive_slm.tc_v2_batch @pc --output .runtime/ij072-pc-s-tc --batch-size 25 --resume
+```
+
+Use the same clean source commit for every resume. Review measured, blocked
+and untouched trial counts in the summary after each batch. The separate run
+scope identifies development evidence for benchmark validity.
