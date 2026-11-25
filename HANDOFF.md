@@ -27,9 +27,9 @@ sealed 320/320 trials. The larger reference's original source and outputs are
 linked to the clean workstation worktree `.scratch/ij072-reference-runtime`
 at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
 
-The [stratified PC-P panel](atlas/benchmarks/pc_p_factorial.json) has 666 sealed
-trials, combining the complete MiniCPM5 and Qwen3-8B blocks with the first five
-cases for LFM3 and Gemma. [Verified checkpoint counts](evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json)
+The [stratified PC-P panel](atlas/benchmarks/pc_p_factorial.json) has 909 sealed
+trials, combining the complete MiniCPM5, LFM3 and Qwen3-8B blocks with the first
+five cases for Gemma. [Verified checkpoint counts](evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json)
 Use the workstation `.scratch/ij072-prompt-runtime` worktree at
 `876ee84baa86f86399a5ae46bd7721671e16a090` with the same shared Radeon slot.
 Verify the device is available and save results at completed batch boundaries.
@@ -42,7 +42,7 @@ for each launch.
 ```powershell
 $env:PYTHONPATH = (Resolve-Path src).Path
 $arm = 'p0'
-python -m scripts.tools.atlas_pc_p --candidate B --arm $arm --model ../ij07-worktree/.runtime/ij07-candidates/LiquidAI__LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output "../ij071-atlas/.runtime/ij072-pc-p-b-clean-$arm" --batch-size 27
+python -m scripts.tools.atlas_pc_p --candidate G --arm $arm --model ../ij07-worktree/.runtime/ij07-candidates/ggml-org__gemma-4-E2B-it-GGUF/gemma-4-E2B-it-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output "../ij071-atlas/.runtime/ij072-pc-p-g-clean-$arm" --batch-size 27
 ```
 
 The raw competitive and JOB-V1 A/B reconciliation commands require the

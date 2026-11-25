@@ -10,7 +10,8 @@ ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "atlas/artifact_manifest.json"
 PREFIXES = ("atlas/", "evidence/IJ071/", "evidence/IJ072/", "benchmarks/atlas_validity/", "reports/ATLAS_",
             "scripts/tools/atlas_", "tests/regression/test_atlas_")
-FILES = {"docs/IJ071_EXECUTION_PLAN.md", "scripts/tools/verify_atlas_artifacts.py"}
+FILES = {"docs/IJ071_EXECUTION_PLAN.md", "docs/ATLAS_A1_REPRODUCIBILITY.md",
+         "scripts/tools/verify_atlas_artifacts.py"}
 
 
 def manifest_bytes():

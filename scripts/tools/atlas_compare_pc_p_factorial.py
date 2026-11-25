@@ -8,7 +8,7 @@ from pathlib import Path
 
 from benchmarks.agentic_planning_v1.freeze import FROZEN
 from benchmarks.agentic_planning_v1.run import load_jsonl
-from benchmarks.agentic_planning_v1.runner import PLAN_FIELDS
+from benchmarks.agentic_planning_v1.runner import PLAN_FIELDS, REFERENCES, THINKING_TAG, decode_wire
 from benchmarks.atlas_validity.evaluation import FENCE, parsed, planning_layered_scores
 from benchmarks.competitive_slm.tc_v2_batch import legacy
 from scripts.tools.atlas_audit_pc_p_schema import EVIDENCE, audit
@@ -64,7 +64,7 @@ def first_response(event):
             "finish_reason": choice.get("finish_reason")}
 
 
-def initial_captures(archive):
+def initial_captures(archive, *, include_reasoning=False):
     captures = {}
     for part in sorted(archive.glob("planning-part-*.jsonl.gz")):
         for entry in jsonl(part):
@@ -73,14 +73,29 @@ def initial_captures(archive):
             trial = Path(entry["name"]).name.split(".", 1)[0]
             if trial in captures:
                 raise ValueError(f"multiple first-response journals for {trial}")
-            capture = next((event for event in map(json.loads, entry["raw_text"].splitlines())
-                            if event["kind"] == "capture" and event["turn"] == 0), None)
-            captures[trial] = first_response(capture)
+            events = list(map(json.loads, entry["raw_text"].splitlines()))
+            turns = [event for event in events if event["kind"] == "capture"]
+            capture = next((event for event in turns if event["turn"] == 0), None)
+            row = first_response(capture)
+            if include_reasoning and any(finding["code"] == "VISIBLE_REASONING_TAG"
+                                         for finding in events[-1]["findings"]):
+                last = turns[-1]
+                wire = last["wire"]
+                source = wire["source_generation"]
+                visible = decode_wire(wire["raw_response"], wire["request"]["stream"]).content
+                row["visible_reasoning_tag"] = {
+                    "turn": last["turn"], "assistant_content": bool(THINKING_TAG.search(visible)),
+                    "thinking_requested": wire["request"]["chat_template_kwargs"]["enable_thinking"],
+                    **{where: bool(THINKING_TAG.search(bytes.fromhex(source[field]).decode("utf-8", errors="replace")))
+                       for where, field in (("sampled", "sampled_bytes_hex"), ("pre_parser", "pre_parser_bytes_hex"))},
+                }
+            captures[trial] = row
     return captures
 
 
 def full_diagnostics(candidate, results, *, separate_plan_checks=False):
     cases = {row["case_id"]: row for row in results["cases"]}
+    goals = {row["case_id"]: row["goal"] for row in load_jsonl(FROZEN / "task_graphs/holdout.jsonl")}
     by_stratum = defaultdict(lambda: defaultdict(lambda: defaultdict(Counter)))
     stops, paired, detail = {}, {}, {}
     for arm in results["run_ids"]:
@@ -88,7 +103,7 @@ def full_diagnostics(candidate, results, *, separate_plan_checks=False):
         run, scored = selected_archive(archive, set(cases))
         if run["run_id"] != results["run_ids"][arm]:
             raise ValueError(f"first-response audit used the wrong {arm} archive")
-        captures = initial_captures(archive)
+        captures = initial_captures(archive, include_reasoning=separate_plan_checks)
         if captures.keys() != {row["trial"]["trial_id"] for row in scored.values()}:
             raise ValueError(f"first-response captures differ from {arm} scored trials")
         origins = {name: Counter() for name in ("shape", "finish_reason", "first_runner_finding")}
@@ -107,6 +122,17 @@ def full_diagnostics(candidate, results, *, separate_plan_checks=False):
                     "PASS" if plan["goal_understood"] else "FAIL")
                 snapshot["frozen_plan_execution_requirements"] = "NOT_RUN" if not observed else (
                     "PASS" if plan["executable"] else "FAIL")
+                plan_object = parsed(trial["plan_raw"]) if observed else None
+                goal = plan_object.get("goal") if plan_object is not None else None
+                if isinstance(goal, dict):
+                    expected = goals[case_id]
+                    subject = goal.get("subject")
+                    snapshot["frozen_goal_field_match"] = {
+                        "exact_subject": subject == expected["subject"],
+                        "expected_reference_in_subject": (isinstance(subject, str)
+                                                          and expected["subject"] in REFERENCES.findall(subject)),
+                        "exact_objective": goal.get("objective") == expected["objective"],
+                    }
             snapshots[case_id] = snapshot
             for name, counts in origins.items():
                 counts[snapshot[name] or "none"] += 1

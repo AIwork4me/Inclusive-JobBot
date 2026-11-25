@@ -7,10 +7,11 @@ from dataclasses import replace
 import gzip
 import json
 from pathlib import Path
+import re
 import sqlite3
 from tempfile import TemporaryDirectory
 
-from benchmarks.atlas_validity.multitool_witness import solve
+from benchmarks.atlas_validity.multitool_witness import REFERENCE, solve
 from benchmarks.multitool_v1.dataset import load_freeze
 from benchmarks.multitool_v1.runtime import Scenario, score
 from benchmarks.tool_calling_v2.evaluator import Call
@@ -21,6 +22,10 @@ ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "evidence/IJ072/benchmark_validity/multitool-witness.json.gz"
 DRAFT_CONTROLS = ROOT / "evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz"
 EXTENDED = ROOT / "evidence/IJ072/benchmark_validity/multitool-extended-controls.json.gz"
+UNICODE = ROOT / "evidence/IJ072/benchmark_validity/multitool-unicode-controls.json.gz"
+HAN = r"[\u3400-\u9fff]"
+SPACE_BEFORE_REFERENCE = re.compile(rf"(?<={HAN})[ \t]+(?={REFERENCE.pattern})")
+SPACE_AFTER_REFERENCE = re.compile(rf"({REFERENCE.pattern})[ \t]+(?={HAN})")
 
 
 def draft_controls(case, database, calls):
@@ -89,7 +94,7 @@ def extended_controls(case, calls, final, observations):
                                                     or set(unverified.values()) - {"BLOCKED"})
 
 
-def execute_case(case, database, *, observed_draft=False, extended=False):
+def execute_case(case, database, *, observed_draft=False, extended=False, unicode=False, model_input=None):
     scenario = Scenario(case, database, require_observed_draft=observed_draft)
     before = scenario.snapshot()
     calls, events = [], []
@@ -107,7 +112,8 @@ def execute_case(case, database, *, observed_draft=False, extended=False):
         events.extend((len(calls) - 1, key) for key, _ in observed)
         return [message for _, message in observed]
 
-    final = solve(case.model_input(), execute, take_messages)
+    public = model_input if model_input is not None else case.model_input()
+    final = solve(public, execute, take_messages)
     after = scenario.snapshot()
     storage = "NOT_APPLICABLE"
     if before is not None:
@@ -142,17 +148,30 @@ def execute_case(case, database, *, observed_draft=False, extended=False):
     if extended:
         controls, correct = extended_controls(case, calls, facts, observations)
         row["extended"] = {"status": "PASS" if correct else "FAIL", "controls": controls}
+    if unicode:
+        escaped = re.sub(r'"([A-Za-z])', lambda match: f'"\\u{ord(match[1]):04x}', facts, count=1)
+        if escaped == facts:
+            raise ValueError("JSON key escape control did not alter the wire")
+        prompt = public["messages"][0]["content"]
+        compact = SPACE_AFTER_REFERENCE.sub(r"\1", SPACE_BEFORE_REFERENCE.sub("", prompt))
+        width = "NOT_APPLICABLE"
+        if compact != prompt and REFERENCE.findall(compact) == REFERENCE.findall(prompt):
+            altered = {**public, "messages": [{**public["messages"][0], "content": compact}, *public["messages"][1:]]}
+            other = execute_case(case, database.with_name(database.stem + "-adjacent.sqlite"), model_input=altered)
+            width = "PASS" if row["status"] == "PASS" and other == row else "FAIL"
+        row["unicode"] = {"escaped_json_key": score(case, calls, escaped, **observations)["status"],
+                          "adjacent_chinese_ascii_id": width}
     return row
 
 
-def execute(*, observed_draft=False, extended=False):
+def execute(*, observed_draft=False, extended=False, unicode=False):
     frozen = load_freeze()
     with TemporaryDirectory() as folder:
         rows = []
         for case in frozen.active.values():
             try:
                 rows.append(execute_case(case, Path(folder).resolve() / (case.case_id + ".sqlite"),
-                                         observed_draft=observed_draft, extended=extended))
+                                         observed_draft=observed_draft, extended=extended, unicode=unicode))
             except (KeyError, ValueError) as error:
                 raise ValueError(f"{case.case_id}: {error}") from error
     if observed_draft:
@@ -171,6 +190,13 @@ def execute(*, observed_draft=False, extended=False):
                 "evidence_class": "deterministic_software_mutation", "freeze_sha256": frozen.manifest["freeze_sha256"],
                 "counts": counts, "controls_status": dict(Counter(row["extended"]["status"] for row in rows)),
                 "trials": [{"case_id": row["case_id"], **row["extended"]} for row in rows]}
+    if unicode:
+        controls = [{"case_id": row["case_id"], **row["unicode"]} for row in rows]
+        counts = {name: dict(Counter(row[name] for row in controls))
+                  for name in ("escaped_json_key", "adjacent_chinese_ascii_id")}
+        return {"scope": "MULTITOOL public Chinese reference adjacency and legal JSON Unicode key escape controls",
+                "evidence_class": "deterministic_software_mutation", "freeze_sha256": frozen.manifest["freeze_sha256"],
+                "counts": counts, "trials": controls}
     return {"scope": "MULTITOOL-V1 active frozen roster", "evidence_class": "deterministic_software_control",
             "freeze_sha256": frozen.manifest["freeze_sha256"], "counts": dict(Counter(row["status"] for row in rows)),
             "persisted_counts": dict(Counter(row["sqlite_review_drafts"] for row in rows)), "trials": rows}
@@ -182,9 +208,11 @@ def main():
     profile = parser.add_mutually_exclusive_group()
     profile.add_argument("--observed-draft-controls", action="store_true")
     profile.add_argument("--extended", action="store_true")
+    profile.add_argument("--unicode", action="store_true")
     args = parser.parse_args()
-    result = execute(observed_draft=args.observed_draft_controls, extended=args.extended)
-    output = DRAFT_CONTROLS if args.observed_draft_controls else EXTENDED if args.extended else OUTPUT
+    result = execute(observed_draft=args.observed_draft_controls, extended=args.extended, unicode=args.unicode)
+    output = (DRAFT_CONTROLS if args.observed_draft_controls else EXTENDED if args.extended else
+              UNICODE if args.unicode else OUTPUT)
     raw = (json.dumps(result, indent=2, sort_keys=True) + "\n").encode()
     if args.check:
         if gzip.decompress(output.read_bytes()) != raw:

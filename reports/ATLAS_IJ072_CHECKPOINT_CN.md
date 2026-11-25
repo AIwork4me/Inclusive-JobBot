@@ -54,7 +54,7 @@ P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行�
 
 Qwen3-8B P3 五次 Radeon 线路探测均通过格式校验，原始采样记录确认首轮使用相同的原生语法。四个 L0 用例计划超出零动作限制，一个 L1 用例提交了空的条件列表，五次严格结果均为 FAIL。归档操作使探测工作树在配置采样时被标记为 dirty，因此保留为线路诊断。运行器已在配置采样时增加干净工作树校验。 [线路审计](../evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-probe.json) · [GPU 轨迹](../evidence/IJ072/benchmark_validity/pc-p-h-factorial-p3-005/diagnostic.json)
 
-正式分层面板当前封存 666/1,152 条，累计 4 PASS、662 FAIL、486 NOT_RUN。MiniCPM5、LFM3、Gemma 和 Qwen3-8B 均在相同的四条 L0 和一条 L1 上运行了全部九个配置。含 Schema 的 80 次首轮均由采样日志证明启用了原生语法，并通过 Schema 结构校验。该首块 180 条严格端到端均为 FAIL。首块只有一条匹配用例提供工具定义。 [各模型封存进度](../evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json) · [四模型首块及交互对照](../evidence/IJ072/benchmark_validity/pc-p-factorial-first-five-four-models.json)
+正式分层面板当前封存 909/1,152 条，累计 4 PASS、905 FAIL、243 NOT_RUN。MiniCPM5、LFM3、Gemma 和 Qwen3-8B 均在相同的四条 L0 和一条 L1 上运行了全部九个配置。含 Schema 的 80 次首轮均由采样日志证明启用了原生语法，并通过 Schema 结构校验。该首块 180 条严格端到端均为 FAIL。首块只有一条匹配用例提供工具定义。 [各模型封存进度](../evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json) · [四模型首块及交互对照](../evidence/IJ072/benchmark_validity/pc-p-factorial-first-five-four-models.json)
 
 Qwen3-8B 的 P0–P4 各完成全部 32 条 L0–L7。初始协议分别通过 0、2、7、32、2 条。P2 得到一个可验证业务结果，其他四配置均为 0，严格端到端合计为 0/160。P3 的 32 条原生采样已逐条验明。P4 的 28 条工具用例保持请求结构、工具参数和结果字段，描述精简使首轮减少 4–44 个词元。 [完整 P3 原生采样证据](../evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-full.json) · [完整 P4 工具定义检查](../evidence/IJ072/benchmark_validity/pc-p-h-p4-tool-definition-check.json)
 
@@ -63,6 +63,8 @@ Qwen3-8B 全部九个配置共封存 288 条。示例加精简工具与 P5 全�
 Qwen3-8B 的原始 P0 首轮在 8 条用例直接输出终答对象，在另外 24 条发起原生工具调用。运行器在执行任何工具前拒绝了全部 32 条。移除首轮终答指令后，P1 仍有 28 条直接发起工具调用，只有 2 条按原冻结协议进入执行。逐条记录包含首轮响应形态、停止原因、运行器首个拒绝原因、各层级和语言的独立分母及配对变化。 [首轮线路与分层证据](../evidence/IJ072/benchmark_validity/pc-p-h-factorial-wire.json)
 
 MiniCPM5 已封存全部 288 条。P0 的 32 条在首轮全部被拒绝，其中 27 条直接调用工具、4 条输出其他 JSON 对象、1 条未输出 JSON 对象。P1 仍为 0/32 首轮协议通过。四个 Schema 配置合计 128/128 首轮协议通过。其中四份计划满足冻结执行要求，这四份均未匹配冻结目标。目标与计划执行联合评分为 0/128。P3 有一条可验证业务结果，九个配置均无严格通过。 [MiniCPM5 首轮线路与分层证据](../evidence/IJ072/benchmark_validity/pc-p-a-factorial-wire.json)
+
+LFM3 已封存全部 288 条。四个带 Schema 配置合计 128/128 首轮协议通过，获得 4 次可验证业务结果，严格结果均为 FAIL。P3 的 16 条后续响应被可见推理标记拒绝，首轮计划均已通过。这 16 条的模型采样字节、解析前字节和最终线路内容都出现该标记。 [LFM3 线路与分层证据](../evidence/IJ072/benchmark_validity/pc-p-b-factorial-wire.json) · [P3 原始归档](../evidence/IJ072/benchmark_validity/pc-p-b-clean-p3-032/bundle.json)
 
 | 配置 | 初始协议通过 | 计划可执行性通过 | 可验证业务结果 | 严格端到端 |
 |---|---:|---:|---:|---:|
@@ -83,7 +85,9 @@ TC-V2 扩展控制拒绝了 1,500 条不可用工具、未见业务编号、虚�
 
 在 37 个允许草拟的 MULTITOOL 用例中，原合成沙箱都允许先草拟后读取审核。新增显式的 `--require-observed-draft` 配置只在存在上一轮的有效审核观测时授权草拟。新配置拒绝了全部 37 个提前及同轮请求，允许随后合法草稿，重复调用没有产生第二次业务变化。600 个独立软件见证均通过。模型 GPU 回归暂为 NOT_RUN，已为同一批 37 条用例登记 Qwen3-14B 配对回归，并规定单独统计实际出现的提前草拟及持久化状态。 [根因与回归证据](../evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz) · [GPU 队列](../atlas/physical_queue.json)
 
-在 600 条 MULTITOOL 独立见证上追加对照，拒绝了 3,149 条变异，包括未知 ID、虚构工具结果、重复调用、同轮草拟及伪造写入授权。675 条等价变换通过，覆盖 JSON 字段顺序、合法 Unicode 转义、空白和互相独立的库存读取顺序。75 条缺少审计的记录判为 BLOCKED。 [扩展软件证据](../evidence/IJ072/benchmark_validity/multitool-extended-controls.json.gz)
+在 600 条 MULTITOOL 独立见证上追加对照，拒绝了 3,149 条变异，包括未知 ID、虚构工具结果、重复调用、同轮草拟及伪造写入授权。675 条等价变换通过，覆盖 JSON 字段顺序、空白和互相独立的库存读取顺序。75 条缺少审计的记录判为 BLOCKED。 [扩展软件证据](../evidence/IJ072/benchmark_validity/multitool-extended-controls.json.gz)
+
+另有 600 条合法 JSON 键名 Unicode 转义通过等价评分。对 263 条可删除汉字和 ASCII 编号之间空白的公开请求重新执行见证，工具调用及业务结果均保持一致。 [Unicode 与中文编号证据](../evidence/IJ072/benchmark_validity/multitool-unicode-controls.json.gz)
 
 L0 公开提示 witness 在 Acting-first 的 100 条零动作任务全部匹配冻结 Oracle。错误对象、错误终止动作和错误事实各测试 100 次，均被评分拒绝。 [L0 见证结果](../evidence/IJ072/benchmark_validity/planning-intent-controls.json)
 
