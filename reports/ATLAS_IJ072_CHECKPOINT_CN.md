@@ -11,6 +11,7 @@
 | Qwen3-8B PC-S Planning 双轨 | 320 | 320 | 4 | 316 | 0 | 0 |
 | Qwen3-14B PC-S TC-V2 开发面板 | 100 | 100 | 66 | 34 | 0 | 0 |
 | Qwen3-14B PC-S MULTITOOL-V1 | 120 | 120 | 45 | 75 | 0 | 0 |
+| Qwen3-14B PC-S Planning 双轨 | 320 | 20 | 0 | 20 | 0 | 300 |
 | 旧 JOB-V1 Arm A 首试 | 600 | 600 | 23 | 577 | 0 | 0 |
 | 旧 JOB-V1 Arm B 首试 | 600 | 300 | 22 | 278 | 7 | 293 |
 
@@ -22,11 +23,15 @@ Qwen3-14B Q8_0 同样使用 Radeon Vulkan 和 8K 上下文，在同一 100 条�
 
 ### MULTITOOL 与 Planning PC-S
 
-120 条试次全部封存了进程 GPU 计数器和生成轨迹。通过数随深度档位变化，从 2–3 步的 10/24 降至 11–15 步和 16–20 步各 4/24。Planning 首试全部完成，Acting-first 通过 4/160，Plan-first 通过 0/160。32 调用预算已通过流式和非流式软件回归，物理流式配对待测。 [MULTITOOL 结果](../evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json) · [Planning 完整归档](../evidence/IJ072/benchmark_validity/pc-s-planning-full/diagnostic.json)
+120 条试次全部封存了进程 GPU 计数器和生成轨迹。通过数随深度档位变化，从 2–3 步的 10/24 降至 11–15 步和 16–20 步各 4/24。Planning 首试全部完成，Acting-first 通过 4/160，Plan-first 通过 0/160。 [MULTITOOL 结果](../evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json) · [Planning 完整归档](../evidence/IJ072/benchmark_validity/pc-s-planning-full/diagnostic.json)
 
 相同的 120 条 MULTITOOL 用例全部封存。14B 严格通过 45 条，8B 通过 28 条。两者同通过 25 条，仅 14B 通过 20 条，仅 8B 通过 3 条，两者同失败 72 条。14B 在 16–20 步通过 8/24，在 11–15 步通过 6/24。该固定面板的配对结果支持在这些任务上继续作强参照。 [14B 完整归档](../evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json) · [逐配对结果和区间](../evidence/IJ072/benchmark_validity/pc-s-multitool-qwen-pair.json)
 
+另完成 10 对 14B 现场流式对照，覆盖五个深度档和两种语言。HTTP JSON 和 SSE 的严格结果、动作顺序、参数、回传和终答全部一致。两臂现场单轮最大观察值为 20 个工具调用，配置预算均为 32，32 调用边界由软件回归覆盖。 [物理配对](../evidence/IJ072/benchmark_validity/pc-s-j-multitool-streaming-pairs.json) · [SSE 原始归档](../evidence/IJ072/benchmark_validity/pc-s-j-multi-stream/coverage.json)
+
 320 条 PC-S Planning 已形成分层诊断。Acting-first 的已执行动作中，有 129 个用例可评估工具名称和参数，工具名称通过 96/129，参数通过 76/129。45 个用例进入可评估的动态重规划，0 个通过。Plan-first 没有可评估的实际工具名称或参数。零工具场景与阶段未执行各自记录。 [诊断及分母](../evidence/IJ072/benchmark_validity/pc-s-planning-layered.json)
+
+Qwen3-14B 在相同的 Planning 面板已封存前 20 条 L0 试次。Acting-first 和 Plan-first 各 10 条，严格通过均为 0。其他 300 条保留独立待运行计数。 [强参照 Planning 检查点](../evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-020/diagnostic.json)
 
 ## RC-02 四候选报价回传
 
@@ -64,6 +69,8 @@ L1–L3 的 300 条读取见证和 L4–L7 的 400 条执行见证均通过。�
 独立 L4–L7 见证的 3,933 个轨迹变异全部被冻结评分拒绝，包含错误依赖、缺失业务状态、遗漏新增范围、忽略工具异常、提前写入、伪造审批和重复提交。另向合成沙箱提交了 360 次提前、伪造或重复写调用。每次均被拒且状态没有变化。范围限于该 400 个规划用例的软件控制。 [逐条变异结果](../evidence/IJ072/benchmark_validity/planning-advanced-mutations.json.gz)
 
 Plan-first 在启动沙箱前仅用公开输入生成条件计划，执行见证独立根据实际工具反馈选取动作。全 800 条执行事实和沙箱状态通过，严格试次 672 PASS、128 FAIL。L4 仅 15/100 严格通过，L7 为 57/100，其余各层均为 100/100。53 条初始计划超过动作数上限，75 条未覆盖评估器要求的初始子目标。移除初始计划的 800 个变异均被拒绝。该对照定位了冻结初始计划门槛的剩余差异，计划的可执行性资格仍未关闭。 [初始计划和实际轨迹](../evidence/IJ072/benchmark_validity/planning-plan-controls.json.gz)
+
+对 L4 和 L7 的 200 条见证仅归一化公开任务中的不透明编号。13 组共 29 条在组内拥有相同的公开合同和计划结构，实际合法路径随工具反馈变化。所列 29 条全部未通过冻结计划门槛。该结果提供了审查条件计划表示与动作预算的具体用例。 [条件路径审计](../evidence/IJ072/benchmark_validity/planning-public-ambiguity.json)
 
 JOB-V1 冻结的 600 条主面板使用 Arm B 的公开工具定义，独立生成事实和草稿，通过实际工具与 SQLite 交叉校验。600/600 通过，其中 350 条完成业务，其余 250 条正确拒绝、澄清或转交。错误业务回答，以及适用用例中缺失的用户更新和持久化草稿，均由原评分拒绝。 [JOB-V1 独立见证](../evidence/IJ072/benchmark_validity/job-witness.json.gz)
 

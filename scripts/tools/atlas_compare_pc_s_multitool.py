@@ -9,6 +9,7 @@ from pathlib import Path
 
 from benchmarks.job_productivity_v1.statistics import exact_mcnemar, wilson_interval
 from benchmarks.multitool_v1.run import digest
+from benchmarks.tool_calling_v2.oracle import decode_object, equal
 from scripts.tools.atlas_reference_panel import create
 from scripts.tools.atlas_progress import document
 
@@ -75,16 +76,18 @@ def build():
             "overall": summarize(pairs), "strata": by_stratum, "trials": pairs}
 
 
-def action_signature(row):
-    actions = []
-    for call in row["calls"]:
-        raw = call["arguments_raw"]
+def payload(value):
+    if isinstance(value, str):
         try:
-            args = json.loads(raw)
-        except (TypeError, ValueError):
-            args = {"invalid_arguments": raw}
-        actions.append((call["name"], args, call["result"]))
-    return actions
+            return decode_object(value)
+        except ValueError:
+            return value
+    return value
+
+
+def action_signature(row):
+    return [{"tool": call["name"], "arguments": payload(call["arguments_raw"]), "result": call["result"]}
+            for call in row["calls"]]
 
 
 def stream_pairs():
@@ -108,11 +111,14 @@ def stream_pairs():
                 and wire["http_status"] == 200 and wire["gateway_protocol"]["status"] == "PASS"
                 for wire in requests))
         outcomes = {"same_strict_outcome": a["status"] == b["status"],
-                    "same_actions": action_signature(a) == action_signature(b),
-                    "same_final": a["final"] == b["final"],
+                    "same_actions": equal(action_signature(a), action_signature(b)),
+                    "same_final": equal(payload(a["final"]), payload(b["final"])),
                     "verified_transport": all(responses)}
+        maximum = {mode: max(Counter(call["turn"] for call in row["calls"]).values(), default=0)
+                   for mode, row in (("nonstream", a), ("stream", b))}
         rows.append({"case_id": a["case_id"], "seed": a["seed"], "depth_bin": a["depth_bin"],
                      "nonstream_strict": a["status"], "stream_strict": b["status"],
+                     "max_calls_in_a_turn": maximum,
                      **outcomes, "parity": "PASS" if all(outcomes.values()) else "FAIL"})
     return {"scope": "Qwen3-14B physical MULTITOOL streaming and non-streaming matched pairs",
             "nonstream_run_id": plain["run_id"], "stream_run_id": stream["run_id"],

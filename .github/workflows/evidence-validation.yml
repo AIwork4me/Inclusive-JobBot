@@ -31,6 +31,7 @@ jobs:
           python -m scripts.tools.atlas_planning_advanced_controls --check
           python -m scripts.tools.atlas_planning_write_controls --check
           python -m scripts.tools.atlas_planning_plan_controls --check
+          python -m scripts.tools.atlas_audit_plan_ambiguity --check
           python -m scripts.tools.atlas_job_witness --check
           python -m scripts.tools.atlas_job_witness --extended --check
           python -m scripts.tools.atlas_a1_review_packet --check
@@ -41,6 +42,7 @@ jobs:
           python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc
           python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-j-tc
           python -m scripts.tools.atlas_compare_pc_s_multitool --check
+          python -m scripts.tools.atlas_compare_pc_s_multitool --stream-pairs --check
         env:
           PYTHONPATH: src
       - run: python scripts/tools/verify_ij06_evidence.py
@@ -57,6 +59,7 @@ jobs:
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ07/planning/primary-vulkan-full
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ07/planning/repeat-vulkan-full
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-planning-full
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-020
       - run: |
           digest=$(python -c 'import json; print(json.load(open("configs/ij07/tc_v2_competitive_plan.lock.json"))["plan_sha256"])')
           python -m benchmarks.competitive_slm.tc_v2_archive verify --plan configs/ij07/tc_v2_competitive_plan.json --plan-sha256 "$digest" --archive evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint

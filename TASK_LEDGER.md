@@ -23,6 +23,7 @@
 | Planning L1-L7 public-input Acting-first witness | PASS | 700/700 software trials with independent action selection. `evidence/IJ072/benchmark_validity/planning-read-controls.json` and `evidence/IJ072/benchmark_validity/planning-advanced-controls.json` |
 | Planning L4-L7 synthetic safety and scorer mutation controls | PASS | 3,933/3,933 mutated traces rejected. The live synthetic sandbox denied 360 early, forged or duplicate write calls without changing state. `evidence/IJ072/benchmark_validity/planning-advanced-mutations.json.gz` |
 | Planning L0-L7 public-input Plan-first witness | FAIL | 672/800 strict PASS and 128 FAIL. Actual sandbox actions, business facts and state passed for all 800. The initial plan gate rejected 85 at L4 and 43 at L7. `evidence/IJ072/benchmark_validity/planning-plan-controls.json.gz` |
+| Planning public contract and conditional route audit | PASS | 13 groups covering 29 L4/L7 cases share a normalized public contract and plan shape within group, execute different paths, and fail the frozen plan gate. `evidence/IJ072/benchmark_validity/planning-public-ambiguity.json` |
 | JOB-V1 primary public-input witness | PASS | 600/600 with independent answer construction, typed sandbox actions and SQLite verification. `evidence/IJ072/benchmark_validity/job-witness.json.gz` |
 | JOB-V1 expanded audit, business state and semantic controls | PASS | 2,650 negative mutations rejected, 725 equivalent outputs accepted, 600 missing audit snapshots BLOCKED and 600 unauthorized synthetic writes denied. `evidence/IJ072/benchmark_validity/job-extended-controls.json.gz` |
 | A1 bilingual and mixed-language human review | NOT_RUN | Prepared 22 score-blind cases spanning the four suites. `reports/ATLAS_A1_BLIND_REVIEW.md` |
@@ -30,6 +31,8 @@
 | Qwen3-14B PC-S TC-V2 physical coverage | PASS | 100/100 sealed with 66 strict PASS and 34 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json` |
 | Qwen3-14B PC-S MULTITOOL physical coverage | PASS | All 120 sealed with 45 strict PASS and 75 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json` |
 | Qwen3 PC-S MULTITOOL matched model comparison | PASS | 120 matched first attempts. Qwen3-8B passed 28 and Qwen3-14B passed 45. `evidence/IJ072/benchmark_validity/pc-s-multitool-qwen-pair.json` |
+| Qwen3-14B MULTITOOL physical streaming comparison | PASS | 10/10 matching strict results, ordered actions and final payloads over HTTP JSON and SSE, with up to 20 calls in an observed turn. `evidence/IJ072/benchmark_validity/pc-s-j-multitool-streaming-pairs.json` |
+| Qwen3-14B PC-S Planning physical coverage | BLOCKED | First 20/320 sealed with 20 strict FAIL and 300 NOT_RUN. `evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-020/diagnostic.json` |
 | PC-S Planning expanded diagnostic dimensions | PASS | 320 sealed physical trials rescored with separate applicability denominators and unchanged historical scoring. `evidence/IJ072/benchmark_validity/pc-s-planning-layered.json` |
 | A1 evaluator qualification and stronger reference | BLOCKED | `atlas/physical_queue.json` |
 

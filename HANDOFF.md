@@ -21,7 +21,9 @@ and `python -m scripts.tools.atlas_failure_ledger --check`.
 Qwen3-14B passed [admission](evidence/IJ072/model_identity/admission/J/report.json) and
 completed the [100-trial TC-V2 component](evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json).
 The [complete MULTITOOL archive](evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json)
-sealed 120/120 trials. Run its separate 320-trial Planning panel from the clean workstation worktree
+sealed 120/120 trials and the [streaming comparison](evidence/IJ072/benchmark_validity/pc-s-j-multitool-streaming-pairs.json)
+verified 10 physical pairs. The [first Planning batch](evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-020/diagnostic.json)
+sealed 20/320 trials. Resume from the same output in the clean workstation worktree
 `.scratch/ij072-reference-runtime` at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
 Verify no process is holding the Radeon slot. Stop at a completed batch
 boundary and reuse the original output directory for every batch.
