@@ -86,16 +86,22 @@
     {
       "id": "pc-s-qwen3-14b",
       "priority": "P0",
-      "status": "BLOCKED",
+      "status": "PASS",
       "dependencies": [
         "exclusive_gpu_slot"
       ],
       "planned": 540,
-      "completed": 460,
-      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-240/diagnostic.json",
+      "completed": 540,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-j-planning-full/diagnostic.json",
       "runtime_commit": "cbe2107f434890f14ff3431cc16a4c0bf41fd752",
       "runtime_worktree": ".scratch/ij072-reference-runtime",
-      "next_command": "python -m scripts.tools.atlas_pc_s --suite planning --candidate J --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output ../ij071-atlas/.runtime/ij072-pc-s-j-planning --batch-size 80"
+      "next_command": null,
+      "trial_counts": {
+        "tc_v2": {"planned": 100, "assessed": 100, "PASS": 66, "FAIL": 34},
+        "multitool_v1": {"planned": 120, "assessed": 120, "PASS": 45, "FAIL": 75},
+        "planning_v1": {"planned": 320, "assessed": 320, "PASS": 35, "FAIL": 285}
+      },
+      "scope": "planned physical coverage for Qwen3-14B; strict task outcomes are recorded separately"
     }
   ]
 }

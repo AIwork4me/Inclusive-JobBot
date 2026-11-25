@@ -34,7 +34,8 @@
 | Qwen3-14B PC-S MULTITOOL physical coverage | PASS | All 120 sealed with 45 strict PASS and 75 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json` |
 | Qwen3 PC-S MULTITOOL matched model comparison | PASS | 120 matched first attempts. Qwen3-8B passed 28 and Qwen3-14B passed 45. `evidence/IJ072/benchmark_validity/pc-s-multitool-qwen-pair.json` |
 | Qwen3-14B MULTITOOL physical streaming comparison | PASS | 10/10 matching strict results, ordered actions and final payloads over HTTP JSON and SSE, with up to 20 calls in an observed turn. `evidence/IJ072/benchmark_validity/pc-s-j-multitool-streaming-pairs.json` |
-| Qwen3-14B PC-S Planning physical coverage | BLOCKED | First 240/320 sealed with 33 strict PASS, 207 FAIL and 80 NOT_RUN. `evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-240/diagnostic.json` |
+| Qwen3-14B PC-S Planning physical coverage | PASS | All 320 sealed with 35 strict PASS and 285 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-planning-full/diagnostic.json` |
+| Qwen3-14B Planning expanded diagnostic dimensions | PASS | All 320 exact-source trials audited by track and case with separate applicability. `evidence/IJ072/benchmark_validity/pc-s-j-planning-layered.json` |
 | PC-S Planning expanded diagnostic dimensions | PASS | 320 sealed physical trials rescored with separate applicability denominators and unchanged historical scoring. `evidence/IJ072/benchmark_validity/pc-s-planning-layered.json` |
 | Deterministic gateway timeout rollback regression | PASS | A Windows push check expired before the handler. The regression now advances its clock after the staged write and asserts rollback and audit state. `tests/security/test_gateway_execution.py` |
 | A1 evaluator qualification and stronger reference | BLOCKED | `atlas/physical_queue.json` |

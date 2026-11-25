@@ -1,4 +1,4 @@
-"""Compare the first complete matched Qwen3-8B PC-P factorial block."""
+"""Compare the first complete matched PC-P factorial blocks."""
 
 from argparse import ArgumentParser
 from collections import Counter
@@ -14,6 +14,13 @@ from scripts.tools.atlas_pc_p import frozen_panel
 
 
 OUTPUT = EVIDENCE / "pc-p-h-factorial-first-five.json"
+MATRIX = EVIDENCE / "pc-p-factorial-first-five-four-models.json"
+MODELS = {
+    "A": ("MiniCPM5-2B", "OpenBMB/MiniCPM5-2B-GGUF"),
+    "B": ("LFM3-1.7B", "LiquidAI/LFM3-1.7B"),
+    "G": ("Gemma-4-E2B", "google/gemma-4-E2B-it"),
+    "H": ("Qwen3-8B", "Qwen/Qwen3-8B"),
+}
 ENDPOINTS = ("initial_plan_protocol", "goal_understanding", "plan_executability", "semantic_correctness",
              "final_output_protocol", "safety", "business_outcome", "strict_end_to_end")
 FACTORS = ("example", "schema", "compact")
@@ -34,7 +41,8 @@ def contrasts(arm_factors, counts, size):
     return contrasts
 
 
-def build():
+def build(candidate="H"):
+    label, model_id = MODELS[candidate]
     panel = frozen_panel()
     arms = panel["arm_factors"]
     selected = set(sorted(panel["case_ids"])[:5])
@@ -44,11 +52,13 @@ def build():
     run_ids, grammar, counts = {}, {}, {}
     source = tasks = config = None
     for arm, factors in arms.items():
-        archive = EVIDENCE / f"pc-p-h-clean-{arm}-005"
+        archive = EVIDENCE / f"pc-p-{candidate.lower()}-clean-{arm}-005"
         run, rows = selected_archive(archive, selected)
         configuration = run["configuration"]
+        model = configuration["model"]
         settings = dict(configuration["settings"])
-        if settings.pop("prompt_contract", "p0") != arm or configuration["git"]["dirty"]:
+        if (settings.pop("prompt_contract", "p0") != arm or configuration["git"]["dirty"]
+                or model.get("official_model_id", model["repo_id"]) != model_id):
             raise ValueError(f"{arm} has an incorrect or modified source treatment")
         identity = {**configuration, "settings": settings}
         trial_ids = {key: row["trial"] for key, row in rows.items()}
@@ -72,7 +82,7 @@ def build():
                 outcomes[name][layers[name]] += 1
         counts[arm] = outcomes
     return {
-        "scope": "first five Qwen3-8B matched cases; four L0 cases and one L1 case",
+        "scope": f"first five {label} matched cases; four L0 cases and one L1 case",
         "interpretation": "Descriptive factorial contrasts use each arm's PASS count per five physical trials, "
                           "including unobserved downstream endpoints in the denominator. The sample offers one case "
                           "with a public tool schema.",
@@ -83,20 +93,33 @@ def build():
     }
 
 
+def matrix():
+    results = {MODELS[candidate][0]: build(candidate) for candidate in frozen_panel()["candidate_profiles"]}
+    identities = {row["source_git"]["commit"] for row in results.values()}
+    if len(identities) != 1:
+        raise ValueError("four-model blocks use different experimental source commits")
+    return {"scope": "All nine treatments across four models on the first five registered cases",
+            "trials": sum(len(row["cases"]) * len(row["counts"]) for row in results.values()), "models": results}
+
+
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--matrix", action="store_true")
     args = parser.parse_args()
-    result = build()
+    result = matrix() if args.matrix else build()
+    output = MATRIX if args.matrix else OUTPUT
     raw = (json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
     if args.check:
-        if OUTPUT.read_bytes() != raw:
+        if output.read_bytes() != raw:
             parser.error("matched factorial evidence differs")
     else:
-        with OUTPUT.open("xb") as stream:
+        with output.open("xb") as stream:
             stream.write(raw)
-    for arm, counts in result["counts"].items():
-        print(arm, dict(counts["initial_plan_protocol"]), dict(counts["strict_end_to_end"]))
+    models = result["models"] if args.matrix else {"Qwen3-8B": result}
+    for model, row in models.items():
+        print(model, {arm: (counts["initial_plan_protocol"].get("PASS", 0), counts["strict_end_to_end"].get("PASS", 0))
+                      for arm, counts in row["counts"].items()})
 
 
 if __name__ == "__main__":

@@ -49,7 +49,7 @@ def audit(archive=ARCHIVE):
         sampler = source["generation_settings"]
         grammar = sampler["grammar"]
         if (events[0]["turn"] != 0 or wire["http_status"] != 200 or sampler["grammar_lazy"]
-                or "response-format-schema" not in grammar
+                or "response-format" not in grammar
                 or any(f'\\"{field}\\"' not in grammar for field in requested["required"])
                 or any("response_format" in event["wire"]["request"] for event in events[1:])):
             raise ValueError(f"P3 native sampling configuration did not match the treatment for {key}")

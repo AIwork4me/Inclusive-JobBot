@@ -11,7 +11,7 @@
 | Qwen3-8B PC-S Planning 双轨 | 320 | 320 | 4 | 316 | 0 | 0 |
 | Qwen3-14B PC-S TC-V2 开发面板 | 100 | 100 | 66 | 34 | 0 | 0 |
 | Qwen3-14B PC-S MULTITOOL-V1 | 120 | 120 | 45 | 75 | 0 | 0 |
-| Qwen3-14B PC-S Planning 双轨 | 320 | 240 | 33 | 207 | 0 | 80 |
+| Qwen3-14B PC-S Planning 双轨 | 320 | 320 | 35 | 285 | 0 | 0 |
 | 旧 JOB-V1 Arm A 首试 | 600 | 600 | 23 | 577 | 0 | 0 |
 | 旧 JOB-V1 Arm B 首试 | 600 | 300 | 22 | 278 | 7 | 293 |
 
@@ -31,7 +31,7 @@ Qwen3-14B Q8_0 同样使用 Radeon Vulkan 和 8K 上下文，在同一 100 条�
 
 320 条 PC-S Planning 已形成分层诊断。Acting-first 的已执行动作中，有 129 个用例可评估工具名称和参数，工具名称通过 96/129，参数通过 76/129。45 个用例进入可评估的动态重规划，0 个通过。Plan-first 没有可评估的实际工具名称或参数。零工具场景与阶段未执行各自记录。 [诊断及分母](../evidence/IJ072/benchmark_validity/pc-s-planning-layered.json)
 
-Qwen3-14B 已封存 L0–L5 的 240 条 Planning 试次。Acting-first 为 33/120 严格通过，Plan-first 为 0/120。L0 两轨均为 0/20。L6–L7 的 80 条保留独立待运行计数。 [强参照 Planning 检查点](../evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-240/diagnostic.json)
+Qwen3-14B 已封存全部 320 条 Planning 试次。Acting-first 严格通过 35/160，Plan-first 为 0/160。Acting-first 的 20 条 L6 无严格通过，L7 为 2/20。分层评估中，Acting-first 有 38/160 达到可验证业务结果，26 条到达可评估的动态重规划，其中 7 条通过。原 Plan-first 首轮协议 0/160，通过不了首轮的任务没有可评估的终答。两种强参照模型的 540 条冻结试次均已封存。 [14B 完整归档](../evidence/IJ072/benchmark_validity/pc-s-j-planning-full/diagnostic.json) · [14B 分层诊断](../evidence/IJ072/benchmark_validity/pc-s-j-planning-layered.json)
 
 ## RC-02 四候选报价回传
 
