@@ -97,6 +97,23 @@ def test_sandbox_suppresses_unauthorized_state_changes(tmp_path):
     assert len(after["audit_events"]) == 1
 
 
+def test_observed_review_profile_requires_a_prior_turn_for_drafts(tmp_path):
+    case = next(case for case in load_freeze().active.values() if case.world["draft_ids"])
+    reference = case.world["draft_ids"][0]
+    read = json.dumps({"record_id": reference})
+    draft = json.dumps({"record_id": reference, "reason": "route_review"})
+    legacy = Scenario(case, tmp_path / "legacy.sqlite3")
+    assert legacy.call("early", "create_hold_draft", draft)["status"] == "drafted"
+
+    revised = Scenario(case, tmp_path / "revised.sqlite3", require_observed_draft=True)
+    assert revised.call("early", "create_hold_draft", draft, turn=0) == {"error": "POLICY_DENIED"}
+    assert revised.call("read", "read_review", read, turn=1)["draft_permission"] is True
+    assert revised.call("same-turn", "create_hold_draft", draft, turn=1) == {"error": "POLICY_DENIED"}
+    assert revised.snapshot()["review_drafts"] == {}
+    assert revised.call("next-turn", "create_hold_draft", draft, turn=2)["status"] == "drafted"
+    assert set(revised.snapshot()["review_drafts"]) == {reference}
+
+
 def test_freeze_regenerates_byte_identically_and_rejects_mutation(tmp_path):
     generate(tmp_path)
     for name in (*FILES, "manifest.json"):

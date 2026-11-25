@@ -11,7 +11,7 @@
 | Qwen3-8B PC-S Planning 双轨 | 320 | 320 | 4 | 316 | 0 | 0 |
 | Qwen3-14B PC-S TC-V2 开发面板 | 100 | 100 | 66 | 34 | 0 | 0 |
 | Qwen3-14B PC-S MULTITOOL-V1 | 120 | 120 | 45 | 75 | 0 | 0 |
-| Qwen3-14B PC-S Planning 双轨 | 320 | 20 | 0 | 20 | 0 | 300 |
+| Qwen3-14B PC-S Planning 双轨 | 320 | 80 | 6 | 74 | 0 | 240 |
 | 旧 JOB-V1 Arm A 首试 | 600 | 600 | 23 | 577 | 0 | 0 |
 | 旧 JOB-V1 Arm B 首试 | 600 | 300 | 22 | 278 | 7 | 293 |
 
@@ -31,7 +31,7 @@ Qwen3-14B Q8_0 同样使用 Radeon Vulkan 和 8K 上下文，在同一 100 条�
 
 320 条 PC-S Planning 已形成分层诊断。Acting-first 的已执行动作中，有 129 个用例可评估工具名称和参数，工具名称通过 96/129，参数通过 76/129。45 个用例进入可评估的动态重规划，0 个通过。Plan-first 没有可评估的实际工具名称或参数。零工具场景与阶段未执行各自记录。 [诊断及分母](../evidence/IJ072/benchmark_validity/pc-s-planning-layered.json)
 
-Qwen3-14B 在相同的 Planning 面板已封存前 20 条 L0 试次。Acting-first 和 Plan-first 各 10 条，严格通过均为 0。其他 300 条保留独立待运行计数。 [强参照 Planning 检查点](../evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-020/diagnostic.json)
+Qwen3-14B 在相同的 Planning 面板已封存 L0 和 L1 的 80 条试次。Acting-first 为 6/40 严格通过，Plan-first 为 0/40。L0 两轨均为 0/20，六个通过均来自 L1 Acting-first。L2–L7 的 240 条仍保留独立待运行计数。 [强参照 Planning 检查点](../evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-080/diagnostic.json)
 
 ## RC-02 四候选报价回传
 
@@ -54,13 +54,17 @@ P1 在 Plan-first 首轮只要求计划对象，计划被接受后改用执行�
 
 Qwen3-8B P3 五次 Radeon 线路探测均通过格式校验，原始采样记录确认首轮使用相同的原生语法。四个 L0 用例计划超出零动作限制，一个 L1 用例提交了空的条件列表，五次严格结果均为 FAIL。归档操作使探测工作树在配置采样时被标记为 dirty，因此保留为线路诊断。运行器已在配置采样时增加干净工作树校验。 [线路审计](../evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-probe.json) · [GPU 轨迹](../evidence/IJ072/benchmark_validity/pc-p-h-factorial-p3-005/diagnostic.json)
 
-随后已从干净固定提交完成正式面板的前五对 Qwen3-8B P1/P3 试次。四条 L0、一条 L1，初始协议通过从 P1 的 2/5 增至 P3 的 5/5，目标理解、计划可执行性、业务结果与严格端到端两臂均为 0/5。P3 首轮原生语法已在五个生成记录中核实。正式面板共封存 10/1,152 条，剩余 1,142 条仍待评估。 [正式配对检查点](../evidence/IJ072/benchmark_validity/pc-p-h-clean-p1-p3-005.json)
+正式分层面板当前封存 45/1,152 条。前五条同用例覆盖 Qwen3-8B 全部九个配置，共四条 L0 和一条 L1。初始协议通过为 P0 0/5、P1 2/5、P2 3/5、P3 5/5、P4 2/5，完整组合 P5 为 5/5。四种包含 Schema 的配置共 20 次，全部绑定实际原生语法。业务结果和严格端到端均为 0/45。只有一条用例带工具定义，工具描述精简的效果仍需更广分层。剩余 1,107 条待评估。 [完整首块与交互对照](../evidence/IJ072/benchmark_validity/pc-p-h-factorial-first-five.json)
 
 ## A1 独立事实校验范围
 
 报价 witness 对全部 80 个用例使用公开提示、公开工具和实际工具返回生成答复，其中中英文各 40 条。复核程序直接从 SQLite 读取目录，并确认业务表未变化。字段重排通过。错误工具、错误参数、缺少动作、重复动作、错误报价、额外字段和围栏终答由原严格评分拒绝。报价变异结果单列为该任务族的软件证据。独立人工盲审仍待完成。 [Witness](../benchmarks/atlas_validity/quote_witness.py) · [80 条结果](../evidence/IJ072/benchmark_validity/quote-controls.json)
 
 TC-V2 的 500/500 条和 MULTITOOL-V1 的 600/600 条公开输入 witness 全部通过原评分。前者独立读取 500 份 SQLite 业务状态，后者校验 75 份有持久化的审核任务。两套评测均拒绝了缺动作、错参数和错业务事实的变异。MULTITOOL 另外拒绝了缺失用户更新的试次变异。 [TC-V2 见证](../evidence/IJ072/benchmark_validity/tc-holdout-witness.json) · [MULTITOOL 见证](../evidence/IJ072/benchmark_validity/multitool-witness.json.gz)
+
+TC-V2 扩展控制拒绝了 1,500 条不可用工具、未见业务编号、虚报成功或重复写入的轨迹变异。实际合成沙箱拒绝了 500 次未授权 ID、50 次无签名写请求，并阻止了 50 次重复写请求产生第二次业务变更。 [扩展授权和状态控制](../evidence/IJ072/benchmark_validity/tc-holdout-extended-controls.json.gz)
+
+在 37 个允许草拟的 MULTITOOL 用例中，原合成沙箱都允许先草拟后读取审核。新增显式的 `--require-observed-draft` 配置只在存在上一轮的有效审核观测时授权草拟。新配置拒绝了全部 37 个提前及同轮请求，允许随后合法草稿，重复调用没有产生第二次业务变化。600 个独立软件见证均通过。新配置的模型 GPU 回归暂为 NOT_RUN，历史轨迹和配置继续按原身份归档。 [根因与回归证据](../evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz)
 
 L0 公开提示 witness 在 Acting-first 的 100 条零动作任务全部匹配冻结 Oracle。错误对象、错误终止动作和错误事实各测试 100 次，均被评分拒绝。 [L0 见证结果](../evidence/IJ072/benchmark_validity/planning-intent-controls.json)
 

@@ -186,3 +186,13 @@ Keep original b12359 GPU binaries and V1 results intact. P4b uses the same
 pinned engine source plus the two MiniCPM5 parser patches and verified dynamic
 GPU plugins. Admit P4b at the scoped conformance gate. Record SDK and workload
 results separately and hold production selection open. [Evidence](reports/IJ06_PARSER_ROOT_CAUSE_REPORT.md)
+
+## D-017 Bind the reviewed draft profile to the MULTITOOL run identity
+
+The opt-in benchmark profile requires a prior-turn review for the exact
+draft ID. The trusted tool result has to identify the current review and
+grant draft eligibility. Scope updates invalidate prior review observations.
+The gateway records a denial for proposals outside that state. The original
+checkpoint identities retain the baseline sandbox. Reassess adoption after
+paired physical runs cover the authorization cases.
+[Evidence](evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz)

@@ -18,7 +18,7 @@ def _create_draft(transaction, args, _context):
 
 
 class Scenario:
-    def __init__(self, case, path=None):
+    def __init__(self, case, path=None, *, require_observed_draft=False):
         # No workflow or answer is read by the runtime. Prompt metadata selects
         # available tools, and the separate world contains all state and events.
         self._world = case.world
@@ -28,6 +28,7 @@ class Scenario:
         self._attempts = Counter()
         self._pending_events = []
         self._published_event = False
+        self._draft_review_turns = {} if require_observed_draft else None
         self._store = None
         self._gateway = None
         if "create_hold_draft" in self._validators and path is not None:
@@ -46,7 +47,7 @@ class Scenario:
         events, self._pending_events = self._pending_events, []
         return events
 
-    def call(self, call_id, tool, raw_arguments):
+    def call(self, call_id, tool, raw_arguments, *, turn=None):
         if tool not in self._validators:
             return {"error": "unknown_tool"}
         try:
@@ -65,11 +66,16 @@ class Scenario:
         if tool == "create_hold_draft":
             if self._gateway is None:
                 return {"error": "authorization_denied"}
-            context = ExecutionContext("synthetic_worker", "reviewer", "multitool", "under_review", key)
+            reviews = self._draft_review_turns
+            authorized = reviews is None or (key in reviews and type(turn) is int and reviews[key] < turn)
+            state = "under_review" if authorized else "awaiting_review"
+            context = ExecutionContext("synthetic_worker", "reviewer", "multitool", state, key)
             try:
                 return self._gateway.execute(Proposal(call_id, tool, raw_arguments), context)
             except GatewayError as error:
                 return {"error": str(error.code)}
+        if self._draft_review_turns is not None and tool == "read_review":
+            self._draft_review_turns.pop(key, None)
         fault = self._faults.get((tool, key))
         if fault:
             count = self._attempts[(tool, key)]
@@ -78,10 +84,19 @@ class Scenario:
             if count < len(responses) or fault["persistent"]:
                 return deepcopy(responses[min(count, len(responses) - 1)])
         event = self._world["event"]
+        updated_scope = False
         if event and not self._published_event and (tool, key) == (event["after_tool"], event["record_id"]):
             self._published_event = True
+            updated_scope = True
             self._pending_events.append((event["id"], {"role": "user", "content": event["text"]}))
-        return deepcopy(self._records.get(tool, {}).get(key, {"error": "not_found", "retryable": False}))
+            if self._draft_review_turns is not None:
+                self._draft_review_turns.clear()
+        observed = self._records.get(tool, {}).get(key, {"error": "not_found", "retryable": False})
+        if (self._draft_review_turns is not None and tool == "read_review" and not updated_scope
+                and type(turn) is int and turn >= 0 and observed.get("superseded") is False
+                and observed.get("draft_permission") is True and observed.get("current_ref") == key):
+            self._draft_review_turns[key] = turn
+        return deepcopy(observed)
 
 
 def score(case, calls, final_text, *, before=None, after=None, delivered_events=()):

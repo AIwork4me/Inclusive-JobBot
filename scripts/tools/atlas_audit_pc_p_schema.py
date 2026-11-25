@@ -54,7 +54,10 @@ def audit(archive=ARCHIVE):
                 or any("response_format" in event["wire"]["request"] for event in events[1:])):
             raise ValueError(f"P3 native sampling configuration did not match the treatment for {key}")
         content = json.loads(wire["raw_response"])["choices"][0]["message"]["content"]
-        valid = Draft202012Validator(requested).is_valid(json.loads(content))
+        try:
+            valid = Draft202012Validator(requested).is_valid(json.loads(content))
+        except (TypeError, ValueError):
+            valid = False
         rows.append({"case_id": case["case_id"], "grammar_sha256": sha256(grammar.encode()).hexdigest(),
                      "completion_id": source["completion_id"], "has_public_tools": bool(wire["request"].get("tools")),
                      "native_plan_shape": "PASS" if valid else "FAIL",

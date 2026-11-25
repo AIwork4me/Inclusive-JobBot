@@ -84,8 +84,8 @@ def count_proposals(reply, validators, ids):
     return len(proposals), invalid
 
 
-def run_case(case, client, database, *, seed, alias=ALIAS, stream=False):
-    sandbox = Scenario(case, database)
+def run_case(case, client, database, *, seed, alias=ALIAS, stream=False, require_observed_draft=False):
+    sandbox = Scenario(case, database, require_observed_draft=require_observed_draft)
     before = sandbox.snapshot()
     model = case.model_input()
     messages, tools = model["messages"], model["tools"]
@@ -180,7 +180,7 @@ def run_case(case, client, database, *, seed, alias=ALIAS, stream=False):
         messages.append(assistant)
         for call in answer.calls:
             ids.add(call.call_id)
-            observed = sandbox.call(call.call_id, call.name, call.arguments_raw)
+            observed = sandbox.call(call.call_id, call.name, call.arguments_raw, turn=turn)
             calls.append(Call(turn, call.call_id, call.name, call.arguments_raw, observed))
             messages.append({"role": "tool", "tool_call_id": call.call_id, "content": encode_state(observed)})
         for event_id, event in sandbox.take_events():
@@ -250,13 +250,16 @@ def configuration(args, freeze, roster, identity, env):
     if "candidate" in identity:
         inventory.append(Path(tc_v2_candidate.__file__))
     environment = {key.upper(): value for key, value in env.items() if key.upper().startswith(ENV_PREFIXES)}
-    return {"git": legacy.git_state(), **identity, "backend": args.backend, "port": args.port,
+    config = {"git": legacy.git_state(), **identity, "backend": args.backend, "port": args.port,
             "stream": bool(getattr(args, "stream", False)),
             "freeze_sha256": freeze.manifest["freeze_sha256"], "panel": args.panel,
             "scope": "diagnostic" if args.case or args.panel == "controls" else "full_panel", "roster": roster,
             "manifest_sha256": legacy.sha256_of(FROZEN / "manifest.json"), "sdk_installed": version("google-antigravity"),
             "sdk_used": False, "limits": LIMITS, "environment_sha256": digest(environment),
             "source_sha256": {path.relative_to(ROOT).as_posix(): legacy.sha256_of(path) for path in sorted(inventory)}}
+    if getattr(args, "require_observed_draft", False):
+        config["require_observed_draft"] = True
+    return config
 
 
 def summary(run, done, interruptions):
@@ -351,7 +354,9 @@ def execute_locked(args, config, cases, output, binary, model, env):
                     case = cases[trial["case_id"]]
                     key = trial["key"]
                     database = databases / f"{key}--{uuid4().hex}.sqlite" if case.oracle["state"] is not None else None
-                    result = run_case(case, client, database, seed=trial["seed"], alias=alias, stream=config.get("stream", False))
+                    result = run_case(case, client, database, seed=trial["seed"], alias=alias,
+                                      stream=config.get("stream", False),
+                                      require_observed_draft=config.get("require_observed_draft", False))
                     if database is not None:
                         result.update(database=database.name, database_sha256=legacy.sha256_of(database))
                     if not qualify.record(result, key, tag, run, records, interruptions, done):
@@ -394,6 +399,8 @@ def main():
     parser.add_argument("--batch-size", type=int, help="limit additional case attempts per launch")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--stream", action="store_true", help="use the shared proposal budget with streaming")
+    parser.add_argument("--require-observed-draft", action="store_true",
+                        help="require a prior-turn trusted review before a synthetic draft")
     parser.add_argument("--preflight-only", action="store_true", help="verify identities without launching inference")
     args = parser.parse_args()
     if args.batch_size is not None and args.batch_size < 1:

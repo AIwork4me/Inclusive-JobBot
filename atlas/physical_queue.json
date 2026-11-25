@@ -61,12 +61,12 @@
       "completed": 80,
       "checkpoint": "evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json",
       "factorial": "atlas/benchmarks/pc_p_factorial.json",
-      "factorial_checkpoint": "evidence/IJ072/benchmark_validity/pc-p-h-clean-p1-p3-005.json",
-      "factorial_trials_completed": 10,
+      "factorial_checkpoint": "evidence/IJ072/benchmark_validity/pc-p-h-factorial-first-five.json",
+      "factorial_trials_completed": 45,
       "runtime_commit": "876ee84baa86f86399a5ae46bd7721671e16a090",
       "runtime_worktree": ".scratch/ij072-prompt-runtime",
       "next_command": null,
-      "reason": "Four models completed 20 matched L0 P0/P1 pairs each. The stratified panel started with five clean Qwen3-8B P1/P3 pairs. The remaining cells and strata are pending."
+      "reason": "Four models completed 20 matched L0 P0/P1 pairs each. All nine treatments completed on the first five Qwen3-8B cases. Other model cells and strata are pending."
     },
     {
       "id": "revised-full-matrix",
@@ -91,11 +91,11 @@
         "exclusive_gpu_slot"
       ],
       "planned": 540,
-      "completed": 240,
-      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-020/diagnostic.json",
+      "completed": 300,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-080/diagnostic.json",
       "runtime_commit": "cbe2107f434890f14ff3431cc16a4c0bf41fd752",
       "runtime_worktree": ".scratch/ij072-reference-runtime",
-      "next_command": "python -m scripts.tools.atlas_pc_s --suite planning --candidate J --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output ../ij071-atlas/.runtime/ij072-pc-s-j-planning --batch-size 20"
+      "next_command": "python -m scripts.tools.atlas_pc_s --suite planning --candidate J --model ../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf --engine-dir ../../.tools/ij07-toolchoice-p4b-vulkan --output ../ij071-atlas/.runtime/ij072-pc-s-j-planning --batch-size 60"
     }
   ]
 }
