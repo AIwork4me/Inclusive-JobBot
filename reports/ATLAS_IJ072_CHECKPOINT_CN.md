@@ -11,7 +11,7 @@
 | Qwen3-8B PC-S Planning 双轨 | 320 | 320 | 4 | 316 | 0 | 0 |
 | Qwen3-14B PC-S TC-V2 开发面板 | 100 | 100 | 66 | 34 | 0 | 0 |
 | Qwen3-14B PC-S MULTITOOL-V1 | 120 | 120 | 45 | 75 | 0 | 0 |
-| Qwen3-14B PC-S Planning 双轨 | 320 | 80 | 6 | 74 | 0 | 240 |
+| Qwen3-14B PC-S Planning 双轨 | 320 | 160 | 23 | 137 | 0 | 160 |
 | 旧 JOB-V1 Arm A 首试 | 600 | 600 | 23 | 577 | 0 | 0 |
 | 旧 JOB-V1 Arm B 首试 | 600 | 300 | 22 | 278 | 7 | 293 |
 
@@ -31,7 +31,7 @@ Qwen3-14B Q8_0 同样使用 Radeon Vulkan 和 8K 上下文，在同一 100 条�
 
 320 条 PC-S Planning 已形成分层诊断。Acting-first 的已执行动作中，有 129 个用例可评估工具名称和参数，工具名称通过 96/129，参数通过 76/129。45 个用例进入可评估的动态重规划，0 个通过。Plan-first 没有可评估的实际工具名称或参数。零工具场景与阶段未执行各自记录。 [诊断及分母](../evidence/IJ072/benchmark_validity/pc-s-planning-layered.json)
 
-Qwen3-14B 在相同的 Planning 面板已封存 L0 和 L1 的 80 条试次。Acting-first 为 6/40 严格通过，Plan-first 为 0/40。L0 两轨均为 0/20，六个通过均来自 L1 Acting-first。L2–L7 的 240 条仍保留独立待运行计数。 [强参照 Planning 检查点](../evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-080/diagnostic.json)
+Qwen3-14B 已封存 L0–L3 的 160 条 Planning 试次。Acting-first 为 23/80 严格通过，Plan-first 为 0/80。L0 两轨均为 0/20。L4–L7 的 160 条保留独立待运行计数。 [强参照 Planning 检查点](../evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-160/diagnostic.json)
 
 ## RC-02 四候选报价回传
 
@@ -81,6 +81,8 @@ JOB-V1 冻结的 600 条主面板使用 Arm B 的公开工具定义，独立生�
 JOB-V1 扩展控制拒绝了 2,650 个含越权 ID、伪造审批、错误读取或重复草稿收据的变异。600 份缺失审计的用例均保留 BLOCKED。600 个字段重排和 125 个中文等价主题全部通过。实际 SQLite 沙箱拒绝了 600 个契约外提交请求，业务表与审批表未发生变化。 [扩展控制](../evidence/IJ072/benchmark_validity/job-extended-controls.json.gz)
 
 已准备 22 个独立盲审用例，覆盖四套评测、中英文与混合语言、范围修订、工具故障、权限和条件计划。审阅包仅提供模型可见信息与记录的动作和答案。人工初评和一致性复核状态为 NOT_RUN。 [中英文盲审说明](ATLAS_A1_BLIND_REVIEW.md)
+
+Windows CI 曾在进入写处理器前先到达超时点，导致回滚测试读取不到预期的写审计字段。回归现在先暂存写入，再推进测试时钟，并检查已回滚的暂存写和持久化终态。历史测试文件继续通过原归档提交校验。 [安全回归](../tests/security/test_gateway_execution.py)
 
 ## 候选资料核对
 

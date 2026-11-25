@@ -64,6 +64,7 @@ jobs:
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-planning-full
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-020
       - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-080
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-160
       - run: |
           digest=$(python -c 'import json; print(json.load(open("configs/ij07/tc_v2_competitive_plan.lock.json"))["plan_sha256"])')
           python -m benchmarks.competitive_slm.tc_v2_archive verify --plan configs/ij07/tc_v2_competitive_plan.json --plan-sha256 "$digest" --archive evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint

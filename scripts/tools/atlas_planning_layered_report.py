@@ -1,4 +1,4 @@
-"""Run the expanded Planning diagnostics on the sealed Qwen3-8B PC-S trials."""
+"""Run the expanded Planning diagnostics on a sealed Qwen3 PC-S panel."""
 
 from argparse import ArgumentParser
 from collections import Counter
@@ -16,19 +16,22 @@ ROOT = Path(__file__).resolve().parents[2]
 EVIDENCE = ROOT / "evidence/IJ072/benchmark_validity"
 ARCHIVE = EVIDENCE / "pc-s-planning-full"
 OUTPUT = EVIDENCE / "pc-s-planning-layered.json"
+STRONG_ARCHIVE = EVIDENCE / "pc-s-j-planning-full"
+STRONG_OUTPUT = EVIDENCE / "pc-s-j-planning-layered.json"
 STATUSES = ("PASS", "FAIL", "BLOCKED", "NOT_RUN", "NOT_APPLICABLE")
 
 
-def build():
-    verify_archive(ARCHIVE)
-    diagnostic = document(ARCHIVE / "diagnostic.json")
-    if diagnostic["evidence"]["physical_execution_status"] != "PASS":
+def build(archive=ARCHIVE, model="Qwen3-8B"):
+    verify_archive(archive)
+    diagnostic = document(archive / "diagnostic.json")
+    if (diagnostic["evidence"]["physical_execution_status"] != "PASS"
+            or diagnostic["identity"]["model"]["official_model_id"] != f"Qwen/{model}"):
         raise ValueError("expanded diagnostics require the sealed PC-S archive")
     manifest = verify(FROZEN)
     cases = {row["case_id"]: row for row in load_jsonl(FROZEN / "datasets/holdout.jsonl")}
     graphs = {row["case_id"]: row for row in load_jsonl(FROZEN / "task_graphs/holdout.jsonl")}
     trials = {}
-    for part in sorted(ARCHIVE.glob("planning-part-*.jsonl.gz")):
+    for part in sorted(archive.glob("planning-part-*.jsonl.gz")):
         for entry in jsonl(part):
             if not entry["name"].startswith("cases/"):
                 continue
@@ -53,7 +56,7 @@ def build():
                 "outcomes": {status: counts[status] for status in STATUSES},
             }
     return {
-        "scope": "Qwen3-8B physical PC-S Planning secondary diagnostic",
+        "scope": f"{model} physical PC-S Planning secondary diagnostic",
         "dataset_sha256": manifest["artifact_sha256"]["datasets/holdout.jsonl"],
         "physical_run_id": diagnostic["run_id"],
         "original_scores": "retained in the source archive",
@@ -71,14 +74,16 @@ def build():
 def main():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--strong", action="store_true")
     args = parser.parse_args()
-    result = build()
+    result = build(STRONG_ARCHIVE, "Qwen3-14B") if args.strong else build()
+    output = STRONG_OUTPUT if args.strong else OUTPUT
     raw = (json.dumps(result, indent=2, sort_keys=True) + "\n").encode()
     if args.check:
-        if OUTPUT.read_bytes() != raw:
+        if output.read_bytes() != raw:
             parser.error("expanded Planning diagnostics differ")
     else:
-        with OUTPUT.open("xb") as stream:
+        with output.open("xb") as stream:
             stream.write(raw)
     print(f"Verified {len(result['trials'])} Planning trajectories with separate applicability denominators")
 

@@ -22,8 +22,8 @@ Qwen3-14B passed [admission](evidence/IJ072/model_identity/admission/J/report.js
 completed the [100-trial TC-V2 component](evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json).
 The [complete MULTITOOL archive](evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json)
 sealed 120/120 trials and the [streaming comparison](evidence/IJ072/benchmark_validity/pc-s-j-multitool-streaming-pairs.json)
-verified 10 physical pairs. The [latest Planning checkpoint](evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-080/diagnostic.json)
-sealed 80/320 trials. Resume from the same output in the clean workstation worktree
+verified 10 physical pairs. The [latest Planning checkpoint](evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-160/diagnostic.json)
+sealed 160/320 trials. Resume from the same output in the clean workstation worktree
 `.scratch/ij072-reference-runtime` at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
 Verify no process is holding the Radeon slot. Stop at a completed batch
 boundary and reuse the original output directory for every batch.
@@ -31,7 +31,7 @@ boundary and reuse the original output directory for every batch.
 ```powershell
 $env:PYTHONPATH = (Resolve-Path src).Path
 $strong = @('--candidate', 'J', '--model', '../../.tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf', '--engine-dir', '../../.tools/ij07-toolchoice-p4b-vulkan')
-python -m scripts.tools.atlas_pc_s --suite planning @strong --output ../ij071-atlas/.runtime/ij072-pc-s-j-planning --batch-size 60
+python -m scripts.tools.atlas_pc_s --suite planning @strong --output ../ij071-atlas/.runtime/ij072-pc-s-j-planning --batch-size 80
 ```
 
 The [stratified PC-P panel](atlas/benchmarks/pc_p_factorial.json) has all nine

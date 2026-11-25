@@ -23,6 +23,7 @@ IJ06_ARCHIVE = "d2e5b31aa1f0894638f7b648a4cf3591fbb71e6e"
 IJ06_LIVING_FILES = {
     "BLOCKERS.md", "DECISIONS.md", "HANDOFF.md", "MISSION_STATE.json", "TASK_LEDGER.md",
     ".gitattributes", ".github/workflows/evidence-validation.yml", "scripts/tools/verify_ij06_evidence.py",
+    "tests/security/test_gateway_execution.py",
 }
 
 

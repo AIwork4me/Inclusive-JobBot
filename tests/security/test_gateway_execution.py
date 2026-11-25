@@ -1,13 +1,14 @@
 import concurrent.futures
 import json
-import time
 from dataclasses import replace
 from threading import Event
+from types import SimpleNamespace
 
 import pytest
 
 from business_tools import BusinessStore
 from model_gateway import ExecutionContext, Gateway, GatewayError, Grant, Policy, Proposal, ToolSpec
+from model_gateway import execution_policy
 from model_gateway.errors import TransientToolError
 from model_gateway.metrics import ExecutionMetrics
 
@@ -234,19 +235,27 @@ def test_cancel_after_a_write_rolls_back(setup_gateway):
     assert db.snapshot()["approval_records"][confirmation]["status"] == "CONFIRMED"
 
 
-def test_expired_handler_cannot_commit_its_write(setup_gateway):
+def test_expired_handler_cannot_commit_its_write(setup_gateway, monkeypatch):
+    now = 0.0
+    monkeypatch.setattr(execution_policy, "time", SimpleNamespace(monotonic=lambda: now))
+
     def expired(tx, arguments, context):
+        nonlocal now
         result = persist_ticket(tx, arguments, context)
-        time.sleep(0.1)
+        now = 2.0
         return result
 
-    db, gateway = setup_gateway(expired, timeout=0.05)
+    db, gateway = setup_gateway(expired, timeout=1.0)
     confirmation = gateway.confirm(TICKET, APPROVED)
     with pytest.raises(GatewayError) as failure:
         gateway.execute(TICKET, APPROVED, confirmation=confirmation)
     assert failure.value.code == "TIMEOUT"
-    assert db.snapshot()["tickets"] == {}
-    assert not next(iter(db.snapshot()["audit_events"].values()))["after_state"]["tickets"]["TK-01"]
+    snapshot = db.snapshot()
+    assert snapshot["tickets"] == {}
+    audit = next(iter(snapshot["audit_events"].values()))
+    assert audit["status"] == "ROLLED_BACK"
+    assert audit["proposed_state"]["tickets"]["TK-01"]["status"] == "created"
+    assert audit["after_state"]["tickets"]["TK-01"] is None
 
 
 def test_open_circuit_blocks_handler_and_reports_escalation(setup_gateway):
