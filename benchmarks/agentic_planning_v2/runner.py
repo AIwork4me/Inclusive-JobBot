@@ -12,7 +12,7 @@ from .oracle import verify
 
 
 def plan_request(model, task, public, contract, limits, constrained=False):
-    visible = {"task": task, "initial": public, "goal": contract["goal"], "tools": contract["tools"],
+    visible = {"task": task, "public": public, "goal": contract["goal"], "tools": contract["tools"],
                "external_event_fields": contract["event_fields"], "limits": limits,
                "schema": json.loads(SCHEMA.read_bytes())}
     body = {"model": model, "messages": [

@@ -11,6 +11,7 @@ from benchmarks.agentic_planning_v2.budgets import assess_budgets
 from benchmarks.agentic_planning_v2.execution import execute
 from benchmarks.agentic_planning_v2.oracle import validate
 from benchmarks.agentic_planning_v2.public_witness import build
+from benchmarks.agentic_planning_v2.safety import reconcile
 from benchmarks.tool_calling_v2.oracle import equal
 from scripts.tools.ij073_baseline import VALIDITY, read, records
 
@@ -34,9 +35,15 @@ def audit():
         errors = validated[raw][:]
         graph = graphs[case["case_id"]]
         sandbox = SyntheticSandbox(graph["world"])
+        ledger = []
+        def invoke(tool, args):
+            before = sandbox.snapshot()
+            reply = sandbox.invoke(tool, args)
+            ledger.append({"before": before, "after": sandbox.snapshot(), "tool": tool, "args": args, "observation": reply})
+            return reply
         outcome = {"final": None, "records": [], "reason": "invalid plan"}
         if not errors:
-            outcome = execute(plan, initial, case["action_budget"], sandbox.invoke)
+            outcome = execute(plan, initial, case["action_budget"], invoke)
             if not equal(outcome["final"], graph["final"]):
                 errors.append("terminal answer")
             if not equal(sandbox.snapshot(), graph["goal_state"]):
@@ -47,7 +54,11 @@ def audit():
             v1 = score(case, graph, scored, sandbox.snapshot(), outcome["final"], track="A")
             if v1["status"] != "PASS":
                 errors.append("frozen action, outcome or safety check")
-        results.append({"case_id": case["case_id"], "plan_and_contract_sha256": identity,
+        safety = reconcile(initial, ledger)
+        if safety["status"] != "PASS":
+            errors.append("safety reconciliation")
+        results.append({"safety": safety, "state_transitions": [{"before": r["before"], "after": r["after"]} for r in ledger],
+                        "case_id": case["case_id"], "plan_and_contract_sha256": identity,
                         "nodes": len(plan["actions"]), "budget": case["action_budget"], "errors": errors,
                         "resources": assess_budgets(plan, {"tool_calls": case["action_budget"],
                                                   "peak_context_tokens": case["context_token_budget"]},

@@ -4,6 +4,7 @@ from benchmarks.agentic_planning_v2.budgets import assess_budgets
 from benchmarks.agentic_planning_v2.execution import execute
 from benchmarks.agentic_planning_v2.oracle import verify
 from benchmarks.agentic_planning_v2.reachability import missing_effects
+from benchmarks.agentic_planning_v2.safety import reconcile
 from benchmarks.agentic_planning_v2.runner import evaluate_raw, plan_request
 
 
@@ -60,9 +61,19 @@ def test_model_boundary_and_public_inputs_only():
     plan = {"version": 2, "goal": "clarify", "actions": [], "stops": [
         {"when": True, "disposition": "clarify", "facts": {"subject": {"from": "public", "field": "subject"}}}]}
     request = plan_request("local", "Ask for missing input", world["public"], contract, {"tool_calls": 0})
+    assert json.loads(request["messages"][1]["content"])["public"] == world["public"]
     assert "sentinel" not in json.dumps(request)
     assert "response_format" not in request
     assert evaluate_raw(json.dumps(plan), contract, [world])["status"] == "PASS"
     assert evaluate_raw(json.dumps(plan), contract, [])["status"] == "BLOCKED"
     for raw in ('{"version":2,"version":2}', '[]', 'not JSON'):
         assert evaluate_raw(raw, contract, [world])["status"] == "FAIL"
+
+def test_denied_write_requires_unchanged_state_and_audit():
+    clean = {"drafts": {}, "deliverables": {}}
+    leaked = {"drafts": {"unapproved": {"state": "pending"}}, "deliverables": {}}
+    row = {"tool": "stage", "args": {"reference": "A"}, "observation": {"code": "permission_denied", "data": {}},
+           "before": clean, "after": clean}
+    assert reconcile({"subject": "A"}, [row])["status"] == "PASS"
+    assert reconcile({"subject": "A"}, [{**row, "after": leaked}])["status"] == "FAIL"
+    assert reconcile({"subject": "A"}, [{**row, "before": None}])["status"] == "BLOCKED"
