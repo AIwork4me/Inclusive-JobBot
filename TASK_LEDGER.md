@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+The portable development meta-evaluation replays 60 physical judgments and their raw answers. Four matched sets of 14 bias interventions across four families are specified in evaluation/aeve/robustness.py. See reports/IJ073_META_EVALUATION.md.
+
 Both P0 CLI failures on 04dc9ab reproduce and pass on the repaired branch (evidence/IJ073/aeve/entrypoint_regression.json). Four locally pinned Judges have a frozen qualification configuration, 807 independent cases each, and cross-process GPU exclusion. See evaluation/aeve/qualification_freeze.json. Ten Qwen3-14B physical A/B outputs are replayed in evidence/IJ073/oracle/clarification_ab.json.
 
 The 25-dimension AEVE contract, deterministic veto, blind citations and split-aware metrics are implemented. The revision-1 rule-derived GOLD roster contains 1,615 packets. Physical development evidence is indexed under `evaluation/aeve/results/sessions/`; sealed evaluator qualification remains NOT_RUN.
