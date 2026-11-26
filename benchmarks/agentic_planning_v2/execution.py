@@ -1,9 +1,11 @@
 """Execute a validated candidate in a host-provided synthetic sandbox only."""
 from .contract import ABSENT, UNKNOWN, predicate, value
 from .oracle import next_action
+from .events import approval, external_event, refused, scope_changed
+from .types import input_schema, matches
 
 
-def execute(plan, public, budget, invoke):
+def execute(plan, public, budget, invoke, *, contract=None, on_dispatch=None):
     known = {"public": public, "event": {}}
     used = set()
     records = []
@@ -32,6 +34,10 @@ def execute(plan, public, budget, invoke):
             return result("action budget exhausted")
         node, args = proposal
         tool = node["tool"]
+        if contract is not None:
+            spec = contract["tools"].get(tool)
+            if spec is None or not matches(args, input_schema(tool, spec)):
+                return result("tool argument type mismatch")
         if denied:
             return result("blocked call after denial")
         if tool == "stage":
@@ -46,6 +52,8 @@ def execute(plan, public, budget, invoke):
                 return result("blocked unauthorized proposal")
             known["event"] = {}
         observed = invoke(tool, args)
+        if on_dispatch is not None:
+            on_dispatch(node["id"])
         records.append({"tool": tool, "args": args, "observation": observed})
         used.add(node["id"])
         known[node["id"]] = {**observed["data"], "code": observed["code"]}
@@ -56,18 +64,17 @@ def execute(plan, public, budget, invoke):
                 staged.add(observed["data"]["draft_id"])
             elif tool == "commit":
                 consumed.add(args["draft_id"])
-        event = observed.get("external_event", {})
-        if observed["code"] in {"permission_denied", "approval_declined"}:
+        event = external_event(observed)
+        if refused(observed, event):
             known["event"] = {}
             denied = True
-        if event.get("source") == "synthetic_external_user":
-            # Earlier observations and grants lose authority on scope change.
-            if "revised_reference" in event or event.get("scope_changed"):
+        if event is not None:
+            if scope_changed(event):
                 known = {"public": public}
                 reviewed = False
                 staged.clear()
             known["event"] = {k: v for k, v in event.items() if k != "approval"}
-            if (tool == "request_confirmation" and observed["code"] == "ok"
-                    and event.get("decision") == "approved" and event.get("draft_id") == args["draft_id"]):
-                known["event"]["approval"] = observed["data"]["approval"]
+            token = approval(tool, args, observed, event)
+            if token is not None:
+                known["event"]["approval"] = token
     return result("node limit")

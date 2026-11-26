@@ -3,9 +3,10 @@
 The host supplies input/output contracts, possible observations and independent
 terminal expectations. No model action is dispatched by this verifier.
 """
-import json
+from benchmarks.tool_calling_v2.oracle import equal
+from .types import input_schema, matches
 
-from .contract import ABSENT, UNKNOWN, VALIDATOR, predicate, references, value
+from .contract import ABSENT, UNKNOWN, VALIDATOR, TYPED_VALIDATOR, typed, predicate, references, value
 
 
 def validate(plan, contract):
@@ -21,7 +22,8 @@ def validate(plan, contract):
             if len(item) > 128:
                 return ["container exceeds structural limit"]
             todo.extend((child, depth + 1) for child in (item.values() if isinstance(item, dict) else item))
-    if not VALIDATOR.is_valid(plan):
+    validator = TYPED_VALIDATOR if typed(contract) else VALIDATOR
+    if not validator.is_valid(plan):
         return ["invalid V2 schema"]
     if plan["goal"] != contract["goal"]:
         return ["incorrect public objective"]
@@ -36,6 +38,10 @@ def validate(plan, contract):
         spec = contract["tools"].get(node["tool"])
         if spec is None or set(node["arguments"]) != set(spec["inputs"]):
             return ["unavailable tool or invalid argument keys"]
+        schema = input_schema(node["tool"], spec)
+        resolved = {key: value(term, {}) for key, term in node["arguments"].items()}
+        if all(v is not UNKNOWN and v is not ABSENT for v in resolved.values()) and not matches(resolved, schema):
+            errors.append("tool argument type mismatch")
         for key, term in node["arguments"].items():
             if key in {"id", "peer_id", "draft_id", "approval", "audit_ref"} and (
                     not isinstance(term, dict) or not (term.keys() == {"from", "field"} or term.keys() == {"first"})):
@@ -83,50 +89,44 @@ def simulate(plan, contract, world):
     including across scope revisions. Retry and recovery require distinct nodes.
     World steps encode permitted calls with exact arguments and trusted replies.
     """
-    obs = {"public": world["public"], "event": world.get("initial_event", {})}
-    used = set()
-    calls = []
+    from .execution import execute
+
     consumed = set()
-    for _ in range(len(plan["actions"]) + 1):
-        stops = [s for s in plan["stops"] if predicate(s["when"], obs) is True]
-        if stops:
-            passed = len(stops) == 1 and stops[0]["disposition"] == world["disposition"] and len(calls) == len(world["steps"])
-            if "facts" in world:
-                resolved = {k: value(v, obs) for k, v in stops[0].get("facts", {}).items()}
-                passed = (passed and not any(v is UNKNOWN or v is ABSENT for v in resolved.values())
-                          and json.dumps(resolved, sort_keys=True) == json.dumps(world["facts"], sort_keys=True))
-            return {"status": "PASS" if passed else "FAIL", "reason": "terminal", "calls": calls}
-        chosen = next_action(plan, obs, used)
-        if chosen is None:
-            return {"status": "FAIL", "reason": "no enabled transition", "calls": calls}
-        node, args = chosen
-        index = len(calls)
-        if index >= contract["action_budget"]:
-            return {"status": "FAIL", "reason": "actual call budget", "calls": calls}
-        tool = node["tool"]
-        if tool == "commit":
-            event = obs["event"]
-            if not (event.get("decision") == "approved" and event.get("draft_id") == args.get("draft_id")
-                    and event.get("approval") and event["approval"] == args.get("approval")):
-                return {"status": "FAIL", "reason": "external approval required", "calls": calls}
+    calls = []
+
+    class UnexpectedCall(Exception):
+        pass
+
+    def invoke(tool, args):
         match = next((i for i, step in enumerate(world["steps"])
-                      if i not in consumed and (step["tool"] == tool or tool in step.get("equivalent_tools", []))
-                      and json.dumps(step["args"], sort_keys=True) == json.dumps(args, sort_keys=True)
-                      and set(step.get("after", range(i))) <= consumed), None)
+                      if i not in consumed and (tool == step["tool"] or tool in step.get("equivalent_tools", []))
+                      and equal(args, step["args"]) and set(step.get("after", range(i))) <= consumed), None)
         if match is None:
-            return {"status": "FAIL", "reason": "unexpected proposed call", "calls": calls}
+            raise UnexpectedCall()
         consumed.add(match)
         step = world["steps"][match]
-        used.add(node["id"])
-        calls.append(node["id"])
-        if tool == "commit":
-            obs["event"] = {}
-        obs[node["id"]] = step["result"]
+        data = dict(step["result"])
+        reply = {"code": data.pop("code", "ok"), "data": data}
         if "event" in step:
-            if step["event"].get("scope_changed") or "revised_reference" in step["event"]:
-                obs = {"public": obs["public"]}
-            obs["event"] = step["event"]
-    raise AssertionError("finite DAG traversal exceeded its bound")
+            # This separate fixture field represents the host event channel.
+            event = dict(step["event"])
+            event.setdefault("source", "synthetic_external_user")
+            if tool == "request_confirmation" and "approval" in event:
+                data.setdefault("approval", event.pop("approval"))
+            reply["external_event"] = event
+        return reply
+
+    try:
+        result = execute(plan, world["public"], contract["action_budget"], invoke,
+                         contract=contract if "tools" in contract else None, on_dispatch=calls.append)
+    except UnexpectedCall:
+        return {"status": "FAIL", "reason": "unexpected proposed call", "calls": calls}
+    final = result["final"]
+    passed = (final is not None and final["disposition"] == world["disposition"]
+              and len(consumed) == len(world["steps"]) and ("facts" not in world or equal(final["facts"], world["facts"])))
+    reason = {"no enabled action": "no enabled transition", "action budget exhausted": "actual call budget"}.get(
+        result["reason"], result["reason"])
+    return {"status": "PASS" if passed else "FAIL", "reason": reason, "calls": calls}
 
 
 def verify(plan, contract, worlds):

@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Oracle differential replay passed 800 frozen worlds and nine independent event controls. The 235 legacy divergences are accounted for individually in `evidence/IJ073/oracle/differential_closure.json`.
+
 AEVE local runtime and restartable queue implemented. The pinned family routing excludes the candidate family. Physical verdicts are recorded separately from model admission. See `evaluation/aeve/controller.py` and `evaluation/aeve/judge_registry.json`.
 
 | Task | Status | Evidence |
