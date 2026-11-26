@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Matched Granite and Gemma development captures are bound to the Q2 roster. Published the upstream file revisions, byte counts and SHA256 for the larger Mistral and Gemma candidates. Their physical admission remains untested.
+
 Sealed all 224 paired Radeon interventions and replayed language, injection and agreement statistics. The revised judge holdout contains 1,232 new rule-labeled synthetic worlds and 1,370 packets. Selected configurations depend on the complete matched development results.
 
 Audited all 437,350 historical physical trial/dimension cells. The additive manifest registers 1,515 additional D04 units and 10,170 source-bound deterministic results. The reviewed historical objects and original scores retain their original digests.
