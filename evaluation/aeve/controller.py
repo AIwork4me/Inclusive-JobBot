@@ -1,6 +1,5 @@
 """Restartable single-GPU queue. Run from the repository root with PYTHONPATH=.;src."""
 import argparse
-from collections import Counter
 from contextlib import contextmanager
 from functools import lru_cache
 import gzip
@@ -85,10 +84,16 @@ def seed_oracle(db):
 
 def seed_gold(db, split):
     from .gold import iter_gold
+    rubrics = json.loads(Path(__file__).with_name("evaluator_manifest.json").read_bytes())["dimensions"]
     with db:
         for case in iter_gold(split):
             for candidate in ("J", "G", "F"):
-                judge_job(db, "gold-" + split, case["case_id"], candidate, case["packet"])
+                packet = case["packet"]
+                dim = packet["dimension"]
+                role = role_for(dim)
+                body = body_for(candidate, packet, role)
+                body["messages"][0]["content"] += " Evaluation criterion: " + rubrics[dim]["rubric"]
+                add(db, "gold-" + split, case["case_id"], candidate, dim, role, {"packet": packet, "body": body})
 
 
 @lru_cache(maxsize=1)
@@ -144,7 +149,10 @@ def work(db, folder, assets, port, candidate, collections, limit):
         if not jobs:
             return 0
         with session(candidate, assets, folder, port) as (run, client):
+            started = time.monotonic()
             for job in jobs:
+                if time.monotonic() - started > 5400:
+                    break
                 spec = json.loads(gzip.decompress(job["spec"]))
                 with db:
                     aid = db.execute("INSERT INTO attempts(job,run,started) VALUES(?,?,?)",

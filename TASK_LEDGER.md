@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+The 25-dimension AEVE contract, deterministic veto, blind citations and split-aware metrics are implemented. The revision-1 rule-derived GOLD roster contains 1,615 packets. Physical development evidence is indexed under `evaluation/aeve/results/sessions/`; sealed evaluator qualification remains NOT_RUN.
+
 Oracle differential replay passed 800 frozen worlds and nine independent event controls. The 235 legacy divergences are accounted for individually in `evidence/IJ073/oracle/differential_closure.json`.
 
 AEVE local runtime and restartable queue implemented. The pinned family routing excludes the candidate family. Physical verdicts are recorded separately from model admission. See `evaluation/aeve/controller.py` and `evaluation/aeve/judge_registry.json`.
