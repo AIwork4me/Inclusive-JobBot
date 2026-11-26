@@ -24,7 +24,24 @@ def digest(path):
 
 
 def export(db, state, out):
+    from .controller import gpu_lock
+    with gpu_lock(state, "archive.lock"):
+        return _export(db,state,out)
+
+
+def _export(db, state, out):
     sealed = 0
+    for stamp in sorted((state/"imported").glob("*/manifest.json")):
+        target = out/"sessions"/stamp.parent.name
+        if not (target/"manifest.json").is_file():
+            target.mkdir(parents=True,exist_ok=True)
+            manifest = json.loads(stamp.read_bytes())
+            for name,expected in manifest["sha256"].items():
+                if Path(name).name != name or digest(stamp.parent/name) != expected:
+                    raise ValueError("imported session file differs")
+                shutil.copyfile(stamp.parent/name,target/name)
+            shutil.copyfile(stamp,target/"manifest.json")
+            sealed += 1
     for stamp in sorted((state / "sessions").glob("*/seal.json")):
         folder, run_id = stamp.parent, stamp.parent.name
         target = out / "sessions" / run_id
@@ -91,6 +108,14 @@ def verify(out):
                          r["utilization"] > 0 and r["instance"].startswith(f"pid_{pid}_"))
         if not active or active != manifest["active_pid_counter_samples"] or manifest["gpu_evidence"] != "PASS":
             raise ValueError("GPU activity seal differs from recorded counters")
+        generation = {}
+        with gzip.open(path.parent/"live-generation.jsonl.gz","rb") as native:
+            for line in native:
+                trace = json.loads(line)
+                completion = trace["completion_id"]
+                if completion in generation:
+                    raise ValueError("repeated native completion identity")
+                generation[completion] = fingerprint(trace)
         outcomes = json.loads((path.parent / "outcomes.json").read_bytes())
         count = 0
         with gzip.open(path.parent / "captures.jsonl.gz", "rb") as stream:
@@ -99,6 +124,13 @@ def verify(out):
                 key = fingerprint([item[k] for k in ("collection","item","candidate","dimension","role","spec")])
                 if key != item["job"] or item["capture"]["request"] != {**item["spec"]["body"], "verbose":True,"return_tokens":True}:
                     raise ValueError("frozen job or captured request differs")
+                if item["transport"] == "PASS":
+                    captured = item["capture"]
+                    response = json.loads(captured["raw_response"])
+                    source = captured["source_generation"]
+                    if (source.get("completion_id") != response.get("id") or source.get("truncated") is not False
+                            or generation.pop(response["id"],None) != fingerprint(source)):
+                        raise ValueError("raw response and independent native token capture disagree")
                 outcome = outcomes[count-1]
                 if item["run"] != manifest["run_id"] or any(item[k] != v for k,v in outcome.items()) or item["job"] in jobs:
                     raise ValueError("portable capture index mismatch")

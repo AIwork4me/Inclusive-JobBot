@@ -2,6 +2,10 @@
 
 ## IJ-0.7.3
 
+All 64 paired planning-development requests are sealed (2 PASS, 62 FAIL). The first 32 independent Gold qualification responses cover Qwen, Gemma, Ministral and LFM. See reports/IJ073_QWEN3_14B_PLANNING_DEVELOPMENT.md and reports/IJ073_JUDGE_QUALIFICATION.md. Primary judgments on physical and software histories await admission.
+
+Executable AEVE resumes from the local queue or restores original portable attempts. Stage-bound primary voting, third-family resolution and independent citation-entailment checks run only after the frozen admission. The E00-E19 ledger is in atlas/ij073/progress.json.
+
 Indexed 1,341 reviewed archive assets into 42,987 records. Of 17,494 physical trials, 17,458 support at least one stage-specific judgment. The 36 others retain their missing-evidence reasons. The physical semantic roster covers 155,383 distinct trial/dimension pairs. See evidence/IJ073/aeve/history/coverage.json.
 
 The portable development meta-evaluation replays 60 physical judgments and their raw answers. Four matched sets of 14 bias interventions across four families are specified in evaluation/aeve/robustness.py. See reports/IJ073_META_EVALUATION.md.

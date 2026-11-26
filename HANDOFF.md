@@ -1,5 +1,9 @@
 # Handoff
 
+## IJ-0.7.3 local evaluator
+
+Run `python -m evaluation.aeve resume` from this worktree using the project environment and PYTHONPATH containing the repository root and src. The controller seals physical sessions, recovers partial sessions, checks the four independent Gold cohorts and routes eligible historical evidence to admitted families. See [AEVE architecture](reports/IJ073_AEVE_ARCHITECTURE.md), [frozen protocol](evaluation/aeve/qualification_freeze.json) and [current gate ledger](atlas/ij073/progress.json). Preserve the original 22 blind-review cases. Dispatch requires actual formal archive coverage and independent Judge qualification.
+
 ## IJ-0.7.3 conditional planning checkpoint
 
 Resume on PR #6. Use the [baseline](reports/IJ073_BASELINE_AUDIT.md), [root causes](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md) and [validation commands](reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md). The repaired witness now executes its declared graph in all 800 worlds, including the 128 original discrepancies and 13 public-equivalent groups. Run `python -m scripts.tools.ij073_verify` to reproduce all nine derived artifacts. The standalone public request/reply boundary and 21 independent control worlds have software coverage. Four local Qwen3-14B requests exercised the wire boundary and all failed the zero-tool development task. Conditional graph execution now exports per-call state transitions. Complete the independent cross-suite and safety qualification before evaluator freeze.

@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 import sys
 
-from benchmarks.root_cause.gpu_lease import physical_gpu
+from benchmarks.root_cause.gpu_lease import _named_lease
 from evaluation.aeve import controller
 from evaluation.aeve.qualification import require_freeze, seed
 from evaluation.aeve.runtime import ROOT
@@ -27,10 +27,12 @@ def test_entrypoints_and_all_frozen_qualification_jobs(tmp_path):
 
 
 def test_gpu_lease_excludes_another_process_across_directories(tmp_path):
-    child = ("from benchmarks.root_cause.gpu_lease import physical_gpu\n"
-             "try:\n with physical_gpu(): pass\nexcept BlockingIOError: raise SystemExit(3)")
+    from uuid import uuid4
+    name = "AEVEUnitTest" + uuid4().hex
+    child = ("from benchmarks.root_cause.gpu_lease import _named_lease\n"
+             f"try:\n with _named_lease({name!r}): pass\nexcept BlockingIOError: raise SystemExit(3)")
     env = {**os.environ,"PYTHONPATH":str(ROOT)}
-    with physical_gpu():
+    with _named_lease(name):
         assert subprocess.run([sys.executable,"-c",child],cwd=tmp_path,env=env).returncode == 3
     assert subprocess.run([sys.executable,"-c",child],cwd=tmp_path,env=env).returncode == 0
 
@@ -46,3 +48,27 @@ def test_unsealed_generation_is_requeued_with_original_judgment_preserved(tmp_pa
     assert db.execute("SELECT status FROM jobs").fetchone()[0] == "PENDING"
     assert [tuple(row) for row in db.execute("SELECT run,result FROM quarantined")] == [("unsealed","{}")]
     db.close()
+
+
+def test_rehashed_case_cannot_claim_another_native_generation(tmp_path):
+    import gzip
+    import shutil
+    import pytest
+    from evaluation.aeve.archive import verify, digest
+    from evaluation.aeve.runtime import canonical
+    source = next((ROOT/"evaluation/aeve/results/sessions").glob("*/manifest.json")).parent
+    volume = tmp_path/"sessions"/source.name
+    shutil.copytree(source,volume)
+    captures = volume/"captures.jsonl.gz"
+    rows = [json.loads(line) for line in gzip.decompress(captures.read_bytes()).splitlines()]
+    sample = next(r for r in rows if r["transport"] == "PASS")
+    response = json.loads(sample["capture"]["raw_response"])
+    response["id"] = "software-negative-control"
+    sample["capture"]["raw_response"] = json.dumps(response)
+    captures.write_bytes(gzip.compress(b"".join(canonical(r)+b"\n" for r in rows),mtime=0))
+    file = volume/"manifest.json"
+    stamp = json.loads(file.read_bytes())
+    stamp["sha256"][captures.name] = digest(captures)
+    file.write_bytes(canonical(stamp))
+    with pytest.raises(ValueError,match="independent native token capture"):
+        verify(tmp_path)

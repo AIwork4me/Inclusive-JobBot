@@ -2,6 +2,7 @@
 import argparse
 from collections import Counter
 import json
+from itertools import islice
 from pathlib import Path
 
 from benchmarks.agentic_planning_v2.runner import evaluate_raw
@@ -9,7 +10,7 @@ from benchmarks.tool_calling_v2.oracle import decode_object
 from .archive import verify
 from .history import lines
 from .oracle_panel import panel
-from .runtime import ROOT, fingerprint, write_json
+from .runtime import REGISTRY, ROOT, fingerprint, write_json
 
 RESULTS = ROOT / "evaluation/aeve/results"
 ARMS = ("original", "clarification", "tools", "zero", "combined")
@@ -18,6 +19,7 @@ MODES = ("native", "constrained")
 
 def portable_records(results, collections):
     """Return the physical line locator inside each selected, previously verified bundle."""
+    models = json.loads(REGISTRY.read_bytes())["candidates"]
     for manifest_path in sorted((results / "sessions").glob("*/manifest.json")):
         folder = manifest_path.parent
         manifest = json.loads(manifest_path.read_bytes())
@@ -32,7 +34,8 @@ def portable_records(results, collections):
         capture = folder / "captures.jsonl.gz"
         for line, row in enumerate(lines(capture), 1):
             if row["collection"] in collections:
-                if identity["candidate"] != row["candidate"]:
+                if (identity["candidate"] != row["candidate"] or
+                        identity["identity"]["model"]["model_sha256"] != models[row["candidate"]]["sha256"]):
                     raise ValueError("capture model differs from GPU session")
                 yield row, {"path": capture.relative_to(results).as_posix(), "line": line,
                             "volume_sha256": manifest["sha256"][capture.name],
@@ -69,9 +72,9 @@ def grade_record(row):
 def analyze(results):
     verify(results)
     frozen = {}
-    for spec in panel():
+    for spec in islice(panel(), len(ARMS) * len(MODES)):
         if spec["suite"] != "clarification":
-            break
+            raise ValueError("clarification roster differs from frozen experiment")
         frozen[spec["arm"], spec["mode"]] = spec
     observations = {}
     for row, evidence in portable_records(results, {"clarification"}):

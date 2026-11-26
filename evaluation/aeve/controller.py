@@ -36,9 +36,9 @@ def connect(folder):
 
 
 @contextmanager
-def gpu_lock(folder):
+def gpu_lock(folder, filename="gpu.lock"):
     # The OS releases this lock on process exit, including abnormal termination.
-    lock = (folder / "gpu.lock").open("a+b")
+    lock = (folder / filename).open("a+b")
     try:
         if os.name == "nt":
             import msvcrt
@@ -46,7 +46,10 @@ def gpu_lock(folder):
                 lock.write(b"1")
                 lock.flush()
             lock.seek(0)
-            msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
+            try:
+                msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
+            except PermissionError as error:
+                raise BlockingIOError("evaluation lease is held by another process") from error
         else:
             import fcntl
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -87,7 +90,7 @@ def seed_gold(db, split):
     rubrics = json.loads(Path(__file__).with_name("evaluator_manifest.json").read_bytes())["dimensions"]
     with db:
         for case in iter_gold(split):
-            for candidate in ("J", "G", "F"):
+            for candidate in ("J", "G", "F", "B"):
                 packet = case["packet"]
                 dim = packet["dimension"]
                 role = role_for(dim)
@@ -146,8 +149,16 @@ def quarantine_unsealed(db, folder):
     db.execute("""CREATE TABLE IF NOT EXISTS quarantined(
                   job TEXT,run TEXT,result TEXT,reason TEXT NOT NULL,PRIMARY KEY(job,run))""")
     with db:
+        has_imports = db.execute("SELECT 1 FROM sqlite_master WHERE name='imported'").fetchone()
         for row in db.execute("SELECT DISTINCT run FROM jobs WHERE status='RECORDED'").fetchall():
             run = row["run"]
+            if has_imports:
+                cached = db.execute("SELECT DISTINCT manifest_sha256 FROM imported WHERE run=?",(run,)).fetchall()
+                if cached:
+                    from .archive import digest
+                    if len(cached) != 1 or digest(folder/"imported"/run/"manifest.json") != cached[0][0]:
+                        raise ValueError("restored session manifest changed")
+                    continue
             stamp = folder / "sessions" / run / "seal.json"
             if stamp.is_file():
                 seal = json.loads(stamp.read_bytes())

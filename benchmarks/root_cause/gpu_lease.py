@@ -5,6 +5,14 @@ import os
 
 @contextmanager
 def physical_gpu():
+    with _named_lease("InclusiveJobBotPhysicalGPU"):
+        yield
+
+
+@contextmanager
+def _named_lease(name):
+    if not name.isalnum():
+        raise ValueError("invalid lease name")
     if os.name == "nt":
         import ctypes
         from ctypes import wintypes
@@ -17,7 +25,7 @@ def physical_gpu():
         wait.restype = wintypes.DWORD
         for name in ("CloseHandle", "ReleaseMutex"):
             getattr(api, name).argtypes = [wintypes.HANDLE]
-        handle = create(None, False, "Global\\InclusiveJobBotPhysicalGPU")
+        handle = create(None, False, "Global\\" + name)
         if not handle:
             raise ctypes.WinError(ctypes.get_last_error())
         try:
@@ -35,7 +43,8 @@ def physical_gpu():
     else:
         import fcntl
         # A fixed machine path keeps different TMPDIR values on the same lease.
-        fd = os.open("/tmp/inclusive-jobbot-physical-gpu.lock", os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)
+        lockfile = "/tmp/inclusive-jobbot-physical-gpu.lock" if name == "InclusiveJobBotPhysicalGPU" else f"/tmp/{name}.lock"
+        fd = os.open(lockfile, os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)
         try:
             fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
             yield
