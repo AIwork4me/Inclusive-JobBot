@@ -32,27 +32,39 @@ def local_asset(candidate, assets):
 def download(candidate, assets, proxy=None):
     folder = assets/".tools/models/AEVE-larger-candidates"
     folder.mkdir(parents=True,exist_ok=True)
+    from .controller import gpu_lock
+    with gpu_lock(folder,candidate["file"]+".download.lock"):
+        return copy_ranges(candidate,assets,folder,proxy)
+
+
+def copy_ranges(candidate, assets, folder, proxy):
     final = folder/candidate["file"]
     partial = final.with_suffix(final.suffix+".part")
     if final.exists():
         return local_asset(candidate,assets)
     url = f"https://www.modelscope.cn/models/{candidate['repo']}/resolve/{candidate['revision']}/{candidate['file']}"
-    flags = ["curl","--silent","--show-error","--fail","--location","--continue-at","-",
-             "--connect-timeout","25","--speed-limit","65536","--speed-time","90",
-             "--limit-rate","16M","--max-time","360","--output",str(partial)]
+    flags = ["curl","--silent","--show-error","--fail","--location","--connect-timeout","25",
+             "--max-time","120","--limit-rate","16M","--write-out","%{http_code}"]
     if proxy:
         flags += ["--proxy",proxy]
-    stalled = 0
+    chunk = partial.with_suffix(".chunk")
+    failed = 0
     while not partial.is_file() or partial.stat().st_size < candidate["size"]:
-        previous = partial.stat().st_size if partial.is_file() else 0
-        subprocess.run([*flags,url],check=False)
-        current = partial.stat().st_size if partial.is_file() else 0
-        if current < previous or current > candidate["size"]:
-            raise ValueError("download resume size changed unexpectedly")
-        stalled = 0 if current > previous else stalled+1
-        print(candidate["code"],current,candidate["size"],flush=True)
-        if stalled >= 3:
-            raise OSError("download failed to make progress in three consecutive attempts")
+        start = partial.stat().st_size if partial.is_file() else 0
+        count = min(128*1024*1024,candidate["size"]-start)
+        command = [*flags,"--range",f"{start}-{start+count-1}","--max-filesize",str(count),"--output",str(chunk),url]
+        reply = subprocess.run(command,capture_output=True,check=False)
+        if reply.returncode or reply.stdout != b"206" or not chunk.is_file() or chunk.stat().st_size != count:
+            failed += 1
+            if failed >= 3:
+                raise OSError(f"verified range failed after three attempts at byte {start}")
+            continue
+        with partial.open("ab") as target, chunk.open("rb") as source:
+            from shutil import copyfileobj
+            copyfileobj(source,target,1<<20)
+        failed = 0
+        print(candidate["code"],start+count,candidate["size"],flush=True)
+    chunk.unlink(missing_ok=True)
     if digest(partial) != candidate["sha256"]:
         raise ValueError("download differs from the ModelScope digest")
     partial.rename(final)

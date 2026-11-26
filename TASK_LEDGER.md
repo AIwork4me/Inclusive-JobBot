@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+All 360 matched Q2 development responses are sealed. The selected configurations are now pinned to 1,370 new packets per family, for 6,850 planned independent trials. The second qualification queue is enrolled on the Radeon.
+
 Reproduced the empty citation-role defect from a sealed Gemma reply. The single-slot development contract gives each exhibit one Boolean slot and forbids assignment to an empty role. The software regression is green; physical evaluation has its own queue.
 
 Added resumable pinned downloads and a separate larger-model Radeon runtime check using the existing synthetic host. Models require local digest, template, backend, full offload and PID-bound GPU counters before recording an admission verdict.
