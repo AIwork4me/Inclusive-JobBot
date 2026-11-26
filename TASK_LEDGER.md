@@ -2,6 +2,10 @@
 
 ## IJ-0.7.3
 
+Reproduced the empty citation-role defect from a sealed Gemma reply. The single-slot development contract gives each exhibit one Boolean slot and forbids assignment to an empty role. The software regression is green; physical evaluation has its own queue.
+
+Added resumable pinned downloads and a separate larger-model Radeon runtime check using the existing synthetic host. Models require local digest, template, backend, full offload and PID-bound GPU counters before recording an admission verdict.
+
 Matched Granite and Gemma development captures are bound to the Q2 roster. Published the upstream file revisions, byte counts and SHA256 for the larger Mistral and Gemma candidates. Their physical admission remains untested.
 
 Sealed all 224 paired Radeon interventions and replayed language, injection and agreement statistics. The revised judge holdout contains 1,232 new rule-labeled synthetic worlds and 1,370 packets. Selected configurations depend on the complete matched development results.
