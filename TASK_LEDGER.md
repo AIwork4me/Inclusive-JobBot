@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Registered a matched Q2 development cohort of 360 requests, with Granite added as a fifth independently identified local family. Repairs test citation roles and a concise comparison prompt. The sealed Q1 qualification remains reproducible.
+
 Completed all 3,228 frozen Q1 Radeon assessments. Four families independently failed Judge admission. The sealed report and per-case records preserve the failing gates. Formal historical scoring remains blocked.
 
 All 64 paired planning-development requests are sealed (2 PASS, 62 FAIL). The first 32 independent Gold qualification responses cover Qwen, Gemma, Ministral and LFM. See reports/IJ073_QWEN3_14B_PLANNING_DEVELOPMENT.md and reports/IJ073_JUDGE_QUALIFICATION.md. Primary judgments on physical and software histories await admission.

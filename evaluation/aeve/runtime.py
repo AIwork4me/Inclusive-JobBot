@@ -38,8 +38,8 @@ def write_json(path, value):
 
 
 @contextmanager
-def session(candidate, asset_root, output, port):
-    cfg = json.loads(REGISTRY.read_bytes())["candidates"][candidate]
+def session(candidate, asset_root, output, port, *, registry=REGISTRY):
+    cfg = json.loads(registry.read_bytes())["candidates"][candidate]
     engine = (asset_root / ".tools/ij07-toolchoice-p4b-vulkan").resolve()
     model = (asset_root / cfg["asset"]).resolve(strict=True)
     identity = verify_runtime(candidate, model, engine)

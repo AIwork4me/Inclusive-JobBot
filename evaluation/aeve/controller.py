@@ -10,7 +10,7 @@ import sqlite3
 import time
 
 from .local_judge import body_for, check, role_for
-from .runtime import ROOT, canonical, fingerprint, infer, selected_judges, session, write_json
+from .runtime import ROOT, REGISTRY, canonical, fingerprint, infer, selected_judges, session, write_json
 
 DEFAULT = ROOT / ".runtime/aeve-ij073"
 
@@ -173,7 +173,7 @@ def quarantine_unsealed(db, folder):
         db.execute("""UPDATE attempts SET transport='BLOCKED' WHERE ended IS NULL AND transport IS NULL""")
 
 
-def work(db, folder, assets, port, candidate, collections, limit):
+def work(db, folder, assets, port, candidate, collections, limit, *, registry=REGISTRY, grader=grade):
     slots = ",".join("?" for _ in collections)
     sql = f"SELECT * FROM jobs WHERE status='PENDING' AND candidate=? AND collection IN ({slots}) ORDER BY created LIMIT ?"
     with gpu_lock(folder):
@@ -181,7 +181,7 @@ def work(db, folder, assets, port, candidate, collections, limit):
         jobs = db.execute(sql, (candidate, *collections, limit)).fetchall()
         if not jobs:
             return 0
-        with session(candidate, assets, folder, port) as (run, client):
+        with session(candidate, assets, folder, port, registry=registry) as (run, client):
             started = time.monotonic()
             recorded = 0
             for job in jobs:
@@ -194,7 +194,7 @@ def work(db, folder, assets, port, candidate, collections, limit):
                 transport, raw, capture = infer(client, spec["body"])
                 if transport == "PASS":
                     try:
-                        result = grade(spec, raw)
+                        result = grader(spec, raw)
                     except (ValueError, TypeError, KeyError, RecursionError) as exc:
                         result = {"status": "FAIL", "reason": "invalid_output", "detail": str(exc)[:240]}
                 else:
