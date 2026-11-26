@@ -91,6 +91,11 @@ def main():
                        "historical_physical_primary":2*(sum(history["formal_dimensions"].values())+extra_physical)-counts["history-v2"],
                        "historical_nonphysical_primary":2*sum(extra["dimensions"].values())-counts["history-supplement-v2"],
                        "formal_core_physical":18440}
+    q2=ROOT/"evidence/IJ073/aeve/q2_qualification_protocol.json"
+    if q2.is_file():
+        frozen=json.loads(q2.read_bytes())
+        required=frozen["roster_size"]*len(frozen["arms"])
+        data["remaining"]["q2_qualification"]=required-counts["gold-qualification-q2-v1"]
     data["evidence_gates"]={k:v for k,(v,reason) in gates.items()}
     data["gate_basis"]={k:reason for k,(v,reason) in gates.items()}
     data["qualification"].update(AEVE_IMPLEMENTATION_VERDICT="PASS",
