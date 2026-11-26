@@ -2,7 +2,7 @@
 
 ## IJ-0.7.3
 
-- Judge qualification owns admission for the four local families. The full historical review requires enough admitted independent families for each subject and an independent third family on disagreement. Status, counts and pinned inputs are in [the qualification report](reports/IJ073_JUDGE_QUALIFICATION.md).
+- The four initial local Judge families failed the frozen thresholds on all 3,228 completed Gold assessments. Evaluation engineering owns fresh qualification of revised configurations and independent families. The full historical review requires enough admitted independent families for each subject and an independent third family on disagreement. Status, counts and pinned inputs are in [the qualification report](reports/IJ073_JUDGE_QUALIFICATION.md).
 - The original reviewed archives lack sufficient decision evidence for 36 historical physical trials. Preserve them in the completeness denominator. The remaining 17,458 have citable stage projections. [Coverage](evidence/IJ073/aeve/history/coverage.json)
 
 - Benchmark engineering owns the open Oracle qualification. In 81 of 128 originally rejected plans the archived independent path cannot be expressed using the proposed nodes even with relaxed guards. Repaired V2 witnesses now pass on all 800 frozen worlds. Remaining engineering gates include independent transaction, rollback and audit checks and end-to-end model transport. See the [per-case analysis](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md).

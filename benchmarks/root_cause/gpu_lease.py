@@ -23,8 +23,8 @@ def _named_lease(name):
         wait = api.WaitForSingleObject
         wait.argtypes = [wintypes.HANDLE, wintypes.DWORD]
         wait.restype = wintypes.DWORD
-        for name in ("CloseHandle", "ReleaseMutex"):
-            getattr(api, name).argtypes = [wintypes.HANDLE]
+        for function in ("CloseHandle", "ReleaseMutex"):
+            getattr(api, function).argtypes = [wintypes.HANDLE]
         handle = create(None, False, "Global\\" + name)
         if not handle:
             raise ctypes.WinError(ctypes.get_last_error())

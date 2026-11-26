@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Completed all 3,228 frozen Q1 Radeon assessments. Four families independently failed Judge admission. The sealed report and per-case records preserve the failing gates. Formal historical scoring remains blocked.
+
 All 64 paired planning-development requests are sealed (2 PASS, 62 FAIL). The first 32 independent Gold qualification responses cover Qwen, Gemma, Ministral and LFM. See reports/IJ073_QWEN3_14B_PLANNING_DEVELOPMENT.md and reports/IJ073_JUDGE_QUALIFICATION.md. Primary judgments on physical and software histories await admission.
 
 Executable AEVE resumes from the local queue or restores original portable attempts. Stage-bound primary voting, third-family resolution and independent citation-entailment checks run only after the frozen admission. The E00-E19 ledger is in atlas/ij073/progress.json.
