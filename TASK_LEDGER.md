@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Indexed 1,341 reviewed archive assets into 42,987 records. Of 17,494 physical trials, 17,458 support at least one stage-specific judgment. The 36 others retain their missing-evidence reasons. The physical semantic roster covers 155,383 distinct trial/dimension pairs. See evidence/IJ073/aeve/history/coverage.json.
+
 The portable development meta-evaluation replays 60 physical judgments and their raw answers. Four matched sets of 14 bias interventions across four families are specified in evaluation/aeve/robustness.py. See reports/IJ073_META_EVALUATION.md.
 
 Both P0 CLI failures on 04dc9ab reproduce and pass on the repaired branch (evidence/IJ073/aeve/entrypoint_regression.json). Four locally pinned Judges have a frozen qualification configuration, 807 independent cases each, and cross-process GPU exclusion. See evaluation/aeve/qualification_freeze.json. Ten Qwen3-14B physical A/B outputs are replayed in evidence/IJ073/oracle/clarification_ab.json.
