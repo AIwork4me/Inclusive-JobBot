@@ -45,7 +45,9 @@ def snapshot():
             gates["E08"] = ("PASS" if passed >= 2 else "FAIL",f"{passed} independent families admitted on complete gold cohorts.")
         else:
             gates["E08"] = ("BLOCKED","Independent qualification in progress; at least one frozen cohort is incomplete.")
-    if counts["gold-development-robustness-v1"]:
+    if counts["gold-development-robustness-v1"] == 224:
+        gates["E09"] = ("BLOCKED","All 224 paired interventions ran; retest bias and interference on independently qualified revised configurations.")
+    elif counts["gold-development-robustness-v1"]:
         gates["E09"] = ("BLOCKED","Physical robustness evidence exists; the interference and bias review must close separately.")
     if gates["E08"][0] == "PASS" and counts["history-v2"]:
         from .human_review import verify_coverage
@@ -81,10 +83,12 @@ def main():
     data["experiment_coverage"]["applicable_nonphysical_packets"] = extra["unique_semantic_packets"]
     data["sealed_gpu_by_collection"]=dict(sorted(counts.items()))
     data["qualification_by_judge"]=admitted
+    addendum_path=ROOT/"evidence/IJ073/aeve/history/physical_addendum.json"
+    extra_physical=sum(json.loads(addendum_path.read_bytes())["added_semantic_dimensions"].values()) if addendum_path.is_file() else 0
     data["remaining"]={"sealed_gold":sum(r["required"]-r["recorded"] for r in admitted.values()),
                        "expanded_planning_development":64-counts["planning-development"],
                        "robustness":224-counts["gold-development-robustness-v1"],
-                       "historical_physical_primary":2*sum(history["formal_dimensions"].values())-counts["history-v2"],
+                       "historical_physical_primary":2*(sum(history["formal_dimensions"].values())+extra_physical)-counts["history-v2"],
                        "historical_nonphysical_primary":2*sum(extra["dimensions"].values())-counts["history-supplement-v2"],
                        "formal_core_physical":18440}
     data["evidence_gates"]={k:v for k,(v,reason) in gates.items()}

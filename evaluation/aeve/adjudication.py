@@ -24,12 +24,14 @@ def check_citation(db, job, packet, answer, reviewer, collection, enqueue):
             "events":[*evidence,{"kind":"untrusted_assertion","id":claim_id,
                       "value":{"verdict":answer["verdict"],"reason":answer["reason_summary"]}}]}
     target = collection + "-citations"
-    row = db.execute("SELECT result FROM jobs WHERE collection=? AND item=? AND candidate=? AND status='RECORDED'",
+    row = db.execute("SELECT result,spec FROM jobs WHERE collection=? AND item=? AND candidate=? AND status='RECORDED'",
                      (target,job,reviewer)).fetchone()
     if not row:
         if enqueue:
             judge_job(db,target,job,reviewer,body,"meta")
         return "pending"
+    if json.loads(gzip.decompress(row["spec"]))["packet"] != body:
+        raise ValueError("citation review received different exhibits or assertion")
     try:
         check = validate_judgment(body,json.loads(row["result"]))
         if check["verdict"] == "PASS" and cited.intersection(check["evidence_refs"]):
@@ -39,7 +41,7 @@ def check_citation(db, job, packet, answer, reviewer, collection, enqueue):
     return "unsupported"
 
 
-def assess(db, registry, *, enqueue=False, collection="history", admitted=None, items=None):
+def assess(db, registry, *, enqueue=False, collection="history", admitted=None, items=None, updated_facts=None):
     """Use the frozen primary packets; the third judge never sees the other votes."""
     names = json.loads(REGISTRY.read_bytes())["candidates"]
     collections = (collection,collection+"-dispute")
@@ -51,6 +53,9 @@ def assess(db, registry, *, enqueue=False, collection="history", admitted=None, 
             item = trial["trial_id"]
             if item not in subjects:
                 continue
+            if updated_facts:
+                from .history_dimensions import apply_facts
+                trial = apply_facts(trial, updated_facts)
             family = trial["source_family"]
             panel = selected_judges(family) if admitted is None else [
                 c for c in admitted if names[c]["family"].casefold() != family.casefold()]

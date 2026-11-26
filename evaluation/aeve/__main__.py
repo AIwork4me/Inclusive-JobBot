@@ -16,7 +16,8 @@ def main():
     modules = {"resume":"resume","qualification":"qualification","history":"history","metrics":"metrics",
                "oracle-report":"report_oracle","planning-report":"report_planning","history-report":"report_history",
                "meta":"meta_evaluation","qualification-report":"report_qualification","gates":"progress",
-               "blind-packet":"human_review","queue":"controller"}
+               "blind-packet":"human_review","q2-development":"q2_development",
+               "q2-qualification":"q2_qualification","q2-report":"q2_report","queue":"controller"}
     if len(sys.argv) >= 2 and sys.argv[1] in modules:
         from importlib import import_module
         name = modules[sys.argv.pop(1)]
@@ -32,6 +33,10 @@ def main():
         from .qualification import require_freeze
         from .gold import freeze
         freeze()
+        from .q2_gold import freeze as verify_fresh_gold
+        from .q2_development import freeze as verify_repair_design
+        verify_fresh_gold()
+        verify_repair_design()
         manifest = json.loads((ROOT/"atlas/ij073/artifact_manifest.json").read_bytes())
         for name, expected in manifest.items():
             with (ROOT/name).open("rb") as stream:

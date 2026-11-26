@@ -13,6 +13,7 @@ from tempfile import TemporaryDirectory
 from .adjudication import assess
 from .archive import digest
 from .history import OUT, lines, seal
+from .history_dimensions import read_addendum, apply_facts
 from . import history_supplement_report as supplemental
 from .intake import ALIASES, DIMENSIONS
 from .local_judge import check
@@ -27,26 +28,36 @@ PREVIOUS = {"business_state_status": "D23", "wire_protocol_status": "D21", "plan
             "commit_authorization": "D24", "trace_status": "trace_status"}
 
 
-def packet_index(path, recorded, formal):
-    if not path.is_file():
-        return {}
+def packet_index(path, recorded, formal, additional=None):
     result = {}
-    for row in lines(path):
-        trial = row["trial_id"]
-        if trial in result:
-            raise ValueError("duplicate semantic trial")
-        dims = [ALIASES.get(dim, dim) for dim in row["dimensions"]]
-        if len(set(dims)) != len(dims):
-            raise ValueError("repeated dimension in packet inventory")
-        result[trial] = dims
-        if trial in recorded:
-            events = [{"id": e["id"], "kind": e["kind"], "value": e["content"]} for e in row["events"]]
-            by_id = {e["id"]: e for e in events}
-            for dim, actual in recorded[trial].items():
+    checked = set()
+    sources = [p for p in (path, additional) if p is not None and p.is_file()]
+    for source in sources:
+        seen = set()
+        for row in lines(source):
+            trial = row["trial_id"]
+            if trial in seen:
+                raise ValueError("duplicate semantic trial")
+            seen.add(trial)
+            dims = [ALIASES.get(dim,dim) for dim in row["dimensions"]]
+            previous = result.setdefault(trial,[])
+            if len(set(dims)) != len(dims) or set(previous).intersection(dims):
+                raise ValueError("repeated dimension in packet inventory")
+            previous.extend(dims)
+            if trial not in recorded:
+                continue
+            events = [{"id":e["id"],"kind":e["kind"],"value":e["content"]} for e in row["events"]]
+            by_id = {e["id"]:e for e in events}
+            for dim,actual in recorded[trial].items():
+                if dim not in dims:
+                    continue
                 selected = [by_id[i] for i in row["dimension_event_ids"][dim]] if formal else events
-                expected = {"dimension": dim, "task": DIMENSIONS[dim], "events": selected}
-                if dim not in dims or actual != {fingerprint(expected)}:
+                expected = {"dimension":dim,"task":DIMENSIONS[dim],"events":selected}
+                if actual != {fingerprint(expected)}:
                     raise ValueError("archived judge input differs from stage evidence")
+                checked.add((trial,dim))
+    if checked != {(trial,dim) for trial,dims in recorded.items() for dim in dims}:
+        raise ValueError("recorded review lacks registered stage evidence")
     return result
 
 
@@ -137,6 +148,7 @@ def build(history, results, out):
             if hashlib.file_digest(stream, "sha256").hexdigest() != expected:
                 raise ValueError("historical inventory differs from its coverage manifest")
     packet_paths = {"development": history / "judge_inputs.jsonl.gz", "formal": history / "judge_inputs_v2.jsonl.gz"}
+    extra_input, extra_facts = read_addendum(history)
     supplement, inventory = supplemental.inventory(history)
     present = inventory["status"] == "PASS"
     packet_paths["supplement"] = history / supplemental.INPUT
@@ -152,7 +164,7 @@ def build(history, results, out):
     with TemporaryDirectory(dir=out) as tmp, closing(sqlite3.connect(Path(tmp) / "reviews.sqlite")) as db:
         db.row_factory = sqlite3.Row
         recorded = import_reviews(db, results, include_supplement=present)
-        packets = {s: packet_index(p, recorded[SCOPES[s]], s != "development")
+        packets = {s: packet_index(p, recorded[SCOPES[s]], s != "development", extra_input if s == "formal" else None)
                    if s != "supplement" or present else {} for s,p in packet_paths.items()}
         for scope, name in SCOPES.items():
             if set(recorded[name]) - set(packets[scope]):
@@ -166,7 +178,8 @@ def build(history, results, out):
 
         def render_rows():
             stream = iter(lines(registry))
-            while batch := list(itertools.islice(stream, 256)):
+            while raw_batch := list(itertools.islice(stream, 256)):
+                batch = [apply_facts(trial,extra_facts) for trial in raw_batch]
                 db.execute("DELETE FROM batch")
                 db.executemany("INSERT INTO batch VALUES(?)", ((t["trial_id"],) for t in batch))
                 bound = {}
@@ -300,6 +313,7 @@ def build(history, results, out):
     summary = {"version": 2, "nonphysical_inventory": inventory, "trial_counts": dict(stats), "portable_captures": capture_counts,
                "current_dimension_statuses": {level: {dim: dict(v) for (s,dim),v in dims.items() if s == level}
                                                for level in sorted({s for s, _ in dims} | {"physical_trial"})},
+               "physical_addendum_sha256": digest(history/"physical_addendum.json") if extra_input else None,
                "admitted_judges": admitted, "qualification_protocol": qualification["protocol_sha256"],
                "scope": {s: {**dict(scope_stats[s]), "packet_inventory_present": present if s == "supplement" else packet_paths[s].is_file()}
                          for s in SCOPES}, "formal_decision_reasons": dict(reasons),

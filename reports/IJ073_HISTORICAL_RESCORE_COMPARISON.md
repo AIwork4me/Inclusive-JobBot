@@ -6,13 +6,15 @@
 
 | 可比维度 | 旧值 | 新值 | 试次 |
 |---|---|---|---:|
+| D21 | FAIL | BLOCKED | 37 |
+| D21 | PASS | PASS | 1021 |
 | D23 | FAIL | FAIL | 721 |
 | D23 | NOT_RUN | NOT_RUN | 1021 |
 | D23 | PASS | PASS | 9463 |
 | trace_status | FAIL | FAIL | 940 |
 | trace_status | PASS | PASS | 286 |
 
-缺少原有整体状态的试次有 2887 条，当前存在硬事实冲突或严格成功否决的试次有 0 条。只有归档事实和正式裁决进入 current。
+缺少原有整体状态的试次有 2887 条，当前存在硬事实冲突或严格成功否决的试次有 37 条。只有归档事实和正式裁决进入 current。
 
 逐试次数据中的 evidence_refs 指向该 Judge 输入内的事件；citations 提供原始响应所在卷、解压后的 JSONL 行号、尝试 ID 与 SHA256。裁决理由描述证据可支持的问题，缺失的后续业务动作保持未观测。
 

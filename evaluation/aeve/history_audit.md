@@ -23,3 +23,8 @@ python -m pytest -q tests/evaluator/test_aeve_history.py tests/evaluator/test_ae
 ```
 
 第一条命令在不提供本地原始运行目录时，从已公开的密封投影重建物理注册表及展品。原机器可追加 `--local-runs` 指向实际检查点父目录，以重新核验原始文件。第二条命令按独立的非物理分母重新运行适用的软件控制，保留其原始状态、目前的确定性复验和供 Judge 评估的观察事实。
+
+
+## Physical dimension addendum
+
+`python -m evaluation.aeve.history_dimensions` recomputes the 25-dimension inventory and addendum on a fresh checkout. The recorded 437,350 cells span all 17,494 physical trials. The 1,515 additional D04 cells require a real terminal answer and a clarification or missing-information duty in the initial brief. The addendum also records 2,115 budget results, 6,857 native protocol results, 1,091 authorization-state results and 107 strict-success vetoes from independently checked required layers. Each change retains the earlier status, source record and rule basis. An unsupported parser format or missing snapshot retains its unresolved classification. [Machine-readable per-dimension counts](../../evidence/IJ073/aeve/history/physical_addendum.json)

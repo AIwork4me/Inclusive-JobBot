@@ -32,3 +32,13 @@ def test_citation_roles_cannot_be_swapped():
     answer["decision_refs"] = answer["source_refs"]
     with pytest.raises(ValueError,match="wrong role"):
         grade(spec,json.dumps(answer))
+
+
+def test_sealed_revised_gold_is_disjoint_and_selection_requires_complete_development(monkeypatch):
+    from evaluation.aeve import q2_qualification
+    holdout = q2_qualification.roster()
+    assert len({r["base_id"] for r in holdout.values()}) >= 1200
+    assert {r["dimension"] for r in holdout.values()} == {f"D{i:02d}" for i in range(1,26)}
+    monkeypatch.setattr(q2_qualification,"development_report",lambda _: {"cases":[]})
+    with pytest.raises(ValueError,match="roster is incomplete"):
+        q2_qualification.protocol(None)

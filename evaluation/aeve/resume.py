@@ -99,6 +99,8 @@ def drive(db, folder, args):
             restore(db,folder,args.out)
             break
     prepare(db)
+    from .history_dimensions import read_addendum
+    extra_inputs, extra_facts = read_addendum(args.history)
     retries = 0
     admitted = None
     while True:
@@ -109,7 +111,7 @@ def drive(db, folder, args):
             changed = [row[0] for row in db.execute("SELECT item FROM review_changed")]
             if changed:
                 for collection in FORMAL_INPUTS:
-                    assess(db,args.history/"registry.jsonl.gz",enqueue=True,collection=collection,admitted=admitted,items=changed)
+                    assess(db,args.history/"registry.jsonl.gz",enqueue=True,collection=collection,admitted=admitted,items=changed,updated_facts=extra_facts)
                 with db:
                     db.executemany("DELETE FROM review_changed WHERE item=?",((item,) for item in changed))
             next_job = schedule(db,args.batch,formal=True)
@@ -124,7 +126,24 @@ def drive(db, folder, args):
             write_json(folder/"qualification.json",report)
             admitted = [c for c,r in report["admission"].items() if r["status"] == "PASS"]
             if len(admitted) < 2:
-                print("Independent admission gate BLOCKED: fewer than two qualified families.",flush=True)
+                from .q2_development import COLLECTION, REGISTRY, grade as grade_q2, seed as seed_q2, summarize
+                seed_q2(db)
+                for candidate in ("E","G","J","F","B"):
+                    while True:
+                        try:
+                            count = work(db,folder,args.assets.resolve(),args.port,candidate,[COLLECTION],72,
+                                         registry=REGISTRY,grader=grade_q2)
+                        except BlockingIOError:
+                            time.sleep(20)
+                            continue
+                        if not count:
+                            break
+                        export(db,folder,args.out)
+                write_json(folder/"q2_development.json",summarize(args.out))
+                from .q2_qualification import run as qualify_q2
+                rescue = qualify_q2(db,folder,args.assets.resolve(),args.port,args.out)
+                passing = [c for c,v in rescue["models"].items() if v["status"] == "PASS"]
+                print(f"Q2 independent admission: {len(passing)} qualified families. See the bound Q2 report.",flush=True)
                 break
             from .runtime import fingerprint
             for collection, name in FORMAL_INPUTS.items():
@@ -132,12 +151,16 @@ def drive(db, folder, args):
                 if not packets.is_file():
                     print(f"Missing {name}; {collection} remains blocked",flush=True)
                     continue
-                identity = fingerprint([digest(packets),admitted,report["protocol_sha256"]])
+                sources = [packets]
+                if collection == "history-v2" and extra_inputs:
+                    sources.append(extra_inputs)
+                identity = fingerprint([*[digest(p) for p in sources],admitted,report["protocol_sha256"]])
                 old = db.execute("SELECT digest FROM seeded WHERE name=?",(collection,)).fetchone()
                 if old and old[0] != identity:
                     raise ValueError("formal admission or evidence changed; a new collection version is required")
                 if not old:
-                    seed_history(db,packets,admitted=admitted,collection=collection)
+                    for path in sources:
+                        seed_history(db,path,admitted=admitted,collection=collection)
                     with db:
                         db.execute("INSERT INTO seeded VALUES (?,?)",(collection,identity))
                 with db:

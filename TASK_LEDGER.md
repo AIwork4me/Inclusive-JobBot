@@ -2,6 +2,10 @@
 
 ## IJ-0.7.3
 
+Sealed all 224 paired Radeon interventions and replayed language, injection and agreement statistics. The revised judge holdout contains 1,232 new rule-labeled synthetic worlds and 1,370 packets. Selected configurations depend on the complete matched development results.
+
+Audited all 437,350 historical physical trial/dimension cells. The additive manifest registers 1,515 additional D04 units and 10,170 source-bound deterministic results. The reviewed historical objects and original scores retain their original digests.
+
 Registered a matched Q2 development cohort of 360 requests, with Granite added as a fifth independently identified local family. Repairs test citation roles and a concise comparison prompt. The sealed Q1 qualification remains reproducible.
 
 Completed all 3,228 frozen Q1 Radeon assessments. Four families independently failed Judge admission. The sealed report and per-case records preserve the failing gates. Formal historical scoring remains blocked.
