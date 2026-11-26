@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Both P0 CLI failures on 04dc9ab reproduce and pass on the repaired branch (evidence/IJ073/aeve/entrypoint_regression.json). Four locally pinned Judges have a frozen qualification configuration, 807 independent cases each, and cross-process GPU exclusion. See evaluation/aeve/qualification_freeze.json. Ten Qwen3-14B physical A/B outputs are replayed in evidence/IJ073/oracle/clarification_ab.json.
+
 The 25-dimension AEVE contract, deterministic veto, blind citations and split-aware metrics are implemented. The revision-1 rule-derived GOLD roster contains 1,615 packets. Physical development evidence is indexed under `evaluation/aeve/results/sessions/`; sealed evaluator qualification remains NOT_RUN.
 
 Oracle differential replay passed 800 frozen worlds and nine independent event controls. The 235 legacy divergences are accounted for individually in `evidence/IJ073/oracle/differential_closure.json`.

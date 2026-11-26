@@ -6,7 +6,7 @@ from pathlib import Path
 import shutil
 
 from scripts.tools.scan_sensitive import CREDENTIAL_PATTERNS, identity_patterns
-from .runtime import canonical, write_json
+from .runtime import canonical, fingerprint, write_json
 
 SENSITIVE = {**CREDENTIAL_PATTERNS, **identity_patterns()}
 
@@ -35,6 +35,8 @@ def export(db, state, out):
         seal = json.loads(stamp.read_bytes())
         if seal["run_id"] != run_id or metadata["run_id"] != run_id:
             raise ValueError("session identity differs")
+        if seal["gpu_evidence"] != "PASS" or seal["active_pid_counter_samples"] <= 0:
+            continue
         for name, expected in seal["sha256"].items():
             source = folder / name
             if source.parent != folder or digest(source) != expected:
@@ -74,14 +76,29 @@ def verify(out):
     jobs = set()
     for path in sorted((out / "sessions").glob("*/manifest.json")):
         manifest = json.loads(path.read_bytes())
+        required = {"identity.json","live-gpu.jsonl.gz","live-generation.jsonl.gz","captures.jsonl.gz","outcomes.json"}
+        if set(manifest["sha256"]) != required:
+            raise ValueError("incomplete portable session manifest")
         for name, expected in manifest["sha256"].items():
             if Path(name).name != name or digest(path.parent / name) != expected:
                 raise ValueError(f"evidence mismatch in {path.parent.name}")
+        identity = json.loads((path.parent / "identity.json").read_bytes())
+        if identity["run_id"] != path.parent.name or identity["run_id"] != manifest["run_id"]:
+            raise ValueError("GPU session identity differs")
+        with gzip.open(path.parent/"live-gpu.jsonl.gz","rt",encoding="utf8") as stream:
+            pid = identity["launch"]["pid"]
+            active = sum(1 for line in stream for r in [json.loads(line)] if r["kind"] == "gpu_engine" and
+                         r["utilization"] > 0 and r["instance"].startswith(f"pid_{pid}_"))
+        if not active or active != manifest["active_pid_counter_samples"] or manifest["gpu_evidence"] != "PASS":
+            raise ValueError("GPU activity seal differs from recorded counters")
         outcomes = json.loads((path.parent / "outcomes.json").read_bytes())
         count = 0
         with gzip.open(path.parent / "captures.jsonl.gz", "rb") as stream:
             for count, line in enumerate(stream, 1):
                 item = json.loads(line)
+                key = fingerprint([item[k] for k in ("collection","item","candidate","dimension","role","spec")])
+                if key != item["job"] or item["capture"]["request"] != {**item["spec"]["body"], "verbose":True,"return_tokens":True}:
+                    raise ValueError("frozen job or captured request differs")
                 outcome = outcomes[count-1]
                 if item["run"] != manifest["run_id"] or any(item[k] != v for k,v in outcome.items()) or item["job"] in jobs:
                     raise ValueError("portable capture index mismatch")

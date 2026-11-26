@@ -141,15 +141,38 @@ def archive(db, folder, job, aid, run, transport, capture, evaluation):
         db.execute("UPDATE jobs SET status='RECORDED',result=?,run=? WHERE id=?", (canonical(evaluation).decode(), run, job["id"]))
 
 
+def quarantine_unsealed(db, folder):
+    """Call only while holding the state lock. Preserve failed attempts for audit."""
+    db.execute("""CREATE TABLE IF NOT EXISTS quarantined(
+                  job TEXT,run TEXT,result TEXT,reason TEXT NOT NULL,PRIMARY KEY(job,run))""")
+    with db:
+        for row in db.execute("SELECT DISTINCT run FROM jobs WHERE status='RECORDED'").fetchall():
+            run = row["run"]
+            stamp = folder / "sessions" / run / "seal.json"
+            if stamp.is_file():
+                seal = json.loads(stamp.read_bytes())
+                if seal["run_id"] != run:
+                    raise ValueError("seal names a different run")
+                if seal["gpu_evidence"] == "PASS" and seal["active_pid_counter_samples"] > 0:
+                    continue
+            reason = "session lacks a valid PID-bound GPU seal"
+            db.execute("""INSERT OR IGNORE INTO quarantined SELECT id,run,result,? FROM jobs
+                          WHERE run=? AND status='RECORDED'""",(reason,run))
+            db.execute("UPDATE jobs SET status='PENDING',result=NULL,run=NULL WHERE run=? AND status='RECORDED'",(run,))
+        db.execute("""UPDATE attempts SET transport='BLOCKED' WHERE ended IS NULL AND transport IS NULL""")
+
+
 def work(db, folder, assets, port, candidate, collections, limit):
     slots = ",".join("?" for _ in collections)
     sql = f"SELECT * FROM jobs WHERE status='PENDING' AND candidate=? AND collection IN ({slots}) ORDER BY created LIMIT ?"
     with gpu_lock(folder):
+        quarantine_unsealed(db, folder)
         jobs = db.execute(sql, (candidate, *collections, limit)).fetchall()
         if not jobs:
             return 0
         with session(candidate, assets, folder, port) as (run, client):
             started = time.monotonic()
+            recorded = 0
             for job in jobs:
                 if time.monotonic() - started > 5400:
                     break
@@ -166,7 +189,8 @@ def work(db, folder, assets, port, candidate, collections, limit):
                 else:
                     result = {"status": transport, "reason": "incomplete_generation_or_transport"}
                 archive(db, folder, job, aid, run, transport, capture, result)
-        return len(jobs)
+                recorded += 1
+        return recorded
 
 
 def status(db):

@@ -1,0 +1,62 @@
+{
+  "red": {
+    "seed-oracle": {
+      "commit": "04dc9abf4fde638ba70483d5ad600d1081a848cd",
+      "action": "seed-oracle",
+      "exit": 1,
+      "error": "TypeError: plan_request() got an unexpected keyword argument 'clarify'"
+    },
+    "seed-gold": {
+      "commit": "04dc9abf4fde638ba70483d5ad600d1081a848cd",
+      "action": "seed-gold",
+      "exit": 1,
+      "error": "ModuleNotFoundError: No module named 'evaluation.aeve.gold'"
+    }
+  },
+  "green": {
+    "seed-oracle": {
+      "commit": "7af37af461655671ed2908990707e7cf2eb9f32b",
+      "action": "seed-oracle",
+      "exit": 0,
+      "queue": [
+        {
+          "collection": "clarification",
+          "candidate": "J",
+          "status": "PENDING",
+          "n": 10
+        },
+        {
+          "collection": "planning-development",
+          "candidate": "J",
+          "status": "PENDING",
+          "n": 64
+        }
+      ]
+    },
+    "seed-gold": {
+      "commit": "7af37af461655671ed2908990707e7cf2eb9f32b",
+      "action": "seed-gold",
+      "exit": 0,
+      "queue": [
+        {
+          "collection": "gold-development",
+          "candidate": "F",
+          "status": "PENDING",
+          "n": 404
+        },
+        {
+          "collection": "gold-development",
+          "candidate": "G",
+          "status": "PENDING",
+          "n": 404
+        },
+        {
+          "collection": "gold-development",
+          "candidate": "J",
+          "status": "PENDING",
+          "n": 404
+        }
+      ]
+    }
+  }
+}

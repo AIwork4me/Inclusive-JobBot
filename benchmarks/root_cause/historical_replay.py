@@ -18,6 +18,7 @@ from benchmarks.tool_calling_v2 import rescore
 
 from model_gateway.openai_protocol import MAX_CALLS
 from .generation_capture import CaptureClient, CaptureError
+from .gpu_lease import physical_gpu
 
 
 ROOT = legacy.ROOT
@@ -55,6 +56,14 @@ def engine_runtime(directory, backend):
 @contextmanager
 def gpu_server(binary, model, backend, env, output, port, tag, observe, alias=ALIAS,
                build_prefix="b12359-b1b770d90", *, max_nonstream_calls=MAX_CALLS):
+    with physical_gpu(), _leased_server(binary, model, backend, env, output, port, tag, observe, alias,
+                                        build_prefix, max_nonstream_calls=max_nonstream_calls) as live:
+        yield live
+
+
+@contextmanager
+def _leased_server(binary, model, backend, env, output, port, tag, observe, alias,
+                   build_prefix, *, max_nonstream_calls):
     log = output / f"{tag}-server.log"
     trace = output / f"{tag}-generation.jsonl"
     samples = output / f"{tag}-gpu.jsonl"
