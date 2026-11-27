@@ -16,7 +16,7 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N00 | Isolation: dedicated worktree, branch `mission/ij-nano-1.0-slm-native-agentic-runtime` at `56c6c74b` (PR #8 head at audit), upstream tracking pushed normally, no rebase policy recorded | done | PASS | `evidence/IJNANO/N00/baseline_manifest.json` (ij_nano_isolation) |
 | N00 | Commit verbatim mission order as preregistration + research protocol doc | done | PASS | `docs/IJNANO_MISSION_ORDER.md`, `docs/IJNANO_RESEARCH_PROTOCOL.md` |
 | N00 | Mission state files created (this ledger, MISSION_STATE_IJNANO.json, BLOCKERS_IJNANO.md, HANDOFF_IJNANO.md) | done | PASS | files at repository root |
-| N00 | Tracking Issue + Draft PR created on GitHub | done | PASS | numbers recorded in MISSION_STATE_IJNANO.json after creation |
+| N00 | Tracking Issue + Draft PR created on GitHub | done | PASS | issue #10, draft PR #11 (base: default branch; stacking documentary, mission-only diff `git diff 56c6c74...mission/ij-nano-1.0-slm-native-agentic-runtime`) |
 | N00 | Gate `N00_RESEARCH_BASELINE_FROZEN` | done | PASS | `reports/IJNANO_00_BASELINE_AND_DEPENDENCY_AUDIT.md` §9 |
 
 ## N01 (opened, not started)
