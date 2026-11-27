@@ -1,0 +1,76 @@
+{
+  "schema": "ij_nano.n05ar.defect_ledger",
+  "mission": "IJ-NANO-1.2 N05A-R",
+  "audited_baseline": "f62ddc2 (evaluator v1 delivered at dfce2952)",
+  "red_evidence": "evidence/IJNANO/N05AR/red_run.txt (final test suite executed against pre-repair implementation in a detached worktree at f62ddc2; 31 of 45 tests red, 14 anchors green)",
+  "green_evidence": "evidence/IJNANO/N05AR/green_run.txt (ij_nano 173/173 OK; ij_sdk 93 OK)",
+  "mutation_evidence": "evidence/IJNANO/N05AR/coverage_matrix.json",
+  "red_counts": {"EV01": 6, "EV02": 5, "EV03": 7, "EV04": 4, "EV05": 2, "EV06": 1, "EV07": 6, "total_distinct": 31, "of": 45, "anchors_green": 14},
+  "defects": [
+    {
+      "id": "EV01",
+      "concern": "Incomplete state predicates: state_interpretation used zip(got, want) positional matching, detected excess predicates but not missing required predicates; duplicates and contradictions misattributed; valid predicates in a different order wrongly rejected",
+      "red_tests": ["test_missing_final_predicate_detected", "test_missing_middle_predicate_detected", "test_only_first_predicate_correct_still_fails", "test_duplicate_predicate_detected", "test_contradictory_claims_detected_as_duplicate_identity", "test_valid_predicates_different_order_pass"],
+      "root_cause": "positional zip comparison with only a len(got)>len(want) excess check; no (entity, property) identity keying",
+      "repair": "identity-keyed matching contract in eval_state_interpretation: MISSING_PREDICATE for unclaimed required identities (suppressed when a wrong-entity claim targets the same property, reported as ENTITY_MISMATCH substitution); DUPLICATE_PREDICATE for a second claim on one identity (incl. eq/ne contradictions); EXTRA_ASSERTION for out-of-scope or redundant extra claims; order-independent",
+      "new_reason_codes": ["MISSING_PREDICATE", "DUPLICATE_PREDICATE"],
+      "new_controls": ["state.pos.multi", "state.pos.reordered", "state.neg.missing_final", "state.neg.missing_middle", "state.neg.duplicate", "state.neg.contradictory", "state.neg.extra", "state.neg.type_invalid_value"]
+    },
+    {
+      "id": "EV02",
+      "concern": "Undeclared action arguments: action_representation checked expected slots but ignored unexpected keys in response.args; no optional-argument contract; duplicate keys in raw structured output undetected",
+      "red_tests": ["test_unknown_argument_field_rejected", "test_consequential_unauthorized_option_rejected", "test_declared_optional_arguments_pass_and_undeclared_still_fail", "test_duplicate_keys_in_raw_structured_output_rejected", "test_extra_assertions_channel_is_not_the_only_guard"],
+      "root_cause": "undeclared-argument check existed only in the slot_value family and only for the extra_assertions channel populated by an upstream parser; action_representation had no response.args key-set validation and no raw structural gate",
+      "repair": "ARGUMENT_UNDECLARED emitted from response.args alone in both action_representation and slot_value; SlotSpec.optional declares permitted optional arguments (checked when supplied, omittable); strict raw-JSON gate (_raw_reasons) rejects duplicate object keys with PARSE_INVALID before family evaluation",
+      "new_reason_codes": ["ARGUMENT_UNDECLARED"],
+      "new_controls": ["action.pos.optional_arg", "action.neg.undeclared_arg", "action.neg.unauthorized_option", "action.neg.duplicate_raw_key", "slot.neg.undeclared"]
+    },
+    {
+      "id": "EV03",
+      "concern": "Predicate semantics: predicate_holds conflated expression equivalence with truth against observed state, compared one predicate's threshold against another threshold as if observed, and raised TypeError on non-numeric values under ordering operators",
+      "red_tests": ["test_truth_against_world_state", "test_truth_operators_and_boundaries", "test_truth_rejects_invalid_types_without_crashing", "test_truth_with_units", "test_expression_equivalence_is_exact_not_cross_operator", "test_equivalence_checks_claimed_threshold_is_not_treated_as_observed", "test_equivalence_does_not_crash_on_invalid_value_type"],
+      "root_cause": "single predicate_holds function with no world-state channel; no type guard before applying Python comparison operators",
+      "repair": "split into predicates_equivalent(claimed, expected) - explicit exact-equivalence contract (same identity+operator+unit-aware threshold equality; no cross-operator rewriting such as ge 5 == gt 4) - and predicate_truth(pred, world) - truth against an independently supplied (entity, property)->observation world with unit conversion, boundary-exact ordering semantics, and TYPE_MISMATCH on invalid types instead of a crash; 12 TRUTH_CONTROLS cover eq/ne/gt/ge/lt/le boundaries, units, invalid types, unknown identities",
+      "new_controls": ["TRUTH_CONTROLS (12) incl. truth.fliptrap_le for inequality-flip mutants"]
+    },
+    {
+      "id": "EV04",
+      "concern": "Identifier collisions: canonical_label folding (case, whitespace, underscore/space) was applied to every identifier class, merging distinct tool ids (adjust_stock vs adjust stock), distinct entity ids (ORD-1042 vs ord-1042), and masking case-sensitivity requirements",
+      "red_tests": ["test_underscore_space_tool_collision_rejected", "test_entity_identifiers_are_case_sensitive", "test_action_tool_argument_entity_exact_identity", "test_alias_contract_permits_declared_variants_only"],
+      "root_cause": "blanket canonical folding across all comparison sites",
+      "repair": "identifier_matches(actual, expected, kind, aliases) with kind-scoped rules: 'label' (closed natural-language vocabularies: intent, goal types, enum values, branches, recovery actions, decisions, clarification topics) keeps folding; 'tool'/'entity'/'action' use exact identity unless an explicit alias contract declares accepted variants (matched exactly); leading zeros and Unicode variants never fold; the v1 folded-entity and folded-tool positives became collision negatives",
+      "new_controls": ["tool.neg.underscore_space", "entity.neg.case_variant", "entity.neg.substring_trap", "action.neg.entity_substring_trap"],
+      "behavior_changes": ["entity.pos.alt_case (v1 positive) -> entity.neg.case_variant (v2 negative)", "action.pos.alt_repr no longer folds tool/entity case"]
+    },
+    {
+      "id": "EV05",
+      "concern": "Missing unit handling: a scalar quantity silently inherited the hidden expected unit via check_slot; no distinction between publicly declared units and hidden expectations",
+      "red_tests": ["test_scalar_without_public_declaration_rejected", "test_scalar_with_publicly_declared_unit_passes"],
+      "root_cause": "check_slot defaulted unit = slot.unit for any scalar response value",
+      "repair": "SlotSpec.unit_publicly_declared records that the unit is part of the public task/schema contract; only then may a bare scalar (or a dict without a unit key) inherit it; otherwise UNIT_MISSING; non-finite values and numeric strings remain TYPE_MISMATCH (no silent coercion)",
+      "new_reason_codes": ["UNIT_MISSING"],
+      "new_controls": ["slot.pos.public_unit", "slot.neg.unit_missing", "truth.unit_missing_observation"]
+    },
+    {
+      "id": "EV06",
+      "concern": "Mutation testing weakness: the v1 suite only removed reason codes after evaluation (post-hoc drops); no comparator-level mutants",
+      "red_tests": ["test_every_comparator_mutant_is_detected"],
+      "root_cause": "no mutant harness over the comparator implementation itself",
+      "repair": "apply_mutant/clear_mutant swap real comparator functions/handlers (_OPS, check_quantity, check_slot, identifier_matches, _raw_reasons, family handlers; evaluate_family resolves handlers through module globals at call time so swaps take effect); nine mutant classes implemented; qualification.mutation_gate runs the full gate (battery + predicate-truth controls) against each; all nine detected with named witnesses; retained v1 rule-drop mutants re-verified against the v2 rule set (19/19 load-bearing)",
+      "mutant_classes": ["skip_missing_predicate", "ignore_extra_arguments", "entity_substring", "normalize_identifiers_incorrectly", "accept_incorrect_units", "flip_inequality_ops", "ignore_numeric_thresholds", "invalid_types_as_valid", "accept_malformed_raw"]
+    },
+    {
+      "id": "EV07",
+      "concern": "Coverage reconciliation: contract declared 16 reason codes while controls exercised 14 (PARSE_INVALID and ARGUMENT_MISMATCH untested); malformed evaluator inputs (empty expectations, unregistered units, duplicate battery ids) were silently accepted",
+      "red_tests": ["test_every_declared_reason_code_has_a_negative_control", "test_parse_invalid_has_a_negative_control", "test_obsolete_argument_mismatch_has_disposition", "test_malformed_expectation_rejected", "test_malformed_control_battery_rejected", "test_family_scope_qualification_contract"],
+      "root_cause": "no construction-time validation and no declared/reachable/tested reconciliation record",
+      "repair": "contract v2: REASON_CODES (19) reconciled with controls via qualification.reason_coverage; ARGUMENT_MISMATCH declared obsolete with explicit disposition (subsumed by MISSING_SLOT/ARGUMENT_UNDECLARED/VALUE_MISMATCH/ENTITY_MISMATCH/TYPE_MISMATCH/UNIT_MISMATCH/UNIT_MISSING); Expectation/Quantity/SlotSpec/StatePredicate validate at construction; qualification.validate_control_battery rejects malformed batteries; qualification.qualify_family_scope enforces the per-N03-family dataset rules (positive witness, critical negatives, semantic mutations, alternative responses where applicable, versioned evaluator scope identity)",
+      "new_controls": ["intent.neg.parse_invalid", "num.neg.malformed_raw"]
+    }
+  ],
+  "gate": {
+    "name": "N05AR_COGNITIVE_EVALUATOR_INTEGRITY_GO",
+    "status": "PASS",
+    "scope": "cognitive evaluator integrity only; explicitly NOT the end-to-end business Oracle (IJN-B-002 remains open for formal business claims)"
+  }
+}

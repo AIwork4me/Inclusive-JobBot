@@ -1,0 +1,787 @@
+# N05A-R red run (verbatim unittest output; local user-directory paths redacted per AGENTS.md before commit).
+# Context: final tests/ij_nano/test_n05ar_ev_concerns.py executed against the PRE-REPAIR evaluator in a detached worktree at f62ddc2.
+# Command: python -I -m unittest discover -s tests/ij_nano -t . -p test_n05ar_ev_concerns.py
+
+.FF.FFFFF.FFF.FFEFFFFFFFFFFFFFFFFFFFF.F..F.......FFEFEFFFF
+======================================================================
+ERROR: test_equivalence_does_not_crash_on_invalid_value_type (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_equivalence_does_not_crash_on_invalid_value_type)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 248, in test_equivalence_does_not_crash_on_invalid_value_type
+    reasons = comparators.predicates_equivalent(claimed, exp_pred)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicates_equivalent'
+
+======================================================================
+ERROR: test_every_comparator_mutant_is_detected (tests.ij_nano.test_n05ar_ev_concerns.TestEV06ComparatorLevelMutants.test_every_comparator_mutant_is_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 371, in test_every_comparator_mutant_is_detected
+    from nanoagent.eval.qualification import mutation_gate
+ModuleNotFoundError: No module named 'nanoagent.eval.qualification'
+
+======================================================================
+ERROR: test_family_scope_qualification_contract (tests.ij_nano.test_n05ar_ev_concerns.TestEV07CoverageReconciliation.test_family_scope_qualification_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 428, in test_family_scope_qualification_contract
+    from nanoagent.eval.qualification import qualify_family_scope
+ModuleNotFoundError: No module named 'nanoagent.eval.qualification'
+
+======================================================================
+FAIL: test_contradictory_claims_detected_as_duplicate_identity (tests.ij_nano.test_n05ar_ev_concerns.TestEV01StatePredicates.test_contradictory_claims_detected_as_duplicate_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 99, in test_contradictory_claims_detected_as_duplicate_identity
+    self.assertEqual(reasons, ["DUPLICATE_PREDICATE"],
+AssertionError: Lists differ: ['EXTRA_ASSERTION'] != ['DUPLICATE_PREDICATE']
+
+First differing element 0:
+'EXTRA_ASSERTION'
+'DUPLICATE_PREDICATE'
+
+- ['EXTRA_ASSERTION']
++ ['DUPLICATE_PREDICATE'] : contradictory duplicate identity: ['EXTRA_ASSERTION']
+
+======================================================================
+FAIL: test_duplicate_predicate_detected (tests.ij_nano.test_n05ar_ev_concerns.TestEV01StatePredicates.test_duplicate_predicate_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 90, in test_duplicate_predicate_detected
+    self.assertEqual(reasons, ["DUPLICATE_PREDICATE"],
+AssertionError: Lists differ: ['EXTRA_ASSERTION'] != ['DUPLICATE_PREDICATE']
+
+First differing element 0:
+'EXTRA_ASSERTION'
+'DUPLICATE_PREDICATE'
+
+- ['EXTRA_ASSERTION']
++ ['DUPLICATE_PREDICATE'] : duplicate claim must fail for exactly its reason: ['EXTRA_ASSERTION']
+
+======================================================================
+FAIL: test_missing_final_predicate_detected (tests.ij_nano.test_n05ar_ev_concerns.TestEV01StatePredicates.test_missing_final_predicate_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 70, in test_missing_final_predicate_detected
+    self.assertIn("MISSING_PREDICATE", reasons,
+AssertionError: 'MISSING_PREDICATE' not found in [] : missing required predicate accepted: []
+
+======================================================================
+FAIL: test_missing_middle_predicate_detected (tests.ij_nano.test_n05ar_ev_concerns.TestEV01StatePredicates.test_missing_middle_predicate_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 76, in test_missing_middle_predicate_detected
+    self.assertIn("MISSING_PREDICATE", reasons,
+AssertionError: 'MISSING_PREDICATE' not found in ['ENTITY_MISMATCH'] : missing middle predicate not reported: ['ENTITY_MISMATCH']
+
+======================================================================
+FAIL: test_only_first_predicate_correct_still_fails (tests.ij_nano.test_n05ar_ev_concerns.TestEV01StatePredicates.test_only_first_predicate_correct_still_fails)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 82, in test_only_first_predicate_correct_still_fails
+    self.assertTrue(reasons, "single correct predicate accepted as complete")
+AssertionError: [] is not true : single correct predicate accepted as complete
+
+======================================================================
+FAIL: test_valid_predicates_different_order_pass (tests.ij_nano.test_n05ar_ev_concerns.TestEV01StatePredicates.test_valid_predicates_different_order_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 105, in test_valid_predicates_different_order_pass
+    self.assertEqual(reasons, [], f"valid predicates reordered rejected: {reasons}")
+AssertionError: Lists differ: ['ENTITY_MISMATCH'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'ENTITY_MISMATCH'
+
+- ['ENTITY_MISMATCH']
++ [] : valid predicates reordered rejected: ['ENTITY_MISMATCH']
+
+======================================================================
+FAIL: test_consequential_unauthorized_option_rejected (tests.ij_nano.test_n05ar_ev_concerns.TestEV02UndeclaredActionArguments.test_consequential_unauthorized_option_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 142, in test_consequential_unauthorized_option_rejected
+    self.assertIn("ARGUMENT_UNDECLARED", reasons,
+AssertionError: 'ARGUMENT_UNDECLARED' not found in [] : unauthorized consequential option accepted: []
+
+======================================================================
+FAIL: test_declared_optional_arguments_pass_and_undeclared_still_fail (tests.ij_nano.test_n05ar_ev_concerns.TestEV02UndeclaredActionArguments.test_declared_optional_arguments_pass_and_undeclared_still_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 153, in build
+    SlotSpec("notify_channel", "enum", "email", optional=True))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SlotSpec.__init__() got an unexpected keyword argument 'optional'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 156, in test_declared_optional_arguments_pass_and_undeclared_still_fail
+    exp = _capability(self, "optional SlotSpec contract", build)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: optional SlotSpec contract (TypeError: SlotSpec.__init__() got an unexpected keyword argument 'optional')
+
+======================================================================
+FAIL: test_duplicate_keys_in_raw_structured_output_rejected (tests.ij_nano.test_n05ar_ev_concerns.TestEV02UndeclaredActionArguments.test_duplicate_keys_in_raw_structured_output_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 169, in test_duplicate_keys_in_raw_structured_output_rejected
+    self.assertIn("PARSE_INVALID", reasons,
+AssertionError: 'PARSE_INVALID' not found in [] : duplicate keys in raw output not detected: []
+
+======================================================================
+FAIL: test_extra_assertions_channel_is_not_the_only_guard (tests.ij_nano.test_n05ar_ev_concerns.TestEV02UndeclaredActionArguments.test_extra_assertions_channel_is_not_the_only_guard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 178, in test_extra_assertions_channel_is_not_the_only_guard
+    self.assertIn("ARGUMENT_UNDECLARED", run(self._exp(), resp))
+AssertionError: 'ARGUMENT_UNDECLARED' not found in []
+
+======================================================================
+FAIL: test_unknown_argument_field_rejected (tests.ij_nano.test_n05ar_ev_concerns.TestEV02UndeclaredActionArguments.test_unknown_argument_field_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 135, in test_unknown_argument_field_rejected
+    self.assertIn("ARGUMENT_UNDECLARED", reasons,
+AssertionError: 'ARGUMENT_UNDECLARED' not found in [] : unknown response.args key accepted: []
+
+======================================================================
+FAIL: test_equivalence_checks_claimed_threshold_is_not_treated_as_observed (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_equivalence_checks_claimed_threshold_is_not_treated_as_observed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 258, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 260, in test_equivalence_checks_claimed_threshold_is_not_treated_as_observed
+    reasons = _capability(self, "predicate_truth", truth)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_expression_equivalence_is_exact_not_cross_operator (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_expression_equivalence_is_exact_not_cross_operator)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 237, in <lambda>
+    lambda: equiv(base, same)), [])
+            ^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 232, in equiv
+    return comparators.predicates_equivalent(a, b)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicates_equivalent'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 236, in test_expression_equivalence_is_exact_not_cross_operator
+    self.assertEqual(_capability(self, "predicates_equivalent",
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicates_equivalent (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicates_equivalent')
+
+======================================================================
+FAIL: test_truth_against_world_state (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_against_world_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 188, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 190, in test_truth_against_world_state
+    reasons = _capability(self, "predicate_truth(pred, world)", truth)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth(pred, world) (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='eq', obs=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='eq', obs=5.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='eq', obs=6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='ne', obs=6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='ne', obs=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='gt', obs=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='gt', obs=5.0001)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='gt', obs=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='ge', obs=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='ge', obs=4.999)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='lt', obs=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='lt', obs=4.999)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='le', obs=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_operators_and_boundaries (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_operators_and_boundaries) (op='le', obs=5.0001)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in <lambda>
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+                                                           ^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 196, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 206, in test_truth_operators_and_boundaries
+    reasons = _capability(self, "predicate_truth", lambda: truth(op, obs))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_rejects_invalid_types_without_crashing (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_rejects_invalid_types_without_crashing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 212, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 214, in test_truth_rejects_invalid_types_without_crashing
+    reasons = _capability(self, "predicate_truth", truth)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_truth_with_units (tests.ij_nano.test_n05ar_ev_concerns.TestEV03PredicateSemantics.test_truth_with_units)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 220, in truth
+    return comparators.predicate_truth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth'. Did you mean: 'predicate_holds'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 222, in test_truth_with_units
+    reasons = _capability(self, "predicate_truth with units", truth)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: predicate_truth with units (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'predicate_truth')
+
+======================================================================
+FAIL: test_action_tool_argument_entity_exact_identity (tests.ij_nano.test_n05ar_ev_concerns.TestEV04IdentifierCollisions.test_action_tool_argument_entity_exact_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 299, in test_action_tool_argument_entity_exact_identity
+    self.assertIn("TOOL_MISMATCH", reasons, "tool ids must match exactly")
+AssertionError: 'TOOL_MISMATCH' not found in [] : tool ids must match exactly
+
+======================================================================
+FAIL: test_alias_contract_permits_declared_variants_only (tests.ij_nano.test_n05ar_ev_concerns.TestEV04IdentifierCollisions.test_alias_contract_permits_declared_variants_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 303, in match
+    return comparators.identifier_matches(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.comparators' has no attribute 'identifier_matches'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 306, in test_alias_contract_permits_declared_variants_only
+    self.assertTrue(_capability(self, "identifier_matches alias contract", match))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: identifier_matches alias contract (AttributeError: module 'nanoagent.eval.comparators' has no attribute 'identifier_matches')
+
+======================================================================
+FAIL: test_entity_identifiers_are_case_sensitive (tests.ij_nano.test_n05ar_ev_concerns.TestEV04IdentifierCollisions.test_entity_identifiers_are_case_sensitive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 282, in test_entity_identifiers_are_case_sensitive
+    self.assertEqual(reasons, ["ENTITY_MISMATCH"],
+AssertionError: Lists differ: [] != ['ENTITY_MISMATCH']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'ENTITY_MISMATCH'
+
+- []
++ ['ENTITY_MISMATCH'] : case folding must not merge distinct entity ids
+
+======================================================================
+FAIL: test_underscore_space_tool_collision_rejected (tests.ij_nano.test_n05ar_ev_concerns.TestEV04IdentifierCollisions.test_underscore_space_tool_collision_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 276, in test_underscore_space_tool_collision_rejected
+    self.assertEqual(reasons, ["TOOL_MISMATCH"],
+AssertionError: Lists differ: [] != ['TOOL_MISMATCH']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'TOOL_MISMATCH'
+
+- []
++ ['TOOL_MISMATCH'] : blanket folding merges distinct tool identifiers
+
+======================================================================
+FAIL: test_scalar_with_publicly_declared_unit_passes (tests.ij_nano.test_n05ar_ev_concerns.TestEV05MissingUnitHandling.test_scalar_with_publicly_declared_unit_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 337, in go
+    return run(self._exp(unit_publicly_declared=True),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 323, in _exp
+    slot = SlotSpec("amount", "quantity", 120.0, unit="CNY", **slot_kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SlotSpec.__init__() got an unexpected keyword argument 'unit_publicly_declared'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 339, in test_scalar_with_publicly_declared_unit_passes
+    self.assertEqual(_capability(
+                     ^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: unit_publicly_declared contract (TypeError: SlotSpec.__init__() got an unexpected keyword argument 'unit_publicly_declared')
+
+======================================================================
+FAIL: test_scalar_without_public_declaration_rejected (tests.ij_nano.test_n05ar_ev_concerns.TestEV05MissingUnitHandling.test_scalar_without_public_declaration_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 332, in test_scalar_without_public_declaration_rejected
+    self.assertIn("UNIT_MISSING", reasons,
+AssertionError: 'UNIT_MISSING' not found in [] : scalar silently inherited hidden expected unit: []
+
+======================================================================
+FAIL: test_every_declared_reason_code_has_a_negative_control (tests.ij_nano.test_n05ar_ev_concerns.TestEV07CoverageReconciliation.test_every_declared_reason_code_has_a_negative_control)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 395, in test_every_declared_reason_code_has_a_negative_control
+    self.assertEqual(missing, [], f"declared but untested reason codes: {missing}")
+AssertionError: Lists differ: ['ARGUMENT_MISMATCH', 'PARSE_INVALID'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'ARGUMENT_MISMATCH'
+
+- ['ARGUMENT_MISMATCH', 'PARSE_INVALID']
++ [] : declared but untested reason codes: ['ARGUMENT_MISMATCH', 'PARSE_INVALID']
+
+======================================================================
+FAIL: test_malformed_control_battery_rejected (tests.ij_nano.test_n05ar_ev_concerns.TestEV07CoverageReconciliation.test_malformed_control_battery_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 422, in build
+    from nanoagent.eval.qualification import validate_control_battery
+ModuleNotFoundError: No module named 'nanoagent.eval.qualification'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 425, in test_malformed_control_battery_rejected
+    _capability(self, "validate_control_battery", build)
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: validate_control_battery (ModuleNotFoundError: No module named 'nanoagent.eval.qualification')
+
+======================================================================
+FAIL: test_malformed_expectation_rejected (tests.ij_nano.test_n05ar_ev_concerns.TestEV07CoverageReconciliation.test_malformed_expectation_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 410, in test_malformed_expectation_rejected
+    with self.assertRaises(ValueError, msg="empty state expectation accepted"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised : empty state expectation accepted
+
+======================================================================
+FAIL: test_obsolete_argument_mismatch_has_disposition (tests.ij_nano.test_n05ar_ev_concerns.TestEV07CoverageReconciliation.test_obsolete_argument_mismatch_has_disposition)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 39, in _capability
+    return fn()
+           ^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 403, in disposition
+    return contracts.REASON_CODE_DISPOSITIONS["ARGUMENT_MISMATCH"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'nanoagent.eval.contracts' has no attribute 'REASON_CODE_DISPOSITIONS'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 404, in test_obsolete_argument_mismatch_has_disposition
+    d = _capability(self, "reason-code disposition record", disposition)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 41, in _capability
+    test.fail(f"capability absent: {description} ({type(e).__name__}: {e})")
+AssertionError: capability absent: reason-code disposition record (AttributeError: module 'nanoagent.eval.contracts' has no attribute 'REASON_CODE_DISPOSITIONS')
+
+======================================================================
+FAIL: test_parse_invalid_has_a_negative_control (tests.ij_nano.test_n05ar_ev_concerns.TestEV07CoverageReconciliation.test_parse_invalid_has_a_negative_control)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\<redacted>\Desktop\Job\IJNANO-red\tests\ij_nano\test_n05ar_ev_concerns.py", line 399, in test_parse_invalid_has_a_negative_control
+    self.assertIn("negative:PARSE_INVALID", classes)
+AssertionError: 'negative:PARSE_INVALID' not found in {'negative:CLARIFICATION_MISMATCH', 'negative:DECISION_MISMATCH', 'negative:MISSING_SLOT', 'negative:VALUE_MISMATCH', 'negative:BRANCH_MISMATCH', 'negative:TYPE_MISMATCH', 'negative:ENTITY_MISMATCH', 'negative:UNIT_MISMATCH', 'negative:EXTRA_ASSERTION', 'negative:UNIT_INVALID', 'negative:INTENT_MISMATCH', 'negative:TOOL_MISMATCH', 'negative:GOAL_MISMATCH', 'negative:RECOVERY_INVALID', 'positive'}
+
+----------------------------------------------------------------------
+Ran 45 tests in 0.011s
+
+FAILED (failures=41, errors=3)
