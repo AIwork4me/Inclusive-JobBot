@@ -1,5 +1,11 @@
 # Blockers
 
+## LFM3-HA-1.0
+
+- **Exact author-run reproduction inputs.** Benchmark engineering needs a traceable 150 + 40 task roster, historical task and image digests, per-harness source/plugin identities and an isolated reproduction environment. The author cards establish aggregate results and the documented split rule. The frozen base's historical GGUF publisher revision no longer resolves through the live endpoint observed at startup. Local bytes match the archived identity.
+- **Independent qualification and GPU schedule.** Formal complexity and business dispatch still depend on independent evaluator and dispatcher release. The AG-11 owner-authorized capture has priority over supplemental GPU work. Physical DX-M2 qualification requires access to the target hardware.
+- **Commercial deployment eligibility.** The deployment owner needs to establish applicable LFM Open License v1.0 commercial rights before production deployment. [License audit](reports/LFM3_HA01_UPSTREAM_RESEARCH.md)
+
 ## IJ-SLM-1.1 release dependencies
 
 - **Independent benchmark review.** Benchmark engineering must assign reviewers independent of public, world and witness authoring. Use the [blind packets and verdict schema](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md). Freeze each independently derived expectation before comparing it with the candidate. A release issuer must pin the corresponding receipts and dispatch credentials to the reviewed candidate, runner, runtime, hardware and evaluator scope. The current two-phase Planning 0.4 packet covers the denial repair and the software partition controls. The issuer records independent path expectations before releasing scenario inputs. Independent semantic and content review remain pending. The registrar, reconciler and issuer supply their authentic signed receipts and scope bindings. Physical dispatch also requires a matched candidate launcher registration. [Release workflow](atlas/slm/v1.0/release-review/RELEASE_WORKFLOW.md)
