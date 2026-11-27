@@ -90,7 +90,11 @@ state that the released GGUFs have no equivalent author re-evaluation.
 3. The verifier reads the task outcome, with `correctness` preferred over
    `reward` in the authors' cards. The article reports an efficiency bonus
    of 0.1 times (1 - tool calls / 15), gated on correctness. Reproduction needs
-   the pinned verifier and counter implementation for edge cases. SmolDataEnvs
+   the pinned verifier and counter implementation for edge cases. The linked
+   TRL example at the audited source commit uses weight 0.3 and clips its
+   tool-efficiency factor to [0, 1]. This differs from the article's 0.1.
+   The historical run's exact reward implementation remains unverified.
+   SmolDataEnvs
    uses exact or numeric answer checking. The released repository environments
    were reconstructed from trajectory snapshots and tested against a reference,
    an empty or incomplete solution and verifier-integrity controls. Build

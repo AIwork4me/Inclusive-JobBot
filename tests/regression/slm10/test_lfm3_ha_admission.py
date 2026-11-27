@@ -14,8 +14,8 @@ class LoRANumericEvidenceTests(unittest.TestCase):
 
     def test_native_numeric_row_refuses_incomplete_or_nonfinite_data(self):
         row = {"id": 0, "top_logprobs": [{"id": i, "logprob": -1.0 - i} for i in range(32)]}
-        self.assertEqual(numeric_row({"probs": [row]})[1][0], 1)
+        self.assertEqual(numeric_row({"completion_probabilities": [row]})[1][0], 1)
         for bad in ([], [row, row], [dict(row, id=80)],
                     [dict(row, top_logprobs=[{"id": 0, "logprob": float("nan")}] * 32)]):
             with self.assertRaises(ValueError):
-                numeric_row({"probs": bad})
+                numeric_row({"completion_probabilities": bad})

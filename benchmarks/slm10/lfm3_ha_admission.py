@@ -39,7 +39,7 @@ FLAGS = ("--ctx-size", "8192", "--parallel", "1", "--n-gpu-layers", "99",
 
 
 def numeric_row(reply):
-    rows = reply.get("probs")
+    rows = reply.get("completion_probabilities")
     if not isinstance(rows, list) or len(rows) != 1:
         raise ValueError("native probability reply must cover exactly one generated token")
     row = rows[0]
