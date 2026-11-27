@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-NANO-1.0",
   "mission_title": "SLM-native Agentic Runtime Co-design & Capability-driven Harness Optimization",
-  "updated_utc": "2026-11-27T13:35:00Z",
-  "current_phase": "IJ-NANO-1.1 active (order: docs/IJNANO_MISSION_ORDER_V1_1.md). Delivered: N00, N00R, N02 (physical qualification PASS). Delivered under 1.1: N00RR, N01 closure (gate PASS), N06A-R integrity hardening PASS. Lanes: N05A cognitive evaluator, N02R protocol causal analysis under host-wide lease",
+  "updated_utc": "2026-11-27T14:05:00Z",
+  "current_phase": "IJ-NANO-1.1 active (order: docs/IJNANO_MISSION_ORDER_V1_1.md). Delivered: N00, N00R, N02 (physical qualification PASS). Delivered under 1.1: N00RR, N01 (gate PASS), N06A-R (gate PASS), N05A cognitive evaluator (gate PASS, scoped). Next lanes: N02R protocol causal analysis under host-wide lease, then N03 profiling (evaluator contracts ready)",
   "mission_order": "docs/IJNANO_MISSION_ORDER.md (verbatim preregistration, committed at N00)",
   "research_protocol": "docs/IJNANO_RESEARCH_PROTOCOL.md",
   "tracking_issue": 10,
@@ -193,12 +193,22 @@
     },
     "N05A": {
       "title": "IJ-NANO-1.1 Independent cognitive evaluator qualification (scoped; not the business Oracle)",
-      "progress": "not_started",
-      "status": "NOT_RUN",
+      "progress": "done",
+      "status": "PASS",
       "gate": "N05A_COGNITIVE_EVALUATOR_QUALIFIED",
-      "gate_status": "NOT_RUN",
+      "gate_status": "PASS",
       "gpu_required": false,
-      "note": "typed evaluation contracts for the N03 cognitive families; deterministic semantic comparison (no substring primary matching); positive+negative controls mapped to every scoring rule; mutation tests against weakened evaluators; never grants end-to-end business Oracle qualification"
+      "note": "typed evaluation contracts for the N03 cognitive families; deterministic semantic comparison (no substring primary matching); positive+negative controls mapped to every scoring rule; mutation tests against weakened evaluators; never grants end-to-end business Oracle qualification",
+      "delivered_utc": "2026-11-27T14:05:00Z",
+      "evidence": [
+        "src/nanoagent/eval/",
+        "tests/ij_nano/test_n05a_battery.py",
+        "tests/ij_nano/test_n05a_mutation.py",
+        "evidence/IJNANO/N05A/evaluator_coverage.json",
+        "evidence/IJNANO/N05A/qualifying_run.txt",
+        "reports/IJNANO_05A_COGNITIVE_EVALUATOR_QUALIFICATION.md"
+      ],
+      "summary": "12 families; 17 positive + 24 single-defect negative controls (16 reason codes); every negative fails for exactly its intended reason; mutation tests prove every scoring rule load-bearing (substring/unit-blind/polarity-blind mutants detected); deterministic only; NO business-Oracle grant"
     },
     "N06": {
       "title": "NanoAgent SDK modular architecture (software)",

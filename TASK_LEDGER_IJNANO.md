@@ -72,3 +72,14 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N06 | Layer A regression suite: 36 tests green (`python -I -m unittest discover -s tests/ij_nano -t .`); IJ-SDK suite unaffected (93 OK) | done | PASS | test run recorded in this row; rerun command in HANDOFF |
 | N06A-R | IJ-NANO-1.1 adversarial hardening NA-D01..NA-D08 (red reproduction -> minimal repair -> green regression -> negative controls) | done | PASS (gate `NANOAGENT_LAYER_A_SOFTWARE_INTEGRITY_GO`, software scope; red 54 -> green 119/119 + IJ-SDK 93 OK) | `reports/IJNANO_06A_RUNTIME_INTEGRITY_HARDENING.md`, `evidence/IJNANO/N06A-R/{defect_ledger,regression_results}.json`, `evidence/IJNANO/N06A-R/{red_run,green_run}.txt` |
 | N06/N07 | Layers B (context compiler, tool filtering, grammar, slot binding) and C (action graph, recovery, goal controller) | not started | NOT_RUN | — |
+
+## N05A (2026-11-27, IJ-NANO-1.1, done)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| N05A | Typed evaluation contracts for the 12 cognitive families (intent, goal, tool selection, action representation, entity reference, slot value, numeric value+unit, state interpretation, conditional branch, recovery action, stop/continue, clarification); expectations evaluator-side only, Responses carry no answers | done | PASS (software scope) | `src/nanoagent/eval/contracts.py` |
+| N05A | Deterministic semantic comparators (closed-vocab folding, entity identity, dimension-checked unit registry, typed predicates, polarity handling); substring matching never primary | done | PASS | `src/nanoagent/eval/comparators.py` |
+| N05A | Control battery: 17 positives + 24 single-defect negatives (16 reason codes) covering every mission-order control class; every negative fails for exactly its intended reason | done | PASS | `src/nanoagent/eval/controls.py`, `tests/ij_nano/test_n05a_battery.py` |
+| N05A | Mutation tests: every scoring rule load-bearing (drop-one-rule mutants detected; substring/unit-blind/polarity-blind mutants demonstrated) | done | PASS | `tests/ij_nano/test_n05a_mutation.py` |
+| N05A | Coverage published per family | done | PASS | `evidence/IJNANO/N05A/evaluator_coverage.json` |
+| N05A | Gate `N05A_COGNITIVE_EVALUATOR_QUALIFIED` (scoped; explicitly NOT the business Oracle) | done | PASS | `reports/IJNANO_05A_COGNITIVE_EVALUATOR_QUALIFICATION.md` |

@@ -28,13 +28,13 @@ lease available), **N02** (physical runtime qualification PASS: identities,
 admissions, protocol probes; S2 chat-path finding feeds N02R).
 
 IJ-NANO-1.1 is active (order: `docs/IJNANO_MISSION_ORDER_V1_1.md`).
-Delivered under 1.1: **N00RR** (reconcile) and **N06A-R** (Layer A
-execution-integrity hardening PASS — 8/8 defect classes red-reproduced
-against `f3d5817` and repaired; 119/119 tests green; software scope only).
-Lanes: N01 closure (reports), N05A cognitive evaluator, N02R protocol
-causal analysis (GPU, under lease), then N03 profiling and the
-evidence-driven runtime work. Formal end-to-end business evaluation stays
-BLOCKED (IJN-B-002 narrowed).
+Delivered under 1.1: **N00RR** (reconcile), **N01** (research landscape
+gate PASS), **N06A-R** (Layer A execution-integrity hardening PASS — 8/8
+defect classes red-reproduced against `f3d5817` and repaired), **N05A**
+(cognitive evaluator gate PASS, scoped — 12 families, control battery +
+mutation tests, deterministic only). Next lanes: N02R protocol causal
+analysis (GPU, under lease) and N03 profiling (evaluator contracts ready).
+Formal end-to-end business evaluation stays BLOCKED (IJN-B-002 narrowed).
 
 Branch: `mission/ij-nano-1.0-slm-native-agentic-runtime`, base `56c6c74b`
 (PR #8 head at N00 audit), audited anchor `f3d5817f`. Never rebase onto
@@ -69,14 +69,17 @@ missions' state files.
 
 ## 5. Next steps, in order
 
-1. N01 closure (gate `N01_RESEARCH_LANDSCAPE_VERIFIED`) — deliverables
-   drafted; verify against catalog before commit.
-2. N05A evaluator qualification (gate `N05A_COGNITIVE_EVALUATOR_QUALIFIED`).
-3. N02R protocol causal analysis under lease (gate
+1. N02R protocol causal analysis under lease (gate
    `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED`); preserve the raw S2
-   `overall: FAIL` artifact unchanged.
-4. N03 twelve priority cognitive families once N05A scopes qualify.
-5. Evidence-driven N06B/C layers and N04/N07 mechanism reproductions.
+   `overall: FAIL` artifact unchanged; probe false-positive audit first
+   (empty-content PASS, tool-call semantics, cancellation scope, SSE
+   accounting).
+2. N03 twelve priority cognitive families — evaluator contracts from N05A
+   are ready; build the 640/320 dataset (distinct families/worlds, CN+EN).
+3. Evidence-driven N06B/C layers and N04/N07 mechanism reproductions
+   (reuse candidates recorded in
+   `reports/IJNANO_OPEN_SOURCE_REUSE_DECISION.md`).
+4. The 3,600-slot causal pilot once its prerequisites qualify.
 
 ## 6. Things that will trip you up
 
