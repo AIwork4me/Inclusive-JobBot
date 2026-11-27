@@ -153,18 +153,19 @@ class _Trial:
             batching = len(response.calls) > 1
             if batching and any(call.name not in self.parallel_read_tools for call in response.calls):
                 raise ValueError("only registered independent reads may share a provider completion")
-            marks = set()
+            batch_ids, arguments = set(), []
             for proposal in response.calls:
                 args = parse_proposal(proposal)
                 schema = self.schemas.get(proposal.name)
-                mark = proposal.name, fingerprint(args)
-                if (proposal.call_id in self.ids or proposal.call_id in self.pending or mark in marks
+                if (proposal.call_id in self.ids or proposal.call_id in batch_ids
                         or schema is None or args.keys() != set(self.specs[proposal.name]["inputs"])
-                        or not matches(args, schema)):
+                        or not matches(args, schema)
+                        or any(name == proposal.name and equal(prior, args) for name, prior in arguments)):
                     raise ValueError("proposal is duplicate or outside the public tool schema")
-                marks.add(mark)
-                self.pending.add(proposal.call_id)
-            self.ids.update(self.pending)
+                arguments.append((proposal.name, args))
+                batch_ids.add(proposal.call_id)
+            self.pending = batch_ids
+            self.ids.update(batch_ids)
             event["validated_batch_width"] = len(response.calls)
         return response
 

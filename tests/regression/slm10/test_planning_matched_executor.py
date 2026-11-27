@@ -188,7 +188,7 @@ def test_inferred_goal_is_not_shared_or_checked_against_the_hidden_selection(tmp
     assert service.calls == []
 
 
-@pytest.mark.parametrize("error", ["wrong_tool", "wrong_argument", "over_context", "over_call_budget"])
+@pytest.mark.parametrize("error", ["wrong_tool", "wrong_argument", "wrong_decimal_argument", "over_context", "over_call_budget"])
 def test_live_budget_and_schema_are_checked_before_extra_side_effects(tmp_path, error):
     public, service = case(), Register()
     response = completion(tool="lookup", arguments=public["public"])
@@ -196,6 +196,8 @@ def test_live_budget_and_schema_are_checked_before_extra_side_effects(tmp_path, 
         response["choices"][0]["message"]["tool_calls"][0]["function"]["name"] = "outside"
     elif error == "wrong_argument":
         response = completion(tool="lookup", arguments={"reference": ["bad"]})
+    elif error == "wrong_decimal_argument":
+        response = completion(tool="lookup", arguments={"reference": 1.5})
     elif error == "over_context":
         response["usage"]["total_tokens"] = public["limits"]["peak_context_tokens"] + 1
     responses = [response]

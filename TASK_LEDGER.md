@@ -5,10 +5,10 @@
 | Continuation | Status | Evidence |
 |---|---|---|
 | P0-A priority execution coverage | PASS | Verified 4,950 of 4,950 Radeon A/B/D attempts. Original strict verdicts stay BLOCKED. [Paired capability report](reports/SLM10_PRIORITY_TC_V3_CAPABILITIES.md) |
-| P0-A F admission | PASS | Verified native generation and SDK callbacks. Formal TC-V3 queue active. [Runtime admissions](evidence/IJSLM/tc-v3-admissions/manifest.json) |
+| P0-A F admission | PASS | Verified native generation and SDK callbacks. 324 formal F trials are published. Its queue remains active. [Runtime admissions](evidence/IJSLM/tc-v3-admissions/manifest.json) |
 | P0-A G admission | NOT_RUN | G follows the F segment of the shared controller. |
 | P0-C SQLite transport software | PASS | Draft, readback, trusted approval, denial, stale scope and invalid grants exercised through Direct and an actual SDK harness with a scripted provider. Candidate release and physical qualification are separate. |
-| P0-D runtime attribution and read batching software | PASS | DIRECT_NATIVE, SDK_NATIVE and SDK_MATCHED_CONTEXT have distinct capture identities. Serial remains the default. Registered independent reads can share a completion in the parallel control. SDK_SPECIALIZED is reserved for a registered intervention. |
+| P0-D runtime attribution and read batching software | PASS | DIRECT_NATIVE, SDK_NATIVE and SDK_MATCHED_CONTEXT have distinct capture identities. Serial remains the default. Registered independent reads can share a completion in the parallel control. SDK_SPECIALIZED is reserved for a registered intervention. Malformed decimal arguments are rejected before callback release. |
 | P0-D world allocation and assessment software | PASS | 20,800 trial slots share one selected world per case. 1,500 counterfactual worlds remain unrun. Scoped read-only measurement and strict release have independent credential checks. [Allocation](atlas/slm/v1.0/planning-v2-world-allocation/manifest.json) |
 | P0-D third-role automated source review | FAIL | All 300 repaired worlds replayed. The review found alternate-denial coverage and L6 source provenance defects, plus cross-level fixture reuse. Human-independent review remains NOT_RUN. [Source audit](reports/SLM10_PLANNING_V2_THIRD_ROLE_REVIEW.md) |
 | P0-E independent preflight | NOT_RUN | Seven developer controls and two runtime profiles per model use a separate Radeon runner. The workstation schedule places the preflight after F/G and the LFM3 holdout. Its physical observations carry zero core attribution. |
@@ -44,7 +44,7 @@ The frozen queue continued during the SDK loss investigation. SDK causal ablatio
 
 The interactive Planning development runner adds Plan-first and Acting-first SDK paths, live tools, an independent user update and terminal business checks. The sandbox phase and out-of-scope controls passed software replay. The first interactive Radeon run failed all four development cells. The Acting-first SDK provider asked for tool_choice=none, and both Plan-first plans failed replay. The revised run selected auto during execution and recovered ten real Acting-first SDK callbacks. Neither Acting-first mode completed the business task. Both Plan-first proposals failed the existing oracle checks. [Two execution rounds](evidence/IJSLM/planning-development/manifest.json)
 
-The formal TC-V3 dashboard records 4,950 executed physical trials against the 36,550-trial core plan. Its counts and scoped results replay from published session seals. [Formal dashboard](atlas/slm/v1.0/physical_progress.json)
+The formal TC-V3 dashboard records 5,274 executed physical trials against the 36,550-trial core plan. Its counts and scoped results replay from published session seals. [Formal dashboard](atlas/slm/v1.0/physical_progress.json)
 
 The continuation adds opt-in SDK request correlation and a bounded diagnostic SSE replay profile. The original 512 KiB aggregate decoder limit stays the default. A software loopback regression exercises rejection capture and same-byte acceptance under the explicit diagnostic limit. The observer build and its on/off Radeon development controls have their own runner. Formal TC-V3 trials remain NOT_RUN.
 
