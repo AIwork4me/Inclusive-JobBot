@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3 local evaluator
 
+Keep any current GPU worker alive while it advances the frozen Q2 queue. See [sealed coverage](evidence/IJ073/aeve/q2_sealed_coverage.json). Once all 6,850 results are sealed, run `python -m evaluation.aeve.q2_closure --output .runtime/q2_closure.json --markdown .runtime/q2_closure.md`. The report command requires every case from each frozen cohort and verifies the Q2 protocol from the archived development evidence.
+
 Run `python -m evaluation.aeve resume` from this worktree using the project environment and PYTHONPATH containing the repository root and src. The controller seals physical sessions, recovers partial sessions, checks the four independent Gold cohorts and routes eligible historical evidence to admitted families. See [AEVE architecture](reports/IJ073_AEVE_ARCHITECTURE.md), [frozen protocol](evaluation/aeve/qualification_freeze.json) and [current gate ledger](atlas/ij073/progress.json). Preserve the original 22 blind-review cases. Dispatch requires actual formal archive coverage and independent Judge qualification.
 
 ## IJ-0.7.3 conditional planning checkpoint
