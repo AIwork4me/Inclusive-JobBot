@@ -10,8 +10,9 @@ from evaluation.aeve.runtime import ROOT, canonical
 
 from .action_graph_v2 import replay
 
-FOLDER = ROOT / "atlas/slm/v1.0/sdk-extension"
-VERSION = "TCV3-EXT/0.1"
+PREVIOUS = ROOT / "atlas/slm/v1.0/sdk-extension"
+FOLDER = PREVIOUS.with_name("sdk-extension-v0.2")
+VERSION = "TCV3-EXT/0.2"
 
 
 def obj(**properties):
@@ -22,13 +23,14 @@ TEXT = {"type": "string"}
 INT = {"type": "integer"}
 FLAG = {"type": "boolean"}
 TEXT_LIST = {"type": "array", "items": TEXT, "minItems": 1, "uniqueItems": True}
+PROOF_LIST = TEXT_LIST | {"items": TEXT | {"enum": ["attribution", "license", "consent"]}}
 SCHEMAS = {
     "catalog_profile": obj(selector=obj(campus=TEXT, filters=TEXT_LIST)),
     "catalog_stock": obj(reference=TEXT),
     "read_asset": obj(filters=obj(asset=TEXT, profile=obj(max_width=INT, channels=TEXT_LIST, lossless=FLAG))),
     "show_seat": obj(seat=TEXT, request=obj(step_free=FLAG, entrances=TEXT_LIST)),
     "access_route": obj(route=TEXT),
-    "read_proof": obj(job=TEXT, proofs=TEXT_LIST),
+    "read_proof": obj(job=TEXT, proofs=PROOF_LIST),
     "check_release": obj(receipt=TEXT),
     "check_layout": obj(page=INT, settings=obj(pages=TEXT_LIST, reading_order=FLAG)),
 }
@@ -91,7 +93,8 @@ def cases():
 
 
 def qualification(dataset):
-    row = {graph["case_id"]: graph for _, (_, graph) in dataset}["EXT-H-SEAT"]
+    graphs = {graph["case_id"]: graph for _, (_, graph) in dataset}
+    row = graphs["EXT-H-SEAT"]
     fixture = [
         {"call_id": "q-seat-1", "completion_id": "q-0", "turn": 0, "tool": "show_seat",
          "arguments_raw": '{"seat":"R8","request":{"step_free":true,"entrances":["East"]}}',
@@ -122,8 +125,51 @@ def qualification(dataset):
         result = replay(row, {"complete": True, "calls": calls})
         results.append({"control": label, "expected": expected, "evidence_sha256": sha256(canonical(calls)).hexdigest(),
                         "observed": result, "status": "PASS" if result["status"] == expected else "FAIL"})
-    return {"scope": "software action-instance controls; EXT-H-SEAT graph", "physical_execution": "NOT_RUN",
+    enum_mutation = [
+        {"call_id": "q-proof-1", "completion_id": "q-0", "turn": 0, "tool": "read_proof",
+         "arguments_raw": '{"job":"GRAPH09","proofs":["attribution","unknown"]}',
+         "observation": {"receipt": "P-73"}, "observation_sources": {}},
+        {"call_id": "q-proof-2", "completion_id": "q-1", "turn": 1, "tool": "check_release",
+         "arguments_raw": '{"receipt":"P-73"}', "observation": {"status": "verified"},
+         "observation_sources": {"receipt": {"action_id": "read-proof", "call_id": "q-proof-1", "key": "receipt"}}},
+    ]
+    enum_verdict = replay(graphs["EXT-H-RIGHTS"], {"complete": True, "calls": enum_mutation})
+    results.append({"control": "invalid_enum_item", "expected": "FAIL",
+                    "evidence_sha256": sha256(canonical(enum_mutation)).hexdigest(), "observed": enum_verdict,
+                    "status": "PASS" if enum_verdict["reason"] == "ARGUMENT_SCHEMA" else "FAIL"})
+    return {"scope": "software action-instance controls; EXT-H-SEAT and EXT-H-RIGHTS graphs", "physical_execution": "NOT_RUN",
             "status": "PASS" if all(r["status"] == "PASS" for r in results) else "FAIL", "controls": results}
+
+
+def graph_size_controls():
+    results = []
+    for size in (18, 19, 20, 21):
+        actions, calls = [], []
+        for index in range(size):
+            action_id = f"read-{index}"
+            args = {"reference": f"record-{index}"}
+            observation = {"next": f"record-{index + 1}"}
+            parent = f"read-{index - 1}"
+            actions.append({"action_id": action_id, "tool": "lookup", "arguments": args,
+                            "depends_on": [parent] if index else [], "observation": observation,
+                            "input_sources": {"reference": [parent, "next"]} if index else {}})
+            calls.append({"call_id": f"call-{index}", "completion_id": f"completion-{index}",
+                          "turn": index, "tool": "lookup", "arguments_raw": canonical(args).decode(),
+                          "observation": observation, "observation_sources": {"reference": {
+                              "action_id": parent, "call_id": f"call-{index - 1}", "key": "next"}} if index else {}})
+        graph = {"schemas": {"lookup": obj(reference=TEXT)}, "actions": actions}
+        capture = {"complete": True, "calls": calls}
+        expected = "PASS" if size <= 20 else "FAIL"
+        try:
+            observed = replay(graph, capture)["status"]
+        except ValueError as error:
+            if str(error) != "graph identity or size differs from the verifier contract":
+                raise
+            observed = "FAIL"
+        results.append({"nodes": size, "expected": expected, "observed": observed,
+                        "fixture_sha256": sha256(canonical([graph, capture])).hexdigest(),
+                        "status": "PASS" if observed == expected else "FAIL"})
+    return results
 
 
 def frozen_files():
@@ -137,8 +183,12 @@ def frozen_files():
         for i, name in enumerate(("public", "graphs")):
             files[f"{split}-{name}.jsonl"] = b"".join(canonical(item[i]) + b"\n" for part, item in dataset if part == split)
     checks = qualification(dataset)
+    checks["graph_size_controls"] = graph_size_controls()
+    if any(row["status"] != "PASS" for row in checks["graph_size_controls"]):
+        checks["status"] = "FAIL"
     files["software-qualification.json"] = canonical(checks) + b"\n"
     manifest = {"version": VERSION, "families": families, "formal_execution": "NOT_RUN",
+                "previous_manifest_sha256": digest(PREVIOUS / "manifest.json"),
                 "full_suite_qualification": "BLOCKED", "files": {name: sha256(raw).hexdigest() for name, raw in files.items()},
                 "sources": {name: digest(ROOT / "benchmarks/slm10" / name) for name in ("action_graph_v2.py", "sdk_extension.py")}}
     files["manifest.json"] = canonical(manifest) + b"\n"

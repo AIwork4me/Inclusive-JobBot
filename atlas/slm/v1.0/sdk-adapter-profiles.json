@@ -1,0 +1,61 @@
+{
+  "version": "IJ-SLM-SDK-ADAPTER-PROFILES/1.0",
+  "default": "reference",
+  "physical_dispatch": "NOT_RUN",
+  "formal_trial_attribution": 0,
+  "profiles": [
+    {
+      "component": "reference",
+      "version": "unchanged/1.0",
+      "input": "existing SDK request, callback and final output",
+      "output": "byte-identical request and existing host decisions",
+      "comparator": "existing SDK path"
+    },
+    {
+      "component": "prompt_compiler",
+      "version": "sdk-style-directive/1.0",
+      "input": "provider request with pinned SDK system message",
+      "output": "same request intent with one SDK style directive removed",
+      "comparator": "reference",
+      "historical_arm": "A2 versus A1"
+    },
+    {
+      "component": "compact_result_codec",
+      "version": "sdk-result-json/1.0",
+      "input": "SDK tool wrapper and verified callback receipt",
+      "output": "compact JSON in the same tool message",
+      "comparator": "reference",
+      "historical_arm": "A3 versus A1, independently A5 versus SDK_CONTROL"
+    },
+    {
+      "component": "action_state",
+      "version": "sdk-observed-action-ids/1.0",
+      "input": "prior delivered results and successful callback receipts in the current scope",
+      "output": "bounded observed tool and call ID summary",
+      "comparator": "reference",
+      "historical_arm": "A4 versus A1"
+    },
+    {
+      "component": "duplicate_execution_guard",
+      "version": "verified-immutable-read/1.0",
+      "input": "fresh trusted authorization for a redundant read plus original callback receipt",
+      "output": "host-attributed audited reuse candidate or miss",
+      "comparator": "reference",
+      "historical_arm": "GUARD versus SDK_CONTROL"
+    },
+    {
+      "component": "termination_policy",
+      "version": "existing-terminal-state/1.0",
+      "input": "existing provider finish, SDK budgets, cancellation and host workflow state",
+      "output": "allow final, continue through existing policy, or block",
+      "comparator": "reference"
+    },
+    {
+      "component": "structured_output_contract",
+      "version": "strict-json-schema/1.0",
+      "input": "raw final bytes, trusted schema and existing terminal authorization",
+      "output": "schema-validated object or rejection",
+      "comparator": "reference"
+    }
+  ]
+}

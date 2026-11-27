@@ -21,7 +21,7 @@ def replay(graph, evidence):
     if not evidence.get("complete"):
         return block("INCOMPLETE_TRACE")
     nodes = {node["action_id"]: node for node in graph["actions"]}
-    if len(nodes) != len(graph["actions"]) or len(nodes) > 18:
+    if len(nodes) != len(graph["actions"]) or len(nodes) > 20:
         raise ValueError("graph identity or size differs from the verifier contract")
     edges = {name: set(node["depends_on"]) for name, node in nodes.items()}
     if any(name in deps or deps - nodes.keys() for name, deps in edges.items()):

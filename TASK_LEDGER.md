@@ -2,6 +2,8 @@
 
 ## IJ-SLM-1.0 baseline
 
+TC-V3 capability replay assessed 2,250 portable physical seals and exported five-model passports, a matched quality/resource Pareto view and four distinct outcome cost denominators. The original D25 remained BLOCKED on all rows. Six opt-in adapter components passed software and archived-request controls. Extension v0.2 passed four 18–21 boundary controls, nine scoped controls and five independent workflow witnesses. Extension and new adapter physical execution remain NOT_RUN. [Capability map](reports/SLM10_TOOL_CALLING_FULL_REPORT.md) · [Adapter qualification](reports/SLM10_ADAPTER_QUALIFICATION.md) · [Extension certificate](evidence/IJSLM/sdk-extension/qualification.json)
+
 Interleaved diagnostic recovery now checks the registered wave and artifact digests before sealing. Software controls covered cross-worktree identities, missing terminal captures and modified artifacts. The causal replay inventories all 720 planned arm slots, including 410 physical A0–A5 observations and 126 physical controls. F and G admission remain NOT_RUN. [Causal coverage](evidence/IJSLM/sdk-causal/ablation-coverage.json) · [F/G admission replay](evidence/IJSLM/tc-v3-admissions/manifest.json)
 
 Qwen3.5 completed the bounded SSE SDK retest on Radeon. The same 602,124 bytes failed the original 512 KiB cumulative check and passed the revised limit with a valid stop. An earlier length-terminated capture remained rejected. [Positive transport control](evidence/IJSLM/sdk-causal/transport-v1-1/report.json)

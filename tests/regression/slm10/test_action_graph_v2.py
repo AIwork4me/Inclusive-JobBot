@@ -33,3 +33,12 @@ def test_legal_repeat_requires_distinct_calls_and_evidence_from_prior_action():
     bad = deepcopy(evidence)
     bad["calls"][1]["call_id"] = first["call_id"]
     assert replay(graph, bad)["reason"] == "REUSED_CALL_ID"
+
+def test_extension_graph_size_boundaries():
+    from benchmarks.slm10.sdk_extension import graph_size_controls
+
+    controls = graph_size_controls()
+    assert [(item["nodes"], item["observed"]) for item in controls] == [
+        (18, "PASS"), (19, "PASS"), (20, "PASS"), (21, "FAIL"),
+    ]
+    assert all(item["status"] == "PASS" for item in controls)
