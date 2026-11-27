@@ -2,6 +2,8 @@
 
 ## IJ-SLM-1.0 baseline
 
+The scheduled TC-V3 controller calls the additional F and G queue after all 4,950 priority captures verify. Both additional pinned weight files are present. Independent development evidence gates each candidate's physical dispatch. The priority seal gate correctly returned BLOCKED during the software check.
+
 TCV3-EXT/0.1 freezes new workflow families with nested arguments, multi-entity tools, distractors and a legal same-argument retry. The separate action-instance verifier passed eight synthetic controls for the accessibility-route graph. Physical extension execution and full suite admission remain NOT_RUN. [Independent extension](atlas/slm/v1.0/sdk-extension/manifest.json)
 
 The three Radeon candidates completed the SDK causal development pilot. Frozen scores remain in each sealed record. The versioned offline metrics, raw diagnostic evidence and experiment configuration are linked from the SDK capability loss report.

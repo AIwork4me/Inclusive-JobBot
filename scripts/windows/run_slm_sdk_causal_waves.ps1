@@ -49,3 +49,6 @@ for ($round = 0; $round -lt 46; $round++) {
         }
     }
 }
+
+& $python -m benchmarks.slm10.tc_five_model_queue --assets $assets
+exit $LASTEXITCODE
