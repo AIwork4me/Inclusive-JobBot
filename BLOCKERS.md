@@ -4,6 +4,7 @@
 
 - Mechanical qualification covers nine scoped TC-V3 components. D25, native parser semantics, affirmative authorization writes, persisted state and conditional planning lack the applicable independent credentials. Synthetic read-only physical dispatch uses the scoped TC-V3 gate.
 - AG-11 stays BLOCKED for all three priority models. Runtime engineering owns complete process-tree and egress observation. The published diagnostic provider endpoint is loopback. [P0 controls](evidence/IJSLM/p0/manifest.json)
+- The current workstation token cannot start the temporary Windows kernel network trace. The direct ETW session attempt returned access denied (HRESULT 0x80070005). The machine owner owns authorization for a temporary collector capable of attributing short-lived TCP and UDP events. [Microsoft ETW permissions](https://learn.microsoft.com/en-us/windows/win32/etw/controlling-event-tracing-sessions)
 - The historical Qwen3.5 AG-02 ValueError remains UNVERIFIED. A new real SDK failure reproduced a different 512 KiB aggregate SSE limit and a same-byte replay isolated that failure. MiniCPM5 now calls the expected tool on both Direct modes in the matched controls. Its historical discrepancy remains open. [Root cause evidence](reports/SLM10_P0_EXECUTION.md)
 
 ## IJ-0.7.3 frozen Q2 follow-up

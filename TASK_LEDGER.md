@@ -2,6 +2,8 @@
 
 ## IJ-SLM-1.0 baseline
 
+The formal TC-V3 dashboard records 90 executed physical trials against the 36,550-trial core plan. Its counts and scoped results replay from published session seals. [Formal dashboard](atlas/slm/v1.0/physical_progress.json)
+
 The continuation adds opt-in SDK request correlation and a bounded diagnostic SSE replay profile. The original 512 KiB aggregate decoder limit stays the default. A software loopback regression exercises rejection capture and same-byte acceptance under the explicit diagnostic limit. The observer build and its on/off Radeon development controls have their own runner. Formal TC-V3 trials remain NOT_RUN.
 
 The initial observer build failed the properties probe with HTTP 500 after a partial incremental C++ rebuild. The replacement build recompiled every server translation unit and has separately pinned launcher and server DLL digests. The original failures are retained as development startup diagnostics.
