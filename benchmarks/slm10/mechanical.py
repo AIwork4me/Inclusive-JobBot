@@ -52,13 +52,22 @@ def mechanical_candidate(dimension, evidence):
     return {"method": method, "replay_status": "BLOCKED", "proof": None}
 
 
-def assess(dimension, evidence):
+def assess(dimension, evidence, *, verifier_id=None, split=None):
     active = contract()
     published = json.loads((ROOT / "atlas/slm/v1.0/evaluation_contract.json").read_bytes())
     if active != published:
         raise ValueError("mechanical contract source differs from its frozen bytes")
     if dimension not in active["dimensions"]:
         raise ValueError("unknown evaluation dimension")
+    if verifier_id is not None:
+        from .mechanical_registry import assess_trial, require_registry
+
+        entries = require_registry()
+        result = next((name for name, row in entries.items()
+                       if row["verifier_id"] == verifier_id and row["capability_dimension"] == dimension), None)
+        status = assess_trial(evidence, split)[result] if result is not None and split is not None else "BLOCKED"
+        return {"method": verifier_id, "dimension": dimension, "status": status,
+                "contract_sha256": fingerprint(active), "evidence_sha256": fingerprint(evidence)}
     replay = mechanical_candidate(dimension, evidence)
     return {
         **replay, "contract_sha256": fingerprint(active), "dimension": dimension,
