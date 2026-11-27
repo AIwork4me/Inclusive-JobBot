@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Replayed all 3,228 sealed Q1 judgments against public source rules for the 26 synthetic templates. The diagnostic ledger records minimal proof sets, citation sufficiency, raw-output failures and language-pair differences. The original Q1 qualification remains FAIL. See [the source audit](reports/IJ073_JUDGE_FAILURE_ROOT_CAUSE.md).
+
 The revised qualification received its first sealed 96 Radeon judgments. The complete four-family Q1 decision remains FAIL. Independent admission for Q2 remains unresolved. The local M14 download passed the pinned SHA256 check before runtime admission.
 
 All 360 matched Q2 development responses are sealed. The selected configurations are now pinned to 1,370 new packets per family, for 6,850 planned independent trials. The second qualification queue is enrolled on the Radeon.
