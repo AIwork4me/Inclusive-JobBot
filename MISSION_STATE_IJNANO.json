@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-NANO-1.0",
+  "mission_title": "SLM-native Agentic Runtime Co-design & Capability-driven Harness Optimization",
+  "updated_utc": "2026-11-27T09:46:53Z",
+  "current_phase": "N00 baseline and dependency audit delivered; N01 literature investigation next; all physical phases BLOCKED on GPU lease",
+  "mission_order": "docs/IJNANO_MISSION_ORDER.md (verbatim preregistration, committed at N00)",
+  "research_protocol": "docs/IJNANO_RESEARCH_PROTOCOL.md",
+  "tracking_issue": null,
+  "draft_pr": null,
+  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
+  "base_commit": "56c6c74bf7216eb9cf65be4056c8db1964d23b05",
+  "parent_dependencies": {
+    "pr6_via_ancestor": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+    "pr8_head_at_base": "56c6c74bf7216eb9cf65be4056c8db1964d23b05",
+    "pr9_coordination": "IJ-SLM-1.0 (codex/ij-slm-1.0) - GPU lease holder, capability-atlas prior art, not a source base"
+  },
+  "target_platform": {
+    "gpu": "AMD Radeon RX 7900 XTX 24GB",
+    "gpu_architecture": "gfx1100",
+    "os": "Windows 11 Pro build 26300",
+    "primary_engine": "llama.cpp llama-server official build b12359 (v1.0.0)",
+    "primary_backend": "vulkan",
+    "secondary_backend": "rocm/hip"
+  },
+  "hypotheses": {
+    "preregistered": ["H01", "H02", "H03", "H04", "H05", "H06", "H07", "H08", "H09", "H10", "H11", "H12"],
+    "definitions": "docs/IJNANO_RESEARCH_PROTOCOL.md section 2 (verbatim from the mission order; confirmatory success criteria are frozen there and may not change after formal results are inspected)",
+    "statuses": {
+      "H01": "NOT_RUN", "H02": "NOT_RUN", "H03": "NOT_RUN", "H04": "NOT_RUN",
+      "H05": "NOT_RUN", "H06": "NOT_RUN", "H07": "NOT_RUN", "H08": "NOT_RUN",
+      "H09": "NOT_RUN", "H10": "NOT_RUN", "H11": "NOT_RUN", "H12": "NOT_RUN"
+    }
+  },
+  "phases": {
+    "N00": {
+      "title": "Repository audit and research isolation",
+      "progress": "done",
+      "status": "PASS",
+      "gate": "N00_RESEARCH_BASELINE_FROZEN",
+      "gate_status": "PASS",
+      "evidence": [
+        "reports/IJNANO_00_BASELINE_AND_DEPENDENCY_AUDIT.md",
+        "evidence/IJNANO/N00/baseline_manifest.json",
+        "evidence/IJNANO/N00/dependency_qualification.json",
+        "docs/IJNANO_MISSION_ORDER.md",
+        "docs/IJNANO_RESEARCH_PROTOCOL.md"
+      ],
+      "notes": [
+        "Remote re-queried before choosing the base: PR #6 head unchanged (06f25ab); PR #8 head advanced past the mission-order anchor to 56c6c74 (P4A checkpoint 1); previously unreported PR #9 (IJ-SLM-1.0) audited as GPU-lease holder.",
+        "Base selected: PR #8 head 56c6c74b in a dedicated worktree; ancestry verified (fe56f324 ancestor; PR #6 current head NOT an ancestor).",
+        "GPU: physical RX 7900 XTX (gfx1100) confirmed; gfx1151 references on the default branch belong to the previous workstation (L-01).",
+        "No qualified Harness/Gateway/Oracle inherited: IJ-SDK P3/P4-core/P5 remain reopened FAIL; P4A harness code classified REFERENCE_ONLY."
+      ]
+    },
+    "N01": {
+      "title": "Comprehensive literature and open-source technology investigation (R01-R09)",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N01_RESEARCH_LANDSCAPE_VERIFIED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false
+    },
+    "N02": {
+      "title": "Physical runtime and model identity qualification (S1/S2/S3/R1/R2)",
+      "progress": "not_started",
+      "status": "BLOCKED",
+      "blocker": "IJN-B-001 GPU lease held by IJ-SLM-1.0; IJN-B-002 formal GPU matrix not authorized",
+      "gate": "N02_PHYSICAL_MODEL_RUNTIME_QUALIFIED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N03": {
+      "title": "Fine-grained SLM cognitive capability profiling (C01-C32)",
+      "progress": "not_started",
+      "status": "BLOCKED",
+      "blocker": "requires N02",
+      "gate": "N03_COGNITIVE_CAPABILITY_PROFILES_AVAILABLE",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N04": {
+      "title": "Reproduce existing SLM-native agentic approaches (E01-E06)",
+      "progress": "not_started",
+      "status": "BLOCKED",
+      "blocker": "physical arms require N02; software tiers of the reproduction analysis can start after N01",
+      "gate": "N04_EXISTING_SLM_APPROACHES_CHARACTERIZED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N05": {
+      "title": "Independent benchmark and Oracle qualification (E0-E6)",
+      "progress": "not_started",
+      "status": "BLOCKED",
+      "blocker": "IJN-B-002: no qualified evaluator exists; either reuse a future qualified IJ-SDK P5R scope or build and independently qualify our own",
+      "gate": "N05_INDEPENDENT_EVALUATION_QUALIFIED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N06": {
+      "title": "NanoAgent SDK modular architecture (software)",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "note": "pure-software development is permitted now under dependency_qualification.json permitted_now; physical qualification of the runtime still requires N02",
+      "gate": "N06_NANOAGENT_MODULAR_RUNTIME_IMPLEMENTED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false
+    },
+    "N07": {
+      "title": "Individual runtime mechanisms (M01-M10) development and validation",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "note": "unit-level software work permitted now; physical evaluation of mechanisms requires N02/N05",
+      "gate": "N07_RUNTIME_MECHANISMS_CHARACTERIZED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N08": {
+      "title": "Controlled experiment design and frozen protocol",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N08_EXPERIMENTAL_PROTOCOL_FROZEN",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false
+    },
+    "N09": {
+      "title": "Model x Harness transfer matrix (H0-H5)",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N09_MODEL_HARNESS_INTERACTION_CHARACTERIZED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N10": {
+      "title": "Capability-driven automatic Harness optimization",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N10_CAPABILITY_DRIVEN_OPTIMIZER_VALIDATED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N11": {
+      "title": "Cross-job generalization and professionalization (J01-J06)",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N11_JOB_PACKAGE_TRANSFER_CHARACTERIZED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N12": {
+      "title": "Business reliability, security and resource qualification",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N12_DEPLOYMENT_CHARACTERISTICS_QUALIFIED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N13": {
+      "title": "NPU portability and minimum hardware requirements",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N13_RUNTIME_PORTABILITY_CONTRACT_READY",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false
+    },
+    "N14": {
+      "title": "Source-level root cause analysis",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N14_FAILURE_MECHANISMS_CHARACTERIZED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N15": {
+      "title": "Statistical analysis and capability-driven selection",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N15_EVIDENCE_BACKED_SELECTION_AVAILABLE",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false
+    },
+    "N16": {
+      "title": "NanoAgent SDK engineering release candidate",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N16_NANOAGENT_SDK_RC_READY",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false
+    },
+    "N17": {
+      "title": "Independent research and engineering audit",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N17_INDEPENDENT_AUDIT_COMPLETE",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true
+    },
+    "N18": {
+      "title": "Research atlas and final deliverables",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N18_RESEARCH_ATLAS_PUBLISHED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false
+    },
+    "N19": {
+      "title": "Final acceptance, GitHub delivery and mission closure",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N19_GITHUB_DELIVERY_AND_MISSION_CLOSURE",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false
+    }
+  },
+  "final_verdicts": {
+    "IJNANO_MODEL_MATCHED_RUNTIME_HYPOTHESIS": "NOT_RUN",
+    "IJ_NANO_1_0_RESEARCH_COMPLETE": "NOT_RUN",
+    "NANOAGENT_ARCHITECTURE_VERDICT": "NOT_RUN",
+    "NANOAGENT_PRODUCT_QUALIFICATION": "NOT_RUN",
+    "real_customer_deployment": "NOT_RUN",
+    "independent_human_accessibility_validation": "NOT_RUN",
+    "physical_npu_validation": "NOT_RUN"
+  },
+  "notes": [
+    "This ledger is IJ-NANO-1.0-specific. MISSION_STATE.json / TASK_LEDGER.md / BLOCKERS.md remain owned by earlier missions; IJ-NANO never edits them.",
+    "Status vocabulary: PASS / FAIL / BLOCKED / NOT_RUN (DECISIONS.md D-008).",
+    "GPU evidence rules follow D-010 (health + socket ownership + offload line + GPU counters).",
+    "A scientifically valid negative result is an acceptable outcome; hypothesis statuses are SUPPORTED / NOT_SUPPORTED / INCONCLUSIVE / BLOCKED / NOT_RUN."
+  ],
+  "recovery": {
+    "state": "N00 delivered; nothing running; all work committed on the research branch",
+    "resume_with": "HANDOFF_IJNANO.md, then this file and TASK_LEDGER_IJNANO.md",
+    "next_steps_in_order": [
+      "N01: verify R01-R09 primary sources (papers, repositories, licenses) and produce the research landscape reports.",
+      "Draft the N08 experimental protocol skeleton and N05 evaluator architecture while the GPU is leased elsewhere.",
+      "Pure-software NanoAgent skeleton (N06) with unit tests once N01 reuse decisions are recorded.",
+      "N02 physical qualification when the GPU lease allows."
+    ]
+  }
+}
