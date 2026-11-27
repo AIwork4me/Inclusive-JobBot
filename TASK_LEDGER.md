@@ -20,7 +20,7 @@ The frozen queue continued during the SDK loss investigation. SDK causal ablatio
 
 The interactive Planning development runner adds Plan-first and Acting-first SDK paths, live tools, an independent user update and terminal business checks. The sandbox phase and out-of-scope controls passed software replay. The first interactive Radeon run failed all four development cells. The Acting-first SDK provider asked for tool_choice=none, and both Plan-first plans failed replay. The revised run selected auto during execution and recovered ten real Acting-first SDK callbacks. Neither Acting-first mode completed the business task. Both Plan-first proposals failed the existing oracle checks. [Two execution rounds](evidence/IJSLM/planning-development/manifest.json)
 
-The formal TC-V3 dashboard records 2,502 executed physical trials against the 36,550-trial core plan. Its counts and scoped results replay from published session seals. [Formal dashboard](atlas/slm/v1.0/physical_progress.json)
+The formal TC-V3 dashboard records 3,654 executed physical trials against the 36,550-trial core plan. Its counts and scoped results replay from published session seals. [Formal dashboard](atlas/slm/v1.0/physical_progress.json)
 
 The continuation adds opt-in SDK request correlation and a bounded diagnostic SSE replay profile. The original 512 KiB aggregate decoder limit stays the default. A software loopback regression exercises rejection capture and same-byte acceptance under the explicit diagnostic limit. The observer build and its on/off Radeon development controls have their own runner. Formal TC-V3 trials remain NOT_RUN.
 
