@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-NANO-1.0",
   "mission_title": "SLM-native Agentic Runtime Co-design & Capability-driven Harness Optimization",
-  "updated_utc": "2026-11-27T13:20:00Z",
-  "current_phase": "IJ-NANO-1.1 active (order: docs/IJNANO_MISSION_ORDER_V1_1.md). Delivered: N00, N00R, N02 (physical qualification PASS). Delivered under 1.1: N00RR, N06A-R integrity hardening PASS. Lanes: N01 closure, N05A cognitive evaluator, N02R protocol causal analysis under host-wide lease",
+  "updated_utc": "2026-11-27T13:35:00Z",
+  "current_phase": "IJ-NANO-1.1 active (order: docs/IJNANO_MISSION_ORDER_V1_1.md). Delivered: N00, N00R, N02 (physical qualification PASS). Delivered under 1.1: N00RR, N01 closure (gate PASS), N06A-R integrity hardening PASS. Lanes: N05A cognitive evaluator, N02R protocol causal analysis under host-wide lease",
   "mission_order": "docs/IJNANO_MISSION_ORDER.md (verbatim preregistration, committed at N00)",
   "research_protocol": "docs/IJNANO_RESEARCH_PROTOCOL.md",
   "tracking_issue": 10,
@@ -24,12 +24,34 @@
     "secondary_backend": "rocm/hip"
   },
   "hypotheses": {
-    "preregistered": ["H01", "H02", "H03", "H04", "H05", "H06", "H07", "H08", "H09", "H10", "H11", "H12"],
+    "preregistered": [
+      "H01",
+      "H02",
+      "H03",
+      "H04",
+      "H05",
+      "H06",
+      "H07",
+      "H08",
+      "H09",
+      "H10",
+      "H11",
+      "H12"
+    ],
     "definitions": "docs/IJNANO_RESEARCH_PROTOCOL.md section 2 (verbatim from the mission order; confirmatory success criteria are frozen there and may not change after formal results are inspected)",
     "statuses": {
-      "H01": "NOT_RUN", "H02": "NOT_RUN", "H03": "NOT_RUN", "H04": "NOT_RUN",
-      "H05": "NOT_RUN", "H06": "NOT_RUN", "H07": "NOT_RUN", "H08": "NOT_RUN",
-      "H09": "NOT_RUN", "H10": "NOT_RUN", "H11": "NOT_RUN", "H12": "NOT_RUN"
+      "H01": "NOT_RUN",
+      "H02": "NOT_RUN",
+      "H03": "NOT_RUN",
+      "H04": "NOT_RUN",
+      "H05": "NOT_RUN",
+      "H06": "NOT_RUN",
+      "H07": "NOT_RUN",
+      "H08": "NOT_RUN",
+      "H09": "NOT_RUN",
+      "H10": "NOT_RUN",
+      "H11": "NOT_RUN",
+      "H12": "NOT_RUN"
     }
   },
   "phases": {
@@ -90,16 +112,24 @@
     },
     "N01": {
       "title": "Comprehensive literature and open-source technology investigation (R01-R09)",
-      "progress": "in_progress",
-      "status": "NOT_RUN",
+      "progress": "done",
+      "status": "PASS",
       "gate": "N01_RESEARCH_LANDSCAPE_VERIFIED",
-      "gate_status": "NOT_RUN",
+      "gate_status": "PASS",
       "gpu_required": false,
       "notes": [
         "All four primary-source verification sweeps completed 2026-11-27 and stored under evidence/IJNANO/N01/agent_reports/ (R01_R04, R02_R08, R03_R05_R06, R07_R09).",
         "Key verified facts: effGen Apache-2.0, real 1.5B/3B models, runtime-only gains, McNemar p<0.05, ~52 deps; slm-harness-adaptation MIT but no 1-3B total models (MoE active-param distinction); TinyAgent MIT, only 1.1B model is 1-3B but headline rests on fine-tuned weights (+66 pts LoRA vs +1.2 ToolRAG), macOS-only tools, dormant; Growing Harness paper-only (no code, >=4B models, arXiv 2609.26760); Meta-Harness MIT, frozen >=20B models, no LLM judge, Claude-Code proposer, artifact repo unlicensed; PTC-Decoder VERIFIED incl. Qwen3.5-2B experiments, transformers-only (not llama.cpp), LLM-judged, 2.07x token overhead, MIT; llama.cpp current stable v1.1.0 vs our pinned b12359; LLGuidance MIT ~50us/token masks; XGrammar Apache-2.0 with XGrammar-2 triggered_tags as the state-dependent-constraint reference design; MagenticLite = microsoft/magentic-ui next gen, MIT, 9-14B models, WSL2-only on Windows, 27 deps; SDK reuse ranking: PocketFlow (0 deps) > pydantic-ai-slim (9 deps) > smolagents (LlamaCppModel).",
-        "research_catalog.json (all subjects R01-R09 + cross-cutting answers) committed at f3d5817; ledger entry corrected at N00RR.",
-        "Remaining for gate: license_matrix.json, CN/EN landscape reports, reuse decision report (IJ-NANO-1.1 section 2)."
+        "Closure 2026-11-27: license_matrix.json (18 entries incl. MODEL-S2), CN/EN content-equivalent landscape reports, component-level reuse decision delivered; reuse classes preserved verbatim from the catalog; capability-dependent bindings explicitly deferred to N02R/N03 (decision report section 4)."
+      ],
+      "delivered_utc": "2026-11-27T13:35:00Z",
+      "evidence": [
+        "evidence/IJNANO/N01/research_catalog.json",
+        "evidence/IJNANO/N01/license_matrix.json",
+        "evidence/IJNANO/N01/agent_reports/",
+        "reports/IJNANO_01_RESEARCH_LANDSCAPE_EN.md",
+        "reports/IJNANO_01_RESEARCH_LANDSCAPE_CN.md",
+        "reports/IJNANO_OPEN_SOURCE_REUSE_DECISION.md"
       ]
     },
     "N02": {
@@ -180,8 +210,16 @@
         "scope": "SOFTWARE_ONLY (unittest; no physical runtime qualification implied)",
         "progress": "done",
         "status": "PASS",
-        "evidence": ["src/nanoagent/{core,gateway}/", "tests/ij_nano/ (36 tests green)"],
-        "covered_defect_classes": ["D04", "D05", "D06", "D07 (event-log half)"],
+        "evidence": [
+          "src/nanoagent/{core,gateway}/",
+          "tests/ij_nano/ (36 tests green)"
+        ],
+        "covered_defect_classes": [
+          "D04",
+          "D05",
+          "D06",
+          "D07 (event-log half)"
+        ],
         "outstanding": "none at Layer A software scope; NA-D01..NA-D08 repaired 2026-11-27 (see N06A-R); durable transactional storage deferred to persistent-world work"
       },
       "gate": "N06_NANOAGENT_MODULAR_RUNTIME_IMPLEMENTED",

@@ -43,14 +43,16 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N00RR | Update PR #11 description (old GPU blocker -> N00R resolution + N02 PASS + scoped status) | done | PASS | PR #11 body |
 | N00RR | IJ-SLM-1.0 remote advanced `364c7ca..a34aae7`; confirmed untouched | done | PASS | `git fetch` record in N00RR notes |
 
-## N01 (in progress)
+## N01 (2026-11-27, done)
 
 | Phase | Task | Progress | Status | Evidence |
 |---|---|---|---|---|
 | N01 | Primary-source verification R01-R09 via four parallel research agents (papers, repos, licenses, models, mechanisms, statistics) | done | PASS (verification sweeps; consolidation pending) | `evidence/IJNANO/N01/agent_reports/{R01_R04,R02_R08,R03_R05_R06,R07_R09}_verification.md` |
 | N01 | research_catalog.json (all subjects + cross-cutting answers; committed at `f3d5817`; ledger row corrected at N00RR) | done | PASS | `evidence/IJNANO/N01/research_catalog.json` |
-| N01 | license_matrix.json | not started | NOT_RUN | — |
-| N01 | Landscape reports CN/EN + open-source reuse decision | not started | NOT_RUN | — |
+| N01 | license_matrix.json (18 entries incl. MODEL-S2 LFM revenue-conditioned line, TB2 UNLICENSED, PTC paper CC BY-NC-SA) | done | PASS | `evidence/IJNANO/N01/license_matrix.json` |
+| N01 | Landscape reports CN/EN (content-equivalent; per-subject evidence + 4 distinction tables + 10-axis component comparison + honest conclusions) | done | PASS | `reports/IJNANO_01_RESEARCH_LANDSCAPE_{EN,CN}.md` |
+| N01 | Component-level reuse decision (6 components; capability-dependent bindings deferred to N02R/N03 with explicit change-triggers) | done | PASS | `reports/IJNANO_OPEN_SOURCE_REUSE_DECISION.md` |
+| N01 | Gate `N01_RESEARCH_LANDSCAPE_VERIFIED` (documentation scope; all candidate validations NOT_RUN, preserved) | done | PASS | gate recorded in `MISSION_STATE_IJNANO.json` |
 
 ## N02 (2026-11-27, done)
 
