@@ -2,6 +2,8 @@
 
 The current replay covers 4,950 of the 4,950 priority Radeon attempts and 6,210 of the 8,250 five-model TC-V3 attempts. The remaining core allocation is 30,340 of 36,550. The original strict TC-V3 verdict is BLOCKED on all 6,210 sealed attempts. The priority cohort is complete. This snapshot includes 1,260 F trials following its independent admission. G remains NOT_RUN. [Formal dashboard](../atlas/slm/v1.0/physical_progress.md) · [Five-model passports](../atlas/slm/v1.0/tc-capability-passports.json) · [F/G admission evidence](../evidence/IJSLM/tc-v3-admissions/manifest.json)
 
+The five-model baseline also includes planned and observed denominators by model, track, task family, language and risk. Missing slot status, streaming verdict agreement and repeat-level reliability are recorded separately. [Five-model capability matrix](../atlas/slm/v1.0/tc-five-model-report.json)
+
 ## Native, SDK, and specialization
 
 Each baseline row uses the matched first-attempt snapshot for the model and track. Metric entries report passes over observed PASS plus FAIL trials. The machine-readable matrix retains separate BLOCKED and NOT_RUN counts. A fact proof requires a scoped synthetic read, an exact business value, and source-linked delivery of what the model needed to answer. [Metric definitions and counts](../atlas/slm/v1.0/tc-capability-matrix.json)

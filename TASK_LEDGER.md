@@ -15,6 +15,8 @@
 | M4 human blind review | NOT_RUN | Project engineering prepared 600 MULTITOOL cases and 800 Planning cases. Independent reviewer assignment, observations and credential issuance are pending. [Reviewer inputs and procedure](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md) |
 | TC-V3 F publication | PASS | 1,260/1,650 F captures verified and published with matching artifacts. Across all models the publication contains 6,210/8,250. D25 remains BLOCKED. |
 | M4 cross-level partition and proposed world allocation | PASS | Candidate 0.4 preserves 800 cases and the 20,800 proposed slots, with 2,500 software worlds. Old L1 lookup recovered none of 800 previously predictable values. Physical and semantic qualification remain open. [Candidate](atlas/slm/v1.0/planning-v2-source-candidate-0.4/manifest.json) |
+| M1 five-model matrix software replay | PASS | All 8,250 planned slots are reported with applicability and observation denominators. Physical coverage remains BLOCKED. [Report](atlas/slm/v1.0/tc-five-model-report.json) |
+| M4 independent review intake verification | PASS | Packet, submission digest, scenario completeness and duplicate controls are checked in software. Human review, reconciliation and issuer pin registration remain outstanding. |
 
 ## IJ-SLM-1.0 baseline
 

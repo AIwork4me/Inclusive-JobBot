@@ -11,6 +11,17 @@ Use the [MULTITOOL-V2 candidate 0.3 packet](MULTITOOL_V2_BLIND_REVIEW_PACKET/PAC
 5. Mark PASS when the independent expectation is supported by the supplied inputs. Mark FAIL for a clear contradiction, unsafe consequence, wrong dependency or material partition overlap. Mark BLOCKED if information or authoring provenance is insufficient. Use NOT_RUN for work still unreviewed.
 6. Submit a UTF-8 verdict JSON document privately to benchmark engineering using `review-verdict.schema.json`. Use the manifest digest, an assigned pseudonymous reviewer ID, the review date and a digest of the finalized independent expectations. The issuer records reviewer independence and receipt privately. Submit no real approval values, usernames, account names or private business data.
 
+## Intake verification
+
+The issuer records the exact UTF-8 submission digest at receipt. The repository verifier checks that digest, the pinned packet and scenario roster, the independent-expectation digest, and duplicate or missing verdicts. The expectation digest is SHA256 over the canonical JSON array of `case_id`, `scenario_id` and `independent_expectation` from each returned finding, sorted by case and scenario ID.
+
+```powershell
+$env:PYTHONPATH = 'src'
+python -m benchmarks.slm10.blind_review_receipt --packet '<repository-packet-directory>' --verdict '<private-verdict.json>' --received-sha256 '<issuer-recorded-sha256>'
+```
+
+The verifier returns counts and digests suitable for reconciliation. The issuer checks reviewer independence and authority against its private assignment record. Retain the submitted file and exact review scope outside the repository until approved for publication.
+
 ## Reconciliation and sign-off
 
 Freeze and hash the independent expectation before the source oracle is opened. A separate reconciler joins candidate inputs, independent expectation, oracle and witness using the pinned candidate digest and case/scenario IDs. Record both expectations, counterevidence, impact, affected scope and whether the defect is in the prompt, world, witness, evaluator, or partition. Preserve every original discrepancy. Reissue affected content as a new candidate digest and assign blind re-review to an independent reviewer. Keep disagreement BLOCKED until the accountable review owner records its resolution.
