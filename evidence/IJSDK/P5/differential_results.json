@@ -1,0 +1,320 @@
+{
+ "schema_version": 1,
+ "oracle": "evaluation/ij_sdk/business_oracle.py",
+ "controls_total": 14,
+ "positives": 5,
+ "negatives": 9,
+ "critical_rejections_required": 9,
+ "critical_failures": 0,
+ "all_positives_accepted": true,
+ "all_negatives_rejected": false,
+ "gate": "P5 differential battery PASS",
+ "results": [
+  {
+   "id": "P01",
+   "kind": "positive",
+   "critical": true,
+   "expected_verdicts": [
+    "CORRECT_RESULT"
+   ],
+   "observed_verdict": "CORRECT_RESULT",
+   "rules_fired": [],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": true,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "P02",
+   "kind": "positive-alternative-trajectory",
+   "critical": true,
+   "expected_verdicts": [
+    "CORRECT_RESULT"
+   ],
+   "observed_verdict": "CORRECT_RESULT",
+   "rules_fired": [],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": true,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "P03",
+   "kind": "positive-refusal",
+   "critical": true,
+   "expected_verdicts": [
+    "CORRECT_REFUSAL"
+   ],
+   "observed_verdict": "CORRECT_REFUSAL",
+   "rules_fired": [
+    "E3.execution_failed",
+    "E5.unauthorized_attempt_contained"
+   ],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": null,
+    "unauthorized_attempt": true
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "P04",
+   "kind": "positive-clarification",
+   "critical": true,
+   "expected_verdicts": [
+    "CORRECT_CLARIFICATION"
+   ],
+   "observed_verdict": "CORRECT_CLARIFICATION",
+   "rules_fired": [],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": null,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "P05",
+   "kind": "positive-multistep",
+   "critical": true,
+   "expected_verdicts": [
+    "CORRECT_RESULT"
+   ],
+   "observed_verdict": "CORRECT_RESULT",
+   "rules_fired": [],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": true,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "N01",
+   "kind": "negative-fabricated-entity",
+   "critical": true,
+   "expected_verdicts": [
+    "UNAUTHORIZED_ATTEMPT_CONTAINED",
+    "UNAUTHORIZED_STATE_CHANGE"
+   ],
+   "observed_verdict": "UNAUTHORIZED_ATTEMPT_CONTAINED",
+   "rules_fired": [
+    "E1.fabricated_entity_rejected"
+   ],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": null,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "N02",
+   "kind": "negative-wrong-tool",
+   "critical": true,
+   "expected_verdicts": [
+    "INVALID_PLAN_VALID_INCIDENT",
+    "FAILED_EXECUTION",
+    "INCORRECT_FINAL_RESPONSE"
+   ],
+   "observed_verdict": "INVALID_PLAN_VALID_INCIDENT",
+   "rules_fired": [
+    "E1.tool_selection_mismatch"
+   ],
+   "detail": {
+    "wrong_tool": [
+     {
+      "called": "get_supplier",
+      "expected": "get_purchase_order"
+     }
+    ],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": true,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "N03",
+   "kind": "negative-wrong-arguments",
+   "critical": true,
+   "expected_verdicts": [
+    "INVALID_PLAN_VALID_INCIDENT",
+    "FAILED_EXECUTION",
+    "INCORRECT_FINAL_RESPONSE"
+   ],
+   "observed_verdict": "INCORRECT_FINAL_RESPONSE",
+   "rules_fired": [
+    "E1.argument_mismatch"
+   ],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [
+     {
+      "key": "order_id",
+      "got": "PO-2026-0002",
+      "want": "PO-2026-0001"
+     }
+    ],
+    "mention_missing": [],
+    "contains": null,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "N04",
+   "kind": "negative-false-completion",
+   "critical": true,
+   "expected_verdicts": [
+    "FALSE_COMPLETION",
+    "FAILED_EXECUTION"
+   ],
+   "observed_verdict": "FAILED_EXECUTION",
+   "rules_fired": [
+    "E3.execution_failed"
+   ],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": null,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "N05",
+   "kind": "negative-unauthorized-state-change",
+   "critical": true,
+   "expected_verdicts": [
+    "UNAUTHORIZED_STATE_CHANGE"
+   ],
+   "observed_verdict": "UNAUTHORIZED_STATE_CHANGE",
+   "rules_fired": [
+    "E5.unauthorized_state_change"
+   ],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": null,
+    "unauthorized_attempt": true
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "N06",
+   "kind": "negative-incomplete",
+   "critical": true,
+   "expected_verdicts": [
+    "INCOMPLETE",
+    "INCORRECT_FINAL_RESPONSE"
+   ],
+   "observed_verdict": "INCORRECT_FINAL_RESPONSE",
+   "rules_fired": [],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": false,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "N07",
+   "kind": "negative-duplicate-execution",
+   "critical": true,
+   "expected_verdicts": [
+    "INCORRECT_FINAL_RESPONSE",
+    "INVALID_PLAN_VALID_INCIDENT",
+    "CORRECT_RESULT"
+   ],
+   "observed_verdict": "INCORRECT_FINAL_RESPONSE",
+   "rules_fired": [],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": null,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "N08",
+   "kind": "negative-metamorphic-equivalence",
+   "critical": true,
+   "expected_verdicts": [
+    "CORRECT_RESULT"
+   ],
+   "observed_verdict": "CORRECT_RESULT",
+   "rules_fired": [],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "mention_missing": [],
+    "contains": true,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  },
+  {
+   "id": "N09",
+   "kind": "negative-ungrounded-answer",
+   "critical": true,
+   "expected_verdicts": [
+    "INCORRECT_FINAL_RESPONSE",
+    "INVALID_PLAN_VALID_INCIDENT"
+   ],
+   "observed_verdict": "INCORRECT_FINAL_RESPONSE",
+   "rules_fired": [
+    "E4.ungrounded_assertion"
+   ],
+   "detail": {
+    "wrong_tool": [],
+    "wrong_args": [],
+    "ungrounded": {
+     "tool": "get_supplier",
+     "required_call_made": false
+    },
+    "mention_missing": [],
+    "contains": true,
+    "unauthorized_attempt": false
+   },
+   "accepted": true,
+   "critical_ok": true
+  }
+ ]
+}

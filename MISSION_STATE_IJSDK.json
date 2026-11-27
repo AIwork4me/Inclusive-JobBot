@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-SDK-1.0",
   "mission_title": "Cross-SDK Agentic Capability Benchmark for 2B-class SLMs",
-  "updated_utc": "2026-11-27T12:30:00Z",
-  "current_phase": "P2-P3 (P1 gate reached)",
+  "updated_utc": "2026-11-27T14:20:00Z",
+  "current_phase": "P5 (P0-P3 gates reached)",
   "tracking_issue": 7,
   "draft_pr": 8,
   "research_branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
@@ -46,8 +46,27 @@
       "Matched F-vulkan vs F-rocm: 52/52 identical outputs; ROCm prefill 2159 tok/s vs Vulkan 1318, decode 249 vs 224.",
       "Wheel identity drift recorded: same version spec served different bytes on 2026-11-24 vs 2026-11-27; pin by digest going forward."
     ]},
-    "P2": {"progress": "not_started", "status": "NOT_RUN", "gate": "P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN", "evidence": []},
-    "P3": {"progress": "not_started", "status": "NOT_RUN", "gate": "P3_SDK_ADMISSION_AUDITED", "evidence": []},
+    "P2": {"progress": "done", "status": "PASS", "gate": "P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN", "evidence": [
+      "reports/IJSDK_02_MODEL_ADMISSION.md",
+      "configs/ij_sdk/model_admission_protocol.json",
+      "models/ij_sdk/model_manifest.json",
+      "evidence/IJSDK/P2/admission/"
+    ], "notes": [
+      "S3 = Qwen3.5-2B (preregistered rule). S1 9/10, S2 9/10 (dev-gen v1.0.1).",
+      "F19 dataset/task ambiguity CONFIRMED and repaired (v1.0.0 -> v1.0.1); v1.0.0 kept as diagnostic.",
+      "R1 byte-identical to prior pin; R2 pinned from atlas evidence, downloaded, digest-verified.",
+      "Recovery command: python -I benchmarks/ij_sdk/admission_smoke.py --candidate <ID> --model <path> --alias <alias> --backend vulkan --output <out.json>"
+    ]},
+    "P3": {"progress": "done", "status": "PASS", "gate": "P3_SDK_ADMISSION_AUDITED", "evidence": [
+      "reports/IJSDK_03_SDK_SURVEY_AND_ADMISSION.md",
+      "evidence/IJSDK/P3/sdk_research_findings.json",
+      "evidence/IJSDK/P3/installed_artifacts.json",
+      "evidence/IJSDK/P3/conformance/"
+    ], "notes": [
+      "All 10 arms (B1-B9, O1) pass C1/C2/C3 against pinned local server through their own interfaces.",
+      "SEC-01: agent-framework pinned 1.26.0 (1.26.1/.2 hijacked). Responses-API trap encoded for adapters.",
+      "Recovery command: python -I scripts/tools/ij_sdk_sdk_conformance.py --model q8 --backend vulkan"
+    ]},
     "P4": {"progress": "not_started", "status": "NOT_RUN", "gate": "P4_CROSS_SDK_HARNESS_GO", "evidence": []},
     "P5": {"progress": "not_started", "status": "NOT_RUN", "gate": "P5_EVALUATOR_SCOPE_QUALIFIED", "evidence": []},
     "P6": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
