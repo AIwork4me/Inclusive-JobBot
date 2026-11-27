@@ -189,13 +189,25 @@
       "summary": "publication decision parsed from the scanner's actual finding count (summary-line contract + count-parity guard + unknown-state guard), never the exit code alone; synthetic control (documentation-example key assembled at runtime from fragments, no real personal information) proves findings block regardless of exit code; repo-wide check currently PASS (0 findings)"
     },
     "N02R": {
-      "title": "IJ-NANO-1.1 Model x Inference Protocol causal analysis (A0-A7 arms, 64..1024 budgets, >=60-task screen)",
-      "progress": "not_started",
+      "title": "Model x Inference Protocol causal analysis (IJ-NANO-1.2 order + N02R addendum)",
+      "progress": "in_flight",
       "status": "NOT_RUN",
       "gate": "N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED",
       "gate_status": "NOT_RUN",
       "gpu_required": true,
-      "note": "raw S2 protocol artifact overall:FAIL is preserved as-is; probe false-positive audit (empty-content PASS, tool-call semantics, cancellation scope, SSE accounting) precedes the controlled arms"
+      "note": "v1 screen (experiment 36bfed1d55a9987b, 1440/1440 executed, sealed) reclassified development/diagnostic per the addendum: PR-D01 information asymmetry, PR-D02 P5 contract defect, PR-D03 P7 inapplicable families, PR-D04 parser defects, PR-D06/D07 identity+socket gaps, PR-D08/D09 truncated raw evidence - all reproduced and documented; disposition evidence_disposition.json (871 EVIDENCE_INSUFFICIENT / 303 DIAGNOSTIC_ONLY / 71 OFFLINE_RESCORE_POSSIBLE / 165 VALID_AS_IS / 30 PHYSICAL_REEXECUTION_REQUIRED). Integration gate N02R_PARSER_EVALUATOR_INTEGRATION_GO PASS. Corrected experiment 7a1b9d7d160202d8 (arms_v2/controller_v2: information-matched M-arms, P5A/P5B split, P7 applicability + P7S two-stage, T0-T3 causal set with --reasoning-budget server profile, full identity binding, netstat socket-PID, content-addressed response artifacts, NOT_CAPTURED telemetry) executing: 1680 main + 504 panel unique logical slots under the host-wide lease",
+      "addendum": "docs/IJNANO_MISSION_ORDER_V1_2_N02R_ADDENDUM.md",
+      "evidence_so_far": [
+        "evidence/IJNANO/N02R/source_level_findings.md",
+        "evidence/IJNANO/N02R/pr_d01_information_manifest.json",
+        "evidence/IJNANO/N02R/pr_concerns_red_run.txt",
+        "evidence/IJNANO/N02R/evidence_disposition.json",
+        "evidence/IJNANO/N02R/parser_evaluator_qualification.json",
+        "evidence/IJNANO/N02R/runs/36bfed1d55a9987b/ (sealed v1 screen)",
+        "evidence/IJNANO/N02R/runs/7a1b9d7d160202d8/ (corrected experiment)",
+        "reports/IJNANO_02R_EXPERIMENT_INTEGRITY_AUDIT.md",
+        "reports/IJNANO_02R_PROTOCOL_CAUSAL_ANALYSIS.md (sections 1-4 final)"
+      ]
     },
     "N03": {
       "title": "Fine-grained SLM cognitive capability profiling (C01-C32)",

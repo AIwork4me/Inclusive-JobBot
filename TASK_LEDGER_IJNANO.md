@@ -108,3 +108,22 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N05AR | EV07 reconciliation + strict validation: 19 declared = 19 tested codes; ARGUMENT_MISMATCH obsolete with disposition; construction-time validation; validate_control_battery + qualify_family_scope dataset rules | done | PASS | `contracts.py`, `qualification.py`, `evidence/IJNANO/N05AR/coverage_matrix.json` |
 | N05AR | Gate `N05AR_COGNITIVE_EVALUATOR_INTEGRITY_GO` (scoped; NOT the business Oracle) | done | PASS | `reports/IJNANO_05AR_COGNITIVE_EVALUATOR_REQUALIFICATION.md`, `evidence/IJNANO/N05AR/defect_ledger.json` |
 | N05AR | Publication check (order §10): fail-closed finding-count decision + synthetic scanner control | done | PASS | `scripts/tools/publish_check.py`, `tests/ij_nano/test_publish_check.py` (9 tests OK; repo-wide check PASS) |
+
+## N02R (2026-11-27, IJ-NANO-1.2 order + addendum, in flight)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| N02R | Source-level llama.cpp b12359 investigation (chat template, thinking config, reasoning parser, grammar activation, json-schema conversion, budget accounting, GBNF escaped-quote) | done | PASS | `evidence/IJNANO/N02R/source_level_findings.md`; lazy-grammar root cause identified at source level |
+| N02R | Matched 60-task suite + P0-P7 arm harness + evaluator-v2 scorer + resumable GPU controller + analyzer | done | PASS | `benchmarks/ij_nano/n02r/{tasks,arms,scorer,controller}.py`, suite hash frozen |
+| N02R | Identity reverification before physical execution (10/10 weights MATCH, engine hashed) | done | PASS | `evidence/IJNANO/N02R/identity_verification.json` |
+| N02R | Probe audit §3.2 (empty-content gate, tool-call semantics, SSE reconciliation incl. reasoning channel, cancellation scope, /apply-template, escaped-quote decomposition F1-F7) | done | PASS | `runs/*/probe_audit_*.json`; S2 escaped-quote engine record corrected (construction error, not parser defect) |
+| N02R | v1 main screen 3x8x60 @1024 (experiment 36bfed1d55a9987b) | done (executed 1440/1440; sealed) | DIAGNOSTIC (reclassified per addendum) | `runs/36bfed1d55a9987b/{results.jsonl,manifest.json,seal.json}` |
+| N02R | Addendum committed verbatim | done | PASS | `docs/IJNANO_MISSION_ORDER_V1_2_N02R_ADDENDUM.md` (5ea13f6) |
+| N02R | PR-D01 information-equivalence manifest (request-level, per family) | done | PASS (asymmetry reproduced) | `evidence/IJNANO/N02R/pr_d01_information_manifest.json` |
+| N02R | PR-D02/D03/D04/D05 offline reproduction + repairs (arms_v2 parser v2, P5A/P5B, P7 applicability, P7S two-stage) | done | PASS (13 red -> 24/24 green) | `evidence/IJNANO/N02R/pr_concerns_red_run.txt`, `tests/ij_nano/test_n02r_pr_concerns.py`, `benchmarks/ij_nano/n02r/arms_v2.py` |
+| N02R | PR-D06/D07/D08/D09 repairs (full identity binding, netstat socket-PID, NOT_CAPTURED telemetry, content-addressed artifacts) | done | PASS | `benchmarks/ij_nano/n02r/controller_v2.py`, run 7a1b9d7d manifest/sessions |
+| N02R | PR-D10 denominator reconciliation (v1 plan 2,016 unique not 2,160; corrected plan 2,184 unique logical slots) | done | PASS | `scripts/ij_nano/n02r_analyze_v2.py`, analyzer denominators block |
+| N02R | Evidence disposition for v1 trials (never modified) | done | PASS | `evidence/IJNANO/N02R/evidence_disposition.json` |
+| N02R | Gate `N02R_PARSER_EVALUATOR_INTEGRATION_GO` (15/15 mandatory negatives, hashes bound) | done | PASS | `evidence/IJNANO/N02R/parser_evaluator_qualification.json` |
+| N02R | Corrected experiment 7a1b9d7d160202d8: smoke 57/57 validated; main 1680 + panel 504 executing under lease | in flight | NOT_RUN | `runs/7a1b9d7d160202d8/` |
+| N02R | Gate `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED` | pending campaign + analysis | NOT_RUN | — |
