@@ -21,6 +21,7 @@ from .sdk_adapter_development import HANDOFF, PLAN, ROOT, load_plan, load_profil
 from .sdk_causal_metrics import answer_metrics, assign_actions, replay_wire
 from .sdk_wave_queue import verify_gpu_artifact
 from .tc_dashboard import percentile
+from .tc_v3 import CONFIG, PARAMETERS, TOOLS
 from .tc_verification import delivered_result
 
 
@@ -83,8 +84,7 @@ def validate_pairs(report, cases):
 
 def _verified_capture(path, plan, expected_sha256):
     from benchmarks.competitive_slm.tc_v2_candidate import VULKAN_DEVICE, verify_launch
-    from .native_diagnostics import OBSERVER_HASHES
-    from .tc_execution import provider_profile
+    from .multitool_v2_statistics import observer_identity
 
     raw = path.read_bytes()
     check_text(raw)
@@ -102,12 +102,17 @@ def _verified_capture(path, plan, expected_sha256):
                     handoff_sha256=digest(ROOT / HANDOFF), profiles=profile_pair, independent_holdout=True,
                     source_sha256={name: digest(Path(__file__).with_name(name)) for name in local_sources},
                     wire_boundary_sha256=digest(ROOT / "benchmarks/ij06_sdk/wire_boundary.py"),
-                    provider_configuration=provider_profile(False, plan["cases"][0]["seed"]))
+                    provider_configuration={
+                        "stream": False, "seed": plan["cases"][0]["seed"], "temperature": CONFIG["temperature"],
+                        "max_completion_tokens": CONFIG["max_completion_tokens"], "cache_prompt": CONFIG["cache_prompt"],
+                        "chat_template_kwargs": {"enable_thinking": CONFIG["thinking"]},
+                        "parallel_tool_calls": True, "tool_choice": "auto",
+                    })
     identity = json.loads((ROOT / "evidence/IJ07/model_identity/B.json").read_bytes())
     runtime = json.loads((ROOT / "evidence/IJ07/model_identity/admission_strict/B/report.json").read_bytes())
     asset, old_gpu = identity["runtime_asset"], runtime["gpu"]
-    expected.update(engine_sha256=runtime["gpu_engine"]["dll_sha256"] | OBSERVER_HASHES,
-                    harness_sha256=json.loads((OUTPUT / "pilot-B/report.json").read_bytes())["harness_sha256"],
+    engine_hashes, _, harness = observer_identity()
+    expected.update(engine_sha256=engine_hashes, harness_sha256=harness,
                     model={"official_model_id": identity["official_model_id"], "runtime_repo": asset["repo"],
                            "runtime_revision": asset["revision"], "filename": asset["filename"],
                            "model_sha256": asset["expected_sha256"], "quantization": "Q8_0",
@@ -179,10 +184,12 @@ def analyze_capture(capture, oracle, native, *, public, provider_configuration=N
                     f"<USER_REQUEST>\n{prompt}\n</USER_REQUEST>") != 1):
                 raise ValueError("holdout request differs from the pinned public prompt")
             if provider_configuration is not None:
-                from .tc_execution import public_tools
-
+                tools = [
+                    {"type": "function", "function": {"name": name, "description": TOOLS[name], "parameters": PARAMETERS}}
+                    for name in public["tools"]
+                ]
                 if (any(body.get(key) != value for key, value in provider_configuration.items())
-                        or body.get("tools") != public_tools(public)):
+                        or body.get("tools") != tools):
                     raise ValueError("holdout provider options or tool scope differ from the pinned configuration")
             indices, sources = audit["message_indices"], audit["callback_sources"]
             if not compact and (indices or sources) or len(indices) != len(sources) or len(set(indices)) != len(indices):

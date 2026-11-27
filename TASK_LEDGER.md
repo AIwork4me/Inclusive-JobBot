@@ -28,6 +28,8 @@
 | P0-C independent release intake | PASS | Legal path templates and signed receipts, reconciliation, issuer scope and runner-binding guard are software-checked. Formal dispatch remains BLOCKED pending authenticated external receipts, credential issuance and a registered physical launcher. [Workflow](atlas/slm/v1.0/release-review/RELEASE_WORKFLOW.md) |
 | P0-B independent output compensation design | PASS | Preregistered commensurate D/F SDK terminal-only experiments use four arms and score after execution. The physical intervention is a separate zero-core track. [Experiment](reports/SLM11_ONLINE_COMPENSATION.md) |
 
+| P0-B portable verifier offline replay | PASS | Hosted-style replay verifies all 81 captured trials with the live Antigravity SDK unavailable. Observer identity comes from the sealed control. |
+
 ## IJ-SLM-1.0 baseline
 
 | Continuation | Status | Evidence |

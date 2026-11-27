@@ -17,7 +17,7 @@ from evaluation.aeve.gpu_handoff import HANDOFF
 from evaluation.aeve.runtime import ROOT, canonical, fingerprint
 
 from . import p0e_radeon, sdk_extension_execution as extension
-from .native_diagnostics import OBSERVER_HASHES
+from .multitool_v2_statistics import observer_identity
 from .portable import portable
 from .sdk_adapter_holdout_report import holdout_report
 from .sdk_wave_queue import verify_gpu_artifact
@@ -86,12 +86,12 @@ def runtime_identity(report, candidate, owner, prefix):
                "template": {"sha256": baseline_gpu["template_sha256"]}}
     handoff = json.loads((ROOT / HANDOFF).read_bytes())["lease"]
     lease = report["gpu"]["gpu_lease"]
-    harness = json.loads((ROOT / "evidence/IJSLM/sdk-causal/pilot-B/report.json").read_bytes())["harness_sha256"]
+    engine_hashes, _, harness = observer_identity()
     require(report["candidate"] == candidate and report["git_sha"] == CAPTURE_GIT
             and re.fullmatch(prefix + r"[a-f0-9]{32}", report["run_id"])
             and report["handoff_sha256"] == digest(ROOT / HANDOFF)
             and report["gpu_execution"] == "PASS"
-            and report["engine_sha256"] == pinned["gpu_engine"]["dll_sha256"] | OBSERVER_HASHES
+            and report["engine_sha256"] == engine_hashes
             and all(lease[key] == handoff[key] for key in ("host_sha256", "gpu_physical_sha256"))
             and lease["runtime_session"] == report["run_id"] and lease["lease_owner"] == owner
             and lease["mission_id"] == "IJ-SLM-1.0"

@@ -1,9 +1,12 @@
 from collections import Counter
+import os
 from pathlib import Path
+import subprocess
+import sys
 
 import pytest
 
-from benchmarks.slm10.physical_followup import OUTPUT, describe, verified_payload, wire_observation
+from benchmarks.slm10.physical_followup import OUTPUT, ROOT, describe, verified_payload, wire_observation
 
 
 def test_replay_and_original_dispositions():
@@ -31,3 +34,23 @@ def test_used_completion_cannot_be_reused_between_trials():
     event = {"native_evidence": {"status": "PASS"}, "completion_id": "sample", "source_generation": source}
     with pytest.raises(ValueError, match="native completion"):
         wire_observation({"wire": [event]}, {"sample": source}, {"sample"})
+
+
+def test_portable_replay_without_runtime_sdk():
+    runner = '''
+import runpy
+import sys
+from importlib.abc import MetaPathFinder
+
+
+class NoRuntimeSdk(MetaPathFinder):
+    def find_spec(self, fullname, path=None, target=None):
+        if fullname == "google" or fullname.startswith("google."):
+            raise ModuleNotFoundError(fullname)
+
+
+sys.meta_path.insert(0, NoRuntimeSdk())
+runpy.run_module("benchmarks.slm10.physical_followup", run_name="__main__")
+'''
+    environment = {**os.environ, "PYTHONPATH": str(ROOT / "src")}
+    subprocess.run([sys.executable, "-c", runner], cwd=ROOT, env=environment, check=True, timeout=45)
