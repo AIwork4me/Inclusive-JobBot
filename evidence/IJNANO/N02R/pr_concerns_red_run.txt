@@ -1,0 +1,139 @@
+# N02R addendum red run (audited impl 9b137f6; experiment 36bfed1d still executing at capture)
+# Command: python -I -m unittest discover -s tests/ij_nano -t . -p test_n02r_pr_concerns.py
+F.FFFF..F....FFF.F.F.FF
+======================================================================
+FAIL: test_perfect_record_answer_response_not_rejected (tests.ij_nano.test_n02r_pr_concerns.TestPRD02P5Contract.test_perfect_record_answer_response_not_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 82, in test_perfect_record_answer_response_not_rejected
+    self.assertTrue(parsed.get("structural_ok"),
+AssertionError: False is not true : valid per supplied contract rejected: {'structural_ok': False, 'payload': None, 'notes': 'unknown tool name in tool_call'}
+
+======================================================================
+FAIL: test_applicability_matrix_exists_and_is_preregistered (tests.ij_nano.test_n02r_pr_concerns.TestPRD03P7Applicability.test_applicability_matrix_exists_and_is_preregistered)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 24, in _require
+    return fn()
+           ^^^^
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 93, in <lambda>
+    lambda: arms.P7_APPLICABILITY)
+            ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'n02r.arms' has no attribute 'P7_APPLICABILITY'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 91, in test_applicability_matrix_exists_and_is_preregistered
+    applicable = _require(
+                 ^^^^^^^^^
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 26, in _require
+    test.fail(f"capability absent: {description} "
+AssertionError: capability absent: arms.P7_APPLICABILITY registry (AttributeError: module 'n02r.arms' has no attribute 'P7_APPLICABILITY')
+
+======================================================================
+FAIL: test_p7_slot_prompt_has_no_degenerate_candidate_list (tests.ij_nano.test_n02r_pr_concerns.TestPRD03P7Applicability.test_p7_slot_prompt_has_no_degenerate_candidate_list)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 107, in test_p7_slot_prompt_has_no_degenerate_candidate_list
+    self.assertNotIn("Available answers:\n\n", prompt,
+AssertionError: 'Available answers:\n\n' unexpectedly found in '上下文 / context: order_id = ORD-1042. 工具已选定: orders.lookup_order. / Tool already chosen: orders.lookup_order.\nAvailable answers:\n\n查询订单，单号在上下文里。 只回答参数值。 / Answer with the argument value only.\nAnswer with the NUMBER only (1-0).' : P7 renders an empty candidate list for slot tasks
+
+======================================================================
+FAIL: test_competing_candidates_expected_first_still_rejected (tests.ij_nano.test_n02r_pr_concerns.TestPRD04ParserNegatives.test_competing_candidates_expected_first_still_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 137, in test_competing_candidates_expected_first_still_rejected
+    self.assertFalse(scored["semantic_correct"],
+AssertionError: True is not false : ambiguous answer accepted because the expected candidate happens to be found first
+
+======================================================================
+FAIL: test_contradictory_final_answer_rejected (tests.ij_nano.test_n02r_pr_concerns.TestPRD04ParserNegatives.test_contradictory_final_answer_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 160, in test_contradictory_final_answer_rejected
+    self._assert_rejected("P0", task, http, "contradictory answer")
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 119, in _assert_rejected
+    self.assertFalse(scored["semantic_correct"],
+AssertionError: True is not false : contradictory answer: semantically invalid output ACCEPTED (parsed={'structural_ok': True, 'payload': {'decision': 'stop'}})
+
+======================================================================
+FAIL: test_incorrect_dsl_slot_name_rejected (tests.ij_nano.test_n02r_pr_concerns.TestPRD04ParserNegatives.test_incorrect_dsl_slot_name_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 215, in test_incorrect_dsl_slot_name_rejected
+    self._assert_rejected("P6", task, http, "incorrect DSL slot name")
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 119, in _assert_rejected
+    self.assertFalse(scored["semantic_correct"],
+AssertionError: True is not false : incorrect DSL slot name: semantically invalid output ACCEPTED (parsed={'structural_ok': True, 'payload': {'args': {'order_id': 'ORD-1042'}}})
+
+======================================================================
+FAIL: test_multiple_tool_calls_flagged (tests.ij_nano.test_n02r_pr_concerns.TestPRD04ParserNegatives.test_multiple_tool_calls_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 188, in test_multiple_tool_calls_flagged
+    self._assert_rejected("P5", task, http, "multiple tool calls")
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 119, in _assert_rejected
+    self.assertFalse(scored["semantic_correct"],
+AssertionError: True is not false : multiple tool calls: semantically invalid output ACCEPTED (parsed={'structural_ok': True, 'payload': {'branch': 'auto_approve'}})
+
+======================================================================
+FAIL: test_negated_candidate_rejected (tests.ij_nano.test_n02r_pr_concerns.TestPRD04ParserNegatives.test_negated_candidate_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 145, in test_negated_candidate_rejected
+    self._assert_rejected("P0", task, http, "negated candidate")
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 119, in _assert_rejected
+    self.assertFalse(scored["semantic_correct"],
+AssertionError: True is not false : negated candidate: semantically invalid output ACCEPTED (parsed={'structural_ok': True, 'payload': {'tool': 'orders.get_refund_eligibility'}})
+
+======================================================================
+FAIL: test_tool_name_at_sentence_end_parses (tests.ij_nano.test_n02r_pr_concerns.TestPRD04ParserNegatives.test_tool_name_at_sentence_end_parses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 154, in test_tool_name_at_sentence_end_parses
+    self.assertTrue(parsed.get("structural_ok"),
+AssertionError: False is not true : punctuation boundary rejects valid answer: {'structural_ok': False, 'payload': None, 'notes': 'no unique tool token in free text'}
+
+======================================================================
+FAIL: test_trailing_contradictory_dsl_rejected (tests.ij_nano.test_n02r_pr_concerns.TestPRD04ParserNegatives.test_trailing_contradictory_dsl_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 224, in test_trailing_contradictory_dsl_rejected
+    self._assert_rejected("P6", task, http, "trailing contradictory DSL")
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 119, in _assert_rejected
+    self.assertFalse(scored["semantic_correct"],
+AssertionError: True is not false : trailing contradictory DSL: semantically invalid output ACCEPTED (parsed={'structural_ok': True, 'payload': {'tool': 'refunds.submit', 'args': {'order_id': 'ORD-1042', 'amount': {'value': 120.0, 'unit': 'CNY'}, 'reason': 'damaged_item'}}, 'notes': None})
+
+======================================================================
+FAIL: test_unexpected_tool_argument_visible_to_evaluator (tests.ij_nano.test_n02r_pr_concerns.TestPRD04ParserNegatives.test_unexpected_tool_argument_visible_to_evaluator)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 181, in test_unexpected_tool_argument_visible_to_evaluator
+    self._assert_rejected("P5", task, http, "unexpected tool argument")
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 119, in _assert_rejected
+    self.assertFalse(scored["semantic_correct"],
+AssertionError: True is not false : unexpected tool argument: semantically invalid output ACCEPTED (parsed={'structural_ok': True, 'payload': {'args': {'order_id': 'ORD-1042'}}})
+
+======================================================================
+FAIL: test_wrong_record_answer_name_rejected_for_closed_families (tests.ij_nano.test_n02r_pr_concerns.TestPRD04ParserNegatives.test_wrong_record_answer_name_rejected_for_closed_families)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 194, in test_wrong_record_answer_name_rejected_for_closed_families
+    self._assert_rejected("P5", task, http, "wrong record_answer name")
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 119, in _assert_rejected
+    self.assertFalse(scored["semantic_correct"],
+AssertionError: True is not false : wrong record_answer name: semantically invalid output ACCEPTED (parsed={'structural_ok': True, 'payload': {'branch': 'auto_approve'}})
+
+======================================================================
+FAIL: test_parse_result_carries_warnings_and_raw (tests.ij_nano.test_n02r_pr_concerns.TestPRD05EvidencePreservation.test_parse_result_carries_warnings_and_raw)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Rocm\Desktop\Job\IJNANO\tests\ij_nano\test_n02r_pr_concerns.py", line 274, in test_parse_result_carries_warnings_and_raw
+    self.assertIn(key, parsed, f"parser result lacks {key!r}")
+AssertionError: 'warnings' not found in {'structural_ok': True, 'payload': {'args': {'order_id': 'ORD-1042'}}} : parser result lacks 'warnings'
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.006s
+
+FAILED (failures=13)
