@@ -9,9 +9,12 @@
 | M1 admission numerical comparison software | PASS | Native probability validation and fixed-prefix equivalence, intervention and repeat controls. |
 | M1 default-cache repeatability diagnostic | FAIL | Same-prefix native probabilities varied on the Original control. Raw captures retained locally. |
 | M1 fixed adapter routing boundary | PASS | Software guards reject wrong aliases and adapter overrides. The native ungated endpoint accepts unknown numeric IDs. |
-| M1 independent numerical and physical admission | NOT_RUN | [Preregistered admission contract](atlas/slm/v1.0/lfm3-harness-adapters/REPRODUCTION_GUIDE.md) |
+| M1 independent numerical and physical admission | PASS | All three adapters pass the fixed, cache-disabled guarded profile. [Radeon report](reports/LFM3_HA01_RADEON_ADMISSION.md) |
+| M2 author-harness reproduction | BLOCKED | Exact historical roster, pinned harness identities and an isolated execution environment remain open. [Reproduction status](reports/LFM3_HA_UPSTREAM_REPRODUCTION.md) |
+| M3 60-case candidate freeze | PASS | 480 trial slots registered. Scope qualification and physical dispatch remain BLOCKED pending action/callback verification. [Transfer scope](reports/LFM3_HA_CROSS_HARNESS_TRANSFER.md) |
+| M12 NanoAgent evidence exchange | PASS | Scoped adapter admission and rejected runtime profiles are available to PR #11. NanoAgent execution remains NOT_RUN. [Handoff](atlas/slm/v1.0/lfm3-harness-adapters/NANOAGENT_ENGINEERING_HANDOFF.md) |
 | M9 and M10 design artifacts | PASS | DX-M2 deployment requirements and JobBot-native A/B design drafted. Physical portability and training readiness remain NOT_RUN. |
-| M2 through M12 physical experiments | NOT_RUN | Gates, planned scope and prerequisites are recorded in the admission contract. |
+| M4 through M12 physical experiments | NOT_RUN | Gates, planned scope and prerequisites are recorded in the admission contract. |
 
 ## IJ-SLM-1.1 continuation
 

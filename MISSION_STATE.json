@@ -30,19 +30,19 @@
       "HA-H": "PASS"
     },
     "adapter_physical_admission": {
-      "HA-O": "NOT_RUN",
-      "HA-P": "NOT_RUN",
-      "HA-H": "NOT_RUN"
+      "HA-O": "PASS",
+      "HA-P": "PASS",
+      "HA-H": "PASS"
     },
-    "LFM3_HA_ALL_THREE_PHYSICALLY_ADMITTED": "NOT_RUN",
+    "LFM3_HA_ALL_THREE_PHYSICALLY_ADMITTED": "PASS",
     "AG-11": "BLOCKED",
     "upstream_report": "reports/LFM3_HA01_UPSTREAM_RESEARCH.md",
     "registry": "atlas/slm/v1.0/lfm3-harness-adapters/MODEL_ADAPTER_REGISTRY.json",
     "reproduction_guide": "atlas/slm/v1.0/lfm3-harness-adapters/REPRODUCTION_GUIDE.md",
     "verdicts": {
-      "UPSTREAM_REPRODUCTION": "NOT_RUN",
-      "GGUF_ADAPTER_ADMISSION": "NOT_RUN",
-      "CROSS_HARNESS_TRANSFER": "NOT_RUN",
+      "UPSTREAM_REPRODUCTION": "BLOCKED",
+      "GGUF_ADAPTER_ADMISSION": "PASS",
+      "CROSS_HARNESS_TRANSFER": "BLOCKED",
       "TOOL_CALLING_QUALIFICATION": "NOT_RUN",
       "MULTITOOL_QUALIFICATION": "NOT_RUN",
       "AUTONOMOUS_PLANNING_QUALIFICATION": "NOT_RUN",
@@ -54,7 +54,13 @@
       "DX_M2_PHYSICAL_QUALIFICATION": "NOT_RUN",
       "NANOAGENT_HANDOFF": "NOT_RUN",
       "JOBBOT_NATIVE_ADAPTER_TRAINING_READINESS": "NOT_RUN"
-    }
+    },
+    "physical_admission_scope": "fixed guarded Windows Radeon profile",
+    "physical_admission": "atlas/slm/v1.0/lfm3-harness-adapters/RADEON_ADMISSION.json",
+    "M3_candidate_slots": 480,
+    "M3_observed_trials": 0,
+    "M3_action_phase_scope": "BLOCKED",
+    "configuration_selection": "NO_QUALIFIED_CONFIGURATION"
   },
   "q3_independent_qualification": {"status": "NOT_RUN", "roster_freeze": "NOT_RUN", "validator": "evaluation/aeve/q3_cohort.py"},
   "proof_based_router": {"arm": "E7", "software_controls": "PASS", "paired_physical_experiment": "NOT_RUN", "independent_scope_qualification": "NOT_RUN", "source": "evaluation/aeve/proof_router.py"},

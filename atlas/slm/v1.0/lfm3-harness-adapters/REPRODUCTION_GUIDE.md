@@ -63,3 +63,30 @@ quality and safety constraints before Pareto selection.
 Bind each milestone to its evidence digest, exact Git SHA, engine package,
 base and adapter weights, GPU identity, tool policy, SDK, dataset and run
 ID. Replay before publication and check CI at the published SHA.
+
+## Run and replay the admission panel
+
+From the PR #9 worktree with the pinned local SDK and the shared asset root,
+use the existing repository Python. You can verify the public numeric
+comparisons without a GPU or installed SDK.
+
+```powershell
+$env:PYTHONPATH = 'src'
+python -m benchmarks.slm10.verify_lfm3_ha
+```
+
+For a new physical diagnostic, first check the schedule and the owner's
+AG-11 window. From the existing linked mission worktree, execute this
+bounded panel with the shared asset root.
+
+```powershell
+$env:PYTHONPATH = '.;src;benchmarks/tool_calling/runner'
+& ../../.venv/Scripts/python.exe -m benchmarks.slm10.lfm3_ha_admission --assets ../..
+```
+
+The replay covers all three admitted adapters. The launch uses no prompt
+cache and no context checkpoints. The profile fixes one adapter per process.
+The native wrong-ID snapshot is a negative result. The experiment's
+application boundary rejects unauthorized aliases and weight overrides.
+Record scope qualification separately before scheduling the 480-slot panel.
+[Admission findings](../../../../reports/LFM3_HA01_RADEON_ADMISSION.md)
