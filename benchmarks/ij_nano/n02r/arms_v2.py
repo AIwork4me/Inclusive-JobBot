@@ -287,6 +287,17 @@ def _p7_candidates(task: dict) -> list[str]:
     raise ValueError(f"P7 inapplicable for {task['family']}")
 
 
+def _closed_set_for(task: dict) -> list[str] | None:
+    """Closed candidate set for contradiction scans; None when the family
+    has no closed set (slot values must never be enumerated)."""
+    kind = task["schema_hint"]["answer_kind"]
+    if kind in ("tool", "action"):
+        return _world_tools(task)
+    if kind in ("label", "branch", "decision"):
+        return _p7_candidates(task)
+    return None
+
+
 def _dsl_spec(task: dict) -> str:
     k = task["schema_hint"]
     kind = k["answer_kind"]
@@ -629,10 +640,9 @@ def parse_response(arm: str, task: dict, http_json: dict | None,
             return out
         head, rest = m.group(1), m.group(2)
         remainder = "\n".join(lines[1:])
-        if remainder.strip():
-            cands = (_world_tools(task) if kind in ("tool", "action")
-                     else _p7_candidates(task))
-            rval, rwarns = _find_candidates(remainder, cands)
+        closed = _closed_set_for(task)
+        if remainder.strip() and closed:
+            rval, rwarns = _find_candidates(remainder, closed)
             if rwarns and rwarns[0].startswith("ambiguous"):
                 out["warnings"].append("trailing contradictory DSL content")
                 return out
@@ -640,7 +650,8 @@ def parse_response(arm: str, task: dict, http_json: dict | None,
                 out["warnings"].append("trailing negated candidate")
                 return out
         if head == "ACTION":
-            val, warns = _find_candidates(rest, _p7_candidates(task))
+            action_set = _closed_set_for(task) or []
+            val, warns = _find_candidates(rest, action_set)
             out["warnings"].extend(warns)
             if val is None:
                 return out
@@ -692,9 +703,11 @@ def parse_response(arm: str, task: dict, http_json: dict | None,
                              rest_args):
             scrubbed = scrubbed.replace(m.group(0), " ", 1)
         if scrubbed.strip():
-            cands = (_world_tools(task) if kind in ("tool", "action")
-                     else _p7_candidates(task))
-            sval, swarns = _find_candidates(scrubbed, cands)
+            closed = _closed_set_for(task)
+            if closed:
+                sval, swarns = _find_candidates(scrubbed, closed)
+            else:
+                sval, swarns = None, []
             if swarns and (swarns[0].startswith("ambiguous")
                            or swarns[0].startswith("negated")):
                 out["warnings"].append(
