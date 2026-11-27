@@ -6,6 +6,8 @@ The continuation adds opt-in SDK request correlation and a bounded diagnostic SS
 
 The initial observer build failed the properties probe with HTTP 500 after a partial incremental C++ rebuild. The replacement build recompiled every server translation unit and has separately pinned launcher and server DLL digests. The original failures are retained as development startup diagnostics.
 
+TC-V3 has a byte-identified 30-task development split and 500-task holdout across ten families. The fixed roster reserves 8,250 trials across five models and identifies the priority 4,950-trial subset. The real SDK and Direct development runner uses a shared provider tool contract. The SDK provider-JSON arm delivers its validated JSON to the SDK as SSE and records both wire representations. Suite qualification and formal dispatch remain BLOCKED. [Dataset manifest](atlas/slm/v1.0/tc-v3/manifest.json)
+
 All three priority models completed Radeon and real Antigravity SDK admission diagnostics under the same verified host GPU handoff. The report includes captured Direct/SDK plan-first comparisons, passed and failed SDK probes, and preserved interrupted runs. All 12 Direct planning completions were matched to native traces. SDK native pre-parser capture remains NOT_RUN. No diagnostic is counted in the formal core denominator. [Radeon admission diagnostics](reports/SLM10_RADEON_ADMISSION_DIAGNOSTICS.md)
 
 The first admission diagnostic exposed a preflight path that prevented controlled reproduction of MiniCPM5's historical failed admission and an SDK capture serializer that could not preserve Decimal values. Diagnostic revision 2 uses the existing identity and GPU checks, records exact numbers and retains prior interrupted run IDs. Formal admission remains NOT_RUN.

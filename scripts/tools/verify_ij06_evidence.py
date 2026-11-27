@@ -24,6 +24,8 @@ IJ06_LIVING_FILES = {
     "BLOCKERS.md", "DECISIONS.md", "HANDOFF.md", "MISSION_STATE.json", "TASK_LEDGER.md",
     ".gitattributes", ".github/workflows/evidence-validation.yml", "scripts/tools/verify_ij06_evidence.py",
     "tests/security/test_gateway_execution.py",
+    "benchmarks/ij06_sdk/qualify.py", "benchmarks/ij06_sdk/wire_boundary.py",
+    "src/model_gateway/streaming.py", "tests/antigravity/test_wire_boundary.py",
 }
 
 

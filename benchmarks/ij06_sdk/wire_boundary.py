@@ -103,7 +103,8 @@ class WireEndpoint:
 
 @contextmanager
 def wire_boundary(upstream, approvals, events, *, transient_first=False, transient_all=False,
-                  request_started=None, trial_id=None, observe=None, max_stream_bytes=MAX_WIRE_BYTES):
+                  request_started=None, trial_id=None, observe=None, max_stream_bytes=MAX_WIRE_BYTES,
+                  adapt_request=None, adapt_response=None):
     """Verify each complete tool batch before releasing the response to the SDK.
 
     SSE frames are retained and forwarded unchanged once the terminal frame is
@@ -112,6 +113,8 @@ def wire_boundary(upstream, approvals, events, *, transient_first=False, transie
     target = urlsplit(upstream)
     if target.scheme != "http" or target.hostname != "127.0.0.1" or target.path or not target.port:
         raise ValueError("Expected a literal managed loopback origin")
+    if trial_id is None and (observe is not None or adapt_request is not None or adapt_response is not None):
+        raise ValueError("wire observation and adaptation require a trial identity")
     route = "/" + secrets.token_urlsafe(24) + "/v1"
     turn_lock = Lock()
     upstream_lock = Lock()
@@ -169,13 +172,17 @@ def wire_boundary(upstream, approvals, events, *, transient_first=False, transie
                         event.update(status="PASS", http_status=429, synthetic_fault=True)
                         self.reply(429, "application/json", b'{"error":{"message":"Synthetic retry qualification fault"}}')
                         return
+                    if adapt_request is not None:
+                        body = adapt_request(body)
+                        if not isinstance(body, bytes) or not 0 < len(body) <= MAX_BODY:
+                            raise ValueError("Invalid adapted body size")
                     connection = http.client.HTTPConnection(target.hostname, target.port, timeout=60)
                     with upstream_lock:
                         if aborted:
                             raise ConnectionAbortedError()
                         active = connection
                         if trial_id is not None:
-                            event.update(provider_request_id=uuid4().hex, provider_request=event["request"],
+                            event.update(provider_request_id=uuid4().hex, provider_request=body.decode("utf-8"),
                                          provider_request_sha256=sha256(body).hexdigest())
                         connection.request("POST", "/v1/chat/completions", body, {"Content-Type": "application/json"})
                     upstream_response = connection.getresponse()
@@ -201,6 +208,11 @@ def wire_boundary(upstream, approvals, events, *, transient_first=False, transie
                                  content_type=content_type)
                     if upstream_response.status == 200:
                         result = assemble_reply(content_type, response, max_stream_bytes=max_stream_bytes)
+                        if adapt_response is not None:
+                            content_type, response = adapt_response(content_type, response, event)
+                            if not isinstance(response, bytes) or len(response) > MAX_BODY:
+                                raise ValueError("Invalid SDK response adaptation")
+                            event.update(sdk_response=response.decode("utf-8"), sdk_content_type=content_type)
                         with upstream_lock:
                             if aborted:
                                 raise ConnectionAbortedError()
