@@ -77,9 +77,6 @@ def panel(client, scale=None):
             raise ValueError("server returned no usable token prefix")
         body = {"prompt": tokens, "n_predict": 1, "n_probs": 32, "temperature": -1.0,
                 "seed": SEED, "cache_prompt": False, "post_sampling_probs": False}
-        status, _, _ = client.post("/slots/0?action=erase", {})
-        if status != 200:
-            raise ValueError("server refused to erase the recurrent slot")
         if scale is not None:
             body["lora"] = [{"id": 0, "scale": scale}]
         status, _, raw = client.post("/completion", body)

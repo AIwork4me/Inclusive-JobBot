@@ -16,7 +16,8 @@ Use separate server launches for no LoRA and each registered adapter.
 Keep runtime, model alias, prompt bytes, tokenization, seed, context and
 decode settings fixed. Test scale 0 and scale 1 within an adapter launch.
 Use native pre-sampling token log probabilities at identical token prefixes,
-with greedy generation, disabled prompt caching and a fresh request. Freeze
+with greedy generation and a fresh request. The diagnostic launch disables
+server-wide prompt cache and context checkpoints as well as request caching. Freeze
 a 1e-5 absolute log-probability tolerance with identical token IDs and
 ranking for no LoRA versus scale 0 and for same-arm replay. A scale 1
 intervention requires a finite difference of at least 1e-3 on a token
