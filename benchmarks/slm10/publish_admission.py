@@ -45,7 +45,12 @@ def publish(assets, handoff_root, repo):
     for candidate in "ABDFG":
         source = assets / ".runtime/ij-slm-1.0" / ("admission-" + candidate) / "portable"
         if not (source / "report.json").is_file():
-            rows.append((candidate, "runtime", "diagnostic_coverage", "NOT_RUN", ""))
+            private = source.parent / "report.json"
+            if private.is_file():
+                run_id = json.loads(private.read_bytes())["run_id"]
+                rows.append((candidate, "runtime", "diagnostic_coverage", "BLOCKED", run_id))
+            else:
+                rows.append((candidate, "runtime", "diagnostic_coverage", "NOT_RUN", ""))
             continue
         record = verify(source, candidate, handoff_root / HANDOFF, gate)
         dest = target / candidate
