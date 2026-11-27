@@ -1,0 +1,148 @@
+{
+ "trial_id": "4a116aa60dc433e37d1dd3dd",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's request. The user provides a scenario: \"策略 / policy: delay 30 hours, threshold 24; customer unreachable. 实况 / observation: n = 30. Allowed branches: reroute, hold_at_hub, continue_as_planned. 判断应走的分支。 / Decide which branch applies.\"\n\nWe need to decide which branch applies based on the policy and observation.\n\nInterpretation: There's a policy: \"delay 30 hours, threshold 24; customer unreachable.\" Observation: \"n = 30.\" Allowed branches: reroute, hold_at_hub, continue_as_planned.\n\nWe need to decide which branch applies.\n\nWe need to infer the logic. The policy says: delay 30 hours, threshold 24; customer unreachable. So if the threshold is 24, and the delay is 30 hours, and the customer is unreachable. Observation: n = 30. Possibly n is the number of something? Or maybe n is the number of hours? Or maybe n is the number of attempts? The policy says delay 30 hours, threshold 24. So if the threshold is 24, and we have 30 hours? Or maybe n = 30 means we have 30 hours of delay? Or maybe n is the number of customers? The policy says \"customer unreachable\". So the customer is unreachable. The observation says n = 30. Possibly n is the number of hours? Or maybe n is the number of attempts? The allowed branches are reroute, hold_at_hub, continue_as_planned.\n\nWe need to decide which branch applies. Possibly the logic is: if the delay is 30 hours and threshold is 24, and customer unreachable, then we should reroute? Or hold_at_hub? Or continue_as_planned? We need to infer.\n\nMaybe the policy is: if the delay exceeds the threshold (30 > 24) and the customer is unreachable, then we should reroute? Or maybe we should hold_at_hub? Or continue_as_planned? The observation n=30 might indicate that we have 30 hours of delay? Or maybe n is the number of customers? The policy says \"delay 30 hours, threshold 24; customer unreachable.\" So the delay is 30 hours, threshold is 24. So the delay exceeds the threshold. And the customer is unreachable. So we need to decide which branch.\n\nAllowed branches: reroute, hold_at_hub, continue_as_planned. Possibly the logic is: if delay > threshold and customer unreachable, then reroute? Or maybe hold_at_hub? Or continue_as_planned? We need to think about typical routing policies. If a customer is unreachable and we have delayed for 30 hours (exceeding threshold 24), maybe we should reroute to another customer? Or hold at hub? Or continue as planned? The phrase \"continue_as_planned\" might mean we continue with the original plan despite the unreachable customer. That seems unlikely if the customer is unreachable. So maybe reroute or hold_at_hub.\n\nMaybe the policy is: if delay > threshold and customer unreachable, then reroute. Or maybe hold_at_hub. The observation n=30 might be the number of hours? Or maybe n is the number of attempts? The policy says \"delay 30 hours, threshold 24\". So the delay is 30 hours, threshold is 24. So the delay exceeds the threshold by 6 hours. And the customer is unreachable. So we need to decide.\n\nWe need to output the branch. The user says \"判断应走的分支。 / Decide which branch applies.\" So we need to output the branch name.\n\nWe need to reason. Possibly the logic is: if the delay is greater than the threshold and the customer is unreachable, then we should reroute. Or maybe hold_at_hub. Or continue_as_planned. The observation n=30 might be the number of hours? Or maybe n is the number of customers? The policy says \"customer unreachable\". So there is one customer? n=30 might be the number of hours? Or maybe n is the number of attempts? The policy says \"delay 30 hours\". So maybe n is the number of hours? So n=30 means we have delayed for 30 hours. So the delay is 30 hours, threshold is 24. So delay > threshold. And customer unreachable. So we need to decide.\n\nMaybe the allowed branches are actions to take when a customer is unreachable. If the delay exceeds threshold, maybe we should reroute? Or hold at hub? Or continue as planned? The phrase \"continue_as_planned\" might mean we ignore the unreachable customer and continue with the plan. That seems odd. So maybe reroute or hold_at_hub.\n\nWe need to infer from typical"
+      }
+     }
+    ],
+    "created": 1795800200,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 68,
+     "total_tokens": 1092,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-bJh0lbCF1Rj0dZX5UFZrkvX1NHuQ7GKB",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request. The user provides a scenario: \"策略 / policy: delay 30 hours, threshold 24; customer unreachable. 实况 / observation: n = 30. Allowed branches: reroute, hold_at_hub, continue_as_planned. 判断应走的分支。 / Decide which branch applies.\"\n\nWe need to decide which branch applies based on the policy and observation.\n\nInterpretation: There's a policy: \"delay 30 hours, threshold 24; customer unreachable.\" Observation: \"n = 30.\" Allowed branches: reroute, hold_at_hub, continue_as_planned.\n\nWe need to decide which branch applies.\n\nWe need to infer the logic. The policy says: delay 30 hours, threshold 24; customer unreachable. So if the threshold is 24, and the delay is 30 hours, and the customer is unreachable. Observation: n = 30. Possibly n is the number of something? Or maybe n is the number of hours? Or maybe n is the number of attempts? The policy says delay 30 hours, threshold 24. So if the threshold is 24, and we have 30 hours? Or maybe n = 30 means we have 30 hours of delay? Or maybe n is the number of customers? The policy says \"customer unreachable\". So the customer is unreachable. The observation says n = 30. Possibly n is the number of hours? Or maybe n is the number of attempts? The allowed branches are reroute, hold_at_hub, continue_as_planned.\n\nWe need to decide which branch applies. Possibly the logic is: if the delay is 30 hours and threshold is 24, and customer unreachable, then we should reroute? Or hold_at_hub? Or continue_as_planned? We need to infer.\n\nMaybe the policy is: if the delay exceeds the threshold (30 > 24) and the customer is unreachable, then we should reroute? Or maybe we should hold_at_hub? Or continue_as_planned? The observation n=30 might indicate that we have 30 hours of delay? Or maybe n is the number of customers? The policy says \"delay 30 hours, threshold 24; customer unreachable.\" So the delay is 30 hours, threshold is 24. So the delay exceeds the threshold. And the customer is unreachable. So we need to decide which branch.\n\nAllowed branches: reroute, hold_at_hub, continue_as_planned. Possibly the logic is: if delay > threshold and customer unreachable, then reroute? Or maybe hold_at_hub? Or continue_as_planned? We need to think about typical routing policies. If a customer is unreachable and we have delayed for 30 hours (exceeding threshold 24), maybe we should reroute to another customer? Or hold at hub? Or continue as planned? The phrase \"continue_as_planned\" might mean we continue with the original plan despite the unreachable customer. That seems unlikely if the customer is unreachable. So maybe reroute or hold_at_hub.\n\nMaybe the policy is: if delay > threshold and customer unreachable, then reroute. Or maybe hold_at_hub. The observation n=30 might be the number of hours? Or maybe n is the number of attempts? The policy says \"delay 30 hours, threshold 24\". So the delay is 30 hours, threshold is 24. So the delay exceeds the threshold by 6 hours. And the customer is unreachable. So we need to decide.\n\nWe need to output the branch. The user says \"判断应走的分支。 / Decide which branch applies.\" So we need to output the branch name.\n\nWe need to reason. Possibly the logic is: if the delay is greater than the threshold and the customer is unreachable, then we should reroute. Or maybe hold_at_hub. Or continue_as_planned. The observation n=30 might be the number of hours? Or maybe n is the number of customers? The policy says \"customer unreachable\". So there is one customer? n=30 might be the number of hours? Or maybe n is the number of attempts? The policy says \"delay 30 hours\". So maybe n is the number of hours? So n=30 means we have delayed for 30 hours. So the delay is 30 hours, threshold is 24. So delay > threshold. And customer unreachable. So we need to decide.\n\nMaybe the allowed branches are actions to take when a customer is unreachable. If the delay exceeds threshold, maybe we should reroute? Or hold at hub? Or continue as planned? The phrase \"continue_as_planned\" might mean we ignore the unreachable customer and continue with the plan. That seems odd. So maybe reroute or hold_at_hub.\n\nWe need to infer from typical",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 68,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n策略 / policy: delay 30 hours, threshold 24; customer unreachable. 实况 / observation: n = 30.\nAllowed branches: reroute, hold_at_hub, continue_as_planned.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1091,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 68,
+      "prompt_ms": 30.101,
+      "prompt_per_token_ms": 0.44266176470588237,
+      "prompt_per_second": 2259.061160758779,
+      "predicted_n": 1024,
+      "predicted_ms": 5614.284,
+      "predicted_per_token_ms": 5.4880586510263925,
+      "predicted_per_second": 182.2137960958156
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 68,
+     "prompt_ms": 30.101,
+     "prompt_per_token_ms": 0.44266176470588237,
+     "prompt_per_second": 2259.061160758779,
+     "predicted_n": 1024,
+     "predicted_ms": 5614.284,
+     "predicted_per_token_ms": 5.4880586510263925,
+     "predicted_per_second": 182.2137960958156
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.656
+  }
+ ]
+}

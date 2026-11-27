@@ -1,0 +1,164 @@
+{
+ "trial_id": "bbcaaf74132c89ad266fec9d",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，用户提到库存系统显示某个 SKU 只剩 2 件，低于安全线。他们需要从 A1 到 A6 中选择一个动作。让我检查可用的工具。\n\n提供的工具是 record_answer，它接受一个动作编号。但用户说只回答动作编号。等等，工具用于记录答案，但用户可能期望我选择正确的动作。然而，工具的描述说它是用于记录已选择的答案，而不是执行操作。所以也许用户应该先选择动作，然后调用工具？但指令说“只回答动作编号”。嗯。\n\n等等，用户消息说“只回答动作编号。”所以我需要输出正确的动作编号。但如何决定？问题陈述说库存低于安全线。让我看看选项：\n\nA1: 补货 SKU-2210\nA2: 冻结出库\nA3: 盘点 BIN-F9\nA4: 转仓到备用仓\nA5: 忽略告警\nA6: 通知主管\n\n如果库存低于安全线，通常的步骤是补货（A1）或冻结出库（A2）。但用户没有指定上下文。等等，初始问题可能来自一个场景，其中系统检测到低库存。标准操作可能是补货。但工具是用于记录答案，而不是执行。所以也许用户应该选择正确的动作并记录它。但指令说“只回答动作编号”，所以我需要输出正确的编号。\n\n等等，但助手应该调用工具。等等，工具是 record_answer，它需要一个动作。但用户说“只回答动作编号”，所以也许正确的动作是 A1（补货），因为库存低。让我确认：如果库存低于安全线，补货是合理的。所以答案是 A1。但系统可能期望调用工具。等等，用户指令说“你可以调用一个或多个函数来协助用户查询。”所以也许在这种情况下，助手应该调用 record_answer 并传入正确的动作。但用户说“只回答动作编号”，所以也许正确的动作是 A1，因此工具调用是 record_answer(A1)。但问题说“只回答动作编号”，所以最终答案应该是 A1。但根据工具，助手应该调用函数。等等，工具用于记录答案，所以也许用户应该选择动作并记录它。但用户指令说“只回答动作编号”，所以助手应该输出编号。然而，工具是用来记录的，所以也许正确的步骤是调用 record_answer 并传入正确的动作。但用户可能期望助手直接输出编号。等等，问题说“你可以调用一个或多个函数来协助用户查询。”所以如果助手确定正确的动作，它应该调用工具。但用户说“只回答动作编号”，所以也许工具调用后，答案就是编号。等等，工具的目的是记录答案，所以也许正确的动作是 A1，因此调用 record_answer(A1)。但用户指令说“只回答动作编号”，所以最终答案应该是 A1。但根据问题设置，助手应该使用工具。等等，工具是用来记录答案的，所以助手需要调用它。让我再检查工具描述：“Record the chosen answer (structured answer recording, not business tool execution).”所以这是一个用于记录答案的工具，而不是执行操作。因此，助手应该选择正确的动作并调用 record_answer。但用户说“只回答动作编号”，所以也许正确的动作是 A1，因此工具调用是 record_answer(A1)。但问题说“只回答动作编号”，所以最终答案应该是 A1。然而，助手必须使用工具。等等，也许用户期望助手输出动作编号而不调用工具，但工具是提供的。嗯，这有点令人困惑。等等，用户指令说“你可以调用一个或多个函数来协助用户查询。”所以如果助手需要记录答案，它应该调用工具。但用户说“只回答动作编号”，所以也许正确的动作是 A1，因此工具调用是 record_answer(A1)，然后答案就是 A1。但根据问题，助手应该输出工具调用。等等，示例显示对于每个函数调用，返回 tool_call XML。所以在这种情况下，助手应该调用 record_answer 并传入正确的动作。但如何决定正确的动作？库存低于安全线，所以补货（A1）是合理的。因此，工具调用是 record_answer(A1)。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"action\":\"A1\"}"
+         },
+         "id": "JP5M3r5bPDROCBnABxDfP9P8NDZL52Ji"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795795290,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 848,
+     "prompt_tokens": 421,
+     "total_tokens": 1269,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-M5bHXGZ8W0RISN1NvmHb8WTQTpqKxluG",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，用户提到库存系统显示某个 SKU 只剩 2 件，低于安全线。他们需要从 A1 到 A6 中选择一个动作。让我检查可用的工具。\n\n提供的工具是 record_answer，它接受一个动作编号。但用户说只回答动作编号。等等，工具用于记录答案，但用户可能期望我选择正确的动作。然而，工具的描述说它是用于记录已选择的答案，而不是执行操作。所以也许用户应该先选择动作，然后调用工具？但指令说“只回答动作编号”。嗯。\n\n等等，用户消息说“只回答动作编号。”所以我需要输出正确的动作编号。但如何决定？问题陈述说库存低于安全线。让我看看选项：\n\nA1: 补货 SKU-2210\nA2: 冻结出库\nA3: 盘点 BIN-F9\nA4: 转仓到备用仓\nA5: 忽略告警\nA6: 通知主管\n\n如果库存低于安全线，通常的步骤是补货（A1）或冻结出库（A2）。但用户没有指定上下文。等等，初始问题可能来自一个场景，其中系统检测到低库存。标准操作可能是补货。但工具是用于记录答案，而不是执行。所以也许用户应该选择正确的动作并记录它。但指令说“只回答动作编号”，所以我需要输出正确的编号。\n\n等等，但助手应该调用工具。等等，工具是 record_answer，它需要一个动作。但用户说“只回答动作编号”，所以也许正确的动作是 A1（补货），因为库存低。让我确认：如果库存低于安全线，补货是合理的。所以答案是 A1。但系统可能期望调用工具。等等，用户指令说“你可以调用一个或多个函数来协助用户查询。”所以也许在这种情况下，助手应该调用 record_answer 并传入正确的动作。但用户说“只回答动作编号”，所以也许正确的动作是 A1，因此工具调用是 record_answer(A1)。但问题说“只回答动作编号”，所以最终答案应该是 A1。但根据工具，助手应该调用函数。等等，工具用于记录答案，所以也许用户应该选择动作并记录它。但用户指令说“只回答动作编号”，所以助手应该输出编号。然而，工具是用来记录的，所以也许正确的步骤是调用 record_answer 并传入正确的动作。但用户可能期望助手直接输出编号。等等，问题说“你可以调用一个或多个函数来协助用户查询。”所以如果助手确定正确的动作，它应该调用工具。但用户说“只回答动作编号”，所以也许工具调用后，答案就是编号。等等，工具的目的是记录答案，所以也许正确的动作是 A1，因此调用 record_answer(A1)。但用户指令说“只回答动作编号”，所以最终答案应该是 A1。但根据问题设置，助手应该使用工具。等等，工具是用来记录答案的，所以助手需要调用它。让我再检查工具描述：“Record the chosen answer (structured answer recording, not business tool execution).”所以这是一个用于记录答案的工具，而不是执行操作。因此，助手应该选择正确的动作并调用 record_answer。但用户说“只回答动作编号”，所以也许正确的动作是 A1，因此工具调用是 record_answer(A1)。但问题说“只回答动作编号”，所以最终答案应该是 A1。然而，助手必须使用工具。等等，也许用户期望助手输出动作编号而不调用工具，但工具是提供的。嗯，这有点令人困惑。等等，用户指令说“你可以调用一个或多个函数来协助用户查询。”所以如果助手需要记录答案，它应该调用工具。但用户说“只回答动作编号”，所以也许正确的动作是 A1，因此工具调用是 record_answer(A1)，然后答案就是 A1。但根据问题，助手应该输出工具调用。等等，示例显示对于每个函数调用，返回 tool_call XML。所以在这种情况下，助手应该调用 record_answer 并传入正确的动作。但如何决定正确的动作？库存低于安全线，所以补货（A1）是合理的。因此，工具调用是 record_answer(A1)。\n</think>\n\n<function name=\"record_answer\"><param name=\"action\">A1</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 848,
+     "tokens_evaluated": 421,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"action\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"action\": {\"type\": \"string\", \"enum\": [\"A1\", \"A2\", \"A3\", \"A4\", \"A5\", \"A6\"]}}, \"required\": [\"action\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n可选动作 / available actions:\nA1. 补货：为 SKU-2210 下补货单 / create a restock order for SKU-2210\nA2. 冻结：暂停 SKU-2210 的出库 / freeze outbound of SKU-2210\nA3. 盘点：安排 BIN-F9 的盘点 / schedule a count of BIN-F9\nA4. 转仓：把 SKU-2210 调往备用仓 / transfer SKU-2210 to the backup warehouse\nA5. 忽略该告警 / ignore the alert\nA6. 上报主管 / notify the supervisor\n库存系统显示 {sku} 只剩 2 件，低于安全线。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 1268,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 421,
+      "prompt_ms": 66.243,
+      "prompt_per_token_ms": 0.15734679334916862,
+      "prompt_per_second": 6355.388493878599,
+      "predicted_n": 848,
+      "predicted_ms": 4691.271,
+      "predicted_per_token_ms": 5.5386906729634,
+      "predicted_per_second": 180.54808600910073
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 421,
+     "prompt_ms": 66.243,
+     "prompt_per_token_ms": 0.15734679334916862,
+     "prompt_per_second": 6355.388493878599,
+     "predicted_n": 848,
+     "predicted_ms": 4691.271,
+     "predicted_per_token_ms": 5.5386906729634,
+     "predicted_per_second": 180.54808600910073
+    }
+   },
+   "http_error": null,
+   "latency_s": 4.75
+  }
+ ]
+}

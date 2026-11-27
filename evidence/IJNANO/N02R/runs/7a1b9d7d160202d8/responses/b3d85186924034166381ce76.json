@@ -1,0 +1,152 @@
+{
+ "trial_id": "b3d85186924034166381ce76",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "warehouse.locate_bin",
+       "reasoning_content": "用户询问货位BIN-E7在哪里，并且要求只回答要调用的工具名。\n\n这是一个库存管理场景，我需要查找货位信息。查看可用的工具：\n- inventory.check_stock: 检查库存\n- inventory.adjust_stock: 调整库存\n- inventory.reserve_stock: 预留库存\n- warehouse.locate_bin: 查找货位\n- receiving.log_arrival: 记录收货\n- picking.create_task: 创建拣货任务\n- reports.export_snapshot: 导出快照\n- alerts.raise_low_stock: 提醒低库存\n\n要查找货位BIN-E7在哪里，应该使用\"warehouse.locate_bin\"工具。\n\n用户要求只回答工具名，所以我只回答\"warehouse.locate_bin\"。"
+      }
+     }
+    ],
+    "created": 1795794242,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 160,
+     "prompt_tokens": 389,
+     "total_tokens": 549,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-gELkEuJbFnqcr9Em1kZggQ4cR0mN0gHM",
+    "__verbose": {
+     "index": 0,
+     "content": "用户询问货位BIN-E7在哪里，并且要求只回答要调用的工具名。\n\n这是一个库存管理场景，我需要查找货位信息。查看可用的工具：\n- inventory.check_stock: 检查库存\n- inventory.adjust_stock: 调整库存\n- inventory.reserve_stock: 预留库存\n- warehouse.locate_bin: 查找货位\n- receiving.log_arrival: 记录收货\n- picking.create_task: 创建拣货任务\n- reports.export_snapshot: 导出快照\n- alerts.raise_low_stock: 提醒低库存\n\n要查找货位BIN-E7在哪里，应该使用\"warehouse.locate_bin\"工具。\n\n用户要求只回答工具名，所以我只回答\"warehouse.locate_bin\"。\n</think>\n\nwarehouse.locate_bin",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 160,
+     "tokens_evaluated": 389,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"tool\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 248058
+       }
+      ],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>system\n# Tools\n\nYou have access to the following functions:\n\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tool\": {\"type\": \"string\", \"enum\": [\"inventory.check_stock\", \"inventory.adjust_stock\", \"inventory.reserve_stock\", \"warehouse.locate_bin\", \"receiving.log_arrival\", \"picking.create_task\", \"reports.export_snapshot\", \"alerts.raise_low_stock\"]}}, \"required\": [\"tool\"], \"additionalProperties\": false}}}\n</tools>\n\nIf you choose to call a function ONLY reply in the following format with NO suffix:\n\n<tool_call>\n<function=example_function_name>\n<parameter=example_parameter_1>\nvalue_1\n</parameter>\n<parameter=example_parameter_2>\nThis is the value for the second parameter\nthat can span\nmultiple lines\n</parameter>\n</function>\n</tool_call>\n\n<IMPORTANT>\nReminder:\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\n- Required parameters MUST be specified\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\nKnown: order ORD-7781, customer C-41, sku SKU-5519, tracking TRK-40219.\n货位 BIN-E7 在哪里？ 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 548,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 389,
+      "prompt_ms": 73.833,
+      "prompt_per_token_ms": 0.1898020565552699,
+      "prompt_per_second": 5268.646811046551,
+      "predicted_n": 160,
+      "predicted_ms": 775.22,
+      "predicted_per_token_ms": 4.87559748427673,
+      "predicted_per_second": 205.10306751631794
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 389,
+     "prompt_ms": 73.833,
+     "prompt_per_token_ms": 0.1898020565552699,
+     "prompt_per_second": 5268.646811046551,
+     "predicted_n": 160,
+     "predicted_ms": 775.22,
+     "predicted_per_token_ms": 4.87559748427673,
+     "predicted_per_second": 205.10306751631794
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.875
+  }
+ ]
+}

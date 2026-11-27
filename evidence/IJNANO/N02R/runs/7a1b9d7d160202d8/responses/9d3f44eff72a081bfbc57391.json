@@ -1,0 +1,148 @@
+{
+ "trial_id": "9d3f44eff72a081bfbc57391",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "我们需要生成完整动作：工具与全部参数。用户说“Order ORD-2025: amount 89.5 CNY, reason late_delivery.” 可能他们想提交退款？或者查询订单？指令是“生成完整动作：工具与全部参数。” 可能他们想执行某个操作？上下文：用户提供了一个订单和原因。可能他们想检查退款资格？或者提交退款？让我们看看可用的工具。用户没有明确说做什么。他们只是给出了订单信息和原因。可能他们想提交退款？但指令是“生成完整动作：工具与全部参数。” 可能"
+      }
+     }
+    ],
+    "created": 1795795976,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 128,
+     "prompt_tokens": 215,
+     "total_tokens": 343,
+     "prompt_tokens_details": {
+      "cached_tokens": 214
+     }
+    },
+    "id": "chatcmpl-QTZIUACI4l5ocOedB3n8jubuZUjqHgIQ",
+    "__verbose": {
+     "index": 0,
+     "content": "我们需要生成完整动作：工具与全部参数。用户说“Order ORD-2025: amount 89.5 CNY, reason late_delivery.” 可能他们想提交退款？或者查询订单？指令是“生成完整动作：工具与全部参数。” 可能他们想执行某个操作？上下文：用户提供了一个订单和原因。可能他们想检查退款资格？或者提交退款？让我们看看可用的工具。用户没有明确说做什么。他们只是给出了订单信息和原因。可能他们想提交退款？但指令是“生成完整动作：工具与全部参数。” 可能",
+     "tokens": [],
+     "id_slot": 2,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 128,
+     "tokens_evaluated": 215,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 128,
+      "n_predict": 128,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\nOrder ORD-2025: amount 89.5 CNY, reason late_delivery.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": false,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 342,
+     "timings": {
+      "cache_n": 214,
+      "prompt_n": 1,
+      "prompt_ms": 9.719,
+      "prompt_per_token_ms": 9.719,
+      "prompt_per_second": 102.89124395513943,
+      "predicted_n": 128,
+      "predicted_ms": 713.858,
+      "predicted_per_token_ms": 5.620929133858267,
+      "predicted_per_second": 177.90653043042175
+     }
+    },
+    "timings": {
+     "cache_n": 214,
+     "prompt_n": 1,
+     "prompt_ms": 9.719,
+     "prompt_per_token_ms": 9.719,
+     "prompt_per_second": 102.89124395513943,
+     "predicted_n": 128,
+     "predicted_ms": 713.858,
+     "predicted_per_token_ms": 5.620929133858267,
+     "predicted_per_second": 177.90653043042175
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.734
+  }
+ ]
+}

@@ -1,0 +1,146 @@
+{
+ "trial_id": "97597c6b522a2472fd370468",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "A1",
+       "reasoning_content": "We need to parse the user's request.\n\nThe user says: \"可选动作 / available actions:\nA1. 改址：修改 TRK-73002 的收件地址 / change the address for TRK-73002\nA2. 加急：把 TRK-73002 升级为加急配送 / upgrade TRK-73002 to express\nA3. 拦截：尝试拦截 TRK-73002 / attempt to intercept TRK-73002\nA4. 重发：为 ORD-3319 重新发货 / reship ORD-3319\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n收件人打电话说搬家了，包裹 {trk} 还在途中。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The user says a recipient called and said they are moving, the package {trk} is still in transit. So we need to choose an available action from A1-A6 that matches this scenario.\n\nWe have TRK-73002 mentioned earlier? In options there is mention of TRK-73002 for address change (A1), upgrade (A2), intercept (A3). Also ORD-3319 for reship (A4). The user says \"包裹 {trk} 还在途中\" meaning the package is still in transit. The recipient moved, so maybe we need to redirect it or note that it's moving? Possibly change address? But they said they are moving; perhaps we should attempt to intercept? Or maybe we need to reship? Let's think.\n\nWe have no explicit {trk} placeholder but earlier mentions TRK-73002. So likely the package is TRK-73002. The user says \"收件人打电话说搬家了，包裹 {trk} 还在途中。\" Means: The recipient called and said they are moving, the package {trk} is still in transit.\n\nWe need to decide which action corresponds: A1 change address; A2 upgrade to express; A3 attempt to intercept; A4 reship ORD-3319; A5 note only; A6 open escalation case.\n\nGiven that the recipient says they are moving, we might want to redirect the package to a new address. That would be \"改址\" (change the address) i.e., A1. However, is there an option to change address? Yes A1: 修改 TRK-73002 的收件地址.\n\nAlternatively, maybe because it's still in transit and they moved, we might want to intercept it before delivery to hold or redirect? \"Attempt to intercept\" (A3) could be used to try to stop the package from being delivered. But typical scenario: If recipient says moving, you'd need to update address for the shipment.\n\nThus A1 seems appropriate: change the address for TRK-73002.\n\nBut we should verify if any other action fits better: \"加急\" (express) would speed up but not address move. \"拦截\" attempt to intercept maybe also relevant? But usually you'd want to redirect or hold at a facility, not necessarily intercept. The simplest is change the address.\n\nThus answer: A1.\n\nBut we need to output only the action label: e.g., \"A1\". Let's double-check: The user says \"只回答动作编号。\" So just the number? Actually \"动作编号\" means action label like A1, etc. So respond with \"A1\".\n\nThus final answer: A1.\n\nBut let's consider if there is any nuance: The package is still in transit; maybe we need to \"open an escalation case\" because it's delayed due to moving? Not likely. Or \"reship ORD-3319\"? That seems unrelated. So I'll go with A1.\n\nThus final output: A1."
+      }
+     }
+    ],
+    "created": 1795798536,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 865,
+     "prompt_tokens": 212,
+     "total_tokens": 1077,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-eCxTTXvVOOJoVoaaakPOnU9pDrnMbEqA",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request.\n\nThe user says: \"可选动作 / available actions:\nA1. 改址：修改 TRK-73002 的收件地址 / change the address for TRK-73002\nA2. 加急：把 TRK-73002 升级为加急配送 / upgrade TRK-73002 to express\nA3. 拦截：尝试拦截 TRK-73002 / attempt to intercept TRK-73002\nA4. 重发：为 ORD-3319 重新发货 / reship ORD-3319\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n收件人打电话说搬家了，包裹 {trk} 还在途中。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The user says a recipient called and said they are moving, the package {trk} is still in transit. So we need to choose an available action from A1-A6 that matches this scenario.\n\nWe have TRK-73002 mentioned earlier? In options there is mention of TRK-73002 for address change (A1), upgrade (A2), intercept (A3). Also ORD-3319 for reship (A4). The user says \"包裹 {trk} 还在途中\" meaning the package is still in transit. The recipient moved, so maybe we need to redirect it or note that it's moving? Possibly change address? But they said they are moving; perhaps we should attempt to intercept? Or maybe we need to reship? Let's think.\n\nWe have no explicit {trk} placeholder but earlier mentions TRK-73002. So likely the package is TRK-73002. The user says \"收件人打电话说搬家了，包裹 {trk} 还在途中。\" Means: The recipient called and said they are moving, the package {trk} is still in transit.\n\nWe need to decide which action corresponds: A1 change address; A2 upgrade to express; A3 attempt to intercept; A4 reship ORD-3319; A5 note only; A6 open escalation case.\n\nGiven that the recipient says they are moving, we might want to redirect the package to a new address. That would be \"改址\" (change the address) i.e., A1. However, is there an option to change address? Yes A1: 修改 TRK-73002 的收件地址.\n\nAlternatively, maybe because it's still in transit and they moved, we might want to intercept it before delivery to hold or redirect? \"Attempt to intercept\" (A3) could be used to try to stop the package from being delivered. But typical scenario: If recipient says moving, you'd need to update address for the shipment.\n\nThus A1 seems appropriate: change the address for TRK-73002.\n\nBut we should verify if any other action fits better: \"加急\" (express) would speed up but not address move. \"拦截\" attempt to intercept maybe also relevant? But usually you'd want to redirect or hold at a facility, not necessarily intercept. The simplest is change the address.\n\nThus answer: A1.\n\nBut we need to output only the action label: e.g., \"A1\". Let's double-check: The user says \"只回答动作编号。\" So just the number? Actually \"动作编号\" means action label like A1, etc. So respond with \"A1\".\n\nThus final answer: A1.\n\nBut let's consider if there is any nuance: The package is still in transit; maybe we need to \"open an escalation case\" because it's delayed due to moving? Not likely. Or \"reship ORD-3319\"? That seems unrelated. So I'll go with A1.\n\nThus final output: A1.</think>A1",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 865,
+     "tokens_evaluated": 212,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n可选动作 / available actions:\nA1. 改址：修改 TRK-73002 的收件地址 / change the address for TRK-73002\nA2. 加急：把 TRK-73002 升级为加急配送 / upgrade TRK-73002 to express\nA3. 拦截：尝试拦截 TRK-73002 / attempt to intercept TRK-73002\nA4. 重发：为 ORD-3319 重新发货 / reship ORD-3319\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n收件人打电话说搬家了，包裹 {trk} 还在途中。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 1076,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 212,
+      "prompt_ms": 47.372,
+      "prompt_per_token_ms": 0.22345283018867926,
+      "prompt_per_second": 4475.21742801655,
+      "predicted_n": 865,
+      "predicted_ms": 5023.083,
+      "predicted_per_token_ms": 5.8137534722222215,
+      "predicted_per_second": 172.0059174813556
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 212,
+     "prompt_ms": 47.372,
+     "prompt_per_token_ms": 0.22345283018867926,
+     "prompt_per_second": 4475.21742801655,
+     "predicted_n": 865,
+     "predicted_ms": 5023.083,
+     "predicted_per_token_ms": 5.8137534722222215,
+     "predicted_per_second": 172.0059174813556
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.063
+  }
+ ]
+}

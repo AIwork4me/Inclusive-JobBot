@@ -1,0 +1,164 @@
+{
+ "trial_id": "1bf53e7ed304a3dd81c90d84",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，让我想想。用户提供了策略和观察数据。策略说订单年龄为12天，政策限制为30。观察显示n=12。我需要确定应走哪个分支。\n\n首先，查看可用的工具。函数record_answer需要一个分支参数，枚举值为auto_approve、requires_manager_approval或reject_out_of_policy。\n\n等等，用户要求判断应走的分支。所以我需要根据给定数据决定正确的分支。\n\n策略限制为30天，订单年龄为12天。由于12小于30，订单仍在允许范围内。因此不应拒绝。可能自动批准？但需要检查是否有其他条件。\n\n实况n=12可能表示样本量，但主要因素是订单年龄与政策限制的比较。由于12 < 30，允许通过。所以分支应为auto_approve。\n\n等等，政策限制是30天，订单是12天，所以未超出。因此自动批准。让我确认一下。是的，工具中的分支是auto_approve。所以调用record_answer并设置branch为auto_approve。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"branch\":\"auto_approve\"}"
+         },
+         "id": "yA3LHKVhvE5a8II35NPguiCtzXbf3wIR"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795792446,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 235,
+     "prompt_tokens": 283,
+     "total_tokens": 518,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-zIm8Pjwbmm6qaVh67c59XR5ORgplKu1s",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，让我想想。用户提供了策略和观察数据。策略说订单年龄为12天，政策限制为30。观察显示n=12。我需要确定应走哪个分支。\n\n首先，查看可用的工具。函数record_answer需要一个分支参数，枚举值为auto_approve、requires_manager_approval或reject_out_of_policy。\n\n等等，用户要求判断应走的分支。所以我需要根据给定数据决定正确的分支。\n\n策略限制为30天，订单年龄为12天。由于12小于30，订单仍在允许范围内。因此不应拒绝。可能自动批准？但需要检查是否有其他条件。\n\n实况n=12可能表示样本量，但主要因素是订单年龄与政策限制的比较。由于12 < 30，允许通过。所以分支应为auto_approve。\n\n等等，政策限制是30天，订单是12天，所以未超出。因此自动批准。让我确认一下。是的，工具中的分支是auto_approve。所以调用record_answer并设置branch为auto_approve。\n</think>\n\n<function name=\"record_answer\"><param name=\"branch\">auto_approve</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 235,
+     "tokens_evaluated": 283,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"branch\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"branch\": {\"type\": \"string\", \"enum\": [\"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\"]}}, \"required\": [\"branch\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n策略 / policy: order age 12 days, policy limit 30. 实况 / observation: n = 12.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 517,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 283,
+      "prompt_ms": 49.372,
+      "prompt_per_token_ms": 0.17445936395759717,
+      "prompt_per_second": 5731.993842663858,
+      "predicted_n": 235,
+      "predicted_ms": 1284.782,
+      "predicted_per_token_ms": 5.490521367521367,
+      "predicted_per_second": 182.13206598473516
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 283,
+     "prompt_ms": 49.372,
+     "prompt_per_token_ms": 0.17445936395759717,
+     "prompt_per_second": 5731.993842663858,
+     "predicted_n": 235,
+     "predicted_ms": 1284.782,
+     "predicted_per_token_ms": 5.490521367521367,
+     "predicted_per_second": 182.13206598473516
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.344
+  }
+ ]
+}

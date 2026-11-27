@@ -1,0 +1,162 @@
+{
+ "trial_id": "6648c2bd02c3ba011d9b0a03",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to determine the appropriate branch for a policy decision. The user mentions:\n\n- \"策略 / policy: item category restricted from refunds.\" This seems like a policy statement that items in certain categories are not eligible for refunds.\n- \"实况 / observation: n = 5.\" Possibly an observation count or something else? Might be irrelevant to the branch selection.\n\nThe tool `record_answer` requires a parameter `branch` which is an enum with values: \"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\". \n\nWe need to decide which branch applies based on the policy. The policy says \"item category restricted from refunds.\" This likely means that for items in certain categories, refunds are not allowed. So if someone tries to get a refund for such an item, we might need to reject it or require manager approval? Let's interpret.\n\nThe user asks: \"判断应走的分支。 / Decide which branch applies.\"\n\nWe need to map the policy to one of the branches. The options:\n\n- `auto_approve`: Probably automatic approval without further action.\n- `requires_manager_approval`: Needs human manager decision.\n- `reject_out_of_policy`: Reject because it's out of policy.\n\nGiven that the policy restricts refunds for certain item categories, if a request is to refund an item in that restricted category, we should likely reject it as out-of-policy. So branch = \"reject_out_of_policy\".\n\nBut let's double-check: The observation \"n = 5\" might be irrelevant or maybe indicates number of observations? Possibly not needed for this decision.\n\nThus, I'll choose `reject_out_of_policy`.\n\nNow, we need to call the function `record_answer` with the parameter `branch`. So:\n\n{\n  \"branch\": \"reject_out_of_policy\"\n}\n\nLet's do that.",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"branch\":\"reject_out_of_policy\"}"
+         },
+         "id": "yppkvQEhDemB4WmkLb94aPoJbxxqbJP2"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795793958,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 419,
+     "prompt_tokens": 136,
+     "total_tokens": 555,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-5HAun2YQ5AuFhPWSucTeOeD9mJU3QL3P",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to determine the appropriate branch for a policy decision. The user mentions:\n\n- \"策略 / policy: item category restricted from refunds.\" This seems like a policy statement that items in certain categories are not eligible for refunds.\n- \"实况 / observation: n = 5.\" Possibly an observation count or something else? Might be irrelevant to the branch selection.\n\nThe tool `record_answer` requires a parameter `branch` which is an enum with values: \"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\". \n\nWe need to decide which branch applies based on the policy. The policy says \"item category restricted from refunds.\" This likely means that for items in certain categories, refunds are not allowed. So if someone tries to get a refund for such an item, we might need to reject it or require manager approval? Let's interpret.\n\nThe user asks: \"判断应走的分支。 / Decide which branch applies.\"\n\nWe need to map the policy to one of the branches. The options:\n\n- `auto_approve`: Probably automatic approval without further action.\n- `requires_manager_approval`: Needs human manager decision.\n- `reject_out_of_policy`: Reject because it's out of policy.\n\nGiven that the policy restricts refunds for certain item categories, if a request is to refund an item in that restricted category, we should likely reject it as out-of-policy. So branch = \"reject_out_of_policy\".\n\nBut let's double-check: The observation \"n = 5\" might be irrelevant or maybe indicates number of observations? Possibly not needed for this decision.\n\nThus, I'll choose `reject_out_of_policy`.\n\nNow, we need to call the function `record_answer` with the parameter `branch`. So:\n\n{\n  \"branch\": \"reject_out_of_policy\"\n}\n\nLet's do that.</think><tool_call>\n<function=record_answer>\n<parameter=branch>\nreject_out_of_policy\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 419,
+     "tokens_evaluated": 136,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"branch\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"branch\": {\"type\": \"string\", \"enum\": [\"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\"]}}, \"required\": [\"branch\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\n策略 / policy: item category restricted from refunds. 实况 / observation: n = 5.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 554,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 136,
+      "prompt_ms": 42.841,
+      "prompt_per_token_ms": 0.3150073529411765,
+      "prompt_per_second": 3174.5290726173525,
+      "predicted_n": 419,
+      "predicted_ms": 2430.187,
+      "predicted_per_token_ms": 5.813844497607655,
+      "predicted_per_second": 172.00322444322185
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 136,
+     "prompt_ms": 42.841,
+     "prompt_per_token_ms": 0.3150073529411765,
+     "prompt_per_second": 3174.5290726173525,
+     "predicted_n": 419,
+     "predicted_ms": 2430.187,
+     "predicted_per_token_ms": 5.813844497607655,
+     "predicted_per_second": 172.00322444322185
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.484
+  }
+ ]
+}

@@ -1,0 +1,152 @@
+{
+ "trial_id": "40b067580d03508064315ca5",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to determine the appropriate branch for a given scenario based on the provided policy and observation.\n\nThe user states:\n- \"策略 / policy: order age 30 days, policy limit 30.\" This seems like a policy rule: maybe something about order age? It says \"order age 30 days\" and \"policy limit 30\". Possibly meaning that for orders, there is an age of 30 days and the policy limit is also 30. Not entirely clear.\n- \"实况 / observation: n = 30.\" This might be an observation value n=30.\n\nWe need to decide which branch applies using the tool `record_answer` with parameter `branch`. The branches are defined in the function signature: enum [\"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\"].\n\nWe need to interpret the policy and observation to choose one of these branches.\n\nLet's parse:\n- Policy: order age 30 days, policy limit 30. Possibly means that orders must be at least 30 days old? Or maybe the order age is 30 days, and the policy limit is also 30 (maybe maximum allowed?). \n- Observation: n = 30.\n\nMaybe this relates to some rule about whether an order should be auto-approved or require manager approval or reject out of policy. The numbers might indicate something like: if observation n equals policy limit? Or maybe it's a threshold for age vs limit.\n\nGiven the typical pattern in such tasks, we need to map \"order age 30 days\" and \"policy limit 30\" to some condition. Possibly:\n- If order age is less than or equal to policy limit? Not sure.\n- The observation n=30 might be the number of something (like count) that triggers a branch.\n\nLet's think about possible branches:\n- `auto_approve`: automatically approve.\n- `requires_manager_approval`: needs manager approval.\n- `reject_out_of_policy`: reject because out of policy.\n\nGiven \"order age 30 days\" and \"policy limit 30\", maybe the rule is: if order age > policy limit, then something? Or perhaps it's about whether an order is within a certain period. For example, in some contexts, orders older than a certain time might be rejected or require approval.\n\nBut we have limited info. Let's try to reason from typical business rules:\n- \"order age\" could refer to how long ago the order was placed.\n- \"policy limit 30\" could mean that there is a maximum allowed age? Or maybe it's a limit on something else.\n\nObservation n=30: maybe n is the number of days since order or something. If n equals policy limit, then perhaps we need to take a specific branch.\n\nGiven the enum values:\n- `auto_approve`: likely for straightforward cases.\n- `requires_manager_approval`: needs human review.\n- `reject_out_of_policy`: rejects because it violates policy.\n\nIf order age is 30 days and policy limit is also 30, maybe that means exactly at the limit. Could be a boundary case.\n\nOften in such tasks, when numbers match, you might need to check if it's equal or less than/greater than. Without more context, we can guess based on typical patterns: If order age equals policy limit (both 30), perhaps it requires manager approval? Or maybe auto-approve because it's within the limit?\n\nLet's look at the function `record_answer` which takes a parameter `branch`. It says \"Record the chosen answer (structured answer recording, not business tool execution).\" So we just need to output the branch name.\n\nWe might need to infer from the phrase: \"策略 / policy: order age 30 days, policy limit 30. 实况 / observation: n = 30.\" Possibly this is a translation of something like:\n- Policy: Order age 30 days, policy limit 30.\n- Observation: n = 30.\n\nMaybe it's about whether the order is within the allowed period? If order age (time since order) is 30 days and the policy limit is also 30 days, then maybe it's exactly at the boundary. Could be that if order age equals policy limit, we need to \"requires_manager_approval\" or something.\n\nAlternatively, perhaps \"n=30\" refers to a count of orders? Not sure.\n\nGiven the ambiguity, I'll try to reason from typical decision trees:\n- If n (observation) is less than policy limit: auto_approve?\n- If equal: requires manager approval?\n- If greater: reject out of policy?\n\nBut we don't have enough. However, maybe there's a standard interpretation in this context. The user might be referencing a specific domain like \"order age\" and \"policy limit\". Possibly it's about whether an order is eligible for auto-approval based on its age"
+      }
+     }
+    ],
+    "created": 1795794688,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 140,
+     "total_tokens": 1164,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-HbFmQaZjYX3UotcXRkvVdwhJUr1DzRHz",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to determine the appropriate branch for a given scenario based on the provided policy and observation.\n\nThe user states:\n- \"策略 / policy: order age 30 days, policy limit 30.\" This seems like a policy rule: maybe something about order age? It says \"order age 30 days\" and \"policy limit 30\". Possibly meaning that for orders, there is an age of 30 days and the policy limit is also 30. Not entirely clear.\n- \"实况 / observation: n = 30.\" This might be an observation value n=30.\n\nWe need to decide which branch applies using the tool `record_answer` with parameter `branch`. The branches are defined in the function signature: enum [\"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\"].\n\nWe need to interpret the policy and observation to choose one of these branches.\n\nLet's parse:\n- Policy: order age 30 days, policy limit 30. Possibly means that orders must be at least 30 days old? Or maybe the order age is 30 days, and the policy limit is also 30 (maybe maximum allowed?). \n- Observation: n = 30.\n\nMaybe this relates to some rule about whether an order should be auto-approved or require manager approval or reject out of policy. The numbers might indicate something like: if observation n equals policy limit? Or maybe it's a threshold for age vs limit.\n\nGiven the typical pattern in such tasks, we need to map \"order age 30 days\" and \"policy limit 30\" to some condition. Possibly:\n- If order age is less than or equal to policy limit? Not sure.\n- The observation n=30 might be the number of something (like count) that triggers a branch.\n\nLet's think about possible branches:\n- `auto_approve`: automatically approve.\n- `requires_manager_approval`: needs manager approval.\n- `reject_out_of_policy`: reject because out of policy.\n\nGiven \"order age 30 days\" and \"policy limit 30\", maybe the rule is: if order age > policy limit, then something? Or perhaps it's about whether an order is within a certain period. For example, in some contexts, orders older than a certain time might be rejected or require approval.\n\nBut we have limited info. Let's try to reason from typical business rules:\n- \"order age\" could refer to how long ago the order was placed.\n- \"policy limit 30\" could mean that there is a maximum allowed age? Or maybe it's a limit on something else.\n\nObservation n=30: maybe n is the number of days since order or something. If n equals policy limit, then perhaps we need to take a specific branch.\n\nGiven the enum values:\n- `auto_approve`: likely for straightforward cases.\n- `requires_manager_approval`: needs human review.\n- `reject_out_of_policy`: rejects because it violates policy.\n\nIf order age is 30 days and policy limit is also 30, maybe that means exactly at the limit. Could be a boundary case.\n\nOften in such tasks, when numbers match, you might need to check if it's equal or less than/greater than. Without more context, we can guess based on typical patterns: If order age equals policy limit (both 30), perhaps it requires manager approval? Or maybe auto-approve because it's within the limit?\n\nLet's look at the function `record_answer` which takes a parameter `branch`. It says \"Record the chosen answer (structured answer recording, not business tool execution).\" So we just need to output the branch name.\n\nWe might need to infer from the phrase: \"策略 / policy: order age 30 days, policy limit 30. 实况 / observation: n = 30.\" Possibly this is a translation of something like:\n- Policy: Order age 30 days, policy limit 30.\n- Observation: n = 30.\n\nMaybe it's about whether the order is within the allowed period? If order age (time since order) is 30 days and the policy limit is also 30 days, then maybe it's exactly at the boundary. Could be that if order age equals policy limit, we need to \"requires_manager_approval\" or something.\n\nAlternatively, perhaps \"n=30\" refers to a count of orders? Not sure.\n\nGiven the ambiguity, I'll try to reason from typical decision trees:\n- If n (observation) is less than policy limit: auto_approve?\n- If equal: requires manager approval?\n- If greater: reject out of policy?\n\nBut we don't have enough. However, maybe there's a standard interpretation in this context. The user might be referencing a specific domain like \"order age\" and \"policy limit\". Possibly it's about whether an order is eligible for auto-approval based on its age",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 140,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"branch\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"branch\": {\"type\": \"string\", \"enum\": [\"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\"]}}, \"required\": [\"branch\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\n策略 / policy: order age 30 days, policy limit 30. 实况 / observation: n = 30.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1163,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 140,
+      "prompt_ms": 42.597,
+      "prompt_per_token_ms": 0.3042642857142857,
+      "prompt_per_second": 3286.6164283869753,
+      "predicted_n": 1024,
+      "predicted_ms": 5937.253,
+      "predicted_per_token_ms": 5.803766373411534,
+      "predicted_per_second": 172.3019046013367
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 140,
+     "prompt_ms": 42.597,
+     "prompt_per_token_ms": 0.3042642857142857,
+     "prompt_per_second": 3286.6164283869753,
+     "predicted_n": 1024,
+     "predicted_ms": 5937.253,
+     "predicted_per_token_ms": 5.803766373411534,
+     "predicted_per_second": 172.3019046013367
+    }
+   },
+   "http_error": null,
+   "latency_s": 6.0
+  }
+ ]
+}

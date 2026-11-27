@@ -1,0 +1,146 @@
+{
+ "trial_id": "f4d40c06dc785ee9e8ddfd16",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of a reinforcement learning or policy-based decision-making scenario.\n    *   Data:\n        *   `policy`: order age 31 days, policy limit 30.\n        *   `observation`: n = 31.\n        *   `Allowed branches`: auto_approve, requires_manager_approval, reject_out_of_policy.\n    *   Task: Decide which branch applies (auto_approve, requires_manager_approval, reject_out_of_policy).\n\n2.  **Understand the Logic:**\n    *   The policy specifies an action: \"order age 31 days\".\n    *   The policy limit (constraint) is: 30.\n    *   The observation (current state/parameter) is: n = 31.\n    *   This looks like a constraint violation scenario.\n    *   The policy limit is 30. The observation is 31.\n    *   31 > 30. The action requested (order age 31 days) exceeds the allowed limit (30).\n\n3.  **Evaluate the Allowed Branches:**\n    *   `auto_approve`: This would be appropriate if the action is within the policy limit.\n    *   `requires_manager_approval`: This would be appropriate if the action is borderline or requires human intervention, but usually reserved for specific policy deviations that need review.\n    *   `reject_out_of_policy`: This is the standard response when an action violates the policy constraints.\n\n4.  **Determine the Decision:**\n    *   Policy Limit = 30.\n    *   Observation = 31.\n    *   31 > 30.\n    *   The action is out of policy.\n    *   Therefore, the system should reject the action.\n    *   Branch: `reject_out_of_policy`.\n\n5.  **Formulate the Output:**\n    *   State the decision clearly.\n    *   Explain the reasoning (31 > 30).\n\n6.  **Refine the Output (Language):**\n    *   The user asked in Chinese (\"判断应走的分支。 / Decide which branch applies.\").\n    *   The response should be in Chinese.\n    *   Decision: `reject_out_of_policy`.\n    *   Reasoning: The policy limit is 30, but the observation is 31, which exceeds the limit.\n\n7.  **Final Check:**\n    *   Policy: order age 31 days.\n    *   Limit: 30.\n    *   Observation: 31.\n    *   31 > 30 -> Violation.\n    *   Violation -> `reject_out_of_policy`.\n\n    Wait, is there any nuance? \"order age 31 days\" might mean \"order age 31 days\" (duration) vs \"order age 31\" (current age)? The text says \"policy limit 30\". Usually, this implies a constraint on the value. If the value is 31 and limit is 30, it's a violation.\n    Let's assume the standard RL decision tree logic:\n    - If observation <= limit -> auto_approve (or similar).\n    - If observation > limit -> reject_out_of_policy.\n    - If observation is within range but needs human check -> requires_manager_approval.\n\n    Here, 31 > 30. So it's a clear violation.\n\n    Decision: `reject_out_of_policy`.\n\n    Wait, could \"order age 31 days\" mean the *duration* of the order is 31 days? And the limit is 30 days? Yes.\n    So the action is 31 days, limit is 30 days.\n    31 > 30.\n    Violation.\n    Branch: `reject_out_of_policy`.\n\n    Let's draft the response.\n\n    **Reasoning:**\n    1.  Policy Limit: 30\n    2.  Observation: 31\n    3.  31 > 30, so the action violates the policy limit.\n    4.  Therefore, it should be rejected.\n\n    **Output:**\n    Branch: `reject_out_of_policy`.\n\n    Let's write it down.\n\n    Wait, I should check if there's any ambiguity about \"order age 31 days\". Does it mean \"order age 31 days\" (duration) or \"order age 31\" (current age)? The text says \"policy limit 30\". Usually, limits are on the same dimension. If the limit is 30, and the observation is 31,"
+      }
+     }
+    ],
+    "created": 1795795493,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 67,
+     "total_tokens": 1091,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-GUq153zcKDQmiPSJEHIL3Zchg4Nqb92p",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of a reinforcement learning or policy-based decision-making scenario.\n    *   Data:\n        *   `policy`: order age 31 days, policy limit 30.\n        *   `observation`: n = 31.\n        *   `Allowed branches`: auto_approve, requires_manager_approval, reject_out_of_policy.\n    *   Task: Decide which branch applies (auto_approve, requires_manager_approval, reject_out_of_policy).\n\n2.  **Understand the Logic:**\n    *   The policy specifies an action: \"order age 31 days\".\n    *   The policy limit (constraint) is: 30.\n    *   The observation (current state/parameter) is: n = 31.\n    *   This looks like a constraint violation scenario.\n    *   The policy limit is 30. The observation is 31.\n    *   31 > 30. The action requested (order age 31 days) exceeds the allowed limit (30).\n\n3.  **Evaluate the Allowed Branches:**\n    *   `auto_approve`: This would be appropriate if the action is within the policy limit.\n    *   `requires_manager_approval`: This would be appropriate if the action is borderline or requires human intervention, but usually reserved for specific policy deviations that need review.\n    *   `reject_out_of_policy`: This is the standard response when an action violates the policy constraints.\n\n4.  **Determine the Decision:**\n    *   Policy Limit = 30.\n    *   Observation = 31.\n    *   31 > 30.\n    *   The action is out of policy.\n    *   Therefore, the system should reject the action.\n    *   Branch: `reject_out_of_policy`.\n\n5.  **Formulate the Output:**\n    *   State the decision clearly.\n    *   Explain the reasoning (31 > 30).\n\n6.  **Refine the Output (Language):**\n    *   The user asked in Chinese (\"判断应走的分支。 / Decide which branch applies.\").\n    *   The response should be in Chinese.\n    *   Decision: `reject_out_of_policy`.\n    *   Reasoning: The policy limit is 30, but the observation is 31, which exceeds the limit.\n\n7.  **Final Check:**\n    *   Policy: order age 31 days.\n    *   Limit: 30.\n    *   Observation: 31.\n    *   31 > 30 -> Violation.\n    *   Violation -> `reject_out_of_policy`.\n\n    Wait, is there any nuance? \"order age 31 days\" might mean \"order age 31 days\" (duration) vs \"order age 31\" (current age)? The text says \"policy limit 30\". Usually, this implies a constraint on the value. If the value is 31 and limit is 30, it's a violation.\n    Let's assume the standard RL decision tree logic:\n    - If observation <= limit -> auto_approve (or similar).\n    - If observation > limit -> reject_out_of_policy.\n    - If observation is within range but needs human check -> requires_manager_approval.\n\n    Here, 31 > 30. So it's a clear violation.\n\n    Decision: `reject_out_of_policy`.\n\n    Wait, could \"order age 31 days\" mean the *duration* of the order is 31 days? And the limit is 30 days? Yes.\n    So the action is 31 days, limit is 30 days.\n    31 > 30.\n    Violation.\n    Branch: `reject_out_of_policy`.\n\n    Let's draft the response.\n\n    **Reasoning:**\n    1.  Policy Limit: 30\n    2.  Observation: 31\n    3.  31 > 30, so the action violates the policy limit.\n    4.  Therefore, it should be rejected.\n\n    **Output:**\n    Branch: `reject_out_of_policy`.\n\n    Let's write it down.\n\n    Wait, I should check if there's any ambiguity about \"order age 31 days\". Does it mean \"order age 31 days\" (duration) or \"order age 31\" (current age)? The text says \"policy limit 30\". Usually, limits are on the same dimension. If the limit is 30, and the observation is 31,",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 67,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n策略 / policy: order age 31 days, policy limit 30. 实况 / observation: n = 31.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1090,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 67,
+      "prompt_ms": 37.46,
+      "prompt_per_token_ms": 0.5591044776119403,
+      "prompt_per_second": 1788.574479444741,
+      "predicted_n": 1024,
+      "predicted_ms": 4964.365,
+      "predicted_per_token_ms": 4.852751710654936,
+      "predicted_per_second": 206.06865127765585
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 67,
+     "prompt_ms": 37.46,
+     "prompt_per_token_ms": 0.5591044776119403,
+     "prompt_per_second": 1788.574479444741,
+     "predicted_n": 1024,
+     "predicted_ms": 4964.365,
+     "predicted_per_token_ms": 4.852751710654936,
+     "predicted_per_second": 206.06865127765585
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.015
+  }
+ ]
+}

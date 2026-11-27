@@ -1,0 +1,146 @@
+{
+ "trial_id": "76885b2cf686ec0569177603",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's query. It says:\n\n\"策略 / policy: order age 12 days, policy limit 30. 实况 / observation: n = 12.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的"
+      }
+     }
+    ],
+    "created": 1795796092,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 64,
+     "prompt_tokens": 70,
+     "total_tokens": 134,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-tM8s1eLPIXb2rTjhMCd0Le7wR7TuaJGk",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. It says:\n\n\"策略 / policy: order age 12 days, policy limit 30. 实况 / observation: n = 12.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 64,
+     "tokens_evaluated": 70,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 64,
+      "n_predict": 64,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n策略 / policy: order age 12 days, policy limit 30. 实况 / observation: n = 12.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 133,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 70,
+      "prompt_ms": 35.61,
+      "prompt_per_token_ms": 0.5087142857142857,
+      "prompt_per_second": 1965.7399606852007,
+      "predicted_n": 64,
+      "predicted_ms": 371.218,
+      "predicted_per_token_ms": 5.8923492063492064,
+      "predicted_per_second": 169.7115980367331
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 70,
+     "prompt_ms": 35.61,
+     "prompt_per_token_ms": 0.5087142857142857,
+     "prompt_per_second": 1965.7399606852007,
+     "predicted_n": 64,
+     "predicted_ms": 371.218,
+     "predicted_per_token_ms": 5.8923492063492064,
+     "predicted_per_second": 169.7115980367331
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.406
+  }
+ ]
+}

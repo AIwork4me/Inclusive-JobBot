@@ -125,5 +125,9 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N02R | PR-D10 denominator reconciliation (v1 plan 2,016 unique not 2,160; corrected plan 2,184 unique logical slots) | done | PASS | `scripts/ij_nano/n02r_analyze_v2.py`, analyzer denominators block |
 | N02R | Evidence disposition for v1 trials (never modified) | done | PASS | `evidence/IJNANO/N02R/evidence_disposition.json` |
 | N02R | Gate `N02R_PARSER_EVALUATOR_INTEGRATION_GO` (15/15 mandatory negatives, hashes bound) | done | PASS | `evidence/IJNANO/N02R/parser_evaluator_qualification.json` |
-| N02R | Corrected experiment 7a1b9d7d160202d8: smoke 57/57 validated; main 1680 + panel 504 executing under lease | in flight | NOT_RUN | `runs/7a1b9d7d160202d8/` |
-| N02R | Gate `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED` | pending campaign + analysis | NOT_RUN | — |
+| N02R | Corrected experiment 7a1b9d7d160202d8: smoke 57/57; main 893 + panel 504 physically executed (crash at parser defect P6-slot trailing scan fixed; request renderers verified byte-identical) | done | PASS (physical source) | `runs/7a1b9d7d160202d8/` (sealed) |
+| N02R | Offline re-score per addendum §11: 1397/1397 trials re-parsed and re-scored from hash-verified artifacts into new identity ec5b95357e960f99 (0 hash mismatches) | done | PASS | `scripts/ij_nano/n02r_rescore.py`, `runs/ec5b95357e960f99/manifest.json` (rescore block) |
+| N02R | Final physical fill under ec5b95357e960f99: remaining 787 main slots executed; panel fully covered | done | PASS (2184/2184 unique slots; 2214 physical requests; seal.json) | `runs/ec5b95357e960f99/{results.jsonl,seal.json}` |
+| N02R | Protocol matrix deliverable (scopes + T-set + contrasts + budget curves + denominators) | done | PASS | `evidence/IJNANO/N02R/protocol_matrix.json`, `scripts/ij_nano/n02r_analyze_v2.py` |
+| N02R | Causal report (sections 5-7: matrix, T0-T3 trade-off, recommendation candidates, limitations) | done | PASS | `reports/IJNANO_02R_PROTOCOL_CAUSAL_ANALYSIS.md` |
+| N02R | Gate `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED` | done | PASS (scoped; limitations documented) | `MISSION_STATE_IJNANO.json` phase N02R |

@@ -1,0 +1,146 @@
+{
+ "trial_id": "e20c9e2767960ea27c608af1",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "**Full action:**\n\n- **Tool:** `inventory.adjust_stock`  \n- **Parameters:**  \n  - `sku`: `\"SKU-2210\"`  \n  - `quantity`: `12`  \n\n**Action call:** `inventory.adjust_stock(sku=\"SKU-2210\", quantity=12)`",
+       "reasoning_content": "We need to parse the user's request. The user says:\n\n\"Item SKU-2210: quantity change 12 pcs.\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nInterpretation: The user wants to generate the full action for \"Item SKU-2210: quantity change 12 pcs.\" So we need to decide which tool(s) to use. Typically, adjusting stock by a quantity change is done via inventory.adjust_stock with parameters sku and quantity. But also maybe check current stock first? The user didn't specify whether they want to adjust or just update the quantity. \"quantity change 12 pcs.\" Means we need to increase (or decrease?) by 12 pieces for SKU-2210.\n\nThus, likely use inventory.adjust_stock with sku=SKU-2210 and quantity=12. But also maybe check stock first? The tool list includes check_stock, adjust_stock, reserve_stock, etc. Usually you'd want to know current stock before adjusting. However the user didn't ask for checking; they just gave a change.\n\nThus we can produce: inventory.adjust_stock(sku=\"SKU-2210\", quantity=12). But need to confirm sign: \"quantity change 12 pcs.\" Could be adding 12? Usually adjust_stock takes new quantity or delta? The description says params: sku, quantity. It doesn't specify if it's increment or set. We'll assume quantity is the amount to add (or maybe net change). So we can just pass 12.\n\nThus full action: tool name and all arguments.\n\nLet's produce:\n\n- Tool: inventory.adjust_stock\n- Parameters: {\"sku\": \"SKU-2210\", \"quantity\": 12}\n\nBut also perhaps need to call check_stock first? The user didn't ask for that. I'll go with adjust_stock directly.\n\nThus final answer: \"inventory.adjust_stock(sku='SKU-2210', quantity=12)\".\n\nWe should format as per request: \"工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nSo we can write:\n\nAction: inventory.adjust_stock\nParameters:\n  sku: \"SKU-2210\"\n  quantity: 12\n\nThus final.\n\nBut maybe they want to include both check stock and adjust? Let's read again: \"Item SKU-2210: quantity change 12 pcs.\" Usually you'd need to know current stock, but not necessarily. The available tools list includes check_stock (query). Could be a multi-step process: first check stock, then adjust. But the user didn't ask for checking.\n\nGiven typical tasks in these prompts, they often want just one tool call that accomplishes the change. So I'll go with inventory.adjust_stock.\n\nThus final answer:\n\n- Tool: inventory.adjust_stock\n- Arguments: sku=\"SKU-2210\", quantity=12\n\nI will output exactly as requested: \"inventory.adjust_stock(sku='SKU-2210', quantity=12)\".\n\nLet's do that."
+      }
+     }
+    ],
+    "created": 1795799980,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 893,
+     "prompt_tokens": 214,
+     "total_tokens": 1107,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-Ob8eePdEHi6GR91aCdpaXsPTVybqsKoy",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request. The user says:\n\n\"Item SKU-2210: quantity change 12 pcs.\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nInterpretation: The user wants to generate the full action for \"Item SKU-2210: quantity change 12 pcs.\" So we need to decide which tool(s) to use. Typically, adjusting stock by a quantity change is done via inventory.adjust_stock with parameters sku and quantity. But also maybe check current stock first? The user didn't specify whether they want to adjust or just update the quantity. \"quantity change 12 pcs.\" Means we need to increase (or decrease?) by 12 pieces for SKU-2210.\n\nThus, likely use inventory.adjust_stock with sku=SKU-2210 and quantity=12. But also maybe check stock first? The tool list includes check_stock, adjust_stock, reserve_stock, etc. Usually you'd want to know current stock before adjusting. However the user didn't ask for checking; they just gave a change.\n\nThus we can produce: inventory.adjust_stock(sku=\"SKU-2210\", quantity=12). But need to confirm sign: \"quantity change 12 pcs.\" Could be adding 12? Usually adjust_stock takes new quantity or delta? The description says params: sku, quantity. It doesn't specify if it's increment or set. We'll assume quantity is the amount to add (or maybe net change). So we can just pass 12.\n\nThus full action: tool name and all arguments.\n\nLet's produce:\n\n- Tool: inventory.adjust_stock\n- Parameters: {\"sku\": \"SKU-2210\", \"quantity\": 12}\n\nBut also perhaps need to call check_stock first? The user didn't ask for that. I'll go with adjust_stock directly.\n\nThus final answer: \"inventory.adjust_stock(sku='SKU-2210', quantity=12)\".\n\nWe should format as per request: \"工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nSo we can write:\n\nAction: inventory.adjust_stock\nParameters:\n  sku: \"SKU-2210\"\n  quantity: 12\n\nThus final.\n\nBut maybe they want to include both check stock and adjust? Let's read again: \"Item SKU-2210: quantity change 12 pcs.\" Usually you'd need to know current stock, but not necessarily. The available tools list includes check_stock (query). Could be a multi-step process: first check stock, then adjust. But the user didn't ask for checking.\n\nGiven typical tasks in these prompts, they often want just one tool call that accomplishes the change. So I'll go with inventory.adjust_stock.\n\nThus final answer:\n\n- Tool: inventory.adjust_stock\n- Arguments: sku=\"SKU-2210\", quantity=12\n\nI will output exactly as requested: \"inventory.adjust_stock(sku='SKU-2210', quantity=12)\".\n\nLet's do that.</think>**Full action:**\n\n- **Tool:** `inventory.adjust_stock`  \n- **Parameters:**  \n  - `sku`: `\"SKU-2210\"`  \n  - `quantity`: `12`  \n\n**Action call:** `inventory.adjust_stock(sku=\"SKU-2210\", quantity=12)`",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 893,
+     "tokens_evaluated": 214,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\nItem SKU-2210: quantity change 12 pcs.\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 1106,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 214,
+      "prompt_ms": 49.277,
+      "prompt_per_token_ms": 0.23026635514018692,
+      "prompt_per_second": 4342.79684234024,
+      "predicted_n": 893,
+      "predicted_ms": 5183.583,
+      "predicted_per_token_ms": 5.811191704035874,
+      "predicted_per_second": 172.08174345814467
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 214,
+     "prompt_ms": 49.277,
+     "prompt_per_token_ms": 0.23026635514018692,
+     "prompt_per_second": 4342.79684234024,
+     "predicted_n": 893,
+     "predicted_ms": 5183.583,
+     "predicted_per_token_ms": 5.811191704035874,
+     "predicted_per_second": 172.08174345814467
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.235
+  }
+ ]
+}

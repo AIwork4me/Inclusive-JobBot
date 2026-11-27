@@ -1,0 +1,154 @@
+{
+ "trial_id": "7200e677e140c00f0176f5be",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{ \"decision\": \"continue\" }",
+       "reasoning_content": "1.  **分析请求：**\n    *   **目标：** 通知客户C-303关于延误。\n    *   **当前观测：** 通知已排队但尚未送达。\n    *   **允许决策：** 停止或继续。\n    *   **任务：** 决定是停止还是继续。\n\n2.  **评估决策：**\n    *   *继续：* 通知正在排队但尚未送达。继续意味着等待它送达，或者采取进一步行动来确保它送达。这对于履行目标至关重要。\n    *   *停止：* 停止意味着不再发送通知。这会导致客户C-303错过关于延误的重要信息。这违背了目标。\n\n3.  **确定最佳行动：**\n    *   既然目标是在通知客户关于延误，而通知正在排队但尚未送达，继续发送/等待是唯一合乎逻辑且符合目标的行动。停止会导致客户C-303未收到通知。\n\n4.  **形成输出：**\n    *   明确选择“继续”。\n    *   提供简短的理由（确保目标达成，通知正在排队）。\n"
+      }
+     }
+    ],
+    "created": 1795794025,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 238,
+     "prompt_tokens": 59,
+     "total_tokens": 297,
+     "prompt_tokens_details": {
+      "cached_tokens": 58
+     }
+    },
+    "id": "chatcmpl-7O6JlQ72mRvJHXbgiGm4q8AG39QVL1uv",
+    "__verbose": {
+     "index": 0,
+     "content": "1.  **分析请求：**\n    *   **目标：** 通知客户C-303关于延误。\n    *   **当前观测：** 通知已排队但尚未送达。\n    *   **允许决策：** 停止或继续。\n    *   **任务：** 决定是停止还是继续。\n\n2.  **评估决策：**\n    *   *继续：* 通知正在排队但尚未送达。继续意味着等待它送达，或者采取进一步行动来确保它送达。这对于履行目标至关重要。\n    *   *停止：* 停止意味着不再发送通知。这会导致客户C-303错过关于延误的重要信息。这违背了目标。\n\n3.  **确定最佳行动：**\n    *   既然目标是在通知客户关于延误，而通知正在排队但尚未送达，继续发送/等待是唯一合乎逻辑且符合目标的行动。停止会导致客户C-303未收到通知。\n\n4.  **形成输出：**\n    *   明确选择“继续”。\n    *   提供简短的理由（确保目标达成，通知正在排队）。\n</think>\n\n     { \"decision\": \"continue\" }",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 238,
+     "tokens_evaluated": 59,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-decision-kv space \"}\"\nresponse-format-decision ::= (\"\\\"stop\\\"\" | \"\\\"continue\\\"\")\nresponse-format-decision-kv ::= \"\\\"decision\\\"\" space \":\" space response-format-decision\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n目标 / goal: goal: customer C-303 notified of delay. 当前观测 / observation: notification queued but not yet delivered.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 296,
+     "timings": {
+      "cache_n": 58,
+      "prompt_n": 1,
+      "prompt_ms": 9.887,
+      "prompt_per_token_ms": 9.887,
+      "prompt_per_second": 101.14291493880853,
+      "predicted_n": 238,
+      "predicted_ms": 1389.292,
+      "predicted_per_token_ms": 5.861991561181434,
+      "predicted_per_second": 170.59048781681608
+     }
+    },
+    "timings": {
+     "cache_n": 58,
+     "prompt_n": 1,
+     "prompt_ms": 9.887,
+     "prompt_per_token_ms": 9.887,
+     "prompt_per_second": 101.14291493880853,
+     "predicted_n": 238,
+     "predicted_ms": 1389.292,
+     "predicted_per_token_ms": 5.861991561181434,
+     "predicted_per_second": 170.59048781681608
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.406
+  }
+ ]
+}

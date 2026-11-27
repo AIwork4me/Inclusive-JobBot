@@ -1,0 +1,146 @@
+{
+ "trial_id": "d1ba13f630dfb37773266a40",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "logistics.trace_shipment",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: Known order details (ORD-2025, C-77, SKU-8806, TRK-65140) and a list of available tools.\n    *   Question: \"Where is parcel TRK-65140 right now?\"\n    *   Constraint: Answer with the tool name only.\n\n2.  **Identify the Goal:** The user wants to know the current status/location of a specific parcel (tracking number TRK-65140).\n\n3.  **Evaluate Available Tools:**\n    *   `orders.lookup_order`: Queries order details (params: order_id).\n    *   `orders.cancel_order`: Cancels an order.\n    *   `orders.get_refund_eligibility`: Checks refund eligibility.\n    *   `refunds.submit`: Submits a refund.\n    *   `customers.get_profile`: Gets customer profile.\n    *   `logistics.trace_shipment`: Traces a shipment (params: tracking_no).\n    *   `inventory.check_stock`: Checks stock.\n    *   `notify.send_update`: Sends a notification.\n\n4.  **Match Goal to Tool:**\n    *   The question asks about the status of a *parcel* using a *tracking number* (TRK-65140).\n    *   The tool `logistics.trace_shipment` takes a `tracking_no` parameter and is explicitly for \"追踪物流\" (tracking shipment).\n    *   The other tools are for orders, refunds, customers, or inventory, which don't directly provide shipment status based on a tracking number.\n\n5.  **Formulate Output:**\n    *   The tool name is `logistics.trace_shipment`.\n    *   Constraint: \"只回答要调用的工具名\" (Answer with the tool name only).\n\n6.  **Final Check:** Does `logistics.trace_shipment` match the input data? Yes, the tracking number is provided. Does it answer the question? Yes, it's the only tool that traces a shipment.\n\n7.  **Output:** logistics.trace_shipment"
+      }
+     }
+    ],
+    "created": 1795796280,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 476,
+     "prompt_tokens": 242,
+     "total_tokens": 718,
+     "prompt_tokens_details": {
+      "cached_tokens": 238
+     }
+    },
+    "id": "chatcmpl-TvJ72SkRAnSAnsF8dFqafNqzYOYHi1re",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: Known order details (ORD-2025, C-77, SKU-8806, TRK-65140) and a list of available tools.\n    *   Question: \"Where is parcel TRK-65140 right now?\"\n    *   Constraint: Answer with the tool name only.\n\n2.  **Identify the Goal:** The user wants to know the current status/location of a specific parcel (tracking number TRK-65140).\n\n3.  **Evaluate Available Tools:**\n    *   `orders.lookup_order`: Queries order details (params: order_id).\n    *   `orders.cancel_order`: Cancels an order.\n    *   `orders.get_refund_eligibility`: Checks refund eligibility.\n    *   `refunds.submit`: Submits a refund.\n    *   `customers.get_profile`: Gets customer profile.\n    *   `logistics.trace_shipment`: Traces a shipment (params: tracking_no).\n    *   `inventory.check_stock`: Checks stock.\n    *   `notify.send_update`: Sends a notification.\n\n4.  **Match Goal to Tool:**\n    *   The question asks about the status of a *parcel* using a *tracking number* (TRK-65140).\n    *   The tool `logistics.trace_shipment` takes a `tracking_no` parameter and is explicitly for \"追踪物流\" (tracking shipment).\n    *   The other tools are for orders, refunds, customers, or inventory, which don't directly provide shipment status based on a tracking number.\n\n5.  **Formulate Output:**\n    *   The tool name is `logistics.trace_shipment`.\n    *   Constraint: \"只回答要调用的工具名\" (Answer with the tool name only).\n\n6.  **Final Check:** Does `logistics.trace_shipment` match the input data? Yes, the tracking number is provided. Does it answer the question? Yes, it's the only tool that traces a shipment.\n\n7.  **Output:** logistics.trace_shipment\n</think>\n\nlogistics.trace_shipment",
+     "tokens": [],
+     "id_slot": 2,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 476,
+     "tokens_evaluated": 242,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 512,
+      "n_predict": 512,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\nKnown: order ORD-2025, customer C-77, sku SKU-8806, tracking TRK-65140.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\nWhere is parcel TRK-65140 right now? 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 717,
+     "timings": {
+      "cache_n": 238,
+      "prompt_n": 4,
+      "prompt_ms": 20.471,
+      "prompt_per_token_ms": 5.11775,
+      "prompt_per_second": 195.39836842362365,
+      "predicted_n": 476,
+      "predicted_ms": 2306.049,
+      "predicted_per_token_ms": 4.85484,
+      "predicted_per_second": 205.9800116996647
+     }
+    },
+    "timings": {
+     "cache_n": 238,
+     "prompt_n": 4,
+     "prompt_ms": 20.471,
+     "prompt_per_token_ms": 5.11775,
+     "prompt_per_second": 195.39836842362365,
+     "predicted_n": 476,
+     "predicted_ms": 2306.049,
+     "predicted_per_token_ms": 4.85484,
+     "predicted_per_second": 205.9800116996647
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.328
+  }
+ ]
+}

@@ -1,0 +1,152 @@
+{
+ "trial_id": "13e6d127d65cd8b1a252d483",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "用户需要我根据给定的告警信息来选择正确的动作编号。\n\n告警信息：\n- 货位 {bin} 的系统数量与摄像头不符\n- 需要为 SKU-1001 下补货单\n- 需要冻结 SKU-1001 的出库\n- 需要安排 BIN-A12 的盘点\n- 需要转仓 SKU-1001 到备用仓\n- 需要忽略该告警\n- 需要上报主管\n\n问题是：货位 {bin} 的系统数量与摄像头不符。\n\n这是一个库存系统告警，表示系统记录的货位数量与摄像头（实际）数量不一致。\n\n我需要分析每个选项：\n- A1. 补货：为 SKU-1001 下补货单 - 这个选项是针对 SKU-1001 的补货，但告警是关于货位数量不符，不是直接针对 SKU-1001 的补货告警\n- A2. 冻结：暂停 SKU-1001 的出库 - 这个选项是针对 SKU-1001 的冻结，但告警是关于货位数量不符\n- A3. 盘点：安排 BIN-A12 的盘点 - 这个选项是针对 BIN-A12 的盘点，但告警是关于货位数量不符\n- A4. 转仓：把 SKU-1001 调往备用仓 - 这个选项是针对 SKU-1001 的转仓，但告警是关于货位数量不符\n- A5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理\n- A6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理\n\n告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告"
+      }
+     }
+    ],
+    "created": 1795797012,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 481,
+     "total_tokens": 1505,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-oZy1DeOOZagYjsZEAud82yUiEyt8IKsb",
+    "__verbose": {
+     "index": 0,
+     "content": "用户需要我根据给定的告警信息来选择正确的动作编号。\n\n告警信息：\n- 货位 {bin} 的系统数量与摄像头不符\n- 需要为 SKU-1001 下补货单\n- 需要冻结 SKU-1001 的出库\n- 需要安排 BIN-A12 的盘点\n- 需要转仓 SKU-1001 到备用仓\n- 需要忽略该告警\n- 需要上报主管\n\n问题是：货位 {bin} 的系统数量与摄像头不符。\n\n这是一个库存系统告警，表示系统记录的货位数量与摄像头（实际）数量不一致。\n\n我需要分析每个选项：\n- A1. 补货：为 SKU-1001 下补货单 - 这个选项是针对 SKU-1001 的补货，但告警是关于货位数量不符，不是直接针对 SKU-1001 的补货告警\n- A2. 冻结：暂停 SKU-1001 的出库 - 这个选项是针对 SKU-1001 的冻结，但告警是关于货位数量不符\n- A3. 盘点：安排 BIN-A12 的盘点 - 这个选项是针对 BIN-A12 的盘点，但告警是关于货位数量不符\n- A4. 转仓：把 SKU-1001 调往备用仓 - 这个选项是针对 SKU-1001 的转仓，但告警是关于货位数量不符\n- A5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理\n- A6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理\n\n告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告警本身的，但告警是关于货位数量不符，需要处理。\n\nA6. 上报主管 - 这个选项是针对告警的，但告警是关于货位数量不符，需要处理。\n\n实际上，告警是关于货位数量与摄像头数量不符，这是一个库存系统告警。\n\n我需要选择最合适的动作。\n\nA5. 忽略该告警 - 这个选项是针对告",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 481,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"action\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 248058
+       }
+      ],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>system\n# Tools\n\nYou have access to the following functions:\n\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"action\": {\"type\": \"string\", \"enum\": [\"A1\", \"A2\", \"A3\", \"A4\", \"A5\", \"A6\"]}}, \"required\": [\"action\"], \"additionalProperties\": false}}}\n</tools>\n\nIf you choose to call a function ONLY reply in the following format with NO suffix:\n\n<tool_call>\n<function=example_function_name>\n<parameter=example_parameter_1>\nvalue_1\n</parameter>\n<parameter=example_parameter_2>\nThis is the value for the second parameter\nthat can span\nmultiple lines\n</parameter>\n</function>\n</tool_call>\n\n<IMPORTANT>\nReminder:\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\n- Required parameters MUST be specified\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n可选动作 / available actions:\nA1. 补货：为 SKU-1001 下补货单 / create a restock order for SKU-1001\nA2. 冻结：暂停 SKU-1001 的出库 / freeze outbound of SKU-1001\nA3. 盘点：安排 BIN-A12 的盘点 / schedule a count of BIN-A12\nA4. 转仓：把 SKU-1001 调往备用仓 / transfer SKU-1001 to the backup warehouse\nA5. 忽略该告警 / ignore the alert\nA6. 上报主管 / notify the supervisor\n货位 {bin} 的系统数量与摄像头不符。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1504,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 481,
+      "prompt_ms": 82.533,
+      "prompt_per_token_ms": 0.1715862785862786,
+      "prompt_per_second": 5827.971841566404,
+      "predicted_n": 1024,
+      "predicted_ms": 4995.463,
+      "predicted_per_token_ms": 4.883150537634409,
+      "predicted_per_second": 204.7858226554776
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 481,
+     "prompt_ms": 82.533,
+     "prompt_per_token_ms": 0.1715862785862786,
+     "prompt_per_second": 5827.971841566404,
+     "predicted_n": 1024,
+     "predicted_ms": 4995.463,
+     "predicted_per_token_ms": 4.883150537634409,
+     "predicted_per_second": 204.7858226554776
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.094
+  }
+ ]
+}

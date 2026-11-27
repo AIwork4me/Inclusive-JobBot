@@ -1,0 +1,146 @@
+{
+ "trial_id": "10631659b8d6c5c84793c3e0",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A specific SKU (SKU-7743) with a quantity change of 25 pcs.\n    *   Available Tools: A list of inventory management tools (check_stock, adjust_stock, reserve_stock, locate_bin, log_arrival, create_task, export_snapshot, raise_low_stock).\n    *   Task: Generate a \"complete action\" including tools and all arguments based on the provided information.\n    *   Language: Chinese (as the prompt is in Chinese).\n\n2.  **Determine the Context:**\n    *   The user provides a specific SKU and a quantity change (25 pcs).\n    *   The goal is to handle this quantity change.\n    *   However, the prompt asks to \"Generate the full action: tool and all arguments.\" based on the provided tools and the SKU change.\n    *   I need to decide which tool is most appropriate for a quantity change.\n    *   `inventory.adjust_stock` (调整库存 / adjust stock) seems the most direct fit for changing the quantity of an existing SKU.\n    *   `inventory.reserve_stock` (预留库存 / reserve stock) is for holding stock, not necessarily changing it.\n    *   `inventory.check_stock` (查询库存 / check stock) is for verification, but the prompt implies an action based on the change.\n    *   Usually, when a quantity change is specified (like \"quantity change 25 pcs\"), it implies an adjustment.\n    *   However, I need to consider the context of \"Action\". Is it a system action or a human action? The prompt asks for \"tool and all arguments\".\n    *   The prompt says \"商品 SKU-7743：数量变动 25 pcs\" (Product SKU-7743: Quantity change 25 pcs). This sounds like a log entry or a system event.\n    *   If this is a request to *execute* the action, I need to choose the tool.\n    *   If this is a request to *simulate* the action based on the available tools, I should use `inventory.adjust_stock`.\n    *   Wait, looking at the tools: `inventory.adjust_stock` takes `sku` and `quantity`.\n    *   The prompt asks to \"Generate complete action: tool and all arguments.\"\n    *   I need to construct the JSON or a clear text representation of the tool call.\n    *   Since I don't have the current stock level, I cannot verify if the change is valid. But the instruction is to generate the action based on the provided info.\n    *   Let's assume the user wants to adjust the stock for this SKU.\n    *   Tool: `inventory.adjust_stock`\n    *   Parameters: `sku` = \"SKU-7743\", `quantity` = 25.\n    *   Wait, is it adding or subtracting? \"数量变动 25 pcs\" usually means the delta is 25.\n    *   If it's a change, `adjust_stock` is the standard tool.\n    *   However, sometimes \"quantity change\" might imply a reservation or a log. But `adjust_stock` is the most logical for modifying stock levels.\n    *   Let's check if there's a specific context like \"low stock alert\". No, it just says \"quantity change\".\n    *   Let's check if there's a specific context like \"receiving\". No.\n    *   So, `inventory.adjust_stock` is the best fit.\n    *   I need to format the output clearly.\n\n3.  **Refine the Output:**\n    *   The prompt asks for \"完整动作：工具与全部参数\" (Complete action: tool and all arguments).\n    *   I should output the tool name and the parameters in a structured way (likely JSON or a clear list).\n    *   Since the prompt is in Chinese, the response should be in Chinese.\n    *   I need to make sure I don't hallucinate data (like current stock) since it's not provided. I will just use the parameters given in the prompt.\n    *   Wait, is there a possibility that this is a test case where I need to simulate the action? Yes.\n    *   Is there a possibility that I need to check stock first? The prompt says \"Generate complete action\". Usually, this means the actual call.\n    *   Let's consider the `inventory.adjust_stock` tool.\n    *   Parameters: `sku` (string), `quantity` (integer).\n    *   Value: `sku` = \"SKU-7743\", `quantity` = 25.\n    *   Wait, should I include `current_stock`? No, the tool"
+      }
+     }
+    ],
+    "created": 1795793749,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 208,
+     "total_tokens": 1232,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-UZStcrhEb36eDaHbZEFDaPMUv72OMTeH",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A specific SKU (SKU-7743) with a quantity change of 25 pcs.\n    *   Available Tools: A list of inventory management tools (check_stock, adjust_stock, reserve_stock, locate_bin, log_arrival, create_task, export_snapshot, raise_low_stock).\n    *   Task: Generate a \"complete action\" including tools and all arguments based on the provided information.\n    *   Language: Chinese (as the prompt is in Chinese).\n\n2.  **Determine the Context:**\n    *   The user provides a specific SKU and a quantity change (25 pcs).\n    *   The goal is to handle this quantity change.\n    *   However, the prompt asks to \"Generate the full action: tool and all arguments.\" based on the provided tools and the SKU change.\n    *   I need to decide which tool is most appropriate for a quantity change.\n    *   `inventory.adjust_stock` (调整库存 / adjust stock) seems the most direct fit for changing the quantity of an existing SKU.\n    *   `inventory.reserve_stock` (预留库存 / reserve stock) is for holding stock, not necessarily changing it.\n    *   `inventory.check_stock` (查询库存 / check stock) is for verification, but the prompt implies an action based on the change.\n    *   Usually, when a quantity change is specified (like \"quantity change 25 pcs\"), it implies an adjustment.\n    *   However, I need to consider the context of \"Action\". Is it a system action or a human action? The prompt asks for \"tool and all arguments\".\n    *   The prompt says \"商品 SKU-7743：数量变动 25 pcs\" (Product SKU-7743: Quantity change 25 pcs). This sounds like a log entry or a system event.\n    *   If this is a request to *execute* the action, I need to choose the tool.\n    *   If this is a request to *simulate* the action based on the available tools, I should use `inventory.adjust_stock`.\n    *   Wait, looking at the tools: `inventory.adjust_stock` takes `sku` and `quantity`.\n    *   The prompt asks to \"Generate complete action: tool and all arguments.\"\n    *   I need to construct the JSON or a clear text representation of the tool call.\n    *   Since I don't have the current stock level, I cannot verify if the change is valid. But the instruction is to generate the action based on the provided info.\n    *   Let's assume the user wants to adjust the stock for this SKU.\n    *   Tool: `inventory.adjust_stock`\n    *   Parameters: `sku` = \"SKU-7743\", `quantity` = 25.\n    *   Wait, is it adding or subtracting? \"数量变动 25 pcs\" usually means the delta is 25.\n    *   If it's a change, `adjust_stock` is the standard tool.\n    *   However, sometimes \"quantity change\" might imply a reservation or a log. But `adjust_stock` is the most logical for modifying stock levels.\n    *   Let's check if there's a specific context like \"low stock alert\". No, it just says \"quantity change\".\n    *   Let's check if there's a specific context like \"receiving\". No.\n    *   So, `inventory.adjust_stock` is the best fit.\n    *   I need to format the output clearly.\n\n3.  **Refine the Output:**\n    *   The prompt asks for \"完整动作：工具与全部参数\" (Complete action: tool and all arguments).\n    *   I should output the tool name and the parameters in a structured way (likely JSON or a clear list).\n    *   Since the prompt is in Chinese, the response should be in Chinese.\n    *   I need to make sure I don't hallucinate data (like current stock) since it's not provided. I will just use the parameters given in the prompt.\n    *   Wait, is there a possibility that this is a test case where I need to simulate the action? Yes.\n    *   Is there a possibility that I need to check stock first? The prompt says \"Generate complete action\". Usually, this means the actual call.\n    *   Let's consider the `inventory.adjust_stock` tool.\n    *   Parameters: `sku` (string), `quantity` (integer).\n    *   Value: `sku` = \"SKU-7743\", `quantity` = 25.\n    *   Wait, should I include `current_stock`? No, the tool",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 208,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n商品 SKU-7743：数量变动 25 pcs。\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1231,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 208,
+      "prompt_ms": 48.727,
+      "prompt_per_token_ms": 0.23426442307692305,
+      "prompt_per_second": 4268.680608286987,
+      "predicted_n": 1024,
+      "predicted_ms": 4971.893,
+      "predicted_per_token_ms": 4.86011045943304,
+      "predicted_per_second": 205.75664037822213
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 208,
+     "prompt_ms": 48.727,
+     "prompt_per_token_ms": 0.23426442307692305,
+     "prompt_per_second": 4268.680608286987,
+     "predicted_n": 1024,
+     "predicted_ms": 4971.893,
+     "predicted_per_token_ms": 4.86011045943304,
+     "predicted_per_second": 205.75664037822213
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.031
+  }
+ ]
+}

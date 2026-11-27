@@ -1,0 +1,146 @@
+{
+ "trial_id": "0117fb144905da30ff710c9d",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's query. It says:\n\n\"策略 / policy: order age 12 days, policy limit 30. 实况 / observation: n = 12.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.\"\n\nInterpretation: There's a policy about order age and policy limit. The \"order age\" is 12 days? Or maybe it's the time before an order can be placed? And \"policy limit 30\". Observation: n = 12. So we have some data: number of observations (n=12). Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n\nWe need to decide which branch applies given the policy and observation.\n\nLet's decode: \"策略 / policy: order age 12 days, policy limit 30.\" Means that for an order, the age (maybe time since placed) must be at least 12 days? Or maybe it's about how old the order is before approval. And \"policy limit 30\" might mean there is a maximum allowed age or something else.\n\nObservation: n"
+      }
+     }
+    ],
+    "created": 1795796095,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 256,
+     "prompt_tokens": 70,
+     "total_tokens": 326,
+     "prompt_tokens_details": {
+      "cached_tokens": 1
+     }
+    },
+    "id": "chatcmpl-Z7KjFKF68uNRylxCKhqQiP1Z8gllDT2C",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. It says:\n\n\"策略 / policy: order age 12 days, policy limit 30. 实况 / observation: n = 12.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.\"\n\nInterpretation: There's a policy about order age and policy limit. The \"order age\" is 12 days? Or maybe it's the time before an order can be placed? And \"policy limit 30\". Observation: n = 12. So we have some data: number of observations (n=12). Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n\nWe need to decide which branch applies given the policy and observation.\n\nLet's decode: \"策略 / policy: order age 12 days, policy limit 30.\" Means that for an order, the age (maybe time since placed) must be at least 12 days? Or maybe it's about how old the order is before approval. And \"policy limit 30\" might mean there is a maximum allowed age or something else.\n\nObservation: n",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 256,
+     "tokens_evaluated": 70,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 256,
+      "n_predict": 256,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n策略 / policy: order age 12 days, policy limit 30. 实况 / observation: n = 12.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 325,
+     "timings": {
+      "cache_n": 1,
+      "prompt_n": 69,
+      "prompt_ms": 26.471,
+      "prompt_per_token_ms": 0.3836376811594203,
+      "prompt_per_second": 2606.6261191492576,
+      "predicted_n": 256,
+      "predicted_ms": 1486.014,
+      "predicted_per_token_ms": 5.82750588235294,
+      "predicted_per_second": 171.59999838494122
+     }
+    },
+    "timings": {
+     "cache_n": 1,
+     "prompt_n": 69,
+     "prompt_ms": 26.471,
+     "prompt_per_token_ms": 0.3836376811594203,
+     "prompt_per_second": 2606.6261191492576,
+     "predicted_n": 256,
+     "predicted_ms": 1486.014,
+     "predicted_per_token_ms": 5.82750588235294,
+     "predicted_per_second": 171.59999838494122
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.516
+  }
+ ]
+}

@@ -1,0 +1,146 @@
+{
+ "trial_id": "ee0d527ddea37f8e519ceed7",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of known information (order details: ORD-1042, customer C-9, sku SKU-1001, tracking TRK-88771) and a list of available tools.\n    *   Task: The customer asks if order ORD-1042 can be refunded.\n    *   Constraint: Answer with the tool name only.\n\n2.  **Evaluate the Tools:**\n    *   `orders.lookup_order`: Retrieves order details.\n    *   `orders.cancel_order`: Cancels an order.\n    *   `orders.get_refund_eligibility`: Checks if an order is eligible for a refund.\n    *   `refunds.submit`: Submits a refund.\n    *   `customers.get_profile`: Gets customer profile.\n    *   `logistics.trace_shipment`: Traces shipment.\n    *   `inventory.check_stock`: Checks stock.\n    *   `notify.send_update`: Sends notification.\n\n3.  **Determine the Necessary Tool:**\n    *   The user wants to know if the order *can* be refunded (eligibility)."
+      }
+     }
+    ],
+    "created": 1795796207,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 256,
+     "prompt_tokens": 242,
+     "total_tokens": 498,
+     "prompt_tokens_details": {
+      "cached_tokens": 238
+     }
+    },
+    "id": "chatcmpl-f4oM0rwRgmxo0QHFUaBlTH5nqw5w8opr",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of known information (order details: ORD-1042, customer C-9, sku SKU-1001, tracking TRK-88771) and a list of available tools.\n    *   Task: The customer asks if order ORD-1042 can be refunded.\n    *   Constraint: Answer with the tool name only.\n\n2.  **Evaluate the Tools:**\n    *   `orders.lookup_order`: Retrieves order details.\n    *   `orders.cancel_order`: Cancels an order.\n    *   `orders.get_refund_eligibility`: Checks if an order is eligible for a refund.\n    *   `refunds.submit`: Submits a refund.\n    *   `customers.get_profile`: Gets customer profile.\n    *   `logistics.trace_shipment`: Traces shipment.\n    *   `inventory.check_stock`: Checks stock.\n    *   `notify.send_update`: Sends notification.\n\n3.  **Determine the Necessary Tool:**\n    *   The user wants to know if the order *can* be refunded (eligibility).",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 256,
+     "tokens_evaluated": 242,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 256,
+      "n_predict": 256,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n已知 / known: order ORD-1042, customer C-9, sku SKU-1001, tracking TRK-88771.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n客户询问订单 ORD-1042 能否退款。 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 497,
+     "timings": {
+      "cache_n": 238,
+      "prompt_n": 4,
+      "prompt_ms": 21.667,
+      "prompt_per_token_ms": 5.41675,
+      "prompt_per_second": 184.61254442239348,
+      "predicted_n": 256,
+      "predicted_ms": 1237.004,
+      "predicted_per_token_ms": 4.850996078431372,
+      "predicted_per_second": 206.1432299329671
+     }
+    },
+    "timings": {
+     "cache_n": 238,
+     "prompt_n": 4,
+     "prompt_ms": 21.667,
+     "prompt_per_token_ms": 5.41675,
+     "prompt_per_second": 184.61254442239348,
+     "predicted_n": 256,
+     "predicted_ms": 1237.004,
+     "predicted_per_token_ms": 4.850996078431372,
+     "predicted_per_second": 206.1432299329671
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.281
+  }
+ ]
+}

@@ -1,0 +1,164 @@
+{
+ "trial_id": "3462e4c490ccc3a838f75629",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，让我看看。用户希望我只回答参数值。上下文提到 tracking_no = TRK-73002，并且工具已选定为 logistics.trace_shipment。指令说只回答参数值。\n\n等等，提供的工具包括 record_answer，它用于记录答案。但用户说“只回答参数值”。嗯，也许他们希望我输出参数值。但工具部分显示有一个名为 record_answer 的函数。等等，用户可能希望我调用 record_answer 并传入参数值。但问题说“只回答参数值”。让我再检查一下工具。\n\n工具是 record_answer，它接受一个 value 参数。上下文说“只回答参数值”。所以也许正确的操作是调用 record_answer 并传入 value 为 TRK-73002。但用户指令说“只回答参数值”，所以可能答案就是 TRK-73002。但系统要求使用工具。等等，工具用于记录答案。所以我应该调用 record_answer 并传入 value 为 TRK-73002。\n\n等等，用户消息说：“只回答参数值。”所以参数值是 TRK-73002。因此我需要调用 record_answer 并传入该值。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"value\":\"TRK-73002\"}"
+         },
+         "id": "fwLnTSr7x5drWbxXPVZum8rR05gn55xi"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795793552,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 251,
+     "prompt_tokens": 279,
+     "total_tokens": 530,
+     "prompt_tokens_details": {
+      "cached_tokens": 35
+     }
+    },
+    "id": "chatcmpl-ePTDE8HpwAqsfJmoUwi1qEoLNJOq29iH",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，让我看看。用户希望我只回答参数值。上下文提到 tracking_no = TRK-73002，并且工具已选定为 logistics.trace_shipment。指令说只回答参数值。\n\n等等，提供的工具包括 record_answer，它用于记录答案。但用户说“只回答参数值”。嗯，也许他们希望我输出参数值。但工具部分显示有一个名为 record_answer 的函数。等等，用户可能希望我调用 record_answer 并传入参数值。但问题说“只回答参数值”。让我再检查一下工具。\n\n工具是 record_answer，它接受一个 value 参数。上下文说“只回答参数值”。所以也许正确的操作是调用 record_answer 并传入 value 为 TRK-73002。但用户指令说“只回答参数值”，所以可能答案就是 TRK-73002。但系统要求使用工具。等等，工具用于记录答案。所以我应该调用 record_answer 并传入 value 为 TRK-73002。\n\n等等，用户消息说：“只回答参数值。”所以参数值是 TRK-73002。因此我需要调用 record_answer 并传入该值。\n</think>\n\n<function name=\"record_answer\"><param name=\"value\">TRK-73002</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 251,
+     "tokens_evaluated": 279,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"value\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"string\"}}, \"required\": [\"value\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n上下文 / context: tracking_no = TRK-73002. 工具已选定: logistics.trace_shipment. / Tool already chosen: logistics.trace_shipment.\nTrack the parcel; the number is in the context. 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 529,
+     "timings": {
+      "cache_n": 35,
+      "prompt_n": 244,
+      "prompt_ms": 53.174,
+      "prompt_per_token_ms": 0.2179262295081967,
+      "prompt_per_second": 4588.708767442735,
+      "predicted_n": 251,
+      "predicted_ms": 1374.107,
+      "predicted_per_token_ms": 5.496428,
+      "predicted_per_second": 181.9363412019588
+     }
+    },
+    "timings": {
+     "cache_n": 35,
+     "prompt_n": 244,
+     "prompt_ms": 53.174,
+     "prompt_per_token_ms": 0.2179262295081967,
+     "prompt_per_second": 4588.708767442735,
+     "predicted_n": 251,
+     "predicted_ms": 1374.107,
+     "predicted_per_token_ms": 5.496428,
+     "predicted_per_second": 181.9363412019588
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.454
+  }
+ ]
+}

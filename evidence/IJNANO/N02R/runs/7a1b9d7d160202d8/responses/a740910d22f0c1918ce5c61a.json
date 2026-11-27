@@ -1,0 +1,146 @@
+{
+ "trial_id": "a740910d22f0c1918ce5c61a",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "继续。",
+       "reasoning_content": "We need to understand the task. The user gives:\n\n目标 / goal: goal: stock corrected for SKU-2210. 当前观测 / observation: first adjustment failed with a timeout.\n\nAllowed decisions: stop, continue.\n\nDecide stop or continue.\n\nInterpretation: There's a goal: \"stock corrected for SKU-2210\". The current observation is that the first adjustment failed with a timeout. So we need to decide whether to stop or continue. Likely if an adjustment (maybe adjusting stock) failed due to timeout, maybe we should retry? Or perhaps we cannot proceed further and need to stop.\n\nWe need to reason: The goal is to correct stock for SKU-2210. The first adjustment attempt failed with a timeout. That suggests the operation didn't complete in time or timed out. Possibly we can try again, but maybe it's a persistent issue. Without more context, typical decision: If an initial step fails due to timeout, you might want to continue trying (maybe retry) rather than stop entirely. However, if the failure is fatal and cannot be recovered, then stop.\n\nGiven \"Allowed decisions: stop, continue.\" So we need to pick one.\n\nWe can reason: The first adjustment failed with a timeout. Usually in such tasks, you might want to attempt again after some delay or check logs. But without further info, I'd lean towards \"continue\" because maybe it's just a transient timeout and you should retry. However, the phrase \"first adjustment failed with a timeout\" could indicate that the system couldn't complete the first step; perhaps we need to stop and investigate before proceeding.\n\nLet's think about typical workflow: There is a goal of correcting stock for SKU-2210. The observation says the first adjustment failed with a timeout. That suggests an attempt to adjust inventory didn't succeed due to time limit. Usually you'd want to retry or maybe you need to stop and handle error.\n\nGiven allowed decisions are just \"stop\" or \"continue\", we must choose one. I think \"continue\" is more appropriate: continue trying the adjustment, perhaps after a retry or with different parameters. But it's ambiguous.\n\nWe could also consider that if the first attempt fails due to timeout, maybe you need to stop and wait for a longer time before retrying? The decision might be to \"stop\" because we cannot proceed without success of the first step; but typical system would log error and then continue later.\n\nGiven no further context, I'll decide \"continue\". But let's examine: The goal is stock corrected. If the first adjustment fails with timeout, maybe it's a network issue or server slow. Usually you'd want to retry after some time. So continue.\n\nThus answer: continue.\n\nBut we need to output exactly one of the allowed decisions? Probably just \"continue\" or \"stop\". I'll respond: Continue.\n\nLet me phrase: 决定继续 (continue)."
+      }
+     }
+    ],
+    "created": 1795795572,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 609,
+     "prompt_tokens": 60,
+     "total_tokens": 669,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-HrjLR3bwT4abMCSI6nqzDK1DQGTiSOML",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to understand the task. The user gives:\n\n目标 / goal: goal: stock corrected for SKU-2210. 当前观测 / observation: first adjustment failed with a timeout.\n\nAllowed decisions: stop, continue.\n\nDecide stop or continue.\n\nInterpretation: There's a goal: \"stock corrected for SKU-2210\". The current observation is that the first adjustment failed with a timeout. So we need to decide whether to stop or continue. Likely if an adjustment (maybe adjusting stock) failed due to timeout, maybe we should retry? Or perhaps we cannot proceed further and need to stop.\n\nWe need to reason: The goal is to correct stock for SKU-2210. The first adjustment attempt failed with a timeout. That suggests the operation didn't complete in time or timed out. Possibly we can try again, but maybe it's a persistent issue. Without more context, typical decision: If an initial step fails due to timeout, you might want to continue trying (maybe retry) rather than stop entirely. However, if the failure is fatal and cannot be recovered, then stop.\n\nGiven \"Allowed decisions: stop, continue.\" So we need to pick one.\n\nWe can reason: The first adjustment failed with a timeout. Usually in such tasks, you might want to attempt again after some delay or check logs. But without further info, I'd lean towards \"continue\" because maybe it's just a transient timeout and you should retry. However, the phrase \"first adjustment failed with a timeout\" could indicate that the system couldn't complete the first step; perhaps we need to stop and investigate before proceeding.\n\nLet's think about typical workflow: There is a goal of correcting stock for SKU-2210. The observation says the first adjustment failed with a timeout. That suggests an attempt to adjust inventory didn't succeed due to time limit. Usually you'd want to retry or maybe you need to stop and handle error.\n\nGiven allowed decisions are just \"stop\" or \"continue\", we must choose one. I think \"continue\" is more appropriate: continue trying the adjustment, perhaps after a retry or with different parameters. But it's ambiguous.\n\nWe could also consider that if the first attempt fails due to timeout, maybe you need to stop and wait for a longer time before retrying? The decision might be to \"stop\" because we cannot proceed without success of the first step; but typical system would log error and then continue later.\n\nGiven no further context, I'll decide \"continue\". But let's examine: The goal is stock corrected. If the first adjustment fails with timeout, maybe it's a network issue or server slow. Usually you'd want to retry after some time. So continue.\n\nThus answer: continue.\n\nBut we need to output exactly one of the allowed decisions? Probably just \"continue\" or \"stop\". I'll respond: Continue.\n\nLet me phrase: 决定继续 (continue).</think>继续。",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 609,
+     "tokens_evaluated": 60,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n目标 / goal: goal: stock corrected for SKU-2210. 当前观测 / observation: first adjustment failed with a timeout.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 668,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 60,
+      "prompt_ms": 34.17,
+      "prompt_per_token_ms": 0.5695,
+      "prompt_per_second": 1755.9262510974538,
+      "predicted_n": 609,
+      "predicted_ms": 3526.672,
+      "predicted_per_token_ms": 5.800447368421053,
+      "predicted_per_second": 172.40049542458158
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 60,
+     "prompt_ms": 34.17,
+     "prompt_per_token_ms": 0.5695,
+     "prompt_per_second": 1755.9262510974538,
+     "predicted_n": 609,
+     "predicted_ms": 3526.672,
+     "predicted_per_token_ms": 5.800447368421053,
+     "predicted_per_second": 172.40049542458158
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.578
+  }
+ ]
+}

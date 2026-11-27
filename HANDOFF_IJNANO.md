@@ -27,20 +27,20 @@ reconciliation — cross-host GPU conflict resolved, `IJN-B-001` CLOSED, local
 lease available), **N02** (physical runtime qualification PASS: identities,
 admissions, protocol probes; S2 chat-path finding feeds N02R).
 
-IJ-NANO-1.2 is active (order: `docs/IJNANO_MISSION_ORDER_V1_2.md`,
-committed verbatim at N1.2R; audited HEAD `dfce2952`).
-Delivered under 1.1: **N00RR** (reconcile), **N01** (research landscape
-gate PASS), **N06A-R** (Layer A execution-integrity hardening PASS — 8/8
-defect classes red-reproduced against `f3d5817` and repaired), **N05A**
-(cognitive evaluator gate PASS, scoped — 12 families, control battery +
-mutation tests, deterministic only). Under 1.2: **N1.2R** (resume verified;
-preserved artifacts checked incl. raw S2 `overall: FAIL`), **N05AR**
-(evaluator requalification gate PASS — contract v2, all seven EV01–EV07
-concerns red-reproduced then repaired; 60-case battery, 9/9 comparator
-mutants detected, 19/19 reason codes reconciled), plus the fail-closed
-**publication check** with synthetic scanner control. Next lane: **N02R**
-physical protocol causal analysis (GPU, under lease), then N03 profiling
-on evaluator contract v2.
+IJ-NANO-1.2 is active (orders: `docs/IJNANO_MISSION_ORDER_V1_2.md` +
+N02R addendum, both committed verbatim).
+Delivered under 1.1: **N00RR**, **N01**, **N06A-R**, **N05A** (all PASS).
+Under 1.2: **N1.2R** (resume), **N05AR** (evaluator contract v2 gate
+PASS), the fail-closed **publication check**, and **N02R** — gate
+`N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED` **PASS**: corrected
+experiment `ec5b95357e960f99` (2,184/2,184 unique logical slots,
+identity-bound, netstat-verified, content-addressed artifacts), v1 screen
+sealed as diagnostic evidence, integrity audit + disposition + integration
+gate all delivered. Key N02R results: lazy-grammar/budget starvation
+confirmed and removable; bounded reasoning budget (T2) the only
+intervention ≥ default on all three models; model-specific protocol
+candidates published for N03. Next lane: **N03** cognitive capability
+atlas on evaluator contract v2 with the N02R protocol candidates.
 Formal end-to-end business evaluation stays BLOCKED (IJN-B-002 narrowed).
 
 Branch: `mission/ij-nano-1.0-slm-native-agentic-runtime`, base `56c6c74b`

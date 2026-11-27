@@ -1,0 +1,162 @@
+{
+ "trial_id": "227caa655f7f30a0b719d4e6",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "用户需要我根据给定的告警信息选择正确的动作编号。\n\n告警信息是：\"{sku} 连续三次入库质检失败。\"\n\n分析各个选项：\n- A1. 补货：为 SKU-8806 下补货单 - 这个是针对补货的，不是针对质检失败的\n- A2. 冻结：暂停 SKU-8806 的出库 - 这个是针对出库的，不是针对质检失败的\n- A3. 盘点：安排 BIN-B21 的盘点 - 这个是针对盘点操作的\n- A4. 转仓：把 SKU-8806 调往备用仓 - 这个是针对转仓操作的\n- A5. 忽略该告警 / ignore the alert - 这个选项是\"忽略该告警\"\n- A6. 上报主管 / notify the supervisor - 这个选项是\"上报主管\"\n\n根据告警信息，SKU-8806 连续三次入库质检失败，这通常是一个需要处理的质量问题。\n\n在仓储管理系统中，当出现连续质检失败时，通常的处理方式是：\n1. 如果是严重质量问题，可能需要上报主管\n2. 如果是批量问题，可能需要补货或转仓\n\n但这里没有明确说明是严重质量问题还是普通质量问题。\n\n根据常见的仓储管理逻辑，连续三次质检失败通常是一个需要上报的问题，因为质检失败可能意味着产品存在质量问题，需要进一步调查和处理。\n\n所以最合适的动作应该是 A6. 上报主管。\n\n但等等，让我再仔细看看。\n\n告警信息是\"可选动作 / available actions:\"，然后列出了6个选项。\n\n用户的问题是：\"{sku} 连续三次入库质检失败。 只回答动作编号。\"\n\n这是一个告警，需要我选择正确的处理动作。\n\n在仓储管理系统中，连续三次质检失败通常是一个需要上报的问题，因为质检失败可能意味着产品存在质量问题，需要进一步调查和处理。\n\n所以最合适的动作应该是 A6. 上报主管。\n\n但等等，让我再仔细看看选项。\n\nA5. 忽略该告警 - 这个选项是\"忽略该告警\"\nA6. 上报主管 - 这个选项是\"上报主管\"\n\n如果质检失败是严重质量问题，应该上报主管。\n\n所以答案应该是 A6。",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"action\":\"A6\"}"
+         },
+         "id": "OwfEzuw0Ks9PHDu4DEyGHiY8GmUsaGBf"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795797796,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 521,
+     "prompt_tokens": 479,
+     "total_tokens": 1000,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-d23q2VHdENaA0hvNFkNhi3bUZKCyFv8H",
+    "__verbose": {
+     "index": 0,
+     "content": "用户需要我根据给定的告警信息选择正确的动作编号。\n\n告警信息是：\"{sku} 连续三次入库质检失败。\"\n\n分析各个选项：\n- A1. 补货：为 SKU-8806 下补货单 - 这个是针对补货的，不是针对质检失败的\n- A2. 冻结：暂停 SKU-8806 的出库 - 这个是针对出库的，不是针对质检失败的\n- A3. 盘点：安排 BIN-B21 的盘点 - 这个是针对盘点操作的\n- A4. 转仓：把 SKU-8806 调往备用仓 - 这个是针对转仓操作的\n- A5. 忽略该告警 / ignore the alert - 这个选项是\"忽略该告警\"\n- A6. 上报主管 / notify the supervisor - 这个选项是\"上报主管\"\n\n根据告警信息，SKU-8806 连续三次入库质检失败，这通常是一个需要处理的质量问题。\n\n在仓储管理系统中，当出现连续质检失败时，通常的处理方式是：\n1. 如果是严重质量问题，可能需要上报主管\n2. 如果是批量问题，可能需要补货或转仓\n\n但这里没有明确说明是严重质量问题还是普通质量问题。\n\n根据常见的仓储管理逻辑，连续三次质检失败通常是一个需要上报的问题，因为质检失败可能意味着产品存在质量问题，需要进一步调查和处理。\n\n所以最合适的动作应该是 A6. 上报主管。\n\n但等等，让我再仔细看看。\n\n告警信息是\"可选动作 / available actions:\"，然后列出了6个选项。\n\n用户的问题是：\"{sku} 连续三次入库质检失败。 只回答动作编号。\"\n\n这是一个告警，需要我选择正确的处理动作。\n\n在仓储管理系统中，连续三次质检失败通常是一个需要上报的问题，因为质检失败可能意味着产品存在质量问题，需要进一步调查和处理。\n\n所以最合适的动作应该是 A6. 上报主管。\n\n但等等，让我再仔细看看选项。\n\nA5. 忽略该告警 - 这个选项是\"忽略该告警\"\nA6. 上报主管 - 这个选项是\"上报主管\"\n\n如果质检失败是严重质量问题，应该上报主管。\n\n所以答案应该是 A6。\n</think>\n\n<tool_call>\n<function=record_answer>\n<parameter=action>\nA6\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 521,
+     "tokens_evaluated": 479,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"action\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 248058
+       }
+      ],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>system\n# Tools\n\nYou have access to the following functions:\n\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"action\": {\"type\": \"string\", \"enum\": [\"A1\", \"A2\", \"A3\", \"A4\", \"A5\", \"A6\"]}}, \"required\": [\"action\"], \"additionalProperties\": false}}}\n</tools>\n\nIf you choose to call a function ONLY reply in the following format with NO suffix:\n\n<tool_call>\n<function=example_function_name>\n<parameter=example_parameter_1>\nvalue_1\n</parameter>\n<parameter=example_parameter_2>\nThis is the value for the second parameter\nthat can span\nmultiple lines\n</parameter>\n</function>\n</tool_call>\n\n<IMPORTANT>\nReminder:\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\n- Required parameters MUST be specified\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n可选动作 / available actions:\nA1. 补货：为 SKU-8806 下补货单 / create a restock order for SKU-8806\nA2. 冻结：暂停 SKU-8806 的出库 / freeze outbound of SKU-8806\nA3. 盘点：安排 BIN-B21 的盘点 / schedule a count of BIN-B21\nA4. 转仓：把 SKU-8806 调往备用仓 / transfer SKU-8806 to the backup warehouse\nA5. 忽略该告警 / ignore the alert\nA6. 上报主管 / notify the supervisor\n{sku} 连续三次入库质检失败。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 999,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 479,
+      "prompt_ms": 79.886,
+      "prompt_per_token_ms": 0.16677661795407098,
+      "prompt_per_second": 5996.044363217585,
+      "predicted_n": 521,
+      "predicted_ms": 2529.27,
+      "predicted_per_token_ms": 4.8639807692307695,
+      "predicted_per_second": 205.59291811471294
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 479,
+     "prompt_ms": 79.886,
+     "prompt_per_token_ms": 0.16677661795407098,
+     "prompt_per_second": 5996.044363217585,
+     "predicted_n": 521,
+     "predicted_ms": 2529.27,
+     "predicted_per_token_ms": 4.8639807692307695,
+     "predicted_per_second": 205.59291811471294
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.625
+  }
+ ]
+}

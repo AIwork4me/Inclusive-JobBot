@@ -1,0 +1,146 @@
+{
+ "trial_id": "5d81ec18a5f0799bf0a5fa4a",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   **Goal:** TRK-65140 delivered.\n    *   **Observation:** carrier reports out-for-delivery.\n    *   **Allowed Decisions:** stop, continue.\n    *   **Task:** Decide whether to \"stop\" or \"continue\".\n\n2.  **Understand the Context:**\n    *   This looks like a logistics or supply chain management scenario.\n    *   \"TRK-65140 delivered\" implies the goal state has been achieved (the package is delivered).\n    *   \"carrier reports out-for-delivery\" implies the carrier is currently transporting the package to the destination.\n    *   Wait, there's a contradiction or a nuance here.\n        *   Goal: \"TRK-65140 delivered.\" (The goal is to have it delivered).\n        *   Observation: \"carrier reports out-for-delivery.\" (The carrier is currently moving it).\n    *   If the goal is \"delivered\", and the carrier is *out-for-delivery*, it means the delivery process is ongoing.\n    *   However, usually in these types of decision-making tasks (often used in autonomous agents or automated systems), \"delivered\" means the task is complete.\n    *   Let's re-read carefully: \"TRK-65140 delivered.\" This is the *Goal*.\n    *   \"carrier reports out-for-delivery.\" This is the *Observation*.\n    *   If the goal is \"delivered\", and the carrier is *out-for-delivery*, does that mean the goal is *not* met yet? Or is it a status update?\n    *   If the goal is \"TRK-65140 delivered\", and the system knows the goal is to deliver it, and the carrier is currently out for delivery, it means the delivery is in progress.\n    *   If the goal is \"TRK-65140 delivered\", and the observation says \"out-for-delivery\", does that mean the goal is *pending*?\n    *   Wait, usually in these RL or decision tasks, if the goal is \"delivered\", and the system is tracking progress, \"out-for-delivery\" means the package is on the way.\n    *   If the goal is \"delivered\", and the package is *out-for-delivery*, the goal hasn't been met yet.\n    *   However, if the goal is \"TRK-65140 delivered\", and the observation is \"out-for-delivery\", does that mean the goal is *already* achieved?\n    *   Let's consider the phrase \"TRK-65140 delivered.\" as the *current state* or the *target state*.\n    *   If the goal is \"delivered\", and the carrier is *out-for-delivery*, it means the delivery is happening.\n    *   If the goal is \"delivered\", and the observation is \"out-for-delivery\", does that mean the goal is *not* met?\n    *   Actually, usually in these contexts (like a delivery system), if the goal is \"delivered\", and the carrier is *out-for-delivery*, it means the delivery is *in progress*.\n    *   If the goal is \"delivered\", and the observation is \"out-for-delivery\", does that mean the goal is *not* met?\n    *   Wait, if the goal is \"TRK-65140 delivered\", and the observation is \"out-for-delivery\", it means the package is *not yet delivered*.\n    *   So, if the goal is \"delivered\", and the package is *out-for-delivery*, the goal is not met.\n    *   However, if the goal is \"TRK-65140 delivered\", and the observation is \"out-for-delivery\", does that mean the goal is *already* achieved?\n    *   Let's think about the logic of \"Goal: TRK-65140 delivered\". This usually means the system wants the package to be delivered.\n    *   If the observation is \"out-for-delivery\", it means the package is *on the way*.\n    *   If the goal is \"delivered\", and the package is *on the way*, the goal is not met yet.\n    *   So, should we \"continue\" to track the delivery?\n    *   Or is \"TRK-65140 delivered\" the *current state*?\n    *   If the current state is \"delivered\", and the observation is \"out-for-delivery\", that's a contradiction.\n    *   Let's assume the standard interpretation:\n        *   Goal: The"
+      }
+     }
+    ],
+    "created": 1795798049,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 60,
+     "total_tokens": 1084,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-QlWCJn9VlSGLsk5BCJuFbCYcwitKdzWr",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   **Goal:** TRK-65140 delivered.\n    *   **Observation:** carrier reports out-for-delivery.\n    *   **Allowed Decisions:** stop, continue.\n    *   **Task:** Decide whether to \"stop\" or \"continue\".\n\n2.  **Understand the Context:**\n    *   This looks like a logistics or supply chain management scenario.\n    *   \"TRK-65140 delivered\" implies the goal state has been achieved (the package is delivered).\n    *   \"carrier reports out-for-delivery\" implies the carrier is currently transporting the package to the destination.\n    *   Wait, there's a contradiction or a nuance here.\n        *   Goal: \"TRK-65140 delivered.\" (The goal is to have it delivered).\n        *   Observation: \"carrier reports out-for-delivery.\" (The carrier is currently moving it).\n    *   If the goal is \"delivered\", and the carrier is *out-for-delivery*, it means the delivery process is ongoing.\n    *   However, usually in these types of decision-making tasks (often used in autonomous agents or automated systems), \"delivered\" means the task is complete.\n    *   Let's re-read carefully: \"TRK-65140 delivered.\" This is the *Goal*.\n    *   \"carrier reports out-for-delivery.\" This is the *Observation*.\n    *   If the goal is \"delivered\", and the carrier is *out-for-delivery*, does that mean the goal is *not* met yet? Or is it a status update?\n    *   If the goal is \"TRK-65140 delivered\", and the system knows the goal is to deliver it, and the carrier is currently out for delivery, it means the delivery is in progress.\n    *   If the goal is \"TRK-65140 delivered\", and the observation says \"out-for-delivery\", does that mean the goal is *pending*?\n    *   Wait, usually in these RL or decision tasks, if the goal is \"delivered\", and the system is tracking progress, \"out-for-delivery\" means the package is on the way.\n    *   If the goal is \"delivered\", and the package is *out-for-delivery*, the goal hasn't been met yet.\n    *   However, if the goal is \"TRK-65140 delivered\", and the observation is \"out-for-delivery\", does that mean the goal is *already* achieved?\n    *   Let's consider the phrase \"TRK-65140 delivered.\" as the *current state* or the *target state*.\n    *   If the goal is \"delivered\", and the carrier is *out-for-delivery*, it means the delivery is happening.\n    *   If the goal is \"delivered\", and the observation is \"out-for-delivery\", does that mean the goal is *not* met?\n    *   Actually, usually in these contexts (like a delivery system), if the goal is \"delivered\", and the carrier is *out-for-delivery*, it means the delivery is *in progress*.\n    *   If the goal is \"delivered\", and the observation is \"out-for-delivery\", does that mean the goal is *not* met?\n    *   Wait, if the goal is \"TRK-65140 delivered\", and the observation is \"out-for-delivery\", it means the package is *not yet delivered*.\n    *   So, if the goal is \"delivered\", and the package is *out-for-delivery*, the goal is not met.\n    *   However, if the goal is \"TRK-65140 delivered\", and the observation is \"out-for-delivery\", does that mean the goal is *already* achieved?\n    *   Let's think about the logic of \"Goal: TRK-65140 delivered\". This usually means the system wants the package to be delivered.\n    *   If the observation is \"out-for-delivery\", it means the package is *on the way*.\n    *   If the goal is \"delivered\", and the package is *on the way*, the goal is not met yet.\n    *   So, should we \"continue\" to track the delivery?\n    *   Or is \"TRK-65140 delivered\" the *current state*?\n    *   If the current state is \"delivered\", and the observation is \"out-for-delivery\", that's a contradiction.\n    *   Let's assume the standard interpretation:\n        *   Goal: The",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 60,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n目标 / goal: goal: TRK-65140 delivered. 当前观测 / observation: carrier reports out-for-delivery.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1083,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 60,
+      "prompt_ms": 35.963,
+      "prompt_per_token_ms": 0.5993833333333334,
+      "prompt_per_second": 1668.3813919862082,
+      "predicted_n": 1024,
+      "predicted_ms": 4968.834,
+      "predicted_per_token_ms": 4.857120234604105,
+      "predicted_per_second": 205.88331185948255
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 60,
+     "prompt_ms": 35.963,
+     "prompt_per_token_ms": 0.5993833333333334,
+     "prompt_per_second": 1668.3813919862082,
+     "predicted_n": 1024,
+     "predicted_ms": 4968.834,
+     "predicted_per_token_ms": 4.857120234604105,
+     "predicted_per_second": 205.88331185948255
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.015
+  }
+ ]
+}

@@ -1,0 +1,146 @@
+{
+ "trial_id": "d7d7c8a875ef76ed2878d8b2",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   **Goal:** Refund submitted for ORD-1042.\n    *   **Observation:** Refund submitted and confirmation R-5521 issued.\n    *   **Allowed Decisions:** stop, continue.\n    *   **Task:** Decide whether to \"stop\" or \"continue\".\n\n2.  **Understand the Context:**\n    *   This looks like a customer service or automated agent scenario (likely a chatbot or a workflow system).\n    *   The goal is to process a refund."
+      }
+     }
+    ],
+    "created": 1795796266,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 128,
+     "prompt_tokens": 65,
+     "total_tokens": 193,
+     "prompt_tokens_details": {
+      "cached_tokens": 61
+     }
+    },
+    "id": "chatcmpl-vjRS2HTOXBEPMTDUMxJAlsvfg7qVRjmB",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   **Goal:** Refund submitted for ORD-1042.\n    *   **Observation:** Refund submitted and confirmation R-5521 issued.\n    *   **Allowed Decisions:** stop, continue.\n    *   **Task:** Decide whether to \"stop\" or \"continue\".\n\n2.  **Understand the Context:**\n    *   This looks like a customer service or automated agent scenario (likely a chatbot or a workflow system).\n    *   The goal is to process a refund.",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 128,
+     "tokens_evaluated": 65,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 128,
+      "n_predict": 128,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n目标 / goal: goal: refund submitted for ORD-1042. 当前观测 / observation: refund submitted and confirmation R-5521 issued.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 192,
+     "timings": {
+      "cache_n": 61,
+      "prompt_n": 4,
+      "prompt_ms": 21.719,
+      "prompt_per_token_ms": 5.42975,
+      "prompt_per_second": 184.1705419218196,
+      "predicted_n": 128,
+      "predicted_ms": 619.002,
+      "predicted_per_token_ms": 4.874031496062992,
+      "predicted_per_second": 205.16896552838278
+     }
+    },
+    "timings": {
+     "cache_n": 61,
+     "prompt_n": 4,
+     "prompt_ms": 21.719,
+     "prompt_per_token_ms": 5.42975,
+     "prompt_per_second": 184.1705419218196,
+     "predicted_n": 128,
+     "predicted_ms": 619.002,
+     "predicted_per_token_ms": 4.874031496062992,
+     "predicted_per_second": 205.16896552838278
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.64
+  }
+ ]
+}

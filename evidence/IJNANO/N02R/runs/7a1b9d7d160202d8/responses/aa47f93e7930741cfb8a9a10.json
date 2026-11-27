@@ -1,0 +1,164 @@
+{
+ "trial_id": "aa47f93e7930741cfb8a9a10",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，用户提到到货了 shipment TRK-11298，需要登记入库。让我检查可用的工具。\n\n提供的工具包括 \"receiving.log_arrival\"。描述说这是用于记录到货的。参数需要指定工具名称。用户说只回答工具名。所以我应该调用 receiving.log_arrival。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"tool\":\"receiving.log_arrival\"}"
+         },
+         "id": "HMudv3bQ23GSxuv7NRgbYhEVQUL6jhzD"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795794901,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 89,
+     "prompt_tokens": 346,
+     "total_tokens": 435,
+     "prompt_tokens_details": {
+      "cached_tokens": 35
+     }
+    },
+    "id": "chatcmpl-cmmIX2rLDNKi3sBopP1UAL2rPXKWHqMc",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，用户提到到货了 shipment TRK-11298，需要登记入库。让我检查可用的工具。\n\n提供的工具包括 \"receiving.log_arrival\"。描述说这是用于记录到货的。参数需要指定工具名称。用户说只回答工具名。所以我应该调用 receiving.log_arrival。\n</think>\n\n<function name=\"record_answer\"><param name=\"tool\">receiving.log_arrival</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 89,
+     "tokens_evaluated": 346,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"tool\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tool\": {\"type\": \"string\", \"enum\": [\"inventory.check_stock\", \"inventory.adjust_stock\", \"inventory.reserve_stock\", \"warehouse.locate_bin\", \"receiving.log_arrival\", \"picking.create_task\", \"reports.export_snapshot\", \"alerts.raise_low_stock\"]}}, \"required\": [\"tool\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n已知 / known: order ORD-9014, customer C-128, sku SKU-2210, tracking TRK-11298.\n到货了， shipment TRK-11298，登记入库。 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 434,
+     "timings": {
+      "cache_n": 35,
+      "prompt_n": 311,
+      "prompt_ms": 54.94,
+      "prompt_per_token_ms": 0.17665594855305466,
+      "prompt_per_second": 5660.720786312341,
+      "predicted_n": 89,
+      "predicted_ms": 539.221,
+      "predicted_per_token_ms": 6.127511363636364,
+      "predicted_per_second": 163.19839175403035
+     }
+    },
+    "timings": {
+     "cache_n": 35,
+     "prompt_n": 311,
+     "prompt_ms": 54.94,
+     "prompt_per_token_ms": 0.17665594855305466,
+     "prompt_per_second": 5660.720786312341,
+     "predicted_n": 89,
+     "predicted_ms": 539.221,
+     "predicted_per_token_ms": 6.127511363636364,
+     "predicted_per_second": 163.19839175403035
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.609
+  }
+ ]
+}

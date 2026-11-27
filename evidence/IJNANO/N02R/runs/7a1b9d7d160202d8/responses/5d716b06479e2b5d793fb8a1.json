@@ -1,0 +1,146 @@
+{
+ "trial_id": "5d716b06479e2b5d793fb8a1",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "**继续 (continue)** – 通知已排队，只需将其发送给客户 C-303 以完成目标。",
+       "reasoning_content": "We need to parse the user's query. The goal is: \"customer C-303 notified of delay.\" Current observation: \"notification queued but not yet delivered.\" Allowed decisions: stop, continue. We need to decide whether to stop or continue.\n\nInterpretation: There's a customer C-303 who needs to be notified about a delay. Currently, the notification is queued but not yet delivered (i.e., it hasn't been sent). The question: Should we stop something? Or continue? Possibly this is part of some workflow where you might have options like \"stop\" or \"continue\". We need to decide based on the goal and observation.\n\nGoal: Notify customer C-303 about delay. Observation: notification queued but not yet delivered. So the action needed is to deliver the notification. Since it's queued, we can continue processing (i.e., send the notification). Stopping would mean aborting? That doesn't make sense because we haven't even sent it; stopping might prevent sending and thus failing to notify.\n\nThus likely \"continue\" is the correct decision: proceed with delivering the notification.\n\nBut let's think about context: maybe there are other tasks or processes. The allowed decisions are stop or continue. Usually, if a task is queued but not yet delivered, you would continue (i.e., send it). So I'd choose continue.\n\nThus answer: continue.\n\nWe should provide reasoning: The notification is already queued; we just need to deliver it now. There's no reason to stop because the goal hasn't been achieved and stopping would delay further.\n\nHence decision: continue.\n\nI'll output \"continue\" or \"Continue\". Possibly they want a single word. I'll answer accordingly."
+      }
+     }
+    ],
+    "created": 1795794066,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 386,
+     "prompt_tokens": 60,
+     "total_tokens": 446,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-QHvN1uvvExINHv6n9yZ7kmlQqLpetfJm",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. The goal is: \"customer C-303 notified of delay.\" Current observation: \"notification queued but not yet delivered.\" Allowed decisions: stop, continue. We need to decide whether to stop or continue.\n\nInterpretation: There's a customer C-303 who needs to be notified about a delay. Currently, the notification is queued but not yet delivered (i.e., it hasn't been sent). The question: Should we stop something? Or continue? Possibly this is part of some workflow where you might have options like \"stop\" or \"continue\". We need to decide based on the goal and observation.\n\nGoal: Notify customer C-303 about delay. Observation: notification queued but not yet delivered. So the action needed is to deliver the notification. Since it's queued, we can continue processing (i.e., send the notification). Stopping would mean aborting? That doesn't make sense because we haven't even sent it; stopping might prevent sending and thus failing to notify.\n\nThus likely \"continue\" is the correct decision: proceed with delivering the notification.\n\nBut let's think about context: maybe there are other tasks or processes. The allowed decisions are stop or continue. Usually, if a task is queued but not yet delivered, you would continue (i.e., send it). So I'd choose continue.\n\nThus answer: continue.\n\nWe should provide reasoning: The notification is already queued; we just need to deliver it now. There's no reason to stop because the goal hasn't been achieved and stopping would delay further.\n\nHence decision: continue.\n\nI'll output \"continue\" or \"Continue\". Possibly they want a single word. I'll answer accordingly.</think>**继续 (continue)** – 通知已排队，只需将其发送给客户 C-303 以完成目标。",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 386,
+     "tokens_evaluated": 60,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n目标 / goal: goal: customer C-303 notified of delay. 当前观测 / observation: notification queued but not yet delivered.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 445,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 60,
+      "prompt_ms": 33.97,
+      "prompt_per_token_ms": 0.5661666666666666,
+      "prompt_per_second": 1766.2643508978513,
+      "predicted_n": 386,
+      "predicted_ms": 2246.056,
+      "predicted_per_token_ms": 5.833911688311688,
+      "predicted_per_second": 171.41157655908847
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 60,
+     "prompt_ms": 33.97,
+     "prompt_per_token_ms": 0.5661666666666666,
+     "prompt_per_second": 1766.2643508978513,
+     "predicted_n": 386,
+     "predicted_ms": 2246.056,
+     "predicted_per_token_ms": 5.833911688311688,
+     "predicted_per_second": 171.41157655908847
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.297
+  }
+ ]
+}

@@ -1,0 +1,154 @@
+{
+ "trial_id": "80874cf5fc433a6964ce714e",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{\"branch\": \"accept_adjustment\"}",
+       "reasoning_content": "We need to understand the problem. The user gave a description: \"策略 / policy: variance caused by open picking task in that bin. 实况 / observation: n = 1. Allowed branches: accept_adjustment, require_second_count, reject_adjustment. 判断应走的分支。 / Decide which branch applies.\"\n\nThis looks like a decision tree or policy rule. We have a policy: \"variance caused by open picking task in that bin.\" Observation: n = 1. Allowed branches: accept_adjustment, require_second_count, reject_adjustment. We need to decide which branch applies.\n\nWe need to infer the logic. This seems like a quality control or inventory management scenario. \"open picking task\" might refer to a picking task that is open (not completed?). \"variance caused by open picking task in that bin\" means there is a variance (maybe a discrepancy) caused by an open picking task in that bin. n=1 means sample size is 1? Or number of observations? Allowed branches are three: accept_adjustment, require_second_count, reject_adjustment.\n\nWe need to decide which branch to take based on the policy and observation. Possibly this is"
+      }
+     }
+    ],
+    "created": 1795798659,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 289,
+     "prompt_tokens": 67,
+     "total_tokens": 356,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-rYtAYFGbVXziPh7e8tO6hqCeDpSrqJ4x",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to understand the problem. The user gave a description: \"策略 / policy: variance caused by open picking task in that bin. 实况 / observation: n = 1. Allowed branches: accept_adjustment, require_second_count, reject_adjustment. 判断应走的分支。 / Decide which branch applies.\"\n\nThis looks like a decision tree or policy rule. We have a policy: \"variance caused by open picking task in that bin.\" Observation: n = 1. Allowed branches: accept_adjustment, require_second_count, reject_adjustment. We need to decide which branch applies.\n\nWe need to infer the logic. This seems like a quality control or inventory management scenario. \"open picking task\" might refer to a picking task that is open (not completed?). \"variance caused by open picking task in that bin\" means there is a variance (maybe a discrepancy) caused by an open picking task in that bin. n=1 means sample size is 1? Or number of observations? Allowed branches are three: accept_adjustment, require_second_count, reject_adjustment.\n\nWe need to decide which branch to take based on the policy and observation. Possibly this is</think>\n                    {\"branch\": \"accept_adjustment\"}",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 289,
+     "tokens_evaluated": 67,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-branch-kv space \"}\"\nresponse-format-branch ::= (\"\\\"accept_adjustment\\\"\" | \"\\\"require_second_count\\\"\" | \"\\\"reject_adjustment\\\"\")\nresponse-format-branch-kv ::= \"\\\"branch\\\"\" space \":\" space response-format-branch\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n策略 / policy: variance caused by open picking task in that bin. 实况 / observation: n = 1.\nAllowed branches: accept_adjustment, require_second_count, reject_adjustment.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 355,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 67,
+      "prompt_ms": 27.515,
+      "prompt_per_token_ms": 0.41067164179104476,
+      "prompt_per_second": 2435.0354352171544,
+      "predicted_n": 289,
+      "predicted_ms": 1728.815,
+      "predicted_per_token_ms": 6.0028298611111115,
+      "predicted_per_second": 166.5880964707039
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 67,
+     "prompt_ms": 27.515,
+     "prompt_per_token_ms": 0.41067164179104476,
+     "prompt_per_second": 2435.0354352171544,
+     "predicted_n": 289,
+     "predicted_ms": 1728.815,
+     "predicted_per_token_ms": 6.0028298611111115,
+     "predicted_per_second": 166.5880964707039
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.765
+  }
+ ]
+}

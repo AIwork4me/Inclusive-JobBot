@@ -1,0 +1,146 @@
+{
+ "trial_id": "db1666aa00016f0dde428d09",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"tool\": \"customers.get_profile\"\n}",
+       "reasoning_content": "We need to parse the user's request.\n\nUser says: \"已知 / known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n\n调出客户 C-303 的档案。 只回答要调用的工具名 only.\"\n\nSo they want to get the profile of customer C-303. The tool for that is customers.get_profile with param customer_id.\n\nThus we just need to output \"customers.get_profile\". Possibly also other calls? Let's read: \"已知 / known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\" That might be context but the request is specifically: \"调出客户 C-303 的档案。\" which means \"Retrieve the profile of customer C-303.\" So we just need to call customers.get_profile with customer_id = \"C-303\". The answer should be only the tool name.\n\nThus output: customers.get_profile\n\nCheck if any other needed? No, they ask only for that. So final answer is \"customers.get_profile\". Ensure format exactly as tool name includes dot and underscores. Yes.\n\nThus respond with just that."
+      }
+     }
+    ],
+    "created": 1795793472,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 440,
+     "prompt_tokens": 239,
+     "total_tokens": 679,
+     "prompt_tokens_details": {
+      "cached_tokens": 1
+     }
+    },
+    "id": "chatcmpl-jJeBKKtOiSuTYQksD7w8N5ULWeeR3O5q",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request.\n\nUser says: \"已知 / known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n\n调出客户 C-303 的档案。 只回答要调用的工具名 only.\"\n\nSo they want to get the profile of customer C-303. The tool for that is customers.get_profile with param customer_id.\n\nThus we just need to output \"customers.get_profile\". Possibly also other calls? Let's read: \"已知 / known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\" That might be context but the request is specifically: \"调出客户 C-303 的档案。\" which means \"Retrieve the profile of customer C-303.\" So we just need to call customers.get_profile with customer_id = \"C-303\". The answer should be only the tool name.\n\nThus output: customers.get_profile\n\nCheck if any other needed? No, they ask only for that. So final answer is \"customers.get_profile\". Ensure format exactly as tool name includes dot and underscores. Yes.\n\nThus respond with just that.</think>{\n  \"tool\": \"customers.get_profile\"\n}",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 440,
+     "tokens_evaluated": 239,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-tool-kv space \"}\"\nresponse-format-tool ::= (\"\\\"orders.lookup_order\\\"\" | \"\\\"orders.cancel_order\\\"\" | \"\\\"orders.get_refund_eligibility\\\"\" | \"\\\"refunds.submit\\\"\" | \"\\\"customers.get_profile\\\"\" | \"\\\"logistics.trace_shipment\\\"\" | \"\\\"inventory.check_stock\\\"\" | \"\\\"notify.send_update\\\"\")\nresponse-format-tool-kv ::= \"\\\"tool\\\"\" space \":\" space response-format-tool\nroot ::= \"<|im_start|>assistant\\n\" (\"<think>\" space until-1 (\"\\n</think>\" | \"</think>\" | ))? space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-1 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<] until-1\nuntil-1-01 ::= | [\\n] until-1-01 | [<] until-1-02 | [^\\n<] until-1\nuntil-1-02 ::= | [\\n] until-1-01 | [/] until-1-03 | [<] until-1-10 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-03 ::= | [\\n] until-1-01 | [t] until-1-04 | [<] until-1-10 | [^\\n<t] until-1\nuntil-1-04 ::= | [\\n] until-1-01 | [h] until-1-05 | [<] until-1-10 | [^\\n<h] until-1\nuntil-1-05 ::= | [\\n] until-1-01 | [i] until-1-06 | [<] until-1-10 | [^\\n<i] until-1\nuntil-1-06 ::= | [\\n] until-1-01 | [n] until-1-07 | [<] until-1-10 | [^\\n<n] until-1\nuntil-1-07 ::= | [\\n] until-1-01 | [k] until-1-08 | [<] until-1-10 | [^\\n<k] until-1\nuntil-1-08 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-10 ::= | [\\n] until-1-01 | [<] until-1-10 | [/] until-1-11 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-11 ::= | [\\n] until-1-01 | [<] until-1-10 | [t] until-1-12 | [^\\n<t] until-1\nuntil-1-12 ::= | [\\n] until-1-01 | [<] until-1-10 | [h] until-1-13 | [^\\n<h] until-1\nuntil-1-13 ::= | [\\n] until-1-01 | [<] until-1-10 | [i] until-1-14 | [^\\n<i] until-1\nuntil-1-14 ::= | [\\n] until-1-01 | [<] until-1-10 | [n] until-1-15 | [^\\n<n] until-1\nuntil-1-15 ::= | [\\n] until-1-01 | [<] until-1-10 | [k] until-1-16 | [^\\n<k] until-1\nuntil-1-16 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-18 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-19 | [^\\n<o] until-1\nuntil-1-19 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-20 | [^\\n<o] until-1\nuntil-1-20 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-21 | [^\\n<l] until-1\nuntil-1-21 ::= | [\\n] until-1-01 | [<] until-1-10 | [_] until-1-22 | [^\\n<_] until-1\nuntil-1-22 ::= | [\\n] until-1-01 | [<] until-1-10 | [c] until-1-23 | [^\\n<c] until-1\nuntil-1-23 ::= | [\\n] until-1-01 | [<] until-1-10 | [a] until-1-24 | [^\\n<a] until-1\nuntil-1-24 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-25 | [^\\n<l] until-1\nuntil-1-25 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-26 | [^\\n<l] until-1\nuntil-1-26 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n已知 / known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n调出客户 C-303 的档案。 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 678,
+     "timings": {
+      "cache_n": 1,
+      "prompt_n": 238,
+      "prompt_ms": 42.693,
+      "prompt_per_token_ms": 0.17938235294117647,
+      "prompt_per_second": 5574.684374487621,
+      "predicted_n": 440,
+      "predicted_ms": 2633.224,
+      "predicted_per_token_ms": 5.998232346241458,
+      "predicted_per_second": 166.71578262996235
+     }
+    },
+    "timings": {
+     "cache_n": 1,
+     "prompt_n": 238,
+     "prompt_ms": 42.693,
+     "prompt_per_token_ms": 0.17938235294117647,
+     "prompt_per_second": 5574.684374487621,
+     "predicted_n": 440,
+     "predicted_ms": 2633.224,
+     "predicted_per_token_ms": 5.998232346241458,
+     "predicted_per_second": 166.71578262996235
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.687
+  }
+ ]
+}

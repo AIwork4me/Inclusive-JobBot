@@ -1,0 +1,146 @@
+{
+ "trial_id": "86b06029386e0e319b269f49",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's request. The user says:\n\n\"商品 TRK-11298：数量变动 350.0 USD。 Available tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nInterpretation: The user mentions a product TRK-11298, quantity change of 350.0 USD. They want to generate the full action with tools and all parameters.\n\nWe need to infer what action is needed for \"数量变动\" (quantity change) of 350.0 USD. Possibly we need to update shipment quantity? There's no explicit tool for updating quantity, but maybe it involves declaring customs value or rerouting? Let's examine available tools:\n\n- logistics.trace_shipment: trace a shipment.\n- logistics.reroute_shipment: reroute a shipment.\n- logistics.estimate_delivery: estimate delivery.\n- addresses.validate: validate an address.\n- customs.declare_value: declare customs value (params: tracking_no, amount).\n- labels.generate: generate label (order_id).\n- couriers.list_rates: list rates by zone.\n- escalations.open_case: open case.\n\nGiven \"数量变动 350.0 USD\" maybe we need to update the declared value for customs? Or perhaps it's about adjusting quantity and cost, which might involve declaring customs value with amount = 350.0 USD. The tracking number is TRK-11298 (the product code). So likely we need to call customs.declare_value with tracking_no=TRK-11298 and amount=350.0.\n\nBut also maybe there's a need to reroute or trace? Not sure. Let's parse typical operations: \"数量变动\" means quantity change, i.e., the shipment quantity changed by 350.0 USD (maybe cost). Could be that we need to update the value declared for customs. The tool customs.declare_value takes tracking_no and amount. So we can do that.\n\nThus full action: call customs.declare_value with parameters: tracking_no = \"TRK-11298\", amount = 350.0 USD.\n\nBut also maybe we need to generate a label? Not sure. Let's see if any other tool matches quantity change. There is no direct update of shipment quantity. So likely the appropriate action is to declare customs value for the new quantity/value.\n\nThus produce: tool: customs.declare_value, arguments: {\"tracking_no\": \"TRK-11298\", \"amount\": 350.0}.\n\nBut we need to confirm if amount should be numeric or string with currency? The param description says \"amount\". Usually it's a number. So 350.0.\n\nThus final answer: \"customs.declare_value(tracking_no='TRK-11298', amount=350.0)\".\n\nAlternatively, maybe also trace shipment to get current status before updating? But the user didn't ask for that. They just said \"生成完整动作：工具与全部参数。\" So we need to output full action: tool name and all arguments.\n\nThus I'll produce:\n\n- Tool: customs.declare_value\n- Parameters: tracking_no = \"TRK-11298\", amount = 350.0\n\nBut maybe also need to specify currency? Not in param list. So just those.\n\nLet's double-check the available tools again:\n\n- logistics.trace_shipment (params: tracking_no)\n- logistics.reroute_shipment (params: tracking_no)\n- logistics.estimate_delivery (params: tracking_no)\n- addresses.validate (params: address_id)\n- customs.declare_value (params: tracking_no, amount)\n- labels.generate (params: order_id)\n- couriers.list_rates (params: zone)\n- escalations.open_case (params: tracking_no)\n\nThus only customs.declare_value matches \"amount\". So yes.\n\nTherefore final answer: \"customs.declare_value(tracking_no='TRK-11298', amount=350.0)\".\n\nBut maybe also need"
+      }
+     }
+    ],
+    "created": 1795795178,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 224,
+     "total_tokens": 1248,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-VEcjCUyIDuwDR5LVfvoioadPRmZrgAVM",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request. The user says:\n\n\"商品 TRK-11298：数量变动 350.0 USD。 Available tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nInterpretation: The user mentions a product TRK-11298, quantity change of 350.0 USD. They want to generate the full action with tools and all parameters.\n\nWe need to infer what action is needed for \"数量变动\" (quantity change) of 350.0 USD. Possibly we need to update shipment quantity? There's no explicit tool for updating quantity, but maybe it involves declaring customs value or rerouting? Let's examine available tools:\n\n- logistics.trace_shipment: trace a shipment.\n- logistics.reroute_shipment: reroute a shipment.\n- logistics.estimate_delivery: estimate delivery.\n- addresses.validate: validate an address.\n- customs.declare_value: declare customs value (params: tracking_no, amount).\n- labels.generate: generate label (order_id).\n- couriers.list_rates: list rates by zone.\n- escalations.open_case: open case.\n\nGiven \"数量变动 350.0 USD\" maybe we need to update the declared value for customs? Or perhaps it's about adjusting quantity and cost, which might involve declaring customs value with amount = 350.0 USD. The tracking number is TRK-11298 (the product code). So likely we need to call customs.declare_value with tracking_no=TRK-11298 and amount=350.0.\n\nBut also maybe there's a need to reroute or trace? Not sure. Let's parse typical operations: \"数量变动\" means quantity change, i.e., the shipment quantity changed by 350.0 USD (maybe cost). Could be that we need to update the value declared for customs. The tool customs.declare_value takes tracking_no and amount. So we can do that.\n\nThus full action: call customs.declare_value with parameters: tracking_no = \"TRK-11298\", amount = 350.0 USD.\n\nBut also maybe we need to generate a label? Not sure. Let's see if any other tool matches quantity change. There is no direct update of shipment quantity. So likely the appropriate action is to declare customs value for the new quantity/value.\n\nThus produce: tool: customs.declare_value, arguments: {\"tracking_no\": \"TRK-11298\", \"amount\": 350.0}.\n\nBut we need to confirm if amount should be numeric or string with currency? The param description says \"amount\". Usually it's a number. So 350.0.\n\nThus final answer: \"customs.declare_value(tracking_no='TRK-11298', amount=350.0)\".\n\nAlternatively, maybe also trace shipment to get current status before updating? But the user didn't ask for that. They just said \"生成完整动作：工具与全部参数。\" So we need to output full action: tool name and all arguments.\n\nThus I'll produce:\n\n- Tool: customs.declare_value\n- Parameters: tracking_no = \"TRK-11298\", amount = 350.0\n\nBut maybe also need to specify currency? Not in param list. So just those.\n\nLet's double-check the available tools again:\n\n- logistics.trace_shipment (params: tracking_no)\n- logistics.reroute_shipment (params: tracking_no)\n- logistics.estimate_delivery (params: tracking_no)\n- addresses.validate (params: address_id)\n- customs.declare_value (params: tracking_no, amount)\n- labels.generate (params: order_id)\n- couriers.list_rates (params: zone)\n- escalations.open_case (params: tracking_no)\n\nThus only customs.declare_value matches \"amount\". So yes.\n\nTherefore final answer: \"customs.declare_value(tracking_no='TRK-11298', amount=350.0)\".\n\nBut maybe also need",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 224,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n商品 TRK-11298：数量变动 350.0 USD。\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1247,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 224,
+      "prompt_ms": 47.386,
+      "prompt_per_token_ms": 0.21154464285714286,
+      "prompt_per_second": 4727.134596716329,
+      "predicted_n": 1024,
+      "predicted_ms": 5956.889,
+      "predicted_per_token_ms": 5.8229608993157385,
+      "predicted_per_second": 171.73393695937594
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 224,
+     "prompt_ms": 47.386,
+     "prompt_per_token_ms": 0.21154464285714286,
+     "prompt_per_second": 4727.134596716329,
+     "predicted_n": 1024,
+     "predicted_ms": 5956.889,
+     "predicted_per_token_ms": 5.8229608993157385,
+     "predicted_per_second": 171.73393695937594
+    }
+   },
+   "http_error": null,
+   "latency_s": 6.016
+  }
+ ]
+}

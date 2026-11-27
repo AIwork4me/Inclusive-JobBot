@@ -1,0 +1,146 @@
+{
+ "trial_id": "92cce13015fa30a30991e148",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "继续（continue）。",
+       "reasoning_content": "We need to parse the user's query. The goal is \"refund submitted for ORD-2025\". Current observation: \"eligibility checked, refund NOT yet submitted.\" So we have a refund request for order ORD-2025. Eligibility has been checked (presumably it meets criteria), but the refund hasn't been submitted yet. The allowed decisions are \"stop\" or \"continue\". We need to decide whether to stop or continue.\n\nInterpretation: Usually, in such tasks, we have a process where you might be at some stage and need to decide if you should proceed (continue) or halt (stop). Given that eligibility is checked but refund not yet submitted, maybe the next step is to submit the refund. So \"continue\" would mean proceed with submitting the refund. \"Stop\" would mean do nothing further? Or perhaps there's a condition: If eligibility is checked and refund not yet submitted, we might need to actually submit it now. So continue.\n\nBut let's think about typical decision frameworks: The goal is \"refund submitted for ORD-2025\". Observation: eligibility checked, refund NOT yet submitted. So the next action should be to submit the refund. Since it hasn't been done yet, we can continue with that step. There's no indication of any blocker or error; just that it's not yet submitted. So I'd choose \"continue\".\n\nThus answer: continue.\n\nBut let me double-check: The allowed decisions are stop or continue. Usually in such prompts, you might have to decide whether to stop the process (maybe because something else is wrong) or continue (to proceed). Since eligibility is checked and it's just pending submission, we should continue.\n\nHence I will output \"continue\". Possibly with some explanation? The user asked: \"决定 stop 还是 continue。 / Decide stop or continue.\" So answer succinctly: continue.\n\nThus final."
+      }
+     }
+    ],
+    "created": 1795793354,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 396,
+     "prompt_tokens": 60,
+     "total_tokens": 456,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-oMYkgCGSVTKBNGdGz9J6dlYyi7ZjKS75",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. The goal is \"refund submitted for ORD-2025\". Current observation: \"eligibility checked, refund NOT yet submitted.\" So we have a refund request for order ORD-2025. Eligibility has been checked (presumably it meets criteria), but the refund hasn't been submitted yet. The allowed decisions are \"stop\" or \"continue\". We need to decide whether to stop or continue.\n\nInterpretation: Usually, in such tasks, we have a process where you might be at some stage and need to decide if you should proceed (continue) or halt (stop). Given that eligibility is checked but refund not yet submitted, maybe the next step is to submit the refund. So \"continue\" would mean proceed with submitting the refund. \"Stop\" would mean do nothing further? Or perhaps there's a condition: If eligibility is checked and refund not yet submitted, we might need to actually submit it now. So continue.\n\nBut let's think about typical decision frameworks: The goal is \"refund submitted for ORD-2025\". Observation: eligibility checked, refund NOT yet submitted. So the next action should be to submit the refund. Since it hasn't been done yet, we can continue with that step. There's no indication of any blocker or error; just that it's not yet submitted. So I'd choose \"continue\".\n\nThus answer: continue.\n\nBut let me double-check: The allowed decisions are stop or continue. Usually in such prompts, you might have to decide whether to stop the process (maybe because something else is wrong) or continue (to proceed). Since eligibility is checked and it's just pending submission, we should continue.\n\nHence I will output \"continue\". Possibly with some explanation? The user asked: \"决定 stop 还是 continue。 / Decide stop or continue.\" So answer succinctly: continue.\n\nThus final.</think>继续（continue）。",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 396,
+     "tokens_evaluated": 60,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n目标 / goal: goal: refund submitted for ORD-2025. 当前观测 / observation: eligibility checked, refund NOT yet submitted.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 455,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 60,
+      "prompt_ms": 34.183,
+      "prompt_per_token_ms": 0.5697166666666666,
+      "prompt_per_second": 1755.2584618085011,
+      "predicted_n": 396,
+      "predicted_ms": 2281.972,
+      "predicted_per_token_ms": 5.777144303797469,
+      "predicted_per_second": 173.09590126434503
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 60,
+     "prompt_ms": 34.183,
+     "prompt_per_token_ms": 0.5697166666666666,
+     "prompt_per_second": 1755.2584618085011,
+     "predicted_n": 396,
+     "predicted_ms": 2281.972,
+     "predicted_per_token_ms": 5.777144303797469,
+     "predicted_per_second": 173.09590126434503
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.328
+  }
+ ]
+}

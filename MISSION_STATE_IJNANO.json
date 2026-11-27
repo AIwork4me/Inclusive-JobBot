@@ -190,24 +190,27 @@
     },
     "N02R": {
       "title": "Model x Inference Protocol causal analysis (IJ-NANO-1.2 order + N02R addendum)",
-      "progress": "in_flight",
-      "status": "NOT_RUN",
+      "progress": "done",
+      "status": "PASS",
       "gate": "N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED",
-      "gate_status": "NOT_RUN",
+      "gate_status": "PASS",
       "gpu_required": true,
-      "note": "v1 screen (experiment 36bfed1d55a9987b, 1440/1440 executed, sealed) reclassified development/diagnostic per the addendum: PR-D01 information asymmetry, PR-D02 P5 contract defect, PR-D03 P7 inapplicable families, PR-D04 parser defects, PR-D06/D07 identity+socket gaps, PR-D08/D09 truncated raw evidence - all reproduced and documented; disposition evidence_disposition.json (871 EVIDENCE_INSUFFICIENT / 303 DIAGNOSTIC_ONLY / 71 OFFLINE_RESCORE_POSSIBLE / 165 VALID_AS_IS / 30 PHYSICAL_REEXECUTION_REQUIRED). Integration gate N02R_PARSER_EVALUATOR_INTEGRATION_GO PASS. Corrected experiment 7a1b9d7d160202d8 (arms_v2/controller_v2: information-matched M-arms, P5A/P5B split, P7 applicability + P7S two-stage, T0-T3 causal set with --reasoning-budget server profile, full identity binding, netstat socket-PID, content-addressed response artifacts, NOT_CAPTURED telemetry) executing: 1680 main + 504 panel unique logical slots under the host-wide lease",
+      "delivered_utc": "2026-11-27T17:40:00Z",
+      "summary": "corrected experiment ec5b95357e960f99: 2184/2184 unique logical slots (1397 verified offline re-scores + 787 physical; 2214 physical requests), 0 NOT_RUN/BLOCKED/missing artifacts, full identity binding (model+quant+template-fingerprint+DLLs+GPU+evaluator/parser hashes), netstat-verified socket-PID, content-addressed responses; information-matched causal scope + native-usability diagnostic scope + T0-T3 thinking/grammar causal set + budget curves (81 cells) + per-family matrix (168 cells); key findings: lazy-grammar + shared budget starvation confirmed and removable (structure 0.27->0.47 on S2 via T1/T2/T3), bounded reasoning budget (T2) is the only intervention >= default on all three models semantically, thinking-off trade-off is model-specific, DSL/two-stage protocols fail at 2B scale; model-specific protocol recommendation candidates published for N03",
       "addendum": "docs/IJNANO_MISSION_ORDER_V1_2_N02R_ADDENDUM.md",
-      "evidence_so_far": [
-        "evidence/IJNANO/N02R/source_level_findings.md",
-        "evidence/IJNANO/N02R/pr_d01_information_manifest.json",
-        "evidence/IJNANO/N02R/pr_concerns_red_run.txt",
+      "evidence": [
+        "reports/IJNANO_02R_PROTOCOL_CAUSAL_ANALYSIS.md",
+        "reports/IJNANO_02R_EXPERIMENT_INTEGRITY_AUDIT.md",
+        "evidence/IJNANO/N02R/protocol_matrix.json",
         "evidence/IJNANO/N02R/evidence_disposition.json",
         "evidence/IJNANO/N02R/parser_evaluator_qualification.json",
-        "evidence/IJNANO/N02R/runs/36bfed1d55a9987b/ (sealed v1 screen)",
-        "evidence/IJNANO/N02R/runs/7a1b9d7d160202d8/ (corrected experiment)",
-        "reports/IJNANO_02R_EXPERIMENT_INTEGRITY_AUDIT.md",
-        "reports/IJNANO_02R_PROTOCOL_CAUSAL_ANALYSIS.md (sections 1-4 final)"
-      ]
+        "evidence/IJNANO/N02R/source_level_findings.md",
+        "evidence/IJNANO/N02R/runs/36bfed1d55a9987b/ (v1 diagnostic, sealed)",
+        "evidence/IJNANO/N02R/runs/7a1b9d7d160202d8/ (corrected physical source, sealed)",
+        "evidence/IJNANO/N02R/runs/ec5b95357e960f99/ (final corrected experiment, sealed)"
+      ],
+      "gates_supporting": "N02R_PARSER_EVALUATOR_INTEGRATION_GO = PASS",
+      "limitations": "single execution per cell (temp 0, seed 42; repeatability is N03 scope); reasoning-token attribution UNAVAILABLE in b12359; absolute semantic rates are protocol-comparison measures, not business-accuracy claims"
     },
     "N03": {
       "title": "Fine-grained SLM cognitive capability profiling (C01-C32)",

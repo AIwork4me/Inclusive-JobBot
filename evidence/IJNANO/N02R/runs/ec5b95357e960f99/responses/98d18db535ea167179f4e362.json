@@ -1,0 +1,154 @@
+{
+ "trial_id": "98d18db535ea167179f4e362",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{ \"action\": \"A6\" }",
+       "reasoning_content": "We need to answer with the action label only. The user says: \"{sku} 连续三次入库质检失败。 只回答动作编号。\" That means \"The SKU has failed incoming inspection three consecutive times. Only answer with the action number.\" The allowed actions are A1 to A6. We need to choose the appropriate action. The situation: SKU连续三次入库质检失败 (failed incoming inspection three consecutive times). What action should be taken? Possibly \"忽略该告警\" (ignore the alert) or \"上报主管\" (notify the supervisor)? The user says \"只回答动作编号\" meaning only answer with the action label. We need to infer which action is appropriate. The context: failed incoming inspection three times. Usually, you might want to notify supervisor or ignore? The instruction says \"只回答动作编号\" so we must output just the label. I think the most appropriate is A6: 上报主管 (notify the supervisor) because repeated failures might need supervisor attention. Or A5: ignore the alert? But the user explicitly says \"连续三次入库质检失败\" which is a serious issue, so likely notify supervisor. I'll go with A6.\n"
+      }
+     }
+    ],
+    "created": 1795797713,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 262,
+     "prompt_tokens": 202,
+     "total_tokens": 464,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-9wfPblXiRfHbSYxsv0ypWkQ7Nn9uycAW",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to answer with the action label only. The user says: \"{sku} 连续三次入库质检失败。 只回答动作编号。\" That means \"The SKU has failed incoming inspection three consecutive times. Only answer with the action number.\" The allowed actions are A1 to A6. We need to choose the appropriate action. The situation: SKU连续三次入库质检失败 (failed incoming inspection three consecutive times). What action should be taken? Possibly \"忽略该告警\" (ignore the alert) or \"上报主管\" (notify the supervisor)? The user says \"只回答动作编号\" meaning only answer with the action label. We need to infer which action is appropriate. The context: failed incoming inspection three times. Usually, you might want to notify supervisor or ignore? The instruction says \"只回答动作编号\" so we must output just the label. I think the most appropriate is A6: 上报主管 (notify the supervisor) because repeated failures might need supervisor attention. Or A5: ignore the alert? But the user explicitly says \"连续三次入库质检失败\" which is a serious issue, so likely notify supervisor. I'll go with A6.\n</think>\n\n{ \"action\": \"A6\" }",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 262,
+     "tokens_evaluated": 202,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-action-kv space \"}\"\nresponse-format-action ::= (\"\\\"A1\\\"\" | \"\\\"A2\\\"\" | \"\\\"A3\\\"\" | \"\\\"A4\\\"\" | \"\\\"A5\\\"\" | \"\\\"A6\\\"\")\nresponse-format-action-kv ::= \"\\\"action\\\"\" space \":\" space response-format-action\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n可选动作 / available actions:\nA1. 补货：为 SKU-8806 下补货单 / create a restock order for SKU-8806\nA2. 冻结：暂停 SKU-8806 的出库 / freeze outbound of SKU-8806\nA3. 盘点：安排 BIN-B21 的盘点 / schedule a count of BIN-B21\nA4. 转仓：把 SKU-8806 调往备用仓 / transfer SKU-8806 to the backup warehouse\nA5. 忽略该告警 / ignore the alert\nA6. 上报主管 / notify the supervisor\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n{sku} 连续三次入库质检失败。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 463,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 202,
+      "prompt_ms": 46.694,
+      "prompt_per_token_ms": 0.23115841584158417,
+      "prompt_per_second": 4326.037606544738,
+      "predicted_n": 262,
+      "predicted_ms": 1462.561,
+      "predicted_per_token_ms": 5.603681992337164,
+      "predicted_per_second": 178.45409524799308
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 202,
+     "prompt_ms": 46.694,
+     "prompt_per_token_ms": 0.23115841584158417,
+     "prompt_per_second": 4326.037606544738,
+     "predicted_n": 262,
+     "predicted_ms": 1462.561,
+     "predicted_per_token_ms": 5.603681992337164,
+     "predicted_per_second": 178.45409524799308
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.531
+  }
+ ]
+}

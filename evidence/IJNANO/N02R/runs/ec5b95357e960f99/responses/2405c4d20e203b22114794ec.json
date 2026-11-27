@@ -1,0 +1,146 @@
+{
+ "trial_id": "2405c4d20e203b22114794ec",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's request. The user says:\n\n\"Item TRK-73002: quantity change 99.0 EUR.\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nInterpretation: The user mentions \"Item TRK-73002: quantity change 99.0 EUR.\" This likely indicates a shipment with tracking number TRK-73002, and there is a quantity change of 99.0 EUR? Or maybe it's about changing quantity by 99.0 EUR? Not sure.\n\nWe need to produce the full action: tool and all arguments. But we need to know which tool(s) to call based on this item. The user hasn't explicitly asked for a specific operation, but they gave \"Item TRK-73002: quantity change 99.0 EUR.\" Possibly they want to update the quantity? Or maybe it's about declaring customs value? Let's parse.\n\nAvailable tools:\n\n- logistics.trace_shipment (tracking_no)\n- logistics.reroute_shipment (tracking_no)\n- logistics.estimate_delivery (tracking_no)\n- addresses.validate (address_id)\n- customs.declare_value (tracking_no, amount)\n- labels.generate (order_id)\n- couriers.list_rates (zone)\n- escalations.open_case (tracking_no)\n\nWe need to decide which tool corresponds to \"quantity change 99.0 EUR\". There's no direct \"update quantity\" tool listed. However, maybe \"customs.declare_value\" is about declaring value of the shipment, and could be related to quantity change? Or perhaps \"logistics.trace_shipment\" might give info on current status including quantity.\n\nBut we need more context: The user says \"Item TRK-73002: quantity change 99.0 EUR.\" Could mean that for item TRK-73002, the quantity changed by 99.0 EUR? That seems odd; quantity is usually units, not currency. Maybe it's a value change in customs.\n\nAlternatively, maybe they want to generate a label (labels.generate) with order_id? Not sure.\n\nGiven limited info, we need to infer likely action: \"quantity change\" might be about updating the declared value or quantity of goods. The tool \"customs.declare_value\" takes tracking_no and amount. So perhaps we need to declare customs value for this shipment as 99.0 EUR? But it says \"quantity change 99.0 EUR.\" Could be that the quantity changed by 99.0 EUR, meaning the monetary value of the goods increased by 99.0 EUR.\n\nAlternatively, maybe they want to reroute or trace. Without more specifics, we might need to ask for clarification? But the instruction: \"生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\" So we must produce a single line with tool name and its parameters.\n\nWe could assume they want to \"trace_shipment\" for tracking_no TRK-73002. Or maybe \"estimate_delivery\". But which one corresponds to quantity change? Let's think about typical operations:\n\n- trace_shipment: get current location.\n- reroute_shipment: change route.\n- estimate_delivery: predict arrival date.\n- validate_address: check address.\n- declare_value: set customs value.\n- generate_label: create shipping label.\n- list_rates: find courier rates by zone.\n- open_case: escalate.\n\nGiven \"quantity change 99.0 EUR\", maybe they need to update the declared value (customs) for this item, i.e., declare a new value of 99.0 EUR? But that seems low; typical customs value is in currency units, not necessarily per item. Could be that the quantity changed by 99.0 items each costing something.\n\nAlternatively, maybe \"quantity change\" refers to adjusting the number of items, and they need to declare the new total value (amount) for customs. So we could use customs.declare_value with"
+      }
+     }
+    ],
+    "created": 1795798396,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 223,
+     "total_tokens": 1247,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-C04LzJzfY1CaDuLfWm7QNbsJbQdIbvqi",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request. The user says:\n\n\"Item TRK-73002: quantity change 99.0 EUR.\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nInterpretation: The user mentions \"Item TRK-73002: quantity change 99.0 EUR.\" This likely indicates a shipment with tracking number TRK-73002, and there is a quantity change of 99.0 EUR? Or maybe it's about changing quantity by 99.0 EUR? Not sure.\n\nWe need to produce the full action: tool and all arguments. But we need to know which tool(s) to call based on this item. The user hasn't explicitly asked for a specific operation, but they gave \"Item TRK-73002: quantity change 99.0 EUR.\" Possibly they want to update the quantity? Or maybe it's about declaring customs value? Let's parse.\n\nAvailable tools:\n\n- logistics.trace_shipment (tracking_no)\n- logistics.reroute_shipment (tracking_no)\n- logistics.estimate_delivery (tracking_no)\n- addresses.validate (address_id)\n- customs.declare_value (tracking_no, amount)\n- labels.generate (order_id)\n- couriers.list_rates (zone)\n- escalations.open_case (tracking_no)\n\nWe need to decide which tool corresponds to \"quantity change 99.0 EUR\". There's no direct \"update quantity\" tool listed. However, maybe \"customs.declare_value\" is about declaring value of the shipment, and could be related to quantity change? Or perhaps \"logistics.trace_shipment\" might give info on current status including quantity.\n\nBut we need more context: The user says \"Item TRK-73002: quantity change 99.0 EUR.\" Could mean that for item TRK-73002, the quantity changed by 99.0 EUR? That seems odd; quantity is usually units, not currency. Maybe it's a value change in customs.\n\nAlternatively, maybe they want to generate a label (labels.generate) with order_id? Not sure.\n\nGiven limited info, we need to infer likely action: \"quantity change\" might be about updating the declared value or quantity of goods. The tool \"customs.declare_value\" takes tracking_no and amount. So perhaps we need to declare customs value for this shipment as 99.0 EUR? But it says \"quantity change 99.0 EUR.\" Could be that the quantity changed by 99.0 EUR, meaning the monetary value of the goods increased by 99.0 EUR.\n\nAlternatively, maybe they want to reroute or trace. Without more specifics, we might need to ask for clarification? But the instruction: \"生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\" So we must produce a single line with tool name and its parameters.\n\nWe could assume they want to \"trace_shipment\" for tracking_no TRK-73002. Or maybe \"estimate_delivery\". But which one corresponds to quantity change? Let's think about typical operations:\n\n- trace_shipment: get current location.\n- reroute_shipment: change route.\n- estimate_delivery: predict arrival date.\n- validate_address: check address.\n- declare_value: set customs value.\n- generate_label: create shipping label.\n- list_rates: find courier rates by zone.\n- open_case: escalate.\n\nGiven \"quantity change 99.0 EUR\", maybe they need to update the declared value (customs) for this item, i.e., declare a new value of 99.0 EUR? But that seems low; typical customs value is in currency units, not necessarily per item. Could be that the quantity changed by 99.0 items each costing something.\n\nAlternatively, maybe \"quantity change\" refers to adjusting the number of items, and they need to declare the new total value (amount) for customs. So we could use customs.declare_value with",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 223,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\nItem TRK-73002: quantity change 99.0 EUR.\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1246,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 223,
+      "prompt_ms": 47.883,
+      "prompt_per_token_ms": 0.2147219730941704,
+      "prompt_per_second": 4657.185222312721,
+      "predicted_n": 1024,
+      "predicted_ms": 5947.389,
+      "predicted_per_token_ms": 5.813674486803519,
+      "predicted_per_second": 172.00825437851805
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 223,
+     "prompt_ms": 47.883,
+     "prompt_per_token_ms": 0.2147219730941704,
+     "prompt_per_second": 4657.185222312721,
+     "predicted_n": 1024,
+     "predicted_ms": 5947.389,
+     "predicted_per_token_ms": 5.813674486803519,
+     "predicted_per_second": 172.00825437851805
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.985
+  }
+ ]
+}

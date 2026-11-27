@@ -1,0 +1,146 @@
+{
+ "trial_id": "bc95cb606ec9f13e89221b97",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "warehouse.locate_bin",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of known data (order, customer, sku, tracking) and available tools.\n    *   Question: \"货位 BIN-E7 在哪里？\" (Where is the bin location BIN-E7?)\n    *   Constraint: \"只回答要调用的工具名。\" (Answer only with the tool name to be called.)\n\n2.  **Evaluate the Tools:**\n    *   `inventory.check_stock`: Checks stock for a SKU.\n    *   `inventory.adjust_stock`: Adjusts stock quantity.\n    *   `inventory.reserve_stock`: Reserves stock.\n    *   `warehouse.locate_bin`: Locates a bin (params: bin_id).\n    *   `receiving.log_arrival`: Logs arrival.\n    *   `picking.create_task`: Creates a picking task.\n    *   `reports.export_snapshot`: Exports a snapshot.\n    *   `alerts.raise_low_stock`: Raises low stock alert.\n\n3.  **Match the Question to the Tool:**\n    *   The user is asking for the location of a specific bin (\"BIN-E7\").\n    *   The tool `warehouse.locate_bin` has a parameter `bin_id` which fits the input \"BIN-E7\".\n    *   Therefore, the tool to call is `warehouse.locate_bin`.\n\n4.  **Format the Output:**\n    *   Constraint: \"只回答要调用的工具名\" (Answer only with the tool name).\n    *   Output: `warehouse.locate_bin`\n\n5.  **Final Verification:**\n    *   Does the tool exist in the list? Yes.\n    *   Does it solve the problem? Yes.\n    *   Is the format correct? Yes.\n\n    Wait, I need to check if there's any trick. The input data mentions \"order ORD-7781, customer C-41, sku SKU-5519, tracking TRK-40219\". The question asks about \"BIN-E7\". This implies the bin ID is known or needs to be looked up. The tool `warehouse.locate_bin` takes `bin_id` as a parameter. So calling it with `BIN-E7` would return the location. The question asks \"Where is BIN-E7?\", so I need to call the tool that finds the location.\n\n    The tool name is `warehouse.locate_bin`.\n\n    Constraint check: \"只回答要调用的工具名\" (Answer only with the tool name).\n    So I should output `warehouse.locate_bin`.\n\n    Wait, looking closely at the prompt: \"货位 BIN-E7 在哪里？\" (Where is the bin location BIN-E7?).\n    The tool `warehouse.locate_bin` takes `bin_id`.\n    So the tool name is `warehouse.locate_bin`.\n\n    Final decision: `warehouse.locate_bin`.\n\n    Wait, one more check. Is there any other tool that might help? No. `inventory.check_stock` checks stock, not location. `warehouse.locate_bin` is the only one for location.\n\n    Output: warehouse.locate_bin"
+      }
+     }
+    ],
+    "created": 1795794227,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 686,
+     "prompt_tokens": 232,
+     "total_tokens": 918,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-wMaMFexolYHP6CRzWMPiVpptldLfWTbe",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of known data (order, customer, sku, tracking) and available tools.\n    *   Question: \"货位 BIN-E7 在哪里？\" (Where is the bin location BIN-E7?)\n    *   Constraint: \"只回答要调用的工具名。\" (Answer only with the tool name to be called.)\n\n2.  **Evaluate the Tools:**\n    *   `inventory.check_stock`: Checks stock for a SKU.\n    *   `inventory.adjust_stock`: Adjusts stock quantity.\n    *   `inventory.reserve_stock`: Reserves stock.\n    *   `warehouse.locate_bin`: Locates a bin (params: bin_id).\n    *   `receiving.log_arrival`: Logs arrival.\n    *   `picking.create_task`: Creates a picking task.\n    *   `reports.export_snapshot`: Exports a snapshot.\n    *   `alerts.raise_low_stock`: Raises low stock alert.\n\n3.  **Match the Question to the Tool:**\n    *   The user is asking for the location of a specific bin (\"BIN-E7\").\n    *   The tool `warehouse.locate_bin` has a parameter `bin_id` which fits the input \"BIN-E7\".\n    *   Therefore, the tool to call is `warehouse.locate_bin`.\n\n4.  **Format the Output:**\n    *   Constraint: \"只回答要调用的工具名\" (Answer only with the tool name).\n    *   Output: `warehouse.locate_bin`\n\n5.  **Final Verification:**\n    *   Does the tool exist in the list? Yes.\n    *   Does it solve the problem? Yes.\n    *   Is the format correct? Yes.\n\n    Wait, I need to check if there's any trick. The input data mentions \"order ORD-7781, customer C-41, sku SKU-5519, tracking TRK-40219\". The question asks about \"BIN-E7\". This implies the bin ID is known or needs to be looked up. The tool `warehouse.locate_bin` takes `bin_id` as a parameter. So calling it with `BIN-E7` would return the location. The question asks \"Where is BIN-E7?\", so I need to call the tool that finds the location.\n\n    The tool name is `warehouse.locate_bin`.\n\n    Constraint check: \"只回答要调用的工具名\" (Answer only with the tool name).\n    So I should output `warehouse.locate_bin`.\n\n    Wait, looking closely at the prompt: \"货位 BIN-E7 在哪里？\" (Where is the bin location BIN-E7?).\n    The tool `warehouse.locate_bin` takes `bin_id`.\n    So the tool name is `warehouse.locate_bin`.\n\n    Final decision: `warehouse.locate_bin`.\n\n    Wait, one more check. Is there any other tool that might help? No. `inventory.check_stock` checks stock, not location. `warehouse.locate_bin` is the only one for location.\n\n    Output: warehouse.locate_bin\n</think>\n\nwarehouse.locate_bin",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 686,
+     "tokens_evaluated": 232,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\nKnown: order ORD-7781, customer C-41, sku SKU-5519, tracking TRK-40219.\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n货位 BIN-E7 在哪里？ 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 917,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 232,
+      "prompt_ms": 52.475,
+      "prompt_per_token_ms": 0.2261853448275862,
+      "prompt_per_second": 4421.152929966651,
+      "predicted_n": 686,
+      "predicted_ms": 3316.936,
+      "predicted_per_token_ms": 4.842242335766423,
+      "predicted_per_second": 206.5158929807509
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 232,
+     "prompt_ms": 52.475,
+     "prompt_per_token_ms": 0.2261853448275862,
+     "prompt_per_second": 4421.152929966651,
+     "predicted_n": 686,
+     "predicted_ms": 3316.936,
+     "predicted_per_token_ms": 4.842242335766423,
+     "predicted_per_second": 206.5158929807509
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.391
+  }
+ ]
+}

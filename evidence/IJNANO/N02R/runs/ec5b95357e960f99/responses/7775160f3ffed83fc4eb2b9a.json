@@ -1,0 +1,148 @@
+{
+ "trial_id": "7775160f3ffed83fc4eb2b9a",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "A6",
+       "reasoning_content": "We need to answer with the action label only. The user says: \"{sku} 连续三次入库质检失败。 只回答动作编号。\" That means \"The SKU has failed incoming inspection three consecutive times. Only answer with the action number.\" The allowed actions are A1 to A6. We need to choose the appropriate action. The situation: SKU连续三次入库质检失败 (failed incoming inspection three consecutive times). What action should be taken? Possibly \"忽略该告警\" (ignore the alert) or \"上报主管\" (notify the supervisor)? The user says \"只回答动作编号\" meaning only answer with the action label. We need to infer which action is appropriate. The context: failed incoming inspection three times. Usually, you might want to notify supervisor or ignore? The instruction says \"只回答动作编号\" so we must output just the label. I think the most appropriate is A6: 上报主管 (notify the supervisor) because repeated failures might need supervisor attention. Or A5: ignore the alert? But the user explicitly says \"连续三次入库质检失败\" which is a serious issue, so likely notify supervisor. I'll go with A6.\n"
+      }
+     }
+    ],
+    "created": 1795797686,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 255,
+     "prompt_tokens": 202,
+     "total_tokens": 457,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-kbGhvck1eLvcm0uIAyQ0kbLFPpzhObmT",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to answer with the action label only. The user says: \"{sku} 连续三次入库质检失败。 只回答动作编号。\" That means \"The SKU has failed incoming inspection three consecutive times. Only answer with the action number.\" The allowed actions are A1 to A6. We need to choose the appropriate action. The situation: SKU连续三次入库质检失败 (failed incoming inspection three consecutive times). What action should be taken? Possibly \"忽略该告警\" (ignore the alert) or \"上报主管\" (notify the supervisor)? The user says \"只回答动作编号\" meaning only answer with the action label. We need to infer which action is appropriate. The context: failed incoming inspection three times. Usually, you might want to notify supervisor or ignore? The instruction says \"只回答动作编号\" so we must output just the label. I think the most appropriate is A6: 上报主管 (notify the supervisor) because repeated failures might need supervisor attention. Or A5: ignore the alert? But the user explicitly says \"连续三次入库质检失败\" which is a serious issue, so likely notify supervisor. I'll go with A6.\n</think>\n\nA6",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 255,
+     "tokens_evaluated": 202,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n可选动作 / available actions:\nA1. 补货：为 SKU-8806 下补货单 / create a restock order for SKU-8806\nA2. 冻结：暂停 SKU-8806 的出库 / freeze outbound of SKU-8806\nA3. 盘点：安排 BIN-B21 的盘点 / schedule a count of BIN-B21\nA4. 转仓：把 SKU-8806 调往备用仓 / transfer SKU-8806 to the backup warehouse\nA5. 忽略该告警 / ignore the alert\nA6. 上报主管 / notify the supervisor\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n{sku} 连续三次入库质检失败。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 456,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 202,
+      "prompt_ms": 43.84,
+      "prompt_per_token_ms": 0.21702970297029706,
+      "prompt_per_second": 4607.664233576642,
+      "predicted_n": 255,
+      "predicted_ms": 1385.486,
+      "predicted_per_token_ms": 5.4546692913385835,
+      "predicted_per_second": 183.32917113561595
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 202,
+     "prompt_ms": 43.84,
+     "prompt_per_token_ms": 0.21702970297029706,
+     "prompt_per_second": 4607.664233576642,
+     "predicted_n": 255,
+     "predicted_ms": 1385.486,
+     "predicted_per_token_ms": 5.4546692913385835,
+     "predicted_per_second": 183.32917113561595
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.438
+  }
+ ]
+}

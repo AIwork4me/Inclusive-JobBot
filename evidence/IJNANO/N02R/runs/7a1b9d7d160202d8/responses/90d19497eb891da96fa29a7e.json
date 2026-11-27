@@ -1,0 +1,146 @@
+{
+ "trial_id": "90d19497eb891da96fa29a7e",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "SKU-8806",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input context: \"sku = SKU-8806.\"\n    *   Tool chosen: `inventory.check_stock`.\n    *   Task: Find the value of the slot 'sku' (type entity).\n    *   Constraint: \"查库存，商品编号在上下文里。只回答参数值。\" (Check inventory, product number is in the context. Answer only with the argument value.)\n    *   Output format: Just the value of the 'sku' parameter.\n\n2.  **Analyze the Context:**\n    *   The context explicitly states: `sku = SKU-8806.`\n    *   The instruction asks to extract the value of the 'sku' slot.\n\n3.  **Determine the Answer:**\n    *   The value associated with 'sku' is \"SKU-8806\".\n\n4.  **Format the Output:**\n    *   The user instruction says \"只回答参数值\" (Answer only with the argument value).\n    *   So, I should output `SKU-8806`.\n\n5.  **Final Check:**\n    *   Does it match the context? Yes.\n    *   Is it just the value? Yes.\n    *   Is it the 'sku' slot? Yes.\n\n6.  **Construct Final Response:**\n    *   SKU-8806"
+      }
+     }
+    ],
+    "created": 1795796291,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 318,
+     "prompt_tokens": 81,
+     "total_tokens": 399,
+     "prompt_tokens_details": {
+      "cached_tokens": 77
+     }
+    },
+    "id": "chatcmpl-U0poxnnOesoliSOTyZ0BZH8c9dR8NOFa",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input context: \"sku = SKU-8806.\"\n    *   Tool chosen: `inventory.check_stock`.\n    *   Task: Find the value of the slot 'sku' (type entity).\n    *   Constraint: \"查库存，商品编号在上下文里。只回答参数值。\" (Check inventory, product number is in the context. Answer only with the argument value.)\n    *   Output format: Just the value of the 'sku' parameter.\n\n2.  **Analyze the Context:**\n    *   The context explicitly states: `sku = SKU-8806.`\n    *   The instruction asks to extract the value of the 'sku' slot.\n\n3.  **Determine the Answer:**\n    *   The value associated with 'sku' is \"SKU-8806\".\n\n4.  **Format the Output:**\n    *   The user instruction says \"只回答参数值\" (Answer only with the argument value).\n    *   So, I should output `SKU-8806`.\n\n5.  **Final Check:**\n    *   Does it match the context? Yes.\n    *   Is it just the value? Yes.\n    *   Is it the 'sku' slot? Yes.\n\n6.  **Construct Final Response:**\n    *   SKU-8806\n</think>\n\nSKU-8806",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 318,
+     "tokens_evaluated": 81,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 512,
+      "n_predict": 512,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n上下文 / context: sku = SKU-8806. 工具已选定: inventory.check_stock. / Tool already chosen: inventory.check_stock.\nThe answer is the value of the slot 'sku' (type entity).\n查库存，商品编号在上下文里。 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 398,
+     "timings": {
+      "cache_n": 77,
+      "prompt_n": 4,
+      "prompt_ms": 20.067,
+      "prompt_per_token_ms": 5.01675,
+      "prompt_per_second": 199.3322370060298,
+      "predicted_n": 318,
+      "predicted_ms": 1525.376,
+      "predicted_per_token_ms": 4.81191167192429,
+      "predicted_per_second": 207.81761349332888
+     }
+    },
+    "timings": {
+     "cache_n": 77,
+     "prompt_n": 4,
+     "prompt_ms": 20.067,
+     "prompt_per_token_ms": 5.01675,
+     "prompt_per_second": 199.3322370060298,
+     "predicted_n": 318,
+     "predicted_ms": 1525.376,
+     "predicted_per_token_ms": 4.81191167192429,
+     "predicted_per_second": 207.81761349332888
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.579
+  }
+ ]
+}

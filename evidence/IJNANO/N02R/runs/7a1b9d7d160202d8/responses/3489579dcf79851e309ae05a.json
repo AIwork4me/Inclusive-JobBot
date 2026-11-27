@@ -1,0 +1,146 @@
+{
+ "trial_id": "3489579dcf79851e309ae05a",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of text describing a policy decision scenario.\n    *   Content:\n        *   `策略 / policy: order age 12 days, policy limit 30.` (Strategy/Policy: Order age 12 days, Policy limit 30)\n        *   `实况 / observation: n = 12.` (Reality/Observation: n = 12)\n        *   `Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.` (Allowed Actions/Branches)\n    *   Task: Determine which branch applies (`Decide which branch applies`).\n\n2.  **Understand the Context:**\n    *   This looks like a reinforcement learning or decision-making problem, likely from a dataset like \"Policy Evaluation\" or \"RLHF\" or a specific domain (e.g., banking, logistics, insurance) where actions are taken based on constraints.\n    *   The core logic is comparing a specific condition against a policy limit.\n    *   `policy`: The rule governing the action. Here, it seems to be about ordering something (likely a product, service, or transaction)"
+      }
+     }
+    ],
+    "created": 1795796256,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 256,
+     "prompt_tokens": 67,
+     "total_tokens": 323,
+     "prompt_tokens_details": {
+      "cached_tokens": 63
+     }
+    },
+    "id": "chatcmpl-8RxTL4sASaxn51aOwluqhKYbPKALUwsU",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of text describing a policy decision scenario.\n    *   Content:\n        *   `策略 / policy: order age 12 days, policy limit 30.` (Strategy/Policy: Order age 12 days, Policy limit 30)\n        *   `实况 / observation: n = 12.` (Reality/Observation: n = 12)\n        *   `Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.` (Allowed Actions/Branches)\n    *   Task: Determine which branch applies (`Decide which branch applies`).\n\n2.  **Understand the Context:**\n    *   This looks like a reinforcement learning or decision-making problem, likely from a dataset like \"Policy Evaluation\" or \"RLHF\" or a specific domain (e.g., banking, logistics, insurance) where actions are taken based on constraints.\n    *   The core logic is comparing a specific condition against a policy limit.\n    *   `policy`: The rule governing the action. Here, it seems to be about ordering something (likely a product, service, or transaction)",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 256,
+     "tokens_evaluated": 67,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 256,
+      "n_predict": 256,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n策略 / policy: order age 12 days, policy limit 30. 实况 / observation: n = 12.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 322,
+     "timings": {
+      "cache_n": 63,
+      "prompt_n": 4,
+      "prompt_ms": 20.792,
+      "prompt_per_token_ms": 5.198,
+      "prompt_per_second": 192.3816852635629,
+      "predicted_n": 256,
+      "predicted_ms": 1240.101,
+      "predicted_per_token_ms": 4.863141176470589,
+      "predicted_per_second": 205.6284125244637
+     }
+    },
+    "timings": {
+     "cache_n": 63,
+     "prompt_n": 4,
+     "prompt_ms": 20.792,
+     "prompt_per_token_ms": 5.198,
+     "prompt_per_second": 192.3816852635629,
+     "predicted_n": 256,
+     "predicted_ms": 1240.101,
+     "predicted_per_token_ms": 4.863141176470589,
+     "predicted_per_second": 205.6284125244637
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.266
+  }
+ ]
+}

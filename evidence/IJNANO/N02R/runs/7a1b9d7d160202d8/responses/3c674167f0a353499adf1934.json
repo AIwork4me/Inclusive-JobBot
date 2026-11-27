@@ -1,0 +1,152 @@
+{
+ "trial_id": "3c674167f0a353499adf1934",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's query. The user mentions: \"Known: order ORD-1042, customer C-9, sku SKU-1001, tracking TRK-88771. Export the stock snapshot for zone north. 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nInterpretation:\n- There's some known information about an order (ORD-1042), customer (C-9), sku (SKU-1001), tracking number (TRK-88771). This might be context but not directly needed for the requested action.\n- The main request: \"Export the stock snapshot for zone north.\"\n\nLooking at the available tools, there is a function `reports.export_snapshot` under the tool enum. Its description says: \"Record the chosen answer (structured answer recording, not business tool execution).\" Wait, but the tool list includes:\n- inventory.check_stock\n- inventory.adjust_stock\n- inventory.reserve_stock\n- warehouse.locate_bin\n- receiving.log_arrival\n- picking.create_task\n- reports.export_snapshot\n- alerts.raise_low_stock\n\nThe user asks to \"Export the stock snapshot for zone north.\" The tool `reports.export_snapshot` seems relevant. However, does it require parameters like zone? The function signature in the tool definition: `record_answer` takes a parameter `tool` which is an enum of available tools. But wait, there's also `record_answer` itself as a separate tool? Let's re-read.\n\nThe provided \"Tools\" section:\n```\n{\n  \"tools\": [\n    {\n      \"type\": \"function\",\n      \"function_name\": \"record_answer\",\n      \"parameters\": { ... }\n    },\n    ...\n  ]\n}\n```\n\nActually, the system message says: \"You have access to a set of tools you can use. List and describe these tools.\" But in this prompt, only one tool is listed? Let's check again.\n\nThe user gave a block:\n\n```\n{\n  \"Tools\": [\n    {\n      \"type\": \"function\",\n      \"name\": \"record_answer\",\n      \"parameters\": { ... }\n    },\n    ...\n  ]\n}\n```\n\nBut I need to see the exact list. The initial prompt includes only one tool? Let's scroll up.\n\nIn the conversation, there is a single message from the user: \"Known: order ORD-1042, customer C-9, sku SKU-1001, tracking TRK-88771. Export the stock snapshot for zone north. 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nAnd earlier in the system instructions there is a list of tools? Actually, I need to recall from previous interactions: The \"Tools\" section might have been omitted but we can infer from the available functions.\n\nGiven the typical pattern in these tasks, there are multiple tools like `inventory.check_stock`, etc. But only one tool appears relevant here: `reports.export_snapshot`. However, the user asks to export stock snapshot for zone north. The function name is likely `reports.export_snapshot`. Does it need a parameter? The tool definition for `record_answer` includes parameters like \"tool\" but that's for recording answers, not executing business tools. Wait, there might be confusion: The \"record_answer\" tool is described as \"Record the chosen answer (structured answer recording, not business tool execution).\" That seems separate from actual business operations.\n\nBut we need to see if `reports.export_snapshot` requires any arguments. Usually export snapshot may require parameters like zone or something. But the user didn't provide specifics beyond \"zone north\". So maybe the function call just needs to specify the tool name, and perhaps internal logic handles zone? Or maybe there is a parameter for zone.\n\nLet's examine the available tools list again from the initial system message:\n\nThe assistant has access to the following tools (as per typical examples):\n- inventory.check_stock\n- inventory.adjust_stock\n- inventory.reserve_stock\n- warehouse.locate_bin\n- receiving.log_arrival\n- picking.create_task\n- reports.export_snapshot\n- alerts.raise_low_stock\n\nAnd there is a function `record_answer` that takes \"tool\" parameter among those.\n\nBut the user asks: \"Export the stock snapshot for zone north.\" So we need to call `reports.export_snapshot`. Possibly with argument like {\"zone\": \"north\"} or something. However, without seeing the exact signature of `reports.export_snapshot`, I can guess it might require no parameters or maybe just tool name.\n\nGiven the instruction: \"只回答要调用的工具名。 / Answer with the tool name only.\" Means we should output only the tool name (like \"reports.export_snapshot\") and nothing else. So likely they want exactly that string.\n\nThus answer: `reports.export_snapshot`.\n\nBut"
+      }
+     }
+    ],
+    "created": 1795795714,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 190,
+     "total_tokens": 1214,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-zbrNBkjxpbyumWt52GtXNGawa1Wmx4ls",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. The user mentions: \"Known: order ORD-1042, customer C-9, sku SKU-1001, tracking TRK-88771. Export the stock snapshot for zone north. 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nInterpretation:\n- There's some known information about an order (ORD-1042), customer (C-9), sku (SKU-1001), tracking number (TRK-88771). This might be context but not directly needed for the requested action.\n- The main request: \"Export the stock snapshot for zone north.\"\n\nLooking at the available tools, there is a function `reports.export_snapshot` under the tool enum. Its description says: \"Record the chosen answer (structured answer recording, not business tool execution).\" Wait, but the tool list includes:\n- inventory.check_stock\n- inventory.adjust_stock\n- inventory.reserve_stock\n- warehouse.locate_bin\n- receiving.log_arrival\n- picking.create_task\n- reports.export_snapshot\n- alerts.raise_low_stock\n\nThe user asks to \"Export the stock snapshot for zone north.\" The tool `reports.export_snapshot` seems relevant. However, does it require parameters like zone? The function signature in the tool definition: `record_answer` takes a parameter `tool` which is an enum of available tools. But wait, there's also `record_answer` itself as a separate tool? Let's re-read.\n\nThe provided \"Tools\" section:\n```\n{\n  \"tools\": [\n    {\n      \"type\": \"function\",\n      \"function_name\": \"record_answer\",\n      \"parameters\": { ... }\n    },\n    ...\n  ]\n}\n```\n\nActually, the system message says: \"You have access to a set of tools you can use. List and describe these tools.\" But in this prompt, only one tool is listed? Let's check again.\n\nThe user gave a block:\n\n```\n{\n  \"Tools\": [\n    {\n      \"type\": \"function\",\n      \"name\": \"record_answer\",\n      \"parameters\": { ... }\n    },\n    ...\n  ]\n}\n```\n\nBut I need to see the exact list. The initial prompt includes only one tool? Let's scroll up.\n\nIn the conversation, there is a single message from the user: \"Known: order ORD-1042, customer C-9, sku SKU-1001, tracking TRK-88771. Export the stock snapshot for zone north. 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nAnd earlier in the system instructions there is a list of tools? Actually, I need to recall from previous interactions: The \"Tools\" section might have been omitted but we can infer from the available functions.\n\nGiven the typical pattern in these tasks, there are multiple tools like `inventory.check_stock`, etc. But only one tool appears relevant here: `reports.export_snapshot`. However, the user asks to export stock snapshot for zone north. The function name is likely `reports.export_snapshot`. Does it need a parameter? The tool definition for `record_answer` includes parameters like \"tool\" but that's for recording answers, not executing business tools. Wait, there might be confusion: The \"record_answer\" tool is described as \"Record the chosen answer (structured answer recording, not business tool execution).\" That seems separate from actual business operations.\n\nBut we need to see if `reports.export_snapshot` requires any arguments. Usually export snapshot may require parameters like zone or something. But the user didn't provide specifics beyond \"zone north\". So maybe the function call just needs to specify the tool name, and perhaps internal logic handles zone? Or maybe there is a parameter for zone.\n\nLet's examine the available tools list again from the initial system message:\n\nThe assistant has access to the following tools (as per typical examples):\n- inventory.check_stock\n- inventory.adjust_stock\n- inventory.reserve_stock\n- warehouse.locate_bin\n- receiving.log_arrival\n- picking.create_task\n- reports.export_snapshot\n- alerts.raise_low_stock\n\nAnd there is a function `record_answer` that takes \"tool\" parameter among those.\n\nBut the user asks: \"Export the stock snapshot for zone north.\" So we need to call `reports.export_snapshot`. Possibly with argument like {\"zone\": \"north\"} or something. However, without seeing the exact signature of `reports.export_snapshot`, I can guess it might require no parameters or maybe just tool name.\n\nGiven the instruction: \"只回答要调用的工具名。 / Answer with the tool name only.\" Means we should output only the tool name (like \"reports.export_snapshot\") and nothing else. So likely they want exactly that string.\n\nThus answer: `reports.export_snapshot`.\n\nBut",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 190,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"tool\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tool\": {\"type\": \"string\", \"enum\": [\"inventory.check_stock\", \"inventory.adjust_stock\", \"inventory.reserve_stock\", \"warehouse.locate_bin\", \"receiving.log_arrival\", \"picking.create_task\", \"reports.export_snapshot\", \"alerts.raise_low_stock\"]}}, \"required\": [\"tool\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\nKnown: order ORD-1042, customer C-9, sku SKU-1001, tracking TRK-88771.\nExport the stock snapshot for zone north. 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1213,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 190,
+      "prompt_ms": 45.094,
+      "prompt_per_token_ms": 0.23733684210526315,
+      "prompt_per_second": 4213.420854215638,
+      "predicted_n": 1024,
+      "predicted_ms": 5969.578,
+      "predicted_per_token_ms": 5.835364613880743,
+      "predicted_per_second": 171.36889743295086
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 190,
+     "prompt_ms": 45.094,
+     "prompt_per_token_ms": 0.23733684210526315,
+     "prompt_per_second": 4213.420854215638,
+     "predicted_n": 1024,
+     "predicted_ms": 5969.578,
+     "predicted_per_token_ms": 5.835364613880743,
+     "predicted_per_second": 171.36889743295086
+    }
+   },
+   "http_error": null,
+   "latency_s": 6.016
+  }
+ ]
+}
