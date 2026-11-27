@@ -2,7 +2,7 @@
 
 ## IJ-SLM-1.0 baseline
 
-The independent worktree preserves the 36,550-trial core allocation and references pinned IJ-SDK-1.0 and IJ-0.7.3 assets. Registry software tests cover exact identity and rejection of conflicting physical origins. Independent mechanical scope qualification, GPU admission and core trial execution remain NOT_RUN. [SLM baseline](reports/SLM10_BASELINE_AUDIT.md)
+The independent worktree preserves the 36,550-trial core allocation and references pinned IJ-SDK-1.0 and IJ-0.7.3 assets. Registry software tests cover exact identity and rejection of conflicting physical origins. Independent mechanical scope qualification, GPU admission and core trial execution remain NOT_RUN. [SLM baseline](reports/SLM10_BASELINE_AUDIT.md) The Radeon admission runner additionally preserves four matched Direct/SDK plan-first diagnostics on a legacy roster.
 ## IJ-0.7.3 GPU handoff
 
 The shared Radeon launcher now binds controller and device identities to the existing host mutex. The default AEVE resume stops after Q2 and preserves the deferred queue. Cross-worktree verification of the production mutex and the GPU handoff remain BLOCKED until the frozen queue releases the Radeon. The Windows child-termination control is process-only evidence.

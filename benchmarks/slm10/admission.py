@@ -15,6 +15,7 @@ from google.antigravity import bin as harness_package
 from benchmarks.competitive_slm.admission import GATES, chat_ok, cpu_server, request, test_gpu
 from benchmarks.competitive_slm.tc_v2_candidate import server_environment, verify_launch, verify_runtime
 from benchmarks.ij06_sdk.qualify import CASE_SPECS, execute_case
+from .planning_pair import matched_plan
 from benchmarks.root_cause.historical_replay import gpu_server
 from evaluation.aeve.archive import check_text, digest
 from evaluation.aeve.runtime import ROOT, canonical, write_json
@@ -104,6 +105,8 @@ def execute(candidate, assets, handoff_root, port):
             sdk_dir = target / "sdk"
             sdk_dir.mkdir()
             report["sdk"] = asyncio.run(sdk_probes(client, alias, sdk_dir, harness))
+            write_json(report_path, report)
+            report["paired_plan_first_diagnostics"] = matched_plan(client, alias, target / "paired-plan", harness)
         launch_record = target / "launch.json"
         write_json(launch_record, {**report["gpu"], "status": "PASS"})
         passed = verify_gpu({"gpu_launch": launch_record,
