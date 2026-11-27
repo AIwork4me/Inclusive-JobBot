@@ -18,4 +18,6 @@ python -m evaluation.aeve.larger_candidate_admission M14 --verify-asset
 python -m evaluation.aeve.larger_candidate_admission G31 --verify-asset
 ```
 
-Run the same commands without `--verify-asset` when the Radeon slot is available. The runtime admission command writes a portable report with the generated wire responses and GPU counters.
+Use `--matched-development` in place of `--verify-asset` when the Radeon slot is available. The runtime admission command writes a portable report with the generated wire responses and GPU counters. A candidate that clears runtime preflight receives the same 24 blinded development packets under each of the three existing prompt arms. The paired 72-request comparison per candidate retains each request, original response, independently captured generation, citations and scores.
+
+Replay a completed portable cohort with `python -m evaluation.aeve.larger_development <portable-directory>`.

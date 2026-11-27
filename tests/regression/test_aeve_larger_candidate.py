@@ -5,6 +5,23 @@ import pytest
 from evaluation.aeve import larger_candidate_admission as admission
 
 
+def test_larger_development_requests_keep_the_existing_blind_pairing():
+    from evaluation.aeve.larger_development import matched_requests
+
+    mistral, gemma = matched_requests("M14"), matched_requests("G31")
+    assert len(mistral) == len(gemma) == 72
+    assert [(row["case_id"], row["arm"]) for row in mistral] == [
+        (row["case_id"], row["arm"]) for row in gemma
+    ]
+    for left, right in zip(mistral, gemma, strict=True):
+        assert left["body"]["model"] == "ij07-candidate-m14"
+        assert right["body"]["model"] == "ij07-candidate-g31"
+        assert {k: v for k, v in left["body"].items() if k != "model"} == {
+            k: v for k, v in right["body"].items() if k != "model"
+        }
+        assert set(left["packet"]) == {"task", "events", "dimension"}
+
+
 def test_resumable_download_reuses_partial_and_verifies_bytes(tmp_path, monkeypatch):
     model = b"synthetic-model-fixture"
     pin = {"code":"test","file":"model.gguf","size":len(model),"sha256":hashlib.sha256(model).hexdigest(),

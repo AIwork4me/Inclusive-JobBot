@@ -28,7 +28,15 @@ def admission_runs(out, candidate):
         if (report["pins_sha256"] != digest(PINS) or report["run_id"] != path.parent.parent.name
                 or any(digest(path.with_name(name)) != sha for name, sha in report["sha256"].items())):
             raise ValueError("larger candidate admission evidence differs from its seal")
-        sealed.append({"status": report["status"], "run_id": report["run_id"], "report_sha256": digest(path)})
+        development = report.get("matched_development", {})
+        if development.get("coverage") == "PASS":
+            from .larger_development import replay_development
+            actual = replay_development(candidate["code"], path.with_name("development.jsonl.gz"),
+                                        path.with_name(report["gpu"]["trace_file"] + ".gz"))
+            if actual != development:
+                raise ValueError("larger candidate development report does not replay")
+        sealed.append({"status": report["status"], "run_id": report["run_id"], "report_sha256": digest(path),
+                       "matched_development": report.get("matched_development", {}).get("coverage", "NOT_RUN")})
     return sealed
 
 
@@ -42,7 +50,7 @@ def candidate_admission(state, assets, port):
         if not sealed:
             try:
                 with gpu_lock(state):
-                    test(candidate, assets, out, port)
+                    test(candidate, assets, out, port, matched_development=True)
             except FileNotFoundError:
                 results[code] = {"status": "BLOCKED", "reason": "pinned local weight or runtime is absent"}
                 continue
@@ -56,7 +64,9 @@ def candidate_admission(state, assets, port):
             sealed = admission_runs(out, candidate)
         status = "PASS" if any(row["status"] == "PASS" for row in sealed) else (
             "FAIL" if any(row["status"] == "FAIL" for row in sealed) else "BLOCKED")
-        results[code] = {"status": status, "runs": sealed, "matched_development": "NOT_RUN"}
+        matched = "PASS" if any(row["matched_development"] == "PASS" for row in sealed) else (
+            "BLOCKED" if any(row["matched_development"] == "BLOCKED" for row in sealed) else "NOT_RUN")
+        results[code] = {"status": status, "runs": sealed, "matched_development": matched}
     return results
 
 

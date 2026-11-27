@@ -71,7 +71,7 @@ def copy_ranges(candidate, assets, folder, proxy):
     return final
 
 
-def test(candidate, assets, output, port):
+def test(candidate, assets, output, port, *, matched_development=False):
     # Candidate E supplies the verified engine identity, independently of the larger model.
     engine = assets/".tools/ij07-toolchoice-p4b-vulkan"
     reference = json.loads(REGISTRY.read_bytes())["candidates"]["E"]
@@ -89,6 +89,8 @@ def test(candidate, assets, output, port):
               "template_sha256":template,"gates":dict.fromkeys(GATES,"NOT_RUN"),"wire":[]}
     gates = report["gates"]
     gates["artifact_identity"] = "PASS"
+    development = target / "development.jsonl"
+    report["matched_development"] = {"coverage": "NOT_RUN"}
     def bind(client):
         return partial(request,client,alias,wire=report["wire"],disable_thinking=True)
     binary = assets/"runtime/llama-cpp/cpu/llama-server.exe"
@@ -103,13 +105,21 @@ def test(candidate, assets, output, port):
         verify_launch(launch,expected)
         report["gpu"] = launch
         test_gpu(bind(client),report)
+        if matched_development and all(gates[k] == "PASS" for k in GATES if k != "gpu_execution"):
+            from .larger_development import evaluate_development
+            report["matched_development"] = evaluate_development(candidate["code"], client, development)
     launch_file = target/"launch.json"
     write_json(launch_file,{**report["gpu"],"status":"PASS"})
     counter = target/report["gpu"]["counter_file"]
     gates["gpu_execution"] = "PASS" if verify_gpu({"gpu_launch":launch_file,"gpu_counters":counter},"vulkan") else "FAIL"
     public = target/"portable"
     public.mkdir()
-    for name in (report["gpu"]["counter_file"],report["gpu"]["trace_file"]):
+    files = [report["gpu"]["counter_file"], report["gpu"]["trace_file"]]
+    if development.is_file():
+        files.append(development.name)
+        if gates["gpu_execution"] != "PASS":
+            report["matched_development"]["coverage"] = "BLOCKED"
+    for name in files:
         data = (target/name).read_bytes()
         check_text(data)
         (public/(name+".gz")).write_bytes(gzip.compress(data,mtime=0))
@@ -131,6 +141,7 @@ def main():
     action.add_argument("--verify-asset",action="store_true")
     action.add_argument("--download",action="store_true")
     parser.add_argument("--proxy")
+    parser.add_argument("--matched-development", action="store_true")
     args = parser.parse_args()
     pin = next(r for r in json.loads(PINS.read_bytes())["candidates"] if r["code"] == args.candidate)
     if args.download:
@@ -140,7 +151,7 @@ def main():
         local_asset(pin,args.assets.resolve())
         print(pin["code"],pin["sha256"])
     else:
-        test(pin,args.assets.resolve(),args.out.resolve(),args.port)
+        test(pin,args.assets.resolve(),args.out.resolve(),args.port,matched_development=args.matched_development)
 
 
 if __name__ == "__main__":

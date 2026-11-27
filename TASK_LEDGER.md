@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Added the larger-candidate matched development runner and source replay on the frozen 24-case development subset. Both runtime preflight and the 72-request cohorts remain NOT_RUN while Q2 holds the Radeon. Added a scope-bound panel planner with software controls for two primary and one dispute slot. Actual independently qualified historical routes remain BLOCKED.
+
 Published 2,976 sealed Q2 Radeon assessments. A scratch-database restore recovered 2,880 sealed observations across two independent SQLite sessions and retained all 6,850 original job identities. This verified portable recovery without dispatching new trials from the scratch database. The predicate for a full Q2 report rejects incomplete coverage.
 
 Added the Q2-to-larger-candidate runtime transition and an exclusive waiting resume entry point. The completed Q2 roster is required before the transition, and Q2 results cannot authorize formal historical routes. Physical end-to-end transition evidence remains NOT_RUN while Q2 is in progress. [Q3 metric registration](evaluation/aeve/q3_metric_preregistration.json)
