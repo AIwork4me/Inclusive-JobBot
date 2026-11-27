@@ -6,9 +6,11 @@ from dataclasses import asdict
 import gzip
 from hashlib import sha256
 import json
-from math import comb, isfinite
+from math import ceil, comb, isfinite
 from pathlib import Path
+from random import Random
 import re
+from statistics import fmean
 
 from benchmarks.tool_calling_v2.oracle import decode_object, equal
 from evaluation.aeve.archive import check_text, digest
@@ -28,6 +30,9 @@ ARMS = ("reference", "treatment")
 CATEGORICAL = ("business_facts", "output_contract", "execution_process", "termination", "scoped_completion")
 NUMERIC = ("duplicate_proposals", "redundant_executions", "model_requests", "input_tokens", "output_tokens",
            "end_to_end_latency_ms")
+CONFIDENCE_PERCENT = 95
+BOOTSTRAP_REPLICATES = 10_000
+BOOTSTRAP_SEED = 7107
 THRESHOLD = ("All 12 pairs require process-linked physical evidence, resolved categorical endpoints and observed "
              "compact delivery in the treatment. Each protected endpoint must have zero paired regressions. "
              "Scoped completion must improve by a one-sided exact paired sign test at p <= 0.05. "
@@ -278,22 +283,108 @@ def analyze_capture(capture, oracle, native, *, public, provider_configuration=N
             "native_completion_ids": sorted(native_ids)}
 
 
-def _paired_metrics(pairs):
+def _binomial_lower(events, total, tail):
+    if events == 0:
+        return 0.0
+    low, high = 0.0, 1.0
+    for _ in range(60):
+        p = (low + high) / 2
+        probability = sum(comb(total, k) * p**k * (1 - p)**(total - k) for k in range(events, total + 1))
+        if probability < tail:
+            low = p
+        else:
+            high = p
+    return low
+
+
+def _quality_interval(gains, losses, resolved):
+    if not resolved:
+        return None
+    # Simultaneous Clopper–Pearson bounds for the two marginal discordance
+    # probabilities use a Bonferroni tail per endpoint of each interval.
+    tail = (100 - CONFIDENCE_PERCENT) / 400
+    gain_low = _binomial_lower(gains, resolved, tail)
+    gain_high = 1 - _binomial_lower(resolved - gains, resolved, tail)
+    loss_low = _binomial_lower(losses, resolved, tail)
+    loss_high = 1 - _binomial_lower(resolved - losses, resolved, tail)
+    return [gain_low - loss_high, gain_high - loss_low]
+
+
+def _bootstrap_mean_interval(deltas):
+    if len(deltas) < 2:
+        return None
+    values = sorted(deltas)
+    rng = Random(BOOTSTRAP_SEED)
+    draws = sorted(fmean(rng.choices(values, k=len(values))) for _ in range(BOOTSTRAP_REPLICATES))
+    ranks = (ceil(len(draws) * percent / 200) for percent in (100 - CONFIDENCE_PERCENT, 100 + CONFIDENCE_PERCENT))
+    return [draws[rank - 1] for rank in ranks]
+
+
+def _available(arm, status):
+    physical = arm["physical_evidence"]
+    if physical in ("FAIL", "BLOCKED") or status == "BLOCKED":
+        return "BLOCKED"
+    if physical == "NOT_RUN" or status == "NOT_RUN":
+        return "NOT_RUN"
+    return status
+
+
+def _coverage(states, resolved, planned):
+    blocked = sum("BLOCKED" in pair for pair in states)
+    unresolved = planned - resolved
+    return {"planned_pairs": planned, "resolved_pairs": resolved, "unresolved_pairs": unresolved,
+            "blocked_pairs": blocked, "not_run_pairs": unresolved - blocked}
+
+
+def _interval(method, bounds, coverage):
+    status = "PASS" if bounds is not None else (
+        "NOT_RUN" if coverage["not_run_pairs"] == coverage["planned_pairs"] else "BLOCKED")
+    return {"confidence": CONFIDENCE_PERCENT / 100, "method": method, "status": status, "interval": bounds}
+
+
+def _numeric_value(arm, key):
+    measurement = arm["measurements"][key]
+    value = measurement["value"]
+    status = _available(arm, measurement["status"])
+    if status != "NOT_RUN" and (status != "PASS" or type(value) not in (int, float) or not isfinite(value)):
+        status = "BLOCKED"
+    return status, value
+
+
+def _paired_metrics(pairs, *, planned_pairs):
+    if len(pairs) > planned_pairs:
+        raise ValueError("summary contains more pairs than the frozen holdout plan")
     categorical = {}
     for key in CATEGORICAL:
-        transitions = Counter(f"{pair['reference']['metrics'][key]}/{pair['treatment']['metrics'][key]}" for pair in pairs)
-        categorical[key] = {"n": len(pairs), "transitions": dict(transitions), "gains": transitions["FAIL/PASS"],
-                            "regressions": transitions["PASS/FAIL"],
-                            "resolved_pairs": sum(transitions[f"{a}/{b}"] for a in STATES[:2] for b in STATES[:2])}
+        states = [tuple(_available(pair[arm], pair[arm]["metrics"][key]) for arm in ARMS) for pair in pairs]
+        transitions = Counter("/".join(pair) for pair in states)
+        gains, losses = transitions["FAIL/PASS"], transitions["PASS/FAIL"]
+        resolved = sum(transitions[f"{a}/{b}"] for a in STATES[:2] for b in STATES[:2])
+        coverage = _coverage(states, resolved, planned_pairs)
+        categorical[key] = {"n": len(pairs), "transitions": dict(transitions), "gains": gains, "regressions": losses,
+                            "paired_pass_rate_difference": (gains - losses) / resolved if resolved else None,
+                            "paired_difference_95": _interval("bonferroni_discordance_clopper_pearson",
+                                                             _quality_interval(gains, losses, resolved), coverage),
+                            **coverage}
     numeric = {}
     for key in NUMERIC:
-        deltas = []
+        deltas, states = [], []
         for pair in pairs:
-            before, after = (pair[arm]["measurements"][key]["value"] for arm in ARMS)
-            if before is not None and after is not None:
+            (before_status, before), (after_status, after) = (_numeric_value(pair[arm], key) for arm in ARMS)
+            states.append((before_status, after_status))
+            if before_status == after_status == "PASS":
                 deltas.append(after - before)
-        numeric[key] = {"treatment_minus_reference": percentile(deltas), "unresolved_pairs": len(pairs) - len(deltas)}
-    return {"categorical": categorical, "numeric": numeric}
+        coverage = _coverage(states, len(deltas), planned_pairs)
+        interval = _interval("case_paired_percentile_bootstrap", _bootstrap_mean_interval(deltas), coverage)
+        numeric[key] = {"treatment_minus_reference": percentile(deltas),
+                        "mean_treatment_minus_reference": fmean(deltas) if deltas else None,
+                        "paired_mean_difference_95": interval | {
+                            "replicates": BOOTSTRAP_REPLICATES if interval["status"] == "PASS" else 0,
+                            "seed": BOOTSTRAP_SEED,
+                        },
+                        **coverage}
+    return {"direction": "treatment_minus_reference", "scope": "endpoint-wise exploratory intervals on usable holdout pairs",
+            "categorical": categorical, "numeric": numeric}
 
 
 def scoped_effect(pairs):
@@ -341,7 +432,7 @@ def holdout_report(path=None, *, expected_sha256=None):
                       artifact_sha256=report["artifacts"], model=report["model"], sdk=report["sdk"],
                       engine_sha256=report["engine_sha256"], gpu_execution=report["gpu_execution"])
     rows = list(pairs.values())
-    result.update(pairs=rows, summary=_paired_metrics(rows), scoped_effect=scoped_effect(rows),
+    result.update(pairs=rows, summary=_paired_metrics(rows, planned_pairs=len(cases)), scoped_effect=scoped_effect(rows),
                   measured_trajectories=sum(pair[arm]["physical_evidence"] == "PASS" for pair in rows for arm in ARMS),
                   measured_pairs=sum(all(pair[arm]["physical_evidence"] == "PASS" for arm in ARMS) for pair in rows))
     if path is not None:

@@ -84,3 +84,10 @@ Write workflows require the corresponding affirmative authorization and
 state evidence. Independent review of corpus meaning and expected outcomes
 is still pending. Automated review and separated AI authorship are recorded
 as software evidence.
+
+The supplemental source-release audit replayed the pinned source and all
+300 repaired worlds. The provenance validator rejects coordinated changes
+to draft action or assessment that the legacy source replay accepts. The
+separate L5 repair covers alternate-service denial while preserving the
+baseline paths. Cross-level reuse and independent release review remain
+open. [Source-release audit](../atlas/slm/v1.0/planning-v2-source-release-audit/manifest.json)

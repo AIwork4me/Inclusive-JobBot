@@ -36,6 +36,13 @@ def test_absent_holdout_preserves_exact_six_arm_dispositions():
     assert report["scoped_effect"]["finding"] == "INDETERMINATE"
     assert report["measured_trajectories"] == report["formal_trial_attribution"] == 0
     assert report["planned_trajectories"] == 24
+    quality = report["summary"]["categorical"]["business_facts"]
+    numeric = report["summary"]["numeric"]["input_tokens"]
+    assert quality["not_run_pairs"] == numeric["not_run_pairs"] == 12
+    assert quality["paired_difference_95"]["status"] == numeric["paired_mean_difference_95"]["status"] == "NOT_RUN"
+    assert quality["paired_difference_95"]["interval"] is None
+    assert numeric["paired_mean_difference_95"]["interval"] is None
+    assert numeric["paired_mean_difference_95"]["replicates"] == 0
     causal = report["six_arm_dispositions"]
     assert causal["counts"] == {"PASS": 513, "FAIL": 0, "BLOCKED": 10, "NOT_RUN": 17}
     assert len(causal["unmeasured"]) == 27
@@ -65,6 +72,62 @@ def test_effect_requires_resolved_pairs_treatment_exposure_and_positive_exact_te
     changed = deepcopy(pairs)
     changed[-1]["treatment"]["metrics"]["output_contract"] = "FAIL"
     assert scoped_effect(changed)["finding"] == "INDETERMINATE"
+
+
+def _pair(before, after, *, before_state="PASS", after_state="PASS", before_physical="PASS", after_physical="PASS"):
+    from benchmarks.slm10.sdk_adapter_holdout_report import CATEGORICAL, NUMERIC
+
+    return {arm: {"metrics": dict.fromkeys(CATEGORICAL, state), "physical_evidence": physical,
+                  "measurements": {key: {"status": "BLOCKED" if value is None else "PASS", "value": value}
+                                   for key in NUMERIC}}
+            for arm, value, state, physical in (("reference", before, before_state, before_physical),
+                                                 ("treatment", after, after_state, after_physical))}
+
+
+def test_exact_quality_interval_retains_concordant_pairs_and_handles_extreme_counts():
+    from benchmarks.slm10.sdk_adapter_holdout_report import _paired_metrics
+
+    def metric(pairs):
+        return _paired_metrics(pairs, planned_pairs=12)["categorical"]["business_facts"]
+
+    # Solve P(X=0)=(1-p)^12 and P(X=12)=p^12 at each Bonferroni tail independently.
+    extreme = 0.0125 ** (1 / 12)
+    all_ties = metric([_pair(10, 10)] * 12)
+    all_gains = metric([_pair(10, 10, before_state="FAIL")] * 12)
+    all_losses = metric([_pair(10, 10, after_state="FAIL")] * 12)
+    assert all_ties["resolved_pairs"] == 12
+    assert all_ties["paired_pass_rate_difference"] == 0
+    assert all_ties["paired_difference_95"]["interval"] == pytest.approx([extreme - 1, 1 - extreme])
+    assert all_gains["paired_pass_rate_difference"] == 1
+    assert all_gains["paired_difference_95"]["interval"] == pytest.approx([2 * extreme - 1, 1])
+    assert all_losses["paired_difference_95"]["interval"] == pytest.approx([-1, 1 - 2 * extreme])
+
+
+def test_numeric_interval_resamples_whole_pairs_and_reports_missing_denominator():
+    from benchmarks.slm10.sdk_adapter_holdout_report import _paired_metrics
+
+    pairs = [_pair(30, 10), _pair(20, 10, after_state="FAIL"), _pair(5, None),
+             _pair(7, 999, after_physical="BLOCKED"), _pair(42, 41, after_state="NOT_RUN", after_physical="NOT_RUN")]
+    report = _paired_metrics(pairs, planned_pairs=12)
+    assert report == _paired_metrics(list(reversed(pairs)), planned_pairs=12)
+    numeric = report["numeric"]["input_tokens"]
+    assert numeric["planned_pairs"] == 12
+    assert numeric["resolved_pairs"] == 2
+    assert numeric["blocked_pairs"] == 2
+    assert numeric["not_run_pairs"] == 8
+    assert numeric["unresolved_pairs"] == 10
+    assert numeric["mean_treatment_minus_reference"] == -15
+    # The empirical resampling distribution is -20, -15, -10 with probabilities 1/4, 1/2, 1/4.
+    assert numeric["paired_mean_difference_95"]["interval"] == [-20, -10]
+    assert numeric["paired_mean_difference_95"]["replicates"] == 10_000
+    quality = report["categorical"]["business_facts"]
+    assert quality["resolved_pairs"] == 3
+    assert quality["blocked_pairs"] == 1 and quality["not_run_pairs"] == 8
+    assert quality["paired_pass_rate_difference"] == pytest.approx(-1 / 3)
+    one = _paired_metrics([pairs[0]], planned_pairs=12)["numeric"]["input_tokens"]
+    assert one["resolved_pairs"] == 1 and one["mean_treatment_minus_reference"] == -20
+    assert one["paired_mean_difference_95"]["status"] == "BLOCKED"
+    assert one["paired_mean_difference_95"]["interval"] is None
 
 
 def test_capture_scores_actual_wire_delivery_and_separates_missing_token_evidence():

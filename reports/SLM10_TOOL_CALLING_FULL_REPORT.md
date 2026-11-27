@@ -1,6 +1,6 @@
 # IJ-SLM-1.0 Tool Calling capability map
 
-The current replay covers 4,950 of the 4,950 priority Radeon attempts and 5,274 of the 8,250 five-model TC-V3 attempts. The remaining core allocation is 31,276 of 36,550. The original strict TC-V3 verdict is BLOCKED on all 5,274 sealed attempts. The priority cohort is complete. This snapshot includes 324 F trials following its independent admission. G remains NOT_RUN. [Formal dashboard](../atlas/slm/v1.0/physical_progress.md) · [Five-model passports](../atlas/slm/v1.0/tc-capability-passports.json) · [F/G admission evidence](../evidence/IJSLM/tc-v3-admissions/manifest.json)
+The current replay covers 4,950 of the 4,950 priority Radeon attempts and 5,598 of the 8,250 five-model TC-V3 attempts. The remaining core allocation is 30,952 of 36,550. The original strict TC-V3 verdict is BLOCKED on all 5,598 sealed attempts. The priority cohort is complete. This snapshot includes 648 F trials following its independent admission. G remains NOT_RUN. [Formal dashboard](../atlas/slm/v1.0/physical_progress.md) · [Five-model passports](../atlas/slm/v1.0/tc-capability-passports.json) · [F/G admission evidence](../evidence/IJSLM/tc-v3-admissions/manifest.json)
 
 ## Native, SDK, and specialization
 
@@ -17,9 +17,9 @@ Each baseline row uses the matched first-attempt snapshot for the model and trac
 | Qwen3.5-2B | Direct | 463/500 | 394/394 | 300/500 | 462/500 | 272/400 |
 | Qwen3.5-2B | SDK provider JSON | 449/500 | 316/354 | 85/500 | 443/500 | 80/400 |
 | Qwen3.5-2B | SDK provider SSE | 449/500 | 316/356 | 81/500 | 442/500 | 78/400 |
-| Ministral-3-3B-Instruct | Direct | 98/98 | 98/98 | 4/98 | 98/98 | 4/98 |
-| Ministral-3-3B-Instruct | SDK provider JSON | 97/98 | 94/97 | 0/98 | 93/98 | 0/98 |
-| Ministral-3-3B-Instruct | SDK provider SSE | 97/98 | 92/97 | 0/98 | 91/98 | 0/98 |
+| Ministral-3-3B-Instruct | Direct | 197/197 | 197/197 | 11/197 | 197/197 | 11/197 |
+| Ministral-3-3B-Instruct | SDK provider JSON | 195/197 | 159/184 | 0/194 | 187/195 | 0/195 |
+| Ministral-3-3B-Instruct | SDK provider SSE | 195/197 | 158/184 | 0/197 | 187/197 | 0/197 |
 | Gemma-4-E2B-it | All tracks | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN |
 
 - **MiniCPM5-2B** shows strong Direct first-tool selection and scoped completion in the observed cohort. In the SDK single-tool slice, 36 of 50 trials repeated a model proposal and executed the same action again. The historical guard suppressed callbacks in controlled read-only development tasks. Action State and termination remain hypotheses for native repeat and stop behavior. Host-protected callbacks have independent attribution. [Loss analysis](SLM10_SDK_CAPABILITY_LOSS_ROOT_CAUSE.md)
@@ -37,7 +37,7 @@ No model and adapter combination has role-level qualification. LFM3 with compact
 
 | Requirement | Physical or release disposition |
 |---|---|
-| Frozen TC-V3 | 5,274/8,250 published. D25 stays BLOCKED. |
+| Frozen TC-V3 | 5,598/8,250 published. D25 stays BLOCKED. |
 | A0–A5 causal panel | 513/540 physical observations published, plus 144 SDK and guard controls. Ten slots are BLOCKED and 17 are NOT_RUN. Independent holdout NOT_RUN. |
 | Adapter profiles | Six software-tested components. Real matched adapter qualification and factorial selection remain NOT_RUN. |
 | SDK Extension | Independent software qualification passed for typed workflows, legal repeats, and producer links. Radeon execution NOT_RUN. |

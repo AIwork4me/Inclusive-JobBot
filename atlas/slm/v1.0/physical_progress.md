@@ -1,13 +1,13 @@
 # TC-V3 physical progress
 
-Core trials remaining: **31,276 of 36,550**.
+Core trials remaining: **30,952 of 36,550**.
 
 | Candidate | Planned | Executed | Sealed | Strict PASS | Strict FAIL | Strict BLOCKED | NOT_RUN |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | A | 1,650 | 1,650 | 1,650 | 0 | 0 | 1,650 | 0 |
 | B | 1,650 | 1,650 | 1,650 | 0 | 0 | 1,650 | 0 |
 | D | 1,650 | 1,650 | 1,650 | 0 | 0 | 1,650 | 0 |
-| F | 1,650 | 324 | 324 | 0 | 0 | 324 | 1,326 |
+| F | 1,650 | 648 | 648 | 0 | 0 | 648 | 1,002 |
 
 ## Tool selection by track
 
@@ -25,9 +25,9 @@ Core trials remaining: **31,276 of 36,550**.
 | D / sdk_first | 420 | 80 | 0 | 80.5%–87.0% |
 | D / sdk_repeat | 121 | 29 | 0 | 73.6%–86.2% |
 | D / sdk_streaming | 422 | 78 | 0 | 81.0%–87.3% |
-| F / direct_first | 98 | 0 | 0 | 96.2%–100.0% |
-| F / sdk_first | 93 | 5 | 0 | 88.6%–97.8% |
-| F / sdk_repeat | 30 | 0 | 0 | 88.6%–100.0% |
-| F / sdk_streaming | 91 | 7 | 0 | 86.0%–96.5% |
+| F / direct_first | 197 | 0 | 0 | 98.1%–100.0% |
+| F / sdk_first | 189 | 8 | 0 | 92.2%–97.9% |
+| F / sdk_repeat | 56 | 1 | 0 | 90.7%–99.7% |
+| F / sdk_streaming | 187 | 10 | 0 | 90.9%–97.2% |
 
 The current rows represent the completed portion of the frozen roster. Use the full matrix for paired effects, case strata, repeats and provider telemetry. [Machine-readable dashboard](physical_progress.json)

@@ -62,8 +62,8 @@ the common asset root. A partial capture requires reconciliation before retry.
 
 Replay the LFM3 paired holdout analyzer with
 `python -m benchmarks.slm10.sdk_adapter_holdout_report`. After the Radeon
-experiment, supply `--report` with its verified portable report. The analyzer
-also checks the blocked and unrun causal slots against the archived reports.
+experiment, supply `--report` with its verified portable report. The analyzer checks the blocked and unrun causal slots and reports
+paired 95% intervals when verified physical pairs are available.
 The workstation follow-up waits for the frozen controller to exit before
 dispatch, then writes the physical report and paired analysis under
 `.runtime/ij-slm-1.0/sdk-adapter-lfm3-holdout-physical-v1` in the common assets.
