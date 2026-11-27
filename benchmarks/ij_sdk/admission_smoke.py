@@ -370,13 +370,19 @@ def main() -> int:
     if not model_path.exists():
         print(f"model not found: {model_path}")
         return 2
+    # Evidence must not carry local paths (AGENTS.md redaction rule): record
+    # the repo-relative path only.
+    try:
+        model_path_rel = model_path.resolve().relative_to(ROOT).as_posix()
+    except ValueError:
+        model_path_rel = "<outside-repository>"
     work_dir = ROOT / ".runtime" / "ijsdk_admission" / args.candidate
     work_dir.mkdir(parents=True, exist_ok=True)
 
     model_sha = hashlib.sha256(model_path.read_bytes()).hexdigest()
     state = start_candidate_server(model_path, args.alias, args.backend, args.port, work_dir)
     results = {"schema_version": 1, "candidate": args.candidate, "alias": args.alias,
-               "model_path": str(model_path), "model_sha256": model_sha,
+               "model_path": model_path_rel, "model_sha256": model_sha,
                "backend": args.backend, "started_utc": utc(),
                "gpu": {"layers_offloaded": state.get("layers_offloaded"), "layers_total": state.get("layers_total")},
                "cases": {}}
