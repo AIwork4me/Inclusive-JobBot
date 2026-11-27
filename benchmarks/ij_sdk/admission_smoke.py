@@ -90,7 +90,14 @@ def chat(base_url, messages, tools=None, max_tokens=512, tool_choice="auto", tem
         body["tool_choice"] = tool_choice
     if response_format is not None:
         body["response_format"] = response_format
-    return post(base_url, "/v1/chat/completions", body)
+    reply = post(base_url, "/v1/chat/completions", body)
+    usage = reply.get("usage") or {}
+    USAGE_TOTALS["prompt_tokens"] += usage.get("prompt_tokens", 0) or 0
+    USAGE_TOTALS["completion_tokens"] += usage.get("completion_tokens", 0) or 0
+    return reply
+
+
+USAGE_TOTALS = {"prompt_tokens": 0, "completion_tokens": 0}
 
 
 def tool_calls(reply):
@@ -183,8 +190,16 @@ def case_basic_instruction(base_url):
 
 
 def case_json_generation(base_url, n=12):
-    schema_hint = ('返回 JSON 对象，字段: order_id (字符串), amount (数字), approved (布尔值)。'
-                   '只输出 JSON，不要其他文字。示例输入: 订单 PO-2026-0001，金额 17420.50 元，已批准。')
+    # DEV-GEN v1.0.1: v1.0.0 embedded an unframed example input ("示例输入: ...")
+    # that several models interpreted as a SECOND order to process and emitted
+    # a JSON array - a task-ambiguity defect (F19), confirmed by minimal
+    # reproduction on R1/S2 (see P2 report). The example is now explicitly
+    # marked as format-only. Original v1.0.0 results preserved under their
+    # own identity; repaired results are the admission record of note.
+    schema_hint = ('只输出一个 JSON 对象，不要输出数组，不要输出其他文字。'
+                   '字段: order_id (字符串), amount (数字), approved (布尔值)。'
+                   '格式示例（仅供参考，不是要处理的订单）: {"order_id": "PO-YYYY-NNNN", "amount": 0, "approved": true}。'
+                   '处理下面这一笔订单：')
     valid, schema_ok = 0, 0
     for i in range(n):
         reply = chat(base_url, [{"role": "user", "content": f"{schema_hint} 订单 PO-2026-{i:04d}，金额 {1000 + 7 * i} 元，已批准。"}], max_tokens=256)
@@ -406,6 +421,7 @@ def main() -> int:
     finally:
         stop_candidate_server(state["pid"])
         results["finished_utc"] = utc()
+        results["token_usage"] = dict(USAGE_TOTALS)
         results["dev_score"] = {"passed_cases": dev_score, "scored_cases": scored,
                                 "rate": round(dev_score / scored, 4) if scored else None}
         out = ROOT / args.output
