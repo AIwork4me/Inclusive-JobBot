@@ -189,6 +189,11 @@ def final_response(text, prompt_tokens=100, completion_tokens=50, finish_reason=
                       "total_tokens": prompt_tokens + completion_tokens}}
 
 
+class _QuietHTTPServer(ThreadingHTTPServer):
+    def handle_error(self, request, client_address):
+        pass          # a client that gives up (timeout probes) is an expected outcome, not an error
+
+
 class FixtureModelServer:
     """Deterministic stand-in for llama-server. ``steps`` are consumed in order:
     ("json", status, object, delay) | ("text", status, bytes, delay) |
@@ -241,7 +246,7 @@ class FixtureModelServer:
             do_POST = _handle
             do_GET = _handle
 
-        self._httpd = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        self._httpd = _QuietHTTPServer(("127.0.0.1", 0), Handler)
         self.base_url = f"http://127.0.0.1:{self._httpd.server_address[1]}"
         self._thread = threading.Thread(target=self._httpd.serve_forever, daemon=True)
 
