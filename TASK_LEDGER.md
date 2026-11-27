@@ -6,6 +6,7 @@
 |---|---|---|
 | Startup and M0 methodology audit | PASS | [Upstream report](reports/LFM3_HA01_UPSTREAM_RESEARCH.md). Exact author-run reconstruction inputs remain BLOCKED. |
 | M1 base local identity and three adapter asset bundles | PASS | Pinned GGUF and PEFT identities, base SHA256, tensor shapes and converted values. [Registry](atlas/slm/v1.0/lfm3-harness-adapters/MODEL_ADAPTER_REGISTRY.json) |
+| M1 admission numerical comparison software | PASS | Native probability validation and fixed-prefix equivalence, intervention and repeat controls. |
 | M1 independent numerical and physical admission | NOT_RUN | [Preregistered admission contract](atlas/slm/v1.0/lfm3-harness-adapters/REPRODUCTION_GUIDE.md) |
 | M2 through M12 physical experiments | NOT_RUN | Gates, planned scope and prerequisites are recorded in the admission contract. |
 
