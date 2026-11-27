@@ -14,6 +14,14 @@ The interleaved Windows controller advances a frozen 36-trial formal batch befor
 
 Replay the public offline metrics with the sdk_causal_report module and the measured interventions with sdk_ablation_summary. During publication, refresh both formal progress and offline metrics from the same sealed snapshot. The latter emits a disposition for all 540 A0–A5 slots and 180 SDK_CONTROL and GUARD slots. Publish F and G session seals using additional `--publish-from` arguments to tc_dashboard and replay their admission manifests with tc_admission_evidence. [SDK causal report](reports/SLM10_SDK_CAPABILITY_LOSS_ROOT_CAUSE.md) · [Experimental configuration](atlas/slm/v1.0/sdk-causal-experiment.json)
 
+### Independent adapter and Atlas tracks
+
+Audit the LFM3 compact-result holdout with `python -m benchmarks.slm10.sdk_adapter_development`. The physical entry point requires `--dispatch`, the common asset root and a fresh output directory. It refuses to start while the frozen controller is active. It runs 12 tasks in two arms and records zero core trial attribution. [Adapter development entry point](reports/SLM10_ADAPTER_DEVELOPMENT_ENTRY_POINT.md)
+
+Verify the typed Extension certificate with `python -m benchmarks.slm10.sdk_extension_execution qualify --output evidence/IJSLM/sdk-extension/qualification.json --check`. The `run` command takes a registered candidate, a split, the common assets, the same certificate and a fresh output directory. Physical runs use the shared Radeon lease. [Independent Extension](atlas/slm/v1.0/sdk-extension-v0.2/manifest.json)
+
+Replay the 600 MULTITOOL-V2 candidate witnesses with `python -m benchmarks.slm10.multitool_v2_candidate`. The current candidate exercises 2–20 actions in software. AGENTIC-PLAN-V2 has a bundle verifier and reserved allocation. Its formal roster requires an independently sourced public task and world bundle. [MULTITOOL candidate](atlas/slm/v1.0/multitool-v2-candidate/manifest.json) · [Planning bundle requirements](docs/SLM10_PLANNING_ROSTER.md)
+
 ## IJ-0.7.3 local evaluator
 
 Use `python -m evaluation.aeve.progress --write` to synchronize Atlas progress, MISSION_STATE and sealed Q2 coverage from a single archive snapshot. The progress check in CI compares the published tree with its sealed captures. The [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md) covers the original 45 reference defects and 81 alternative proofs. The [history matrix](evidence/IJ073/aeve/historical_route_matrix.json) records every family, dimension and risk scope. Q3 credentials are still required for any formal route.

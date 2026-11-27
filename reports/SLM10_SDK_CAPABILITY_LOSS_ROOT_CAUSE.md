@@ -1,6 +1,6 @@
 # SDK capability loss in frozen TC-V3
 
-The offline v1.0 replay covers 2,250 sealed Radeon trials. It binds each reassessment to its unchanged trial identity and private capture digest. The original scores, D25 values and denominators remain in the seal. All three models completed the 50 SDK first-attempt single-tool tasks in this snapshot. [Matrix](../atlas/slm/v1.0/sdk-causal-matrices.json) · [Evidence manifest](../evidence/IJSLM/sdk-causal/manifest.json)
+The offline v1.0 replay covers 2,502 sealed Radeon trials. It binds each reassessment to its unchanged trial identity and private capture digest. The original scores, D25 values and denominators remain in the seal. All three models completed the 50 SDK first-attempt single-tool tasks in this snapshot. [Matrix](../atlas/slm/v1.0/sdk-causal-matrices.json) · [Evidence manifest](../evidence/IJSLM/sdk-causal/manifest.json)
 
 | Candidate | SDK single-tool tasks | Identical action proposed again | Identical action executed again | Verified delivery and correct value inside a JSON fence |
 |---|---:|---:|---:|---:|
@@ -16,8 +16,8 @@ The SDK system message includes a GitHub-style Markdown instruction. The effecti
 
 | Candidate | Complete SDK/Direct pairs | Median input token delta | Median output token delta | Median provider inference delta |
 |---|---:|---:|---:|---:|
-| MiniCPM5-2B | 242 | +3,225.5 | +30.0 | +2,348.8 ms |
-| LFM3-1.7B | 230 | +2,787.0 | +0.0 | +1,070.0 ms |
-| Qwen3.5-2B | 210 | +2,009.0 | +5.0 | +636.6 ms |
+| MiniCPM5-2B | 274 | +3,220.0 | +30.0 | +2,025.6 ms |
+| LFM3-1.7B | 252 | +2,790.0 | -3.0 | +1,065.4 ms |
+| Qwen3.5-2B | 230 | +2,013.0 | +5.0 | +640.4 ms |
 
 The deltas use paired SDK first attempt minus Direct first attempt. These pair sets include completed families from the frozen queue. Provider inference sums native prompt and generation time. The cost matrix uses requests and tokens per scoped read success. AG-11 remains BLOCKED. The earlier 512 KiB SSE cumulative-limit diagnosis remains proven on the captured bytes. The historical ValueError remains UNVERIFIED. [Component and cost matrices](../atlas/slm/v1.0/sdk-causal-matrices.json)

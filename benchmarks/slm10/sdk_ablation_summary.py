@@ -139,7 +139,8 @@ def import_waves(source):
         candidate, number = wave.name.split("-")
         expected = expected_wave(candidate, int(number))
         legacy = report_path(wave)
-        if (wave / "wave-seal.json").is_file():
+        seal = wave / "wave-seal.json"
+        if seal.is_file():
             reports = verify_seal(wave, expected)
         elif legacy.is_file():
             verified_run(legacy.parent, expected, expected["cases"])
@@ -159,6 +160,38 @@ def import_waves(source):
                         raise ValueError("diagnostic publication differs from sealed runtime copy")
                 else:
                     shutil.copyfile(new, old)
+        if seal.is_file():
+            target = OUTPUT / f"wave-seal-{wave.name}.json"
+            if target.is_file() and digest(target) != digest(seal):
+                raise ValueError("diagnostic atomic seal differs from its published copy")
+            if not target.exists():
+                shutil.copyfile(seal, target)
+
+
+def verify_published_wave_seals(root, report_sources):
+    from .sdk_wave_queue import expected_wave
+
+    for path in sorted(root.glob("wave-seal-*.json")):
+        raw = path.read_bytes()
+        check_text(raw)
+        seal = json.loads(raw)
+        candidate, number = path.stem.removeprefix("wave-seal-").split("-")
+        expected = expected_wave(candidate, int(number))
+        if seal["expected"] != expected:
+            raise ValueError("published wave seal differs from expected trial identities")
+        folders = seal["verified_reports"]
+        flavors = ("portable", "recovered-portable")
+        if len(folders) == 1 and next(iter(folders)) in flavors:
+            sources = {"wave-" + expected["wave"]: next(iter(folders.values()))}
+        else:
+            sources = {}
+            for case in expected["cases"]:
+                matched = [folders[f"cases/{case}/{name}"] for name in flavors if f"cases/{case}/{name}" in folders]
+                if len(matched) != 1:
+                    raise ValueError("published wave seal lacks a unique verified case report")
+                sources[f"wave-{expected['wave']}-{case}"] = matched[0]
+        if len(sources) != len(folders) or any(report_sources.get(key) != value for key, value in sources.items()):
+            raise ValueError("published wave seals do not bind the published report digests")
 
 
 def main():
@@ -176,6 +209,7 @@ def main():
                 "kind": "full-task" if arm in FULL else "next-decision", "physical_capture": "NOT_RUN"}
                 for model in profile["models"] for case in profile["development_case_ids"] for arm in profile["arms"]}
     report = summarize(OUTPUT, coverage)
+    verify_published_wave_seals(OUTPUT, report["sources"])
     coverage_data = {"version": "IJ-SLM-SDK-CAUSAL-COVERAGE/1.0", "formal_trials": 0,
                      "profile_sha256": digest(profile_path), "trials": list(coverage.values())}
     coverage_payload = canonical(coverage_data) + b"\n"

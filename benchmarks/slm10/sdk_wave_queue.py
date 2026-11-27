@@ -205,18 +205,28 @@ def main():
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--resume", action="store_true")
     mode.add_argument("--audit", action="store_true")
+    mode.add_argument("--seal-complete", action="store_true", help="adopt verified reports without dispatch")
     args = parser.parse_args()
     assets = args.assets.resolve(strict=True)
     runtime = assets / ".runtime/ij-slm-1.0"
     diagnostics = runtime / "sdk-causal-waves"
     profile = json.loads(PROFILE.read_bytes())
     waves = (len(profile["development_case_ids"]) - len(profile["pilot_case_ids"]) + WAVE_SIZE - 1) // WAVE_SIZE
-    if args.audit:
+    if args.audit or args.seal_complete:
         for round_index in range(waves):
             for candidate in profile["models"]:
                 expected = expected_wave(candidate, round_index)
+                folder = diagnostics / expected["wave"]
                 try:
-                    reports, pending = reconcile(diagnostics / expected["wave"], expected)
+                    if args.seal_complete:
+                        with _named_lease(CONTROLLER_LOCK):
+                            reports, pending = reconcile(folder, expected)
+                            if reports and not pending:
+                                if not (folder / "wave-seal.json").is_file():
+                                    write_evidence(folder / "wave-seal.json", wave_manifest(expected, reports))
+                                verify_seal(folder, expected)
+                    else:
+                        reports, pending = reconcile(folder, expected)
                 except ValueError as error:
                     print(expected["wave"], "BLOCKED", str(error))
                 else:

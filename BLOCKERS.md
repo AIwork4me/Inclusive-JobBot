@@ -7,6 +7,10 @@
 - The current workstation token cannot start the temporary Windows kernel network trace. The direct ETW session attempt returned access denied (HRESULT 0x80070005). The machine owner owns authorization for a temporary collector capable of attributing short-lived TCP and UDP events. [Microsoft ETW permissions](https://learn.microsoft.com/en-us/windows/win32/etw/controlling-event-tracing-sessions)
 - The historical Qwen3.5 AG-02 ValueError remains UNVERIFIED. A new real SDK failure reproduced a different 512 KiB aggregate SSE limit and a same-byte replay isolated that failure. MiniCPM5 now calls the expected tool on both Direct modes in the matched controls. Its historical discrepancy remains open. [Root cause evidence](reports/SLM10_P0_EXECUTION.md)
 
+- The frozen TC-V3 controller owns the Radeon schedule. Physical F/G admission is gated on all 4,950 priority captures. The new LFM3 adapter holdout and Extension need the same Radeon slot after the baseline. [Admission records](evidence/IJSLM/tc-v3-admissions/manifest.json) · [Adapter holdout](atlas/slm/v1.0/sdk-adapter-lfm3-holdout.json)
+
+- Formal MULTITOOL-V2 dispatch requires blind validation of the candidate partition, persisted write and approval witnesses, and physical SDK and Direct transport. Formal AGENTIC-PLAN-V2 requires the independent 800-case world and witness bundle, end-to-end runtime qualification and the D12/D23/D25 credentials. Benchmark and evaluation engineering own these gates. [MULTITOOL candidate](atlas/slm/v1.0/multitool-v2-candidate/manifest.json) · [Planning source bundle](docs/SLM10_PLANNING_ROSTER.md)
+
 ## IJ-0.7.3 frozen Q2 follow-up
 
 - Q2 energy and electricity cost remain NOT_RUN. The frozen captures measured request time, native inference time, tokens and process GPU memory. No power and tariff measurements are available.
