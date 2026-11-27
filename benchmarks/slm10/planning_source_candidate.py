@@ -12,7 +12,7 @@ from . import planning_public_authoring, planning_source_controls
 from .planning_roster import ATLAS, SOURCE_VERSION, SUITE, freeze, output_files
 
 
-OUTPUT = ATLAS / "planning-v2-source-candidate"
+OUTPUT = ATLAS / "planning-v2-source-candidate-0.2"
 
 
 def json_line(value):
@@ -68,7 +68,7 @@ def verify_candidate(source, source_manifest_sha256):
     result = freeze(source, source_manifest_sha256)
     report = json.loads(result["manifest.json"])
     return {
-        "version": "IJ-SLM-AGENTIC-PLAN-V2-SOURCE-CANDIDATE/0.1",
+        "version": "IJ-SLM-AGENTIC-PLAN-V2-SOURCE-CANDIDATE/0.2",
         "source_manifest_sha256": source_manifest_sha256,
         "software_world_replay": "PASS",
         "world_replay_by_level": report["world_replay_by_level"],

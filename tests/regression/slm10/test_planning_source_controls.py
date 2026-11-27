@@ -58,12 +58,16 @@ def test_host_revision_and_recovery_have_distinct_counterfactuals():
                                  "alternate": ("reference", "value code")}, {"reference": "FOLIO-416"},
                           goal="recover_current_status", events=("revised_reference",), budget=3)
     proof = build_control(case)
-    assert validate_control(case, proof)["counterfactuals"] == {"recovery": 1, "scope_revision": 1}
+    assert validate_control(case, proof)["counterfactuals"] == {"recovery": 2, "scope_revision": 2}
     changed = next(world for world in proof["worlds"] if world["world_id"] == "scope_revision")
     assert changed["steps"][-1]["args"]["reference"] != "FOLIO-416"
     stale = deepcopy(changed)
     del stale["steps"][0]["event"]
     assert verify(proof["witness"], case["contract"], [validate_world(case, stale)])["status"] == "FAIL"
+    combined = next(world for world in proof["worlds"] if world["world_id"] == "revised_primary_unavailable")
+    assert [step["tool"] for step in combined["steps"]] == ["lookup", "lookup", "alternate"]
+    assert combined["steps"][-1]["args"] == {"reference": changed["steps"][-1]["args"]["reference"]}
+    assert combined["steps"][-1]["args"] != combined["steps"][0]["args"]
 
 
 def test_reviewed_draft_requires_all_independent_checks_without_a_delivery():
@@ -88,7 +92,7 @@ def test_reviewed_draft_requires_all_independent_checks_without_a_delivery():
     nodes = alternate["actions"]
     for node in nodes[:-2]:
         node["tool"] = "check_alternate"
-    alternate["actions"] = [nodes[0], *reversed(nodes[1:-2]), *nodes[-2:]]
+    alternate["actions"] = [*nodes[:2], *reversed(nodes[2:-2]), *nodes[-2:]]
     assert verify(alternate, case["contract"], [validate_world(case, w) for w in proof["worlds"]])["status"] == "PASS"
 
     denied = next(world for world in proof["worlds"] if world["world_id"] == "preflight_denied")
@@ -97,6 +101,18 @@ def test_reviewed_draft_requires_all_independent_checks_without_a_delivery():
     assert len(denied["steps"]) == 1
     assert denied["steps"][0]["args"]["check_id"] == "check_0"
     assert denied["steps"][0]["after_state"] == {"drafts": {}, "deliverables": {}}
+
+    denied_later = next(world for world in proof["worlds"] if world["world_id"] == "later_check_denied")
+    assert denied_later["disposition"] == "escalate"
+    assert denied_later["facts"] == {"reason": "permission_denied"}
+    assert [step["args"]["check_id"] for step in denied_later["steps"]] == ["check_0", "check_1"]
+    assert denied_later["steps"][1]["after_state"] == {"drafts": {}, "deliverables": {}}
+
+    denied_tail = deepcopy(drafted)
+    denied_tail["steps"] = denied_tail["steps"][:3]
+    denied_tail["steps"][-1]["result"] = {"code": "permission_denied"}
+    denied_tail.update(disposition="escalate", facts={"reason": "permission_denied"})
+    assert verify(proof["witness"], case["contract"], [validate_world(case, denied_tail)])["status"] == "PASS"
 
 
 @pytest.mark.parametrize("decision, disposition", [("approved", "completed"), ("declined", "escalate")])
@@ -123,6 +139,12 @@ def test_fresh_host_approval_is_required_for_persisted_delivery(decision, dispos
         del unsigned["steps"][2]["event"]["approval"]
         with pytest.raises(ValueError, match="authorization"):
             validate_world(case, unsigned)
+        missing = next(world for world in proof["worlds"] if world["world_id"] == "missing_host_grant")
+        assert [step["tool"] for step in missing["steps"]] == ["audit_read", "stage", "request_confirmation"]
+        assert missing["steps"][-1]["event"]["decision"] == "approved"
+        assert "approval" not in missing["steps"][-1]["event"]
+        assert missing["disposition"] == "escalate"
+        assert missing["facts"] == {"reason": "approval_unverified", "draft_id": confirmation["args"]["draft_id"]}
     else:
         assert world["steps"][-1]["after_state"]["deliverables"] == {}
         assert world["steps"][-1]["after_state"]["drafts"][confirmation["args"]["draft_id"]]["state"] == "pending"

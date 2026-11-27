@@ -35,12 +35,14 @@ python -m benchmarks.slm10.planning_roster --bundle SOURCE_DIR --source-manifest
 
 The first command verifies the existing GPU handoff against the live host and device without acquiring the lease. With no bundle, it reports the allocation, the pending source gate and zero new formal observations. Freezing an eligible bundle writes the roster and a source-linked mechanical replay manifest. `--check` verifies both outputs byte for byte.
 
-The [source candidate](../atlas/slm/v1.0/planning-v2-source-candidate/manifest.json)
+The [source candidate](../atlas/slm/v1.0/planning-v2-source-candidate-0.2/manifest.json)
 contains 800 tasks with separate AI authoring assignments for the public task
 and the private worlds and witnesses. Both assignments used the public
-contract. The [software replay certificate](../atlas/slm/v1.0/planning-v2-source-candidate/candidate-verification.json)
-binds the source, the 2,000 synthetic worlds and the 20,800 reserved trial IDs.
+contract. The [software replay certificate](../atlas/slm/v1.0/planning-v2-source-candidate-0.2/candidate-verification.json)
+binds the source, the 2,300 synthetic worlds and the 20,800 reserved trial IDs.
 Verify it with `python -m benchmarks.slm10.planning_source_candidate`.
+The initial [0.1 bundle](../atlas/slm/v1.0/planning-v2-source-candidate/manifest.json)
+and its original source are preserved at commit `830072e`.
 Independent release review of the workload and provenance is pending.
 
 The existing interactive SDK planning control is development evidence.

@@ -47,7 +47,7 @@ The rendered Plan-first prompt gives tool output field names but omits their dec
 
 ## Reproduction
 
-Use the repository Python environment from the worktree. The first command rebuilds the source and checks the existing bytes without publishing a release freeze. The focused regression suite passed 22 tests.
+Use the repository Python environment at the original checkpoint `830072e` to reproduce the 0.1 results. The first command rebuilds the source and checks the existing bytes without publishing a release freeze. The focused regression suite passed 22 tests.
 
 ```powershell
 $env:PYTHONPATH = '.;src;benchmarks/tool_calling/runner'
@@ -56,3 +56,16 @@ python -m pytest -q -o asyncio_mode= tests/regression/slm10/test_planning_source
 ```
 
 For each probe, load the matching public row and witness with `planning_roster.read_bundle`, deep-copy the named world and apply the row's mutation. Pass the updated world through `planning_controls.validate_world`. Pass that checked world and the unchanged witness and contract to `benchmarks.agentic_planning_v2.oracle.verify`.
+
+## 2026-11-27 follow-up on revised source candidate 0.2
+
+The revised source manifest SHA-256 is `72eb98bdf99268dcc53da8c2753f4b76308f4b23c33cd08d65ab0ab7c0ec6f45`, with 800 cases and 2,300 worlds. Byte-for-byte generation and mechanical replay passed. The revised software roster SHA-256 is `fe7ee5d5fba8e98a48fc66c478c404fd0bc44dc41c43882cc0e3a6d0f639cc52`. The roster still reserves 20,800 slots. The findings above apply to 0.1. [Revised manifest](../atlas/slm/v1.0/planning-v2-source-candidate-0.2/manifest.json) · [Revised certificate](../atlas/slm/v1.0/planning-v2-source-candidate-0.2/candidate-verification.json)
+
+| Correction | Replayed evidence |
+| --- | --- |
+| L5 recovered unavailable primary status under the replacement reference | All 100 `revised_primary_unavailable` worlds **PASS**. Each requires a host change, the revised primary call and alternate read bound to the replacement. |
+| L6 escalated on a later denied check | All 100 `later_check_denied` worlds **PASS**. The public task now orders the first two checks and leaves the rest independent within the existing budget. Across all 100 cases, reversing the independent remainder and selecting the alternate register still passed. A separate denial mutation on the last check escalated in all 100 cases. |
+| L7 escalated when the host decision lacked a grant | All 100 `missing_host_grant` worlds **PASS** and preserve the pending draft without a delivery. |
+| L4–L7 public condition and terminal vocabulary | Rendered each of the 400 Plan-first prompts and confirmed that it exposes the applicable referral, unavailable, permission denial or approval reason values. |
+
+Verification used `python -m benchmarks.slm10.planning_source_candidate --output atlas/slm/v1.0/planning-v2-source-candidate-0.2`. The same four-file focused regression command above passed 22 tests against the revised source. This was a correction by the original public and world authors. Independent release review, formal freeze, dispatch and the D12/D23/D24/D25 and executor gates retain the dispositions above.

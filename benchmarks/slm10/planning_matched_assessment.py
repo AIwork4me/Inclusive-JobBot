@@ -84,6 +84,7 @@ def assess_trial(case, proof, world_id, trial):
         "goal_selection": "NOT_RUN",
         "plan_validity": "NOT_RUN",
         "plan_executability": "NOT_RUN",
+        "conditional_route": "NOT_RUN",
         "scope_revision_response": "NOT_RUN",
         "recovery_response": "NOT_RUN",
         "authorization_trace": "NOT_RUN",
@@ -100,8 +101,10 @@ def assess_trial(case, proof, world_id, trial):
                                            if mechanics["plan_validity"] == "PASS" else "BLOCKED")
     if any(scope_changed(step.get("event")) for step in steps):
         mechanics["scope_revision_response"] = mechanics["actual_call_path"]
+    if case["level"] == "L4":
+        mechanics["conditional_route"] = mechanics["actual_call_path"]
     if world["disposition"] == "completed" and any(
-            step["result"].get("code", "ok") not in DENIALS | {"ok"} for step in steps):
+            step["result"].get("code", "ok") not in DENIALS | {"ok", "alternate_required"} for step in steps):
         mechanics["recovery_response"] = mechanics["actual_call_path"]
     if any(step["tool"] in WRITE_TOOLS for step in steps):
         mechanics["authorization_trace"] = reconcile(case["public"], calls)["status"] if calls else "BLOCKED"

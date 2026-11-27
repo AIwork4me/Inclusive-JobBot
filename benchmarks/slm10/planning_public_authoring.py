@@ -76,11 +76,11 @@ REQUESTS = {
                     "service. If the reviewer supplies a replacement reference, use that reference and "
                     "discard the old status. Escalate if access is denied.",
                     "查询当前状态。主服务暂不可用时查备用服务；若审核人更换编号，按新编号查询并舍弃旧状态；权限被拒时上报。"),
-    "L6": LocalText("To {action}, collect these checks: {checks}. Complete the first check before the others, "
-                    "then collect the rest in any order. Either register may supply a check. "
+    "L6": LocalText("To {action}, collect these checks: {checks}. Complete the first and second checks "
+                    "in that order, then collect the remaining checks in any order. Either register may supply a check. "
                     "After all checks finish, obtain the audit assessment and create a "
                     "pending draft using it. Escalate if a check or the audit is denied.",
-                    "为{action}，完成这些检查：{checks}。先完成第一项，其余可任意排序。可向任一台账查询。"
+                    "为{action}，完成这些检查：{checks}。按顺序完成前两项，其余可任意排序。可向任一台账查询。"
                     "全部完成后获取审核结论并据此建待审草稿。检查或审核被拒时上报。"),
     "L7": LocalText("I want to {action}. Read the audit assessment and create a draft based on it. "
                     "Request external confirmation for that exact draft. Commit on approval, or "
@@ -93,6 +93,12 @@ OUTPUT = {
     "L1": "value", "L2": "value, limit", "L3": "value", "L4": "value",
     "L5": "value | reason", "L6": "draft_id | reason",
     "L7": "audit_ref | reason | reason, draft_id",
+}
+
+REASONS = {
+    "L5": "permission_denied",
+    "L6": "permission_denied",
+    "L7": "permission_denied | approval_declined | approval_unverified",
 }
 
 GOALS = {
@@ -110,8 +116,16 @@ def tool(inputs, outputs, description):
 
 def tools_for(level):
     lookup = tool(["reference"], ["code", "value"], "Read the primary register for the intake reference.")
+    if level == "L4":
+        lookup["description"] += " Code ok supplies value. Code alternate_required directs you to the alternate register."
+    if level == "L5":
+        lookup["description"] += (
+            " Code ok supplies value. Code unavailable permits the alternate register for the current reference. "
+            "Code permission_denied requires escalation."
+        )
     alternate = tool(["reference"], ["value"], "Read current status in the alternate register.")
-    audit = tool(["reference"], ["code", "assessment"], "Read the current assessment for the exact item.")
+    audit = tool(["reference"], ["code", "assessment"],
+                 "Read the current assessment for the exact item. Permission denial returns code permission_denied.")
     stage = tool(["reference", "action", "assessment"], ["draft_id"], "Create a pending draft from an audit assessment.")
     return {
         "L0": {},
@@ -122,13 +136,19 @@ def tools_for(level):
         "L4": {"lookup": lookup, "alternate": alternate},
         "L5": {"lookup": lookup, "alternate": alternate},
         "L6": {
-            "check": tool(["reference", "check_id"], ["code", "assessment"], "Read one named check in the operations register."),
-            "check_alternate": tool(["reference", "check_id"], ["code", "assessment"], "Read one named check from the archive."),
+            "check": tool(["reference", "check_id"], ["code", "assessment"],
+                          "Read one named check in the operations register. If access is denied, code is permission_denied."),
+            "check_alternate": tool(["reference", "check_id"], ["code", "assessment"],
+                                    "Read one named check from the archive. If access is denied, code is permission_denied."),
             "audit_read": audit, "stage": stage,
         },
         "L7": {
             "audit_read": audit, "stage": stage,
-            "request_confirmation": tool(["draft_id"], ["code", "decision", "approval"], "Request an external decision on this draft."),
+            "request_confirmation": tool(
+                ["draft_id"], ["code", "decision", "approval"],
+                "Request an external decision on this draft. A trusted event can decline the draft or approve it "
+                "with a grant for its exact ID. An approval with no matching grant is unverified.",
+            ),
             "commit": tool(["draft_id", "approval"], ["audit_ref"], "Commit the draft with its trusted approval."),
         },
     }[level]
@@ -159,6 +179,9 @@ def text_for(level, language, desk, reference, topic, action, action_text, check
     output = OUTPUT[output_key]
     en_format = f" Return one JSON object. Keys by outcome: {output}."
     zh_format = f" 返回一个 JSON 对象，按结果选择字段：{output}。"
+    if level in REASONS:
+        en_format += f" Allowed escalation reason codes: {REASONS[level]}."
+        zh_format += f" 上报原因代码：{REASONS[level]}。"
     return {"en": en + instructions.en + en_format, "zh": zh + instructions.zh + zh_format,
             "mixed": zh + " " + instructions.en + en_format}[language]
 

@@ -29,6 +29,11 @@ sandbox tests exercise drafts, out-of-band approval and denial, transaction
 rollback, scope changes, and isolation. Formal transport qualification is pending.
 [Content review](reports/SLM10_MULTITOOL_V2_CONTENT_REVIEW.md)
 
+The MULTITOOL statistics entry point is
+`python -m benchmarks.slm10.multitool_v2_statistics`. Its default replay
+verifies the reserved roster and leaves all 7,500 results NOT_RUN. It accepts
+registered candidate-development seals separately from the core ledger.
+
 Replay the role-separated 800-case Planning source candidate with
 `python -m benchmarks.slm10.planning_source_candidate`. The four-track matched
 executor takes a synthetic service interface and keeps world assessment
@@ -40,6 +45,10 @@ Replay the LFM3 paired holdout analyzer with
 `python -m benchmarks.slm10.sdk_adapter_holdout_report`. After the Radeon
 experiment, supply `--report` with its verified portable report. The analyzer
 also checks the blocked and unrun causal slots against the archived reports.
+The workstation follow-up waits for the frozen controller to exit before
+dispatch, then writes the physical report and paired analysis under
+`.runtime/ij-slm-1.0/sdk-adapter-lfm3-holdout-physical-v1` in the common assets.
+Reconcile any partial output before starting a new holdout run.
 
 ## IJ-0.7.3 local evaluator
 

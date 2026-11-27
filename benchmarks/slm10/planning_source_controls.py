@@ -141,14 +141,23 @@ def l5(case, fixture):
     actions, stops, worlds = status_sources(case, fixture, disruption="unavailable")
     reference = case["public"]["reference"]
     revised = f"{reference}-R2"
-    actions.append(action("revised", "lookup", {"reference": ref("event", "revised_reference")}))
+    scope_reference = {"reference": ref("event", "revised_reference")}
+    actions.extend([action("revised", "lookup", scope_reference),
+                    action("revised_backup", "alternate", scope_reference, depends=("revised",),
+                           when=equals("revised", "code", "unavailable"))])
     stops.extend([stop(exists("revised", "value"), value=ref("revised", "value")),
+                  stop(exists("revised_backup", "value"), value=ref("revised_backup", "value")),
+                  stop(equals("revised", "code", "permission_denied"), "escalate", reason=ref("revised", "code")),
                   stop(equals("current", "code", "permission_denied"), "escalate", reason=ref("current", "code"))])
+    scope_update = step("lookup", {"reference": reference}, {"value": fixture["current"]},
+                        event={"source": AUTHORITY, "scope_changed": True, "revised_reference": revised})
     worlds.extend([
-        world("scope_revision", [step("lookup", {"reference": reference}, {"value": fixture["current"]},
-                                      event={"source": AUTHORITY, "scope_changed": True, "revised_reference": revised}),
+        world("scope_revision", [scope_update,
                                  step("lookup", {"reference": revised}, {"value": fixture["revision"]})],
               value=fixture["revision"]),
+        world("revised_primary_unavailable", [deepcopy(scope_update),
+              step("lookup", {"reference": revised}, {"code": "unavailable"}),
+              step("alternate", {"reference": revised}, {"value": fixture["revision"]})], value=fixture["revision"]),
         world("access_denied", [step("lookup", {"reference": reference}, {"code": "permission_denied"})],
               "escalate", reason="permission_denied"),
     ])
@@ -185,36 +194,47 @@ def snapshot_steps(steps):
     return steps
 
 
+def check_denied(check_names):
+    conditions = [equals(name, "code", "permission_denied") for name in check_names]
+    if len(conditions) > 16:  # The plan schema bounds each disjunction.
+        conditions = [{"op": "or", "args": conditions[:16]}, *conditions[16:]]
+    return {"op": "or", "args": conditions}
+
+
 def l6(case, fixture):
     public = case["public"]
     args = {"reference": public["subject"]}
     check_ids = public["checks"]
     check_names = [f"check_{index + 1}" for index in range(len(check_ids))]
-    preflight = check_names[0]
+    first, second, *remaining = check_names
+    dependencies = [(), (first,), *((second,) for _ in remaining)]
     actions = [action(name, "check", subject_args("subject") | {"check_id": check_id},
-                      depends=() if name == preflight else (preflight,))
-               for name, check_id in zip(check_names, check_ids, strict=True)]
+                      depends=depends)
+               for name, check_id, depends in zip(check_names, check_ids, dependencies, strict=True)]
     actions.extend(write_actions(reviewed_after=check_names))
     stops = [stop(exists("draft", "draft_id"), draft_id=ref("draft", "draft_id")),
-             stop(equals(preflight, "code", "permission_denied"), "escalate", reason=ref(preflight, "code")),
+             stop(check_denied(check_names), "escalate", reason="permission_denied"),
              *write_stops()]
 
     checks = []
     for index, (check_id, quality) in enumerate(zip(check_ids, fixture["qualities"], strict=True)):
         tool, equivalent = ("check", "check_alternate") if index % 2 == 0 else ("check_alternate", "check")
         checks.append(step(tool, args | {"check_id": check_id}, {"assessment": quality},
-                           after=[0] if index else [], equivalent_tools=[equivalent]))
+                           after=[min(index - 1, 1)] if index else [], equivalent_tools=[equivalent]))
     audit = step("audit_read", args, {"assessment": fixture["review"]})
     draft_id = f"draft-{public['subject']}"
     draft = step("stage", args | {"action": public["action"], "assessment": fixture["review"]}, {"draft_id": draft_id})
     denied = step("audit_read", args, {"code": "permission_denied"})
-    rejected_preflight = step("check", args | {"check_id": check_ids[0]}, {"code": "permission_denied"},
-                              equivalent_tools=["check_alternate"])
+    rejected_preflight = checks[0] | {"result": {"code": "permission_denied"}}
+    rejected_second = checks[1] | {"result": {"code": "permission_denied"}}
+    reordered = checks[:2] + list(reversed(checks[2:]))
     return "checklist_and_reviewed_draft", actions, stops, [
         world("reviewed_draft", snapshot_steps([*deepcopy(checks), audit, draft]), draft_id=draft_id),
-        world("audit_denied", snapshot_steps([deepcopy(checks[0]), *deepcopy(checks[:0:-1]), denied]),
+        world("audit_denied", snapshot_steps([*deepcopy(reordered), denied]),
               "escalate", reason="permission_denied"),
         world("preflight_denied", snapshot_steps([rejected_preflight]), "escalate", reason="permission_denied"),
+        world("later_check_denied", snapshot_steps([deepcopy(checks[0]), rejected_second]),
+              "escalate", reason="permission_denied"),
     ]
 
 
@@ -233,8 +253,9 @@ def l7(case, fixture):
                       depends=("draft", "confirmation"), when=grant)]
     # Commit consumes the event. The confirmation observation retains the grant
     # supplied with that reply, so completion and escalation remain disjoint.
-    missing_grant = {"op": "and", "args": [{"op": "not", "arg": exists("confirmation", "approval")},
-                                           {"op": "not", "arg": exists("event", "decision")}]}
+    no_decline = {"op": "or", "args": [{"op": "not", "arg": exists("event", "decision")},
+                                       {"op": "not", "arg": equals("event", "decision", "declined")}]}
+    missing_grant = {"op": "and", "args": [{"op": "not", "arg": exists("confirmation", "approval")}, no_decline]}
     stops = [stop(exists("delivery", "audit_ref"), audit_ref=ref("delivery", "audit_ref")),
              stop(equals("event", "decision", "declined"), "escalate", reason="approval_declined",
                   draft_id=ref("draft", "draft_id")),
@@ -248,11 +269,15 @@ def l7(case, fixture):
     refused = step("request_confirmation", {"draft_id": draft_id}, {},
                    event={"source": AUTHORITY, "decision": "declined", "draft_id": draft_id})
     unsigned = step("request_confirmation", {"draft_id": draft_id}, {"decision": "approved"})
+    grant_missing = step("request_confirmation", {"draft_id": draft_id}, {},
+                         event={"source": AUTHORITY, "decision": "approved", "draft_id": draft_id})
     delivery = step("commit", {"draft_id": draft_id, "approval": token}, {"audit_ref": audit_ref})
     return "fresh_grant_decline_and_unsigned_result", actions, stops, [
         world("approved", snapshot_steps([*deepcopy(pending), granted, delivery]), audit_ref=audit_ref),
         world("declined", snapshot_steps([*deepcopy(pending), refused]), "escalate", reason="approval_declined", draft_id=draft_id),
         world("unverified", snapshot_steps([*deepcopy(pending), unsigned]), "escalate", reason="approval_unverified", draft_id=draft_id),
+        world("missing_host_grant", snapshot_steps([*deepcopy(pending), grant_missing]), "escalate",
+              reason="approval_unverified", draft_id=draft_id),
         world("audit_denied", snapshot_steps([step("audit_read", args, {"code": "permission_denied"})]),
               "escalate", reason="permission_denied"),
     ]

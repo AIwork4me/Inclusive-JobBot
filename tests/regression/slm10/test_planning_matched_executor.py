@@ -5,6 +5,8 @@ from contextlib import contextmanager
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
+import subprocess
+import sys
 from threading import Thread
 
 import pytest
@@ -139,6 +141,28 @@ def test_direct_transport_does_not_follow_provider_redirects(tmp_path):
     trace, requests = run(tmp_path, "direct_acting_first", case(), service, [{"redirect": "/unexpected"}])
     assert not trace["complete"] and trace["failure"]
     assert service.calls == [] and len(requests) == 1
+
+
+def test_direct_live_trial_runs_without_the_sdk():
+    script = """
+import importlib.abc
+import sys
+
+import pytest
+
+class UnavailableSDK(importlib.abc.MetaPathFinder):
+    def find_spec(self, fullname, path=None, target=None):
+        if fullname == "google" or fullname.startswith("google.antigravity"):
+            raise ModuleNotFoundError(fullname, name=fullname)
+
+sys.meta_path.insert(0, UnavailableSDK())
+raise SystemExit(pytest.main([
+    sys.argv[1], "-q", "-k", "live_service and direct_acting_first", "-o", "asyncio_mode="
+]))
+"""
+    result = subprocess.run([sys.executable, "-c", script, __file__],
+                            capture_output=True, text=True, timeout=30)
+    assert result.returncode == 0, result.stdout + result.stderr
 
 
 def test_inferred_goal_is_not_shared_or_checked_against_the_hidden_selection(tmp_path):

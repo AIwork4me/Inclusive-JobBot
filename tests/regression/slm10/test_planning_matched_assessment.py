@@ -44,3 +44,10 @@ def test_terminal_fact_cannot_make_stale_scope_path_pass():
     assert result["software_dimensions"]["final_facts"] == "PASS"
     assert result["software_dimensions"]["actual_call_path"] == "FAIL"
     assert result["software_dimensions"]["observed_workflow"] == "FAIL"
+
+
+def test_alternate_business_route_is_a_condition_not_an_execution_fault():
+    case, proof, world, trial = fixture("L4", "alternate_source")
+    verdicts = assess_trial(case, proof, world["world_id"], trial)["software_dimensions"]
+    assert verdicts["conditional_route"] == "PASS"
+    assert verdicts["recovery_response"] == "NOT_RUN"

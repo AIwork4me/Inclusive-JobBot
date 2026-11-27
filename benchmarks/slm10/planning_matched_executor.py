@@ -4,16 +4,19 @@ import asyncio
 from collections import Counter
 from contextlib import closing
 from copy import deepcopy
+from hashlib import sha256
 from http.client import HTTPConnection, HTTPException
 import json
 from pathlib import Path
 from urllib.parse import urlsplit
+from uuid import uuid4
 
 from benchmarks.agentic_planning_v2.events import refused, scope_changed
 from benchmarks.agentic_planning_v2.oracle import validate
 from benchmarks.agentic_planning_v2.runner import plan_request
 from benchmarks.agentic_planning_v2.types import input_schema, matches
 from benchmarks.ij06_sdk.wire_boundary import MAX_BODY, ApprovalQueue, assemble_reply, wire_boundary
+from benchmarks.root_cause.generation_capture import correlate, protocol_reply
 from benchmarks.tool_calling_v2.oracle import equal
 from evaluation.aeve.runtime import canonical, fingerprint
 from model_gateway.errors import GatewayError
@@ -42,25 +45,47 @@ def _acting_messages(case, plan_raw):
     return [{"role": "system", "content": ACT_SYSTEM}, {"role": "user", "content": canonical(visible).decode()}]
 
 
+def _observe_provider(client, event):
+    stream = json.loads(event["provider_request"])["stream"]
+    try:
+        response = protocol_reply(event["response"].encode(), stream and event["http_status"] == 200)
+        choices = response["choices"]
+        event.update(completion_id=response["id"], parsed_response=choices,
+                     provider_stop_reason=choices[0]["finish_reason"], usage=response.get("usage"))
+        if client.trace_path is not None:
+            source = correlate(client.read_trace(), response, stream)
+            if not source.get("rendered_prompt"):
+                raise ValueError("rendered prompt missing from native capture")
+            event["source_generation"] = source
+    except (AttributeError, IndexError, KeyError, TypeError, ValueError) as error:
+        event["native_evidence"] = {"status": "BLOCKED", "reason": str(error)}
+    else:
+        event["native_evidence"] = {"status": "PASS" if client.trace_path is not None else "NOT_RUN"}
+
+
 class _DirectOrigin:
     """Keep the native observer while using an HTTP client that cannot follow redirects."""
 
     def __init__(self, client):
+        self.client = client
         self.port = urlsplit(client.base_url).port
-        self.trace_path = client.trace_path
-        self.read_trace = client.read_trace
 
-    def post(self, path, body):
+    def capture(self, body, trial_id):
         data = json.dumps(body, ensure_ascii=False).encode()
         if len(data) > MAX_BODY:
             raise ValueError("provider request exceeds the capture limit")
         with closing(HTTPConnection("127.0.0.1", self.port, timeout=60)) as connection:
-            connection.request("POST", path, data, {"Content-Type": "application/json"})
+            connection.request("POST", "/v1/chat/completions", data, {"Content-Type": "application/json"})
             response = connection.getresponse()
             raw = response.read(MAX_BODY + 1)
             if len(raw) > MAX_BODY or response.getheader("Content-Encoding"):
                 raise ValueError("unsupported provider response size or encoding")
-            return response.status, response.getheader("Content-Type", "application/json"), raw
+            event = {"trial_id": trial_id, "provider_request_id": uuid4().hex, "provider_request": data.decode(),
+                     "provider_request_sha256": sha256(data).hexdigest(), "http_status": response.status,
+                     "content_type": response.getheader("Content-Type", "application/json"), "response": raw.decode(),
+                     "response_sha256": sha256(raw).hexdigest()}
+        _observe_provider(self.client, event)
+        return event
 
 
 class _Trial:
@@ -165,12 +190,10 @@ class _Trial:
             self.grant = (event["draft_id"], token)
 
     def direct_phase(self, messages, phase, budget):
-        from .native_diagnostics import direct
-
         client = _DirectOrigin(self.client)
         for _ in range(budget):
             body = self.profile({"messages": [*messages, *self.history]}, phase)
-            event = direct(client, body, self.trial_id)
+            event = client.capture(body, self.trial_id)
             event.update(phase=phase, status="FAIL")
             self.wire.append(event)
             response = self.check_response(event, phase, event["content_type"], event["response"].encode())
@@ -201,7 +224,6 @@ class _Trial:
         from google.antigravity.hooks import policy
         from google.antigravity.tools.tool_runner import ToolWithSchema
 
-        from .native_diagnostics import observe_wire
         from .tc_execution import adapted_sse
 
         target = target / phase
@@ -246,7 +268,7 @@ class _Trial:
             return adapted_sse(media, raw, event)
 
         with wire_boundary(self.client.base_url, approvals, self.wire, trial_id=self.trial_id,
-                           observe=lambda event: observe_wire(self.client, event), max_stream_bytes=STREAM_LIMIT,
+                           observe=lambda event: _observe_provider(self.client, event), max_stream_bytes=STREAM_LIMIT,
                            adapt_request=request_adapter, adapt_response=response_adapter) as endpoint:
             config = LocalOpenAIAgentConfig(
                 model=self.alias, base_url=endpoint.url, system_instructions=messages[0]["content"],
