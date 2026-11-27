@@ -13,6 +13,8 @@ DX-M2 is the migration target. The Radeon gfx1151 evidence qualifies only its re
 
 The existing GGUF and Vulkan setup supplies a comparison baseline. DX-M2 needs a separately identified deployable artifact and live device evidence. The public DX-AllSuite compiler documentation describes ONNX-to-DXNN for its documented path. The actual DX-M2 LLM pipeline, supported operators, formats and build versions need confirmation from the vendor package used on the target board. [Compiler documentation](https://developer.deepx.ai/tech-docs/next/DX-AllSuite/) · [JobBot inference architecture decision](../docs/decisions/ADR-001-LLAMA-CPP-PRIMARY-INFERENCE.md)
 
+Windows Plug and Play detected one local NPU compute accelerator on the workstation during the IJ-SLM-1.1 audit. That inventory row does not establish a DX-M2 device or an admitted model/runtime combination. Physical NPU inference and the DX-M2 comparison remain NOT_RUN.
+
 ## Matched measurements
 
 Freeze the task roster, decoding, tokenizer and runtime policy before comparing resource arms. Count physical attempts, evaluable outcomes and blocked telemetry independently. Use distinct profiles for each quantization package, context setting and concurrency level. Each arm records latency distributions, input/output tokens, peak host and accelerator memory, accelerator utilization, and host/device power where instrumented. Report attempts and summed measured cost per correct business fact, strict output, verified execution and scoped qualified completion. This experiment uses the separate hardware and NPU allocation. [Core and independent experiment allocations](../atlas/slm/v1.0/execution_plan.json)

@@ -17,6 +17,7 @@
 | M4 cross-level partition and proposed world allocation | PASS | Candidate 0.4 preserves 800 cases and the 20,800 proposed slots, with 2,500 software worlds. Old L1 lookup recovered none of 800 previously predictable values. Physical and semantic qualification remain open. [Candidate](atlas/slm/v1.0/planning-v2-source-candidate-0.4/manifest.json) |
 | M1 five-model matrix software replay | PASS | All 8,250 planned slots are reported with applicability and observation denominators. Physical coverage remains BLOCKED. [Report](atlas/slm/v1.0/tc-five-model-report.json) |
 | M4 independent review intake verification | PASS | Packet, submission digest, scenario completeness and duplicate controls are checked in software. Human review, reconciliation and issuer pin registration remain outstanding. |
+| M3 output contract normalization replay | PASS | 1,467 output-contract opportunities on sealed D/F evidence with proved facts. Exact answer payload retained. Physical treatment and overhead remain NOT_RUN. [Guide](reports/SLM10_CAPABILITY_COMPENSATION_GUIDE.md) |
 
 ## IJ-SLM-1.0 baseline
 
