@@ -4,14 +4,17 @@
 
 | Task | Status | Evidence and scope |
 |---|---|---|
+| M0 baseline reconciliation | PASS | Checked remote, exact startup CI, live Radeon lease, assets and local sealed queue. [Resume audit](reports/SLM11_RESUME_AUDIT.md) |
 | Three-model priority measurement replay | PASS | Reconstructed 4,950 A/B/D trial outcomes from 141 portable Radeon seals. [Milestone](atlas/slm/v1.0/milestones/tc-priority/README.md) |
-| M2 independent remote reproduction | BLOCKED | Local replay passed. Await remote checkout and exact HEAD verification of the publication. |
+| M2 priority datasheet replay | PASS | Local and independent hosted GitHub Windows/Linux checkouts reproduced the figures at `5c507f22ec5b00a66d8fb4edfd728aa3920cf60b`. The workstation remote clone remains pending. |
 | M5 schema, mapping and acceptance contract | PASS | TC-V3-scoped exchange. Interventions remain HYPOTHESIS and the matched NanoAgent experiment remains NOT_RUN. [Handoff](atlas/slm/v1.0/nanoagent-handoff/NANOAGENT_ENGINEERING_HANDOFF.md) |
-| M5 independent remote reproduction | BLOCKED | Local artifact and seal digest replay passed. Await remote replay of the handoff publication. |
+| M5 evidence replay | PASS | Local and hosted GitHub Windows/Linux checkouts verified the handoff and 141 published seal digests at the publication SHA. NanoAgent physical acceptance remains NOT_RUN. |
 | AG-11 owner instructions and offline controls | PASS | [Owner procedure](AG11_OWNER_ACTION_REQUIRED.md). Physical collector capture and independent review remain BLOCKED. |
 | M4 L5 alternate denial repair | PASS | Software replay covered all original 500 L5 worlds and 200 new alternate-denial variants. [Candidate 0.3](atlas/slm/v1.0/planning-v2-source-candidate-0.3/manifest.json) |
 | M4 L6 stage provenance | PASS | Software assessment binds observed audit, public action and captured draft state. Formal scope and physical database verification remain BLOCKED. |
 | M4 human blind review | NOT_RUN | Project engineering prepared 600 MULTITOOL cases and 800 Planning cases. Independent reviewer assignment, observations and credential issuance are pending. [Reviewer inputs and procedure](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md) |
+| TC-V3 F publication | PASS | 1,260/1,650 F captures verified and published with matching artifacts. Across all models the publication contains 6,210/8,250. D25 remains BLOCKED. |
+| M4 cross-level partition and proposed world allocation | PASS | Candidate 0.4 preserves 800 cases and the 20,800 proposed slots, with 2,500 software worlds. Old L1 lookup recovered none of 800 previously predictable values. Physical and semantic qualification remain open. [Candidate](atlas/slm/v1.0/planning-v2-source-candidate-0.4/manifest.json) |
 
 ## IJ-SLM-1.0 baseline
 

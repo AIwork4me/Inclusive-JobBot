@@ -1,6 +1,6 @@
 # Independent benchmark review
 
-The two packets use synthetic case inputs from MULTITOOL-V2 candidate 0.3 and Planning V2 source candidate 0.3. Their manifests pin the exact candidate and projected inputs. The Planning packet includes the two alternate-denial variants. Its cross-level contamination fixes are pending. Review findings for either packet apply to its own digest.
+Use the [MULTITOOL-V2 candidate 0.3 packet](MULTITOOL_V2_BLIND_REVIEW_PACKET/PACKET_MANIFEST.json) and the [Planning V2 candidate 0.4 packet](PLANNING_V2_BLIND_REVIEW_PACKET/candidate-0.4/PACKET_MANIFEST.json) for active review. The Planning packet includes the two alternate-denial variants and the cross-level fixture separation. The candidate 0.3 Planning packet is retained for historical review. Each verdict binds only its exact packet digest.
 
 ## Blind phase
 

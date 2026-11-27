@@ -9,6 +9,7 @@ from evaluation.aeve.runtime import ROOT, canonical
 
 from .multitool_v2_revised import FOLDER as MULTITOOL, candidate as multitool_cases
 from .planning_l5_candidate import OUT as PLANNING, candidate as planning_cases
+from .planning_partition_candidate import OUT as PLANNING_PARTITION, candidate as planning_partition
 from .planning_roster import ATLAS, output_files
 
 OUT = ATLAS / "release-review"
@@ -20,8 +21,7 @@ def event_input(event):
     return {k: v for k, v in event.items() if k != "approval"} | {"has_external_grant": "approval" in event}
 
 
-def planning_rows():
-    cases, proofs = planning_cases()
+def planning_rows(cases, proofs):
     for case, proof in zip(cases, proofs, strict=True):
         if case["case_id"] != proof["case_id"]:
             raise ValueError("Planning public and world cases do not match")
@@ -73,11 +73,16 @@ def main():
     args = parser.parse_args()
     packets = [
         ("MULTITOOL_V2_BLIND_REVIEW_PACKET", MULTITOOL, multitool_rows()),
-        ("PLANNING_V2_BLIND_REVIEW_PACKET", PLANNING, planning_rows()),
+        ("PLANNING_V2_BLIND_REVIEW_PACKET", PLANNING, planning_rows(*planning_cases())),
     ]
     for name, source, rows in packets:
         output_files(OUT / name, packet(name, source, rows), not args.write)
         print(f"{name} verified")
+    cases, proofs, _ = planning_partition()
+    name = "PLANNING_V2_BLIND_REVIEW_PACKET"
+    output_files(OUT / name / "candidate-0.4",
+                 packet(name, PLANNING_PARTITION, planning_rows(cases, proofs)), not args.write)
+    print("Planning candidate 0.4 blind review packet verified")
 
 
 if __name__ == "__main__":
