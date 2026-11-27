@@ -12,6 +12,7 @@ from evaluation.aeve.archive import check_text, digest
 from evaluation.aeve.runtime import ROOT, canonical
 
 from .nanoagent_handoff import OUT as PRIORITY_HANDOFF
+from .online_compensation_report import OUTPUT as ONLINE, verify as verify_online
 from .tc_five_model_milestone import OUT as MILESTONE
 from .tc_five_model_report import index
 
@@ -81,6 +82,7 @@ def report():
     lfm = read(lfm_path)
     if lfm["physical_execution"] != "PASS" or lfm["measured_trajectories"] != 24 or lfm["measured_pairs"] != 12:
         raise ValueError("LFM3 evidence does not cover all preregistered physical pairs")
+    online = verify_online()
     return {
         "version": "1.1.0",
         "scope": "TC-V3/1.0 five-model physical baseline and separately attributed compensation evidence",
@@ -98,8 +100,10 @@ def report():
             "paired_resource_pareto": reference(ATLAS / "tc-quality-resource-pareto.json"),
             "r0_r7_contract": reference(old_contract), "three_model_component_mappings": reference(old_mapping),
             "mini_cpm5_repeats_and_termination": reference(ROOT / "reports/SLM10_SDK_CAPABILITY_LOSS_ROOT_CAUSE.md"),
+            "mini_cpm5_retest_contract": reference(ROOT / "reports/SLM11_MINICPM5_REPEAT_TERMINATION.md"),
             "lfm3_compact_result_physical": reference(lfm_path),
             "offline_normalization": reference(normalization_path),
+            "online_output_panel": reference(ONLINE / "manifest.json"),
         },
         "compensation": {
             "MiniCPM5": {"candidate": "A", "target": "repeated proposals and incomplete stopping",
@@ -107,8 +111,14 @@ def report():
             "LFM3": {"candidate": "B", "target": "compact tool-result encoding",
                      "physical_trials": 24, "outcome": lfm["scoped_effect"]["finding"], "qualification": "HYPOTHESIS"},
             "Qwen3.5_and_Ministral": {"candidates": ["D", "F"], "target": "structured terminal JSON",
-                                      "offline_replay_count": 1596, "physical_intervention": "NOT_RUN",
-                                      "attribution": "HOST_NORMALIZED", "qualification": "HYPOTHESIS"},
+                                      "offline_replay_count": 1596, "physical_intervention": "PASS",
+                                      "online_scope": "separate synthetic terminal-only panel",
+                                      "online_by_candidate": {
+                                          candidate: {"score": reference(ONLINE / candidate / "score.json"),
+                                                      "trials": len(result["rows"]),
+                                                      "usable_by_arm": {arm: values["usable"] for arm, values in result["arms"].items()}}
+                                          for candidate, result in online.items()},
+                                      "qualification": "HYPOTHESIS"},
         },
         "formal_trial_attribution": 0,
     }

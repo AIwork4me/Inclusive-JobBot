@@ -28,6 +28,8 @@
 | P0-C independent release intake | PASS | Legal path templates and signed receipts, reconciliation, issuer scope and runner-binding guard are software-checked. Formal dispatch remains BLOCKED pending authenticated external receipts, credential issuance and a registered physical launcher. [Workflow](atlas/slm/v1.0/release-review/RELEASE_WORKFLOW.md) |
 | P0-B independent output compensation design | PASS | Preregistered commensurate D/F SDK terminal-only experiments use four arms and score after execution. The physical intervention is a separate zero-core track. [Experiment](reports/SLM11_ONLINE_COMPENSATION.md) |
 
+| P0-B Qwen3.5 and Ministral physical interventions | PASS | Verified 192 synthetic SDK terminal-output trials and 216 provider requests from the two original captures. Grammar lost two correct Qwen outcomes. Host normalization and grammar each gained 12 usable Ministral outcomes. Zero core attribution. [Replay and results](reports/SLM11_ONLINE_COMPENSATION.md) |
+| P0-B MiniCPM5 independent repeat and termination retest | NOT_RUN | Separate intervention, guard negative controls and endpoint scope documented. New cohort and runtime integration remain pending. [Retest contract](reports/SLM11_MINICPM5_REPEAT_TERMINATION.md) |
 | P0-B portable verifier offline replay | PASS | Hosted-style replay verifies all 81 captured trials with the live Antigravity SDK unavailable. Observer identity comes from the sealed control. |
 
 ## IJ-SLM-1.0 baseline

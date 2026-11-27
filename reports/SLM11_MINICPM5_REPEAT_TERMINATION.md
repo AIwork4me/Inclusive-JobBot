@@ -1,0 +1,19 @@
+# MiniCPM5 repeat and termination retest contract
+
+The existing MiniCPM5 TC-V3 baseline observed 36 repeated proposals and repeated executions in 50 SDK-first single-tool tasks. The historical development guard prevented two callbacks on a dependent example and the model still failed to produce a terminal answer. The independent retest is NOT_RUN. Each component remains HYPOTHESIS. [Sealed loss analysis](SLM10_SDK_CAPABILITY_LOSS_ROOT_CAUSE.md) · [Adapter experiments](SLM10_MODEL_SPECIFIC_ADAPTER_GUIDE.md)
+
+Use new synthetic task families. Freeze the public prompts, private world generator, expected action DAG, verification rules, ordered arms and seeds before inference. Keep exact response and tool results until after the model session and score under a separate entry point. Hold the model asset, runtime, SDK, prompt and visible tool contracts fixed within each case and seed. Report per-case paired differences and aggregate uncertainty by shared scenario family, with both seeds grouped under their scenario.
+
+| Contrast | Independent change | Primary measure |
+| --- | --- | --- |
+| Explicit Action State | Add only a model-visible record of completed authorized action identifiers to the next request. | Repeated native proposals before host policy, useful new actions and active termination. |
+| Completed Action Ledger | Keep current completed-action state in a host-only ledger keyed by authority, resource, revision and execution identity. | Exact completed effects, repeated proposals retained in the capture and additional executions. |
+| Observation provenance | Attach an observation reference to an executed callback, its delivery turn, scope and revision. | Use of available fresh observations and correct final facts with earlier and revoked receipts as negative controls. |
+| Bounded Termination Policy | Apply the registered budget and authority rules at the SDK boundary. | Model-declared stop, correctly blocked incomplete stop and accepted terminal outcome as distinct metrics. |
+| Duplicate Execution Guard | Enable reuse solely for a separately authorized, fresh, immutable read. | Guard interception, extra callback executions and legitimate repeats left eligible. |
+
+Every contrast pairs to the unmodified SDK reference. Use a separate combined arm only after the five individual contrasts have been measured. The guard and ledger report HOST attribution. Separate model proposal, policy decision, callback execution, released observation, consumed facts, model stop and accepted business outcome. Retain all four dispositions at all levels.
+
+The workload must include the same tool on two different entities, retry after a failed observation, a requested scope change, expiry of a once-valid observation, an affirmative write supported by a trusted synthetic approval, and invalidation of an earlier confirmation by a material change. Also include a fresh redundant immutable read as a positive guard control. Guard hits require the same authority and immutable revision, a different source proposal identity and an auditable fresh result. A call that needs new data or approval proceeds through the normal authorized path. Assert no write or confirmation can be issued by the guard. The authenticated stateful and affirmative scopes govern any corresponding formal physical claims.
+
+Current Action State and guard implementation can supply software controls. The existing LFM3 holdout runner accepts request adapters for read-only worlds. The full MiniCPM5 experiment requires a separate roster and the corresponding physical guard, provenance and termination instrumentation. Preserve its zero core attribution and keep the D/F terminal-only experiment separate. [Guard and terminal controls](../tests/regression/slm10/test_sdk_adapters.py) · [Scoped benchmark release workflow](../atlas/slm/v1.0/release-review/RELEASE_WORKFLOW.md)

@@ -61,3 +61,7 @@ python -m benchmarks.slm10.independent_release verify --suite AGENTIC-PLAN-V2 --
 ```
 
 The repository has no authenticated independent reviews, authorized trust registry, or issued release records for either active candidate. The preflight verifies supplied private records. A successful verification still reports `formal_dispatch=BLOCKED` and `physical_execution=NOT_RUN`. Activation requires a registered matched physical dispatcher for the exact candidate and scope, with live handoff and runtime admission at launch. The formal guard rejects dispatch at this point. Historical MULTITOOL and Planning binding helpers are scoped software checks. The Planning historical helper binds candidate 0.2.
+
+## Statistical unit for physical reports
+
+Bind each formal slot to its authored task family and selected world before dispatch. Keep all repeats, translations, profile comparisons and shared worlds together when deriving matched quality or compensation intervals. Use the connected groups of shared task families and reused worlds as resampling units. Report the group count, coverage of complete pairs and unavailable intervals when the frozen grouping cannot support an interval. Preserve task and trial counts in addition to the independent-group denominator.

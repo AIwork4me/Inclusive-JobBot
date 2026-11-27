@@ -1,6 +1,6 @@
 # AG-11 owner action required
 
-**AG-11 is BLOCKED.** Only the machine owner can authorize and run the collector in a separately elevated console. The ordinary-token process and offline replay controls are in `tests/regression/slm10/test_ag11_owner.py`. The current Radeon queue keeps its lease and takes precedence.
+**AG-11 is BLOCKED.** Only the machine owner can authorize and run the collector in a separately elevated console. The ordinary-token process and offline replay controls are in `tests/regression/slm10/test_ag11_owner.py`. The frozen TC-V3 queue and D/F interventions have yielded the Radeon. Confirm the shared lease is idle before starting a collection window.
 
 On the ordinary workstation token, the collector syntax, Get-WinEvent and logman availability, all four TCP/UDP IPv4/IPv6 loopback controls, and 10 offline regression cases passed. The owner capture and process-tree attribution are pending.
 

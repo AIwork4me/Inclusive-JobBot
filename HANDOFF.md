@@ -6,6 +6,8 @@ All 8,250 TC-V3 trial slots have verified Radeon seals. Preserve the four frozen
 
 The scheduled Radeon diagnostic captures have finished. Verify their public artifacts with `python -m benchmarks.slm10.physical_followup`. Physical execution coverage, scoped assessments and acceptance are distinct. The independent LFM3 result is indeterminate. P0-E and Extension carry genuine failures or unresolved scoped outcomes. [Diagnostic evidence](reports/SLM11_PHYSICAL_FOLLOWUP.md)
 
+The separate D/F terminal-only panel has 192 verified Radeon trials, 216 provider requests and zero core attribution. Replay with `python -m benchmarks.slm10.online_compensation_report`. MiniCPM5 repeat and termination physical retests remain pending. [D/F interventions](reports/SLM11_ONLINE_COMPENSATION.md) · [MiniCPM5 contract](reports/SLM11_MINICPM5_REPEAT_TERMINATION.md)
+
 MULTITOOL candidate 0.3 and Planning candidate 0.4 use the active independent-review packets. Use Planning `candidate-0.4-review-v3`. The independent registrar and issuer must supply authentic receipts and a matching runner registration before candidate dispatch. [Reviewer instructions](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md) · [Release workflow](atlas/slm/v1.0/release-review/RELEASE_WORKFLOW.md)
 
 For work on local Gemma or a future model with separately verified active-parameter counts, start with `python -m benchmarks.slm10.local_model_preflight`. Supplemental model preparation carries zero frozen core attribution. [Local model preparation](docs/SLM11_LOCAL_MODEL_PREPARATION.md)

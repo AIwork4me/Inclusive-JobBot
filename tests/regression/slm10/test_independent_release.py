@@ -85,13 +85,13 @@ def synthetic_bundle(tmp_path, request):
     """Generate ephemeral software controls without giving them release authority."""
     from hashlib import sha256
 
-    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+    ed25519 = pytest.importorskip("cryptography.hazmat.primitives.asymmetric.ed25519")
     from evaluation.aeve.runtime import fingerprint
     from benchmarks.slm10.blind_review_receipt import expectation_digest
     from benchmarks.slm10.planning_roster import object_json
 
     suite, scope = request.param, release.SCOPES[0]
-    keys = {role: Ed25519PrivateKey.generate() for role in release.ROLES}
+    keys = {role: ed25519.Ed25519PrivateKey.generate() for role in release.ROLES}
     trust_file = tmp_path / "trust.json"
     trust_pin = _write(trust_file, {"schema_version": "1.0"} | {
         role: {"actor_id": f"software-control-{role}", "ed25519_public_key": private.public_key().public_bytes_raw().hex()}

@@ -3,6 +3,7 @@ from collections import Counter
 from copy import deepcopy
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -104,7 +105,9 @@ def test_schema_request_contains_only_public_shape_and_retry_only_fixed_prompt()
 def test_runtime_does_not_import_scoring_module():
     command = ('import sys; import benchmarks.slm10.online_compensation; '
                'assert "benchmarks.slm10.online_compensation_score" not in sys.modules')
-    subprocess.run([sys.executable, "-c", command], check=True, cwd=Path(run.__file__).parents[2])
+    root = Path(run.__file__).parents[2]
+    environment = {**os.environ, "PYTHONPATH": str(root / "src")}
+    subprocess.run([sys.executable, "-c", command], check=True, cwd=root, env=environment, timeout=30)
 
 
 def test_offline_score_distinguishes_syntax_facts_and_uncertainty():

@@ -1,6 +1,28 @@
 # P0-B SDK terminal-output compensation
 
-The four-arm Qwen3.5-2B and Ministral-3-3B experiment is preregistered as `IJ-SLM11-P0B-ONLINE-OUTPUT/1.0`. Software controls are `PASS`. Physical arms are `NOT_RUN` for both models. This panel contributes zero formal core trials. [Capture runner](../benchmarks/slm10/online_compensation.py) · [Offline scorer](../benchmarks/slm10/online_compensation_score.py)
+The four-arm Qwen3.5-2B and Ministral-3-3B experiment is preregistered as `IJ-SLM11-P0B-ONLINE-OUTPUT/1.0`. The full 192-slot physical panel is `PASS` for capture and replay. D and F completed 96 slots each through the local Antigravity SDK and Radeon, with 96 and 120 provider requests respectively. This panel contributes zero formal core trials. [Capture runner](../benchmarks/slm10/online_compensation.py) · [Offline scorer](../benchmarks/slm10/online_compensation_score.py)
+
+## Physical results
+
+Each arm has 24 observations on 12 independent case units at two seeds. Counts below are PASS. Remaining observed assessments are FAIL. All 192 slots had a complete tool-free terminal stop.
+
+| Model | Arm | Schema | Facts | Usable | Uncertainty | Median prompt / completion tokens | Requests per trial | Trial wall P50 / P95 |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Qwen3.5 | Native | 24 | 10 | 10 | 16 | 156 / 31 | 1 | 3,242 / 3,773 ms |
+| Qwen3.5 | Host normalization | 24 | 10 | 10 | 16 | 156 / 31 | 1 | 3,231 / 3,366 ms |
+| Qwen3.5 | Grammar | 24 | 8 | 8 | 14 | 156 / 30 | 1 | 3,256 / 3,280 ms |
+| Qwen3.5 | Bounded retry | 24 | 10 | 10 | 16 | 156 / 31 | 1 | 3,223 / 3,288 ms |
+| Ministral | Native | 0 | 12 | 0 | 14 | 148 / 30 | 1 | 3,252 / 3,353 ms |
+| Ministral | Host normalization | 24 | 12 | 12 | 14 | 148 / 30 | 1 | 3,252 / 4,288 ms |
+| Ministral | Grammar | 24 | 12 | 12 | 14 | 148 / 30 | 1 | 3,258 / 3,753 ms |
+| Ministral | Bounded retry | 0 | 16 | 0 | 16 | 321 / 60 | 2 | 6,512 / 7,060 ms |
+
+- Qwen3.5 already satisfied the public shape in every native slot. Retry never triggered. The grammar lost correct facts in both repeats of one case. Neither host normalization nor bounded retry changed the usable outcome.
+- Ministral gained 12 usable results across six cases under host normalization and under grammar, with all original fact outcomes preserved by each. Both met the preregistered descriptive threshold. Paired median trial-wall changes were +3.39 ms and +4.91 ms. Both arms used one provider request and the median paired token changes were zero.
+- Ministral retry triggered in all 24 slots. Four observations across two cases gained correct facts. Usable output remained at zero because the terminal shape still failed. Median paired costs were an extra request, 173 prompt tokens, 31 completion tokens and 3,258 ms.
+- The 1,596 historical counterfactual records cover a different task surface. All production and tool-backed compensation claims retain HYPOTHESIS. MiniCPM5 has a separate repeat and termination contract. [Historical replay](../atlas/slm/v1.0/tc-output-normalization-replay.json) · [MiniCPM5 retest](SLM11_MINICPM5_REPEAT_TERMINATION.md)
+
+The portable publication retains the exact public provider requests and response bytes, projected observer records, per-trial dispositions and Radeon process samples. The exact raw SDK workspace messages, native prompt token IDs and complete private traces stay on the workstation under the recorded digests. Private replay verified both runs before export. Public replay independently recomputes the outcomes and resource summaries from the published projections. [Manifest](../evidence/IJSLM/online-compensation/manifest.json) · [Qwen3.5 scores](../evidence/IJSLM/online-compensation/D/score.json) · [Ministral scores](../evidence/IJSLM/online-compensation/F/score.json)
 
 ## Cohort and registration
 
@@ -38,7 +60,7 @@ The private capture binds the run ID, Git SHA, source checksums, model repositor
 
 ## Reproduce
 
-Run the two no-dispatch commands from the linked worktree to verify the registration. Run either physical command only after the workstation owner releases the AG-11 slot and the other frozen or diagnostic GPU queues have yielded. The explicit dispatch uses the existing shared Radeon lease and requires a fresh candidate-specific capture directory. No hardware or OS settings need to change.
+Run `python -m benchmarks.slm10.online_compensation_report` to verify the portable publication without dispatch. The two registered entry points can also print their preregistration without dispatch. Run either physical command only after the workstation owner releases the AG-11 slot and the other frozen or diagnostic GPU queues have yielded. The explicit dispatch uses the existing shared Radeon lease and requires a fresh candidate-specific capture directory. No hardware or OS settings need to change.
 
 ```powershell
 $assetRoot = (Resolve-Path ../..).Path
@@ -56,4 +78,4 @@ $f = Join-Path $private 'F'
 & $python -m benchmarks.slm10.online_compensation_score --capture $f --output (Join-Path $private 'F-score.json')
 ```
 
-The focused regression exercises the real Windows SDK against a scripted loopback SSE provider, plus software controls for matching, evidence integrity, normalization, retry, uncertainty and missing-resource attribution. This is software evidence. The model and Radeon cells remain `NOT_RUN`. [Regression coverage](../tests/regression/slm10/test_online_compensation.py)
+The focused regression exercises the real Windows SDK against a scripted loopback SSE provider, plus software controls for matching, evidence integrity, normalization, retry, uncertainty and missing-resource attribution. The scripted loopback control is software evidence. The physical table above is derived from the separate checked Radeon archive. [Regression coverage](../tests/regression/slm10/test_online_compensation.py)

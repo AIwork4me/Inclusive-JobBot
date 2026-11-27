@@ -4,9 +4,9 @@ Use the [schema](CAPABILITY_EXCHANGE.schema.json) and [exchange](CAPABILITY_EXCH
 
 The baseline covers all 8,250 frozen TC-V3 physical executions. Strict D25 remains BLOCKED. The exchange links the verified five-model matrix, first-attempt pairs, streaming agreement, repeat reliability, resource Pareto, raw trial seal inventory and per-model failure examples. SDK costs are same-case, same-seed SDK-first minus Direct-first. Missing whole-task latency remains unavailable.
 
-- MiniCPM5 repeat proposals and termination remain separate targets for future independent interventions.
+- MiniCPM5 repeat proposals and termination have a separate retest contract with distinct model, guard and terminal metrics. [MiniCPM5 retest](../../../../../reports/SLM11_MINICPM5_REPEAT_TERMINATION.md)
 - The LFM3 compact-result holdout has 24 verified Radeon trajectories. The scoped finding is INDETERMINATE.
-- Qwen3.5 and Ministral have 1,596 HOST_NORMALIZED counterfactual observations. The corresponding online replay and other structured output arms remain NOT_RUN. These entries preserve the frozen native and SDK results.
+- Qwen3.5 and Ministral have 1,596 HOST_NORMALIZED counterfactual observations. An independently authored terminal-only panel adds 192 physical SDK trajectories across native output, host normalization, grammar and bounded retry. The exchange links separate per-model outcomes and resources. These observations preserve the frozen native and SDK results. [P0-B panel](../../../../../reports/SLM11_ONLINE_COMPENSATION.md)
 
 The scope of demonstrated capabilities remains the frozen synthetic tool-calling workload. All compensation choices listed here remain HYPOTHESIS. The exchange records zero additional core trials.
 
