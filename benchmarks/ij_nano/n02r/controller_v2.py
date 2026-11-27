@@ -35,13 +35,14 @@ import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "benchmarks" / "root_cause"))
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))  # ij_nano
 sys.path.insert(0, str(ROOT / "src"))
 import gpu_lease  # noqa: E402  (host-wide named-mutex lease, reused)
 
 from n02r import tasks as tasks_mod  # noqa: E402
 from n02r import arms_v2 as arms  # noqa: E402
 from n02r import scorer  # noqa: E402
+from n02r.controller import probe_audit, verify_thinking_kwarg  # noqa: E402
 
 MODELS = {
     "S1": ("models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf", "minicpm5-2b"),
@@ -388,6 +389,16 @@ class ControllerV2:
                         manifest_path.write_text(
                             json.dumps(man, indent=1, ensure_ascii=False),
                             encoding="utf-8")
+                        probe_audit(base, self.run_dir, model)
+                        kw, verified, ev = verify_thinking_kwarg(base)
+                        self.thinking_kwarg[model] = (kw, verified)
+                        (self.run_dir / f"thinking_verification_{model}.json").write_text(
+                            json.dumps({"model": model, "kwarg": kw,
+                                        "verified": verified, "evidence": ev},
+                                       indent=1, ensure_ascii=False),
+                            encoding="utf-8")
+                        print(f"[{model}|{profile}] thinking_kwarg={kw} "
+                              f"verified={verified}", flush=True)
                         current_key = key
                     executed += self._run_trial(base, model, arm, task,
                                                 budget, tid)
@@ -436,7 +447,12 @@ class ControllerV2:
             http_json, http_error, latency = self._post(base, path, body, 300)
             stage_records.append((1, path, http_json, http_error, latency))
             import re as _re
-            m = _re.search(r"\d+", ((http_json or {}).get("content") or ""))
+            stage1_content = ((http_json or {}).get("content")
+                              or ((http_json or {}).get("choices")
+                                  and http_json["choices"][0]
+                                  .get("message", {}).get("content"))
+                              or "")
+            m = _re.search(r"\d+", stage1_content)
             tools = arms._world_tools(task)
             if m and 1 <= int(m.group(0)) <= len(tools):
                 selected_tool = tools[int(m.group(0)) - 1]

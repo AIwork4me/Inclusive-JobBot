@@ -101,7 +101,10 @@ def json_schema_for(task: dict) -> dict:
 
 
 def _world_tools(task: dict) -> list[str]:
-    from .tasks import TOOLS
+    try:
+        from .tasks import TOOLS
+    except ImportError:                     # top-level import (controller)
+        from tasks import TOOLS
     return [t for t, _, _ in TOOLS[task["world"]]]
 
 

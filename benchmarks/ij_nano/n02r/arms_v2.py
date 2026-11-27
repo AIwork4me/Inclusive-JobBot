@@ -174,14 +174,20 @@ def build_request(arm: str, task: dict, budget: int,
 
     if arm == "P7S":
         if stage == 1:
+            # selection stage: chat, enumerated candidates, verified
+            # thinking-disabled mode when the template supports it (S1/S2/S3
+            # all verify) so the selection is not starved by reasoning burn
             tools = _world_tools(task)
             nums = "\n".join(f"{i+1}. {t}" for i, t in enumerate(tools))
-            prompt = (f"{_user_text(task, matched=False)}\n"
-                      f"Tools:\n{nums}\n"
-                      "Answer with the NUMBER of the tool to call only "
-                      f"(1-{len(tools)}).")
-            return "/completion", {"prompt": prompt, "n_predict": 8,
-                                   **_common()}
+            message = (f"{_user_text(task, matched=False)}\n"
+                       f"Tools:\n{nums}\n"
+                       "Answer with the NUMBER of the tool to call only "
+                       f"(1-{len(tools)}).")
+            body = {"messages": [{"role": "user", "content": message}],
+                    "max_tokens": 256, **_common()}
+            if thinking_kwarg:
+                body["chat_template_kwargs"] = {thinking_kwarg: False}
+            return "/v1/chat/completions", body
         if selected_tool is None:
             raise ValueError("P7S stage 2 requires the stage-1 selection")
         schema = _v1.json_schema_for(task)
