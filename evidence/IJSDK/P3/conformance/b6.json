@@ -1,0 +1,26 @@
+{
+ "schema_version": 1,
+ "arm": "b6",
+ "checked_utc": "2026-11-27T05:45:51Z",
+ "python": "3.12.10",
+ "packages": {
+  "langgraph": "1.2.24",
+  "langchain-openai": "1.8.5"
+ },
+ "support_tier": "sdk-native",
+ "checks": {
+  "c3_tool_roundtrip": {
+   "status": "PASS",
+   "tool_messages": 1,
+   "final_output": ""
+  },
+  "c2_chat": {
+   "status": "PASS"
+  },
+  "c1_connect": {
+   "status": "PASS"
+  }
+ },
+ "notes": "langgraph.prebuilt.create_react_agent (LangChain 1.x) + ChatOpenAI(base_url=...)",
+ "wire": []
+}
