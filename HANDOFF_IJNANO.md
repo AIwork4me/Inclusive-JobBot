@@ -12,7 +12,7 @@ Work from this worktree root (the folder containing this file).
 ```powershell
 git status --short --branch
 git log --oneline | Select-Object -First 12
-python scripts/tools/scan_sensitive.py --staged   # before every commit; read the output
+python scripts/tools/publish_check.py --staged   # fail-closed; before every commit
 Get-Process llama-server -ErrorAction SilentlyContinue
 python -I -m unittest discover -s tests/ij_nano -t .
 ```
@@ -34,9 +34,13 @@ gate PASS), **N06A-R** (Layer A execution-integrity hardening PASS — 8/8
 defect classes red-reproduced against `f3d5817` and repaired), **N05A**
 (cognitive evaluator gate PASS, scoped — 12 families, control battery +
 mutation tests, deterministic only). Under 1.2: **N1.2R** (resume verified;
-preserved artifacts checked incl. raw S2 `overall: FAIL`). Next lane:
-**N05AR** evaluator requalification (EV01–EV07), then N02R physical
-protocol causal analysis (GPU, under lease) and N03 profiling.
+preserved artifacts checked incl. raw S2 `overall: FAIL`), **N05AR**
+(evaluator requalification gate PASS — contract v2, all seven EV01–EV07
+concerns red-reproduced then repaired; 60-case battery, 9/9 comparator
+mutants detected, 19/19 reason codes reconciled), plus the fail-closed
+**publication check** with synthetic scanner control. Next lane: **N02R**
+physical protocol causal analysis (GPU, under lease), then N03 profiling
+on evaluator contract v2.
 Formal end-to-end business evaluation stays BLOCKED (IJN-B-002 narrowed).
 
 Branch: `mission/ij-nano-1.0-slm-native-agentic-runtime`, base `56c6c74b`
@@ -100,7 +104,9 @@ missions' state files.
   only, never write, never commit there.
 - Never present gfx1151-era evidence (default-branch IJ-0.x reports) as this
   machine's results; this workstation is gfx1100.
-- `scan_sensitive.py` exits 0 even when it reports findings — read the output
-  before every commit.
+- `scan_sensitive.py` has been observed to exit 0 even when it reports
+  findings — use `python scripts/tools/publish_check.py [--staged]`,
+  which decides from the parsed finding count (fail-closed; synthetic
+  control in `tests/ij_nano/test_publish_check.py`).
 - The pinned engine is llama.cpp **b12359**; any upgraded/patched engine is a
   separate experimental identity, never a silent replacement.

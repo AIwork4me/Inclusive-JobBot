@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-NANO-1.0",
   "mission_title": "SLM-native Agentic Runtime Co-design & Capability-driven Harness Optimization",
-  "updated_utc": "2026-11-27T21:10:00Z",
-  "current_phase": "IJ-NANO-1.2 active (order: docs/IJNANO_MISSION_ORDER_V1_2.md; physical cognitive discovery). Delivered: N00, N00R, N02 (physical qualification PASS). Delivered under 1.1: N00RR, N01 (gate PASS), N06A-R (gate PASS), N05A cognitive evaluator (gate PASS, scoped). Under 1.2: N1.2R resume verified against audited HEAD dfce2952; next lane N05AR evaluator requalification (EV01-EV07), then N02R physical protocol causal analysis under host-wide lease, then N03",
+  "updated_utc": "2026-11-27T13:04:00Z",
+  "current_phase": "IJ-NANO-1.2 active (order: docs/IJNANO_MISSION_ORDER_V1_2.md; physical cognitive discovery). Delivered: N00, N00R, N02 (physical qualification PASS). Delivered under 1.1: N00RR, N01 (gate PASS), N06A-R (gate PASS), N05A cognitive evaluator (gate PASS, scoped). Under 1.2: N1.2R resume verified against audited HEAD dfce2952; N05AR evaluator requalification gate PASS (contract v2, EV01-EV07); fail-closed publication check delivered with synthetic scanner control. Next lane: N02R physical protocol causal analysis under host-wide lease, then N03",
   "mission_order": "docs/IJNANO_MISSION_ORDER.md (verbatim preregistration, committed at N00)",
   "research_protocol": "docs/IJNANO_RESEARCH_PROTOCOL.md",
   "tracking_issue": 10,
@@ -156,12 +156,37 @@
     },
     "N05AR": {
       "title": "IJ-NANO-1.2 Targeted cognitive evaluator requalification (EV01-EV07)",
-      "progress": "not_started",
-      "status": "NOT_RUN",
+      "progress": "done",
+      "status": "PASS",
       "gate": "N05AR_COGNITIVE_EVALUATOR_INTEGRITY_GO",
-      "gate_status": "NOT_RUN",
+      "gate_status": "PASS",
       "gpu_required": false,
-      "note": "seven source-review concerns: state-predicate completeness (EV01), undeclared action arguments (EV02), predicate semantics split (EV03), identifier collision classes (EV04), missing unit handling (EV05), comparator-level mutation testing (EV06), reason-code coverage reconciliation incl. PARSE_INVALID + dataset-level qualification rules (EV07); each concern reproduced red before repair; remains separate from the end-to-end business Oracle"
+      "delivered_utc": "2026-11-27T13:04:00Z",
+      "evidence": [
+        "reports/IJNANO_05AR_COGNITIVE_EVALUATOR_REQUALIFICATION.md",
+        "evidence/IJNANO/N05AR/defect_ledger.json",
+        "evidence/IJNANO/N05AR/red_run.txt",
+        "evidence/IJNANO/N05AR/green_run.txt",
+        "evidence/IJNANO/N05AR/coverage_matrix.json",
+        "src/nanoagent/eval/{units,contracts,comparators,controls,qualification}.py",
+        "tests/ij_nano/test_n05ar_ev_concerns.py",
+        "scripts/ij_nano/n05ar_evidence.py"
+      ],
+      "summary": "all seven concerns reproduced red against f62ddc2 (31/45 distinct red tests, 14 anchors green) then repaired: contract v2 with identity-keyed state predicates (MISSING_PREDICATE/DUPLICATE_PREDICATE), ARGUMENT_UNDECLARED + optional-argument contract + duplicate-raw-key gate, predicates_equivalent vs predicate_truth split, kind-scoped identifier matching with alias contracts, UNIT_MISSING without public unit declaration, 9/9 comparator-level mutants detected, 19/19 reason codes reconciled (ARGUMENT_MISMATCH obsolete with disposition), strict construction validation + dataset-scope qualification rules; battery 60 cases (20 pos + 40 neg, every negative exact); ij_nano 173/173 OK, ij_sdk 93 OK",
+      "note": "cognitive evaluator integrity only - never the end-to-end business Oracle (IJN-B-002 unchanged); original N05A evidence preserved under evidence/IJNANO/N05A/"
+    },
+    "PUBLICATION_CHECK": {
+      "title": "IJ-NANO-1.2 fail-closed publication check + synthetic scanner control (order section 10)",
+      "progress": "done",
+      "status": "PASS",
+      "gate": null,
+      "gpu_required": false,
+      "delivered_utc": "2026-11-27T13:04:00Z",
+      "evidence": [
+        "scripts/tools/publish_check.py",
+        "tests/ij_nano/test_publish_check.py"
+      ],
+      "summary": "publication decision parsed from the scanner's actual finding count (summary-line contract + count-parity guard + unknown-state guard), never the exit code alone; synthetic control (documentation-example key assembled at runtime from fragments, no real personal information) proves findings block regardless of exit code; repo-wide check currently PASS (0 findings)"
     },
     "N02R": {
       "title": "IJ-NANO-1.1 Model x Inference Protocol causal analysis (A0-A7 arms, 64..1024 budgets, >=60-task screen)",

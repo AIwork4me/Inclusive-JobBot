@@ -93,3 +93,18 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N1.2R | Commit IJ-NANO-1.2 mission order verbatim (preregistration) | done | PASS | `docs/IJNANO_MISSION_ORDER_V1_2.md` |
 | N1.2R | Verify preserved artifacts: N00/N00R/N00RR evidence, N01 closure, N02 admission evidence, N06A-R red/green, N05A qualification, raw S2 protocol artifact `overall: FAIL` | done | PASS | `evidence/IJNANO/{N00,N00R,N01,N02,N05A,N06A-R}/`, `evidence/IJNANO/N02/protocol/S2.json` |
 | N1.2R | Physical preconditions observed: no llama-server running; GPU present (RX 7900 XTX, driver 32.0.21030.2001); model hashes + engine identity to be reverified fresh at first physical execution (N02R) per HANDOFF §4 | done | PASS | this row; N02R will record fresh hashes |
+
+## N05AR (2026-11-27, IJ-NANO-1.2, done)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| N05AR | Red reproduction of all seven source-review concerns (EV01-EV07) against the pre-repair evaluator (detached worktree at f62ddc2) BEFORE any implementation change | done | PASS (31/45 distinct red tests; 14 anchors green) | `evidence/IJNANO/N05AR/red_run.txt`, `tests/ij_nano/test_n05ar_ev_concerns.py` |
+| N05AR | EV01 identity-keyed state predicates: missing/duplicate/contradictory detection, order independence, single-reason attribution | done | PASS | `src/nanoagent/eval/comparators.py` (eval_state_interpretation), controls `state.neg.*`, `state.pos.{multi,reordered}` |
+| N05AR | EV02 undeclared arguments: ARGUMENT_UNDECLARED from response.args alone, optional-argument contract, duplicate raw-key PARSE_INVALID gate | done | PASS | `comparators.py` (eval_action_representation/eval_slot_value/_raw_reasons), `contracts.py` (SlotSpec.optional), controls `action.neg.{undeclared_arg,unauthorized_option,duplicate_raw_key}`, `action.pos.optional_arg` |
+| N05AR | EV03 predicate semantics split: predicates_equivalent vs predicate_truth(world); eq/ne/gt/ge/lt/le boundaries, units, invalid types (no crash) | done | PASS | `comparators.py`, `controls.py` TRUTH_CONTROLS (12) |
+| N05AR | EV04 identifier kinds: label folding scoped; tool/entity/action exact identity + declared alias contracts; collision negatives | done | PASS | `comparators.py` (identifier_matches), controls `tool.neg.underscore_space`, `entity.neg.case_variant`, `entity.neg.substring_trap` |
+| N05AR | EV05 unit handling: UNIT_MISSING without public declaration; unit_publicly_declared contract; no coercion, non-finite rejected | done | PASS | `contracts.py` (SlotSpec.unit_publicly_declared), `comparators.py` (check_slot), controls `slot.{pos.public_unit,neg.unit_missing}` |
+| N05AR | EV06 comparator-level mutants: 9 classes, harness + gate; all detected; retained rule-drop mutants re-verified 19/19 | done | PASS | `comparators.py` (MUTANTS/apply_mutant/clear_mutant), `qualification.py` (mutation_gate), `evidence/IJNANO/N05AR/coverage_matrix.json` |
+| N05AR | EV07 reconciliation + strict validation: 19 declared = 19 tested codes; ARGUMENT_MISMATCH obsolete with disposition; construction-time validation; validate_control_battery + qualify_family_scope dataset rules | done | PASS | `contracts.py`, `qualification.py`, `evidence/IJNANO/N05AR/coverage_matrix.json` |
+| N05AR | Gate `N05AR_COGNITIVE_EVALUATOR_INTEGRITY_GO` (scoped; NOT the business Oracle) | done | PASS | `reports/IJNANO_05AR_COGNITIVE_EVALUATOR_REQUALIFICATION.md`, `evidence/IJNANO/N05AR/defect_ledger.json` |
+| N05AR | Publication check (order §10): fail-closed finding-count decision + synthetic scanner control | done | PASS | `scripts/tools/publish_check.py`, `tests/ij_nano/test_publish_check.py` (9 tests OK; repo-wide check PASS) |
