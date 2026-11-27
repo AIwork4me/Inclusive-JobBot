@@ -34,6 +34,8 @@ from eval_assurance.contracts import (EvaluationResult, EvaluationStatus,  # noq
                                       ParserStatus, SemanticVerdict,
                                       LegacyContractError,
                                       from_legacy_boolean, verify_evidence)
+from eval_assurance.evidence import (VerificationReceipt,  # noqa: E402
+                                     validate_receipt_for)
 
 __all__ = ["n02rr_result_from_replay", "n02rr_contract_error_result"]
 
@@ -41,7 +43,7 @@ __all__ = ["n02rr_result_from_replay", "n02rr_contract_error_result"]
 def n02rr_result_from_replay(rec: dict,
                              provenance: dict | None = None,
                              *,
-                             artifact_sha256_verified: str | None = None,
+                             verification_receipt: VerificationReceipt | None = None,
                              ) -> EvaluationResult:
     prov = {
         "experiment_id": rec.get("experiment_id"),
@@ -75,15 +77,15 @@ def n02rr_result_from_replay(rec: dict,
             http_ok=http_ok,
             provenance=prov)
 
-    if artifact_sha256_verified:
-        envelope = verify_evidence(
-            prov,
-            artifact_sha256_computed=artifact_sha256_verified,
-            artifact_sha256_expected=artifact_sha256_verified,
-            schema_validated=True,
-            trial_identity_match=True,
-            basis="n02rr_validated_loader_transfer")
-        result.verified_evidence = envelope
+    # EA-R02: evidence becomes VERIFIED only through a receipt whose hash
+    # was computed from the artifact's actual bytes and whose trial/
+    # execution identity matches this record.
+    if verification_receipt is not None:
+        validate_receipt_for(verification_receipt,
+                             trial_id=rec.get("trial_id"),
+                             experiment_id=rec.get("experiment_id"))
+        result.verified_evidence = verify_evidence(
+            prov, **verification_receipt.envelope_kwargs())
         result.evidence = EvidenceIntegrity.VERIFIED
     return result
 

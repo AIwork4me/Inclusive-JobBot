@@ -1,109 +1,128 @@
 {
-  "schema_version": 1,
-  "mission": "IJ-EVAL-ASSURANCE-1.0",
-  "mission_title": "Systemic Evaluation Integrity & Continuous Self-verification (Evaluation Assurance Engine, EAE)",
-  "updated_utc": "2026-11-28T10:30:00Z",
-  "current_phase": "EA03 (Wave B start; EA02-R complete)",
-  "mission_order": "docs/IJEVAL_MISSION_ORDER.md",
-  "tracking_issue": 12,
-  "draft_pr": 13,
-  "research_branch": "mission/ij-eval-assurance-1.0-systemic-evaluation-integrity",
-  "base_commit": "bc4555ecb6db989beefaeeba452c1c160283da2c",
-  "base_commit_note": "qualified IJ-NANO HEAD = PR #11 remote head verified at mission start; N02RR corrected replay identity 6701a6a6a08b34d9",
-  "parent_dependencies": {
-    "pr6_atlas": "06f25ab50db9e8ef074d9fb804de3191d7eadb98",
-    "pr8_ij_sdk": "56c6c74bf7216eb9cf65be4056c8db1964d23b05",
-    "pr9_ij_slm": "fb28ef2492388be237bdb2f835d261c819569551",
-    "pr11_ij_nano": "bc4555ecb6db989beefaeeba452c1c160283da2c"
+ "schema_version": 1,
+ "mission": "IJ-EVAL-ASSURANCE-1.0",
+ "mission_title": "Systemic Evaluation Integrity & Continuous Self-verification (Evaluation Assurance Engine, EAE)",
+ "updated_utc": "2026-11-28T12:30:00Z",
+ "current_phase": "EA03 (Wave B; EA-R01..R04 boundary hardening complete)",
+ "mission_order": "docs/IJEVAL_MISSION_ORDER.md",
+ "tracking_issue": 12,
+ "draft_pr": 13,
+ "research_branch": "mission/ij-eval-assurance-1.0-systemic-evaluation-integrity",
+ "base_commit": "bc4555ecb6db989beefaeeba452c1c160283da2c",
+ "base_commit_note": "qualified IJ-NANO HEAD = PR #11 remote head verified at mission start; N02RR corrected replay identity 6701a6a6a08b34d9",
+ "parent_dependencies": {
+  "pr6_atlas": "06f25ab50db9e8ef074d9fb804de3191d7eadb98",
+  "pr8_ij_sdk": "56c6c74bf7216eb9cf65be4056c8db1964d23b05",
+  "pr9_ij_slm": "fb28ef2492388be237bdb2f835d261c819569551",
+  "pr11_ij_nano": "bc4555ecb6db989beefaeeba452c1c160283da2c"
+ },
+ "worktree_note": "runtime/llama-cpp/vulkan is a local junction to the IJNANO worktree binaries (untracked, engine identity hashing only); weights remain in the read-only IJSDK sibling worktree",
+ "phases": {
+  "EA00": {
+   "title": "Repository audit and historical evaluation defect inventory",
+   "status": "DONE (commit 6d7b24e)",
+   "deliverables": [
+    "reports/IJEVAL_00_HISTORICAL_EVALUATION_AUDIT.md",
+    "evidence/IJEVAL/EA00/historical_defect_inventory.json (67 records)",
+    "evidence/IJEVAL/EA00/cross_mission_sweep.json (38 records)",
+    "evidence/IJEVAL/EA00/n02rr_residual_risk_reproduction.json"
+   ],
+   "section_2_2_n02rr_residual_audit": {
+    "status": "DONE",
+    "commit": "f081655",
+    "evidence": "evidence/IJEVAL/EA00/n02rr_residual_risk_reproduction.json",
+    "reproducer": "scripts/ij_eval_assurance/ea00_n02rr_residual_repro.py",
+    "findings": [
+     "R1: evaluator exception is coerced to semantic_correct=False (n02rr_replay_lib.py:326-330); classifiers label REPLAY_ERROR/EVIDENCE_INSUFFICIENT but the boolean verdict carries the failure to verdict-reading consumers",
+     "R2: EVIDENCE_INCONSISTENT_STAGE2_TOOL rows retain semantic_correct=True; only the failure_class label signals invalid evidence",
+     "R3: production analyzer n02rr_analyze.load_rows has NO eligibility filter (r['sem']=bool(verdict)); under injection the headline moves 870/2184 -> 871/2186 with the replay-error row counted as model FAIL and the inconsistent row as PASS",
+     "sealed corpus verified: 0 REPLAY_ERROR / 0 EVIDENCE_INCONSISTENT_STAGE2_TOOL / 0 EVIDENCE_INSUFFICIENT rows, so the published IJ-NANO-1.2R corrected headline is NOT contaminated; both risks are structural/latent",
+     "n02r_rescore.py:118 (repaired tool) seals semantic_correct from the same coercion path into future experiment records"
+    ],
+    "correction_disposition": "to be closed by EA02 eligible_for_semantic_statistics + EA05/EAE verdict model; no retroactive edit to sealed N02RR evidence (INV07)"
+   },
+   "gate": "EA00_EVALUATION_BASELINE_AUDITED",
+   "gate_status": "GRANTED (scope limitation: IJ-SLM audited via shared commit history only)"
   },
-  "worktree_note": "runtime/llama-cpp/vulkan is a local junction to the IJNANO worktree binaries (untracked, engine identity hashing only); weights remain in the read-only IJSDK sibling worktree",
-  "phases": {
-    "EA00": {
-      "title": "Repository audit and historical evaluation defect inventory",
-      "status": "DONE (commit 6d7b24e)",
-      "deliverables": [
-        "reports/IJEVAL_00_HISTORICAL_EVALUATION_AUDIT.md",
-        "evidence/IJEVAL/EA00/historical_defect_inventory.json (67 records)",
-        "evidence/IJEVAL/EA00/cross_mission_sweep.json (38 records)",
-        "evidence/IJEVAL/EA00/n02rr_residual_risk_reproduction.json"
-      ],
-      "section_2_2_n02rr_residual_audit": {
-        "status": "DONE",
-        "commit": "f081655",
-        "evidence": "evidence/IJEVAL/EA00/n02rr_residual_risk_reproduction.json",
-        "reproducer": "scripts/ij_eval_assurance/ea00_n02rr_residual_repro.py",
-        "findings": [
-          "R1: evaluator exception is coerced to semantic_correct=False (n02rr_replay_lib.py:326-330); classifiers label REPLAY_ERROR/EVIDENCE_INSUFFICIENT but the boolean verdict carries the failure to verdict-reading consumers",
-          "R2: EVIDENCE_INCONSISTENT_STAGE2_TOOL rows retain semantic_correct=True; only the failure_class label signals invalid evidence",
-          "R3: production analyzer n02rr_analyze.load_rows has NO eligibility filter (r['sem']=bool(verdict)); under injection the headline moves 870/2184 -> 871/2186 with the replay-error row counted as model FAIL and the inconsistent row as PASS",
-          "sealed corpus verified: 0 REPLAY_ERROR / 0 EVIDENCE_INCONSISTENT_STAGE2_TOOL / 0 EVIDENCE_INSUFFICIENT rows, so the published IJ-NANO-1.2R corrected headline is NOT contaminated; both risks are structural/latent",
-          "n02r_rescore.py:118 (repaired tool) seals semantic_correct from the same coercion path into future experiment records"
-        ],
-        "correction_disposition": "to be closed by EA02 eligible_for_semantic_statistics + EA05/EAE verdict model; no retroactive edit to sealed N02RR evidence (INV07)"
-      },
-      "gate": "EA00_EVALUATION_BASELINE_AUDITED",
-      "gate_status": "GRANTED (scope limitation: IJ-SLM audited via shared commit history only)"
-    },
-    "EA01": {
-      "title": "Evaluation threat model and failure model",
-      "status": "DONE (commit 84c5ac2)",
-      "deliverables": [
-        "reports/IJEVAL_01_EVALUATION_THREAT_MODEL.md",
-        "evidence/IJEVAL/EA01/failure_mode_matrix.json (48 modes, 38 critical, 27/27 layers)"
-      ],
-      "gate": "EA01_EVALUATION_FAILURE_MODEL_COMPLETE",
-      "gate_status": "GRANTED"
-    },
-    "EA02": {
-      "title": "Unified strongly typed evaluation contract",
-      "status": "DONE (commit e2467f4)",
-      "deliverables": [
-        "src/eval_assurance/contracts/ (core, validator, eligibility, legacy)",
-        "src/eval_assurance/adapters/n02rr.py (IJE-D001/D002 interface closure)",
-        "tests/ij_eval_assurance/ (27/27 green)",
-        "docs/IJEVAL_RESULT_CONTRACT.md (spec v1.0.0)",
-        "existing ij_nano regression suite 213/213 OK in this worktree"
-      ],
-      "gate": "EA02_TYPED_EVALUATION_CONTRACT_GO",
-      "gate_status": "GRANTED"
-    },
-    "EA02R": {
-      "title": "Contract hardening (addendum EA-D01..EA-D06)",
-      "status": "DONE",
-      "addendum": "docs/IJEVAL_MISSION_ORDER_EA02R.md (preregistered 35cad83)",
-      "deliverables": [
-        "evidence/IJEVAL/EA02R/red_reproduction.json (all six concerns observed at 3fff135)",
-        "evidence/IJEVAL/EA02R/green_reproduction.json (all closed)",
-        "evidence/IJEVAL/EA02R/state_space_results.json (9,312 combos / 24 invariants / 0 escapes / 0 false rejections / 44 malformed rejected)",
-        "evidence/IJEVAL/EA02R/defect_ledger.json",
-        "reports/IJEVAL_02R_CONTRACT_HARDENING.md",
-        "src/eval_assurance/{contracts v1.1.0, qualification, statistics/boundary}",
-        "scripts/ij_eval_assurance/pubgate.py (fail-closed publication gate)",
-        "tests/ij_eval_assurance 68/68 OK; tests/ij_nano 213/213 OK"
-      ],
-      "key_results": [
-        "EA00 corruption regression at the actual aggregation entry point: 870 correct preserved, 2 injections NOT_EVALUABLE, 871/2186 structurally unreachable, formal publication fail-closed without certificate, sealed corpus hash unchanged",
-        "formal eligibility certificate-bound and fail-closed; historical analyzer marked DIAGNOSTIC-ONLY"
-      ],
-      "gate": "EA02R_EVALUATION_CONTRACT_INVARIANTS_GO",
-      "gate_status": "GRANTED (scope: contract invariants only, not the whole assurance system)"
-    },
-    "EA03": {
-      "title": "Dataset and ground truth qualification",
-      "status": "NOT_STARTED",
-      "gate": "EA03_DATASET_QUALIFICATION_GO",
-      "gate_status": "NOT_GRANTED"
-    }
+  "EA01": {
+   "title": "Evaluation threat model and failure model",
+   "status": "DONE (commit 84c5ac2)",
+   "deliverables": [
+    "reports/IJEVAL_01_EVALUATION_THREAT_MODEL.md",
+    "evidence/IJEVAL/EA01/failure_mode_matrix.json (48 modes, 38 critical, 27/27 layers)"
+   ],
+   "gate": "EA01_EVALUATION_FAILURE_MODEL_COMPLETE",
+   "gate_status": "GRANTED"
   },
-  "final_verdicts": {},
-  "notes": [
-    "CPU-first mission; GPU only for EA13 physical smoke after software qualification",
-    "All commits gated by scripts/tools/publish_check.py --staged (finding-count based)",
-    "No active physical experiment at mission start (verified: no python/llama-server processes, GPU idle)"
-  ],
-  "recovery": {
-    "worktree": "<worktrees>/IJEVAL (sibling of the IJNANO mission worktree and the read-only IJSDK weights worktree)",
-    "recreate_junction": "cmd /c mklink /J runtime\\llama-cpp\\vulkan <worktrees>/IJNANO/runtime/llama-cpp/vulkan",
-    "rerun_reproducer": "python -I scripts/ij_eval_assurance/ea00_n02rr_residual_repro.py"
+  "EA02": {
+   "title": "Unified strongly typed evaluation contract",
+   "status": "DONE (commit e2467f4)",
+   "deliverables": [
+    "src/eval_assurance/contracts/ (core, validator, eligibility, legacy)",
+    "src/eval_assurance/adapters/n02rr.py (IJE-D001/D002 interface closure)",
+    "tests/ij_eval_assurance/ (27/27 green)",
+    "docs/IJEVAL_RESULT_CONTRACT.md (spec v1.0.0)",
+    "existing ij_nano regression suite 213/213 OK in this worktree"
+   ],
+   "gate": "EA02_TYPED_EVALUATION_CONTRACT_GO",
+   "gate_status": "GRANTED"
+  },
+  "EA02R": {
+   "title": "Contract hardening (addendum EA-D01..EA-D06)",
+   "status": "DONE",
+   "addendum": "docs/IJEVAL_MISSION_ORDER_EA02R.md (preregistered 35cad83)",
+   "deliverables": [
+    "evidence/IJEVAL/EA02R/red_reproduction.json (all six concerns observed at 3fff135)",
+    "evidence/IJEVAL/EA02R/green_reproduction.json (all closed)",
+    "evidence/IJEVAL/EA02R/state_space_results.json (9,312 combos / 24 invariants / 0 escapes / 0 false rejections / 44 malformed rejected)",
+    "evidence/IJEVAL/EA02R/defect_ledger.json",
+    "reports/IJEVAL_02R_CONTRACT_HARDENING.md",
+    "src/eval_assurance/{contracts v1.1.0, qualification, statistics/boundary}",
+    "scripts/ij_eval_assurance/pubgate.py (fail-closed publication gate)",
+    "tests/ij_eval_assurance 68/68 OK; tests/ij_nano 213/213 OK"
+   ],
+   "key_results": [
+    "EA00 corruption regression at the actual aggregation entry point: 870 correct preserved, 2 injections NOT_EVALUABLE, 871/2186 structurally unreachable, formal publication fail-closed without certificate, sealed corpus hash unchanged",
+    "formal eligibility certificate-bound and fail-closed; historical analyzer marked DIAGNOSTIC-ONLY"
+   ],
+   "gate": "EA02R_EVALUATION_CONTRACT_INVARIANTS_GO",
+   "gate_status": "GRANTED (scope: contract invariants only, not the whole assurance system)"
+  },
+  "EA03": {
+   "title": "Dataset and ground truth qualification",
+   "status": "NOT_STARTED",
+   "gate": "EA03_DATASET_QUALIFICATION_GO",
+   "gate_status": "NOT_GRANTED"
+  },
+  "EABC_HARDENING": {
+   "title": "Trusted assurance boundary hardening (addendum EA-R01..EA-R04)",
+   "status": "DONE",
+   "addendum": "docs/IJEVAL_MISSION_ORDER_WAVE_BC.md",
+   "deliverables": [
+    "evidence/IJEVAL/EABC/{red_reproduction,green_reproduction,defect_ledger}.json",
+    "reports/IJEVAL_WAVEBC_HARDENING.md",
+    "src/eval_assurance/{evidence.py, qualification/store.py v2, statistics/boundary.py hardened}",
+    "tests/ij_eval_assurance/test_wavebc_hardening.py (21 tests)"
+   ],
+   "key_results": [
+    "authority-issued digest-bound certificates; arbitrary stores never authorize",
+    "evidence verified from actual bytes via creation-keyed receipts; envelopes immutable",
+    "publication requires scope certification + roster reconciliation; critical NOT_EVALUABLE blocks",
+    "snapshot-based publication-time recheck; durable revocation; reissue requires requalification"
+   ],
+   "gate": null,
+   "gate_status": "N/A (hardening within EA05-EA08/EA10-EA11 scopes; no Wave B gate claimed)"
   }
+ },
+ "final_verdicts": {},
+ "notes": [
+  "CPU-first mission; GPU only for EA13 physical smoke after software qualification",
+  "All commits gated by scripts/tools/publish_check.py --staged (finding-count based)",
+  "No active physical experiment at mission start (verified: no python/llama-server processes, GPU idle)"
+ ],
+ "recovery": {
+  "worktree": "<worktrees>/IJEVAL (sibling of the IJNANO mission worktree and the read-only IJSDK weights worktree)",
+  "recreate_junction": "cmd /c mklink /J runtime\\llama-cpp\\vulkan <worktrees>/IJNANO/runtime/llama-cpp/vulkan",
+  "rerun_reproducer": "python -I scripts/ij_eval_assurance/ea00_n02rr_residual_repro.py"
+ }
 }

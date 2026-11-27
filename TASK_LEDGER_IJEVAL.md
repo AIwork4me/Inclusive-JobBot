@@ -11,4 +11,5 @@
 | EA01 threat model + FMEA matrix | DONE (84c5ac2) | `reports/IJEVAL_01_EVALUATION_THREAT_MODEL.md`, `evidence/IJEVAL/EA01/failure_mode_matrix.json` | 48 modes / 38 critical / 27 layers |
 | EA02 typed evaluation contract | DONE (e2467f4) | `src/eval_assurance/contracts/` + adapters + `docs/IJEVAL_RESULT_CONTRACT.md` | 27/27 tests; ij_nano suite 213/213 OK; IJE-D001/D002 closed at interface |
 | EA02-R contract hardening (EA-D01..D06) | DONE | `reports/IJEVAL_02R_CONTRACT_HARDENING.md`, `evidence/IJEVAL/EA02R/` (red/green/state-space/defect ledger) | 68/68 + 213/213 tests; gate EA02R_EVALUATION_CONTRACT_INVARIANTS_GO granted; contract spec v1.1.0; pubgate replaces piped gate invocations |
-| EA03 dataset qualification engine | PENDING | — | Wave B start; N02R suite + N03 C01–C32 targets |
+| Wave B/C boundary hardening (EA-R01..R04) | DONE | `reports/IJEVAL_WAVEBC_HARDENING.md`, `evidence/IJEVAL/EABC/` | 95/95 + 213/213; authority issuance, byte-verified receipts, hardened publication chain, snapshot recheck |
+| EA03 dataset qualification engine | PENDING | — | Wave B proper; N02R suite + N03 C01–C32 targets; issue through the trusted boundary |

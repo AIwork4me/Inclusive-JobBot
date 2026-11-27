@@ -17,8 +17,10 @@ EA02-R hardening (addendum EA-D02/EA-D03/EA-D04):
 """
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from enum import Enum
+from types import MappingProxyType
 
 
 class ContractTypeError(TypeError):
@@ -107,27 +109,70 @@ MANDATORY_PROVENANCE_KEYS = (
     "parser_version", "evaluator_version",
 )
 
-ENVELOPE_SCHEMA_VERSION = "1.0.0"
+ENVELOPE_SCHEMA_VERSION = "1.1.0"
+
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+
+#: module-private creation key: VerifiedEvidence instances can only be
+#: constructed by :func:`verify_evidence` (EA-R02: direct construction is
+#: not a verification path).
+_CREATE_KEY = object()
 
 
-@dataclass(frozen=True)
+def validate_sha256_digest(value, *, field_name: str = "digest") -> str:
+    """Strict SHA256 digest syntax: exactly 64 lowercase hex chars."""
+    if not isinstance(value, str) or not _SHA256_RE.fullmatch(value.lower()):
+        raise ValueError(
+            f"{field_name} is not a valid sha256 digest: {value!r}")
+    return value.lower()
+
+
+@dataclass(frozen=True, init=False)
 class VerifiedEvidence:
-    """Versioned verified-evidence envelope (EA-D04).
+    """Versioned verified-evidence envelope (EA-D04, hardened EA-R02).
 
-    Constructed ONLY by :func:`verify_evidence` after the actual verification
-    checks complete. Binds the evidence to the identity fields it verified;
-    the validator cross-checks these against the record's provenance, so a
-    caller-supplied provenance dict that disagrees with the envelope is
-    detected rather than trusted.
+    Constructed ONLY by :func:`verify_evidence` (private creation key).
+    ``identity`` and ``verification_checks`` are read-only mappings over
+    defensively copied data — mutation attempts raise TypeError.
     """
+    _create_key: object
     schema_version: str
     verified_keys: tuple[str, ...]
-    identity: dict
+    _identity: tuple[tuple[str, str], ...]
     artifact_sha256: str
-    verification_checks: dict
+    _checks: tuple[tuple[str, object], ...]
+
+    def __init__(self, _create_key=None, *, schema_version=None,
+                 verified_keys=None, identity=None, artifact_sha256=None,
+                 verification_checks=None):
+        if _create_key is not _CREATE_KEY:
+            raise PermissionError(
+                "VerifiedEvidence cannot be constructed directly; it is "
+                "issued only by verify_evidence() (EA-R02)")
+        object.__setattr__(self, "_create_key", _create_key)
+        object.__setattr__(self, "schema_version", schema_version)
+        object.__setattr__(self, "verified_keys", tuple(verified_keys))
+        object.__setattr__(self, "_identity",
+                           tuple(sorted(dict(identity).items())))
+        object.__setattr__(
+            self, "artifact_sha256",
+            validate_sha256_digest(artifact_sha256,
+                                   field_name="artifact_sha256"))
+        object.__setattr__(self, "_checks",
+                           tuple(sorted(dict(verification_checks).items(),
+                                        key=lambda kv: kv[0])))
+
+    @property
+    def identity(self) -> MappingProxyType:
+        return MappingProxyType(dict(self._identity))
+
+    @property
+    def verification_checks(self) -> MappingProxyType:
+        return MappingProxyType(dict(self._checks))
 
     def matches_provenance(self, provenance: dict) -> bool:
-        return all(self.identity.get(k) == provenance.get(k)
+        ident = dict(self._identity)
+        return all(ident.get(k) == provenance.get(k)
                    for k in self.verified_keys)
 
 
@@ -138,17 +183,15 @@ def verify_evidence(claimed_provenance: dict, *,
                     trial_identity_match: bool,
                     evaluator_identity_match: bool = True,
                     basis: str = "direct") -> VerifiedEvidence:
-    """The actual evidence verification path (EA-D04).
+    """The evidence verification path (EA-D04, hardened EA-R02).
 
-    Takes CLAIMED provenance plus the results of real checks (hash computed
-    over the artifact bytes vs the recorded expectation, strict schema
-    validation outcome, trial-identity and evaluator-identity matches) and,
-    only if every check passes, returns the VerifiedEvidence envelope.
-    Raises ValueError (fail closed) on any failed check.
-
-    ``basis`` records HOW verification happened: "direct" (bytes re-hashed
-    now) or a named qualified loader whose verification result is being
-    transferred (e.g. the N02RR validated loader).
+    Digests must be syntactically valid sha256 (64 hex chars) AND equal.
+    NOTE (EA-R02 threat model): when the caller supplies both digest values
+    themselves, this function only proves string equality — it cannot prove
+    the artifact was ever read. Formal paths must obtain envelopes via
+    :mod:`eval_assurance.evidence` (hash computed from actual bytes, or a
+    VerificationReceipt transferred from the trusted loader). The ``basis``
+    field records which path produced the envelope.
     """
     if not schema_validated:
         raise ValueError("evidence verification failed: schema not validated")
@@ -158,11 +201,11 @@ def verify_evidence(claimed_provenance: dict, *,
     if not evaluator_identity_match:
         raise ValueError("evidence verification failed: evaluator identity "
                          "mismatch")
-    if (not isinstance(artifact_sha256_computed, str)
-            or not isinstance(artifact_sha256_expected, str)
-            or artifact_sha256_computed.lower()
-            != artifact_sha256_expected.lower()
-            or len(artifact_sha256_computed) == 0):
+    computed = validate_sha256_digest(artifact_sha256_computed,
+                                      field_name="computed sha256")
+    expected = validate_sha256_digest(artifact_sha256_expected,
+                                      field_name="expected sha256")
+    if computed != expected:
         raise ValueError("evidence verification failed: artifact sha256 "
                          "mismatch")
     missing = [k for k in MANDATORY_PROVENANCE_KEYS
@@ -172,11 +215,12 @@ def verify_evidence(claimed_provenance: dict, *,
         raise ValueError(f"evidence verification failed: claimed provenance "
                          f"incomplete: {missing}")
     return VerifiedEvidence(
+        _CREATE_KEY,
         schema_version=ENVELOPE_SCHEMA_VERSION,
         verified_keys=MANDATORY_PROVENANCE_KEYS,
         identity={k: claimed_provenance[k]
                   for k in MANDATORY_PROVENANCE_KEYS},
-        artifact_sha256=artifact_sha256_computed.lower(),
+        artifact_sha256=computed,
         verification_checks={
             "artifact_sha256_match": True,
             "schema_validated": True,

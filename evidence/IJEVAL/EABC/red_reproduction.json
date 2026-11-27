@@ -1,0 +1,91 @@
+{
+ "EA_R01": {
+  "issuance_without_evidence_authorizes_formal": {
+   "result": true,
+   "error": null
+  },
+  "empty_reference_identity_accepted": {
+   "result": "QualificationCertificate(...reference_evaluator_version='') issued, no error",
+   "error": null
+  },
+  "reference_equals_production_accepted": {
+   "result": "QualificationCertificate(...reference_evaluator_version='v1' == evaluator_version) issued, no error",
+   "error": null
+  },
+  "digest_binding_fields_exist": {
+   "result": [],
+   "error": null
+  }
+ },
+ "EA_R02": {
+  "non_hash_strings_accepted": {
+   "result": "VerifiedEvidence(artifact_sha256='banana') issued",
+   "error": null
+  },
+  "wrong_length_digest_accepted": {
+   "result": "VerifiedEvidence(artifact_sha256='a'*63) issued",
+   "error": null
+  },
+  "identical_untrusted_pair_accepted": {
+   "result": "VerifiedEvidence issued with basis='no bytes were ever read'",
+   "error": null
+  },
+  "direct_envelope_construction": {
+   "result": "VerifiedEvidence constructed directly, no error",
+   "error": null
+  },
+  "envelope_identity_dict_is_mutable": {
+   "result": "hacked",
+   "error": null
+  }
+ },
+ "EA_R03": {
+  "empty_store_permits_ALLOWED": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "unrelated_certs_permits_ALLOWED": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "revoked_only_permits_ALLOWED": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "zero_qualified_rows_still_ALLOWED": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "critical_not_evaluable_blocks": {
+   "result": "ALLOWED (did not block)",
+   "error": null
+  },
+  "duplicate_trial_ids_both_counted": {
+   "result": "no duplicate detection exists",
+   "error": null
+  },
+  "planned_roster_support": "ABSENT (no roster parameter exists)"
+ },
+ "EA_R04": {
+  "report_survives_post_aggregation_revocation": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "record_mutable_after_validation": {
+   "result": "INCORRECT",
+   "error": null
+  },
+  "revocation_history_retained": {
+   "result": 1,
+   "error": null
+  },
+  "reissue_equivalent_cert_immediately_valid": {
+   "result": true,
+   "error": null
+  },
+  "corrupted_registry_load": {
+   "result": null,
+   "error": "JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+  }
+ }
+}

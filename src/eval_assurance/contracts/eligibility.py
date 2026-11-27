@@ -90,6 +90,9 @@ def _formal(result: EvaluationResult, *, authority: str,
         why.append("qualification=REVOKED (explicit record revocation)")
     if certificates is None:
         why.append("fail_closed: no certificate store provided")
+    elif not certificates.trusted:
+        why.append("fail_closed: untrusted certificate store (authority-"
+                   "issued qualification required)")
     else:
         cert = certificates.valid_certificate_for(result.provenance, scope)
         if cert is None:

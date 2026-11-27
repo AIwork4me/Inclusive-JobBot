@@ -23,7 +23,9 @@ from eval_assurance.contracts import (eligible_for_business_statistics,
                                       eligible_for_formal_publication,
                                       eligible_for_reward,
                                       eligible_for_semantic_statistics)
-from eval_assurance.qualification import CertificateStore
+from eval_assurance.qualification import (CertificateError,
+                                          CertificateStore,
+                                          QualificationAuthority)
 
 PROV = {"experiment_id": "e1", "trial_id": "t1", "task_id": "k1",
         "model": "S1", "dataset_id": "d1", "parser_version": "p1",
@@ -35,6 +37,42 @@ def envelope():
     return verify_evidence(PROV, artifact_sha256_computed=SHA,
                            artifact_sha256_expected=SHA,
                            schema_validated=True, trial_identity_match=True)
+
+
+def authority_store(scopes=("semantic", "business", "reward"),
+                    dataset_id="d1", parser_version="p1",
+                    evaluator_version="v1"):
+    """Authority-issued trusted store (writes real implementation files so
+    the authority computes genuine digests)."""
+    import tempfile
+    tmp = pathlib.Path(tempfile.mkdtemp(prefix="eaval-qual-"))
+
+    def f(name, content):
+        p = tmp / name
+        p.write_text(content, encoding="utf-8")
+        return p
+    files = {n: f(n, f"implementation {n} v1") for n in
+             ("dataset", "task_contract", "parser", "interpreter",
+              "evaluator", "oracle", "witnesses", "mutation")}
+    auth = QualificationAuthority()
+    store = None
+    for scope in scopes:
+        store = auth.issue_qualification(
+            scope=scope, dataset_id=dataset_id,
+            parser_version=parser_version, evaluator_version=evaluator_version,
+            reference_evaluator_version="ref-independent-1",
+            dataset_file=files["dataset"],
+            task_contract_file=files["task_contract"],
+            parser_file=files["parser"],
+            interpreter_file=files["interpreter"],
+            evaluator_file=files["evaluator"],
+            reference_oracle_file=files["oracle"],
+            witness_suite_file=files["witnesses"],
+            mutation_report_file=files["mutation"],
+            evidence_files=[files["witnesses"], files["mutation"]],
+            replay_contract="replay-v1", protocol="proto-v1",
+            store=store)
+    return store
 
 
 def ok_result(**over) -> EvaluationResult:
@@ -51,20 +89,6 @@ def ok_result(**over) -> EvaluationResult:
         verified_evidence=envelope())
     base.update(over)
     return EvaluationResult(**base)
-
-
-def store_with_cert():
-    store = CertificateStore()
-    store.issue(scope="semantic", dataset_id="d1", parser_version="p1",
-                evaluator_version="v1", reference_evaluator_version="ref-1",
-                evidence_ref="test")
-    store.issue(scope="business", dataset_id="d1", parser_version="p1",
-                evaluator_version="v1", reference_evaluator_version="ref-1",
-                evidence_ref="test")
-    store.issue(scope="reward", dataset_id="d1", parser_version="p1",
-                evaluator_version="v1", reference_evaluator_version="ref-1",
-                evidence_ref="test")
-    return store
 
 
 class TestLegalPaths(unittest.TestCase):
@@ -230,7 +254,7 @@ class TestEligibilityAuthorities(unittest.TestCase):
     def test_formal_eligibility_blocks_revoked_records(self):
         dec = eligible_for_semantic_statistics(
             ok_result(qualification=QualificationStatus.REVOKED),
-            store_with_cert())
+            authority_store())
         self.assertFalse(dec.eligible)
         self.assertTrue(any("REVOKED" in r for r in dec.reasons))
 
@@ -241,7 +265,7 @@ class TestEligibilityAuthorities(unittest.TestCase):
         for q in (QualificationStatus.UNQUALIFIED,
                   QualificationStatus.PENDING):
             self.assertTrue(eligible_for_semantic_statistics(
-                ok_result(qualification=q), store_with_cert()).eligible, q)
+                ok_result(qualification=q), authority_store()).eligible, q)
         # ...and without a certificate every enum fails closed:
         for q in (QualificationStatus.QUALIFIED,
                   QualificationStatus.UNQUALIFIED,
@@ -256,27 +280,30 @@ class TestEligibilityAuthorities(unittest.TestCase):
                       dec.reasons)
 
     def test_formal_eligibility_with_matching_certificate(self):
-        dec = eligible_for_semantic_statistics(ok_result(), store_with_cert())
+        dec = eligible_for_semantic_statistics(ok_result(), authority_store())
         self.assertTrue(dec.eligible, dec.reasons)
         self.assertTrue(eligible_for_formal_publication(
-            ok_result(), store_with_cert()).eligible)
+            ok_result(), authority_store()).eligible)
         self.assertTrue(eligible_for_reward(
-            ok_result(), store_with_cert()).eligible)
+            ok_result(), authority_store()).eligible)
 
     def test_certificate_identity_mismatch_fails_closed(self):
-        store = CertificateStore()
-        store.issue(scope="semantic", dataset_id="OTHER-dataset",
-                    parser_version="p1", evaluator_version="v1",
-                    reference_evaluator_version="r")
+        store = authority_store(scopes=("semantic",),
+                                dataset_id="OTHER-dataset")
         dec = eligible_for_semantic_statistics(ok_result(), store)
         self.assertFalse(dec.eligible)
         self.assertTrue(any("no valid certificate" in r for r in dec.reasons))
 
+    def test_untrusted_caller_store_never_authorizes(self):
+        store = CertificateStore()      # arbitrary caller-created store
+        dec = eligible_for_semantic_statistics(ok_result(), store)
+        self.assertFalse(dec.eligible)
+        self.assertTrue(any("untrusted certificate store" in r
+                            for r in dec.reasons))
+
     def test_revoked_certificate_blocks_formal_eligibility(self):
-        store = CertificateStore()
-        cert = store.issue(scope="semantic", dataset_id="d1",
-                           parser_version="p1", evaluator_version="v1",
-                           reference_evaluator_version="r")
+        store = authority_store(scopes=("semantic",))
+        cert = store.snapshot().certificates[0]
         self.assertTrue(eligible_for_semantic_statistics(
             ok_result(), store).eligible)
         store.revoke(cert.certificate_id, reason="test revocation")
@@ -289,17 +316,17 @@ class TestEligibilityAuthorities(unittest.TestCase):
                       business_world_valid=True,
                       safety_verdict=SafetyVerdict.SAFE)
         self.assertTrue(eligible_for_business_statistics(
-            r, store_with_cert()).eligible)
+            r, authority_store()).eligible)
         r2 = ok_result(business_verdict=BusinessVerdict.PASS,
                        business_world_valid=True,
                        safety_verdict=SafetyVerdict.NOT_VERIFIED)
-        dec = eligible_for_business_statistics(r2, store_with_cert())
+        dec = eligible_for_business_statistics(r2, authority_store())
         self.assertFalse(dec.eligible)
 
     def test_reward_blocked_for_safety_violation(self):
         r = ok_result(safety_verdict=SafetyVerdict.VIOLATION,
                       publication=PublicationEligibility.DIAGNOSTIC_ONLY)
-        dec = eligible_for_reward(r, store_with_cert())
+        dec = eligible_for_reward(r, authority_store())
         self.assertFalse(dec.eligible)
         self.assertTrue(any("safety" in x for x in dec.reasons))
 

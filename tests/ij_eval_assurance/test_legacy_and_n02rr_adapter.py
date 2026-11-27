@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import pathlib
 import sys
+import tempfile
 import unittest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "src"))
@@ -18,6 +19,8 @@ from eval_assurance.contracts import (EvaluationStatus, EvidenceIntegrity,
                                       violations)
 from eval_assurance.adapters.n02rr import (n02rr_contract_error_result,
                                            n02rr_result_from_replay)
+from eval_assurance.evidence import (issue_verification_receipt,
+                                     sha256_of_file)
 
 PROV = {"experiment_id": "ec5b95357e960f99", "trial_id": "t1",
         "task_id": "TS01", "model": "S1", "dataset_id": "ij_nano.n02r.suite",
@@ -29,6 +32,18 @@ def envelope():
     return verify_evidence(PROV, artifact_sha256_computed=SHA,
                            artifact_sha256_expected=SHA,
                            schema_validated=True, trial_identity_match=True)
+
+
+_ARTIFACTS: dict[str, pathlib.Path] = {}
+
+
+def receipt_for(trial_id="t1", experiment_id="ec5b95357e960f99",
+                content=b"synthetic artifact bytes for verification"):
+    p = pathlib.Path(tempfile.mkdtemp(prefix="ea-art-")) /         f"artifact-{trial_id}.json"
+    p.write_bytes(content)
+    return issue_verification_receipt(
+        p, expected_sha256=sha256_of_file(p), trial_id=trial_id,
+        experiment_id=experiment_id)
 
 
 def replay_record(**over):
@@ -99,7 +114,7 @@ class TestN02RRAdapter(unittest.TestCase):
     def test_adapter_qualified_pass(self):
         r = n02rr_result_from_replay(
             replay_record(semantic_correct=True),
-            artifact_sha256_verified=SHA)
+            verification_receipt=receipt_for("t1"))
         self.assertIs(r.semantic_verdict, SemanticVerdict.CORRECT)
         self.assertEqual(violations(r), [])
 
@@ -111,14 +126,14 @@ class TestN02RRAdapter(unittest.TestCase):
         """EA00 R1 exact shape: coerced False + replay_error set."""
         r = n02rr_result_from_replay(replay_record(
             semantic_correct=False, replay_error="RuntimeError: synthetic"),
-            artifact_sha256_verified=SHA)
+            verification_receipt=receipt_for("t1"))
         self.assertIs(r.semantic_verdict, SemanticVerdict.NOT_EVALUABLE)
         self.assertIs(r.evaluation_status, EvaluationStatus.REPLAY_ERROR)
 
     def test_adapter_http_error_not_evaluable(self):
         r = n02rr_result_from_replay(replay_record(
             semantic_correct=False, http_ok=False, http_error="HTTP 500"),
-            artifact_sha256_verified=SHA)
+            verification_receipt=receipt_for("t1"))
         self.assertIs(r.semantic_verdict, SemanticVerdict.NOT_EVALUABLE)
 
     def test_adapter_contradictory_http_raises(self):
@@ -146,7 +161,7 @@ class TestN02RRAdapter(unittest.TestCase):
             arm="P7S", semantic_correct=True,
             p7s_reconstruction={"stage2_executed": True,
                                 "stage2_payload_matches_selection": False}),
-            artifact_sha256_verified=SHA)
+            verification_receipt=receipt_for("t1"))
         self.assertIs(r.semantic_verdict, SemanticVerdict.NOT_EVALUABLE)
         self.assertEqual(r.evidence_invalid_reason,
                          "EVIDENCE_INCONSISTENT_STAGE2_TOOL")
@@ -159,7 +174,7 @@ class TestN02RRAdapter(unittest.TestCase):
             stage1_selection_wrong_tool=True,
             p7s_reconstruction={"stage2_executed": True,
                                 "stage2_payload_matches_selection": True}),
-            artifact_sha256_verified=SHA)
+            verification_receipt=receipt_for("t1"))
         self.assertIs(r.semantic_verdict, SemanticVerdict.INCORRECT)
 
 

@@ -20,9 +20,20 @@ Delivered so far:
   verdict, staged-identity binding, receipts). Contract spec v1.1.0.
   Tests: ij_eval_assurance 68/68, ij_nano 213/213.
 
-Next: Wave B (EA03 dataset qualification → EA04 parser → EA05 independent
-dual-path → EA06 golden witnesses → EA07 mutation → EA08 evidence
-integrity), then Wave C (EA09–EA11) and the early catastrophe pilot.
+Also delivered (Wave B/C addendum `docs/IJEVAL_MISSION_ORDER_WAVE_BC.md`):
+**EA-R01..EA-R04 trusted-boundary hardening** — QualificationAuthority
+(digest-bound certificates, untrusted caller stores never authorize),
+creation-keyed VerificationReceipts hashing actual artifact bytes,
+immutable envelopes, hardened publication chain (scope certification,
+roster reconciliation, critical-NOT_EVALUABLE blocking, explicit partial
+scopes), snapshot-based publication-time revocation recheck. Tests 95/95 +
+213/213. Evidence: `evidence/IJEVAL/EABC/`, report
+`reports/IJEVAL_WAVEBC_HARDENING.md`.
+
+Next: Wave B proper (EA03 independent ground truth → EA04/EA05 dual-path →
+EA06/EA07 witnesses+mutation → EA08 end-to-end), then Wave C (EA09–EA11)
+and the early catastrophe pilot. All Wave B qualifications must issue
+through the QualificationAuthority.
 
 ## Resume procedure
 
@@ -36,7 +47,7 @@ also hosts the Atlas lineage).
    - `mkdir .runtime` (test scratch, gitignored)
    - `cmd /c mklink /J runtime\llama-cpp\vulkan <worktrees>/IJNANO/runtime/llama-cpp/vulkan`
 3. Verify: `python -m unittest discover -s tests/ij_eval_assurance -q`
-   (68 OK) and `python -I -m unittest discover -s tests/ij_nano -q`
+   (95 OK) and `python -I -m unittest discover -s tests/ij_nano -q`
    (213 OK).
 4. Continue from `TASK_LEDGER_IJEVAL.md` first PENDING row (EA03).
 
