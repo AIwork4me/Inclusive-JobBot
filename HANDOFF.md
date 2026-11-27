@@ -10,7 +10,7 @@ Keep any current GPU worker alive while it advances the frozen Q2 queue. See [se
 
 The default AEVE resume completes and replays only the frozen Q2 queue. The host lease uses the existing Windows global mutex shared by the Radeon launchers. Each new shared-launcher session records its hashed host and physical device identities, mission, owner, controller PID and runtime session. The llama-server process runs in an owner-bound Windows job. Use the shared launcher for Radeon work on this workstation. The managed Windows llama-server start script also holds the same lease until its GPU server exits.
 
-Open the GPU Handoff Gate only after the complete 6,850-case Q2 report replays, Q2 has stopped dispatching, the host mutex is available, and Windows cross-worktree contention and abnormal owner exit checks pass. Record the result in `evidence/IJ073/aeve/gpu_handoff.json`. Q2 coverage and Judge qualification are separate gates.
+Open the GPU Handoff Gate only after the complete 6,850-case Q2 report replays, Q2 has stopped dispatching, the host mutex is available, and Windows cross-worktree contention, abnormal owner exit and concurrent queue deduplication checks pass. Record the result in `evidence/IJ073/aeve/gpu_handoff.json`. Q2 coverage and Judge qualification are separate gates.
 
 Run the following recovery steps after the Radeon has been returned to IJ-0.7.3. Set `PYTHONPATH=.;src` and use the repository Python environment. Supply the original `--state`, `--out`, and `--assets` paths when resuming the original queue from a different checkout.
 
@@ -21,7 +21,7 @@ Run the following recovery steps after the Radeon has been returned to IJ-0.7.3.
 | Q1 truncation | 393 reserved requests for 131 original truncations, subject to archive replay | `python -m evaluation.aeve.truncation run --output .runtime/aeve-ij073/truncation-report.json` |
 | E0–E7 | Eight matched arms; freeze the eligible roster and its E6 subset before physical dispatch | `python -m evaluation.aeve.paired_evaluation ROSTER OBSERVATIONS --output .runtime/paired-report.json` replays recorded results. Physical dispatch still needs a frozen roster and runner. |
 | Q3 | Independent source-proof bundle, partition freeze and physical execution | `python -m evaluation.aeve.q3_cohort BUNDLE --output .runtime/q3-freeze.json`; the physical runner still needs implementation. |
-| Full history AI evaluation | Recompute remaining physical and nonphysical judgments from the published ledger. Obtain qualified routes for the 600 candidate-family, dimension and risk combinations. | `python -m evaluation.aeve.progress` verifies the ledger. Physical dispatch depends on independently qualified Q3 routes. |
+| Full history AI evaluation | The current ledger reserves 313,796 physical and 108,228 nonphysical primary judgments, plus eligible disputes. Obtain qualified routes for the 600 candidate-family, dimension and risk combinations. | `python -m evaluation.aeve.progress` verifies the ledger. Physical dispatch depends on independently qualified Q3 routes. |
 | Human blind review | Original 22 retained. Freeze the expanded panel and collect independent submissions. | `python -m evaluation.aeve.human_review --out .runtime/private-blind-review` |
 | IJ-0.7.3 legacy queued development | Resume the same SQLite queue and session archive | `python -m evaluation.aeve resume --wait-for-controller --resume-deferred` |
 
