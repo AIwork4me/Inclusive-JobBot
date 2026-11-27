@@ -10,10 +10,12 @@ import math
 from pathlib import Path
 import re
 import subprocess
+from struct import pack
 import time
 from urllib.error import URLError
 from uuid import uuid4
 
+from audit import write_evidence
 from benchmarks.competitive_slm.admission import request, test_gpu
 from benchmarks.competitive_slm.tc_v2_candidate import server_environment
 from benchmarks.root_cause.generation_capture import CaptureClient
@@ -35,7 +37,7 @@ PROMPTS = (
 )
 SEED = 7107
 FLAGS = ("--ctx-size", "8192", "--parallel", "1", "--n-gpu-layers", "99",
-         "--device", "Vulkan0", "--jinja", "--offline", "--no-webui", "--verbosity", "4")
+         "--device", "Vulkan0", "--cache-ram", "0", "--ctx-checkpoints", "0", "--jinja", "--offline", "--no-webui", "--verbosity", "4")
 
 
 def numeric_row(reply):
@@ -75,6 +77,9 @@ def panel(client, scale=None):
             raise ValueError("server returned no usable token prefix")
         body = {"prompt": tokens, "n_predict": 1, "n_probs": 32, "temperature": -1.0,
                 "seed": SEED, "cache_prompt": False, "post_sampling_probs": False}
+        status, _, _ = client.post("/slots/0?action=erase", {})
+        if status != 200:
+            raise ValueError("server refused to erase the recurrent slot")
         if scale is not None:
             body["lora"] = [{"id": 0, "scale": scale}]
         status, _, raw = client.post("/completion", body)
@@ -106,7 +111,7 @@ def owner_capture_active():
 
 
 @contextmanager
-def server(binary, model, lora, port, folder, pin, run_id, handoff):
+def server(binary, model, lora, port, folder, pin, run_id, handoff, *, expected_error=None):
     require_idle_controller()
     if owner_capture_active():
         raise BlockingIOError("the owner capture or another controller is active")
@@ -125,7 +130,12 @@ def server(binary, model, lora, port, folder, pin, run_id, handoff):
             client = CaptureClient(port)
             for _ in range(90):
                 if process.poll() is not None:
-                    raise ValueError("pinned llama-server exited before readiness")
+                    if expected_error is None:
+                        raise ValueError("pinned llama-server exited before readiness")
+                    boot = boot_path.read_text(encoding="utf-8", errors="replace")
+                    rejected = process.returncode != 0 and expected_error in boot and "listening on" not in boot
+                    yield None, {"status": verdict(rejected), "log_sha256": digest(boot_path)}
+                    return
                 try:
                     with client.opener.open(client.base_url + "/props", timeout=2) as reply:
                         props = json.load(reply)
@@ -135,6 +145,9 @@ def server(binary, model, lora, port, folder, pin, run_id, handoff):
                 break
             else:
                 raise TimeoutError("pinned llama-server did not become ready")
+            if expected_error is not None:
+                yield None, {"status": "FAIL", "log_sha256": digest(boot_path)}
+                return
             owner = windows_query(f"(Get-NetTCPConnection -LocalPort {port} -State Listen).OwningProcess")
             boot = boot_path.read_text(encoding="utf-8", errors="replace")
             layers = re.findall(r"offloaded ([1-9]\d*)/(\d+) layers to GPU", boot)
@@ -201,9 +214,30 @@ def run(assets, port):
     root.mkdir(parents=True, exist_ok=False)
     report = {"run_id": run_id, "git_sha": git_head(), "engine": pin, "base": model_spec["asset"],
               "handoff_sha256": digest(ROOT / HANDOFF), "core_trial_attribution": 0,
+              "launch_flags": FLAGS,
               "registry_sha256": digest(ATLAS / "MODEL_ADAPTER_REGISTRY.json"), "seed": SEED,
               "dataset_sha256": fingerprint([PROMPTS, CASE_SPECS["AG-03"]]), "arms": {}}
     base = None
+    negatives = root / "negative"
+    negatives.mkdir()
+    malformed = negatives / "invalid-shape.gguf"
+    malformed.write_bytes(invalid_shape_gguf())
+    report["negative_fixture_sha256"] = digest(malformed)
+    for tag, adapter, expected in (
+        ("missing", negatives / "missing.gguf", "failed to open"),
+        ("shape", malformed, "has incorrect shape"),
+    ):
+        folder = negatives / tag
+        folder.mkdir()
+        with server(engine / "llama-server.exe", model, adapter, port, folder, pin, run_id + "-" + tag, handoff,
+                    expected_error=expected) as (_, result):
+            report.setdefault("load_controls", {})[tag] = result
+    wrong_base = json.loads((ATLAS.parent / "model_registry.json").read_bytes())["models"]["A"]
+    other = (assets / wrong_base["local_asset"]).resolve(strict=True)
+    if not other.is_relative_to(assets) or digest(other) != wrong_base["asset"]["expected_sha256"]:
+        raise ValueError("wrong-model control asset differs from its registry")
+    report["wrong_base_sha256"] = wrong_base["asset"]["expected_sha256"]
+    write_json(root / "report.json", report)
     for arm in ("Original", "HA-O", "HA-P", "HA-H"):
         folder = root / arm
         folder.mkdir()
@@ -214,6 +248,12 @@ def run(assets, port):
                 spec, = (s for name, s in registry["adapters"][arm]["artifacts"].items() if name.endswith(".gguf"))
                 lora = pinned_file(assets, spec)
                 results["adapter"] = spec
+                negative_folder = negatives / arm
+                negative_folder.mkdir()
+                with server(engine / "llama-server.exe", other, lora, port, negative_folder, pin,
+                            run_id + "-wrong-base-" + arm, handoff,
+                            expected_error="model arch and LoRA arch mismatch") as (_, result):
+                    results["wrong_base_control"] = result
             with server(engine / "llama-server.exe", model, lora, port, folder, pin, run_id + "-" + arm,
                         handoff) as (client, launch):
                 results["launch"] = launch
@@ -229,6 +269,9 @@ def run(assets, port):
                         results["post_intervention_isolation"] = verdict(all(compare(base, after, equivalent)))
                         results["one_repeatability"] = verdict(all(compare(one, again, equivalent)))
                     allocations = launch["adapter_allocations"]
+                    results["native_invalid_id_http_status"], _, _ = client.post(
+                        "/completion", {"prompt": one[0]["tokens"], "n_predict": 1, "cache_prompt": False,
+                                        "lora": [{"id": 99, "scale": 1.0}]})
                     results["adapter_device_placement"] = verdict(bool(allocations) and all(
                         entry["device"] == "Vulkan0" and entry["mib"] > 0 for entry in allocations))
                 wire = []
@@ -237,13 +280,24 @@ def run(assets, port):
                 write_json(folder / "direct.json", {"wire": wire, **direct})
                 results["direct"] = direct["gates"]
                 sdk = asyncio.run(execute_case(client.base_url, ALIAS, folder / "sdk", harness, "AG-03"))
-                write_json(folder / "sdk.json", sdk)
+                write_evidence(folder / "sdk.json", sdk)
                 results["sdk_callbacks"] = sdk["status"]
             launch_path = folder / "launch.json"
             write_json(launch_path, launch)
             results["gpu_execution"] = verdict(verify_gpu(
                 {"gpu_launch": launch_path, "gpu_counters": folder / "gpu.jsonl"}, "vulkan"))
-            results["status"] = "BLOCKED" if arm != "Original" else results["baseline_repeatability"]
+            common = [results["gpu_execution"], results["sdk_callbacks"], *results["direct"].values()]
+            if arm == "Original":
+                results["status"] = verdict(all(value == "PASS" for value in
+                                                [*common, results["baseline_repeatability"]]))
+            elif base is not None:
+                checks = [results[key] for key in ("zero_equivalence", "weight_intervention",
+                          "post_intervention_isolation", "one_repeatability", "adapter_device_placement")]
+                checks.extend(entry["status"] for entry in report["load_controls"].values())
+                checks.extend((results["wrong_base_control"]["status"],
+                               verdict(400 <= results["native_invalid_id_http_status"] < 500)))
+                results["status"] = ("FAIL" if "FAIL" in [*common, *checks] else "BLOCKED")
+
         except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as exc:
             results["status"] = "BLOCKED"
             results["interruption"] = type(exc).__name__
@@ -256,6 +310,22 @@ def run(assets, port):
     write_json(root / "report.json", report)
     print(run_id, {arm: row["status"] for arm, row in report["arms"].items()})
     return 2 if any(row["status"] != "PASS" for row in report["arms"].values()) else 0
+
+
+def invalid_shape_gguf():
+    # Two deliberately incompatible zero F16 factors. No model data is copied.
+    def string(value):
+        data = value.encode("ascii")
+        return pack("<Q", len(data)) + data
+
+    meta = b"".join(string(key) + pack("<I", 8) + string(value) for key, value in (
+        ("general.architecture", "lfm3"), ("general.type", "adapter"), ("adapter.type", "lora"),
+    ))
+    meta += string("adapter.lora.alpha") + pack("<If", 6, 64.0)
+    tensors = b"".join(string("blk.0.shortconv.in_proj.weight.lora_" + side) +
+                       pack("<IQQIQ", 2, 1, 1, 1, offset) for side, offset in (("a", 0), ("b", 32)))
+    header = pack("<4sIQQ", b"GGUF", 3, 2, 4) + meta + tensors
+    return header + bytes((-len(header)) % 32 + 64)
 
 
 def verdict(passed):
