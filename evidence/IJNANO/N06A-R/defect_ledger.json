@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-NANO-1.1",
+  "phase": "N06A-R",
+  "generated_utc": "2026-11-27T13:10:00Z",
+  "audited_source": "f3d5817f8b2a1e7b78c9492578afc931247df11c",
+  "method": "adversarial tests written first from the mission-order defect descriptions; red run against the audited source captured verbatim (red_run.txt); minimal justified repairs; green run captured verbatim (green_run.txt); IJ-SDK suite rerun as cross-mission regression control",
+  "red_run_summary": "60 tests collected (modules NA-D03 and NA-D08 were import-blocked at red time because the repair APIs - e.g. CheckpointInvalid, validate_tool_schema - did not yet exist; that import failure is itself red evidence): 15 failures + 39 errors = 54 red; 6 passed pre-repair (pre-existing correct behaviors and negative controls, listed per class below)",
+  "green_run_summary": "119 tests OK (36 Layer-A regression incl. 2 adapted to repaired contracts + 83 adversarial); IJ-SDK suite 93 OK (unaffected)",
+  "defects": [
+    {
+      "id": "NA-D01",
+      "title": "Transaction isolation (nested-state aliasing)",
+      "audited_behavior": "Transaction.begin used dict(self._store): top-level copy only; nested dicts/lists aliased the store; handler exceptions and post-commit draft mutations corrupted or leaked into business state; commit re-aliased draft contents into the store",
+      "root_cause": "shallow copy at the transaction boundary",
+      "red_reproduction": "test_na_d01_transaction.py: nested dict/list rollback corruption, multi-entity rollback, post-commit draft aliasing, handler reaching store internals (4 red)",
+      "repair": "deep-copy draft at begin; deep-copy draft back at commit; handlers only ever receive the draft; commit/rollback invalid-state guards kept; concurrent calls execute handlers on isolated drafts with serialized commit",
+      "guard_tests_not_red_pre_repair": "invalid commit / double commit / commit-after-rollback (RuntimeError already raised by audited code - negative control), concurrent-serialization test (passes for isolation reasons once drafts are deep copies)",
+      "status": "REPAIRED_GREEN",
+      "tests": "tests/ij_nano/test_na_d01_transaction.py"
+    },
+    {
+      "id": "NA-D02",
+      "title": "Evidence integrity envelope",
+      "audited_behavior": "event hash covered prev_hash|trial|seq|stage|kind|event_id|payload but NOT parent_id nor ts_utc; verify() checked only chain+hash; restore accepted cross-trial rows, dangling parents, duplicate ids (with rebuilt chain), invalid stages (indirectly); payload stored by shallow reference; seal had no digest for external anchoring",
+      "root_cause": "incomplete integrity envelope + missing structural verification on restore",
+      "red_reproduction": "test_na_d02_events.py: parent reassignment, timestamp tampering, dangling parent restore, cross-trial rows, truncation-vs-seal (verify_against_seal missing), payload nested-reference mutation, seal digest missing (6 red + 1 import-adjacent)",
+      "repair": "canonical envelope now covers parent_id and ts_utc; verify() additionally enforces stage validity, trial identity, event-id uniqueness, parent existence; append() deep-copies payloads; seal() carries a sha256 digest for a separately trusted manifest; verify_against_seal() detects truncation a chain prefix cannot see",
+      "guard_tests_not_red_pre_repair": "invalid-stage restore (caught indirectly via hash coverage of stage), duplicate-id with canonically rebuilt chain (guard; not reachable through library-computed hashes pre-repair)",
+      "note": "hash format change: logs created by the audited source do not verify under the new envelope; no persisted audited-source logs exist (event log was software-scope only at f3d5817)",
+      "status": "REPAIRED_GREEN",
+      "tests": "tests/ij_nano/test_na_d02_events.py"
+    },
+    {
+      "id": "NA-D03",
+      "title": "Checkpoint integrity and real recovery",
+      "audited_behavior": "Checkpoint bound only trial_id/epoch/budget-snapshot/state/events/count; no experiment identity, no budget spec, no seal, no idempotency, no pending transactions, no integrity hash; restore() validated nothing; callers could skip validate(); deadlines were monotonic-only (restart = fresh budget); no atomic publication",
+      "root_cause": "checkpoint was a data record, not a validating integrity boundary",
+      "red_reproduction": "module import-blocked at red time (CheckpointInvalid did not exist); all 11 adversarial cases red by absence",
+      "repair": "schema v2 checkpoints bind experiment_id, budget_spec, budget snapshot, state, events, seal (final hash + count), idempotency state, pending transactions under one sha256 integrity hash; restore() raises CheckpointInvalid on ANY failure (tamper, spec swap, epoch mismatch, truncation, seal mismatch, malformed); save() publishes atomically (temp file + fsync + os.replace); BudgetController.restore() rebuilds live counters and re-derives the deadline from the checkpointed wall-clock anchor (restart never grants a new budget); Session.restore() returns a live writable state at the restored epoch",
+      "demonstrated": "actual recovery of executable state + budget: counters recovered exactly, deadline expiry enforced post-restart, restored session accepts writes and continues the event chain",
+      "status": "REPAIRED_GREEN",
+      "tests": "tests/ij_nano/test_na_d03_checkpoint.py"
+    },
+    {
+      "id": "NA-D04",
+      "title": "Budget reservation and settlement",
+      "audited_behavior": "reserve() accepted units=0 (bypass: reservation object without counting) and negative specs; no settlement semantics (reserved vs actual vs released vs unknown-after-transport-failure undistinguished; unused capacity never released); no max_tokens binding; reserve/apply not atomic under threads",
+      "root_cause": "reservation existed as a counted hold without a settlement protocol or atomicity",
+      "red_reproduction": "test_na_d04_budget.py: zero-unit reservation accepted, negative specs accepted, no settle/settle_unknown/state, no max_completion_tokens, concurrent race overshooting the cap (9 red; negative-units rejection and retry-cap exhaustion already correct pre-repair - negative controls)",
+      "repair": "units >= 1 enforced; BudgetSpec validates all fields non-negative (counts as ints, bools rejected); Reservation gains settle(actual) (release unused capacity, charge overrun), settle_unknown() (conservative full hold), explicit states reserved/settled/settled_unknown; context-manager exit settles unknown (no silent release); max_completion_tokens() binds request max_tokens to remaining budget; remaining floors at 0; reserve/_apply/_release atomic under an RLock; wall-clock deadline anchor added for NA-D03 restart recovery",
+      "status": "REPAIRED_GREEN",
+      "tests": "tests/ij_nano/test_na_d04_budget.py"
+    },
+    {
+      "id": "NA-D05",
+      "title": "Provenance integrity for trusted facts",
+      "audited_behavior": "apply_verified accepted any nonempty source_event_id string; no event-existence check, no trial binding, no authorized-source-stage check, no data-type/unit/entity validation, values stored by reference",
+      "root_cause": "provenance was a naming convention, not a verification",
+      "red_reproduction": "test_na_d05_provenance.py: fake source id accepted, cross-trial source accepted, request-stage source accepted, type/bool/unit/entity violations accepted, nested value mutable through caller reference, unbound session accepted facts (9 red; authorized-stage acceptance was already desired behavior - positive control)",
+      "repair": "Session binds trial_id + EventLog; apply_verified requires the source event to exist in the bound log, belong to this trial's log and carry an authorized source stage (tool_call_finished; request_sent/response_decoded deliberately unauthorized - model text can never enter trusted state); fact validation (non-empty entity/property, data_type in the declared set matching the value with bool strictness, unit None-or-nonempty); values stored as deep copies",
+      "contract_change": "existing tests updated: facts now require a bound log and real source events (the old tests encoded the defective contract); recorded here as a justified contract change, not a silent test edit",
+      "status": "REPAIRED_GREEN",
+      "tests": "tests/ij_nano/test_na_d05_provenance.py; tests/ij_nano/test_state_checkpoint.py (adapted)"
+    },
+    {
+      "id": "NA-D06",
+      "title": "Epoch and cancellation protection at execution boundaries",
+      "audited_behavior": "gateway.call accepted state_epoch_getter but never consulted it; no cancellation or deadline hooks; late handlers committed after reset/cancel/deadline",
+      "root_cause": "boundary parameter accepted but unenforced",
+      "red_reproduction": "test_na_d06_epoch_cancel.py: epoch mismatch dispatched anyway, delayed handler after reset committed, no pre-commit recheck, cancelled-before-dispatch executed, cancelled-during-handler committed, deadline hooks absent (6 red + 1 from registration-contract absence)",
+      "repair": "boundary checks (epoch getter vs expected, cancellation token, deadline callable) enforced twice: after approval/idempotency before dispatch, and after handler return BEFORE commit; denials carry stage epoch/cancellation/deadline; ToolSpec.__post_init__ and gateway registration reject non_reversible tools without requires_approval (fail closed); compensation policy for non-reversible external actions documented in the gateway module contract (gateway enforces pre-dispatch checks; dispatched external effects are the tool package's compensation responsibility)",
+      "status": "REPAIRED_GREEN",
+      "tests": "tests/ij_nano/test_na_d06_epoch_cancel.py"
+    },
+    {
+      "id": "NA-D07",
+      "title": "Approval and idempotency binding",
+      "audited_behavior": "approve(call_key) stored a bare string reusable for any tool/arguments; idempotency keyed on effect_key alone (unbound to tool or canonical args); idempotent tools callable without effect_key; no in-flight duplicate detection; idempotency state not exportable/restorable",
+      "root_cause": "identity was a string key, not an operation binding",
+      "red_reproduction": "test_na_d07_approval_idem.py: approval reusable across tools/args, no expiry enforcement, missing mandatory effect key accepted, same effect key across different args/tools accepted, in-flight duplicate undetected, no export/load (6 red)",
+      "repair": "approve() binds call_key to tool + canonical-args sha256 + operation_id + scope + optional expiry (now injectable); approval check enforces the binding and expiry; idempotent tools REQUIRE an effect key; effect keys bound to (tool, canonical args) - cross-operation reuse denied; write-ahead pending mark before dispatch denies in-flight duplicates; entry finalized atomically with commit; export_idempotency()/load_idempotency() bind idempotency state into checkpoints (duplicate-after-restart denied); duplicate completed requests return the recorded effect without re-execution",
+      "status": "REPAIRED_GREEN",
+      "tests": "tests/ij_nano/test_na_d07_approval_idem.py"
+    },
+    {
+      "id": "NA-D08",
+      "title": "Schema validation strictness",
+      "audited_behavior": "numeric bounds, string length and pattern keywords silently ignored; arrays rejected as a type; non-finite numbers passed as number; schemas with unsupported keywords accepted at registration; the schema itself never validated",
+      "root_cause": "validator subset enforced fewer keywords than it accepted",
+      "red_reproduction": "module import-blocked at red time (validate_tool_schema did not exist); of the collected tests, minimum/maximum/length/pattern/array cases failed against the old validator via the registration path (old test_gateway asserted array rejection - the defective contract); 14 adversarial cases red by absence or by silent-ignore",
+      "repair": "explicit supported-keyword set (type/properties/required/additionalProperties/enum/items/minItems/maxItems/uniqueItems/minimum/maximum/exclusiveMinimum/exclusiveMaximum/minLength/maxLength/pattern + annotations), every keyword enforced; validate_tool_schema() validates the schema definition itself (unknown keywords, invalid types, uncompilable patterns, non-finite bounds rejected AT REGISTRATION TIME); gateway validates every ToolSpec schema on construction; non-finite floats rejected anywhere in args; arrays fully validated (items/bounds/unique); arbitrary nesting supported",
+      "dependency_decision": "a trusted standard validator (jsonschema 4.26.0, MIT) is listed in requirements.lock but is NOT installed in this runtime environment (verified ModuleNotFoundError); per the mission order the limited-validator branch applies: fail closed at registration. Switching to jsonschema later is a recorded one-line decision gated on the package being present in the pinned environment",
+      "contract_change": "test_gateway.py test_unsupported_type_fails_closed updated: arrays are now supported and validated; genuinely unsupported types still fail closed",
+      "status": "REPAIRED_GREEN",
+      "tests": "tests/ij_nano/test_na_d08_schema.py; tests/ij_nano/test_gateway.py (adapted)"
+    }
+  ],
+  "scope_limits": [
+    "SOFTWARE_ONLY qualification under unittest; no physical runtime, GPU or engine involvement.",
+    "In-memory synthetic store: deep-copy isolation qualifies the software transaction boundary; durable transactional storage for persistent job worlds is future work (mission order NA-D01).",
+    "Not production transaction safety: a single-process hash chain and dict idempotency are not adversarial persistence; seal digests anchor external manifests but the manifest procedure is procedural.",
+    "Concurrency support is serialized commits on isolated drafts, not parallel transactional commits."
+  ]
+}

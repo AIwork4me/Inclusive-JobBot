@@ -1,4 +1,10 @@
-"""Layer A regression tests: typed state reset/epoch (D04) + checkpoints."""
+"""Layer A regression tests: typed state reset/epoch (D04) + checkpoints.
+
+Updated at N06A-R for the NA-D05 provenance contract: apply_verified now
+requires a bound EventLog and a real authorized source event (facts with
+bare id strings were the audited defect). Checkpoints gained integrity
+binding (NA-D03); round-trip tests use the new validating restore.
+"""
 import pathlib
 import sys
 import unittest
@@ -7,19 +13,31 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "src"))
 
 from nanoagent.core.budget import BudgetController, BudgetSpec  # noqa: E402
 from nanoagent.core.checkpoint import (CancellationToken, Checkpoint,  # noqa: E402
-                                       OperationCancelled)
+                                       CheckpointInvalid, OperationCancelled)
 from nanoagent.core.events import EventLog  # noqa: E402
 from nanoagent.core.state import Fact, Session, StaleEpochError, UnverifiedSourceError  # noqa: E402
+
+
+def fact_session(trial="trial-1"):
+    """Session with a bound event log; returns (session, log)."""
+    log = EventLog(trial)
+    s = Session(trial_id=trial, event_log=log)
+    return s, log
+
+
+def tool_event(log, **payload):
+    return log.append("tool_call_finished", "tool.done", payload)
 
 
 class TestState(unittest.TestCase):
     def test_complete_reset_no_cross_trial_residue(self):
         # D04: session contamination - a reset must leave nothing behind.
-        s = Session()
+        s, log = fact_session()
         st = s.state
         st.set_goal("audit PO-1", epoch=st.epoch)
+        ev = tool_event(log, entity="PO-1")
         st.apply_verified(Fact("PO-1", "total", 100.0, "number",
-                               source_event_id="ev1"), epoch=st.epoch)
+                               source_event_id=ev.event_id), epoch=st.epoch)
         st.record_action("act-1", epoch=st.epoch)
         st.record_error("boom", epoch=st.epoch)
         fresh = s.reset()
@@ -32,7 +50,7 @@ class TestState(unittest.TestCase):
         self.assertEqual(fresh.version, 0)
 
     def test_epoch_abort_rejects_late_writes(self):
-        s = Session()
+        s, _ = fact_session()
         old = s.state
         old_epoch = old.epoch
         s.reset()
@@ -42,21 +60,29 @@ class TestState(unittest.TestCase):
 
     def test_generated_text_cannot_write_facts(self):
         # Only verified, event-backed facts enter state.
-        st = Session().state
+        s, log = fact_session()
         with self.assertRaises(UnverifiedSourceError):
-            st.apply_verified(Fact("E", "p", 1, "number"), epoch=st.epoch)
+            s.state.apply_verified(Fact("E", "p", 1, "number"), epoch=s.state.epoch)
+        model_text = log.append("response_decoded", "text", {"text": "total is 5"})
+        with self.assertRaises(UnverifiedSourceError):
+            s.state.apply_verified(
+                Fact("E", "p", 1, "number", source_event_id=model_text.event_id),
+                epoch=s.state.epoch)
 
     def test_fact_versioning_and_scope_invalidation(self):
-        s = Session()
+        s, log = fact_session()
         st = s.state
-        st.apply_verified(Fact("E", "qty", 5, "integer", source_event_id="a"),
+        ea = tool_event(log, i=1)
+        st.apply_verified(Fact("E", "qty", 5, "integer", source_event_id=ea.event_id),
                           epoch=st.epoch)
         v1 = st.fact("E", "qty").state_version
-        st.apply_verified(Fact("E", "qty", 3, "integer", source_event_id="b"),
+        eb = tool_event(log, i=2)
+        st.apply_verified(Fact("E", "qty", 3, "integer", source_event_id=eb.event_id),
                           epoch=st.epoch)
         self.assertEqual(st.fact("E", "qty").value, 3)
         self.assertGreater(st.fact("E", "qty").state_version, v1)
-        st.apply_verified(Fact("E", "loc", "W-1", "string", source_event_id="c",
+        ec = tool_event(log, i=3)
+        st.apply_verified(Fact("E", "loc", "W-1", "string", source_event_id=ec.event_id,
                                validity_scope="before-move"), epoch=st.epoch)
         dropped = st.invalidate_scope("before-move", epoch=st.epoch)
         self.assertEqual(dropped, 1)
@@ -66,21 +92,20 @@ class TestState(unittest.TestCase):
 
 class TestCheckpoint(unittest.TestCase):
     def _session_parts(self):
-        s = Session()
+        s, log = fact_session()
         st = s.state
         st.set_goal("g", epoch=st.epoch)
-        st.apply_verified(Fact("PO", "amt", 9.5, "number", source_event_id="e1"),
+        ev = tool_event(log, entity="PO", amt=9.5)
+        st.apply_verified(Fact("PO", "amt", 9.5, "number", source_event_id=ev.event_id),
                           epoch=st.epoch)
         bc = BudgetController(BudgetSpec(model_calls=9))
         bc.reserve("model_calls", 2)
-        log = EventLog("trial-1")
-        log.append("task_started", "start", {})
         log.append("request_sent", "req", {"i": 1})
         return s, bc, log
 
     def test_checkpoint_round_trip_and_resume(self):
         s, bc, log = self._session_parts()
-        cp = Checkpoint.capture(s, bc, log)
+        cp = Checkpoint.capture(s, bc, log, experiment_id="exp-test")
         raw = cp.to_json()
         cp2, log2 = Checkpoint.restore(raw)
         self.assertTrue(cp2.validate())
@@ -92,9 +117,18 @@ class TestCheckpoint(unittest.TestCase):
 
     def test_checkpoint_detects_count_tampering(self):
         s, bc, log = self._session_parts()
-        cp = Checkpoint.capture(s, bc, log)
+        cp = Checkpoint.capture(s, bc, log, experiment_id="exp-test")
         cp.event_count = 99
         self.assertFalse(cp.validate())
+
+    def test_checkpoint_restore_rejects_tampering(self):
+        import json
+        s, bc, log = self._session_parts()
+        cp = Checkpoint.capture(s, bc, log, experiment_id="exp-test")
+        d = json.loads(cp.to_json())
+        d["budget"]["counters"]["model_calls"] = 0
+        with self.assertRaises(CheckpointInvalid):
+            Checkpoint.restore(json.dumps(d))
 
     def test_cancellation_cooperative(self):
         tok = CancellationToken()

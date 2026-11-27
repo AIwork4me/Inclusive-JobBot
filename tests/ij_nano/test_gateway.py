@@ -74,7 +74,8 @@ class TestGatewayOrdering(unittest.TestCase):
         with self.assertRaises(GatewayDenial) as cm:
             gw.call("get_order", {"order_id": "PO-1"}, call_key="c1")
         self.assertEqual(cm.exception.stage, "approval")
-        gw.approve("c1")
+        gw.approve("c1", tool="get_order", args={"order_id": "PO-1"},
+                   operation_id="op-1")
         res = gw.call("get_order", {"order_id": "PO-1"}, call_key="c1")
         self.assertTrue(res["ok"])
 
@@ -145,9 +146,18 @@ class TestSchema(unittest.TestCase):
             validate_args({"n": True}, ischema)  # bool is not integer
 
     def test_unsupported_type_fails_closed(self):
-        schema = {"type": "object", "properties": {"x": {"type": "array"}}}
+        # Arrays are supported since NA-D08; genuinely unsupported types
+        # (outside the declared subset) still fail closed.
+        schema = {"type": "object", "properties": {"x": {"type": "null"}}}
         with self.assertRaises(ValueError):
             validate_args({"x": []}, schema)
+        # Array validation is real, not a blanket rejection:
+        ok = {"type": "object",
+              "properties": {"x": {"type": "array",
+                                   "items": {"type": "string"}}}}
+        validate_args({"x": ["a"]}, ok)
+        with self.assertRaises(ValueError):
+            validate_args({"x": [1]}, ok)
 
 
 if __name__ == "__main__":

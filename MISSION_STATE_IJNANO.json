@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-NANO-1.0",
   "mission_title": "SLM-native Agentic Runtime Co-design & Capability-driven Harness Optimization",
-  "updated_utc": "2026-11-27T11:58:54Z",
-  "current_phase": "IJ-NANO-1.1 active (order: docs/IJNANO_MISSION_ORDER_V1_1.md). Delivered: N00, N00R, N02 (physical qualification PASS). Parallel lanes: N01 closure, N06A-R integrity hardening, N05A cognitive evaluator, N02R protocol causal analysis under host-wide lease",
+  "updated_utc": "2026-11-27T13:20:00Z",
+  "current_phase": "IJ-NANO-1.1 active (order: docs/IJNANO_MISSION_ORDER_V1_1.md). Delivered: N00, N00R, N02 (physical qualification PASS). Delivered under 1.1: N00RR, N06A-R integrity hardening PASS. Lanes: N01 closure, N05A cognitive evaluator, N02R protocol causal analysis under host-wide lease",
   "mission_order": "docs/IJNANO_MISSION_ORDER.md (verbatim preregistration, committed at N00)",
   "research_protocol": "docs/IJNANO_RESEARCH_PROTOCOL.md",
   "tracking_issue": 10,
@@ -182,7 +182,7 @@
         "status": "PASS",
         "evidence": ["src/nanoagent/{core,gateway}/", "tests/ij_nano/ (36 tests green)"],
         "covered_defect_classes": ["D04", "D05", "D06", "D07 (event-log half)"],
-        "outstanding": "IJ-NANO-1.1 NA-D01..NA-D08 adversarial hardening (see N06A-R)"
+        "outstanding": "none at Layer A software scope; NA-D01..NA-D08 repaired 2026-11-27 (see N06A-R); durable transactional storage deferred to persistent-world work"
       },
       "gate": "N06_NANOAGENT_MODULAR_RUNTIME_IMPLEMENTED",
       "gate_status": "NOT_RUN",
@@ -190,16 +190,20 @@
     },
     "N06A-R": {
       "title": "IJ-NANO-1.1 Execution integrity hardening (NA-D01..NA-D08 against Layer A)",
-      "progress": "not_started",
-      "status": "NOT_RUN",
+      "progress": "done",
+      "status": "PASS",
       "gate": "NANOAGENT_LAYER_A_SOFTWARE_INTEGRITY_GO",
-      "gate_status": "NOT_RUN",
+      "gate_status": "PASS",
       "gpu_required": false,
-      "deliverables": [
+      "delivered_utc": "2026-11-27T13:20:00Z",
+      "evidence": [
         "reports/IJNANO_06A_RUNTIME_INTEGRITY_HARDENING.md",
         "evidence/IJNANO/N06A-R/defect_ledger.json",
-        "evidence/IJNANO/N06A-R/regression_results.json"
+        "evidence/IJNANO/N06A-R/regression_results.json",
+        "evidence/IJNANO/N06A-R/red_run.txt",
+        "evidence/IJNANO/N06A-R/green_run.txt"
       ],
+      "summary": "8/8 defect classes reproduced red against audited f3d5817 (54 red; 2 modules import-blocked by absent repair APIs) then repaired; 119/119 Layer A tests green; IJ-SDK suite 93 OK (unaffected); software scope only - production transaction safety NOT claimed",
       "note": "red reproduction before repair per class; software qualification only - never claimed as production transaction safety"
     },
     "N07": {

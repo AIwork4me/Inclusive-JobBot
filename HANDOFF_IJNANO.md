@@ -27,11 +27,14 @@ reconciliation — cross-host GPU conflict resolved, `IJN-B-001` CLOSED, local
 lease available), **N02** (physical runtime qualification PASS: identities,
 admissions, protocol probes; S2 chat-path finding feeds N02R).
 
-IJ-NANO-1.1 is active (order: `docs/IJNANO_MISSION_ORDER_V1_1.md`). Lanes:
-N01 closure (reports), N06A-R integrity hardening (NA-D01..D08), N05A
-cognitive evaluator, N02R protocol causal analysis (GPU, under lease),
-then N03 profiling and the evidence-driven runtime work. Formal end-to-end
-business evaluation stays BLOCKED (IJN-B-002 narrowed).
+IJ-NANO-1.1 is active (order: `docs/IJNANO_MISSION_ORDER_V1_1.md`).
+Delivered under 1.1: **N00RR** (reconcile) and **N06A-R** (Layer A
+execution-integrity hardening PASS — 8/8 defect classes red-reproduced
+against `f3d5817` and repaired; 119/119 tests green; software scope only).
+Lanes: N01 closure (reports), N05A cognitive evaluator, N02R protocol
+causal analysis (GPU, under lease), then N03 profiling and the
+evidence-driven runtime work. Formal end-to-end business evaluation stays
+BLOCKED (IJN-B-002 narrowed).
 
 Branch: `mission/ij-nano-1.0-slm-native-agentic-runtime`, base `56c6c74b`
 (PR #8 head at N00 audit), audited anchor `f3d5817f`. Never rebase onto
@@ -66,14 +69,14 @@ missions' state files.
 
 ## 5. Next steps, in order
 
-1. N01 closure (gate `N01_RESEARCH_LANDSCAPE_VERIFIED`).
-2. N06A-R hardening (gate `NANOAGENT_LAYER_A_SOFTWARE_INTEGRITY_GO`) —
-   reproduce each NA-D concern red before repairing.
-3. N05A evaluator qualification (gate `N05A_COGNITIVE_EVALUATOR_QUALIFIED`).
-4. N02R protocol causal analysis under lease (gate
+1. N01 closure (gate `N01_RESEARCH_LANDSCAPE_VERIFIED`) — deliverables
+   drafted; verify against catalog before commit.
+2. N05A evaluator qualification (gate `N05A_COGNITIVE_EVALUATOR_QUALIFIED`).
+3. N02R protocol causal analysis under lease (gate
    `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED`); preserve the raw S2
    `overall: FAIL` artifact unchanged.
-5. N03 twelve priority cognitive families once N05A scopes qualify.
+4. N03 twelve priority cognitive families once N05A scopes qualify.
+5. Evidence-driven N06B/C layers and N04/N07 mechanism reproductions.
 
 ## 6. Things that will trip you up
 

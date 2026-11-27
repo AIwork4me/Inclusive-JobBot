@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-NANO-1.1",
+  "phase": "N06A-R",
+  "generated_utc": "2026-11-27T13:15:00Z",
+  "audited_source": "f3d5817f8b2a1e7b78c9492578afc931247df11c",
+  "commands": [
+    "python -I -m unittest discover -s tests/ij_nano -p 'test_na_*.py' -t .   (red, pre-repair)",
+    "python -I -m unittest discover -s tests/ij_nano -t .                    (green, post-repair, full Layer A)",
+    "python -I -m unittest discover -s tests/ij_sdk -t .                     (cross-mission regression control)"
+  ],
+  "red": {
+    "date_utc": "2026-11-27T12:5x:00Z (captured verbatim in red_run.txt)",
+    "collected": 60,
+    "failures": 15,
+    "errors": 39,
+    "notes": "modules test_na_d03_checkpoint and test_na_d08_schema were import-blocked pre-repair because the repair APIs (CheckpointInvalid, validate_tool_schema) did not exist at the audited source; the import failures are themselves red evidence; 6 collected tests passed pre-repair (pre-existing correct behaviors / negative controls, itemized per class in defect_ledger.json)"
+  },
+  "green": {
+    "layer_a": {"ran": 119, "result": "OK", "verdict": "PASS"},
+    "adversarial_subset": 83,
+    "regression_subset": 36,
+    "ij_sdk_control": {"ran": 93, "result": "OK", "verdict": "PASS (unaffected)"},
+    "evidence_files": ["evidence/IJNANO/N06A-R/red_run.txt", "evidence/IJNANO/N06A-R/green_run.txt"]
+  },
+  "files_changed": {
+    "source": [
+      "src/nanoagent/core/budget.py",
+      "src/nanoagent/core/events.py",
+      "src/nanoagent/core/state.py",
+      "src/nanoagent/core/checkpoint.py",
+      "src/nanoagent/gateway/gateway.py",
+      "src/nanoagent/gateway/schema.py"
+    ],
+    "tests_new": [
+      "tests/ij_nano/test_na_d01_transaction.py",
+      "tests/ij_nano/test_na_d02_events.py",
+      "tests/ij_nano/test_na_d03_checkpoint.py",
+      "tests/ij_nano/test_na_d04_budget.py",
+      "tests/ij_nano/test_na_d05_provenance.py",
+      "tests/ij_nano/test_na_d06_epoch_cancel.py",
+      "tests/ij_nano/test_na_d07_approval_idem.py",
+      "tests/ij_nano/test_na_d08_schema.py"
+    ],
+    "tests_adapted_to_repaired_contracts": [
+      "tests/ij_nano/test_gateway.py",
+      "tests/ij_nano/test_state_checkpoint.py"
+    ],
+    "other_missions": "none touched (tests/ij_sdk suite green and unchanged)"
+  }
+}
