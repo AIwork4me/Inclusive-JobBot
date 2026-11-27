@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-EVAL-ASSURANCE-1.0",
+  "mission_title": "Systemic Evaluation Integrity & Continuous Self-verification (Evaluation Assurance Engine, EAE)",
+  "updated_utc": "2026-11-28T07:30:00Z",
+  "current_phase": "EA00",
+  "mission_order": "docs/IJEVAL_MISSION_ORDER.md",
+  "tracking_issue": 12,
+  "draft_pr": 13,
+  "research_branch": "mission/ij-eval-assurance-1.0-systemic-evaluation-integrity",
+  "base_commit": "bc4555ecb6db989beefaeeba452c1c160283da2c",
+  "base_commit_note": "qualified IJ-NANO HEAD = PR #11 remote head verified at mission start; N02RR corrected replay identity 6701a6a6a08b34d9",
+  "parent_dependencies": {
+    "pr6_atlas": "06f25ab50db9e8ef074d9fb804de3191d7eadb98",
+    "pr8_ij_sdk": "56c6c74bf7216eb9cf65be4056c8db1964d23b05",
+    "pr9_ij_slm": "fb28ef2492388be237bdb2f835d261c819569551",
+    "pr11_ij_nano": "bc4555ecb6db989beefaeeba452c1c160283da2c"
+  },
+  "worktree_note": "runtime/llama-cpp/vulkan is a local junction to the IJNANO worktree binaries (untracked, engine identity hashing only); weights remain in the read-only IJSDK sibling worktree",
+  "phases": {
+    "EA00": {
+      "title": "Repository audit and historical evaluation defect inventory",
+      "status": "IN_PROGRESS",
+      "section_2_2_n02rr_residual_audit": {
+        "status": "DONE",
+        "commit": "f081655",
+        "evidence": "evidence/IJEVAL/EA00/n02rr_residual_risk_reproduction.json",
+        "reproducer": "scripts/ij_eval_assurance/ea00_n02rr_residual_repro.py",
+        "findings": [
+          "R1: evaluator exception is coerced to semantic_correct=False (n02rr_replay_lib.py:326-330); classifiers label REPLAY_ERROR/EVIDENCE_INSUFFICIENT but the boolean verdict carries the failure to verdict-reading consumers",
+          "R2: EVIDENCE_INCONSISTENT_STAGE2_TOOL rows retain semantic_correct=True; only the failure_class label signals invalid evidence",
+          "R3: production analyzer n02rr_analyze.load_rows has NO eligibility filter (r['sem']=bool(verdict)); under injection the headline moves 870/2184 -> 871/2186 with the replay-error row counted as model FAIL and the inconsistent row as PASS",
+          "sealed corpus verified: 0 REPLAY_ERROR / 0 EVIDENCE_INCONSISTENT_STAGE2_TOOL / 0 EVIDENCE_INSUFFICIENT rows, so the published IJ-NANO-1.2R corrected headline is NOT contaminated; both risks are structural/latent",
+          "n02r_rescore.py:118 (repaired tool) seals semantic_correct from the same coercion path into future experiment records"
+        ],
+        "correction_disposition": "to be closed by EA02 eligible_for_semantic_statistics + EA05/EAE verdict model; no retroactive edit to sealed N02RR evidence (INV07)"
+      },
+      "gate": "EA00_EVALUATION_BASELINE_AUDITED",
+      "gate_status": "NOT_GRANTED"
+    }
+  },
+  "final_verdicts": {},
+  "notes": [
+    "CPU-first mission; GPU only for EA13 physical smoke after software qualification",
+    "All commits gated by scripts/tools/publish_check.py --staged (finding-count based)",
+    "No active physical experiment at mission start (verified: no python/llama-server processes, GPU idle)"
+  ],
+  "recovery": {
+    "worktree": "<worktrees>/IJEVAL (sibling of the IJNANO mission worktree and the read-only IJSDK weights worktree)",
+    "recreate_junction": "cmd /c mklink /J runtime\\llama-cpp\\vulkan <worktrees>/IJNANO/runtime/llama-cpp/vulkan",
+    "rerun_reproducer": "python -I scripts/ij_eval_assurance/ea00_n02rr_residual_repro.py"
+  }
+}
