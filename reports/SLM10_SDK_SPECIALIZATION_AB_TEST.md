@@ -18,3 +18,10 @@ On the English single-tool task, the LFM3 A1 replay repeated the read. A2, A3 an
 The guard protected two callbacks in the MiniCPM5 dependent-tool pilot. The model continued proposing actions and the task still lacked a terminal answer. The guard applies only to verified successful static reads and excludes release, recovery and scope changes. Its protection belongs to the host. A5 changes SDK integration. A2 through A4 change model-visible context through experimental runtime controls.
 
 The full development panel and new held-out retest remain open. The current SDK boundary buffers SSE before validation. Its first-visible-text measurements describe buffered delivery. The provider-delta experiment measures native SSE at the socket separately.
+
+
+## Transport and typed action controls
+
+The Qwen3.5 observer on/off control used identical tool-free Direct request bytes. Parsed output, usage and stop reason agreed. Native first content arrived at 53.49 ms with observation off and 70.885 ms with it on in this single pair. These times do not establish a latency effect. The large real SDK response was 677,986 bytes. The old 512 KiB limit rejected it, and the revised 1 MiB limit still rejected its length termination. It therefore provides a negative control for incomplete SSE. [Transport evidence](../evidence/IJSLM/sdk-causal/transport-v1/report.json)
+
+The frozen typed extension separates catalog development from four new held-out families. Its action-instance verifier covers nested schemas, multi-entity tools, legal retries and producer-linked observations. Eight scoped software qualification controls passed. Extension GPU results and whole-suite qualification remain pending. [Extension manifest](../atlas/slm/v1.0/sdk-extension/manifest.json)

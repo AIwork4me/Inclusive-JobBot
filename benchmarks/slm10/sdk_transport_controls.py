@@ -28,7 +28,7 @@ from .tc_execution import provider_profile
 from .tc_v3 import FIRST_SEED
 
 HEADERS = {"Content-Type": "application/json"}
-EXPECTED = {"text": "alpha" + " alpha" * 1899}
+DEFAULT_WORDS = 1900
 
 
 def native_stream(client, raw, trial_id):
@@ -61,14 +61,15 @@ def native_stream(client, raw, trial_id):
     return event
 
 
-async def large_sdk(client, alias, target, harness, trial_id):
+async def large_sdk(client, alias, target, harness, trial_id, payload_words):
+    expected = {"text": "alpha" + " alpha" * (payload_words - 1)}
     wire, chunks = [], []
     first = None
     start = perf_counter()
     for name in ("work", "save", "app"):
         (target / name).mkdir()
     schema = {"type": "object", "additionalProperties": False, "required": ["text"],
-              "properties": {"text": {"const": EXPECTED["text"]}}}
+              "properties": {"text": {"const": expected["text"]}}}
 
     def constrained(raw):
         body = json.loads(raw) | provider_profile(True, FIRST_SEED)
@@ -106,7 +107,7 @@ async def large_sdk(client, alias, target, harness, trial_id):
                 types.AntigravityValidationError) as exc:
             failure = str(exc)
     try:
-        success = json.loads("".join(chunks)) == EXPECTED
+        success = json.loads("".join(chunks)) == expected
     except ValueError:
         success = False
     replay = replay_budget(wire[0]) if len(wire) == 1 and wire[0].get("response_capture_complete") else {}
@@ -117,7 +118,7 @@ async def large_sdk(client, alias, target, harness, trial_id):
             "answer_matches_payload": success, "failure": failure, "same_byte_limit_replay": replay}
 
 
-def run(assets, target, port):
+def run(assets, target, port, payload_words, large_only):
     require_handoff(ROOT)
     target.mkdir()
     model_record = json.loads((ROOT / "atlas/slm/v1.0/model_registry.json").read_bytes())["models"]["D"]
@@ -135,10 +136,11 @@ def run(assets, target, port):
     raw = canonical({"model": alias, "messages": [{"role": "user", "content": "Return JSON with code CONTROL."}],
                      **provider_profile(True, FIRST_SEED), "max_completion_tokens": 96,
                      "stream_options": {"include_usage": True}})
-    report = {"version": "IJ-SLM-SDK-TRANSPORT/1.0", "git_sha": git_head(), "candidate": "D",
+    report = {"version": "IJ-SLM-SDK-TRANSPORT/1.1", "git_sha": git_head(), "candidate": "D",
+              "payload_words": payload_words, "source_sha256": digest(Path(__file__)),
               "formal_trials": 0, "engine_sha256": hashes, "model": runtime["model"], "sdk": sdk,
               "harness_sha256": digest(harness), "variants": {}, "artifacts": {}}
-    for observe in (False, True):
+    for observe in ((True,) if large_only else (False, True)):
         tag = "on" if observe else "off"
         output = target / tag
         output.mkdir()
@@ -148,19 +150,24 @@ def run(assets, target, port):
                         runtime_session=trial_id) as (client, launch):
             verify_launch(launch, runtime, require_trace=observe)
             write_evidence(output / "launch.json", launch | {"status": "PASS"})
-            report["variants"][tag] = {"launch": launch, "stream": native_stream(client, raw, trial_id)}
+            report["variants"][tag] = {"launch": launch}
+            if not large_only:
+                report["variants"][tag]["stream"] = native_stream(client, raw, trial_id)
             if observe:
-                report["large_sdk_control"] = asyncio.run(large_sdk(client, alias, output, harness, trial_id + "-sdk"))
+                report["large_sdk_control"] = asyncio.run(large_sdk(client, alias, output, harness, trial_id + "-sdk", payload_words))
         counters = output / launch["counter_file"]
         report["variants"][tag]["gpu_execution"] = "PASS" if verify_gpu({"gpu_launch": output / "launch.json",
                                                                            "gpu_counters": counters}, "vulkan") else "FAIL"
         report["artifacts"][tag + "-gpu.jsonl.gz"] = archive(counters, target / (tag + "-gpu.jsonl.gz"))
-    first, second = (report["variants"][tag]["stream"] for tag in ("off", "on"))
-    flags = [report["variants"][tag]["gpu_execution"] for tag in ("off", "on")]
-    report["observer_visible_equivalence"] = (
-        "BLOCKED" if any(flag != "PASS" for flag in flags) or any("parsed_response" not in r for r in (first, second))
-        else "PASS" if all(first.get(key) == second.get(key) for key in (
-            "provider_request_sha256", "parsed_response", "usage", "provider_stop_reason")) else "FAIL")
+    if large_only:
+        report["observer_visible_equivalence"] = "NOT_RUN"
+    else:
+        first, second = (report["variants"][tag]["stream"] for tag in ("off", "on"))
+        flags = [report["variants"][tag]["gpu_execution"] for tag in ("off", "on")]
+        report["observer_visible_equivalence"] = (
+            "BLOCKED" if any(flag != "PASS" for flag in flags) or any("parsed_response" not in r for r in (first, second))
+            else "PASS" if all(first.get(key) == second.get(key) for key in (
+                "provider_request_sha256", "parsed_response", "usage", "provider_stop_reason")) else "FAIL")
     check_text(canonical(portable(report)))
     write_evidence(target / "private.json", report)
     write_evidence(target / "report.json", portable(report) | {"private_sha256": digest(target / "private.json")})
@@ -172,8 +179,12 @@ def main():
     parser.add_argument("--assets", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--port", type=int, default=18754)
+    parser.add_argument("--payload-words", type=int, default=DEFAULT_WORDS)
+    parser.add_argument("--large-sdk-only", action="store_true")
     args = parser.parse_args()
-    run(args.assets.resolve(), args.output.resolve(), args.port)
+    if not 1 <= args.payload_words <= 2100:
+        parser.error("payload size outside the registered transport bound")
+    run(args.assets.resolve(), args.output.resolve(), args.port, args.payload_words, args.large_sdk_only)
 
 
 if __name__ == "__main__":

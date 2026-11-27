@@ -2,6 +2,8 @@
 
 ## IJ-SLM-1.0 baseline
 
+TCV3-EXT/0.1 freezes new workflow families with nested arguments, multi-entity tools, distractors and a legal same-argument retry. The separate action-instance verifier passed eight synthetic controls for the accessibility-route graph. Physical extension execution and full suite admission remain NOT_RUN. [Independent extension](atlas/slm/v1.0/sdk-extension/manifest.json)
+
 The three Radeon candidates completed the SDK causal development pilot. Frozen scores remain in each sealed record. The versioned offline metrics, raw diagnostic evidence and experiment configuration are linked from the SDK capability loss report.
 
 The frozen queue continued during the SDK loss investigation. SDK causal ablation version 1.0 freezes independent development inputs and records the complete SDK control, Direct baseline, same-request replay, three single-factor comparisons, compact SDK and an independent bounded read guard. The version 1.0 offline evaluator keeps formal TC-V3 scores and independently records proposal, callback, delivery, answer and termination evidence. Physical diagnostic results remain NOT_RUN at this source seal.

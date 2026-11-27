@@ -8,6 +8,12 @@ Set `PYTHONPATH=.;src;benchmarks/tool_calling/runner` and use the pinned reposit
 
 Publish completed batches with `python -m benchmarks.slm10.tc_dashboard --publish-from ASSET_ROOT/.runtime/ij-slm-1.0/tc-v3-formal/sealed`. Update the mission and ledger counts from its executed rows. Keep the portable evidence and the original private traces identified separately. D25 and AG-11 remain BLOCKED.
 
+### Interleaved SDK experiments
+
+The interleaved Windows controller advances a frozen 36-trial formal batch before each eligible diagnostic wave. Diagnostic runs occupy the shared Radeon lease between batches. The development wave output directories prevent redispatch. Interrupted diagnostic wave directories remain available for investigation.
+
+Replay the public offline metrics with the sdk_causal_report module and the measured interventions with sdk_ablation_summary. During publication, refresh both formal progress and offline metrics from the same sealed snapshot. Then verify the diagnostic manifest before committing. [SDK causal report](reports/SLM10_SDK_CAPABILITY_LOSS_ROOT_CAUSE.md) · [Experimental configuration](atlas/slm/v1.0/sdk-causal-experiment.json)
+
 ## IJ-0.7.3 local evaluator
 
 Use `python -m evaluation.aeve.progress --write` to synchronize Atlas progress, MISSION_STATE and sealed Q2 coverage from a single archive snapshot. The progress check in CI compares the published tree with its sealed captures. The [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md) covers the original 45 reference defects and 81 alternative proofs. The [history matrix](evidence/IJ073/aeve/historical_route_matrix.json) records every family, dimension and risk scope. Q3 credentials are still required for any formal route.
