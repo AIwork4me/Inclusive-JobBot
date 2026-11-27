@@ -8,6 +8,7 @@ from importlib.metadata import version
 import json
 from pathlib import Path
 from time import perf_counter
+from urllib.error import HTTPError
 from urllib.request import Request
 from uuid import uuid4
 
@@ -22,6 +23,7 @@ from benchmarks.tool_calling_v2.oracle import decode_object
 from evaluation.aeve.archive import check_text, digest
 from evaluation.aeve.gpu_handoff import HANDOFF, require_handoff
 from evaluation.aeve.runtime import ROOT, canonical, fingerprint
+from model_gateway import GatewayError
 from scripts.tools.verify_ij06_evidence import verify_gpu
 
 from .admission import archive, git_head
@@ -32,7 +34,7 @@ from .tc_execution import Sandbox, adapted_sse, execute_trial, provider_profile,
 from .tc_v3 import CONFIG, FIRST_SEED, HERE, TOOLS, verify_freeze
 from .tc_verification import delivered_result
 
-VERSION = "IJ-SLM-SDK-CAUSAL-ABLATION/1.0"
+VERSION = "IJ-SLM-SDK-CAUSAL-ABLATION/1.1"
 ARMS = ("A0", "SDK_CONTROL", "A1", "A2", "A3", "A4", "A5", "GUARD")
 PILOT = ("TCV3-D-single-000", "TCV3-D-dependency-001", "TCV3-D-authorization-002")
 STYLE_LINE = "- Format your responses in github-style markdown.\n"
@@ -95,7 +97,11 @@ def exact_request(client, raw, trial_id, request_id):
     request = Request(client.base_url + "/v1/chat/completions", data=raw,
                       headers={"Content-Type": "application/json"})
     started = perf_counter()
-    with client.opener.open(request, timeout=90) as reply:
+    try:
+        opened = client.opener.open(request, timeout=90)
+    except HTTPError as failure:
+        opened = failure
+    with opened as reply:
         media = reply.headers.get("Content-Type", "application/json")
         status = reply.status
         response = reply.read((1 << 20) + 1)
@@ -107,7 +113,11 @@ def exact_request(client, raw, trial_id, request_id):
              "content_type": media, "response": response.decode(), "response_sha256": sha256(response).hexdigest(),
              "wall_ms": wall_ms}
     observe_wire(client, event)
-    result = assemble_reply(media, response, max_stream_bytes=REPAIRED_STREAM_LIMIT)
+    try:
+        result = assemble_reply(media, response, max_stream_bytes=REPAIRED_STREAM_LIMIT)
+    except (ValueError, GatewayError) as failure:
+        event["assembly_error"] = str(failure)
+        result = None
     return event, result, body
 
 
@@ -191,15 +201,15 @@ async def sdk_control(client, alias, setup, service, identity, target, harness, 
             "request_adapter_ms": adapter_ms, "callback_ms": callback_ms, "interventions": interventions}
 
 
-def execute_case(client, alias, harness, setup, world, oracle, out):
+def execute_case(client, alias, harness, setup, world, oracle, out, run_id):
     case = setup["case_id"]
     began = perf_counter()
     rows = []
-    a0_id = fingerprint([out.name, case, "A0"])
+    a0_id = fingerprint([run_id, case, "A0"])
     a0 = execute_trial(client, alias, setup, world, a0_id, "direct_first", out / "A0", harness, FIRST_SEED)
     rows.append({"arm": "A0", "capture": a0, "wall_ms": round((perf_counter() - began) * 1000, 3)})
     for arm in ("SDK_CONTROL", "A5", "GUARD"):
-        trial_id = fingerprint([out.name, case, arm])
+        trial_id = fingerprint([run_id, case, arm])
         if arm == "GUARD" and setup["family"] not in GUARD_FAMILIES:
             rows.append({"arm": arm, "status": "NOT_RUN", "applicability": "NOT_APPLICABLE"})
             continue
@@ -220,9 +230,13 @@ def execute_case(client, alias, harness, setup, world, oracle, out):
         if arm != "A1" and not changes:
             rows.append({"arm": arm, "status": "NOT_RUN", "reason": "planned intervention absent in source request"})
             continue
-        replay, reply, _ = exact_request(client, transformed, fingerprint([out.name, case, arm]), uuid4().hex)
+        replay, reply, _ = exact_request(client, transformed, fingerprint([run_id, case, arm]), uuid4().hex)
         if arm == "A1" and replay["provider_request_sha256"] != event["provider_request_sha256"]:
             raise ValueError("byte-identical effective SDK request did not replay unchanged")
+        if reply is None:
+            rows.append({"arm": arm, "status": "BLOCKED", "source_request_sha256": event["provider_request_sha256"],
+                         "changes": changes, "capture": replay, "reason": "provider response failed assembly"})
+            continue
         rows.append({"arm": arm, "status": "PASS" if replay["native_evidence"]["status"] == "PASS" else "BLOCKED",
                      "source_request_sha256": event["provider_request_sha256"], "source_completion_id": event["completion_id"],
                      "source_response_sha256": event.get("response_sha256"),
@@ -271,7 +285,7 @@ def run(candidate, assets, output, port, case_ids):
         for case in case_ids:
             folder = output / case
             folder.mkdir()
-            row = execute_case(client, alias, harness, setups[case], worlds[case], oracles[case], folder)
+            row = execute_case(client, alias, harness, setups[case], worlds[case], oracles[case], folder, identity)
             report["results"].append(row)
             write_evidence(path, report)
             print(candidate, case, [r["arm"] for r in row["arms"] if "capture" in r], flush=True)

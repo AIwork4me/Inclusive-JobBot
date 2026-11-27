@@ -1,28 +1,28 @@
 # TC-V3 physical progress
 
-Core trials remaining: **36,208 of 36,550**.
+Core trials remaining: **35,416 of 36,550**.
 
 | Candidate | Planned | Executed | Sealed | Strict PASS | Strict FAIL | Strict BLOCKED | NOT_RUN |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| A | 1,650 | 150 | 150 | 0 | 0 | 150 | 1,500 |
-| B | 1,650 | 114 | 114 | 0 | 0 | 114 | 1,536 |
-| D | 1,650 | 78 | 78 | 0 | 0 | 78 | 1,572 |
+| A | 1,650 | 438 | 438 | 0 | 0 | 438 | 1,212 |
+| B | 1,650 | 366 | 366 | 0 | 0 | 366 | 1,284 |
+| D | 1,650 | 330 | 330 | 0 | 0 | 330 | 1,320 |
 
 ## Tool selection by track
 
 | Candidate and track | PASS | FAIL | BLOCKED | Wilson 95% CI |
 |---|---:|---:|---:|---:|
-| A / direct_first | 45 | 0 | 0 | 92.1%–100.0% |
-| A / sdk_first | 13 | 32 | 0 | 17.7%–43.4% |
-| A / sdk_repeat | 0 | 15 | 0 | 0.0%–20.4% |
-| A / sdk_streaming | 13 | 32 | 0 | 17.7%–43.4% |
-| B / direct_first | 33 | 0 | 0 | 89.6%–100.0% |
-| B / sdk_first | 17 | 16 | 0 | 35.2%–67.5% |
-| B / sdk_repeat | 4 | 11 | 0 | 10.9%–52.0% |
-| B / sdk_streaming | 17 | 16 | 0 | 35.2%–67.5% |
-| D / direct_first | 21 | 0 | 0 | 84.5%–100.0% |
-| D / sdk_first | 21 | 0 | 0 | 84.5%–100.0% |
-| D / sdk_repeat | 15 | 0 | 0 | 79.6%–100.0% |
-| D / sdk_streaming | 21 | 0 | 0 | 84.5%–100.0% |
+| A / direct_first | 117 | 17 | 0 | 80.6%–91.9% |
+| A / sdk_first | 22 | 112 | 0 | 11.1%–23.6% |
+| A / sdk_repeat | 0 | 36 | 0 | 0.0%–9.6% |
+| A / sdk_streaming | 22 | 112 | 0 | 11.1%–23.6% |
+| B / direct_first | 99 | 12 | 0 | 82.0%–93.7% |
+| B / sdk_first | 66 | 45 | 0 | 50.2%–68.1% |
+| B / sdk_repeat | 19 | 14 | 0 | 40.8%–72.8% |
+| B / sdk_streaming | 70 | 41 | 0 | 53.8%–71.5% |
+| D / direct_first | 94 | 6 | 0 | 87.5%–97.2% |
+| D / sdk_first | 66 | 34 | 0 | 56.3%–74.5% |
+| D / sdk_repeat | 21 | 9 | 0 | 52.1%–83.3% |
+| D / sdk_streaming | 66 | 34 | 0 | 56.3%–74.5% |
 
 The current rows represent the completed portion of the frozen roster. Use the full matrix for paired effects, case strata, repeats and provider telemetry. [Machine-readable dashboard](physical_progress.json)
