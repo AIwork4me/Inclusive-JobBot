@@ -25,6 +25,12 @@ This freeze serves IJ-0.7 §6.2 and §9.4. The 600 original synthetic holdout ca
 
 ## Verification
 
+The optional `--require-observed-draft` runtime profile checks whether a prior
+model turn received a current, permitted `read_review` result for the exact
+draft reference. A new scope update clears the remembered reviews. The flag
+is part of the run identity. Validate it in the deterministic sandbox with
+`python -m scripts.tools.atlas_multitool_witness --observed-draft-controls --check`.
+
 Run from the repository root with the environment that provides the project dependencies.
 
 ```powershell

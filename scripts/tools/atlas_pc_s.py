@@ -1,0 +1,95 @@
+"""Launch one checked batch of the frozen PC-S reference panel."""
+
+from argparse import ArgumentParser
+import json
+import gzip
+from pathlib import Path
+import subprocess
+import sys
+
+from benchmarks.competitive_slm.tc_v2_batch import PC_S_ROSTER, legacy
+from scripts.tools.atlas_reference_panel import create
+
+SUITES = {
+    "tc": ("benchmarks.competitive_slm.tc_v2_batch", "tc_v2"),
+    "multi": ("benchmarks.multitool_v1.run", "multitool_v1"),
+    "planning": ("benchmarks.agentic_planning_v1.run", "planning_v1"),
+}
+ROOT = Path(__file__).resolve().parents[2]
+DRAFT_WITNESS = ROOT / "evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz"
+
+
+def draft_guard_roster():
+    witness = json.loads(gzip.decompress(DRAFT_WITNESS.read_bytes()))
+    selected = sorted(row["case_id"] for row in witness["trials"] if row["draft_guard"]["status"] == "PASS")
+    if len(set(selected)) != 37 or len(selected) != 37:
+        raise ValueError("prior-turn draft regression differs from the frozen software witness roster")
+    return selected
+
+
+def runner_arguments(suite, frozen):
+    module, cohort = SUITES[suite]
+    if suite == "tc":
+        return module, ["--panel", "pc-s"]
+    arguments = ["--backend", "vulkan", "--panel", "primary"]
+    if suite == "planning":
+        arguments += ["--tracks", "".join(frozen[cohort]["tracks"])]
+    for group in frozen[cohort]["selection_by_stratum"].values():
+        for case_id in group:
+            arguments.extend(("--case", case_id))
+    return module, arguments
+
+
+def main():
+    parser = ArgumentParser(description=__doc__)
+    parser.add_argument("--suite", choices=SUITES, required=True)
+    parser.add_argument("--candidate", choices=("H", "J"), default="H")
+    parser.add_argument("--model", type=Path, required=True)
+    parser.add_argument("--engine-dir", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--batch-size", type=int, default=25)
+    parser.add_argument("--preflight", action="store_true")
+    parser.add_argument("--draft-guard-control", choices=("legacy", "observed"),
+                        help="run one arm of the 37-case MULTITOOL draft authorization diagnostic")
+    args = parser.parse_args()
+    if args.batch_size < 1:
+        parser.error("--batch-size must be positive")
+    frozen = json.loads(PC_S_ROSTER.read_bytes())
+    if frozen != create():
+        parser.error("PC-S roster differs from its frozen definition")
+    module, selection = runner_arguments(args.suite, frozen)
+    if args.draft_guard_control:
+        if (args.suite, args.candidate) != ("multi", "J"):
+            parser.error("the draft guard diagnostic uses MULTITOOL and the Qwen3-14B reference")
+        selection = ["--backend", "vulkan", "--panel", "primary"]
+        for case_id in draft_guard_roster():
+            selection.extend(("--case", case_id))
+        if args.draft_guard_control == "observed":
+            selection.append("--require-observed-draft")
+    command = [sys.executable, "-m", module, *selection, "--candidate", args.candidate,
+               "--model", str(args.model.resolve()), "--engine-dir", str(args.engine_dir.resolve())]
+    output = args.output.resolve()
+    if args.preflight:
+        command.append("--verify-runtime" if args.suite == "tc" else "--preflight-only")
+        if args.suite == "planning":
+            command.extend(("--output", str(output)))
+        return subprocess.call(command)
+    if legacy.git_state()["dirty"]:
+        parser.error("reference inference requires a clean source commit for exact resume")
+    git_directory = subprocess.check_output(
+        ["git", "rev-parse", "--path-format=absolute", "--git-common-dir"], text=True,
+    ).strip()
+    slot = Path(git_directory).parent / ".runtime/ij072-pc-s-slot"
+    slot.mkdir(parents=True, exist_ok=True)
+    try:
+        with legacy.output_lock(slot):
+            command += ["--output", str(output), "--batch-size", str(args.batch_size)]
+            if (output / "run.json").is_file():
+                command.append("--resume")
+            return subprocess.call(command)
+    except OSError as error:
+        parser.exit(2, f"BLOCKED: unable to run in the shared PC-S slot ({error.strerror})\n")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,974 @@
+{
+  "schema_version": 1,
+  "ij072_trials": {
+    "PC-S Qwen3-8B TC-V2 development": {
+      "planned": 100,
+      "assessed": 100,
+      "outcomes": {
+        "PASS": 56,
+        "FAIL": 44,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "source": "evidence/IJ072/benchmark_validity/pc-s-tc/summary.json"
+    },
+    "PC-S Qwen3-14B TC-V2 development": {
+      "planned": 100,
+      "assessed": 100,
+      "outcomes": {
+        "PASS": 66,
+        "FAIL": 34,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "source": "evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json"
+    },
+    "PC-S Qwen3-8B MULTITOOL-V1": {
+      "planned": 120,
+      "assessed": 120,
+      "outcomes": {
+        "BLOCKED": 0,
+        "FAIL": 92,
+        "NOT_RUN": 0,
+        "PASS": 28
+      },
+      "source": "evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json"
+    },
+    "PC-S Qwen3-14B MULTITOOL-V1": {
+      "planned": 120,
+      "assessed": 120,
+      "outcomes": {
+        "BLOCKED": 0,
+        "FAIL": 75,
+        "NOT_RUN": 0,
+        "PASS": 45
+      },
+      "source": "evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json"
+    },
+    "PC-S Qwen3-8B Planning": {
+      "planned": 320,
+      "assessed": 320,
+      "outcomes": {
+        "BLOCKED": 0,
+        "FAIL": 316,
+        "NOT_RUN": 0,
+        "PASS": 4
+      },
+      "source": "evidence/IJ072/benchmark_validity/pc-s-planning-full/diagnostic.json"
+    },
+    "PC-S Qwen3-14B Planning": {
+      "planned": 320,
+      "assessed": 320,
+      "outcomes": {
+        "BLOCKED": 0,
+        "FAIL": 285,
+        "NOT_RUN": 0,
+        "PASS": 35
+      },
+      "source": "evidence/IJ072/benchmark_validity/pc-s-j-planning-full/diagnostic.json"
+    },
+    "PC-P four-model factorial": {
+      "planned": 1152,
+      "assessed": 1152,
+      "outcomes": {
+        "BLOCKED": 0,
+        "FAIL": 1148,
+        "NOT_RUN": 0,
+        "PASS": 4
+      },
+      "source": "evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json"
+    },
+    "Qwen3-14B MULTITOOL draft guard legacy": {
+      "planned": 37,
+      "assessed": 37,
+      "outcomes": {
+        "BLOCKED": 0,
+        "FAIL": 33,
+        "NOT_RUN": 0,
+        "PASS": 4
+      },
+      "source": "evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-legacy/coverage.json"
+    },
+    "Qwen3-14B MULTITOOL draft guard observed": {
+      "planned": 37,
+      "assessed": 37,
+      "outcomes": {
+        "BLOCKED": 0,
+        "FAIL": 33,
+        "NOT_RUN": 0,
+        "PASS": 4
+      },
+      "source": "evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-observed/coverage.json"
+    },
+    "Legacy JOB-V1 A primary": {
+      "planned": 600,
+      "assessed": 600,
+      "outcomes": {
+        "BLOCKED": 0,
+        "FAIL": 577,
+        "NOT_RUN": 0,
+        "PASS": 23
+      },
+      "source": "evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json"
+    },
+    "Legacy JOB-V1 B primary": {
+      "planned": 600,
+      "assessed": 300,
+      "outcomes": {
+        "BLOCKED": 7,
+        "FAIL": 278,
+        "NOT_RUN": 293,
+        "PASS": 22
+      },
+      "source": "evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json"
+    }
+  },
+  "ij072_software_witness": {
+    "TC-V2": {
+      "planned": 500,
+      "executed": 500,
+      "valid_evidence": 500,
+      "outcomes": {
+        "PASS": 500,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "sources": [
+        "evidence/IJ072/benchmark_validity/tc-holdout-witness.json"
+      ]
+    },
+    "MULTITOOL-V1": {
+      "planned": 600,
+      "executed": 600,
+      "valid_evidence": 600,
+      "outcomes": {
+        "PASS": 600,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "sources": [
+        "evidence/IJ072/benchmark_validity/multitool-witness.json.gz"
+      ]
+    },
+    "Planning-Acting-first": {
+      "planned": 800,
+      "executed": 800,
+      "valid_evidence": 800,
+      "outcomes": {
+        "PASS": 800,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "sources": [
+        "evidence/IJ072/benchmark_validity/planning-intent-controls.json",
+        "evidence/IJ072/benchmark_validity/planning-read-controls.json",
+        "evidence/IJ072/benchmark_validity/planning-advanced-controls.json"
+      ]
+    },
+    "Planning-Plan-first": {
+      "planned": 800,
+      "executed": 800,
+      "valid_evidence": 800,
+      "outcomes": {
+        "PASS": 672,
+        "FAIL": 128,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.84,
+      "sources": [
+        "evidence/IJ072/benchmark_validity/planning-plan-controls.json.gz"
+      ]
+    },
+    "JOB-V1": {
+      "planned": 600,
+      "executed": 600,
+      "valid_evidence": 600,
+      "outcomes": {
+        "PASS": 600,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "sources": [
+        "evidence/IJ072/benchmark_validity/job-witness.json.gz"
+      ]
+    }
+  },
+  "workstreams": {
+    "A0": {
+      "planned": 1,
+      "executed": 1,
+      "valid_evidence": 1,
+      "outcomes": {
+        "PASS": 1,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "status": "PASS",
+      "unit": "audit_deliverable",
+      "evidence": "reports/ATLAS_A0_BASELINE_AUDIT.md"
+    },
+    "A1": {
+      "planned": 3300,
+      "executed": 3300,
+      "valid_evidence": 3300,
+      "outcomes": {
+        "PASS": 3300,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "status": "BLOCKED",
+      "unit": "scheduled_positive_control_trial",
+      "evidence": "reports/ATLAS_IJ072_CHECKPOINT_CN.md"
+    },
+    "A2": {
+      "status": "BLOCKED",
+      "unit": "failure_family",
+      "evidence": "atlas/root_causes/failure_ledger.jsonl",
+      "outcomes": {}
+    },
+    "A3": {
+      "status": "NOT_RUN",
+      "unit": "candidate_admission",
+      "outcomes": {}
+    },
+    "A4": {
+      "planned": 4,
+      "executed": 0,
+      "valid_evidence": 0,
+      "outcomes": {
+        "PASS": 0,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 4
+      },
+      "coverage": 0.0,
+      "strict_pass_rate": 0.0,
+      "status": "NOT_RUN",
+      "unit": "dataset_freeze"
+    },
+    "A5": {
+      "planned": 1100,
+      "executed": 0,
+      "valid_evidence": 0,
+      "outcomes": {
+        "PASS": 0,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 1100
+      },
+      "coverage": 0.0,
+      "strict_pass_rate": 0.0,
+      "status": "NOT_RUN",
+      "unit": "base_trial_per_main_model"
+    },
+    "A6": {
+      "planned": 1600,
+      "executed": 0,
+      "valid_evidence": 0,
+      "outcomes": {
+        "PASS": 0,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 1600
+      },
+      "coverage": 0.0,
+      "strict_pass_rate": 0.0,
+      "status": "NOT_RUN",
+      "unit": "base_trial_per_main_model"
+    },
+    "A7": {
+      "status": "NOT_RUN",
+      "unit": "competitive_trial",
+      "outcomes": {}
+    },
+    "A8": {
+      "status": "NOT_RUN",
+      "unit": "purpose_built_trial",
+      "outcomes": {}
+    },
+    "A9": {
+      "status": "NOT_RUN",
+      "unit": "edge_deployment_trial",
+      "outcomes": {}
+    },
+    "A10": {
+      "status": "NOT_RUN",
+      "unit": "architecture_deliverable",
+      "outcomes": {}
+    },
+    "A11": {
+      "status": "NOT_RUN",
+      "unit": "atlas_deliverable",
+      "outcomes": {}
+    }
+  },
+  "gates": {
+    "G00": {
+      "name": "基线审计",
+      "status": "PASS"
+    },
+    "G01": {
+      "name": "全量独立 Witness",
+      "status": "BLOCKED"
+    },
+    "G02": {
+      "name": "关键负向对照与评价器",
+      "status": "BLOCKED"
+    },
+    "G03": {
+      "name": "强模型及任务可解性",
+      "status": "BLOCKED"
+    },
+    "G04": {
+      "name": "规划零分系统性原因",
+      "status": "BLOCKED"
+    },
+    "G05": {
+      "name": "已知缺陷回归",
+      "status": "BLOCKED"
+    },
+    "G06": {
+      "name": "新数据与 Oracle 冻结",
+      "status": "NOT_RUN"
+    },
+    "G07": {
+      "name": "最新候选调研和身份",
+      "status": "NOT_RUN"
+    },
+    "G08": {
+      "name": "原生 Runtime Admission",
+      "status": "NOT_RUN"
+    },
+    "G09": {
+      "name": "TC-V3 资格",
+      "status": "NOT_RUN"
+    },
+    "G10": {
+      "name": "MULTITOOL-V2 执行",
+      "status": "NOT_RUN"
+    },
+    "G11": {
+      "name": "AGENTIC-PLAN-V2 双轨",
+      "status": "NOT_RUN"
+    },
+    "G12": {
+      "name": "主模型可靠性",
+      "status": "NOT_RUN"
+    },
+    "G13": {
+      "name": "四模型家族竞争",
+      "status": "NOT_RUN"
+    },
+    "G14": {
+      "name": "源码调查追踪",
+      "status": "BLOCKED"
+    },
+    "G15": {
+      "name": "工程修复和回归",
+      "status": "NOT_RUN"
+    },
+    "G16": {
+      "name": "三类语言比较",
+      "status": "NOT_RUN"
+    },
+    "G17": {
+      "name": "AG-06 及 AG-11",
+      "status": "NOT_RUN"
+    },
+    "G18": {
+      "name": "岗位专业化消融",
+      "status": "NOT_RUN"
+    },
+    "G19": {
+      "name": "JOB-V2 独立验证",
+      "status": "NOT_RUN"
+    },
+    "G20": {
+      "name": "99% 业务正确率",
+      "status": "NOT_RUN"
+    },
+    "G21": {
+      "name": "十分之一模型轮数",
+      "status": "NOT_RUN"
+    },
+    "G22": {
+      "name": "端侧矩阵",
+      "status": "NOT_RUN"
+    },
+    "G23": {
+      "name": "模型与岗位匹配",
+      "status": "NOT_RUN"
+    },
+    "G24": {
+      "name": "Router A/B",
+      "status": "NOT_RUN"
+    },
+    "G25": {
+      "name": "自主权限与安全",
+      "status": "NOT_RUN"
+    },
+    "G26": {
+      "name": "NPU 迁移",
+      "status": "NOT_RUN"
+    },
+    "G27": {
+      "name": "机器可读 Atlas",
+      "status": "NOT_RUN"
+    },
+    "G28": {
+      "name": "统计证据隐私核查",
+      "status": "NOT_RUN"
+    },
+    "G29": {
+      "name": "白皮书和精确 HEAD CI",
+      "status": "NOT_RUN"
+    }
+  },
+  "gate_status_counts": {
+    "PASS": 1,
+    "FAIL": 0,
+    "BLOCKED": 6,
+    "NOT_RUN": 23
+  },
+  "verdicts": {
+    "ATLAS_BENCHMARK_VALIDITY_VERDICT": "BLOCKED",
+    "ATLAS_NATIVE_TOOL_CAPABILITY_VERDICT": "NOT_RUN",
+    "ATLAS_AUTONOMOUS_PLANNING_VERDICT": "NOT_RUN",
+    "ATLAS_COMPETITIVE_COVERAGE_VERDICT": "NOT_RUN",
+    "ATLAS_ROOT_CAUSE_CLOSURE_VERDICT": "NOT_RUN",
+    "ATLAS_PURPOSE_BUILT_CAPABILITY_VERDICT": "NOT_RUN",
+    "ATLAS_EDGE_DEPLOYMENT_VERDICT": "NOT_RUN",
+    "ATLAS_PRODUCTION_DESIGN_GUIDANCE_VERDICT": "NOT_RUN",
+    "ATLAS_PRODUCTION_READINESS_VERDICT": "BLOCKED",
+    "ATLAS_V1_RELEASE_VERDICT": "BLOCKED"
+  },
+  "historical": {
+    "historical-replay-original": {
+      "planned": 2000,
+      "executed": 2000,
+      "valid_evidence": 2000,
+      "outcomes": {
+        "PASS": 1730,
+        "FAIL": 270,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.865,
+      "source": "IJ07/historical_replay/full",
+      "unique_cases": 500,
+      "model_requests": 4422
+    },
+    "historical-replay-v2-rescore": {
+      "planned": 2000,
+      "executed": 2000,
+      "valid_evidence": 1846,
+      "outcomes": {
+        "PASS": 1680,
+        "FAIL": 166,
+        "BLOCKED": 154,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.84,
+      "source": "IJ07/historical_replay/full",
+      "unique_cases": 500,
+      "unit": "diagnostic_replay",
+      "subset_of": "historical-replay-original"
+    },
+    "tc-v2-vulkan-first": {
+      "planned": 500,
+      "executed": 500,
+      "valid_evidence": 500,
+      "outcomes": {
+        "PASS": 349,
+        "FAIL": 151,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.698,
+      "source": "IJ07/tc_v2/holdout/vulkan/terminal.jsonl.gz",
+      "unit": "model_trial",
+      "model_requests": 969
+    },
+    "tc-v2-vulkan-stream": {
+      "planned": 500,
+      "executed": 500,
+      "valid_evidence": 500,
+      "outcomes": {
+        "PASS": 349,
+        "FAIL": 151,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.698,
+      "source": "IJ07/tc_v2/holdout/vulkan/terminal.jsonl.gz",
+      "unit": "model_trial",
+      "model_requests": 969
+    },
+    "tc-v2-vulkan-repeat": {
+      "planned": 150,
+      "executed": 150,
+      "valid_evidence": 150,
+      "outcomes": {
+        "PASS": 114,
+        "FAIL": 36,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.76,
+      "source": "IJ07/tc_v2/holdout/vulkan/terminal.jsonl.gz",
+      "unit": "model_trial",
+      "model_requests": 318
+    },
+    "tc-v2-vulkan-fixture": {
+      "planned": 146,
+      "executed": 146,
+      "valid_evidence": 146,
+      "outcomes": {
+        "PASS": 141,
+        "FAIL": 5,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.9657534246575342,
+      "source": "IJ07/tc_v2/holdout/vulkan/terminal.jsonl.gz",
+      "unit": "fixed_fixture",
+      "model_requests": 0
+    },
+    "tc-v2-vulkan-sequential": {
+      "planned": 100,
+      "executed": 100,
+      "valid_evidence": 100,
+      "outcomes": {
+        "PASS": 25,
+        "FAIL": 75,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.25,
+      "source": "IJ07/tc_v2/holdout/vulkan/terminal.jsonl.gz",
+      "subset_of": "tc-v2-vulkan-first"
+    },
+    "tc-v2-rocm-first": {
+      "planned": 500,
+      "executed": 500,
+      "valid_evidence": 500,
+      "outcomes": {
+        "PASS": 347,
+        "FAIL": 153,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.694,
+      "source": "IJ07/tc_v2/holdout/rocm/terminal.jsonl.gz",
+      "unit": "model_trial",
+      "model_requests": 967
+    },
+    "tc-v2-rocm-stream": {
+      "planned": 500,
+      "executed": 500,
+      "valid_evidence": 500,
+      "outcomes": {
+        "PASS": 347,
+        "FAIL": 153,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.694,
+      "source": "IJ07/tc_v2/holdout/rocm/terminal.jsonl.gz",
+      "unit": "model_trial",
+      "model_requests": 967
+    },
+    "tc-v2-rocm-repeat": {
+      "planned": 150,
+      "executed": 150,
+      "valid_evidence": 150,
+      "outcomes": {
+        "PASS": 111,
+        "FAIL": 39,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.74,
+      "source": "IJ07/tc_v2/holdout/rocm/terminal.jsonl.gz",
+      "unit": "model_trial",
+      "model_requests": 318
+    },
+    "tc-v2-rocm-fixture": {
+      "planned": 146,
+      "executed": 146,
+      "valid_evidence": 146,
+      "outcomes": {
+        "PASS": 141,
+        "FAIL": 5,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.9657534246575342,
+      "source": "IJ07/tc_v2/holdout/rocm/terminal.jsonl.gz",
+      "unit": "fixed_fixture",
+      "model_requests": 0
+    },
+    "tc-v2-rocm-sequential": {
+      "planned": 100,
+      "executed": 100,
+      "valid_evidence": 100,
+      "outcomes": {
+        "PASS": 25,
+        "FAIL": 75,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.25,
+      "source": "IJ07/tc_v2/holdout/rocm/terminal.jsonl.gz",
+      "subset_of": "tc-v2-rocm-first"
+    },
+    "multitool-primary": {
+      "planned": 600,
+      "executed": 600,
+      "valid_evidence": 600,
+      "outcomes": {
+        "PASS": 129,
+        "FAIL": 471,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.215,
+      "source": "IJ07/multitool/primary-vulkan-full/terminal.jsonl.gz",
+      "unique_cases": 600,
+      "model_requests": 3451
+    },
+    "multitool-repeat": {
+      "planned": 300,
+      "executed": 300,
+      "valid_evidence": 300,
+      "outcomes": {
+        "PASS": 66,
+        "FAIL": 234,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.22,
+      "source": "IJ07/multitool/repeat-vulkan-full/terminal.jsonl.gz",
+      "unique_cases": 100,
+      "model_requests": 1830,
+      "repeat_case_count": 100,
+      "repeat_cases_passing_any": 22,
+      "repeat_cases_passing_all": 22,
+      "pass_at_three": {
+        "PASS": 22,
+        "FAIL": 78,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "pass_all_three": {
+        "PASS": 22,
+        "FAIL": 78,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      }
+    },
+    "planning-primary-A": {
+      "planned": 800,
+      "executed": 800,
+      "valid_evidence": 800,
+      "outcomes": {
+        "PASS": 0,
+        "FAIL": 800,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.0,
+      "source": "IJ07/planning/primary-vulkan-full",
+      "unique_cases": 800,
+      "journaled_requests": 1919
+    },
+    "planning-primary-P": {
+      "planned": 800,
+      "executed": 800,
+      "valid_evidence": 800,
+      "outcomes": {
+        "PASS": 0,
+        "FAIL": 800,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.0,
+      "source": "IJ07/planning/primary-vulkan-full",
+      "unique_cases": 800,
+      "journaled_requests": 800
+    },
+    "planning-repeat-A": {
+      "planned": 480,
+      "executed": 480,
+      "valid_evidence": 480,
+      "outcomes": {
+        "PASS": 0,
+        "FAIL": 480,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.0,
+      "source": "IJ07/planning/repeat-vulkan-full",
+      "unique_cases": 160,
+      "journaled_requests": 1104
+    },
+    "planning-repeat-P": {
+      "planned": 480,
+      "executed": 480,
+      "valid_evidence": 480,
+      "outcomes": {
+        "PASS": 0,
+        "FAIL": 480,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.0,
+      "source": "IJ07/planning/repeat-vulkan-full",
+      "unique_cases": 160,
+      "journaled_requests": 480
+    },
+    "planning-repeat-combined": {
+      "planned": 960,
+      "executed": 960,
+      "valid_evidence": 960,
+      "outcomes": {
+        "PASS": 0,
+        "FAIL": 960,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.0,
+      "source": "IJ07/planning/repeat-vulkan-full",
+      "aggregate_of": [
+        "planning-repeat-A",
+        "planning-repeat-P"
+      ]
+    },
+    "job-f-primary": {
+      "planned": 600,
+      "executed": 600,
+      "valid_evidence": 600,
+      "outcomes": {
+        "PASS": 592,
+        "FAIL": 8,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.9866666666666667,
+      "source": "IJ07/job_ablation/F/primary/records.jsonl.gz",
+      "unit": "deterministic_business_trial",
+      "completed_business_tasks": 342,
+      "model_requests": 0
+    },
+    "job-f-correction": {
+      "planned": 600,
+      "executed": 600,
+      "valid_evidence": 600,
+      "outcomes": {
+        "PASS": 600,
+        "FAIL": 0,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 1.0,
+      "source": "IJ07/job_ablation/F/receipt-correction/corrected/primary/records.jsonl.gz",
+      "unit": "diagnostic_replay",
+      "completed_business_tasks": 350,
+      "model_requests": 0
+    },
+    "job-a-observed-checkpoint": {
+      "source": "IJ071/legacy-job-a-checkpoint.json",
+      "unit": "running_checkpoint",
+      "planned": 600,
+      "executed": 252,
+      "valid_evidence": 225,
+      "outcomes": {
+        "PASS": 23,
+        "FAIL": 229,
+        "BLOCKED": 0,
+        "NOT_RUN": 348
+      },
+      "coverage": 0.42,
+      "strict_pass_rate": 0.03833333333333333,
+      "model_requests": 1978
+    },
+    "competitive-b-first-checkpoint": {
+      "planned": 1150,
+      "executed": 200,
+      "valid_evidence": 200,
+      "outcomes": {
+        "PASS": 15,
+        "FAIL": 185,
+        "BLOCKED": 0,
+        "NOT_RUN": 950
+      },
+      "coverage": 0.17391304347826086,
+      "strict_pass_rate": 0.013043478260869565,
+      "source": "IJ07/competitive_slm/tc-v2-B-first-checkpoint/trials.jsonl.gz",
+      "unique_cases": 500
+    },
+    "competitive-b-legacy-full": {
+      "planned": 1150,
+      "executed": 1150,
+      "valid_evidence": 1150,
+      "outcomes": {
+        "PASS": 207,
+        "FAIL": 943,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.18,
+      "source": "IJ071/legacy_competitive/B/trials.jsonl.gz",
+      "unique_cases": 500
+    },
+    "competitive-d-legacy-full": {
+      "planned": 1150,
+      "executed": 1150,
+      "valid_evidence": 1150,
+      "outcomes": {
+        "PASS": 365,
+        "FAIL": 785,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.3173913043478261,
+      "source": "IJ071/legacy_competitive/D/trials.jsonl.gz",
+      "unique_cases": 500
+    },
+    "competitive-f-legacy-full": {
+      "planned": 1150,
+      "executed": 1150,
+      "valid_evidence": 1150,
+      "outcomes": {
+        "PASS": 36,
+        "FAIL": 1114,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.03130434782608696,
+      "source": "IJ071/legacy_competitive/F/trials.jsonl.gz",
+      "unique_cases": 500
+    },
+    "competitive-g-legacy-full": {
+      "planned": 1150,
+      "executed": 1150,
+      "valid_evidence": 1150,
+      "outcomes": {
+        "PASS": 419,
+        "FAIL": 731,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.36434782608695654,
+      "source": "IJ071/legacy_competitive/G/trials.jsonl.gz",
+      "unique_cases": 500
+    },
+    "ag06-vulkan": {
+      "planned": 3,
+      "executed": 3,
+      "valid_evidence": 3,
+      "outcomes": {
+        "PASS": 1,
+        "FAIL": 2,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.3333333333333333,
+      "source": "IJ07/antigravity/vulkan/report.json",
+      "model_requests": 6
+    },
+    "ag11-vulkan": {
+      "planned": 1,
+      "executed": 1,
+      "valid_evidence": 0,
+      "outcomes": {
+        "PASS": 0,
+        "FAIL": 0,
+        "BLOCKED": 1,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.0,
+      "source": "IJ07/antigravity/vulkan/report.json",
+      "reason": "complete process-tree egress evidence unavailable",
+      "unit": "gate_assessment"
+    },
+    "ag06-rocm": {
+      "planned": 3,
+      "executed": 3,
+      "valid_evidence": 3,
+      "outcomes": {
+        "PASS": 1,
+        "FAIL": 2,
+        "BLOCKED": 0,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.3333333333333333,
+      "source": "IJ07/antigravity/rocm/report.json",
+      "model_requests": 6
+    },
+    "ag11-rocm": {
+      "planned": 1,
+      "executed": 1,
+      "valid_evidence": 0,
+      "outcomes": {
+        "PASS": 0,
+        "FAIL": 0,
+        "BLOCKED": 1,
+        "NOT_RUN": 0
+      },
+      "coverage": 1.0,
+      "strict_pass_rate": 0.0,
+      "source": "IJ07/antigravity/rocm/report.json",
+      "reason": "complete process-tree egress evidence unavailable",
+      "unit": "gate_assessment"
+    }
+  }
+}

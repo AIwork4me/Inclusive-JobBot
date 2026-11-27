@@ -1,5 +1,31 @@
 # Blockers
 
+## IJ-0.7.3 frozen Q2 follow-up
+
+- Q2 energy and electricity cost remain NOT_RUN. The frozen captures measured request time, native inference time, tokens and process GPU memory. No power and tariff measurements are available.
+- Q3, full historical Judge routing and independent human blind review remain open. The GPU handoff preserved their recovery commands and frozen inputs.
+
+
+## IJ-0.7.3
+
+- Q3 evaluator credentials are absent for all 600 historical family, dimension and risk combinations. Evaluation engineering owns the independent roster freeze and replay of complete routes. The Gold source replay is in-scope development evidence. [Route matrix](evidence/IJ073/aeve/historical_route_matrix.json)
+
+- The four initial local Judge families failed the frozen thresholds on all 3,228 completed Gold assessments. Evaluation engineering owns fresh qualification of revised configurations and independent families. The full historical review requires enough admitted independent families for each subject and an independent third family on disagreement. Status, counts and pinned inputs are in [the qualification report](reports/IJ073_JUDGE_QUALIFICATION.md).
+- The original reviewed archives lack sufficient decision evidence for 36 historical physical trials. Preserve them in the completeness denominator. The remaining 17,458 have citable stage projections. [Coverage](evidence/IJ073/aeve/history/coverage.json)
+
+- Benchmark engineering owns the open Oracle qualification. In 81 of 128 originally rejected plans the archived independent path cannot be expressed using the proposed nodes even with relaxed guards. Repaired V2 witnesses now pass on all 800 frozen worlds. Remaining engineering gates include independent transaction, rollback and audit checks and end-to-end model transport. See the [per-case analysis](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md).
+- Independent reviewers own formal human calibration after the AEVE and review-packet freezes. The original 22-case packet remains unreviewed. Formal benchmark validity and new physical qualification depend on the specified gates.
+
+## IJ-0.7.1 Atlas
+
+| ID | Status | Owner | Condition |
+|---|---|---|---|
+| B-IJ071-01 | BLOCKED | Benchmark engineering | The frozen Plan-first initial gate fails on 128/800 independent software witnesses. The revised scorer freeze and cross-suite qualification depend on the discrepancy review and the independent human assessments. Both 540-trial PC-S controls and all 1,152 PC-P physical trials are sealed. |
+| B-IJ071-02 | BLOCKED | Benchmark engineering | The legacy JOB-V1 controller yielded the Radeon slot. Arm A is sealed, and Arm B has seven unsealed records. The A1 reference and prompt queues and the matched draft authorization diagnostic are sealed. Further qualification depends on the A1 gate. See `atlas/physical_queue.json`. |
+| B-IJ071-03 | CLOSED | Runtime engineering | The pinned Qwen3-8B launchers completed the frozen Planning and MULTITOOL PC-S trials with raw wire and GPU evidence. |
+| B-IJ072-01 | BLOCKED | Independent human reviewers | The 22-case score-blind packet is ready. Independent assessments and reconciliation are pending. See `reports/ATLAS_A1_BLIND_REVIEW.md`. |
+| B-IJ072-02 | BLOCKED | Benchmark engineering and independent reviewers | The frozen initial plan evaluator accepts 602 contradictory action-condition mutations. The original traces and scores are preserved. A revised condition contract needs blind validation against the ambiguous public cases and independent positive and negative witnesses. See `evidence/IJ072/benchmark_validity/planning-precondition-controls.json`. |
+
 Status values: `OPEN`, `MITIGATED` (workaround in use, cause still present),
 `CLOSED`. "Owner" is who can remove the cause.
 

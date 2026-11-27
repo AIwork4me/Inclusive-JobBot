@@ -13,12 +13,37 @@ from model_gateway.strict_json import strict_object
 from model_gateway.errors import GatewayError
 from model_gateway.streaming import StreamAssembler
 
-from .contract import TOOLS, request
+from .contract import POLICY, TOOLS, TRACK_PROMPTS, request
 from .oracle import score
 from .sandbox import SyntheticSandbox
 
 PLAN_FIELDS = {"goal", "subgoals", "actions", "success_conditions", "stop_conditions"}
 PLAN_TRANSITION = "Continue with the task. Use the available tools as needed, or return the final JSON."
+PROMPT_ARMS = {
+    "p0": frozenset(), "p1": frozenset(), "p2": frozenset({"example"}),
+    "p3": frozenset({"schema"}), "p4": frozenset({"compact"}),
+    "p5-es": frozenset({"example", "schema"}), "p5-ec": frozenset({"example", "compact"}),
+    "p5-sc": frozenset({"schema", "compact"}), "p5": frozenset({"example", "schema", "compact"}),
+}
+PLAN_EXAMPLE = (
+    'Format example only. Replace the placeholders and include actions only when needed for the request. '
+    '{"goal":{"subject":"<subject>","objective":"<objective>"},"subgoals":["<subgoal>"],'
+    '"actions":[{"id":"<step>","tool":"<tool>","arguments":{"<parameter>":"<value>"},'
+    '"depends_on":[],"preconditions":[]}],"success_conditions":["<success condition>"],'
+    '"stop_conditions":["<stop condition>"]}'
+)
+COMPACT_TOOL_DESCRIPTIONS = {
+    "lookup": "Resolve a public reference to an internal ID. Its kind identifies the service.",
+    "status": "Read current status by public reference.",
+    "archive": "Read historical classification by public reference.",
+    "status_mirror": "Read current status by public reference from the independent status service.",
+    "read_record": ("Read primary by ID. Follow linked_id in primary records. Route policy_id to policy, "
+                    "partner_id to partner and audit_primary_id to audit."),
+    "check_policy": ("Read rules and permissions by ID. Follow policy linked_id. "
+                     "Use audit_id for cross-checking. Grants no approval."),
+    "inspect_partner": "Read a partner or dependency by ID. Follow partner linked_id. Use audit_id to cross-check.",
+    "audit_read": "Cross-check primary audit ID and partner audit peer_id.",
+}
 THINKING_TAG = re.compile(r"<\s*/?\s*think\b", re.IGNORECASE)
 # The reference alphabet is ASCII. Han text can adjoin a complete identifier.
 REFERENCES = re.compile(r"(?<![A-Za-z0-9_-])REF-[0-9]+-[0-9]+(?![A-Za-z0-9_-])")
@@ -28,6 +53,34 @@ ROUTED_FIELDS = {
     "peer_id": {"partner_id", "audit_id"},
     "draft_id": {"draft_id"}, "audit_ref": {"audit_ref"},
 }
+
+
+def plan_format():
+    def object_of(**properties):
+        return {"type": "object", "properties": properties,
+                "required": list(properties), "additionalProperties": False}
+
+    string = {"type": "string"}
+    strings = {"type": "array", "items": string}
+    reference = {"anyOf": [object_of(**{"from": string, "field": string}),
+                           object_of(**{"from": string, "field": string, "evaluate": string})]}
+    arguments = {"type": "object", "additionalProperties": {"anyOf": [string, reference]}}
+    item = object_of(id=string, tool=string, arguments=arguments, depends_on=strings, preconditions=strings)
+    schema = object_of(goal=object_of(subject=string, objective=string), subgoals=strings,
+                       actions={"type": "array", "items": item}, success_conditions=strings,
+                       stop_conditions=strings)
+    return {"type": "json_schema", "json_schema": {"name": "initial_plan", "strict": True, "schema": schema}}
+
+
+def compact_tools(tools):
+    result = deepcopy(tools)
+    for entry in result:
+        function = entry["function"]
+        name = function["name"]
+        if name in COMPACT_TOOL_DESCRIPTIONS:
+            outputs = ", ".join(TOOLS[name][2])
+            function["description"] = f"{COMPACT_TOOL_DESCRIPTIONS[name]} Result fields can include {outputs}."
+    return result
 
 
 class Boundary:
@@ -105,12 +158,25 @@ def decode_wire(raw, stream):
 
 
 def run_trajectory(case, graph, client, *, track, seed, alias="minicpm5-2b", stream=False,
-                   temperature=0.0, max_tokens=2048, thinking=False, journal=None):
+                   temperature=0.0, max_tokens=2048, thinking=False, journal=None, prompt_contract="p0"):
     if graph["case_id"] != case["case_id"]:
         raise ValueError("trajectory graph identity mismatch")
     send = journal if journal is not None else lambda event: None
+    if prompt_contract not in PROMPT_ARMS:
+        raise ValueError("unknown prompt contract")
+    staged_plan = track == "P" and prompt_contract != "p0"
+    changes = PROMPT_ARMS[prompt_contract] if staged_plan else frozenset()
     wire = request(case, track)
     messages = wire["messages"]
+    tools = compact_tools(wire["tools"]) if "compact" in changes else wire["tools"]
+    if staged_plan:
+        plan_only = TRACK_PROMPTS["P"].removesuffix(" Then act using the available tools and observations.")
+        system_parts = [POLICY, plan_only]
+        if case.get("policy"):
+            system_parts.append(case["policy"])
+        if "example" in changes:
+            system_parts.append(PLAN_EXAMPLE)
+        messages[0]["content"] = "\n".join(system_parts)
     sandbox = SyntheticSandbox(graph["world"])
     initial_state = sandbox.snapshot()
     boundary = Boundary(case)
@@ -125,8 +191,10 @@ def run_trajectory(case, graph, client, *, track, seed, alias="minicpm5-2b", str
         body = {"model": alias, "messages": deepcopy(messages), "temperature": temperature, "seed": seed,
                 "max_tokens": max_tokens, "stream": stream, "cache_prompt": False,
                 "chat_template_kwargs": {"enable_thinking": thinking}}
-        if wire["tools"]:
-            body.update(tools=wire["tools"], tool_choice="auto", parallel_tool_calls=True)
+        if tools:
+            body.update(tools=tools, tool_choice="auto", parallel_tool_calls=True)
+        if turn == 0 and "schema" in changes:
+            body["response_format"] = plan_format()
         if stream:
             body["stream_options"] = {"include_usage": True}
         send({"kind": "request", "turn": turn, "body": body})
@@ -176,6 +244,8 @@ def run_trajectory(case, graph, client, *, track, seed, alias="minicpm5-2b", str
                 findings.append({"code": "INITIAL_PLAN_REJECTED", "detail": str(failure)})
                 break
             plan_before_tools = True
+            if staged_plan:
+                messages[0] = request(case, "A")["messages"][0]
             messages.extend([assistant, {"role": "user", "content": PLAN_TRANSITION}])
             continue
         if not choice.calls:

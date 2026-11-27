@@ -28,3 +28,36 @@ def test_benchmark_profile_accepts_long_parallel_batch_with_original_guardrails(
         decode_batched_completion(raw, max_calls=33)
     with pytest.raises(GatewayError, match="duplicate tool call ID"):
         decode_batched_completion(envelope(17, duplicate=True), max_calls=32)
+
+
+@pytest.mark.parametrize("count", (16, 17, 32, 33))
+def test_explicit_wire_budget_preserves_stream_and_completion_parity(count):
+    from benchmarks.root_cause.generation_capture import check_gateway
+
+    calls = [{"id": f"call-{i}", "type": "function",
+              "function": {"name": "test_read", "arguments": "{}"}} for i in range(count)]
+    complete = {"choices": [{"message": {"role": "assistant", "tool_calls": calls}, "finish_reason": "tool_calls"}]}
+    delta = {"choices": [{"index": 0,
+                          "delta": {"tool_calls": [{"index": i, **call} for i, call in enumerate(calls)]},
+                          "finish_reason": "tool_calls"}]}
+    raw_stream = f"data: {json.dumps(delta)}\n\ndata: [DONE]\n\n".encode()
+    raw_complete = json.dumps(complete).encode()
+    assert check_gateway(raw_stream, True, max_calls=32)["status"] == ("PASS" if count <= 32 else "FAIL")
+    assert check_gateway(raw_complete, False, max_calls=32)["status"] == ("PASS" if count <= 32 else "FAIL")
+    assert check_gateway(raw_stream, True)["status"] == ("PASS" if count <= 16 else "FAIL")
+    assert check_gateway(raw_complete, False)["status"] == ("PASS" if count <= 16 else "FAIL")
+
+
+@pytest.mark.parametrize("problem", ("gap", "duplicate-id"))
+def test_stream_rejects_invalid_batch_across_group_boundary(problem):
+    from benchmarks.root_cause.wire_profiles import decode_batched_stream
+
+    calls = [{"index": i, "id": f"call-{i}", "type": "function",
+              "function": {"name": "test_read", "arguments": "{}"}} for i in range(17)]
+    if problem == "gap":
+        del calls[15]
+    else:
+        calls[-1]["id"] = calls[0]["id"]
+    frame = {"choices": [{"index": 0, "delta": {"tool_calls": calls}, "finish_reason": "tool_calls"}]}
+    with pytest.raises(GatewayError, match="not contiguous|duplicate tool call ID"):
+        decode_batched_stream([json.dumps(frame).encode(), b"[DONE]"], max_calls=32)

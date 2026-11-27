@@ -22,15 +22,36 @@ def rate_intervals(strata):
     }
 
 
-def archive(source, output):
+def archive(source, output, *, pc_s=False, pc_s_checkpoint=False, pc_s_stream_pairs=False, draft_guard_control=None):
     run_path = source / "run.json"
     summary_path = source / "summary.json"
     run = json.loads(run_path.read_bytes())
     config = run["configuration"]
     freeze = dataset.load_freeze()
+    reference = pc_s or pc_s_checkpoint or pc_s_stream_pairs or draft_guard_control is not None
+    scope = "diagnostic" if reference else "full_panel"
     if (run["fingerprint"] != digest(config) or config["freeze_sha256"] != freeze.manifest["freeze_sha256"]
-            or config["scope"] != "full_panel"):
-        raise ValueError("MULTITOOL run identity differs from the requested full-panel freeze")
+            or config["scope"] != scope):
+        raise ValueError("MULTITOOL run identity differs from the requested freeze")
+    if draft_guard_control is not None:
+        from scripts.tools.atlas_pc_s import draft_guard_roster
+
+        selected = set(draft_guard_roster())
+        if (config["candidate"] != "J" or config["panel"] != "primary" or config.get("stream")
+                or bool(config.get("require_observed_draft")) != (draft_guard_control == "observed")
+                or len(config["roster"]) != len(selected)
+                or {row["case_id"] for row in config["roster"]} != selected):
+            raise ValueError("MULTITOOL draft authorization diagnostic differs from its frozen treatment")
+    elif reference:
+        from scripts.tools.atlas_reference_panel import create
+
+        frozen = create()["multitool_v1"]
+        selected = {case_id for group in frozen["selection_by_stratum"].values()
+                    for case_id in (group[:1] if pc_s_stream_pairs else group)}
+        if (config["candidate"] not in {"H", "J"} or config["panel"] != "primary"
+                or bool(config.get("stream")) != pc_s_stream_pairs or len(config["roster"]) != len(selected)
+                or {row["case_id"] for row in config["roster"]} != selected):
+            raise ValueError("MULTITOOL PC-S run differs from the frozen Qwen reference roster")
     roster = {item["key"]: (item["case_id"], item["seed"]) for item in config["roster"]}
     final_summary = json.loads(summary_path.read_bytes()) if summary_path.is_file() else None
     paths = sorted((source / "cases").glob("*.json"))
@@ -82,6 +103,12 @@ def archive(source, output):
         "physical_sessions": proof,
         "source_capture_scope": "per-request generation traces; live sampler snapshots may continue growing",
     }
+    if reference and (final_summary is None or final_summary["physical_evidence_status"] != "PASS"
+                      or any(run["sessions"][tag].get("proof") != info or info["status"] != "PASS"
+                             for tag, info in proof.items())):
+        raise ValueError("MULTITOOL PC-S requires a closed physical checkpoint")
+    if (pc_s or pc_s_stream_pairs or draft_guard_control is not None) and not resolved:
+        raise ValueError("MULTITOOL PC-S full coverage requires all frozen trials")
     output.mkdir(parents=True, exist_ok=False)
     (output / "run.json").write_bytes(dataset.canonical(run))
     with (output / "terminal.jsonl.gz").open("wb") as handle:
@@ -93,7 +120,7 @@ def archive(source, output):
         snapshot = (source / name).read_bytes()
         snapshot_sha256 = hashlib.sha256(snapshot).hexdigest()
         recorded = session_proof.get("sha256", {}).get("counter")
-        if resolved and snapshot_sha256 != recorded:
+        if (resolved or reference) and snapshot_sha256 != recorded:
             raise ValueError(f"final session counter snapshot differs from proof: {tag}")
         session_proof["published_counter_sha256"] = snapshot_sha256
         (output / (name + ".gz")).write_bytes(gzip.compress(snapshot, mtime=0))
@@ -105,8 +132,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--pc-s", action="store_true", help="verify the complete frozen Qwen reference diagnostic")
+    mode.add_argument("--pc-s-checkpoint", action="store_true", help="verify a closed batch of the frozen reference panel")
+    mode.add_argument("--pc-s-stream-pairs", action="store_true", help="verify the fixed depth/language streaming panel")
+    mode.add_argument("--draft-guard-control", choices=("legacy", "observed"))
     args = parser.parse_args()
-    archive(args.source, args.output)
+    archive(args.source, args.output, pc_s=args.pc_s, pc_s_checkpoint=args.pc_s_checkpoint,
+            pc_s_stream_pairs=args.pc_s_stream_pairs, draft_guard_control=args.draft_guard_control)
 
 
 if __name__ == "__main__":

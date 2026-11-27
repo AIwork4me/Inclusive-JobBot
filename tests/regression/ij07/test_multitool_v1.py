@@ -97,6 +97,45 @@ def test_sandbox_suppresses_unauthorized_state_changes(tmp_path):
     assert len(after["audit_events"]) == 1
 
 
+def test_observed_review_profile_requires_a_prior_turn_for_drafts(tmp_path):
+    case = next(case for case in load_freeze().active.values() if case.world["draft_ids"])
+    reference = case.world["draft_ids"][0]
+    read = json.dumps({"record_id": reference})
+    draft = json.dumps({"record_id": reference, "reason": "route_review"})
+    legacy = Scenario(case, tmp_path / "legacy.sqlite3")
+    assert legacy.call("early", "create_hold_draft", draft)["status"] == "drafted"
+
+    revised = Scenario(case, tmp_path / "revised.sqlite3", require_observed_draft=True)
+    assert revised.call("early", "create_hold_draft", draft, turn=0) == {"error": "POLICY_DENIED"}
+    assert revised.call("read", "read_review", read, turn=1)["draft_permission"] is True
+    assert revised.call("same-turn", "create_hold_draft", draft, turn=1) == {"error": "POLICY_DENIED"}
+    assert revised.snapshot()["review_drafts"] == {}
+    assert revised.call("next-turn", "create_hold_draft", draft, turn=2)["status"] == "drafted"
+    assert set(revised.snapshot()["review_drafts"]) == {reference}
+
+
+def test_observed_review_profile_requires_fresh_review_after_scope_update(tmp_path):
+    case = load_freeze().active["MT-08-018"]
+    reference = case.world["draft_ids"][0]
+    trigger = next(key for key in case.world["records"]["read_review"] if key != reference)
+    update = {"id": "scope-change", "after_tool": "read_review", "record_id": trigger,
+              "text": "Use the revised scope. Recheck the current review before drafting."}
+    revised = replace(case, world={**case.world, "event": update})
+    scenario = Scenario(revised, tmp_path / "scope.sqlite3", require_observed_draft=True)
+    current = json.dumps({"record_id": reference})
+    draft = json.dumps({"record_id": reference, "reason": "route_review"})
+
+    assert scenario.call("read", "read_review", current, turn=0)["draft_permission"] is True
+    scenario.call("update", "read_review", json.dumps({"record_id": trigger}), turn=1)
+    assert scenario.take_events() == [(update["id"], {"role": "user", "content": update["text"]})]
+    assert scenario.call("stale-grant", "create_hold_draft", draft, turn=2) == {"error": "POLICY_DENIED"}
+    assert scenario.snapshot()["review_drafts"] == {}
+
+    assert scenario.call("fresh-read", "read_review", current, turn=3)["draft_permission"] is True
+    assert scenario.call("draft", "create_hold_draft", draft, turn=4)["status"] == "drafted"
+    assert set(scenario.snapshot()["review_drafts"]) == {reference}
+
+
 def test_freeze_regenerates_byte_identically_and_rejects_mutation(tmp_path):
     generate(tmp_path)
     for name in (*FILES, "manifest.json"):
@@ -168,18 +207,19 @@ def test_candidate_profile_changes_only_model_on_the_wire():
     assert candidate_request == {**default_request, "model": "ij07-candidate-b"}
 
 
-def test_strict_candidate_uses_shared_multitool_budget_and_pinned_template(tmp_path, monkeypatch):
-    verified = {"candidate": "D", "template": {"sha256": "strict-embedded"}, "engine": {"exe_sha256": "exe"},
+@pytest.mark.parametrize("candidate_id", ("D", "H"))
+def test_strict_candidate_uses_shared_multitool_budget_and_pinned_template(candidate_id, tmp_path, monkeypatch):
+    verified = {"candidate": candidate_id, "template": {"sha256": "strict-embedded"}, "engine": {"exe_sha256": "exe"},
                 "budgets": {"model_turns": 7, "completion_tokens_per_turn": 768, "context_tokens": 8192}}
     path = tmp_path / "pinned-Q8_0.gguf"
     path.touch()
     monkeypatch.setattr(run.tc_v2_candidate, "verify_runtime",
-                        lambda code, model, engine: verified if (code, model, engine) == ("D", path, tmp_path) else None)
+                        lambda code, model, engine: verified if (code, model, engine) == (candidate_id, path, tmp_path) else None)
     monkeypatch.setattr(run.tc_v2_candidate, "server_environment", lambda: {"fixture": "1"})
-    args = SimpleNamespace(candidate="D", backend="vulkan", engine_dir=tmp_path, model=path, runtime_root=None)
+    args = SimpleNamespace(candidate=candidate_id, backend="vulkan", engine_dir=tmp_path, model=path, runtime_root=None)
     binary, model, identity, env = run.resolve_runtime(args)
     assert (binary, model, env) == (tmp_path / "llama-server.exe", path, {"fixture": "1"})
-    assert identity["model_alias"] == "ij07-candidate-d"
+    assert identity["model_alias"] == f"ij07-candidate-{candidate_id.lower()}"
     assert identity["expected_template_sha256"] == "strict-embedded"
     assert "budgets" not in identity and "budgets" in verified
     with pytest.raises(ValueError, match="Vulkan"):
@@ -269,3 +309,18 @@ def test_checkpoint_resume_binds_evidence_and_preserves_interruptions(tmp_path, 
     path.write_text(json.dumps(envelope), encoding="utf-8")
     with pytest.raises(ValueError, match="invalid checkpoint"):
         run.execute_locked(resume, configuration, cases, tmp_path, None, None, {})
+
+def test_multitool_stream_mode_reaches_real_runner_decoder():
+    case = load_freeze().controls["DIAG-NO-TOOL-EN"]
+
+    class SSEFixture(WireFixture):
+        def chat(self, url, request):
+            reply = super().chat(url, request)
+            content = reply["choices"][0]["message"]["content"]
+            choice = {"index": 0, "delta": {"role": "assistant", "content": content}, "finish_reason": "stop"}
+            self.requests[-1]["raw_response"] = f"data: {json.dumps({'choices': [choice]})}\n\ndata: [DONE]\n\n"
+            return reply
+
+    result = run_case(case, SSEFixture([{"content": '{"status":"ready"}'}]), None, seed=66007, stream=True)
+    assert result["status"] == "PASS"
+    assert result["requests"][0]["request"]["stream_options"] == {"include_usage": True}

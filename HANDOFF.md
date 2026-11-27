@@ -1,5 +1,91 @@
 # Handoff
 
+## IJ-0.7.3 local evaluator
+
+Use `python -m evaluation.aeve.progress --write` to synchronize Atlas progress, MISSION_STATE and sealed Q2 coverage from a single archive snapshot. The progress check in CI compares the published tree with its sealed captures. The [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md) covers the original 45 reference defects and 81 alternative proofs. The [history matrix](evidence/IJ073/aeve/historical_route_matrix.json) records every family, dimension and risk scope. Q3 credentials are still required for any formal route.
+
+Keep any current GPU worker alive while it advances the frozen Q2 queue. See [sealed coverage](evidence/IJ073/aeve/q2_sealed_coverage.json). Once all 6,850 results are sealed, run `python -m evaluation.aeve.q2_closure --output .runtime/q2_closure.json --markdown .runtime/q2_closure.md`. The report command requires every case from each frozen cohort and verifies the Q2 protocol from the archived development evidence.
+
+## IJ-0.7.3 → IJ-SLM-1.0 GPU handoff
+
+The default AEVE resume completes and replays only the frozen Q2 queue. The host lease uses the existing Windows global mutex shared by the Radeon launchers. Each new shared-launcher session records its hashed host and physical device identities, mission, owner, controller PID and runtime session. The llama-server process runs in an owner-bound Windows job. Use the shared launcher for Radeon work on this workstation. The managed Windows llama-server start script also holds the same lease until its GPU server exits.
+
+Open the GPU Handoff Gate only after the complete 6,850-case Q2 report replays, Q2 has stopped dispatching, the host mutex is available, and Windows cross-worktree contention, abnormal owner exit and concurrent queue deduplication checks pass. Record the result in `evidence/IJ073/aeve/gpu_handoff.json`. Q2 coverage and Judge qualification are separate gates.
+
+Run the following recovery steps after the Radeon has been returned to IJ-0.7.3. Set `PYTHONPATH=.;src` and use the repository Python environment. Supply the original `--state`, `--out`, and `--assets` paths when resuming the original queue from a different checkout.
+
+| Deferred research | Remaining work | Resume or validation command |
+|---|---|---|
+| M14/G31 Admission | Two admissions plus the matched 72-request cohort per eligible candidate | `python -m evaluation.aeve.larger_candidate_admission M14 --matched-development`, then repeat for G31 |
+| gpt-oss-20b/Phi-4/Llama Admission | Three runtime admissions; verify all pinned weights before each run | `python -m evaluation.aeve.larger_candidate_admission O20`, then repeat for P14 and L70 |
+| Q1 truncation | 393 reserved requests for 131 original truncations, subject to archive replay | `python -m evaluation.aeve.truncation run --output .runtime/aeve-ij073/truncation-report.json` |
+| E0–E7 | Eight matched arms; freeze the eligible roster and its E6 subset before physical dispatch | `python -m evaluation.aeve.paired_evaluation ROSTER OBSERVATIONS --output .runtime/paired-report.json` replays recorded results. Physical dispatch still needs a frozen roster and runner. |
+| Q3 | Independent source-proof bundle, partition freeze and physical execution | `python -m evaluation.aeve.q3_cohort BUNDLE --output .runtime/q3-freeze.json`; the physical runner still needs implementation. |
+| Full history AI evaluation | The current ledger reserves 313,796 physical and 108,228 nonphysical primary judgments, plus eligible disputes. Obtain qualified routes for the 600 candidate-family, dimension and risk combinations. | `python -m evaluation.aeve.progress` verifies the ledger. Physical dispatch depends on independently qualified Q3 routes. |
+| Human blind review | Original 22 retained. Freeze the expanded panel and collect independent submissions. | `python -m evaluation.aeve.human_review --out .runtime/private-blind-review` |
+| IJ-0.7.3 legacy queued development | Resume the same SQLite queue and session archive | `python -m evaluation.aeve resume --wait-for-controller --resume-deferred` |
+
+Keep the original Q2 and Q3 protocols and evidence and use new run identities for new experiments.
+
+## IJ-0.7.3 conditional planning checkpoint
+
+Resume on PR #6. Use the [baseline](reports/IJ073_BASELINE_AUDIT.md), [root causes](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md) and [validation commands](reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md). The repaired witness now executes its declared graph in all 800 worlds, including the 128 original discrepancies and 13 public-equivalent groups. Run `python -m scripts.tools.ij073_verify` to reproduce all nine derived artifacts. The standalone public request/reply boundary and 21 independent control worlds have software coverage. Four local Qwen3-14B requests exercised the wire boundary and all failed the zero-tool development task. Conditional graph execution now exports per-call state transitions. Complete the independent cross-suite and safety qualification before evaluator freeze.
+
+## IJ-0.7.2 A1 checkpoint
+
+Status **INCOMPLETE**. Start with the [checkpoint report](reports/ATLAS_IJ072_CHECKPOINT_CN.md) and
+[physical queue](atlas/physical_queue.json). The frozen 540-trial Qwen3-8B PC-S protocol is archived. Matched L0 P0/P1
+replays and the larger reference admission remain separate diagnostics. Work
+from the existing PR #6 branch. Reserve the Radeon for a single process at a
+time. The original JOB-V1 A and B run directories remain under the IJ-0.7
+worktree and keep their own identities and checkpoints.
+
+The Qwen3 PC-S Planning source is `6a7ea4f9d527fffeeb32d8ef88496916d9dbc8ed`.
+A pinned local worktree at `.scratch/ij072-plan-runtime` preserves that runtime
+identity. The TC-V2 development and MULTITOOL sources are bound individually in
+their run manifests. Keep separate outputs for any changed runtime or prompt.
+
+From a fresh checkout, verify the portable evidence with
+`python scripts/tools/verify_atlas_artifacts.py`,
+`python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc`
+and `python -m scripts.tools.atlas_failure_ledger --check`.
+Qwen3-14B passed [admission](evidence/IJ072/model_identity/admission/J/report.json) and
+completed the [100-trial TC-V2 component](evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json).
+The [complete MULTITOOL archive](evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json)
+sealed 120/120 trials and the [streaming comparison](evidence/IJ072/benchmark_validity/pc-s-j-multitool-streaming-pairs.json)
+verified 10 physical pairs. Its [complete Planning archive](evidence/IJ072/benchmark_validity/pc-s-j-planning-full/diagnostic.json)
+sealed 320/320 trials. The larger reference's original source and outputs are
+linked to the clean workstation worktree `.scratch/ij072-reference-runtime`
+at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
+
+The [stratified PC-P experiment](reports/ATLAS_PROMPT_CAUSAL_ABLATION_FINAL.md)
+sealed all 1,152 physical trials. Its frozen runtime source is
+`876ee84baa86f86399a5ae46bd7721671e16a090` in `.scratch/ij072-prompt-runtime`.
+The [complete matrix](evidence/IJ072/benchmark_validity/pc-p-factorial-full-four-models.json)
+contains nine archived runs per model and exact per-case results.
+
+The [draft authorization comparison](evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-guard-pairs.json)
+sealed 37 physical pairs. Workstation source is `.scratch/ij072-draft-runtime`
+at `230b51e611ef5ff0d2078db5f23b352c85ef4775`. The software controls cover
+premature drafts and a moderation event that invalidates a prior review.
+The physical negative check is `NOT_RUN` because the reference model made
+only prior-reviewed draft calls in this matched cohort. Reproduction commands
+and exact source artifacts are recorded in the [reproduction guide](docs/ATLAS_A1_REPRODUCIBILITY.md).
+
+Resume A1 with the [22-case score-blind review packet](reports/ATLAS_A1_BLIND_REVIEW.md).
+Reconcile the independent assessments with the 128 strict witness discrepancies
+and 602 contradictory precondition mutations before freezing a revised scorer.
+The raw competitive and JOB-V1 A/B reconciliation commands use the original
+workstation data. Revised large-scale qualification depends on A1.
+
+## IJ-0.7.1 Atlas checkpoint
+
+See [baseline audit](reports/ATLAS_A0_BASELINE_AUDIT.md), [live progress entry](atlas/progress.json), and [tracking issue #5](https://github.com/AIwork4me/Inclusive-JobBot/issues/5). Work from branch `mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1`, stacked on the reviewed IJ-0.7 HEAD `888f910b99b90dd7a3ac0f8d8760c6a6bbdc4102`.
+
+A0 rechecks historical records. A1 remains BLOCKED pending full independent Witness, critical mutations across all suites, prompt ablations, and real strong-model controls. The 3,300 passed reference fixtures are software controls. Preserve the original workload identities and consult [the GPU queue](atlas/physical_queue.json) before reserving the Radeon slot.
+
+To regenerate the dashboard run `python scripts/tools/atlas_progress.py`. To regenerate the software-control records run `python scripts/tools/atlas_controls.py --output .runtime/atlas-controls.json`.
+
 ## IJ-0.7
 
 IJ-0.7 starts from the exact reviewed IJ-0.6 HEAD

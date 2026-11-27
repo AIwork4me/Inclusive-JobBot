@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "resource": "exclusive Windows Radeon 8060S GPU slot",
+  "entries": [
+    {
+      "id": "legacy-job-a-b",
+      "priority": "legacy_paused",
+      "status": "BLOCKED",
+      "dependencies": [],
+      "planned": 1200,
+      "checkpoint": "evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json",
+      "reason": "Arm A sealed 600/600. Arm B sealed 300/600 with seven additional records in an unsealed session. Preserve the run directory and use the original source and runtime on resume.",
+      "next_command": null,
+      "planned_controller_trials": 3750,
+      "controller_log": "IJ-0.7 local .runtime/ij07-job-full-queue.log",
+      "sealed": 900
+    },
+    {
+      "id": "pc-s-qwen3-8b",
+      "priority": "P0",
+      "status": "PASS",
+      "dependencies": [],
+      "planned": 540,
+      "completed": 540,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-planning-full/diagnostic.json",
+      "resource_requirements": "Vulkan, pinned Qwen3-8B Q8_0, isolated local llama.cpp, 8K context initial profile",
+      "next_command": null,
+      "trial_counts": {
+        "tc_v2": {
+          "planned": 100,
+          "assessed": 100,
+          "PASS": 56,
+          "FAIL": 44
+        },
+        "multitool_v1": {
+          "planned": 120,
+          "assessed": 120,
+          "PASS": 28,
+          "FAIL": 92
+        },
+        "planning_v1": {
+          "planned": 320,
+          "assessed": 320,
+          "PASS": 4,
+          "FAIL": 316
+        }
+      },
+      "scope": "planned physical coverage for Qwen3-8B; strict task outcomes are recorded separately"
+    },
+    {
+      "id": "pc-p-paired-ablation",
+      "priority": "P0",
+      "status": "PASS",
+      "dependencies": [
+        "versioned contracts",
+        "frozen trial roster",
+        "PC-S",
+        "exclusive_gpu_slot"
+      ],
+      "planned": null,
+      "completed": 80,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json",
+      "factorial": "atlas/benchmarks/pc_p_factorial.json",
+      "factorial_checkpoint": "evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json",
+      "factorial_trials_completed": 1152,
+      "factorial_full_results": "evidence/IJ072/benchmark_validity/pc-p-factorial-full-four-models.json",
+      "runtime_commit": "876ee84baa86f86399a5ae46bd7721671e16a090",
+      "runtime_worktree": ".scratch/ij072-prompt-runtime",
+      "next_command": null,
+      "reason": "All four 288-trial factorial blocks are sealed. This status covers physical completion. Strict outcomes are preserved in the matrix."
+    },
+    {
+      "id": "multitool-draft-guard-paired",
+      "priority": "P0",
+      "status": "PASS",
+      "dependencies": ["pc-p-paired-ablation", "exclusive_gpu_slot"],
+      "planned": 74,
+      "completed": 74,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-guard-pairs.json",
+      "scope": "37 paired Qwen3-14B trials per runtime flag from the independent draft witness",
+      "roster_source": "evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz",
+      "runtime_commit": "230b51e611ef5ff0d2078db5f23b352c85ef4775",
+      "runtime_worktree": ".scratch/ij072-draft-runtime",
+      "physical_early_denial": "NOT_RUN",
+      "next_command": null
+    },
+    {
+      "id": "revised-full-matrix",
+      "priority": "P1",
+      "status": "NOT_RUN",
+      "dependencies": [
+        "A1",
+        "A2",
+        "A3",
+        "A4"
+      ],
+      "planned_per_main_model": 2700,
+      "completed": 0,
+      "checkpoint": null,
+      "next_command": null
+    },
+    {
+      "id": "pc-s-qwen3-14b",
+      "priority": "P0",
+      "status": "PASS",
+      "dependencies": [
+        "exclusive_gpu_slot"
+      ],
+      "planned": 540,
+      "completed": 540,
+      "checkpoint": "evidence/IJ072/benchmark_validity/pc-s-j-planning-full/diagnostic.json",
+      "runtime_commit": "cbe2107f434890f14ff3431cc16a4c0bf41fd752",
+      "runtime_worktree": ".scratch/ij072-reference-runtime",
+      "next_command": null,
+      "trial_counts": {
+        "tc_v2": {"planned": 100, "assessed": 100, "PASS": 66, "FAIL": 34},
+        "multitool_v1": {"planned": 120, "assessed": 120, "PASS": 45, "FAIL": 75},
+        "planning_v1": {"planned": 320, "assessed": 320, "PASS": 35, "FAIL": 285}
+      },
+      "scope": "planned physical coverage for Qwen3-14B; strict task outcomes are recorded separately"
+    }
+  ]
+}

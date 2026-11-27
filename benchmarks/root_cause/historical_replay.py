@@ -18,6 +18,8 @@ from benchmarks.tool_calling_v2 import rescore
 
 from model_gateway.openai_protocol import MAX_CALLS
 from .generation_capture import CaptureClient, CaptureError
+from .gpu_lease import physical_gpu
+from .windows_job import job_process
 
 
 ROOT = legacy.ROOT
@@ -54,7 +56,18 @@ def engine_runtime(directory, backend):
 
 @contextmanager
 def gpu_server(binary, model, backend, env, output, port, tag, observe, alias=ALIAS,
-               build_prefix="b12359-b1b770d90", *, max_nonstream_calls=MAX_CALLS):
+               build_prefix="b12359-b1b770d90", *, max_nonstream_calls=MAX_CALLS,
+               mission_id="IJ-0", lease_owner="historical-replay", runtime_session=None):
+    with physical_gpu(mission_id=mission_id, lease_owner=lease_owner,
+                      runtime_session=runtime_session or output.name) as lease:
+        with _leased_server(binary, model, backend, env, output, port, tag, observe, alias,
+                            build_prefix, max_nonstream_calls=max_nonstream_calls) as (client, launch):
+            yield client, {**launch, "gpu_lease": lease}
+
+
+@contextmanager
+def _leased_server(binary, model, backend, env, output, port, tag, observe, alias,
+                   build_prefix, *, max_nonstream_calls):
     log = output / f"{tag}-server.log"
     trace = output / f"{tag}-generation.jsonl"
     samples = output / f"{tag}-gpu.jsonl"
@@ -64,75 +77,75 @@ def gpu_server(binary, model, backend, env, output, port, tag, observe, alias=AL
         env["LLAMA_IJ07_TRACE_PATH"] = str(trace)
     flags = ["--ctx-size", "8192", "--parallel", "1", "--n-gpu-layers", "99",
              "--device", DEVICES[backend], "--jinja", "--offline", "--no-webui", "--verbosity", "4"]
-    server = subprocess.Popen(
+    with job_process(
         [str(binary), "-m", str(model), "--host", "127.0.0.1", "--port", str(port),
          "--alias", alias, "--log-file", str(log), *flags],
         env=env, cwd=binary.parent, creationflags=subprocess.CREATE_NO_WINDOW,
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-    )
-    sampler = None
-    client = CaptureClient(port, trace if observe else None, max_nonstream_calls=max_nonstream_calls)
-    try:
-        for _ in range(90):
-            if server.poll() is not None:
-                raise CaptureError(f"llama-server exited with code {server.returncode}")
-            if log.is_file():
-                boot = log.read_text(encoding="utf-8", errors="replace")
-                layers = re.findall(r"offloaded ([1-9]\d*)/(\d+) layers to GPU", boot)
-                if layers and "listening on" in boot:
+    ) as server:
+        sampler = None
+        client = CaptureClient(port, trace if observe else None, max_nonstream_calls=max_nonstream_calls)
+        try:
+            for _ in range(90):
+                if server.poll() is not None:
+                    raise CaptureError(f"llama-server exited with code {server.returncode}")
+                if log.is_file():
+                    boot = log.read_text(encoding="utf-8", errors="replace")
+                    layers = re.findall(r"offloaded ([1-9]\d*)/(\d+) layers to GPU", boot)
+                    if layers and "listening on" in boot:
+                        break
+                time.sleep(1)
+            else:
+                raise CaptureError("GPU server did not report readiness")
+            owner = subprocess.check_output(
+                ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command",
+                 f"(Get-NetTCPConnection -LocalPort {port} -State Listen).OwningProcess | Select-Object -Unique"],
+                text=True, timeout=20,
+            ).strip()
+            if owner != str(server.pid):
+                raise CaptureError("loopback listener does not match the launched process")
+            with client.opener.open(client.base_url + "/props", timeout=10) as reply:
+                props = json.load(reply)
+            if (not props["build_info"].startswith(build_prefix)
+                    or props["model_alias"] != alias or Path(props["model_path"]).resolve() != model
+                    or not props["chat_template_caps"]["supports_tool_calls"]):
+                raise CaptureError("live server identity or tool-call support differs")
+            gpu = re.search(r"using device " + DEVICES[backend] + r" \((.+?)\) \(", boot)
+            if gpu is None or gpu[1] != "AMD Radeon(TM) 8060S Graphics":
+                raise CaptureError("expected physical Radeon 8060S offload")
+            sampler = subprocess.Popen(
+                ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File",
+                 str(ROOT / "scripts/windows/sample_gpu_counters.ps1"), "-TargetProcessId", str(server.pid),
+                 "-OutputPath", str(samples), "-StopFile", str(stop), "-MaxSeconds", "7200"],
+                creationflags=subprocess.CREATE_NO_WINDOW, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            )
+            for _ in range(60):
+                if stop.with_suffix(".ready").exists():
                     break
-            time.sleep(1)
-        else:
-            raise CaptureError("GPU server did not report readiness")
-        owner = subprocess.check_output(
-            ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command",
-             f"(Get-NetTCPConnection -LocalPort {port} -State Listen).OwningProcess | Select-Object -Unique"],
-            text=True, timeout=20,
-        ).strip()
-        if owner != str(server.pid):
-            raise CaptureError("loopback listener does not match the launched process")
-        with client.opener.open(client.base_url + "/props", timeout=10) as reply:
-            props = json.load(reply)
-        if (not props["build_info"].startswith(build_prefix)
-                or props["model_alias"] != alias or Path(props["model_path"]).resolve() != model
-                or not props["chat_template_caps"]["supports_tool_calls"]):
-            raise CaptureError("live server identity or tool-call support differs")
-        gpu = re.search(r"using device " + DEVICES[backend] + r" \((.+?)\) \(", boot)
-        if gpu is None or gpu[1] != "AMD Radeon(TM) 8060S Graphics":
-            raise CaptureError("expected physical Radeon 8060S offload")
-        sampler = subprocess.Popen(
-            ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File",
-             str(ROOT / "scripts/windows/sample_gpu_counters.ps1"), "-TargetProcessId", str(server.pid),
-             "-OutputPath", str(samples), "-StopFile", str(stop), "-MaxSeconds", "7200"],
-            creationflags=subprocess.CREATE_NO_WINDOW, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-        )
-        for _ in range(60):
-            if stop.with_suffix(".ready").exists():
-                break
-            if sampler.poll() is not None:
-                raise CaptureError("Windows GPU sampler exited before readiness")
-            time.sleep(0.25)
-        else:
-            raise CaptureError("Windows GPU sampler did not report readiness")
-        yield client, {
-            "pid": server.pid, "owns_port": True, "launched_utc": legacy.utc_now(),
-            "backend": backend, "gpu": {"name": gpu[1], "device": DEVICES[backend], "architecture": "gfx1151"},
-            "layers_offloaded": int(layers[-1][0]), "layers_total": int(layers[-1][1]),
-            "build": props["build_info"], "args": flags,
-            "template_sha256": hashlib.sha256(props["chat_template"].encode("utf-8")).hexdigest(),
-            "counter_file": samples.name, "trace_file": trace.name if observe else None,
-        }
-    finally:
-        if sampler is not None and sampler.poll() is None:
-            stop.touch()
-            try:
-                sampler.wait(timeout=15)
-            except subprocess.TimeoutExpired:
-                sampler.kill()
-                sampler.wait()
-        if server.poll() is None:
-            server.terminate()
-            server.wait(timeout=15)
+                if sampler.poll() is not None:
+                    raise CaptureError("Windows GPU sampler exited before readiness")
+                time.sleep(0.25)
+            else:
+                raise CaptureError("Windows GPU sampler did not report readiness")
+            yield client, {
+                "pid": server.pid, "owns_port": True, "launched_utc": legacy.utc_now(),
+                "backend": backend, "gpu": {"name": gpu[1], "device": DEVICES[backend], "architecture": "gfx1151"},
+                "layers_offloaded": int(layers[-1][0]), "layers_total": int(layers[-1][1]),
+                "build": props["build_info"], "args": flags,
+                "template_sha256": hashlib.sha256(props["chat_template"].encode("utf-8")).hexdigest(),
+                "counter_file": samples.name, "trace_file": trace.name if observe else None,
+            }
+        finally:
+            if sampler is not None and sampler.poll() is None:
+                stop.touch()
+                try:
+                    sampler.wait(timeout=15)
+                except subprocess.TimeoutExpired:
+                    sampler.kill()
+                    sampler.wait()
+            if server.poll() is None:
+                server.terminate()
+                server.wait(timeout=15)
 
 
 def run_case(case, client):

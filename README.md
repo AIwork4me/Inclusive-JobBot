@@ -29,6 +29,18 @@ Independent tests, SDK results and production gates are tracked in the
 Production readiness is `BLOCKED`. The measured business workloads use
 synthetic data. DEEPX DX-M2 physical validation is `NOT_RUN`.
 
+IJ-0.7.2 Atlas status is **INCOMPLETE**. The benchmark validity and release gates
+remain **BLOCKED**. The checkpoint includes both completed physical reference
+panels (Qwen3-8B and Qwen3-14B), the four-model prompt experiment, historical
+failure diagnostics and verified legacy JOB-V1 checkpoints.
+[Progress dashboard](reports/ATLAS_PROGRESS_DASHBOARD.md) ·
+[A1 checkpoint report](reports/ATLAS_IJ072_CHECKPOINT_CN.md) ·
+[Prompt ablation results](reports/ATLAS_PROMPT_CAUSAL_ABLATION_FINAL.md) ·
+[Prompt experiment checkpoint](evidence/IJ072/benchmark_validity/pc-p-factorial-progress.json) ·
+[Reproduce the A1 evidence](docs/ATLAS_A1_REPRODUCIBILITY.md) ·
+[Model passports](evidence/IJ07/model_passports/) ·
+[Release gates](atlas/release_gates.json)
+
 See [AGENTS.md](AGENTS.md) for the working rules, [HANDOFF.md](HANDOFF.md) for
 the current state, and [reports/](reports/) for evidence-backed reports.
 

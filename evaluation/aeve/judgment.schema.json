@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verdict": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "BLOCKED"
+      ]
+    },
+    "reason_summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "maxItems": 128
+    }
+  },
+  "required": [
+    "verdict",
+    "reason_summary",
+    "evidence_refs"
+  ]
+}

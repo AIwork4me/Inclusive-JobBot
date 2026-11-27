@@ -158,11 +158,27 @@ def test_gpu(send, report):
     mark("schema_and_invalid_choice", parsed == {"status": "ready"} and 400 <= invalid < 500)
 
 
-def admit(candidate, output, port, engine_directory, disable_thinking):
-    info = json.loads((ROOT / f"evidence/IJ07/model_identity/{candidate}.json").read_bytes())
+def admit(candidate, output, port, engine_directory, disable_thinking, *, model=None, cpu_binary=None):
+    if candidate == "J":
+        pin = json.loads((ROOT / "atlas/benchmarks/pc_s_qwen3_14b.json").read_bytes())
+        if model is None or cpu_binary is None or not model.is_file() or not cpu_binary.is_file():
+            raise ValueError("the larger reference needs an explicit verified GGUF and CPU executable")
+        if model.name != pin["filename"] or model.stat().st_size != pin["expected_bytes"]:
+            raise ValueError("the larger reference GGUF differs from its pinned filename or size")
+        info = {"official_model_id": pin["model"], "runtime_asset": {
+            "repo": pin["artifact_repository"], "revision": pin["revision"], "filename": pin["filename"],
+            "expected_sha256": pin["expected_sha256"], "size": pin["expected_bytes"],
+        }}
+        model = model.resolve()
+    else:
+        if model is not None or cpu_binary is not None:
+            raise ValueError("path overrides are reserved for the larger reference")
+        info = json.loads((ROOT / f"evidence/IJ07/model_identity/{candidate}.json").read_bytes())
+        asset = info["runtime_asset"]
+        directory = MODEL_ROOTS.get(candidate, ".runtime/ij07-candidates/" + asset["repo"].replace("/", "__"))
+        model = (ROOT / directory / asset["filename"]).resolve()
+        cpu_binary = ROOT / "runtime/llama-cpp/cpu/llama-server.exe"
     asset = info["runtime_asset"]
-    directory = MODEL_ROOTS.get(candidate, ".runtime/ij07-candidates/" + asset["repo"].replace("/", "__"))
-    model = (ROOT / directory / asset["filename"]).resolve()
     output.mkdir(parents=True, exist_ok=False)
     alias = "ij07-candidate-" + candidate.lower()
     report = {
@@ -173,10 +189,11 @@ def admit(candidate, output, port, engine_directory, disable_thinking):
     def send_for(client):
         return partial(request, client, alias, wire=report["wire"], disable_thinking=disable_thinking)
 
-    cpu_binary = ROOT / "runtime/llama-cpp/cpu/llama-server.exe"
     try:
         model_hash = legacy.sha256_of(model)
         report["gates"]["artifact_identity"] = "PASS" if model_hash == asset["expected_sha256"] else "FAIL"
+        if candidate == "J":
+            asset.update(observed_sha256=model_hash, status=report["gates"]["artifact_identity"])
         if report["gates"]["artifact_identity"] != "PASS":
             raise CaptureError("model hash mismatch")
         with cpu_server(cpu_binary, model, port, output / "cpu.log", alias) as (client, build):
@@ -208,13 +225,20 @@ def admit(candidate, output, port, engine_directory, disable_thinking):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--candidate", choices="ABDEFGH", required=True)
+    parser.add_argument("--candidate", choices="ABDEFGHJ", required=True)
+    parser.add_argument("--model", type=Path, help="explicit pinned GGUF for candidate J")
+    parser.add_argument("--cpu-bin", type=Path, help="explicit CPU reference executable for candidate J")
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--engine-dir", default=ROOT / "runtime/llama-cpp/vulkan", type=Path)
     parser.add_argument("--disable-thinking", action="store_true")
     parser.add_argument("--port", default=8095, type=int, choices=range(1024, 65536), metavar="PORT")
     args = parser.parse_args()
-    admit(args.candidate, args.output.resolve(), args.port, args.engine_dir.resolve(), args.disable_thinking)
+    if args.candidate == "J" and not (args.model and args.cpu_bin):
+        parser.error("candidate J requires --model and --cpu-bin")
+    if args.candidate != "J" and (args.model or args.cpu_bin):
+        parser.error("path overrides require candidate J")
+    admit(args.candidate, args.output.resolve(), args.port, args.engine_dir.resolve(), args.disable_thinking,
+          model=args.model, cpu_binary=args.cpu_bin.resolve() if args.cpu_bin else None)
 
 
 if __name__ == "__main__":

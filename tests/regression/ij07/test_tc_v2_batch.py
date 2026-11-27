@@ -154,3 +154,19 @@ def test_stream_and_repeats_stay_separate_from_primary(fixture_run, frozen):
     assert result["phases"]["first"]["planned"] == result["phases"]["stream"]["planned"] == 1
     assert result["streaming_pairs"]["status_counts"]["PASS"] == 1
     assert result["repeat"] == {"planned_groups": 1, "assessed_groups": 1, "pass_at_3": 1, "pass_all_3": 1}
+
+
+
+def test_pc_s_batch_uses_exact_frozen_development_roster():
+    from scripts.tools.atlas_reference_panel import create
+
+    panel = create()["tc_v2"]
+    _, manifest = dataset.load("dev")
+    cases, roster = batch.make_roster("pc-s")
+    expected = [case_id for group in panel["selection_by_stratum"].values() for case_id in group]
+    assert len(cases) == len(roster) == len(expected) == 100
+    assert [trial["case_id"] for trial in roster] == expected
+    assert all(trial["split"] == "dev" and trial["phase"] == "first" and not trial["stream"]
+               and trial["seed"] == manifest["first_pass_seed"]
+               and trial["dataset_sha256"] == panel["dataset_sha256"]
+               for trial in roster)

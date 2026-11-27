@@ -9,8 +9,7 @@ from urllib.request import ProxyHandler, Request, build_opener
 from benchmarks.tool_calling_v2.parser.run_wire import raw_stream, split_sse
 from model_gateway.errors import GatewayError
 from model_gateway.openai_protocol import MAX_CALLS, decode_completion
-from model_gateway.streaming import StreamAssembler
-from .wire_profiles import decode_batched_completion
+from .wire_profiles import decode_batched_completion, decode_batched_stream
 
 
 MAX_BODY = 4 * 1024 * 1024
@@ -61,17 +60,14 @@ def correlate(rows, reply, stream):
     return trace
 
 
-def check_gateway(raw, stream, *, max_nonstream_calls=MAX_CALLS):
+def check_gateway(raw, stream, *, max_calls=MAX_CALLS):
     try:
         if stream:
-            gate = StreamAssembler()
-            for event in split_sse(raw):
-                gate.feed(event)
-            gate.finish()
-        elif max_nonstream_calls == MAX_CALLS:
+            decode_batched_stream(split_sse(raw), max_calls=max_calls)
+        elif max_calls == MAX_CALLS:
             decode_completion(raw)
         else:
-            decode_batched_completion(raw, max_calls=max_nonstream_calls)
+            decode_batched_completion(raw, max_calls=max_calls)
     except (GatewayError, ValueError) as exc:
         return {"status": "FAIL", "error": str(exc)}
     return {"status": "PASS"}
@@ -132,7 +128,7 @@ class CaptureClient:
             "request": request, "render_status": render_status, "render_response": render.decode("utf-8"),
             "http_status": status, "content_type": content_type,
             "raw_response": raw.decode("utf-8"), "source_generation": source,
-            "gateway_protocol": (check_gateway(raw, stream, max_nonstream_calls=self.max_nonstream_calls)
+            "gateway_protocol": (check_gateway(raw, stream, max_calls=self.max_nonstream_calls)
                                  if status == 200 else {"status": "NOT_RUN"}),
             "wall_ms": wall_ms,
         })

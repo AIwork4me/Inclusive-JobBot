@@ -1,0 +1,1233 @@
+{
+  "dataset_sha256": "f6e4f5000bd8c8949125f44b1900152797a40844f82347b0e2daaa360420bb0a",
+  "interpretation": "Matched tasks and budget. Model and runtime source identities can differ.",
+  "overall": {
+    "14B_pass": 45,
+    "14B_wilson95": [
+      0.29352429786446804,
+      0.4642304937402079
+    ],
+    "8B_pass": 28,
+    "8B_wilson95": [
+      0.16665575133182917,
+      0.31655447075814613
+    ],
+    "both_fail": 72,
+    "both_pass": 25,
+    "mcnemar_exact_two_sided_descriptive": 0.00048828125,
+    "only_14B": 20,
+    "only_8B": 3,
+    "pairs": 120
+  },
+  "run_ids": {
+    "14B": "ij07-multitool-891a66eda5a345e4a722545904184ac7",
+    "8B": "ij07-multitool-c10f08f33b4a40cd8702084c9fbef127"
+  },
+  "scope": "complete frozen PC-S MULTITOOL model contrast",
+  "source_commits": {
+    "14B": "cbe2107f434890f14ff3431cc16a4c0bf41fd752",
+    "8B": "05d0d1acba011dc940b4d7de5110f8fd33ea5baa"
+  },
+  "strata": {
+    "category": {
+      "MT-01": {
+        "14B_pass": 19,
+        "14B_wilson95": [
+          0.763868806553258,
+          0.9911185511992047
+        ],
+        "8B_pass": 9,
+        "8B_wilson95": [
+          0.2581978582556243,
+          0.6579146575496577
+        ],
+        "both_fail": 1,
+        "both_pass": 9,
+        "mcnemar_exact_two_sided_descriptive": 0.001953125,
+        "only_14B": 10,
+        "only_8B": 0,
+        "pairs": 20
+      },
+      "MT-02": {
+        "14B_pass": 13,
+        "14B_wilson95": [
+          0.43285427668523624,
+          0.818808175898918
+        ],
+        "8B_pass": 11,
+        "8B_wilson95": [
+          0.34208534245034233,
+          0.7418021417443759
+        ],
+        "both_fail": 6,
+        "both_pass": 10,
+        "mcnemar_exact_two_sided_descriptive": 0.625,
+        "only_14B": 3,
+        "only_8B": 1,
+        "pairs": 20
+      },
+      "MT-03": {
+        "14B_pass": 6,
+        "14B_wilson95": [
+          0.1454772448676043,
+          0.5189728183535235
+        ],
+        "8B_pass": 3,
+        "8B_wilson95": [
+          0.052368745896216595,
+          0.36041886474075696
+        ],
+        "both_fail": 14,
+        "both_pass": 3,
+        "mcnemar_exact_two_sided_descriptive": 0.25,
+        "only_14B": 3,
+        "only_8B": 0,
+        "pairs": 20
+      },
+      "MT-04": {
+        "14B_pass": 2,
+        "14B_wilson95": [
+          0.027866481213768224,
+          0.3010336452284873
+        ],
+        "8B_pass": 3,
+        "8B_wilson95": [
+          0.052368745896216595,
+          0.36041886474075696
+        ],
+        "both_fail": 16,
+        "both_pass": 1,
+        "mcnemar_exact_two_sided_descriptive": 1.0,
+        "only_14B": 1,
+        "only_8B": 2,
+        "pairs": 20
+      },
+      "MT-05": {
+        "14B_pass": 0,
+        "14B_wilson95": [
+          0.0,
+          0.2775327998628892
+        ],
+        "8B_pass": 0,
+        "8B_wilson95": [
+          0.0,
+          0.2775327998628892
+        ],
+        "both_fail": 10,
+        "both_pass": 0,
+        "mcnemar_exact_two_sided_descriptive": 1.0,
+        "only_14B": 0,
+        "only_8B": 0,
+        "pairs": 10
+      },
+      "MT-06": {
+        "14B_pass": 1,
+        "14B_wilson95": [
+          0.017876213095072896,
+          0.4041500267952385
+        ],
+        "8B_pass": 0,
+        "8B_wilson95": [
+          0.0,
+          0.2775327998628892
+        ],
+        "both_fail": 9,
+        "both_pass": 0,
+        "mcnemar_exact_two_sided_descriptive": 1.0,
+        "only_14B": 1,
+        "only_8B": 0,
+        "pairs": 10
+      },
+      "MT-07": {
+        "14B_pass": 4,
+        "14B_wilson95": [
+          0.16818032970623614,
+          0.6873262302663417
+        ],
+        "8B_pass": 2,
+        "8B_wilson95": [
+          0.05668215145437519,
+          0.5098375284633583
+        ],
+        "both_fail": 6,
+        "both_pass": 2,
+        "mcnemar_exact_two_sided_descriptive": 0.5,
+        "only_14B": 2,
+        "only_8B": 0,
+        "pairs": 10
+      },
+      "MT-08": {
+        "14B_pass": 0,
+        "14B_wilson95": [
+          0.0,
+          0.2775327998628892
+        ],
+        "8B_pass": 0,
+        "8B_wilson95": [
+          0.0,
+          0.2775327998628892
+        ],
+        "both_fail": 10,
+        "both_pass": 0,
+        "mcnemar_exact_two_sided_descriptive": 1.0,
+        "only_14B": 0,
+        "only_8B": 0,
+        "pairs": 10
+      }
+    },
+    "depth_bin": {
+      "11-15": {
+        "14B_pass": 6,
+        "14B_wilson95": [
+          0.11999366228595004,
+          0.44899444005154004
+        ],
+        "8B_pass": 4,
+        "8B_wilson95": [
+          0.06678676328632951,
+          0.3585307064969906
+        ],
+        "both_fail": 18,
+        "both_pass": 4,
+        "mcnemar_exact_two_sided_descriptive": 0.5,
+        "only_14B": 2,
+        "only_8B": 0,
+        "pairs": 24
+      },
+      "16-20": {
+        "14B_pass": 8,
+        "14B_wilson95": [
+          0.1797219032729775,
+          0.5329368316186824
+        ],
+        "8B_pass": 4,
+        "8B_wilson95": [
+          0.06678676328632951,
+          0.3585307064969906
+        ],
+        "both_fail": 16,
+        "both_pass": 4,
+        "mcnemar_exact_two_sided_descriptive": 0.125,
+        "only_14B": 4,
+        "only_8B": 0,
+        "pairs": 24
+      },
+      "2-3": {
+        "14B_pass": 12,
+        "14B_wilson95": [
+          0.3142742581957335,
+          0.6857257418042665
+        ],
+        "8B_pass": 10,
+        "8B_wilson95": [
+          0.24467602609811764,
+          0.6116533413477124
+        ],
+        "both_fail": 9,
+        "both_pass": 7,
+        "mcnemar_exact_two_sided_descriptive": 0.7265625,
+        "only_14B": 5,
+        "only_8B": 3,
+        "pairs": 24
+      },
+      "4-5": {
+        "14B_pass": 11,
+        "14B_wilson95": [
+          0.2789133373121099,
+          0.6492513464108051
+        ],
+        "8B_pass": 5,
+        "8B_wilson95": [
+          0.09244825352851857,
+          0.40470453253188665
+        ],
+        "both_fail": 13,
+        "both_pass": 5,
+        "mcnemar_exact_two_sided_descriptive": 0.03125,
+        "only_14B": 6,
+        "only_8B": 0,
+        "pairs": 24
+      },
+      "6-10": {
+        "14B_pass": 8,
+        "14B_wilson95": [
+          0.1797219032729775,
+          0.5329368316186824
+        ],
+        "8B_pass": 5,
+        "8B_wilson95": [
+          0.09244825352851857,
+          0.40470453253188665
+        ],
+        "both_fail": 16,
+        "both_pass": 5,
+        "mcnemar_exact_two_sided_descriptive": 0.25,
+        "only_14B": 3,
+        "only_8B": 0,
+        "pairs": 24
+      }
+    }
+  },
+  "trials": [
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-01-004",
+      "category": "MT-01",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-01-007",
+      "category": "MT-01",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-01-008",
+      "category": "MT-01",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-01-011",
+      "category": "MT-01",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-01-017",
+      "category": "MT-01",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-01-023",
+      "category": "MT-01",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-01-025",
+      "category": "MT-01",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-01-028",
+      "category": "MT-01",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-01-031",
+      "category": "MT-01",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-01-038",
+      "category": "MT-01",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-01-041",
+      "category": "MT-01",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-01-043",
+      "category": "MT-01",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-01-047",
+      "category": "MT-01",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-01-055",
+      "category": "MT-01",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-01-058",
+      "category": "MT-01",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-01-059",
+      "category": "MT-01",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-01-064",
+      "category": "MT-01",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-01-065",
+      "category": "MT-01",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-01-068",
+      "category": "MT-01",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-01-073",
+      "category": "MT-01",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "PASS",
+      "case_id": "MT-02-006",
+      "category": "MT-02",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-02-007",
+      "category": "MT-02",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-02-009",
+      "category": "MT-02",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-02-010",
+      "category": "MT-02",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-02-018",
+      "category": "MT-02",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-02-019",
+      "category": "MT-02",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-02-027",
+      "category": "MT-02",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-02-028",
+      "category": "MT-02",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-02-033",
+      "category": "MT-02",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-02-034",
+      "category": "MT-02",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-02-037",
+      "category": "MT-02",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-02-039",
+      "category": "MT-02",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-02-049",
+      "category": "MT-02",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-02-051",
+      "category": "MT-02",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-02-054",
+      "category": "MT-02",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-02-055",
+      "category": "MT-02",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-02-066",
+      "category": "MT-02",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-02-070",
+      "category": "MT-02",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-02-073",
+      "category": "MT-02",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-02-075",
+      "category": "MT-02",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-006",
+      "category": "MT-03",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-03-009",
+      "category": "MT-03",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-03-011",
+      "category": "MT-03",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-014",
+      "category": "MT-03",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-017",
+      "category": "MT-03",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-03-020",
+      "category": "MT-03",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-027",
+      "category": "MT-03",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-03-030",
+      "category": "MT-03",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-038",
+      "category": "MT-03",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-03-039",
+      "category": "MT-03",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-042",
+      "category": "MT-03",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-03-044",
+      "category": "MT-03",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-048",
+      "category": "MT-03",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-053",
+      "category": "MT-03",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-056",
+      "category": "MT-03",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-060",
+      "category": "MT-03",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-063",
+      "category": "MT-03",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-068",
+      "category": "MT-03",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-072",
+      "category": "MT-03",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-03-074",
+      "category": "MT-03",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "PASS",
+      "case_id": "MT-04-005",
+      "category": "MT-04",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-007",
+      "category": "MT-04",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-04-010",
+      "category": "MT-04",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "PASS",
+      "case_id": "MT-04-014",
+      "category": "MT-04",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-017",
+      "category": "MT-04",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-04-019",
+      "category": "MT-04",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-020",
+      "category": "MT-04",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-022",
+      "category": "MT-04",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-031",
+      "category": "MT-04",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-032",
+      "category": "MT-04",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-040",
+      "category": "MT-04",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-041",
+      "category": "MT-04",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-055",
+      "category": "MT-04",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-056",
+      "category": "MT-04",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-058",
+      "category": "MT-04",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-059",
+      "category": "MT-04",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-062",
+      "category": "MT-04",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-067",
+      "category": "MT-04",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-068",
+      "category": "MT-04",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-04-070",
+      "category": "MT-04",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-05-001",
+      "category": "MT-05",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-05-015",
+      "category": "MT-05",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-05-016",
+      "category": "MT-05",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-05-018",
+      "category": "MT-05",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-05-036",
+      "category": "MT-05",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-05-043",
+      "category": "MT-05",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-05-046",
+      "category": "MT-05",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-05-060",
+      "category": "MT-05",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-05-061",
+      "category": "MT-05",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-05-069",
+      "category": "MT-05",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-06-003",
+      "category": "MT-06",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-06-008",
+      "category": "MT-06",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-06-020",
+      "category": "MT-06",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-06-024",
+      "category": "MT-06",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-06-035",
+      "category": "MT-06",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-06-036",
+      "category": "MT-06",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-06-059",
+      "category": "MT-06",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-06-060",
+      "category": "MT-06",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-06-065",
+      "category": "MT-06",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-06-069",
+      "category": "MT-06",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-07-005",
+      "category": "MT-07",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-07-013",
+      "category": "MT-07",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "PASS",
+      "case_id": "MT-07-016",
+      "category": "MT-07",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "PASS",
+      "8B": "FAIL",
+      "case_id": "MT-07-023",
+      "category": "MT-07",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-07-032",
+      "category": "MT-07",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-07-037",
+      "category": "MT-07",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-07-052",
+      "category": "MT-07",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-07-059",
+      "category": "MT-07",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-07-067",
+      "category": "MT-07",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-07-071",
+      "category": "MT-07",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-08-009",
+      "category": "MT-08",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-08-013",
+      "category": "MT-08",
+      "depth_bin": "2-3",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-08-018",
+      "category": "MT-08",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-08-025",
+      "category": "MT-08",
+      "depth_bin": "4-5",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-08-031",
+      "category": "MT-08",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-08-045",
+      "category": "MT-08",
+      "depth_bin": "6-10",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-08-048",
+      "category": "MT-08",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-08-049",
+      "category": "MT-08",
+      "depth_bin": "11-15",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-08-067",
+      "category": "MT-08",
+      "depth_bin": "16-20",
+      "seed": 66007
+    },
+    {
+      "14B": "FAIL",
+      "8B": "FAIL",
+      "case_id": "MT-08-075",
+      "category": "MT-08",
+      "depth_bin": "16-20",
+      "seed": 66007
+    }
+  ]
+}

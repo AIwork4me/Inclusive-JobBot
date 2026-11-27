@@ -1,5 +1,152 @@
 # Task Ledger
 
+## IJ-0.7.3 GPU handoff
+
+The release verification manifests include the completed Q2 captures and handoff source files. The frozen experimental protocol is byte-identical to the reviewed baseline.
+
+All 6,850 frozen Q2 Radeon trials sealed and replayed. Formal Judge qualification is FAIL (B FAIL, E FAIL, F FAIL, G FAIL, J FAIL). Windows OS mutex contention across worktrees, owner-termination recovery and concurrent duplicate-queue protection passed. The physical lease and the original state locks were free at handoff to IJ-SLM-1.0. Deferred research remains recoverable through the handoff commands. [Q2 report](reports/IJ073_Q2_JUDGE_QUALIFICATION.md) [GPU handoff](evidence/IJ073/aeve/gpu_handoff.json)
+
+The shared Radeon launcher now binds controller and device identities to the existing host mutex. The default AEVE resume stops after Q2 and preserves the deferred queue. The Windows child-termination and concurrent queue deduplication controls are process-only evidence. The managed llama-server start script uses the same physical lease for new Radeon runs.
+
+
+## IJ-0.7.3
+
+Verified the full local O20 and P14 weight files against the independent ModelScope size and SHA256 pins. Published the per-artifact identity evidence and refreshed frozen Q2 coverage. Runtime admission for the additional families remains NOT_RUN. [Local weight identity](evidence/IJ073/aeve/additional_family_assets.json)
+
+The local O20 GGUF passed a full-file SHA256 and size check. Radeon runtime admission remains NOT_RUN. Added paired E0-E7 report compilation for full-roster coverage, error counts, resource cost and matched differences. The paired observations are still pending.
+
+Added a Q3 cohort freeze validator with trial identity binding, template and episode partition guards, and configuration hashes. The independent source-proof bundle and Q3 physical results remain NOT_RUN.
+
+Added the E7 Proof-based Evaluation Router planner. Software controls cover packet and qualification binding, zero-call decisions under a verified proof, semantic backstop and missing third-family coverage. The paired physical experiment and formal credential issuance remain NOT_RUN.
+
+Pinned the three additional independent families, gpt-oss-20b, Phi-4 and Llama 3.3 70B. Runtime and matched quality evidence remain separate from asset identity. Froze 393 diagnostic Radeon requests from the 131 original Q1 truncations under the original budget, a larger budget or a more compact output contract. Formal route qualification remains NOT_RUN. [Candidate registry](evaluation/aeve/additional_candidate_pins.json) · [Truncation freeze](evaluation/aeve/truncation_freeze.json)
+
+Replayed 101 Gold discrepancy packets using independent proof obligations. The 45 Gold defects and 81 sufficient alternative citation sets were confirmed. All 323 deletion and reversal controls passed. Historical exact scores are preserved. Q3 proof routing and historical free-text rationale qualification remain NOT_RUN. [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md)
+
+Synchronized the frozen Q2 counter across Atlas progress, the mission state and the sealed coverage manifest. Its cohort admission remains NOT_RUN during live capture. Published a 600-scope historical Judge coverage matrix with zero Q3-qualified panels. [Sealed Q2 coverage](evidence/IJ073/aeve/q2_sealed_coverage.json) · [Routing matrix](evidence/IJ073/aeve/historical_route_matrix.json)
+
+Verified and published 3,360 sealed frozen Q2 Radeon assessments across 35 sessions. Formal Q2 Judge qualification remains NOT_RUN until all 6,850 attempts have verified seals.
+
+Added the larger-candidate matched development runner and source replay on the frozen 24-case development subset. Both runtime preflight and the 72-request cohorts remain NOT_RUN while Q2 holds the Radeon. Added a scope-bound panel planner with software controls for two primary and one dispute slot. Actual independently qualified historical routes remain BLOCKED.
+
+Published 2,976 sealed Q2 Radeon assessments. A scratch-database restore recovered 2,880 sealed observations across two independent SQLite sessions and retained all 6,850 original job identities. This verified portable recovery without dispatching new trials from the scratch database. The predicate for a full Q2 report rejects incomplete coverage.
+
+Added the Q2-to-larger-candidate runtime transition and an exclusive waiting resume entry point. The completed Q2 roster is required before the transition, and Q2 results cannot authorize formal historical routes. Physical end-to-end transition evidence remains NOT_RUN while Q2 is in progress. [Q3 metric registration](evaluation/aeve/q3_metric_preregistration.json)
+
+Rebuilt and verified all 42,987 historical trial identities and rebound 211,012 stage-scoped evaluation dimensions to their archived sources. The 36 missing physical records remain in the completeness denominator. Added the 25-dimension Evaluation Skill compiler and E0–E6 treatment definitions. The paired physical experiment and formal historical AI judgments remain NOT_RUN. [Identity audit](evidence/IJ073/aeve/history_identity_reverify.json) · [Paired design](reports/IJ073_PURPOSE_BUILT_AEVE_EXPERIMENT.md)
+
+Verified and published 2,592 sealed frozen Q2 Radeon assessments. Added a full-roster report command with per-case source references, model and engine identity, GPU counter evidence, measured latency and token cost. Full Q2 admission remains NOT_RUN pending the other 4,258 assessments. See [sealed coverage](evidence/IJ073/aeve/q2_sealed_coverage.json). M14 and G31 both match their ModelScope artifact lengths and SHA256 digests. [Weight admission](reports/IJ073_STRONG_JUDGE_ADMISSION.md)
+
+Replayed all 3,228 sealed Q1 judgments against public source rules for the 26 synthetic templates. The diagnostic ledger records minimal proof sets, citation sufficiency, raw-output failures and language-pair differences. The original Q1 qualification remains FAIL. See [the source audit](reports/IJ073_JUDGE_FAILURE_ROOT_CAUSE.md).
+
+The revised qualification received its first sealed 96 Radeon judgments. The complete four-family Q1 decision remains FAIL. Independent admission for Q2 remains unresolved. The local M14 download passed the pinned SHA256 check before runtime admission.
+
+All 360 matched Q2 development responses are sealed. The selected configurations are now pinned to 1,370 new packets per family, for 6,850 planned independent trials. The second qualification queue is enrolled on the Radeon.
+
+Reproduced the empty citation-role defect from a sealed Gemma reply. The single-slot development contract gives each exhibit one Boolean slot and forbids assignment to an empty role. The software regression is green; physical evaluation has its own queue.
+
+Added resumable pinned downloads and a separate larger-model Radeon runtime check using the existing synthetic host. Models require local digest, template, backend, full offload and PID-bound GPU counters before recording an admission verdict.
+
+Matched Granite and Gemma development captures are bound to the Q2 roster. Published the upstream file revisions, byte counts and SHA256 for the larger Mistral and Gemma candidates. Their physical admission remains untested.
+
+Sealed all 224 paired Radeon interventions and replayed language, injection and agreement statistics. The revised judge holdout contains 1,232 new rule-labeled synthetic worlds and 1,370 packets. Selected configurations depend on the complete matched development results.
+
+Audited all 437,350 historical physical trial/dimension cells. The additive manifest registers 1,515 additional D04 units and 10,170 source-bound deterministic results. The reviewed historical objects and original scores retain their original digests.
+
+Registered a matched Q2 development cohort of 360 requests, with Granite added as a fifth independently identified local family. Repairs test citation roles and a concise comparison prompt. The sealed Q1 qualification remains reproducible.
+
+Completed all 3,228 frozen Q1 Radeon assessments. Four families independently failed Judge admission. The sealed report and per-case records preserve the failing gates. Formal historical scoring remains blocked.
+
+All 64 paired planning-development requests are sealed (2 PASS, 62 FAIL). The first 32 independent Gold qualification responses cover Qwen, Gemma, Ministral and LFM. See reports/IJ073_QWEN3_14B_PLANNING_DEVELOPMENT.md and reports/IJ073_JUDGE_QUALIFICATION.md. Primary judgments on physical and software histories await admission.
+
+Executable AEVE resumes from the local queue or restores original portable attempts. Stage-bound primary voting, third-family resolution and independent citation-entailment checks run only after the frozen admission. The E00-E19 ledger is in atlas/ij073/progress.json.
+
+Indexed 1,341 reviewed archive assets into 42,987 records. Of 17,494 physical trials, 17,458 support at least one stage-specific judgment. The 36 others retain their missing-evidence reasons. The physical semantic roster covers 155,383 distinct trial/dimension pairs. See evidence/IJ073/aeve/history/coverage.json.
+
+The portable development meta-evaluation replays 60 physical judgments and their raw answers. Four matched sets of 14 bias interventions across four families are specified in evaluation/aeve/robustness.py. See reports/IJ073_META_EVALUATION.md.
+
+Both P0 CLI failures on 04dc9ab reproduce and pass on the repaired branch (evidence/IJ073/aeve/entrypoint_regression.json). Four locally pinned Judges have a frozen qualification configuration, 807 independent cases each, and cross-process GPU exclusion. See evaluation/aeve/qualification_freeze.json. Ten Qwen3-14B physical A/B outputs are replayed in evidence/IJ073/oracle/clarification_ab.json.
+
+The 25-dimension AEVE contract, deterministic veto, blind citations and split-aware metrics are implemented. The revision-1 rule-derived GOLD roster contains 1,615 packets. Physical development evidence is indexed under `evaluation/aeve/results/sessions/`; sealed evaluator qualification remains NOT_RUN.
+
+Oracle differential replay passed 800 frozen worlds and nine independent event controls. The 235 legacy divergences are accounted for individually in `evidence/IJ073/oracle/differential_closure.json`.
+
+AEVE local runtime and restartable queue implemented. The pinned family routing excludes the candidate family. Physical verdicts are recorded separately from model admission. See `evaluation/aeve/controller.py` and `evaluation/aeve/judge_registry.json`.
+
+| Task | Status | Evidence |
+|---|---|---|
+| Recount historical witness, physical reference and job panels | PASS | `evidence/IJ073/baseline.json` |
+| Replay historical synthetic calls, compare observed model traces and run necessary-effect interventions | PASS | `evidence/IJ073/oracle/` |
+| Execute V2 witness graphs on 800 worlds, verify 13 equivalent groups and 602 paired interventions | PASS | `evidence/IJ073/oracle/executable_witness.json`, `evidence/IJ073/oracle/guard_controls.json` |
+| Check public reply boundary and 21 finite counterfactual worlds | PASS | `evidence/IJ073/oracle/public_worlds.json` |
+| Recheck installed MiniCPM artifacts and enumerate pinned backends | PASS | `evidence/IJ073/machine_inventory.json` |
+| Qwen3-14B paired V2 planning protocol, zero-tool development case | FAIL | `evidence/IJ073/transport/initial/` |
+| Matched public-field correction, native and constrained | FAIL | `evidence/IJ073/transport/paired_result.json` (four archived requests across both treatments) |
+| Qualify the complete conditional Oracle | NOT_RUN | `reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md` |
+| Qualify AEVE and perform full new model runs | NOT_RUN | `atlas/ij073/progress.json` |
+
+## IJ-0.7.2 Atlas
+
+| Task | Status | Evidence |
+|---|---|---|
+| PC-S TC-V2 frozen development roster and resumable launch | PASS | Software only. `tests/regression/ij07/test_tc_v2_batch.py` |
+| PC-S TC-V2 physical coverage | PASS | 100/100 assessed, 56 strict PASS and 44 FAIL. `evidence/IJ072/benchmark_validity/pc-s-tc/summary.json` |
+| JOB-V1 legacy A/B checkpoint reconciliation | PASS | `evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json` |
+| Planning P1 and separate protocol and execution diagnostic | PASS | Software regression only. `tests/regression/ij07/test_agentic_planning_v1.py` and `tests/regression/test_atlas_scoring.py` |
+| TC-V2 quote public-input software witnesses | PASS | 80/80, with SQLite state checks and seven rejected mutations. `evidence/IJ072/benchmark_validity/quote-controls.json` |
+| Source trace diagnostics for RC-01 and RC-02 | PASS | 2,880 indexed historical failed trials. Causal closure remains BLOCKED. `atlas/root_causes/failure_ledger.jsonl` |
+| MULTITOOL explicit 32-call streaming and non-streaming decoder budget | PASS | Software only. `tests/regression/ij07/test_batch_wire_profile.py` and `tests/regression/ij07/test_multitool_v1.py` |
+| PC-S MULTITOOL-V1 physical coverage | PASS | 120/120 assessed, 28 strict PASS and 92 FAIL. `evidence/IJ072/benchmark_validity/pc-s-multi/coverage.json` |
+| L0 public-input intent witness and three mutations | PASS | 100/100 Acting-first exact matches. `evidence/IJ072/benchmark_validity/planning-intent-controls.json` |
+| Qwen3-8B PC-S physical Planning coverage | PASS | 320/320 sealed with 4 strict PASS and 316 FAIL. `evidence/IJ072/benchmark_validity/pc-s-planning-full/diagnostic.json` |
+| PC-P paired L0 Plan-first pilot for MiniCPM5, LFM3, Gemma and Qwen3-8B | FAIL | 80 matched pairs. Initial protocol improved across the four models. Strict results remain 0/80 in each arm. `evidence/IJ072/benchmark_validity/pc-p-l0-model-comparison.json` |
+| PC-P P2-P5 interventions and fixed factorial roster | PASS | Software verification. 32 matched cases spanning L0-L7 and both languages. `atlas/benchmarks/pc_p_factorial.json` |
+| PC-P P0-P5 factorial physical coverage | PASS | All 1,152 sealed on Radeon. Strict results are 4 PASS and 1,148 FAIL. Four passes come from two Qwen3-8B L2 cases in two arms. `reports/ATLAS_PROMPT_CAUSAL_ABLATION_FINAL.md` |
+| PC-P Gemma first-response attribution | PASS | All 288 physical trials sealed. Native grammar recovered all 128 initial envelopes. Gemma obtained 40 verified business outcomes, 37 with fenced endings, and zero strict passes. `evidence/IJ072/benchmark_validity/pc-p-g-factorial-wire.json` |
+| PC-P LFM3 first-response attribution | PASS | All 288 physical trials sealed. Native grammar restored 128/128 initial envelopes. Four verified business outcomes and zero strict passes. The P3 arm exposed reasoning tags in 16/32 downstream captures. `evidence/IJ072/benchmark_validity/pc-p-b-factorial-wire.json` |
+| PC-P MiniCPM5 first-response attribution | PASS | All 288 physical trials sealed. P0 initial gate rejected all 32, including 27 native tool-call responses. The schema arms restored 128/128 initial envelopes. Four met the frozen execution checks and none of those four matched the frozen goal. `evidence/IJ072/benchmark_validity/pc-p-a-factorial-wire.json` |
+| PC-P Qwen3-8B first-response attribution | PASS | All nine arms audited against 288 first responses. P0 submitted eight final envelopes and 24 native tool call batches before the initial plan. `evidence/IJ072/benchmark_validity/pc-p-h-factorial-wire.json` |
+| Physical MULTITOOL prior-turn draft coverage | PASS | All 74 Qwen3-14B trials sealed. Both arms strictly pass the same four tasks and preserve the same four verified draft rows. `evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-guard-pairs.json` |
+| Physical early-draft denial | NOT_RUN | The reference model made four prior-reviewed draft calls in each arm and zero early draft calls. The deterministic guards exercised all 37 early cases. `evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz` |
+| Draft authorization after user scope update | PASS | The software control verifies that a delivered update invalidates the previous review and that a fresh prior-turn review permits one draft. `tests/regression/ij07/test_multitool_v1.py` |
+| MULTITOOL extended independent mutation controls | PASS | 3,149 negative mutations rejected, 675 equivalent trace/output mutations accepted and 75 unverified audit variants blocked. `evidence/IJ072/benchmark_validity/multitool-extended-controls.json.gz` |
+| MULTITOOL Unicode and Chinese reference adjacency | PASS | 600 equivalent JSON key escapes passed. All 263 applicable public witness task variants produced identical tool calls and outcomes with directly adjoining Han text and ASCII reference IDs. `evidence/IJ072/benchmark_validity/multitool-unicode-controls.json.gz` |
+| Planning initial action precondition mutation | FAIL | The frozen evaluator accepted all 562 contradictory first-action conditions and 40 contradictory approval conditions. Actual sandbox authorization controls have separate evidence. `evidence/IJ072/benchmark_validity/planning-precondition-controls.json` |
+| Full-level Qwen3-8B P3 sampler and P4 input verification | PASS | Native grammar on all 32 P3 trials. P4 changed tool descriptions only and reduced first-turn prompt tokens by 4–44 on 28 tool-applicable cases. `evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-full.json` and `evidence/IJ072/benchmark_validity/pc-p-h-p4-tool-definition-check.json` |
+| Qwen3-8B P3 native schema wire probe | PASS | Applied and schema-valid in 5/5 physical probe trials, with 0/5 strict PASS. The probe's dirty checkout excludes it from the formal factorial panel. `evidence/IJ072/benchmark_validity/pc-p-h-p3-wire-probe.json` |
+| TC-V2 holdout public-input witness | PASS | 500/500 with actual synthetic tool execution and independently read SQLite state. `evidence/IJ072/benchmark_validity/tc-holdout-witness.json` |
+| TC-V2 expanded authorization, identifier and duplicate controls | PASS | All 1,500 trace mutations rejected. Actual synthetic sandbox denied 500 unseen IDs and 50 unsigned writes, and prevented 50 repeated write effects. `evidence/IJ072/benchmark_validity/tc-holdout-extended-controls.json.gz` |
+| MULTITOOL-V1 public-input witness | PASS | 600/600 with tool events and 75 direct SQLite draft-state checks. `evidence/IJ072/benchmark_validity/multitool-witness.json.gz` |
+| MULTITOOL observed-review draft guard | PASS | 37 legacy early drafts reproduced. The opt-in profile denied all 37 early and same-turn attempts, accepted the prior-turn controls and replayed 600/600 public witnesses. Software only. `evidence/IJ072/benchmark_validity/multitool-observed-draft-controls.json.gz` |
+| Planning L1-L7 public-input Acting-first witness | PASS | 700/700 software trials with independent action selection. `evidence/IJ072/benchmark_validity/planning-read-controls.json` and `evidence/IJ072/benchmark_validity/planning-advanced-controls.json` |
+| Planning L4-L7 synthetic safety and scorer mutation controls | PASS | 3,933/3,933 mutated traces rejected. The live synthetic sandbox denied 360 early, forged or duplicate write calls without changing state. `evidence/IJ072/benchmark_validity/planning-advanced-mutations.json.gz` |
+| Planning L0-L7 public-input Plan-first witness | FAIL | 672/800 strict PASS and 128 FAIL. Actual sandbox actions, business facts and state passed for all 800. The initial plan gate rejected 85 at L4 and 43 at L7. `evidence/IJ072/benchmark_validity/planning-plan-controls.json.gz` |
+| Planning public contract and conditional route audit | PASS | 13 groups covering 29 L4/L7 cases share a normalized public contract and plan shape within group, execute different paths, and fail the frozen plan gate. `evidence/IJ072/benchmark_validity/planning-public-ambiguity.json` |
+| JOB-V1 primary public-input witness | PASS | 600/600 with independent answer construction, typed sandbox actions and SQLite verification. `evidence/IJ072/benchmark_validity/job-witness.json.gz` |
+| JOB-V1 expanded audit, business state and semantic controls | PASS | 2,650 negative mutations rejected, 725 equivalent outputs accepted, 600 missing audit snapshots BLOCKED and 600 unauthorized synthetic writes denied. `evidence/IJ072/benchmark_validity/job-extended-controls.json.gz` |
+| A1 bilingual and mixed-language human review | NOT_RUN | Prepared 22 score-blind cases spanning the four suites. `reports/ATLAS_A1_BLIND_REVIEW.md` |
+| Larger Qwen3-14B reference artifact and runtime admission | PASS | CPU identity and Radeon Vulkan native-tool probes. `evidence/IJ072/model_identity/admission/J/report.json` |
+| Qwen3-14B PC-S TC-V2 physical coverage | PASS | 100/100 sealed with 66 strict PASS and 34 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json` |
+| Qwen3-14B PC-S MULTITOOL physical coverage | PASS | All 120 sealed with 45 strict PASS and 75 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json` |
+| Qwen3 PC-S MULTITOOL matched model comparison | PASS | 120 matched first attempts. Qwen3-8B passed 28 and Qwen3-14B passed 45. `evidence/IJ072/benchmark_validity/pc-s-multitool-qwen-pair.json` |
+| Qwen3-14B MULTITOOL physical streaming comparison | PASS | 10/10 matching strict results, ordered actions and final payloads over HTTP JSON and SSE, with up to 20 calls in an observed turn. `evidence/IJ072/benchmark_validity/pc-s-j-multitool-streaming-pairs.json` |
+| Qwen3-14B PC-S Planning physical coverage | PASS | All 320 sealed with 35 strict PASS and 285 FAIL. `evidence/IJ072/benchmark_validity/pc-s-j-planning-full/diagnostic.json` |
+| Qwen3-14B Planning expanded diagnostic dimensions | PASS | All 320 exact-source trials audited by track and case with separate applicability. `evidence/IJ072/benchmark_validity/pc-s-j-planning-layered.json` |
+| PC-S Planning expanded diagnostic dimensions | PASS | 320 sealed physical trials rescored with separate applicability denominators and unchanged historical scoring. `evidence/IJ072/benchmark_validity/pc-s-planning-layered.json` |
+| Deterministic gateway timeout rollback regression | PASS | A Windows push check expired before the handler. The regression now advances its clock after the staged write and asserts rollback and audit state. `tests/security/test_gateway_execution.py` |
+| A1 evaluator qualification and stronger reference | BLOCKED | `atlas/physical_queue.json` |
+
+## IJ-0.7.1 Atlas
+
+| Task | Status | Evidence |
+|---|---|---|
+| IJ071-A0 | PASS | [Baseline audit](reports/ATLAS_A0_BASELINE_AUDIT.md) and [generated dashboard](reports/ATLAS_PROGRESS_DASHBOARD.md) |
+| IJ071-A0-REVIEW | PASS | Separate historical scores, preserve missing seed outcomes, and recheck archived controls and candidate bindings in CI |
+| IJ071-A1-SOURCE | PASS | [Source audit](reports/ATLAS_A1_BENCHMARK_VALIDITY.md) |
+| IJ071-A1-REFERENCE | PASS | [3,300 software control trials](reports/ATLAS_POSITIVE_NEGATIVE_CONTROL.md) |
+| IJ071-A1-GATE | BLOCKED | [Open validity requirements](reports/ATLAS_A1_BENCHMARK_VALIDITY.md) |
+| IJ071-A2 through A11 | NOT_RUN | [Phase and gate records](atlas/progress.json) |
+
 ## IJ-0.7
 
 | ID | Task | Status | Evidence |
