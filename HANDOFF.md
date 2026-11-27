@@ -1,5 +1,17 @@
 # Handoff
 
+## IJ-SLM-1.1 physical closure and release intake
+
+All 8,250 TC-V3 trial slots have verified Radeon seals. Preserve the four frozen execution paths and original strict BLOCKED results. Replay the complete milestone with `python -m benchmarks.slm10.tc_five_model_milestone` and the consumer exchange with `python -m benchmarks.slm10.nanoagent_five_model_handoff`. The first three-model exchange remains in the parent handoff directory. [Five-model milestone](atlas/slm/v1.0/milestones/tc-five-model/README.md) · [Consumer exchange](atlas/slm/v1.0/nanoagent-handoff/v1.1.0/README.md)
+
+The scheduled Radeon diagnostic captures have finished. Verify their public artifacts with `python -m benchmarks.slm10.physical_followup`. Physical execution coverage, scoped assessments and acceptance are distinct. The independent LFM3 result is indeterminate. P0-E and Extension carry genuine failures or unresolved scoped outcomes. [Diagnostic evidence](reports/SLM11_PHYSICAL_FOLLOWUP.md)
+
+MULTITOOL candidate 0.3 and Planning candidate 0.4 use the active independent-review packets. Use Planning `candidate-0.4-review-v3`. The independent registrar and issuer must supply authentic receipts and a matching runner registration before candidate dispatch. [Reviewer instructions](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md) · [Release workflow](atlas/slm/v1.0/release-review/RELEASE_WORKFLOW.md)
+
+For work on local Gemma or a future model with separately verified active-parameter counts, start with `python -m benchmarks.slm10.local_model_preflight`. Supplemental model preparation carries zero frozen core attribution. [Local model preparation](docs/SLM11_LOCAL_MODEL_PREPARATION.md)
+
+AG-11 remains BLOCKED pending the owner-assisted capture and independent review. The collector gets an exclusive window on the shared Radeon through the existing owner procedure. [Owner instructions](AG11_OWNER_ACTION_REQUIRED.md)
+
 ## IJ-SLM-1.0 TC-V3 physical queue
 
 Use the existing Draft PR #9 branch and its approved Radeon handoff. The priority queue uses the common workstation asset root at two levels above this linked worktree. Its private state and sealed batches live under that root in `.runtime/ij-slm-1.0/tc-v3-formal`. The published dashboard derives from verified portable seals. [Progress](atlas/slm/v1.0/physical_progress.md) · [P0 findings](reports/SLM10_P0_EXECUTION.md)

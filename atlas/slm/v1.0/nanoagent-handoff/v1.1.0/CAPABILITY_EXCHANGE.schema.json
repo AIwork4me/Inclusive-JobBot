@@ -1,0 +1,265 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NanoAgent five-model capability exchange 1.1.0",
+  "type": "object",
+  "required": [
+    "version",
+    "scope",
+    "physical_coverage",
+    "previous_version",
+    "models",
+    "paired_resource_costs",
+    "evidence",
+    "compensation",
+    "formal_trial_attribution"
+  ],
+  "properties": {
+    "version": {
+      "const": "1.1.0"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "physical_coverage": {
+      "const": {
+        "planned": 8250,
+        "sealed": 8250,
+        "status": "PASS",
+        "strict_d25": "BLOCKED"
+      }
+    },
+    "previous_version": {
+      "type": "object",
+      "required": [
+        "version",
+        "git_sha",
+        "manifest"
+      ],
+      "properties": {
+        "version": {
+          "const": "1.0.0"
+        },
+        "git_sha": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "manifest": {
+          "$ref": "#/$defs/reference"
+        }
+      }
+    },
+    "models": {
+      "type": "object",
+      "required": [
+        "A",
+        "B",
+        "D",
+        "F",
+        "G"
+      ],
+      "properties": {
+        "A": {
+          "type": "object",
+          "required": [
+            "model_asset_sha256",
+            "physical_trials",
+            "runtime_configurations",
+            "failure_trace_examples"
+          ],
+          "properties": {
+            "model_asset_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "physical_trials": {
+              "const": 1650
+            },
+            "runtime_configurations": {
+              "type": "array",
+              "minItems": 1
+            },
+            "failure_trace_examples": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "B": {
+          "type": "object",
+          "required": [
+            "model_asset_sha256",
+            "physical_trials",
+            "runtime_configurations",
+            "failure_trace_examples"
+          ],
+          "properties": {
+            "model_asset_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "physical_trials": {
+              "const": 1650
+            },
+            "runtime_configurations": {
+              "type": "array",
+              "minItems": 1
+            },
+            "failure_trace_examples": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "D": {
+          "type": "object",
+          "required": [
+            "model_asset_sha256",
+            "physical_trials",
+            "runtime_configurations",
+            "failure_trace_examples"
+          ],
+          "properties": {
+            "model_asset_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "physical_trials": {
+              "const": 1650
+            },
+            "runtime_configurations": {
+              "type": "array",
+              "minItems": 1
+            },
+            "failure_trace_examples": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "F": {
+          "type": "object",
+          "required": [
+            "model_asset_sha256",
+            "physical_trials",
+            "runtime_configurations",
+            "failure_trace_examples"
+          ],
+          "properties": {
+            "model_asset_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "physical_trials": {
+              "const": 1650
+            },
+            "runtime_configurations": {
+              "type": "array",
+              "minItems": 1
+            },
+            "failure_trace_examples": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        },
+        "G": {
+          "type": "object",
+          "required": [
+            "model_asset_sha256",
+            "physical_trials",
+            "runtime_configurations",
+            "failure_trace_examples"
+          ],
+          "properties": {
+            "model_asset_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "physical_trials": {
+              "const": 1650
+            },
+            "runtime_configurations": {
+              "type": "array",
+              "minItems": 1
+            },
+            "failure_trace_examples": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "paired_resource_costs": {
+      "type": "object",
+      "required": [
+        "A",
+        "B",
+        "D",
+        "F",
+        "G"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "matrix",
+        "matched_quality_repeat_streaming",
+        "raw_trial_seal_inventory",
+        "paired_resource_pareto",
+        "r0_r7_contract",
+        "three_model_component_mappings",
+        "mini_cpm5_repeats_and_termination",
+        "lfm3_compact_result_physical",
+        "offline_normalization"
+      ],
+      "additionalProperties": {
+        "$ref": "#/$defs/reference"
+      }
+    },
+    "compensation": {
+      "type": "object",
+      "required": [
+        "MiniCPM5",
+        "LFM3",
+        "Qwen3.5_and_Ministral"
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "qualification"
+        ],
+        "properties": {
+          "qualification": {
+            "const": "HYPOTHESIS"
+          }
+        }
+      }
+    },
+    "formal_trial_attribution": {
+      "const": 0
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    }
+  }
+}

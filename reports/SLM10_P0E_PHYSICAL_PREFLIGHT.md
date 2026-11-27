@@ -1,6 +1,6 @@
 # P0-E Radeon development preflight
 
-**Physical coverage is NOT_RUN.** The registered follow-up is queued behind the frozen TC-V3 controller and the LFM3 paired holdout. It adds zero trials to the 36,550 core denominator.
+**Physical coverage is PASS.** The Radeon follow-up captured all 42 registered development trajectories. The scoped assessments recorded 8 PASS and 34 BLOCKED. It adds zero trials to the 36,550 core denominator. [Verified captures and findings](SLM11_PHYSICAL_FOLLOWUP.md#p0-e-preflight)
 
 | Model | Direct native | SDK native | Total |
 | --- | ---: | ---: | ---: |
@@ -21,4 +21,4 @@ Inspect the frozen 14-slot plan per model with the regular module entry point.
 python -m benchmarks.slm10.p0e_radeon
 ```
 
-The workstation follow-up already owns the order of scheduled runs. If interrupted, verify the output directories against the expected model, source identities, roster digest and task completion records before any retry. Publish redacted portable evidence for attributed captures. Physical execution coverage and the scoped software assessment remain separate from formal Planning, MULTITOOL, D25 and production qualification. [Resume procedure](../HANDOFF.md)
+Replay the completed evidence with `python -m benchmarks.slm10.physical_followup`. The physical captures cover the synthetic development controls. Formal Planning, MULTITOOL, D25 and production qualification require their own evidence. [Resume procedure](../HANDOFF.md)

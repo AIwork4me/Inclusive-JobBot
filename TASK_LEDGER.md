@@ -23,6 +23,10 @@
 | Evidence and blind-review integrity follow-up | PASS | Standalone report readers check raw seal payloads. Planning uses case-only first-phase inputs and a separately released scenario supplement bound to the first-phase digest. Repeat seed counts use no pooled Wilson interval. Software compares L6 callback provenance and provider delivery separately. |
 | P0-A five-model closure | PASS | 8,250 physical executions and 8,250 strict BLOCKED. The 28,300 remaining core slots are complex capabilities. [Five-model milestone](atlas/slm/v1.0/milestones/tc-five-model/README.md) |
 | Supplemental model preflight | PASS | Reverified local Gemma Q8_0. Candidate preparation accepts explicit active/total counts, checks file digest, and records zero frozen attribution. [Preparation guide](docs/SLM11_LOCAL_MODEL_PREPARATION.md) |
+| P0-B scheduled capture coverage | PASS | LFM3 24/24, P0-E 42/42, SDK Extension 15/15. The LFM3 finding is indeterminate. P0-E scoped scores are 8 PASS and 34 BLOCKED. Extension scores are 10 FAIL and 5 BLOCKED. [Evidence and scopes](reports/SLM11_PHYSICAL_FOLLOWUP.md) |
+| P0-D NanoAgent five-model exchange | PASS | All five model baselines and matched costs, repeat and streaming, old R0–R7 contract, raw seals and compensation scope digests. The three-model V1.0.0 exchange is preserved. [V1.1.0](atlas/slm/v1.0/nanoagent-handoff/v1.1.0/README.md) |
+| P0-C independent release intake | PASS | Legal path templates and signed receipts, reconciliation, issuer scope and runner-binding guard are software-checked. Formal dispatch remains BLOCKED pending authenticated external receipts, credential issuance and a registered physical launcher. [Workflow](atlas/slm/v1.0/release-review/RELEASE_WORKFLOW.md) |
+| P0-B independent output compensation design | PASS | Preregistered commensurate D/F SDK terminal-only experiments use four arms and score after execution. The physical intervention is a separate zero-core track. [Experiment](reports/SLM11_ONLINE_COMPENSATION.md) |
 
 ## IJ-SLM-1.0 baseline
 
