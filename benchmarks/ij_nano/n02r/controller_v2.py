@@ -291,7 +291,7 @@ class ControllerV2:
                     if arms.P5A_APPLICABILITY[fam]:
                         q.append((m, "P5A", t, arms.PRIMARY_BUDGET))
                     q.append((m, "P5B", t, arms.PRIMARY_BUDGET))
-                    if arms.P7S_APPLICABILITY[fam]:
+                    if arms.P7S_APPLICABILITY.get(fam, False):
                         q.append((m, "P7S", t, arms.PRIMARY_BUDGET))
                     q.append((m, "T2", t, arms.PRIMARY_BUDGET))
         if phase == "panel":

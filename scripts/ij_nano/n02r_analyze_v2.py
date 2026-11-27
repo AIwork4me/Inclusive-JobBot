@@ -204,8 +204,37 @@ def main() -> int:
 
     # ---- denominators (PR-D10) -------------------------------------------------
     unique_ids = {r["trial_id"] for r in rows}
-    planned_main = 3 * 560
-    planned_panel_extra = 3 * 4 * 12 * 4
+    suite = tasks_mod.build_suite()
+    # executed plan (applicability-filtered, preregistered)
+    per_model_main = 0
+    inapplicable_combos = collections.Counter()
+    for t in suite:
+        fam = t["family"]
+        for a in arms.MATCHED_ARMS:
+            if a == "M-P7" and not arms.P7_APPLICABILITY.get(fam, False):
+                inapplicable_combos["M-P7"] += 1
+                continue
+            per_model_main += 1
+        if arms.P5A_APPLICABILITY.get(fam, False):
+            per_model_main += 1
+        else:
+            inapplicable_combos["P5A"] += 1
+        per_model_main += 1                     # P5B
+        if arms.P7S_APPLICABILITY.get(fam, False):
+            per_model_main += 1
+        else:
+            inapplicable_combos["P7S"] += 1
+        per_model_main += 1                     # T2
+    panel_tasks = suite[:12]
+    per_model_panel = 0
+    for t in panel_tasks:
+        for a in arms.BUDGET_PANEL_ARMS:
+            if a == "P5A" and not arms.P5A_APPLICABILITY.get(t["family"], False):
+                inapplicable_combos["P5A_panel"] += 1
+                continue
+            per_model_panel += 4                # budgets < 1024
+    planned_main = 3 * per_model_main
+    planned_panel_extra = 3 * per_model_panel
     planned_unique = planned_main + planned_panel_extra
     p7s_trials = sum(1 for r in rows if r["arm"] == "P7S")
     physical_attempts = len(rows) + p7s_trials       # P7S = two requests
@@ -213,7 +242,6 @@ def main() -> int:
                         if not get(r, "response_artifact_sha256")]
     evidence_valid = len(rows) - len(artifact_missing)
     semantic_pass = sum(1 for r in rows if r["semantic_correct"])
-    inapplicable_slots = 3 * (2 * 10 * 1 + 1 * 10 * 0)  # P7 SX+SA per model
     matrix_scope_counts = {
         "planned_logical_slots": planned_unique,
         "planned_main": planned_main, "planned_panel_extra": planned_panel_extra,
@@ -224,8 +252,10 @@ def main() -> int:
         "artifact_missing_trials": len(artifact_missing),
         "semantic_PASS": semantic_pass,
         "semantic_FAIL": len(rows) - semantic_pass,
-        "BLOCKED": 0, "NOT_RUN": planned_unique - len(unique_ids),
-        "INAPPLICABLE_planned_excluded": inapplicable_slots,
+        "BLOCKED": 0, "NOT_RUN": max(0, planned_unique - len(unique_ids)),
+        "inapplicable_arm_task_combos_per_model":
+            {k: v for k, v in inapplicable_combos.items()},
+        "inapplicable_total_per_model": sum(inapplicable_combos.values()),
         "reused_trials_counted_as_independent": 0,
     }
 

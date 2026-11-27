@@ -60,6 +60,8 @@ ARM_LABELS.update({
     "M-P6": "info-matched: completion + compact action DSL",
     "M-P7": "info-matched: completion + enumerated action",
     "P7S": "two-stage: enumerated tool selection then slot filling",
+    "T2": "info-matched chat + json_schema under a --reasoning-budget "
+          "server profile (T0/T1/T3 are analysis aliases of M-P1/M-P2/M-P3)",
 })
 
 # PR-D03: preregistered applicability by task family. Slot extraction and
