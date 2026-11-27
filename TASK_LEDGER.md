@@ -2,7 +2,7 @@
 
 ## IJ-0.7.3 GPU handoff
 
-The shared Radeon launcher now binds controller and device identities to the existing host mutex. The default AEVE resume stops after Q2 and preserves the deferred queue. Cross-worktree verification of the production mutex and the GPU handoff remain BLOCKED until the frozen queue releases the Radeon. The Windows child-termination control is process-only evidence.
+The shared Radeon launcher now binds controller and device identities to the existing host mutex. The default AEVE resume stops after Q2 and preserves the deferred queue. Cross-worktree verification of the production mutex and the GPU handoff remain BLOCKED until the frozen queue releases the Radeon. The Windows child-termination control is process-only evidence. The managed llama-server start script uses the same physical lease for new Radeon runs.
 
 
 ## IJ-0.7.3

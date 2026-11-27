@@ -27,6 +27,8 @@ param(
   [string]$ExtraArgs = "",
   [string]$ChatTemplateFile = "",
   [string]$ReasoningFormat = "",
+  [string]$MissionId = "IJ-0",
+  [string]$LeasePython = "",
   [switch]$NoWait
 )
 
@@ -122,8 +124,35 @@ if ($occupant) {
 
 $quoted = $argumentList | ForEach-Object { if ($_ -match "\s") { '"' + $_ + '"' } else { $_ } }
 $startedUtc = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-$process = Start-Process -FilePath $server -ArgumentList $quoted -WorkingDirectory (Split-Path $server) `
-  -RedirectStandardOutput $stdoutLog -RedirectStandardError $stderrLog -WindowStyle Hidden -PassThru
+$gpuLease = $null
+if ($usesGpu) {
+  if (-not $LeasePython) { $LeasePython = Join-Path $root ".venv\Scripts\python.exe" }
+  if (-not (Test-Path -LiteralPath $LeasePython -PathType Leaf)) {
+    throw "The project Python environment is required to hold the host GPU lease."
+  }
+  $session = "llama-" + [Guid]::NewGuid().ToString("N")
+  $requestPath = Join-Path $stateDir "$session.json"
+  $ackPath = Join-Path $stateDir "$session.ack.json"
+  $request = [ordered]@{ binary = $server; arguments = $argumentList; mission_id = $MissionId;
+    stdout = $stdoutLog; stderr = $stderrLog }
+  [IO.File]::WriteAllText($requestPath, ($request | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding $false))
+  $owner = Start-Process -FilePath $LeasePython -ArgumentList @("-m", "benchmarks.root_cause.gpu_launch", ('"' + $requestPath + '"')) `
+    -WorkingDirectory $root -WindowStyle Hidden -PassThru
+  $leaseDeadline = (Get-Date).AddSeconds(60)
+  while (-not (Test-Path -LiteralPath $ackPath) -and -not $owner.HasExited -and (Get-Date) -lt $leaseDeadline) {
+    Start-Sleep -Milliseconds 100
+  }
+  if (-not (Test-Path -LiteralPath $ackPath)) {
+    throw "Host GPU lease did not acknowledge server startup. Check the lease holder before retrying."
+  }
+  $answer = Read-JsonFile $ackPath
+  if ($answer.status -ne "PASS") { throw "Physical GPU lease blocked server startup ($($answer.reason))." }
+  $process = Get-Process -Id $answer.server_pid -ErrorAction Stop
+  $gpuLease = $answer.lease
+} else {
+  $process = Start-Process -FilePath $server -ArgumentList $quoted -WorkingDirectory (Split-Path $server) `
+    -RedirectStandardOutput $stdoutLog -RedirectStandardError $stderrLog -WindowStyle Hidden -PassThru
+}
 
 $state = [ordered]@{
   pid = $process.Id
@@ -133,6 +162,7 @@ $state = [ordered]@{
   port = $Port
   backend = $Backend
   gpu_backend_libraries_present = $gpuLibrariesPresent
+  gpu_lease = $gpuLease
   model = $Model
   model_file = $launch.models.$Model
   context_length = $ContextLength

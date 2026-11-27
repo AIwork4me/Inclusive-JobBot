@@ -8,7 +8,7 @@ Keep any current GPU worker alive while it advances the frozen Q2 queue. See [se
 
 ## IJ-0.7.3 → IJ-SLM-1.0 GPU handoff
 
-The default AEVE resume completes and replays only the frozen Q2 queue. The host lease uses the existing Windows global mutex shared by the Radeon launchers. Each new shared-launcher session records its hashed host and physical device identities, mission, owner, controller PID and runtime session. The llama-server process runs in an owner-bound Windows job. Use the shared launcher for Radeon work on this workstation.
+The default AEVE resume completes and replays only the frozen Q2 queue. The host lease uses the existing Windows global mutex shared by the Radeon launchers. Each new shared-launcher session records its hashed host and physical device identities, mission, owner, controller PID and runtime session. The llama-server process runs in an owner-bound Windows job. Use the shared launcher for Radeon work on this workstation. The managed Windows llama-server start script also holds the same lease until its GPU server exits.
 
 Open the GPU Handoff Gate only after the complete 6,850-case Q2 report replays, Q2 has stopped dispatching, the host mutex is available, and Windows cross-worktree contention and abnormal owner exit checks pass. Record the result in `evidence/IJ073/aeve/gpu_handoff.json`. Q2 coverage and Judge qualification are separate gates.
 
