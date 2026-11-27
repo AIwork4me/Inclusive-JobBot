@@ -25,7 +25,7 @@ def scenario_id(case_id, world):
     return sha256(canonical([case_id, world["world_id"]])).hexdigest()[:20]
 
 
-def planning_rows(cases, proofs, *, path_phase=False):
+def planning_rows(cases, proofs, *, path_phase=False, omit_scenarios=False):
     for case, proof in zip(cases, proofs, strict=True):
         if case["case_id"] != proof["case_id"]:
             raise ValueError("Planning public and world cases do not match")
@@ -44,9 +44,12 @@ def planning_rows(cases, proofs, *, path_phase=False):
             scenarios.append({"scenario_id": identifier,
                               "service_inputs": observations, "external_events": events})
         contract = {k: v for k, v in case["contract"].items() if k != "goal"}
-        yield {k: case[k] for k in ("case_id", "task", "language", "level", "limits", "public")} | {
-            "public_tool_contract": contract, "scenarios": sorted(scenarios, key=lambda r: r["scenario_id"]),
+        public = {k: case[k] for k in ("case_id", "task", "language", "level", "limits", "public")} | {
+            "public_tool_contract": contract,
         }
+        if not omit_scenarios:
+            public["scenarios"] = sorted(scenarios, key=lambda r: r["scenario_id"])
+        yield public
 
 
 def planning_fixture_supplement(proofs):
@@ -88,11 +91,12 @@ def packet(name, source, rows, *, supplement=None):
         raise ValueError("duplicate case in blind reviewer packet")
     cases = b"".join(canonical(row) + b"\n" for row in rows)
     check_text(cases)
+    supplement = None if supplement is None else list(supplement)
     manifest = {
         "schema_version": "1.0", "packet": name, "candidate_source": source.relative_to(ROOT).as_posix(),
         "candidate_manifest_sha256": digest(source / "manifest.json"),
         "cases": len(rows), "review_inputs_sha256": sha256(cases).hexdigest(),
-        "scenarios": sum(len(row.get("scenarios", [{}])) for row in rows),
+        "scenarios": sum(len(row.get("scenarios", [{}])) for row in (supplement or rows)),
         "review_status": "NOT_RUN", "dispatch": "BLOCKED",
     }
     files = {"REVIEW_INPUTS.jsonl": cases}
@@ -123,6 +127,9 @@ def main():
                  packet(name, PLANNING_PARTITION, planning_rows(cases, proofs)), not args.write)
     output_files(OUT / name / "candidate-0.4-review-v2",
                  packet(name, PLANNING_PARTITION, planning_rows(cases, proofs, path_phase=True),
+                        supplement=planning_fixture_supplement(proofs)), not args.write)
+    output_files(OUT / name / "candidate-0.4-review-v3",
+                 packet(name, PLANNING_PARTITION, planning_rows(cases, proofs, path_phase=True, omit_scenarios=True),
                         supplement=planning_fixture_supplement(proofs)), not args.write)
     print("Planning candidate 0.4 blind review packet verified")
 

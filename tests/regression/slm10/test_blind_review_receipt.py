@@ -23,12 +23,11 @@ def test_planning_path_packet_hides_scenario_replies_until_supplement():
 
     case = next(row for row in public_cases() if row["level"] == "L7")
     control = build_control(case)
-    path, = planning_rows([case], [control], path_phase=True)
+    path, = planning_rows([case], [control], path_phase=True, omit_scenarios=True)
     supplement, = planning_fixture_supplement([control])
     assert "goal" not in path["public_tool_contract"]
-    assert all(set(row) == {"scenario_id"} for row in path["scenarios"])
-    assert {row["scenario_id"] for row in path["scenarios"]} == {
-        row["scenario_id"] for row in supplement["scenarios"]}
+    assert "scenarios" not in path
+    assert len(supplement["scenarios"]) == len(control["worlds"])
     assert any({"confirmation_service_response": {"decision": "approved"}} in row["service_observations"]
                and not row["external_events"] for row in supplement["scenarios"])
     assert all("approval" not in event for row in supplement["scenarios"] for event in row["external_events"])

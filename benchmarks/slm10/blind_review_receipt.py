@@ -52,7 +52,7 @@ def expectation_digest(findings):
 
 
 def receipt(packet, verdict_path, recorded_sha256, *, phase_one_sha256=None):
-    allowed = (OUT / COLLECTION[0], OUT / COLLECTION[1], OUT / COLLECTION[1] / "candidate-0.4-review-v2")
+    allowed = (OUT / COLLECTION[0], OUT / COLLECTION[1], OUT / COLLECTION[1] / "candidate-0.4-review-v3")
     if packet.resolve() not in allowed:
         raise ValueError("provide an exact repository review packet directory")
     if digest(verdict_path) != recorded_sha256:
@@ -68,7 +68,8 @@ def receipt(packet, verdict_path, recorded_sha256, *, phase_one_sha256=None):
     if "scenario_inputs_sha256" in manifest:
         if not phase_one_sha256 or review.get("phase_one_expectations_sha256") != phase_one_sha256:
             raise ValueError("Planning review is missing the prior independently frozen path expectation")
-        if digest(packet / "SCENARIO_INPUTS.jsonl") != manifest["scenario_inputs_sha256"]:
+        scenarios_path = packet / "SCENARIO_INPUTS.jsonl"
+        if digest(scenarios_path) != manifest["scenario_inputs_sha256"]:
             raise ValueError("scenario input digest differs from the pinned packet")
     inputs = packet / "REVIEW_INPUTS.jsonl"
     if digest(inputs) != manifest["review_inputs_sha256"]:
@@ -76,6 +77,12 @@ def receipt(packet, verdict_path, recorded_sha256, *, phase_one_sha256=None):
     cases = [object_json(line) for line in inputs.read_bytes().splitlines()]
     if len(cases) != manifest["cases"]:
         raise ValueError("case count differs from the pinned packet")
+    if "scenario_inputs_sha256" in manifest:
+        scenarios = [object_json(line) for line in scenarios_path.read_bytes().splitlines()]
+        indexed = {row["case_id"]: row["scenarios"] for row in scenarios}
+        if indexed.keys() != {row["case_id"] for row in cases} or len(indexed) != len(scenarios):
+            raise ValueError("scenario supplement does not bind the exact phase-one task IDs")
+        cases = [row | {"scenarios": indexed[row["case_id"]]} for row in cases]
     counts = coverage(cases, review["findings"])
     if sum(counts.values()) != manifest["scenarios"]:
         raise ValueError("scenario count differs from the pinned packet")

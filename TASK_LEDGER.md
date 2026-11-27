@@ -20,7 +20,7 @@
 | M4 independent review intake verification | PASS | Packet, submission digest, scenario completeness and duplicate controls are checked in software. Human review, reconciliation and issuer pin registration remain outstanding. |
 | M3 output contract normalization replay | PASS | 1,596 output-contract opportunities on sealed D/F evidence with proved facts. Exact answer payload retained. Physical treatment and overhead remain NOT_RUN. [Guide](reports/SLM10_CAPABILITY_COMPENSATION_GUIDE.md) |
 | M3 P0-E reopened transaction proof | PASS | Separate read-only SQLite connection reconciles persisted draft, scope, decision, release and audit state. Physical preflight remains NOT_RUN. [Plan and evidence boundaries](reports/SLM10_P0E_PHYSICAL_PREFLIGHT.md) |
-| Evidence and blind-review integrity follow-up | PASS | Standalone report readers check raw seal payloads. Planning uses a separately released scenario supplement and a first-phase digest. Repeat seed counts use no pooled Wilson interval. Software compares L6 callback provenance and provider delivery separately. |
+| Evidence and blind-review integrity follow-up | PASS | Standalone report readers check raw seal payloads. Planning uses case-only first-phase inputs and a separately released scenario supplement bound to the first-phase digest. Repeat seed counts use no pooled Wilson interval. Software compares L6 callback provenance and provider delivery separately. |
 
 ## IJ-SLM-1.0 baseline
 
