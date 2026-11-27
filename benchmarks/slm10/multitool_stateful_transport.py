@@ -67,6 +67,9 @@ class StatefulService:
     def snapshot(self):
         return self._store.snapshot()
 
+    def reopen_snapshot(self):
+        return self._store.reopen_snapshot()
+
     def _reply(self, tool, result, success):
         if result["code"] != success:
             return {"code": result["code"], "data": {}}

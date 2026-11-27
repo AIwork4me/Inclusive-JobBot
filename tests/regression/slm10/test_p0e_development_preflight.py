@@ -97,6 +97,12 @@ def test_preflight_software_profiles_derive_scoped_facts(tmp_path, profile, cont
     assert result["assessment"]["status"] == "PASS", (result["assessment"], trace["failure"],
                                                        [event.get("failure") for event in trace["wire"]])
     assert result["physical_execution"] == "NOT_RUN" and result["formal_trial_attribution"] == 0
+    readback = result["state_readback"]
+    if control.startswith("draft_"):
+        assert readback["status"] == "PASS"
+        assert readback["captured_snapshot_sha256"] == readback["reopened_snapshot_sha256"]
+    else:
+        assert readback == {"status": "NOT_RUN", "applicable": False}
     assert trace["runtime_attribution"]["profile"] == profile
     assert trace["execution_metrics"]["observed_parallel_width"] == (2 if control == "parallel" else 1)
     assert trace["execution_metrics"]["external_updates"] == (1 if control in {"scope", "draft_confirmed", "draft_declined"} else 0)

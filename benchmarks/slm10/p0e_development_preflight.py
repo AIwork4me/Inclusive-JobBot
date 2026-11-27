@@ -3,6 +3,7 @@
 from copy import deepcopy
 import json
 from pathlib import Path
+import sqlite3
 from uuid import uuid4
 
 from benchmarks.tool_calling_v2.oracle import equal
@@ -186,6 +187,19 @@ def assess(control, trace):
             "terminal_facts": "PASS" if facts else "FAIL"}
 
 
+def verify_state_readback(service, trace):
+    if not isinstance(service, StatefulService):
+        return {"status": "NOT_RUN", "applicable": False}
+    captured = trace["after"]
+    receipt = {"applicable": True, "captured_snapshot_sha256": fingerprint(captured)}
+    try:
+        reopened = service.reopen_snapshot()
+    except sqlite3.Error:
+        return receipt | {"status": "BLOCKED", "reopened_snapshot_sha256": None}
+    return receipt | {"status": "PASS" if equal(captured, reopened) else "FAIL",
+                      "reopened_snapshot_sha256": fingerprint(reopened)}
+
+
 async def run_control(client, alias, control, *, runtime_profile, target, harness=None, seed=7117):
     """Execute one scripted software control without native or physical attribution."""
     if client.trace_path is not None or runtime_profile not in PROFILES:
@@ -197,7 +211,7 @@ async def run_control(client, alias, control, *, runtime_profile, target, harnes
                                 parallel_reads=control == "parallel")
     return {"version": VERSION, "scope": "scripted software development", "physical_execution": "NOT_RUN",
             "formal_trial_attribution": 0, "identity": control_identity(control), "trace": trial,
-            "assessment": assess(control, trial)}
+            "assessment": assess(control, trial), "state_readback": verify_state_readback(service, trial)}
 
 
 def readiness():

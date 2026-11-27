@@ -64,7 +64,8 @@ def run(candidate, assets, output, port):
                   "handoff_sha256": digest(ROOT / HANDOFF), "roster_sha256": fingerprint(roster),
                   "sources": {name: digest(Path(__file__).with_name(name)) for name in
                               ("p0e_radeon.py", "p0e_development_preflight.py", "planning_matched_executor.py",
-                               "multitool_stateful_transport.py", "multitool_stateful.py")},
+                               "planning_matched_assessment.py", "multitool_stateful_transport.py",
+                               "multitool_stateful.py")},
                   "gpu_execution": "NOT_RUN", "formal_trial_attribution": 0,
                   "scope": "independent synthetic Radeon development", "results": []}
         write_evidence(private, report)
@@ -91,7 +92,8 @@ def run(candidate, assets, output, port):
                 native = bool(request_rows) and all(row.get("native_evidence", {}).get("status") == "PASS"
                                                     for row in request_rows)
                 report["results"].append(item | {"trace": trace, "assessment": assessment,
-                                                "native_capture": "PASS" if native else "BLOCKED"})
+                                                "native_capture": "PASS" if native else "BLOCKED",
+                                                "state_readback": panel.verify_state_readback(service, trace)})
                 write_evidence(private, report)
                 print(candidate, control, profile, assessment["status"], flush=True)
 
@@ -100,7 +102,9 @@ def run(candidate, assets, output, port):
         report["gpu_execution"] = "PASS" if verify_gpu(
             {"gpu_launch": output / "launch.json", "gpu_counters": counter}, "vulkan") else "FAIL"
         report["development_execution"] = ("PASS" if report["gpu_execution"] == "PASS"
-                                           and all(row["native_capture"] == "PASS" for row in report["results"])
+                                           and all(row["native_capture"] == "PASS" and (
+                                               not row["state_readback"]["applicable"]
+                                               or row["state_readback"]["status"] == "PASS") for row in report["results"])
                                            else "BLOCKED")
         report["native_private_sha256"] = digest(trace_path)
         write_evidence(private, report)

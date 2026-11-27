@@ -283,12 +283,22 @@ class SQLiteSandbox:
         data = {"entity_id": entity_id, "draft_id": draft_id, "draft_version": version, "scope_version": scope_version}
         return "drafted", data, "DRAFTED", None
 
+    def _read_snapshot(self, db) -> dict:
+        result = {"scope_version": self._scope_version(db), "scope": sorted(self._grants(db))}
+        for table, order in (("drafts", "draft_id, draft_version"), ("decisions", "draft_id, draft_version"),
+                             ("releases", "draft_id"), ("audit", "sequence")):
+            rows = db.execute(f"SELECT * FROM {table} WHERE session_id = ? ORDER BY {order}", (self._session,))
+            result[table] = [{key: row[key] for key in row.keys() if key != "session_id"} for row in rows]
+        return result
+
     def snapshot(self) -> dict:
-        """Read a consistent, session-bound account for independent software witnesses."""
+        """Read a consistent, session-bound account for software witnesses."""
         with self._transaction() as db:
-            snapshot = {"scope_version": self._scope_version(db), "scope": sorted(self._grants(db))}
-            for table, order in (("drafts", "draft_id, draft_version"), ("decisions", "draft_id, draft_version"),
-                                 ("releases", "draft_id"), ("audit", "sequence")):
-                rows = db.execute(f"SELECT * FROM {table} WHERE session_id = ? ORDER BY {order}", (self._session,))
-                snapshot[table] = [{key: row[key] for key in row.keys() if key != "session_id"} for row in rows]
-        return snapshot
+            return self._read_snapshot(db)
+
+    def reopen_snapshot(self) -> dict:
+        """Read durable state through a separate read-only connection, with no file creation."""
+        with closing(sqlite3.connect(self._path.as_uri() + "?mode=ro", uri=True, autocommit=True)) as db:
+            db.row_factory = sqlite3.Row
+            db.execute("BEGIN")
+            return self._read_snapshot(db)

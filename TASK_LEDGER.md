@@ -13,11 +13,13 @@
 | M4 L5 alternate denial repair | PASS | Software replay covered all original 500 L5 worlds and 200 new alternate-denial variants. [Candidate 0.3](atlas/slm/v1.0/planning-v2-source-candidate-0.3/manifest.json) |
 | M4 L6 stage provenance | PASS | Software assessment binds observed audit, public action and captured draft state. Formal scope and physical database verification remain BLOCKED. |
 | M4 human blind review | NOT_RUN | Project engineering prepared 600 MULTITOOL cases and 800 Planning cases. Independent reviewer assignment, observations and credential issuance are pending. [Reviewer inputs and procedure](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md) |
-| TC-V3 F publication | PASS | 1,260/1,650 F captures verified and published with matching artifacts. Across all models the publication contains 6,210/8,250. D25 remains BLOCKED. |
+| TC-V3 F physical coverage | PASS | All 1,650 frozen F captures verified and published. The full core publication contains 6,672 trials. D25 remains BLOCKED. |
+| TC-V3 G Radeon admission | PASS | Nine development traces with verified model, runtime and transport evidence. The frozen G formal cohort has 72 published seals. [Gemma admission](reports/SLM11_GEMMA4_RADEON_ADMISSION.md) |
 | M4 cross-level partition and proposed world allocation | PASS | Candidate 0.4 preserves 800 cases and the 20,800 proposed slots, with 2,500 software worlds. Old L1 lookup recovered none of 800 previously predictable values. Physical and semantic qualification remain open. [Candidate](atlas/slm/v1.0/planning-v2-source-candidate-0.4/manifest.json) |
 | M1 five-model matrix software replay | PASS | All 8,250 planned slots are reported with applicability and observation denominators. Physical coverage remains BLOCKED. [Report](atlas/slm/v1.0/tc-five-model-report.json) |
 | M4 independent review intake verification | PASS | Packet, submission digest, scenario completeness and duplicate controls are checked in software. Human review, reconciliation and issuer pin registration remain outstanding. |
-| M3 output contract normalization replay | PASS | 1,467 output-contract opportunities on sealed D/F evidence with proved facts. Exact answer payload retained. Physical treatment and overhead remain NOT_RUN. [Guide](reports/SLM10_CAPABILITY_COMPENSATION_GUIDE.md) |
+| M3 output contract normalization replay | PASS | 1,596 output-contract opportunities on sealed D/F evidence with proved facts. Exact answer payload retained. Physical treatment and overhead remain NOT_RUN. [Guide](reports/SLM10_CAPABILITY_COMPENSATION_GUIDE.md) |
+| M3 P0-E reopened transaction proof | PASS | Separate read-only SQLite connection reconciles persisted draft, scope, decision, release and audit state. Physical preflight remains NOT_RUN. [Plan and evidence boundaries](reports/SLM10_P0E_PHYSICAL_PREFLIGHT.md) |
 
 ## IJ-SLM-1.0 baseline
 
