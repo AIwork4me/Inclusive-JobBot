@@ -1,5 +1,11 @@
 # Blockers
 
+## IJ-0.7.3 frozen Q2 follow-up
+
+- Q2 energy and electricity cost remain NOT_RUN. The frozen captures measured request time, native inference time, tokens and process GPU memory. No power and tariff measurements are available.
+- Q3, full historical Judge routing and independent human blind review remain open. The GPU handoff preserved their recovery commands and frozen inputs.
+
+
 ## IJ-0.7.3
 
 - Q3 evaluator credentials are absent for all 600 historical family, dimension and risk combinations. Evaluation engineering owns the independent roster freeze and replay of complete routes. The Gold source replay is in-scope development evidence. [Route matrix](evidence/IJ073/aeve/historical_route_matrix.json)
