@@ -1,5 +1,10 @@
 # Task Ledger
 
+## IJ-SLM-1.0 baseline
+
+The independent worktree preserves the 36,550-trial core allocation and references pinned IJ-SDK-1.0 and IJ-0.7.3 assets. Registry software tests cover exact identity and rejection of conflicting physical origins. Independent mechanical scope qualification, GPU admission and core trial execution remain NOT_RUN. [SLM baseline](reports/SLM10_BASELINE_AUDIT.md)
+
+
 ## IJ-0.7.3
 
 Verified the full local O20 and P14 weight files against the independent ModelScope size and SHA256 pins. Published the per-artifact identity evidence and refreshed frozen Q2 coverage. Runtime admission for the additional families remains NOT_RUN. [Local weight identity](evidence/IJ073/aeve/additional_family_assets.json)
