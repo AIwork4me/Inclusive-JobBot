@@ -98,6 +98,18 @@ def require_development():
     return digest(MANIFEST)
 
 
+def verify_planning_development():
+    folder = OUTPUT.parent / "planning-development"
+    manifest = json.loads((folder / "manifest.json").read_bytes())
+    if manifest["formal_trials"] != 0:
+        raise ValueError("planning development cannot enter the formal core denominator")
+    for name, expected in manifest["files"].items():
+        if Path(name).name != name or digest(folder / name) != expected:
+            raise ValueError("planning development artifact differs from its seal")
+        raw = (folder / name).read_bytes()
+        check_text(gzip.decompress(raw) if name.endswith(".gz") else raw)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--from-runtime", type=Path)
@@ -124,6 +136,7 @@ def main():
     if MANIFEST.read_bytes() != canonical(inventory()) + b"\n":
         raise ValueError("P0 portable evidence manifest mismatch")
     require_development()
+    verify_planning_development()
     print("Eleven physical development runs and the AG-02 same-byte control verified.")
 
 

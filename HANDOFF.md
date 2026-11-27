@@ -1,5 +1,13 @@
 # Handoff
 
+## IJ-SLM-1.0 TC-V3 physical queue
+
+Use the existing Draft PR #9 branch and its approved Radeon handoff. The priority queue uses the common workstation asset root at two levels above this linked worktree. Its private state and sealed batches live under that root in `.runtime/ij-slm-1.0/tc-v3-formal`. The published dashboard derives from verified portable seals. [Progress](atlas/slm/v1.0/physical_progress.md) · [P0 findings](reports/SLM10_P0_EXECUTION.md)
+
+Set `PYTHONPATH=.;src;benchmarks/tool_calling/runner` and use the pinned repository Python. Run `python -m benchmarks.slm10.tc_queue --assets ASSET_ROOT --progress` to replay local counts. Resume the same queue with `python -m benchmarks.slm10.tc_queue --assets ASSET_ROOT --candidate A --batch-size 36 --limit 36` and rotate A, B and D. The process lock prevents a second controller from reserving trials. The database rejects a different freeze, evaluator or runner. A reserved first attempt with no recoverable capture requires reconciliation before any additional attempt is attributed to its case.
+
+Publish completed batches with `python -m benchmarks.slm10.tc_dashboard --publish-from ASSET_ROOT/.runtime/ij-slm-1.0/tc-v3-formal/sealed`. Update the mission and ledger counts from its executed rows. Keep the portable evidence and the original private traces identified separately. D25 and AG-11 remain BLOCKED.
+
 ## IJ-0.7.3 local evaluator
 
 Use `python -m evaluation.aeve.progress --write` to synchronize Atlas progress, MISSION_STATE and sealed Q2 coverage from a single archive snapshot. The progress check in CI compares the published tree with its sealed captures. The [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md) covers the original 45 reference defects and 81 alternative proofs. The [history matrix](evidence/IJ073/aeve/historical_route_matrix.json) records every family, dimension and risk scope. Q3 credentials are still required for any formal route.
