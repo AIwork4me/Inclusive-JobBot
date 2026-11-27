@@ -1,7 +1,50 @@
-# IJEVAL Result Contract — Specification v1.0.0 (EA02)
+# IJEVAL Result Contract — Specification v1.1.0 (EA02 + EA02-R)
 
 Implementation: `src/eval_assurance/contracts/` (authority: code + tests
 `tests/ij_eval_assurance/`). This document is the versioned specification.
+
+## v1.1.0 changes (EA02-R hardening, addendum EA-D01..EA-D06)
+
+- **Strict runtime typing**: enum fields must be genuine Enum members,
+  Booleans genuine bools; violations raise `ContractTypeError` at
+  construction (`EvaluationResult.__post_init__`, `evaluated()`).
+- **Evidence defaults UNVERIFIED**; `VERIFIED` requires a versioned
+  `VerifiedEvidence` envelope produced only by `verify_evidence()` (artifact
+  sha256 match, strict schema validation, trial + evaluator identity; the
+  `basis` field distinguishes direct verification from qualified-loader
+  transfer). The validator cross-checks envelope identity against record
+  provenance — caller-provided dicts cannot overwrite verified identity
+  undetected. Decisive verdicts require VERIFIED evidence.
+- **New illegal combinations**: MODEL_OUTPUT_INVALID + CORRECT;
+  NOT_EVALUABLE/NOT_APPLICABLE + ELIGIBLE publication; PENDING joins
+  UNQUALIFIED/REVOKED as non-publishable; business PASS additionally
+  requires a VALID pipeline and completed (SAFE) safety verification.
+- **Five eligibility authorities** (`contracts/eligibility.py`):
+  diagnostics, semantic statistics, business statistics, formal publication,
+  reward. FORMAL authorities require an actual `QualificationCertificate`
+  (`qualification/store.py`) bound by scope AND dataset/parser/evaluator
+  identity to the record's provenance — the certificate is the authority, an
+  explicit record REVOKED always blocks, and absence of a store FAILS
+  CLOSED. All authorities return structured `EligibilityDecision`s.
+- **Legacy schema validation** (`contracts/legacy.py`): only a genuine
+  Boolean maps to a decisive verdict; contradictory metadata
+  (error alongside a True verdict; http_ok alongside a transport error) and
+  unknown failure classes raise `LegacyContractError` (mapped by adapters to
+  separately-classified NOT_EVALUABLE records, never ordinary outcomes);
+  `to_legacy_boolean` validates the complete record first.
+- **Qualified aggregation boundary** (`statistics/boundary.py`): the formal
+  entry point; typed records only; Boolean/dict inputs are quarantined;
+  formal publication fail-closed without certificates. The historical
+  `n02rr_analyze.py` is explicitly DIAGNOSTIC-ONLY.
+- **Publication process gate** (`scripts/ij_eval_assurance/pubgate.py`):
+  argv-subprocess execution (no pipe masking), finding-count verdict,
+  staged-identity binding, auditable receipts, gated commits.
+- **State-space battery**: exhaustive per-block enumeration (9,312 combos)
+  against an independently authored 24-rule model — 0 escapes, 0 false
+  rejections; see `evidence/IJEVAL/EA02R/state_space_results.json` and
+  `reports/IJEVAL_02R_CONTRACT_HARDENING.md`.
+
+The v1.0.0 sections below remain valid except where superseded above.
 
 ## 1. Dimensions (order §4.1)
 
@@ -58,14 +101,15 @@ before persistence/aggregation/publication:
   **raises** `LegacyRepresentationError` for anything else. Consumers that
   need counts must use §5 instead of coercing.
 
-## 5. Statistical eligibility (§4.5)
+## 5. Statistical eligibility (§4.5; superseded by v1.1.0 authorities)
 
-`eligible_for_semantic_statistics(result)` is the single authority. True
-only when: EXECUTED (not canary) ∧ pipeline VALID ∧ evidence VERIFIED ∧ no
-evidence-invalid marker ∧ parser ∈ {PARSE_OK, MODEL_OUTPUT_INVALID} ∧
-evaluator OK ∧ no disagreement ∧ verdict ∈ {CORRECT, INCORRECT} ∧ complete
-provenance. Analyzers consume this function only — per-row ad-hoc filtering
-is forbidden (that exact freedom produced EA00 finding R3).
+`eligible_for_semantic_statistics(result, certificates)` is the FORMAL
+authority (v1.1.0): the v1.0.0 conditions still apply, plus a valid
+qualification certificate bound to the record's identity — without one,
+formal eligibility fails closed. `eligible_for_diagnostics(result)` keeps
+the v1.0.0 semantics for diagnostic-only consumption. Analyzers consume
+these authorities only — per-row ad-hoc filtering is forbidden (that exact
+freedom produced EA00 finding R3).
 
 ## 6. Evidence
 

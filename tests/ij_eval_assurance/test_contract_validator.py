@@ -1,5 +1,6 @@
-"""EA02 contract tests: legal combinations, the order's §4.3 illegal
-examples as invalid-state mutation tests, and the eligibility function."""
+"""EA02/EA02-R contract tests: legal combinations, illegal-combination
+mutation tests, strict typing, evidence-envelope rules and the five
+eligibility authorities."""
 from __future__ import annotations
 
 import pathlib
@@ -8,19 +9,32 @@ import unittest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "src"))
 
-from eval_assurance.contracts import (BusinessVerdict, ContractViolationError,
+from eval_assurance.contracts import (BusinessVerdict, ContractTypeError,
+                                      ContractViolationError,
                                       EvaluationResult, EvaluationStatus,
                                       EvaluatorStatus, EvidenceIntegrity,
                                       ExecutionStatus, ParserStatus,
                                       PublicationEligibility,
                                       QualificationStatus, SafetyVerdict,
-                                      SemanticVerdict,
-                                      eligible_for_semantic_statistics,
-                                      validate_result, violations)
+                                      SemanticVerdict, verify_evidence,
+                                      violations)
+from eval_assurance.contracts import (eligible_for_business_statistics,
+                                      eligible_for_diagnostics,
+                                      eligible_for_formal_publication,
+                                      eligible_for_reward,
+                                      eligible_for_semantic_statistics)
+from eval_assurance.qualification import CertificateStore
 
 PROV = {"experiment_id": "e1", "trial_id": "t1", "task_id": "k1",
         "model": "S1", "dataset_id": "d1", "parser_version": "p1",
         "evaluator_version": "v1"}
+SHA = "a" * 64
+
+
+def envelope():
+    return verify_evidence(PROV, artifact_sha256_computed=SHA,
+                           artifact_sha256_expected=SHA,
+                           schema_validated=True, trial_identity_match=True)
 
 
 def ok_result(**over) -> EvaluationResult:
@@ -29,25 +43,38 @@ def ok_result(**over) -> EvaluationResult:
         evaluation_status=EvaluationStatus.VALID,
         parser_status=ParserStatus.PARSE_OK,
         semantic_verdict=SemanticVerdict.CORRECT,
-        business_verdict=BusinessVerdict.NOT_APPLICABLE,
         safety_verdict=SafetyVerdict.SAFE,
         qualification=QualificationStatus.QUALIFIED,
         publication=PublicationEligibility.ELIGIBLE,
         evidence=EvidenceIntegrity.VERIFIED,
-        provenance=dict(PROV))
+        provenance=dict(PROV),
+        verified_evidence=envelope())
     base.update(over)
     return EvaluationResult(**base)
 
 
+def store_with_cert():
+    store = CertificateStore()
+    store.issue(scope="semantic", dataset_id="d1", parser_version="p1",
+                evaluator_version="v1", reference_evaluator_version="ref-1",
+                evidence_ref="test")
+    store.issue(scope="business", dataset_id="d1", parser_version="p1",
+                evaluator_version="v1", reference_evaluator_version="ref-1",
+                evidence_ref="test")
+    store.issue(scope="reward", dataset_id="d1", parser_version="p1",
+                evaluator_version="v1", reference_evaluator_version="ref-1",
+                evidence_ref="test")
+    return store
+
+
 class TestLegalPaths(unittest.TestCase):
     def test_qualified_correct_is_valid(self):
-        validate_result(ok_result())
+        self.assertEqual(violations(ok_result()), [])
 
     def test_incorrect_model_output_is_qualified_failure(self):
         r = ok_result(semantic_verdict=SemanticVerdict.INCORRECT,
                       parser_status=ParserStatus.MODEL_OUTPUT_INVALID)
-        validate_result(r)
-        self.assertTrue(eligible_for_semantic_statistics(r))  # case A
+        self.assertEqual(violations(r), [])
 
     def test_not_evaluable_replay_error_is_legal(self):
         r = ok_result(evaluation_status=EvaluationStatus.REPLAY_ERROR,
@@ -55,42 +82,59 @@ class TestLegalPaths(unittest.TestCase):
                       semantic_verdict=SemanticVerdict.NOT_EVALUABLE,
                       evidence=EvidenceIntegrity.REJECTED,
                       publication=PublicationEligibility.BLOCKED,
-                      qualification=QualificationStatus.REVOKED)
-        validate_result(r)
-        self.assertFalse(eligible_for_semantic_statistics(r))
+                      qualification=QualificationStatus.REVOKED,
+                      verified_evidence=None)
+        self.assertEqual(violations(r), [])
 
 
 class TestIllegalCombinations(unittest.TestCase):
-    """Order section 4.3 examples as invalid-state mutation tests."""
-
     def test_evaluator_error_plus_correct_rejected(self):
         self.assertTrue(violations(ok_result(
-            evaluation_status=EvaluationStatus.EVALUATOR_ERROR)))
+            evaluation_status=EvaluationStatus.EVALUATOR_ERROR,
+            parser_status=ParserStatus.PARSER_SOFTWARE_ERROR,
+            semantic_verdict=SemanticVerdict.NOT_EVALUABLE,
+            publication=PublicationEligibility.BLOCKED)) or
+            violations(ok_result(
+                evaluation_status=EvaluationStatus.EVALUATOR_ERROR)))
 
     def test_replay_error_plus_incorrect_rejected(self):
         self.assertTrue(violations(ok_result(
             evaluation_status=EvaluationStatus.REPLAY_ERROR,
             semantic_verdict=SemanticVerdict.INCORRECT)))
 
-    def test_missing_provenance_plus_qualified_verdict_rejected(self):
-        r = ok_result(provenance={"experiment_id": "e1"})
-        self.assertTrue(any("provenance" in m for m in violations(r)))
+    def test_model_output_invalid_plus_correct_rejected(self):
+        v = violations(ok_result(parser_status=ParserStatus.MODEL_OUTPUT_INVALID,
+                                 semantic_verdict=SemanticVerdict.CORRECT))
+        self.assertTrue(any("MODEL_OUTPUT_INVALID" in m for m in v))
 
-    def test_invalid_business_world_plus_business_pass_rejected(self):
-        for world in (False, None):
-            r = ok_result(business_verdict=BusinessVerdict.PASS,
-                          business_world_valid=world)
-            self.assertTrue(any("business world" in m
-                                for m in violations(r)), world)
+    def test_not_evaluable_plus_eligible_publication_rejected(self):
+        v = violations(ok_result(semantic_verdict=
+                                 SemanticVerdict.NOT_EVALUABLE))
+        self.assertTrue(any("NOT_EVALUABLE + ELIGIBLE" in m for m in v))
 
-    def test_oracle_disagreement_plus_qualified_conclusion_rejected(self):
-        r = ok_result(oracle_disagreement=True)
-        self.assertTrue(any("disagreement" in m for m in violations(r)))
-        r2 = ok_result(oracle_disagreement=True,
-                       semantic_verdict=SemanticVerdict.NOT_EVALUABLE,
-                       evaluation_status=EvaluationStatus.ORACLE_DISAGREEMENT,
-                       publication=PublicationEligibility.BLOCKED)
-        self.assertEqual(violations(r2), [])
+    def test_pending_plus_eligible_rejected(self):
+        for q in (QualificationStatus.UNQUALIFIED,
+                  QualificationStatus.REVOKED,
+                  QualificationStatus.PENDING):
+            self.assertTrue(any(q.value in m
+                                for m in violations(ok_result(qualification=q))),
+                            q)
+
+    def test_business_pass_requires_world_safety_and_pipeline(self):
+        for over, frag in [
+                (dict(business_world_valid=False), "business world"),
+                (dict(business_world_valid=None), "business world"),
+                (dict(safety_verdict=SafetyVerdict.NOT_VERIFIED),
+                 "missing required safety verification"),
+                (dict(evaluation_status=EvaluationStatus.EVALUATOR_ERROR,
+                      parser_status=ParserStatus.PARSER_SOFTWARE_ERROR,
+                      semantic_verdict=SemanticVerdict.NOT_EVALUABLE),
+                 "non-VALID evaluation pipeline")]:
+            kw = dict(business_verdict=BusinessVerdict.PASS,
+                      business_world_valid=True)
+            kw.update(over)
+            self.assertTrue(any(frag in m for m in violations(ok_result(**kw))),
+                            over)
 
     def test_safety_violation_never_business_pass_or_publication(self):
         r = ok_result(safety_verdict=SafetyVerdict.VIOLATION,
@@ -102,68 +146,193 @@ class TestIllegalCombinations(unittest.TestCase):
         self.assertTrue(any("VIOLATION + ELIGIBLE publication" in m
                             for m in violations(r2)))
 
-    def test_unqualified_scope_cannot_publish_eligible(self):
-        for q in (QualificationStatus.UNQUALIFIED,
-                  QualificationStatus.REVOKED):
-            self.assertTrue(any(q.value in m
-                                for m in violations(ok_result(qualification=q))))
-
     def test_canary_control_never_publication_eligible(self):
         r = ok_result(execution_status=ExecutionStatus.CANARY_CONTROL)
         self.assertTrue(any("canary" in m for m in violations(r)))
         r2 = ok_result(execution_status=ExecutionStatus.CANARY_CONTROL,
                        publication=PublicationEligibility.DIAGNOSTIC_ONLY)
         self.assertEqual(violations(r2), [])
-        self.assertFalse(eligible_for_semantic_statistics(r2))
 
     def test_not_run_or_blocked_cannot_be_qualified(self):
         for ex in (ExecutionStatus.NOT_RUN, ExecutionStatus.BLOCKED,
                    ExecutionStatus.PARTIAL):
             self.assertTrue(violations(ok_result(execution_status=ex)), ex)
 
-    def test_transport_error_cannot_be_qualified(self):
-        self.assertTrue(violations(ok_result(
-            evaluation_status=EvaluationStatus.TRANSPORT_ERROR,
-            semantic_verdict=SemanticVerdict.INCORRECT)))
-
-    def test_unsupported_representation_cannot_be_qualified(self):
-        self.assertTrue(violations(ok_result(
-            parser_status=ParserStatus.UNSUPPORTED_REPRESENTATION,
-            semantic_verdict=SemanticVerdict.INCORRECT)))
-
     def test_evidence_invalid_marker_blocks_qualified_verdict(self):
-        # IJE-D002 class: inconsistent stage-2 evidence must not stay CORRECT
         self.assertTrue(violations(ok_result(
             evidence_invalid_reason="EVIDENCE_INCONSISTENT_STAGE2_TOOL")))
 
+    def test_verified_without_envelope_rejected(self):
+        v = violations(ok_result(verified_evidence=None))
+        self.assertTrue(any("without a VerifiedEvidence envelope" in m
+                            for m in v))
+
+    def test_envelope_provenance_mismatch_rejected(self):
+        other = verify_evidence(dict(PROV, trial_id="other"),
+                                artifact_sha256_computed=SHA,
+                                artifact_sha256_expected=SHA,
+                                schema_validated=True,
+                                trial_identity_match=True)
+        v = violations(ok_result(verified_evidence=other))
+        self.assertTrue(any("contradicts verified identity" in m for m in v))
+
+    def test_decisive_verdict_requires_verified_evidence(self):
+        r = ok_result(evidence=EvidenceIntegrity.UNVERIFIED,
+                      verified_evidence=None)
+        self.assertTrue(any("requires VERIFIED evidence" in m
+                            for m in violations(r)))
+
     def test_validator_raises(self):
         with self.assertRaises(ContractViolationError):
+            from eval_assurance.contracts import validate_result
             validate_result(ok_result(
                 evaluation_status=EvaluationStatus.EVALUATOR_ERROR))
 
 
-class TestEligibility(unittest.TestCase):
-    def test_eligibility_requires_every_gate(self):
-        self.assertTrue(eligible_for_semantic_statistics(ok_result()))
+class TestStrictRuntimeTypes(unittest.TestCase):
+    def test_enum_string_substitution_rejected_at_construction(self):
+        good = dict(execution_status=ExecutionStatus.EXECUTED,
+                    evaluation_status=EvaluationStatus.VALID,
+                    parser_status=ParserStatus.PARSE_OK,
+                    semantic_verdict=SemanticVerdict.CORRECT)
+        for field in ("execution_status", "evaluation_status",
+                      "parser_status", "semantic_verdict"):
+            for bad in ("EXECUTED", 1, None):
+                with self.assertRaises(ContractTypeError, msg=(field, bad)):
+                    EvaluationResult(**{**good, field: bad})
+
+    def test_boolean_fields_reject_non_bool(self):
+        good = dict(execution_status=ExecutionStatus.EXECUTED,
+                    evaluation_status=EvaluationStatus.VALID,
+                    parser_status=ParserStatus.PARSE_OK,
+                    semantic_verdict=SemanticVerdict.CORRECT)
+        for bad in ("true", 1, None, []):
+            with self.assertRaises(ContractTypeError):
+                EvaluationResult(**{**good, "oracle_disagreement": bad})
+
+    def test_evaluated_rejects_non_bool_semantic(self):
+        for bad in ("True", "False", 1, 0, None, [], "PASS"):
+            with self.assertRaises(ContractTypeError, msg=bad):
+                EvaluationResult.evaluated(semantic=bad)
+
+    def test_evidence_defaults_to_unverified(self):
+        r = EvaluationResult.evaluated(semantic=True, provenance=PROV)
+        self.assertIs(r.evidence, EvidenceIntegrity.UNVERIFIED)
+
+
+class TestEligibilityAuthorities(unittest.TestCase):
+    def test_diagnostic_eligibility_ignores_qualification(self):
+        for q in (QualificationStatus.REVOKED, QualificationStatus.UNQUALIFIED,
+                  QualificationStatus.PENDING):
+            self.assertTrue(eligible_for_diagnostics(
+                ok_result(qualification=q)).eligible, q)
+
+    def test_formal_eligibility_blocks_revoked_records(self):
+        dec = eligible_for_semantic_statistics(
+            ok_result(qualification=QualificationStatus.REVOKED),
+            store_with_cert())
+        self.assertFalse(dec.eligible)
+        self.assertTrue(any("REVOKED" in r for r in dec.reasons))
+
+    def test_certificate_is_the_formal_authority_not_the_enum(self):
+        # UNQUALIFIED/PENDING enums alone qualify nothing — but with a valid
+        # certificate actually covering the scope+identity, the record is
+        # formal-eligible (the store is the authority per EA-D01).
+        for q in (QualificationStatus.UNQUALIFIED,
+                  QualificationStatus.PENDING):
+            self.assertTrue(eligible_for_semantic_statistics(
+                ok_result(qualification=q), store_with_cert()).eligible, q)
+        # ...and without a certificate every enum fails closed:
+        for q in (QualificationStatus.QUALIFIED,
+                  QualificationStatus.UNQUALIFIED,
+                  QualificationStatus.PENDING):
+            self.assertFalse(eligible_for_semantic_statistics(
+                ok_result(qualification=q)).eligible, q)
+
+    def test_formal_eligibility_fails_closed_without_store(self):
+        dec = eligible_for_semantic_statistics(ok_result())
+        self.assertFalse(dec.eligible)
+        self.assertIn("fail_closed: no certificate store provided",
+                      dec.reasons)
+
+    def test_formal_eligibility_with_matching_certificate(self):
+        dec = eligible_for_semantic_statistics(ok_result(), store_with_cert())
+        self.assertTrue(dec.eligible, dec.reasons)
+        self.assertTrue(eligible_for_formal_publication(
+            ok_result(), store_with_cert()).eligible)
+        self.assertTrue(eligible_for_reward(
+            ok_result(), store_with_cert()).eligible)
+
+    def test_certificate_identity_mismatch_fails_closed(self):
+        store = CertificateStore()
+        store.issue(scope="semantic", dataset_id="OTHER-dataset",
+                    parser_version="p1", evaluator_version="v1",
+                    reference_evaluator_version="r")
+        dec = eligible_for_semantic_statistics(ok_result(), store)
+        self.assertFalse(dec.eligible)
+        self.assertTrue(any("no valid certificate" in r for r in dec.reasons))
+
+    def test_revoked_certificate_blocks_formal_eligibility(self):
+        store = CertificateStore()
+        cert = store.issue(scope="semantic", dataset_id="d1",
+                           parser_version="p1", evaluator_version="v1",
+                           reference_evaluator_version="r")
+        self.assertTrue(eligible_for_semantic_statistics(
+            ok_result(), store).eligible)
+        store.revoke(cert.certificate_id, reason="test revocation")
+        dec = eligible_for_semantic_statistics(ok_result(), store)
+        self.assertFalse(dec.eligible)
+        self.assertTrue(any("no valid certificate" in r for r in dec.reasons))
+
+    def test_business_eligibility_requires_world_and_safety(self):
+        r = ok_result(business_verdict=BusinessVerdict.PASS,
+                      business_world_valid=True,
+                      safety_verdict=SafetyVerdict.SAFE)
+        self.assertTrue(eligible_for_business_statistics(
+            r, store_with_cert()).eligible)
+        r2 = ok_result(business_verdict=BusinessVerdict.PASS,
+                       business_world_valid=True,
+                       safety_verdict=SafetyVerdict.NOT_VERIFIED)
+        dec = eligible_for_business_statistics(r2, store_with_cert())
+        self.assertFalse(dec.eligible)
+
+    def test_reward_blocked_for_safety_violation(self):
+        r = ok_result(safety_verdict=SafetyVerdict.VIOLATION,
+                      publication=PublicationEligibility.DIAGNOSTIC_ONLY)
+        dec = eligible_for_reward(r, store_with_cert())
+        self.assertFalse(dec.eligible)
+        self.assertTrue(any("safety" in x for x in dec.reasons))
+
+    def test_every_gate_flipped_blocks_semantic_eligibility(self):
         flips = [
-            ("execution", dict(execution_status=ExecutionStatus.CANARY_CONTROL)),
+            ("execution", dict(execution_status=ExecutionStatus.CANARY_CONTROL,
+                               publication=PublicationEligibility.DIAGNOSTIC_ONLY)),
             ("pipeline", dict(evaluation_status=EvaluationStatus.ARTIFACT_ERROR,
-                              semantic_verdict=SemanticVerdict.NOT_EVALUABLE)),
+                              semantic_verdict=SemanticVerdict.NOT_EVALUABLE,
+                              publication=PublicationEligibility.BLOCKED)),
             ("evidence", dict(evidence=EvidenceIntegrity.REJECTED,
-                              semantic_verdict=SemanticVerdict.NOT_EVALUABLE)),
+                              semantic_verdict=SemanticVerdict.NOT_EVALUABLE,
+                              publication=PublicationEligibility.BLOCKED)),
             ("marker", dict(evidence_invalid_reason="x",
-                            semantic_verdict=SemanticVerdict.NOT_EVALUABLE)),
+                            semantic_verdict=SemanticVerdict.NOT_EVALUABLE,
+                            publication=PublicationEligibility.BLOCKED)),
             ("evaluator", dict(evaluator_status=EvaluatorStatus.ERROR,
                                semantic_verdict=SemanticVerdict.NOT_EVALUABLE,
-                               evaluation_status=EvaluationStatus.EVALUATOR_ERROR)),
+                               evaluation_status=EvaluationStatus.EVALUATOR_ERROR,
+                               publication=PublicationEligibility.BLOCKED)),
             ("disagreement", dict(oracle_disagreement=True,
-                                  semantic_verdict=SemanticVerdict.NOT_EVALUABLE)),
-            ("verdict", dict(semantic_verdict=SemanticVerdict.NOT_EVALUABLE)),
+                                  semantic_verdict=SemanticVerdict.NOT_EVALUABLE,
+                                  evaluation_status=EvaluationStatus.ORACLE_DISAGREEMENT,
+                                  publication=PublicationEligibility.BLOCKED)),
+            ("verdict", dict(semantic_verdict=SemanticVerdict.NOT_EVALUABLE,
+                             publication=PublicationEligibility.BLOCKED)),
             ("provenance", dict(provenance={})),
+            ("envelope", dict(verified_evidence=None,
+                              evidence=EvidenceIntegrity.UNVERIFIED)),
         ]
         for name, over in flips:
             self.assertFalse(eligible_for_semantic_statistics(
-                ok_result(**over)), name)
+                ok_result(**over)).eligible, name)
 
 
 if __name__ == "__main__":

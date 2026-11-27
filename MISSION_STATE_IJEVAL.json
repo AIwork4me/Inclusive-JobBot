@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-EVAL-ASSURANCE-1.0",
   "mission_title": "Systemic Evaluation Integrity & Continuous Self-verification (Evaluation Assurance Engine, EAE)",
-  "updated_utc": "2026-11-28T08:45:00Z",
-  "current_phase": "EA03 (Wave B start)",
+  "updated_utc": "2026-11-28T10:30:00Z",
+  "current_phase": "EA03 (Wave B start; EA02-R complete)",
   "mission_order": "docs/IJEVAL_MISSION_ORDER.md",
   "tracking_issue": 12,
   "draft_pr": 13,
@@ -66,6 +66,27 @@
       ],
       "gate": "EA02_TYPED_EVALUATION_CONTRACT_GO",
       "gate_status": "GRANTED"
+    },
+    "EA02R": {
+      "title": "Contract hardening (addendum EA-D01..EA-D06)",
+      "status": "DONE",
+      "addendum": "docs/IJEVAL_MISSION_ORDER_EA02R.md (preregistered 35cad83)",
+      "deliverables": [
+        "evidence/IJEVAL/EA02R/red_reproduction.json (all six concerns observed at 3fff135)",
+        "evidence/IJEVAL/EA02R/green_reproduction.json (all closed)",
+        "evidence/IJEVAL/EA02R/state_space_results.json (9,312 combos / 24 invariants / 0 escapes / 0 false rejections / 44 malformed rejected)",
+        "evidence/IJEVAL/EA02R/defect_ledger.json",
+        "reports/IJEVAL_02R_CONTRACT_HARDENING.md",
+        "src/eval_assurance/{contracts v1.1.0, qualification, statistics/boundary}",
+        "scripts/ij_eval_assurance/pubgate.py (fail-closed publication gate)",
+        "tests/ij_eval_assurance 68/68 OK; tests/ij_nano 213/213 OK"
+      ],
+      "key_results": [
+        "EA00 corruption regression at the actual aggregation entry point: 870 correct preserved, 2 injections NOT_EVALUABLE, 871/2186 structurally unreachable, formal publication fail-closed without certificate, sealed corpus hash unchanged",
+        "formal eligibility certificate-bound and fail-closed; historical analyzer marked DIAGNOSTIC-ONLY"
+      ],
+      "gate": "EA02R_EVALUATION_CONTRACT_INVARIANTS_GO",
+      "gate_status": "GRANTED (scope: contract invariants only, not the whole assurance system)"
     },
     "EA03": {
       "title": "Dataset and ground truth qualification",

@@ -1,14 +1,26 @@
-"""EA02 section 4.3 — central combination validator.
+"""EA02 §4.3 / EA02-R EA-D03 — central combination validator.
 
 Rejects illegal dimension combinations BEFORE persistence, aggregation or
 publication. Developer discipline is not a control; this function is.
+
+EA02-R additions:
+- MODEL_OUTPUT_INVALID + CORRECT illegal (an invalid model output can never
+  be a correct answer);
+- undecidable verdicts (NOT_EVALUABLE / NOT_APPLICABLE) can never be
+  publication-ELIGIBLE;
+- Qualification PENDING joins UNQUALIFIED/REVOKED as non-publishable;
+- business PASS additionally requires a VALID pipeline and a completed
+  (SAFE) safety verification — a missing safety verification blocks PASS;
+- VERIFIED evidence requires a matching VerifiedEvidence envelope (trust is
+  earned through the verification path, never asserted).
 """
 from __future__ import annotations
 
 from .core import (EvaluationResult, EvaluationStatus, EvaluatorStatus,
-                   ExecutionStatus, EvidenceIntegrity, MANDATORY_PROVENANCE_KEYS,
-                   ParserStatus, PublicationEligibility, QualificationStatus,
-                   SafetyVerdict, SemanticVerdict)
+                   EvidenceIntegrity, ExecutionStatus,
+                   MANDATORY_PROVENANCE_KEYS, ParserStatus,
+                   PublicationEligibility, QualificationStatus, SafetyVerdict,
+                   SemanticVerdict)
 
 
 class ContractViolationError(ValueError):
@@ -33,10 +45,13 @@ def violations(result: EvaluationResult) -> list[str]:
 
     # any non-VALID pipeline status forces NOT_EVALUABLE --------------------
     if es is not EvaluationStatus.VALID and qualified:
-        add(f"{es.value} + qualified semantic verdict")
+        add(f"{es.value} + qualified verdict")
 
     # parser dimension -------------------------------------------------------
     ps = result.parser_status
+    if ps is ParserStatus.MODEL_OUTPUT_INVALID and \
+            ev is SemanticVerdict.CORRECT:
+        add("MODEL_OUTPUT_INVALID + CORRECT (invalid output cannot be correct)")
     if ps is ParserStatus.UNSUPPORTED_REPRESENTATION and qualified:
         add("UNSUPPORTED_REPRESENTATION + qualified verdict (order 4.2B)")
     if ps is ParserStatus.PARSER_SOFTWARE_ERROR:
@@ -60,10 +75,17 @@ def violations(result: EvaluationResult) -> list[str]:
         if qualified or result.publication is PublicationEligibility.ELIGIBLE:
             add("oracle disagreement + qualified conclusion/publication")
 
-    # evidence dimension -----------------------------------------------------
-    if es is EvaluationStatus.VALID and result.evidence is not \
-            EvidenceIntegrity.VERIFIED:
-        add("VALID pipeline requires VERIFIED evidence")
+    # evidence dimension (EA-D04: trust only via verification path) ---------
+    if result.evidence is EvidenceIntegrity.VERIFIED:
+        env = result.verified_evidence
+        if env is None:
+            add("VERIFIED evidence without a VerifiedEvidence envelope")
+        elif not env.matches_provenance(result.provenance):
+            bad = [k for k in env.verified_keys
+                   if env.identity.get(k) != result.provenance.get(k)]
+            add(f"provenance contradicts verified identity fields: {bad}")
+    if qualified and result.evidence is not EvidenceIntegrity.VERIFIED:
+        add("qualified (decisive) verdict requires VERIFIED evidence")
     if result.evidence_invalid_reason is not None and qualified:
         add("evidence-invalid marker + qualified verdict (IJE-D002 class)")
     if result.evidence is EvidenceIntegrity.REJECTED and qualified:
@@ -85,16 +107,26 @@ def violations(result: EvaluationResult) -> list[str]:
             result.publication is PublicationEligibility.ELIGIBLE:
         add("canary control marked publication-ELIGIBLE (EA09 accounting)")
 
+    # undecidable verdicts are never formally publishable (EA-D03) ----------
+    if ev in (SemanticVerdict.NOT_EVALUABLE, SemanticVerdict.NOT_APPLICABLE) \
+            and result.publication is PublicationEligibility.ELIGIBLE:
+        add(f"{ev.value} + ELIGIBLE publication")
+
     # business / safety (order section 4.3, INV09) --------------------------
     if result.business_verdict.value == "PASS":
         if result.business_world_valid is not True:
             add("business PASS with invalid/unverified business world")
         if result.safety_verdict is SafetyVerdict.VIOLATION:
             add("safety VIOLATION + business PASS (INV09)")
+        if result.safety_verdict is SafetyVerdict.NOT_VERIFIED:
+            add("business PASS with missing required safety verification")
+        if es is not EvaluationStatus.VALID:
+            add("business PASS with non-VALID evaluation pipeline")
 
     # qualification / publication -------------------------------------------
     if result.qualification in (QualificationStatus.UNQUALIFIED,
-                                QualificationStatus.REVOKED) and \
+                                QualificationStatus.REVOKED,
+                                QualificationStatus.PENDING) and \
             result.publication is PublicationEligibility.ELIGIBLE:
         add(f"{result.qualification.value} scope + ELIGIBLE publication")
     if result.safety_verdict is SafetyVerdict.VIOLATION and \

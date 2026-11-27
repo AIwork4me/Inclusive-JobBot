@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 """N02RR corrected quantitative analysis (mission IJ-NANO-1.2R RS04-RS08).
 
+>>> DIAGNOSTIC-ONLY TOOL (IJ-EVAL-ASSURANCE-1.0 EA02-R EA-D05) <<<
+This historical analyzer reads Boolean verdicts directly
+(load_rows: r["sem"] = bool(verdict)) and has NO statistical eligibility
+filter: rows classified REPLAY_ERROR or EVIDENCE_INCONSISTENT_STAGE2_TOOL
+would enter its rates as ordinary model outcomes (EA00 §2.2 R3; the sealed
+1.2R corpus contains zero such rows, so its published output is
+unaffected). It is preserved unchanged as sealed evidence tooling. Formal
+aggregation must go through the qualified assurance boundary instead:
+src/eval_assurance/statistics/boundary.py (aggregate_semantic), which
+consumes validated typed records only. Do NOT add formal reporting here.
+
 Rebuilds the protocol matrix from the CORRECTED replay verdicts
 (trial_reconciliation.jsonl) with:
 

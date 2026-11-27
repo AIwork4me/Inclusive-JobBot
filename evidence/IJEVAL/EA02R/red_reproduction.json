@@ -1,0 +1,98 @@
+{
+ "phase": "red",
+ "audited_head": "3fff13535e52bd0fd9929c1ef82fd0b4208ac5a4",
+ "observations": {
+  "EA_D01": {
+   "REVOKED": {
+    "stats_eligible": true,
+    "validator_violations": [
+     "REVOKED scope + ELIGIBLE publication"
+    ]
+   },
+   "UNQUALIFIED": {
+    "stats_eligible": true,
+    "validator_violations": [
+     "UNQUALIFIED scope + ELIGIBLE publication"
+    ]
+   },
+   "PENDING": {
+    "stats_eligible": true,
+    "validator_violations": []
+   },
+   "PENDING_plus_ELIGIBLE_rejected_by_validator": false
+  },
+  "EA_D02": {
+   "None": {
+    "verdict": "INCORRECT",
+    "coerced_to_model_outcome": true,
+    "error": null
+   },
+   "str_False": {
+    "verdict": "CORRECT",
+    "coerced_to_model_outcome": true,
+    "error": null
+   },
+   "str_FAIL": {
+    "verdict": "CORRECT",
+    "coerced_to_model_outcome": true,
+    "error": null
+   },
+   "str_PASS": {
+    "verdict": "CORRECT",
+    "coerced_to_model_outcome": true,
+    "error": null
+   },
+   "int_0": {
+    "verdict": "INCORRECT",
+    "coerced_to_model_outcome": true,
+    "error": null
+   },
+   "int_1": {
+    "verdict": "CORRECT",
+    "coerced_to_model_outcome": true,
+    "error": null
+   },
+   "empty_list": {
+    "verdict": "INCORRECT",
+    "coerced_to_model_outcome": true,
+    "error": null
+   },
+   "nonempty_list": {
+    "verdict": "CORRECT",
+    "coerced_to_model_outcome": true,
+    "error": null
+   },
+   "bool_True": "CORRECT",
+   "bool_False": "INCORRECT",
+   "unknown_failure_class_verdict": "INCORRECT",
+   "contradictory_http_detected": true
+  },
+  "EA_D03": {
+   "MODEL_OUTPUT_INVALID_plus_CORRECT_rejected": false,
+   "NOT_EVALUABLE_plus_ELIGIBLE_publication_rejected": false,
+   "PENDING_plus_ELIGIBLE_rejected": false,
+   "business_PASS_plus_EVALUATOR_ERROR_rejected": false,
+   "business_PASS_plus_safety_NOT_VERIFIED_rejected": false,
+   "REPLAY_ERROR_plus_decisive_verdict_rejected": true,
+   "string_enum_substitution_rejected": false,
+   "string_enum_substitution_observed_violations": [],
+   "control_typed_record_violations": []
+  },
+  "EA_D04": {
+   "default_evidence_state": "VERIFIED",
+   "trust_by_default": true,
+   "verified_without_verification_path": true
+  },
+  "EA_D05": {
+   "qualified_aggregation_boundary": "ABSENT",
+   "historical_analyzer_reads_booleans": true
+  },
+  "EA_D06": {
+   "direct_exit_code": 1,
+   "direct_verdict": "Details: run python scripts/tools/scan_sensitive.py --staged",
+   "piped_exit_code": 0,
+   "pipe_masks_block": true,
+   "wrapper_exists": false
+  }
+ }
+}

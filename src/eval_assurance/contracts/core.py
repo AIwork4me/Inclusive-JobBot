@@ -1,30 +1,28 @@
-"""EA02 — typed evaluation contract core (IJ-EVAL-ASSURANCE-1.0).
+"""EA02/EA02-R — typed evaluation contract core (IJ-EVAL-ASSURANCE-1.0).
 
 Nine independent dimensions (mission order section 4.1); a single Boolean may
 never represent them (INV01/INV02: unknown is neither incorrect nor correct).
 
-Dimension semantics:
-- ExecutionStatus      — did the trial physically run, and is it a real
-                         benchmark trial or an assurance control?
-- EvaluationStatus     — evidence/pipeline software status (the suggested
-                         enum of order section 4.1 verbatim).
-- ParserStatus         — PARSE_OK, or WHY parsing did not yield a typed
-                         payload. MODEL_OUTPUT_INVALID is a *qualified model
-                         failure* (order section 4.2 case A);
-                         UNSUPPORTED_REPRESENTATION and PARSER_SOFTWARE_ERROR
-                         are NOT (case B).
-- EvaluatorStatus      — production evaluator outcome at the software level.
-- SemanticVerdict      — the semantic dimension only.
-- BusinessVerdict      — business postcondition dimension.
-- SafetyVerdict        — safety/authorization dimension; VIOLATION overrides
-                         every other dimension (INV09).
-- QualificationStatus  — standing of the scope's certificate.
-- PublicationEligibility — what may consume this record.
+EA02-R hardening (addendum EA-D02/EA-D03/EA-D04):
+- strict runtime type validation: enum fields must be genuine Enum members,
+  Booleans must be genuine bools; string/int substitutions raise
+  ContractTypeError at construction time;
+- evidence defaults to UNVERIFIED (never VERIFIED-by-omission); VERIFIED
+  requires a VerifiedEvidence envelope produced by the actual verification
+  path (verify_evidence), binding artifact hash, trial identity, schema and
+  evaluator identity;
+- provenance distinguishes CLAIMED fields from VERIFIED identity; the
+  validator cross-checks the envelope against the record's provenance so a
+  caller-provided dictionary cannot overwrite verified identity undetected.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
+
+
+class ContractTypeError(TypeError):
+    """A contract dimension carries a value of the wrong runtime type."""
 
 
 class ExecutionStatus(Enum):
@@ -95,25 +93,129 @@ class PublicationEligibility(Enum):
 
 
 class EvidenceIntegrity(Enum):
-    VERIFIED = "VERIFIED"
+    UNVERIFIED = "UNVERIFIED"      # default: trust nothing by omission
+    PENDING = "PENDING"            # verification started, not finished
+    VERIFIED = "VERIFIED"          # only via verify_evidence()
     REJECTED = "REJECTED"
     MISSING = "MISSING"
 
 
-#: provenance keys mandatory before any qualified semantic verdict may be
-#: issued (order EA08 evidence identity, applied at contract level).
+#: provenance identity keys mandatory before any qualified semantic verdict
+#: (order EA08 evidence identity, applied at contract level).
 MANDATORY_PROVENANCE_KEYS = (
     "experiment_id", "trial_id", "task_id", "model", "dataset_id",
     "parser_version", "evaluator_version",
 )
 
+ENVELOPE_SCHEMA_VERSION = "1.0.0"
+
+
+@dataclass(frozen=True)
+class VerifiedEvidence:
+    """Versioned verified-evidence envelope (EA-D04).
+
+    Constructed ONLY by :func:`verify_evidence` after the actual verification
+    checks complete. Binds the evidence to the identity fields it verified;
+    the validator cross-checks these against the record's provenance, so a
+    caller-supplied provenance dict that disagrees with the envelope is
+    detected rather than trusted.
+    """
+    schema_version: str
+    verified_keys: tuple[str, ...]
+    identity: dict
+    artifact_sha256: str
+    verification_checks: dict
+
+    def matches_provenance(self, provenance: dict) -> bool:
+        return all(self.identity.get(k) == provenance.get(k)
+                   for k in self.verified_keys)
+
+
+def verify_evidence(claimed_provenance: dict, *,
+                    artifact_sha256_computed: str,
+                    artifact_sha256_expected: str,
+                    schema_validated: bool,
+                    trial_identity_match: bool,
+                    evaluator_identity_match: bool = True,
+                    basis: str = "direct") -> VerifiedEvidence:
+    """The actual evidence verification path (EA-D04).
+
+    Takes CLAIMED provenance plus the results of real checks (hash computed
+    over the artifact bytes vs the recorded expectation, strict schema
+    validation outcome, trial-identity and evaluator-identity matches) and,
+    only if every check passes, returns the VerifiedEvidence envelope.
+    Raises ValueError (fail closed) on any failed check.
+
+    ``basis`` records HOW verification happened: "direct" (bytes re-hashed
+    now) or a named qualified loader whose verification result is being
+    transferred (e.g. the N02RR validated loader).
+    """
+    if not schema_validated:
+        raise ValueError("evidence verification failed: schema not validated")
+    if not trial_identity_match:
+        raise ValueError("evidence verification failed: trial identity "
+                         "mismatch")
+    if not evaluator_identity_match:
+        raise ValueError("evidence verification failed: evaluator identity "
+                         "mismatch")
+    if (not isinstance(artifact_sha256_computed, str)
+            or not isinstance(artifact_sha256_expected, str)
+            or artifact_sha256_computed.lower()
+            != artifact_sha256_expected.lower()
+            or len(artifact_sha256_computed) == 0):
+        raise ValueError("evidence verification failed: artifact sha256 "
+                         "mismatch")
+    missing = [k for k in MANDATORY_PROVENANCE_KEYS
+               if not isinstance(claimed_provenance.get(k), str)
+               or not claimed_provenance.get(k)]
+    if missing:
+        raise ValueError(f"evidence verification failed: claimed provenance "
+                         f"incomplete: {missing}")
+    return VerifiedEvidence(
+        schema_version=ENVELOPE_SCHEMA_VERSION,
+        verified_keys=MANDATORY_PROVENANCE_KEYS,
+        identity={k: claimed_provenance[k]
+                  for k in MANDATORY_PROVENANCE_KEYS},
+        artifact_sha256=artifact_sha256_computed.lower(),
+        verification_checks={
+            "artifact_sha256_match": True,
+            "schema_validated": True,
+            "trial_identity_match": True,
+            "evaluator_identity_match": True,
+            "basis": basis})
+
+
+#: legacy failure classes with defined contract meaning. Anything else is a
+#: contract error, never an ordinary model outcome (EA-D02).
+KNOWN_LEGACY_FAILURE_CLASSES = frozenset({
+    # evidence/software classes -> never model outcomes
+    "REPLAY_ERROR", "TRANSPORT_ERROR", "EVIDENCE_INSUFFICIENT",
+    "EVIDENCE_INCONSISTENT_STAGE2_TOOL",
+    # genuine model-outcome classes (N02RR taxonomy)
+    "SUCCESS", "SEMANTIC_ERROR", "STRUCTURAL_GENERATION_ERROR",
+    "STRUCTURAL_GENERATION_ERROR_DUP_KEY", "TOOL_CALL_ONLY_UNPARSED",
+    "EMPTY_FINAL_CONTENT_STOPPED", "EMPTY_FINAL_CONTENT_TRUNCATED",
+    "GENERATION_TRUNCATED", "STAGE1_SELECTION_FAILED",
+})
+
+
+_ENUM_FIELDS = {
+    "execution_status": ExecutionStatus,
+    "evaluation_status": EvaluationStatus,
+    "parser_status": ParserStatus,
+    "evaluator_status": EvaluatorStatus,
+    "semantic_verdict": SemanticVerdict,
+    "business_verdict": BusinessVerdict,
+    "safety_verdict": SafetyVerdict,
+    "qualification": QualificationStatus,
+    "publication": PublicationEligibility,
+    "evidence": EvidenceIntegrity,
+}
+
 
 @dataclass
 class EvaluationResult:
-    """One typed evaluation record. All dimensions are explicit; none is
-    derived from another silently. validator.validate_result() is the single
-    authority for legal combinations; persistence/aggregation/publication
-    must call it (order section 4.3)."""
+    """One typed evaluation record with strict runtime type validation."""
     execution_status: ExecutionStatus
     evaluation_status: EvaluationStatus
     parser_status: ParserStatus
@@ -123,19 +225,59 @@ class EvaluationResult:
     safety_verdict: SafetyVerdict = SafetyVerdict.NOT_APPLICABLE
     qualification: QualificationStatus = QualificationStatus.UNQUALIFIED
     publication: PublicationEligibility = PublicationEligibility.BLOCKED
-    evidence: EvidenceIntegrity = EvidenceIntegrity.VERIFIED
+    evidence: EvidenceIntegrity = EvidenceIntegrity.UNVERIFIED
     evidence_invalid_reason: str | None = None
     oracle_disagreement: bool = False
     business_world_valid: bool | None = None
     provenance: dict = field(default_factory=dict)
     failure_reasons: tuple[str, ...] = ()
+    verified_evidence: VerifiedEvidence | None = None
+
+    def __post_init__(self):
+        # EA-D02/EA-D03: no implicit coercion anywhere in the contract.
+        for name, enum_type in _ENUM_FIELDS.items():
+            value = getattr(self, name)
+            if not isinstance(value, enum_type):
+                raise ContractTypeError(
+                    f"{name} must be {enum_type.__name__}, got "
+                    f"{type(value).__name__}: {value!r}")
+        if type(self.oracle_disagreement) is not bool:
+            raise ContractTypeError("oracle_disagreement must be bool, got "
+                                    f"{type(self.oracle_disagreement).__name__}")
+        if self.business_world_valid is not None and \
+                type(self.business_world_valid) is not bool:
+            raise ContractTypeError("business_world_valid must be bool|None, "
+                                    f"got "
+                                    f"{type(self.business_world_valid).__name__}")
+        if self.evidence_invalid_reason is not None and \
+                not isinstance(self.evidence_invalid_reason, str):
+            raise ContractTypeError("evidence_invalid_reason must be str|None")
+        if not isinstance(self.provenance, dict):
+            raise ContractTypeError("provenance must be a dict")
+        if any(not isinstance(k, str) for k in self.provenance):
+            raise ContractTypeError("provenance keys must be strings")
+        if not isinstance(self.failure_reasons, tuple) or \
+                any(not isinstance(r, str) for r in self.failure_reasons):
+            raise ContractTypeError("failure_reasons must be a tuple of str")
+        if self.verified_evidence is not None and \
+                not isinstance(self.verified_evidence, VerifiedEvidence):
+            raise ContractTypeError(
+                "verified_evidence must be a VerifiedEvidence envelope "
+                "produced by verify_evidence()")
 
     # -- convenience constructors for the two verdict-stable paths ----------
     @classmethod
     def evaluated(cls, *, semantic: bool, **kw) -> "EvaluationResult":
-        """Qualified evaluation path: pipeline VALID, parser OK."""
+        """Qualified evaluation path: pipeline VALID, parser OK. The verdict
+        argument must be a genuine Boolean (EA-D02)."""
+        if type(semantic) is not bool:
+            raise ContractTypeError(
+                f"semantic must be a genuine bool, got "
+                f"{type(semantic).__name__}: {semantic!r}")
+        kw.setdefault("evidence", EvidenceIntegrity.UNVERIFIED)
         return cls(
-            execution_status=ExecutionStatus.EXECUTED,
+            execution_status=kw.pop("execution_status",
+                                    ExecutionStatus.EXECUTED),
             evaluation_status=EvaluationStatus.VALID,
             parser_status=ParserStatus.PARSE_OK,
             semantic_verdict=(SemanticVerdict.CORRECT if semantic
