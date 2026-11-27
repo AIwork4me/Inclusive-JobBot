@@ -144,7 +144,7 @@ def test_unrun_capture_keeps_full_denominator_and_rejects_wrong_plan():
 
 @pytest.mark.skipif(sys.platform != "win32", reason="fixture uses the pinned Windows SDK harness")
 def test_real_sdk_grammar_request_and_terminal_delivery_over_scripted_sse(tmp_path):
-    from google.antigravity import bin as sdk_bin
+    sdk_bin = pytest.importorskip("google.antigravity.bin")
 
     alias = "ijslm-candidate-d"
     received = []
