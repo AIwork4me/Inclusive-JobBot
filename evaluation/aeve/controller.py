@@ -37,7 +37,8 @@ def connect(folder):
 
 @contextmanager
 def gpu_lock(folder, filename="gpu.lock"):
-    # The OS releases this lock on process exit, including abnormal termination.
+    # This lock protects the queue or archive directory. The common gpu_server
+    # launcher holds the host-wide physical lease independently of this path.
     lock = (folder / filename).open("a+b")
     try:
         if os.name == "nt":

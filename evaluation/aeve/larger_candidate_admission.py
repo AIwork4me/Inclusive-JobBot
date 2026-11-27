@@ -100,7 +100,8 @@ def test(candidate, assets, output, port, *, matched_development=False, pins=PIN
         gates["cpu_reference"] = "PASS" if chat_ok(bind(client)) else "FAIL"
         report["cpu"] = {"binary_sha256":digest(binary),"build":build}
     with gpu_server(engine/"llama-server.exe",model,"vulkan",server_environment(),target,
-                    port,"vulkan",True,alias=alias) as (client,launch):
+                    port,"vulkan",True,alias=alias, mission_id="IJ-0.7.3",
+                    lease_owner="aeve-admission", runtime_session=run) as (client,launch):
         expected = {**control,"engine":{**control["engine"],"layers":launch["layers_total"]},
                     "template":{"sha256":template}}
         verify_launch(launch,expected)

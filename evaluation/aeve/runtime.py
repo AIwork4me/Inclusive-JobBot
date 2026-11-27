@@ -51,7 +51,8 @@ def session(candidate, asset_root, output, port, *, registry=REGISTRY):
     alias = "ij07-candidate-" + candidate.lower()
     sha = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     with gpu_server(engine / "llama-server.exe", model, "vulkan", server_environment(), folder, port,
-                    "live", True, alias=alias) as (client, launch):
+                    "live", True, alias=alias, mission_id="IJ-0.7.3",
+                    lease_owner="aeve-controller", runtime_session=run_id) as (client, launch):
         verify_launch(launch, identity)
         metadata = {"run_id": run_id, "candidate": candidate, "git_sha": sha, "identity": identity,
                     "launch": launch, "sdk": version("google-antigravity"), "sdk_used": False}

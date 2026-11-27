@@ -137,9 +137,9 @@ def main():
     data["qualification"].update(AEVE_IMPLEMENTATION_VERDICT="PASS",
             AEVE_FULL_SELF_EVALUATION_VERDICT=gates["E07"][0],AEVE_AI_JUDGE_QUALIFICATION_VERDICT=gates["E08"][0])
     data["next_dependency"]=(
-        "Complete the frozen Q2 roster, then replay closure and exercise larger-candidate admission."
-        if coverage["remaining"] else "Replay complete Q2 closure and exercise larger-candidate admission."
-        if coverage["status"] == "NOT_RUN" else "Complete paired runtime development and independent Q3 qualification."
+        "Complete and replay the frozen Q2 roster, then verify the GPU handoff."
+        if coverage["remaining"] else "Publish the complete Q2 closure and verify the GPU handoff."
+        if coverage["status"] == "NOT_RUN" else "Resume paired runtime development and independent Q3 qualification when the GPU is returned to IJ-0.7.3."
     )
     coverage_path = EVIDENCE / "q2_sealed_coverage.json"
     mission_path = ROOT / "MISSION_STATE.json"

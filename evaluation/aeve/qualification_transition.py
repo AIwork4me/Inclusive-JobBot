@@ -70,7 +70,7 @@ def candidate_admission(state, assets, port, *, pins=PINS):
     return results
 
 
-def advance(state, archive, history, assets, port):
+def advance(state, archive, history, assets, port, *, run_admission=True):
     closure = build(archive)
     report_path = state / "q2-closure.json"
     write_json(report_path, closure)
@@ -80,6 +80,9 @@ def advance(state, archive, history, assets, port):
               **routing_readiness(closure, coverage["source_families"])}
     progress = state / "qualification-transition.json"
     write_json(progress, result)
-    result["larger_runtime_admission"] = candidate_admission(state, assets, port)
+    if run_admission:
+        result["larger_runtime_admission"] = candidate_admission(state, assets, port)
+    else:
+        result["larger_runtime_admission"] = {"status": "NOT_RUN", "dispatch": "PAUSED"}
     write_json(progress, result)
     return result
