@@ -6,16 +6,21 @@ from collections.abc import Callable
 from contextlib import contextmanager
 from dataclasses import dataclass
 from decimal import Decimal
+from hashlib import sha256
 import http.client
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+from pathlib import Path
 import secrets
 import socket
 from threading import Lock, Thread
 import time
+from traceback import extract_tb
 from urllib.parse import urlsplit
+from uuid import uuid4
 
 from model_gateway import GatewayError, StreamAssembler, decode_completion
+from model_gateway.openai_protocol import MAX_WIRE_BYTES
 from model_gateway.strict_json import strict_object
 
 MAX_BODY = 1 << 20
@@ -73,10 +78,10 @@ class ApprovalQueue:
             self._pending = []
 
 
-def assemble_reply(content_type, body):
+def assemble_reply(content_type, body, *, max_stream_bytes=MAX_WIRE_BYTES):
     if not content_type.startswith("text/event-stream"):
         return decode_completion(body)
-    assembler = StreamAssembler()
+    assembler = StreamAssembler(max_stream_bytes=max_stream_bytes)
     for frame in body.replace(b"\r\n", b"\n").split(b"\n\n"):
         data = [line[5:].removeprefix(b" ") for line in frame.split(b"\n") if line.startswith(b"data:")]
         if data:
@@ -97,7 +102,8 @@ class WireEndpoint:
 
 
 @contextmanager
-def wire_boundary(upstream, approvals, events, *, transient_first=False, transient_all=False, request_started=None):
+def wire_boundary(upstream, approvals, events, *, transient_first=False, transient_all=False,
+                  request_started=None, trial_id=None, observe=None, max_stream_bytes=MAX_WIRE_BYTES):
     """Verify each complete tool batch before releasing the response to the SDK.
 
     SSE frames are retained and forwarded unchanged once the terminal frame is
@@ -145,6 +151,8 @@ def wire_boundary(upstream, approvals, events, *, transient_first=False, transie
             with turn_lock:
                 connection = None
                 event = {"status": "NOT_RUN"}
+                if trial_id is not None:
+                    event.update(trial_id=trial_id, sdk_request_id=uuid4().hex)
                 events.append(event)
                 started = time.perf_counter()
                 try:
@@ -166,25 +174,52 @@ def wire_boundary(upstream, approvals, events, *, transient_first=False, transie
                         if aborted:
                             raise ConnectionAbortedError()
                         active = connection
+                        if trial_id is not None:
+                            event.update(provider_request_id=uuid4().hex, provider_request=event["request"],
+                                         provider_request_sha256=sha256(body).hexdigest())
                         connection.request("POST", "/v1/chat/completions", body, {"Content-Type": "application/json"})
                     upstream_response = connection.getresponse()
-                    response = upstream_response.read(MAX_BODY + 1)
-                    if len(response) > MAX_BODY or upstream_response.getheader("Content-Encoding"):
-                        raise ValueError("Unsupported model response size or encoding")
                     content_type = upstream_response.getheader("Content-Type", "application/json")
+                    content_encoding = upstream_response.getheader("Content-Encoding")
+                    if trial_id is not None:
+                        event.update(http_status=upstream_response.status, content_type=content_type,
+                                     content_encoding=content_encoding,
+                                     content_length=upstream_response.getheader("Content-Length"))
+                    response = upstream_response.read(MAX_BODY + 1)
+                    if trial_id is not None:
+                        event.update(response_bytes=len(response), response_sha256=sha256(response).hexdigest(),
+                                     response_capture_complete=len(response) <= MAX_BODY)
+                        try:
+                            event["response"] = response.decode("utf-8")
+                        except UnicodeDecodeError:
+                            event["private_response_hex"] = response.hex()
+                        if observe is not None:
+                            observe(event)
+                    if len(response) > MAX_BODY or content_encoding:
+                        raise ValueError("Unsupported model response size or encoding")
                     event.update(response=response.decode("utf-8"), http_status=upstream_response.status,
                                  content_type=content_type)
                     if upstream_response.status == 200:
-                        result = assemble_reply(content_type, response)
+                        result = assemble_reply(content_type, response, max_stream_bytes=max_stream_bytes)
                         with upstream_lock:
                             if aborted:
                                 raise ConnectionAbortedError()
                             approvals.publish(result.calls)
                             event.update(status="PASS", validated_calls=len(result.calls))
+                            if trial_id is not None:
+                                event.update(parsed_tool_call_ids=[call.call_id for call in result.calls],
+                                             validated_finish_reason=result.finish_reason)
                     self.reply(upstream_response.status, content_type, response)
                 except (ValueError, OSError, GatewayError, http.client.HTTPException) as error:
                     event.update(status="FAIL", error_type=type(error).__name__,
                                  error_code="CANCELLED" if aborted else getattr(error, "code", None))
+                    if trial_id is not None:
+                        frame = extract_tb(error.__traceback__)[-1]
+                        event["failure"] = {
+                            "type": f"{type(error).__module__}.{type(error).__qualname__}",
+                            "message": str(error), "file": Path(frame.filename).name,
+                            "function": frame.name, "line": frame.lineno,
+                        }
                     self.reply(502, "application/json", b'{"error":{"message":"Model protocol validation failed"}}')
                 finally:
                     with upstream_lock:

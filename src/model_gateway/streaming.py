@@ -11,7 +11,10 @@ from .strict_json import MAX_ARGUMENT_BYTES, strict_object
 class StreamAssembler:
     """Consumes SSE data-field values, including the terminal [DONE]."""
 
-    def __init__(self):
+    def __init__(self, *, max_stream_bytes=MAX_WIRE_BYTES):
+        if type(max_stream_bytes) is not int or not MAX_WIRE_BYTES <= max_stream_bytes <= 4 * MAX_WIRE_BYTES:
+            raise ValueError("invalid aggregate stream byte budget")
+        self._max_stream_bytes = max_stream_bytes
         self._size = 0
         self._done = False
         self._invalid = False
@@ -33,7 +36,7 @@ class StreamAssembler:
         require(not self._invalid and not self._done, "extra data after stream termination")
         require(isinstance(payload, bytes), "stream event must be bytes")
         self._size += len(payload)
-        require(self._size <= MAX_WIRE_BYTES, "stream byte limit exceeded")
+        require(self._size <= self._max_stream_bytes, "stream byte limit exceeded")
         if payload == b"[DONE]":
             require(self._finish is not None, "stream ended before a terminal choice")
             self._done = True

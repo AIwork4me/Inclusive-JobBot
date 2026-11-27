@@ -23,7 +23,7 @@ def portable(value):
     if not isinstance(value, dict):
         return value
     result = {key: portable(item) for key, item in value.items()
-              if key not in {"prompt_token_ids", "sampled_bytes_hex", "pre_parser_bytes_hex"}}
+              if key not in {"prompt_token_ids", "sampled_bytes_hex", "pre_parser_bytes_hex", "private_response_hex"}}
     if "prompt_token_ids" in value:
         result["prompt_token_ids_publication"] = "omitted because token IDs can contain private prompt paths"
     for key in ("sampled_bytes_hex", "pre_parser_bytes_hex"):

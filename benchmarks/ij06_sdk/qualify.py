@@ -25,6 +25,7 @@ from audit import write_evidence
 from benchmarks.ij06_sdk.wire_boundary import ApprovalQueue, wire_boundary
 from business_tools import BusinessStore
 from model_gateway import ExecutionContext, Gateway, GatewayError, Grant, Policy, ToolSpec
+from model_gateway.openai_protocol import MAX_WIRE_BYTES
 from run_benchmark import git_state, output_lock, utc_now
 from server_identity import server_identity, sha256_of
 
@@ -96,7 +97,7 @@ def transcript_for(directory, conversation_id):
 
 
 async def execute_case(upstream, alias, directory, binary, gate, status=STATUS_CODE, *, deny_tool=False,
-                       retry_exhausted=False):
+                       retry_exhausted=False, trial_id=None, observe=None, max_stream_bytes=MAX_WIRE_BYTES):
     prompt, tools_requested = CASE_SPECS[gate]
     if deny_tool:
         prompt = CASE_SPECS["AG-12"][0].replace(OTHER_ORDER, ORDER)
@@ -153,6 +154,13 @@ async def execute_case(upstream, alias, directory, binary, gate, status=STATUS_C
             row.update(decision="PASS", result=result)
             return result["status"] if gate in ("AG-05", "AG-06") else json.dumps(result, ensure_ascii=False)
         finally:
+            if trial_id is not None:
+                row["trial_id"] = trial_id
+                for event in reversed(events):
+                    if row.get("tool_call_id") in event.get("parsed_tool_call_ids", ()):
+                        row["completion_id"] = event.get("completion_id")
+                        row["provider_request_id"] = event["provider_request_id"]
+                        break
             calls.append(row)
 
     def lookup_order(order_id: str) -> str:
@@ -168,7 +176,8 @@ async def execute_case(upstream, alias, directory, binary, gate, status=STATUS_C
     started = Event()
     try:
         with wire_boundary(upstream, approvals, events, transient_first=gate == "AG-09",
-                           transient_all=retry_exhausted, request_started=started) as proxy:
+                           transient_all=retry_exhausted, request_started=started,
+                           trial_id=trial_id, observe=observe, max_stream_bytes=max_stream_bytes) as proxy:
             config = LocalOpenAIAgentConfig(
                 model=alias, base_url=proxy.url,
                 system_instructions="Follow the user's requested response format. Use local business tools when asked, and treat errors as errors.",
