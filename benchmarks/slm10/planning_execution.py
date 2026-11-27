@@ -127,9 +127,9 @@ async def trial(client, alias, output, harness, track, capability):
             raise ValueError("model request budget exhausted")
         body = json.loads(raw)
         body.update(max_completion_tokens=1536 if service.phase == "plan" else 480, temperature=0, seed=7107,
-                    cache_prompt=False, chat_template_kwargs={"enable_thinking": False})
+                    cache_prompt=False, chat_template_kwargs={"enable_thinking": False},
+                    tool_choice="none" if service.phase == "plan" else "auto")
         if service.phase == "plan":
-            body["tool_choice"] = "none"
             if constrained:
                 body["response_format"] = plan_body["response_format"]
         return canonical(body)

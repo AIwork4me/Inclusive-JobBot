@@ -17,6 +17,7 @@ from .tc_v3 import HERE
 
 ARCHIVE = ROOT / "evidence/IJSLM/tc-v3"
 DASHBOARD = HERE.parent / "physical_progress.json"
+SUMMARY = HERE.parent / "physical_progress.md"
 PRIORITY = ("A", "B", "D")
 STATUS = ("PASS", "FAIL", "BLOCKED", "NOT_RUN")
 
@@ -202,6 +203,32 @@ def dashboard(directory):
     }
 
 
+def markdown(report):
+    lines = [
+        "# TC-V3 physical progress", "",
+        f"Core trials remaining: **{report['core_remaining']:,} of 36,550**.", "",
+        "| Candidate | Planned | Executed | Sealed | Strict PASS | Strict FAIL | Strict BLOCKED | NOT_RUN |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for model, count in report["models"].items():
+        numbers = (count[key] for key in ("planned", "executed", "sealed", *STATUS))
+        lines.append("| " + model + " | " + " | ".join(f"{number:,}" for number in numbers) + " |")
+    lines += ["", "## Tool selection by track", "",
+              "| Candidate and track | PASS | FAIL | BLOCKED | Wilson 95% CI |",
+              "|---|---:|---:|---:|---:|"]
+    for key, metrics in sorted(report["component_matrix"].items()):
+        model, track, scope, component = key.split("/", 3)
+        if (scope, component) != ("all", "tool_selection"):
+            continue
+        limits = metrics["wilson_95"]
+        interval = "—" if limits is None else f"{limits[0]:.1%}–{limits[1]:.1%}"
+        lines.append(f"| {model} / {track} | {metrics['PASS']} | {metrics['FAIL']} | {metrics['BLOCKED']} | {interval} |")
+    lines += ["", "The current rows represent the completed portion of the frozen roster. "
+              "Use the full matrix for paired effects, case strata, repeats and provider telemetry. "
+              "[Machine-readable dashboard](physical_progress.json)", ""]
+    return "\n".join(lines).encode("utf-8")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--publish-from", type=Path)
@@ -218,8 +245,11 @@ def main():
                         raise ValueError("published physical seal differs from the runtime copy")
                 else:
                     shutil.copyfile(source, target)
-        DASHBOARD.write_bytes(canonical(dashboard(ARCHIVE)) + b"\n")
-    if DASHBOARD.read_bytes() != canonical(dashboard(ARCHIVE)) + b"\n":
+        report = dashboard(ARCHIVE)
+        DASHBOARD.write_bytes(canonical(report) + b"\n")
+        SUMMARY.write_bytes(markdown(report))
+    replay = dashboard(ARCHIVE)
+    if DASHBOARD.read_bytes() != canonical(replay) + b"\n" or SUMMARY.read_bytes() != markdown(replay):
         raise ValueError("published dashboard differs from replayed physical seals")
     report = json.loads(DASHBOARD.read_bytes())
     print(json.dumps({"models": report["models"], "core_remaining": report["core_remaining"]}, indent=2))
