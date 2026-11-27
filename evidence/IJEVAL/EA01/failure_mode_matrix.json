@@ -1,0 +1,990 @@
+{
+ "schema": "ijeval.ea01.failure_mode_matrix",
+ "schema_version": 1,
+ "generated_by": "scripts/ij_eval_assurance/ea01_failure_model.py",
+ "pipeline_layers": [
+  "L01_task_specification",
+  "L02_dataset_generation",
+  "L03_reference_answer_generation",
+  "L04_business_world_init",
+  "L05_task_applicability",
+  "L06_prompt_rendering",
+  "L07_model_request_generation",
+  "L08_inference_transport",
+  "L09_response_decoding",
+  "L10_raw_artifact_capture",
+  "L11_artifact_serialization",
+  "L12_artifact_loading",
+  "L13_parser_behavior",
+  "L14_semantic_normalization",
+  "L15_typed_response_construction",
+  "L16_reference_oracle",
+  "L17_production_evaluator",
+  "L18_business_state_verification",
+  "L19_multi_stage_causal_reconstruction",
+  "L20_resource_accounting",
+  "L21_trial_identity",
+  "L22_resume_and_deduplication",
+  "L23_statistical_aggregation",
+  "L24_report_generation",
+  "L25_qualification_issuance",
+  "L26_reward_generation",
+  "L27_publication"
+ ],
+ "layers_without_dedicated_modes": [
+  "L01_task_specification",
+  "L02_dataset_generation",
+  "L03_reference_answer_generation",
+  "L04_business_world_init",
+  "L05_task_applicability",
+  "L06_prompt_rendering",
+  "L07_model_request_generation",
+  "L08_inference_transport",
+  "L09_response_decoding",
+  "L10_raw_artifact_capture",
+  "L11_artifact_serialization",
+  "L12_artifact_loading",
+  "L13_parser_behavior",
+  "L14_semantic_normalization",
+  "L15_typed_response_construction",
+  "L16_reference_oracle",
+  "L17_production_evaluator",
+  "L18_business_state_verification",
+  "L19_multi_stage_causal_reconstruction",
+  "L20_resource_accounting",
+  "L21_trial_identity",
+  "L22_resume_and_deduplication",
+  "L23_statistical_aggregation",
+  "L24_report_generation",
+  "L25_qualification_issuance",
+  "L26_reward_generation",
+  "L27_publication"
+ ],
+ "failure_classes_legend": {
+  "ACC": "accidental implementation defect",
+  "CMODE": "common-mode evaluator defect",
+  "FP": "false positive",
+  "FN": "false negative",
+  "LOSS": "silent data loss",
+  "CORRUPT": "corrupted evidence",
+  "VER": "version incompatibility",
+  "LEAK": "hidden-answer leakage",
+  "REWARD": "reward hacking",
+  "STATE": "unauthorized state effect",
+  "RECOVERY": "incorrect recovery",
+  "MAL": "malicious/malformed input"
+ },
+ "counts": {
+  "modes": 48,
+  "critical_severity_ge4": 38,
+  "by_class": {
+   "ACC": 18,
+   "LEAK": 2,
+   "CMODE": 2,
+   "VER": 3,
+   "CORRUPT": 5,
+   "STATE": 2,
+   "LOSS": 2,
+   "FP": 7,
+   "FN": 2,
+   "RECOVERY": 2,
+   "REWARD": 2,
+   "MAL": 1
+  },
+  "by_layer": {
+   "L01": 2,
+   "L02": 2,
+   "L03": 3,
+   "L04": 1,
+   "L05": 1,
+   "L06": 2,
+   "L07": 1,
+   "L08": 2,
+   "L09": 1,
+   "L10": 1,
+   "L11": 1,
+   "L12": 2,
+   "L13": 4,
+   "L14": 2,
+   "L15": 1,
+   "L16": 2,
+   "L17": 2,
+   "L18": 1,
+   "L19": 2,
+   "L20": 1,
+   "L21": 1,
+   "L22": 2,
+   "L23": 3,
+   "L24": 2,
+   "L25": 2,
+   "L26": 2,
+   "L27": 2
+  }
+ },
+ "modes": [
+  {
+   "mode_id": "FM-001",
+   "layer": "L01",
+   "failure_mode": "task contract incomplete (fields missing: applicability, scope, licensing)",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "all trials of family",
+   "detectability": "M (only when verdicts look odd)",
+   "recoverability": "M (regenerate+rerun)",
+   "downstream_contamination": "invalid conclusions for family",
+   "controls": {
+    "prevention": "EA03 required task contract schema",
+    "detection": "EA03 dataset qualification battery",
+    "containment": "EA10 quarantine family scope",
+    "regression_test": "tests/ij_eval_assurance/test_contracts.py",
+    "qualification_requirement": "EA03_DATASET_QUALIFICATION_GO"
+   }
+  },
+  {
+   "mode_id": "FM-002",
+   "layer": "L01",
+   "failure_mode": "ambiguous task admits multiple defensible answers scored against one",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "subset of family",
+   "detectability": "L (looks like model error)",
+   "recoverability": "M",
+   "downstream_contamination": "false negatives published",
+   "controls": {
+    "prevention": "EA03 ambiguity/negative-case qualification",
+    "detection": "EA05 differential disagreement",
+    "containment": "EA10 stop + NOT_EVALUABLE",
+    "regression_test": "EA03 mutation: ambiguous task injected",
+    "qualification_requirement": "EA03 gate incl. ambiguous/impossible tasks"
+   }
+  },
+  {
+   "mode_id": "FM-003",
+   "layer": "L02",
+   "failure_mode": "duplicate or paraphrase-inflated cases",
+   "failure_class": "ACC",
+   "severity": 3,
+   "potential_affected_trials": "denominators",
+   "detectability": "M",
+   "recoverability": "H (dedup)",
+   "downstream_contamination": "inflated coverage claims",
+   "controls": {
+    "prevention": "EA03 dedup + identity",
+    "detection": "EA11 denominator reconciliation",
+    "containment": "EA10 revoke affected certificate",
+    "regression_test": "EA11 duplicate-trial test",
+    "qualification_requirement": "EA03 gate"
+   }
+  },
+  {
+   "mode_id": "FM-004",
+   "layer": "L02",
+   "failure_mode": "train/confirmation/holdout overlap",
+   "failure_class": "LEAK",
+   "severity": 5,
+   "potential_affected_trials": "all formal claims",
+   "detectability": "L",
+   "recoverability": "L (holdout burned)",
+   "downstream_contamination": "contaminated generalization claims",
+   "controls": {
+    "prevention": "EA03 overlap checks",
+    "detection": "EA03 overlap tests",
+    "containment": "EA10 block publication",
+    "regression_test": "EA03 overlap mutation",
+    "qualification_requirement": "EA03 gate + EA13 holdout protection"
+   }
+  },
+  {
+   "mode_id": "FM-005",
+   "layer": "L03",
+   "failure_mode": "expected answer wrong (generation bug or typo)",
+   "failure_class": "ACC",
+   "severity": 5,
+   "potential_affected_trials": "affected tasks, both directions",
+   "detectability": "L",
+   "recoverability": "M (fix + full rescore)",
+   "downstream_contamination": "false positives AND negatives",
+   "controls": {
+    "prevention": "EA03 independent verification of expectations",
+    "detection": "EA05 reference evaluator disagreement",
+    "containment": "EA10 quarantine task set",
+    "regression_test": "EA03 flipped-answer mutation",
+    "qualification_requirement": "EA03 gate"
+   }
+  },
+  {
+   "mode_id": "FM-006",
+   "layer": "L03",
+   "failure_mode": "same generator produces test answer and verification logic (shared root)",
+   "failure_class": "CMODE",
+   "severity": 5,
+   "potential_affected_trials": "family-wide",
+   "detectability": "L (self-consistent)",
+   "recoverability": "M",
+   "downstream_contamination": "systematically wrong family verdicts",
+   "controls": {
+    "prevention": "EA03 independence requirement",
+    "detection": "EA05 differential independence analysis",
+    "containment": "EA10 revoke scope",
+    "regression_test": "EA05 shared-implementation detector test",
+    "qualification_requirement": "EA05 gate"
+   }
+  },
+  {
+   "mode_id": "FM-007",
+   "layer": "L03",
+   "failure_mode": "expectations leak into public prompt or tool schema",
+   "failure_class": "LEAK",
+   "severity": 5,
+   "potential_affected_trials": "all trials of tasks",
+   "detectability": "L",
+   "recoverability": "M",
+   "downstream_contamination": "invalid capability measurement",
+   "controls": {
+    "prevention": "EA03 leakage scan",
+    "detection": "EA06 leakage witnesses + EA13 access boundary",
+    "containment": "EA10 hard stop",
+    "regression_test": "EA06 leak witness",
+    "qualification_requirement": "EA03/EA13 gates"
+   }
+  },
+  {
+   "mode_id": "FM-008",
+   "layer": "L04",
+   "failure_mode": "invalid initial state (unreachable/inconsistent world)",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "world's tasks",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "false negatives",
+   "controls": {
+    "prevention": "EA03 invalid-initial-state qualification",
+    "detection": "EA05 state invariant checks",
+    "containment": "EA10 quarantine world",
+    "regression_test": "EA03 invalid-ICS mutation",
+    "qualification_requirement": "EA03 gate"
+   }
+  },
+  {
+   "mode_id": "FM-009",
+   "layer": "L05",
+   "failure_mode": "task applied where not applicable (empty candidate set, missing tool)",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "affected arm x family cells",
+   "detectability": "M (PR-D03 class)",
+   "recoverability": "H",
+   "downstream_contamination": "arm-fairness distortion",
+   "controls": {
+    "prevention": "EA03 applicability registry",
+    "detection": "EA11 applicability-filtered denominators",
+    "containment": "EA10 mark inapplicable",
+    "regression_test": "PR-D03 regression class",
+    "qualification_requirement": "EA03/EA11 gates"
+   }
+  },
+  {
+   "mode_id": "FM-010",
+   "layer": "L06",
+   "failure_mode": "arms receive unequal information (tool inventory present/absent)",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "cross-arm comparisons",
+   "detectability": "M (PR-D01 class)",
+   "recoverability": "H (re-render)",
+   "downstream_contamination": "confounded contrasts",
+   "controls": {
+    "prevention": "EA03 information-matched rendering",
+    "detection": "EA11 arm-pair information manifest check",
+    "containment": "EA10 block comparison",
+    "regression_test": "PR-D01 manifest test",
+    "qualification_requirement": "EA11 gate"
+   }
+  },
+  {
+   "mode_id": "FM-011",
+   "layer": "L06",
+   "failure_mode": "template regression alters bytes mid-experiment",
+   "failure_class": "VER",
+   "severity": 4,
+   "potential_affected_trials": "trials after change",
+   "detectability": "M (identity hash)",
+   "recoverability": "H",
+   "downstream_contamination": "mixed-configuration corpus",
+   "controls": {
+    "prevention": "EA08 request-renderer identity binding",
+    "detection": "EA08 identity check on resume",
+    "containment": "EA10 stop + fork identity",
+    "regression_test": "EA08 renderer hash test",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-012",
+   "layer": "L07",
+   "failure_mode": "wrong chat template / missing think tags / kwarg silently dropped",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "arm-wide",
+   "detectability": "M (PR-D/b0c7f44 class)",
+   "recoverability": "H",
+   "downstream_contamination": "invalid arm results",
+   "controls": {
+    "prevention": "EA08 chat-template binding",
+    "detection": "EA08 byte-identical render verification",
+    "containment": "EA10 quarantine arm",
+    "regression_test": "renderer parity test",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-013",
+   "layer": "L08",
+   "failure_mode": "HTTP 200 with error payload (coerced params, truncated schema reply)",
+   "failure_class": "CORRUPT",
+   "severity": 4,
+   "potential_affected_trials": "subset (RC-11/J-3 class)",
+   "detectability": "M",
+   "recoverability": "H (artifact preserved)",
+   "downstream_contamination": "false negatives (model blamed)",
+   "controls": {
+    "prevention": "EA08 endpoint contract validation",
+    "detection": "EA08 response-shape checks",
+    "containment": "EA10 transport-error class",
+    "regression_test": "RC-11-style red test",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-014",
+   "layer": "L08",
+   "failure_mode": "stale/wrong server on port (false ready)",
+   "failure_class": "STATE",
+   "severity": 3,
+   "potential_affected_trials": "whole run",
+   "detectability": "M (D-010 class)",
+   "recoverability": "M",
+   "downstream_contamination": "wrong-engine evidence",
+   "controls": {
+    "prevention": "EA08 socket-PID + engine identity proof",
+    "detection": "EA08 launch verification",
+    "containment": "EA10 stop run",
+    "regression_test": "D-010 regression",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-015",
+   "layer": "L09",
+   "failure_mode": "partial UTF-8 / SSE reasoning-channel blindness",
+   "failure_class": "CORRUPT",
+   "severity": 3,
+   "potential_affected_trials": "subset",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "corrupted content into parser",
+   "controls": {
+    "prevention": "EA08 strict decode validation",
+    "detection": "EA08 decode checks",
+    "containment": "EA10 artifact reject",
+    "regression_test": "decode fuzz test",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-016",
+   "layer": "L10",
+   "failure_mode": "raw response truncated at capture (4000-char class)",
+   "failure_class": "LOSS",
+   "severity": 4,
+   "potential_affected_trials": "long responses",
+   "detectability": "L (PR-D08 class)",
+   "recoverability": "L (bytes gone)",
+   "downstream_contamination": "unrecoverable verdict disputes",
+   "controls": {
+    "prevention": "EA08 complete sanitized raw capture",
+    "detection": "EA08 length/sha verification",
+    "containment": "EA10 reject evidence",
+    "regression_test": "PR-D08 regression",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-017",
+   "layer": "L11",
+   "failure_mode": "non-deterministic serialization / float round-trip loss",
+   "failure_class": "CORRUPT",
+   "severity": 2,
+   "potential_affected_trials": "scattered",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "replay divergence",
+   "controls": {
+    "prevention": "EA08 canonical serialization",
+    "detection": "EA08 replay byte agreement",
+    "containment": "EA10 mark replay-invalid",
+    "regression_test": "serialization round-trip test",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-018",
+   "layer": "L12",
+   "failure_mode": "positional unpacking of persisted dict (RS01)",
+   "failure_class": "ACC",
+   "severity": 5,
+   "potential_affected_trials": "all replayed rows",
+   "detectability": "L (looks like model failure)",
+   "recoverability": "H (artifacts intact)",
+   "downstream_contamination": "mass false negatives (588-class)",
+   "controls": {
+    "prevention": "EA08 key-based validated loader only",
+    "detection": "EA07 mutant control + EA09 canary",
+    "containment": "EA10 circuit break + quarantine",
+    "regression_test": "RS01 mutant gate",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-019",
+   "layer": "L12",
+   "failure_mode": "missing/corrupt artifact silently scored",
+   "failure_class": "CORRUPT",
+   "severity": 5,
+   "potential_affected_trials": "affected rows",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "fabricated verdicts",
+   "controls": {
+    "prevention": "EA08 mandatory sha+schema before scoring",
+    "detection": "EA08 loader rejects",
+    "containment": "EA10 EVIDENCE_INSUFFICIENT class",
+    "regression_test": "loader reject battery",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-020",
+   "layer": "L13",
+   "failure_mode": "substring/negation tolerance in matching (IJSDK-D02 class)",
+   "failure_class": "FP",
+   "severity": 5,
+   "potential_affected_trials": "family-wide",
+   "detectability": "L",
+   "recoverability": "M",
+   "downstream_contamination": "false positives published",
+   "controls": {
+    "prevention": "EA04 closed matching rules",
+    "detection": "EA05 independent assertions",
+    "containment": "EA10 revoke parser scope",
+    "regression_test": "EA04 battery + EA07 substring mutant",
+    "qualification_requirement": "EA04 gate"
+   }
+  },
+  {
+   "mode_id": "FM-021",
+   "layer": "L13",
+   "failure_mode": "candidate-order ambiguity resolution (PR-D04 class)",
+   "failure_class": "FP",
+   "severity": 4,
+   "potential_affected_trials": "ambiguous outputs",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "arbitrary verdicts",
+   "controls": {
+    "prevention": "EA04 reject-on-ambiguity",
+    "detection": "EA04 ambiguity controls",
+    "containment": "EA10 NOT_EVALUABLE",
+    "regression_test": "PR-D04 regression",
+    "qualification_requirement": "EA04 gate"
+   }
+  },
+  {
+   "mode_id": "FM-022",
+   "layer": "L13",
+   "failure_mode": "duplicate JSON keys accepted",
+   "failure_class": "FP",
+   "severity": 3,
+   "potential_affected_trials": "subset",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "silent field override",
+   "controls": {
+    "prevention": "EA04 strict duplicate-key rejection",
+    "detection": "EA04 dup-key controls",
+    "containment": "EA10 parse-invalid",
+    "regression_test": "EV02/IJ06 regression",
+    "qualification_requirement": "EA04 gate"
+   }
+  },
+  {
+   "mode_id": "FM-023",
+   "layer": "L13",
+   "failure_mode": "parser exception converted to model failure (IJE-D001 class)",
+   "failure_class": "FN",
+   "severity": 5,
+   "potential_affected_trials": "all crashing rows",
+   "detectability": "L (looks like PARSE_INVALID)",
+   "recoverability": "H",
+   "downstream_contamination": "mass false negatives",
+   "controls": {
+    "prevention": "EA02 typed status separation",
+    "detection": "EA09 NOT_EVALUABLE canary",
+    "containment": "EA10 hard stop on evaluator exception",
+    "regression_test": "EA00 R1 reproduction as permanent test",
+    "qualification_requirement": "EA02 gate"
+   }
+  },
+  {
+   "mode_id": "FM-024",
+   "layer": "L14",
+   "failure_mode": "normalization folds distinct identifiers (EV04 class)",
+   "failure_class": "FP",
+   "severity": 4,
+   "potential_affected_trials": "collision-prone ids",
+   "detectability": "L",
+   "recoverability": "M",
+   "downstream_contamination": "false positives",
+   "controls": {
+    "prevention": "EA04 kind-scoped matching + recorded normalizations",
+    "detection": "EA04 collision witnesses",
+    "containment": "EA10 rescore",
+    "regression_test": "EV04 regression",
+    "qualification_requirement": "EA04 gate"
+   }
+  },
+  {
+   "mode_id": "FM-025",
+   "layer": "L14",
+   "failure_mode": "unit inheritance / thousands-separator mismatch (EV05/TC-V1-d class)",
+   "failure_class": "FP",
+   "severity": 3,
+   "potential_affected_trials": "quantity tasks",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "both-direction errors",
+   "controls": {
+    "prevention": "EA04 explicit unit contract",
+    "detection": "EA04 equivalence rules",
+    "containment": "EA10 rescore",
+    "regression_test": "EA04 unit battery",
+    "qualification_requirement": "EA04 gate"
+   }
+  },
+  {
+   "mode_id": "FM-026",
+   "layer": "L15",
+   "failure_mode": "wrong field bound into typed response (name-only checks, ORC-V2-b class)",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "affected args",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "wrong verdicts",
+   "controls": {
+    "prevention": "EA02 strict typed construction",
+    "detection": "EA02 contract validator",
+    "containment": "EA10 reject record",
+    "regression_test": "typed-construction tests",
+    "qualification_requirement": "EA02 gate"
+   }
+  },
+  {
+   "mode_id": "FM-027",
+   "layer": "L16",
+   "failure_mode": "reference oracle shares defect with production (CMODE)",
+   "failure_class": "CMODE",
+   "severity": 5,
+   "potential_affected_trials": "whole scope",
+   "detectability": "L (they agree)",
+   "recoverability": "M",
+   "downstream_contamination": "false confidence in wrong verdicts",
+   "controls": {
+    "prevention": "EA05 independence analysis",
+    "detection": "EA06 golden witness library + EA07 mutants",
+    "containment": "EA10 revoke scope",
+    "regression_test": "EA05 independence detector",
+    "qualification_requirement": "EA05 gate"
+   }
+  },
+  {
+   "mode_id": "FM-028",
+   "layer": "L16",
+   "failure_mode": "oracle uses private graph/hidden state for public decisions (ORC-1 class)",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "affected tasks",
+   "detectability": "M",
+   "recoverability": "M",
+   "downstream_contamination": "unfair verdicts",
+   "controls": {
+    "prevention": "EA05 public-contract-only reference",
+    "detection": "EA05 differential",
+    "containment": "EA10 rescore",
+    "regression_test": "ORC regression class",
+    "qualification_requirement": "EA05 gate"
+   }
+  },
+  {
+   "mode_id": "FM-029",
+   "layer": "L17",
+   "failure_mode": "evaluator upgrade changes semantics without identity fork",
+   "failure_class": "VER",
+   "severity": 4,
+   "potential_affected_trials": "post-upgrade rows",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "mixed-era corpus",
+   "controls": {
+    "prevention": "EA08 evaluator version binding",
+    "detection": "EA08 replay agreement check",
+    "containment": "EA10 stop + requalify",
+    "regression_test": "version-fork test",
+    "qualification_requirement": "EA08/EA12 gates"
+   }
+  },
+  {
+   "mode_id": "FM-030",
+   "layer": "L17",
+   "failure_mode": "evaluator crashes swallowed by broad except (masking)",
+   "failure_class": "RECOVERY",
+   "severity": 5,
+   "potential_affected_trials": "all rows post-defect",
+   "detectability": "L",
+   "recoverability": "H (if preserved)",
+   "downstream_contamination": "contaminated statistics (IJE-D001)",
+   "controls": {
+    "prevention": "EA02 INV10 fail-closed",
+    "detection": "EA09 canary + EA10 anomaly detector",
+    "containment": "EA10 circuit break",
+    "regression_test": "exception-mask mutant",
+    "qualification_requirement": "EA02/EA10 gates"
+   }
+  },
+  {
+   "mode_id": "FM-031",
+   "layer": "L18",
+   "failure_mode": "final state never validated (IJSDK-D03 class)",
+   "failure_class": "STATE",
+   "severity": 5,
+   "potential_affected_trials": "business trials",
+   "detectability": "L",
+   "recoverability": "M",
+   "downstream_contamination": "unsafe actions score PASS (INV09)",
+   "controls": {
+    "prevention": "EA05 independent postcondition verification",
+    "detection": "EA05 state differential",
+    "containment": "EA10 hard stop",
+    "regression_test": "D03 reproduction battery",
+    "qualification_requirement": "EA05/EA16 gates"
+   }
+  },
+  {
+   "mode_id": "FM-032",
+   "layer": "L19",
+   "failure_mode": "final-stage answer hides wrong stage-1 selection (RS02/IJE-D002 class)",
+   "failure_class": "FP",
+   "severity": 4,
+   "potential_affected_trials": "two-stage trials",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "false positives",
+   "controls": {
+    "prevention": "EA04 causal reconstruction mandatory",
+    "detection": "EA05 stage-consistency checks",
+    "containment": "EA10 EVIDENCE_INCONSISTENT class",
+    "regression_test": "RS02/6b control",
+    "qualification_requirement": "EA04/EA05 gates"
+   }
+  },
+  {
+   "mode_id": "FM-033",
+   "layer": "L19",
+   "failure_mode": "stage-2 scored against EXPECTED not ACTUAL selection",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "two-stage trials",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "false positives",
+   "controls": {
+    "prevention": "EA04 actual-selection verification",
+    "detection": "RS02 replay checks",
+    "containment": "EA10 rescore",
+    "regression_test": "RS02 regression",
+    "qualification_requirement": "EA04 gate"
+   }
+  },
+  {
+   "mode_id": "FM-034",
+   "layer": "L20",
+   "failure_mode": "missing telemetry coerced to zero (RS07/PR-D08 class)",
+   "failure_class": "LOSS",
+   "severity": 3,
+   "potential_affected_trials": "resource metrics",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "understated costs, wrong rankings",
+   "controls": {
+    "prevention": "EA11 never-zero missingness",
+    "detection": "EA11 sample counts + missing counts",
+    "containment": "EA11 UNAVAILABLE reporting",
+    "regression_test": "RS07 regression",
+    "qualification_requirement": "EA11 gate"
+   }
+  },
+  {
+   "mode_id": "FM-035",
+   "layer": "L21",
+   "failure_mode": "trial id collision or cross-experiment merge (HA-4 class)",
+   "failure_class": "CORRUPT",
+   "severity": 4,
+   "potential_affected_trials": "merged rows",
+   "detectability": "M",
+   "recoverability": "M",
+   "downstream_contamination": "conflicting scores merged",
+   "controls": {
+    "prevention": "EA08 trial identity binding",
+    "detection": "EA08 identity validation",
+    "containment": "EA10 reject duplicates",
+    "regression_test": "HA-4 regression",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-036",
+   "layer": "L22",
+   "failure_mode": "resume from stale/contaminated checkpoint",
+   "failure_class": "RECOVERY",
+   "severity": 4,
+   "potential_affected_trials": "post-resume rows",
+   "detectability": "M",
+   "recoverability": "M",
+   "downstream_contamination": "mixed-identity corpus",
+   "controls": {
+    "prevention": "EA08 resume guard (identity+seal)",
+    "detection": "EA08 resume validation",
+    "containment": "EA10 stop + requalify",
+    "regression_test": "NA-D03/PR-D06 regression",
+    "qualification_requirement": "EA08 gate"
+   }
+  },
+  {
+   "mode_id": "FM-037",
+   "layer": "L22",
+   "failure_mode": "duplicate dispatch counted as independent trials (HA-5 class)",
+   "failure_class": "FP",
+   "severity": 3,
+   "potential_affected_trials": "denominators",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "inflated n",
+   "controls": {
+    "prevention": "EA11 unique-trial identity",
+    "detection": "EA11 denominator reconciliation",
+    "containment": "EA11 dedup",
+    "regression_test": "HA-5 regression",
+    "qualification_requirement": "EA11 gate"
+   }
+  },
+  {
+   "mode_id": "FM-038",
+   "layer": "L23",
+   "failure_mode": "unevaluable rows enter semantic rates (IJE-D001/R3 class)",
+   "failure_class": "FN",
+   "severity": 5,
+   "potential_affected_trials": "all rows",
+   "detectability": "L (verdict field looks normal)",
+   "recoverability": "H",
+   "downstream_contamination": "headline contamination",
+   "controls": {
+    "prevention": "EA02 eligible_for_semantic_statistics",
+    "detection": "EA11 analyzer consumes contract only",
+    "containment": "EA10 anomaly detector",
+    "regression_test": "EA00 R3 reproduction as permanent test",
+    "qualification_requirement": "EA02/EA11 gates"
+   }
+  },
+  {
+   "mode_id": "FM-039",
+   "layer": "L23",
+   "failure_mode": "unmatched task populations compared (RS04 class)",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "contrast level",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "spurious significance",
+   "controls": {
+    "prevention": "EA11 matched-comparison requirement",
+    "detection": "EA11 pairing checks",
+    "containment": "EA11 block report",
+    "regression_test": "RS04 regression",
+    "qualification_requirement": "EA11 gate"
+   }
+  },
+  {
+   "mode_id": "FM-040",
+   "layer": "L23",
+   "failure_mode": "canary trials counted as model evidence",
+   "failure_class": "ACC",
+   "severity": 3,
+   "potential_affected_trials": "denominators",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "rate distortion",
+   "controls": {
+    "prevention": "EA09 canary accounting exclusion",
+    "detection": "EA09 control ledger",
+    "containment": "EA09 exclude + report",
+    "regression_test": "EA09 accounting test",
+    "qualification_requirement": "EA09 gate"
+   }
+  },
+  {
+   "mode_id": "FM-041",
+   "layer": "L24",
+   "failure_mode": "report consumes unqualified rows or revoked scopes",
+   "failure_class": "ACC",
+   "severity": 5,
+   "potential_affected_trials": "whole report",
+   "detectability": "M",
+   "recoverability": "M",
+   "downstream_contamination": "invalid publication",
+   "controls": {
+    "prevention": "EA11 publication gate binding",
+    "detection": "EA11 certificate verification",
+    "containment": "EA11 PUBLICATION_BLOCKED",
+    "regression_test": "EA18 bypass challenge 3-5",
+    "qualification_requirement": "EA11/EA18 gates"
+   }
+  },
+  {
+   "mode_id": "FM-042",
+   "layer": "L24",
+   "failure_mode": "superseded numbers reused for decisions (N02R-matrix class)",
+   "failure_class": "VER",
+   "severity": 3,
+   "potential_affected_trials": "downstream decisions",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "stale claims propagate",
+   "controls": {
+    "prevention": "EA11 supersession notices + matrix identity",
+    "detection": "EA11 freshness check",
+    "containment": "EA11 block",
+    "regression_test": "supersession test",
+    "qualification_requirement": "EA11/EA12 gates"
+   }
+  },
+  {
+   "mode_id": "FM-043",
+   "layer": "L25",
+   "failure_mode": "qualification gate false-passes (IJSDK-D01 class)",
+   "failure_class": "ACC",
+   "severity": 5,
+   "potential_affected_trials": "whole mission scope",
+   "detectability": "L",
+   "recoverability": "M",
+   "downstream_contamination": "unqualified evaluator certified",
+   "controls": {
+    "prevention": "EA02 central validator; EA17 certificate binds evidence",
+    "detection": "EA17 certificate integrity checks",
+    "containment": "EA10 revoked-cert detection",
+    "regression_test": "D01-style weakened-oracle battery",
+    "qualification_requirement": "EA17/EA18 gates"
+   }
+  },
+  {
+   "mode_id": "FM-044",
+   "layer": "L25",
+   "failure_mode": "scope creep: one family's certificate covers another (INV08)",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "unqualified families",
+   "detectability": "M",
+   "recoverability": "M",
+   "downstream_contamination": "unearned trust",
+   "controls": {
+    "prevention": "EA17 scoped certificates",
+    "detection": "EA17 scope verification",
+    "containment": "EA10 revoke",
+    "regression_test": "EA18 scope-bypass test",
+    "qualification_requirement": "EA17 gate"
+   }
+  },
+  {
+   "mode_id": "FM-045",
+   "layer": "L26",
+   "failure_mode": "invalid evaluation yields reward 0 / negative (punishes model for evaluator bug)",
+   "failure_class": "REWARD",
+   "severity": 4,
+   "potential_affected_trials": "affected rollouts",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "biased policy training",
+   "controls": {
+    "prevention": "EA16 invalid-reward status contract",
+    "detection": "EA16 reward controls",
+    "containment": "EA16 trainer rejects rollout",
+    "regression_test": "EA16 synthetic tests",
+    "qualification_requirement": "EA16 gate"
+   }
+  },
+  {
+   "mode_id": "FM-046",
+   "layer": "L26",
+   "failure_mode": "reward hacking (read answers, forge tool results, skip approvals)",
+   "failure_class": "REWARD",
+   "severity": 5,
+   "potential_affected_trials": "trained policy",
+   "detectability": "M",
+   "recoverability": "M",
+   "downstream_contamination": "capability illusion (INV09)",
+   "controls": {
+    "prevention": "EA16 reward-hacking test suite",
+    "detection": "EA16 anti-hack detectors",
+    "containment": "EA16 zero reward + quarantine",
+    "regression_test": "EA16 hacking battery",
+    "qualification_requirement": "EA16 gate"
+   }
+  },
+  {
+   "mode_id": "FM-047",
+   "layer": "L27",
+   "failure_mode": "credentials/personal paths/weights committed",
+   "failure_class": "MAL",
+   "severity": 4,
+   "potential_affected_trials": "repo",
+   "detectability": "H (publish_check)",
+   "recoverability": "M",
+   "downstream_contamination": "security/privacy incident",
+   "controls": {
+    "prevention": "AGENTS.md + publish gate on every commit",
+    "detection": "publish_check.py findings count",
+    "containment": "block commit",
+    "regression_test": "publish_check synthetic control",
+    "qualification_requirement": "standing repo rule"
+   }
+  },
+  {
+   "mode_id": "FM-048",
+   "layer": "L27",
+   "failure_mode": "final evidence diverges from claimed numbers",
+   "failure_class": "ACC",
+   "severity": 4,
+   "potential_affected_trials": "report",
+   "detectability": "M",
+   "recoverability": "H",
+   "downstream_contamination": "unreproducible claims",
+   "controls": {
+    "prevention": "EA11 evidence-bound claims",
+    "detection": "EA18 acceptance re-derivation",
+    "containment": "EA11 block",
+    "regression_test": "EA18 clean-checkout campaign",
+    "qualification_requirement": "EA18/EA19 gates"
+   }
+  }
+ ]
+}
