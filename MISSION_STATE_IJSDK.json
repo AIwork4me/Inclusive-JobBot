@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-SDK-1.0",
+  "mission_title": "Cross-SDK Agentic Capability Benchmark for 2B-class SLMs",
+  "updated_utc": "2026-11-27T11:55:00Z",
+  "current_phase": "P1",
+  "tracking_issue": null,
+  "draft_pr": null,
+  "research_branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
+  "frozen_source_commit": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+  "parent_dependency": {
+    "pr": 6,
+    "branch": "mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1"
+  },
+  "target_platform": {
+    "gpu": "AMD Radeon RX 7900 XTX 24GB",
+    "gpu_architecture": "gfx1100",
+    "os": "Windows 11 Pro build 26300",
+    "primary_engine": "llama.cpp llama-server official build b12359 (v1.0.0)"
+  },
+  "phases": {
+    "P0": {
+      "progress": "done",
+      "status": "PASS",
+      "gate": "P0_REPOSITORY_BASELINE_FROZEN",
+      "evidence": [
+        "reports/IJSDK_00_BASELINE_AUDIT.md",
+        "evidence/IJSDK/P0/baseline_manifest.json",
+        "evidence/IJSDK/P0/reusable_assets.json",
+        "evidence/IJSDK/P0/known_limitations.json"
+      ]
+    },
+    "P1": {"progress": "in_progress", "status": "NOT_RUN", "gate": "P1_GFX1100_PHYSICAL_RUNTIME_GO", "evidence": []},
+    "P2": {"progress": "not_started", "status": "NOT_RUN", "gate": "P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN", "evidence": []},
+    "P3": {"progress": "not_started", "status": "NOT_RUN", "gate": "P3_SDK_ADMISSION_AUDITED", "evidence": []},
+    "P4": {"progress": "not_started", "status": "NOT_RUN", "gate": "P4_CROSS_SDK_HARNESS_GO", "evidence": []},
+    "P5": {"progress": "not_started", "status": "NOT_RUN", "gate": "P5_EVALUATOR_SCOPE_QUALIFIED", "evidence": []},
+    "P6": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P7": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P8": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P9": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P10": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P11": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P12": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P13": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P14": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P15": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P16": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P17": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P18": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
+    "P19": {"progress": "not_started", "status": "NOT_RUN", "evidence": []}
+  },
+  "final_verdicts": {
+    "IJ_SDK_1_0_RESEARCH_COMPLETE": "NOT_RUN",
+    "JOBBOT_ARCHITECTURE_SELECTION_GO": "NOT_RUN",
+    "JOBBOT_SYNTHETIC_QUALIFICATION_GO": "NOT_RUN"
+  },
+  "notes": [
+    "This ledger is IJ-SDK-1.0-specific. MISSION_STATE.json / TASK_LEDGER.md / BLOCKERS.md remain owned by the active Atlas worker (PR #6); IJ-SDK-1.0 only appends non-conflicting entries there.",
+    "All prior GPU evidence is from gfx1151 and does not transfer to this gfx1100 machine (see evidence/IJSDK/P0/known_limitations.json L-01)."
+  ]
+}

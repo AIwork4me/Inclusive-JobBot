@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-SDK-1.0",
+  "generated_utc": "2026-11-27T11:55:00Z",
+  "source_commit": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+  "rule": "Reusable does not mean qualified. Prior qualification status is recorded per asset; the IJ-SDK-1.0 independent evaluator qualification (P5) re-derives what it claims.",
+  "assets": [
+    {
+      "id": "suite-tc-v2",
+      "path": "benchmarks/tool_calling_v2/",
+      "what": "TC-V2/1.0 tool-calling suite: 500-case frozen holdout, 120-case dev, oracle, evaluator, parser, persisted evidence, rescore tooling",
+      "reuse_for": "M0/M1/M2 tool-calling and structured-output cells; regression base",
+      "prior_status": "Frozen dataset verified. MiniCPM5 TC-V2 first-pass below 90% (B-012); dev-split experiments exist. Holdout results are legacy exposure, not fresh holdout.",
+      "caution": "Previously exposed to models; counts as legacy roster, not unseen holdout (mission 9.2)."
+    },
+    {
+      "id": "suite-multitool-v1",
+      "path": "benchmarks/multitool_v1/",
+      "what": "MULTITOOL-V1: 600 frozen holdout worlds + 6 diagnostics, oracles, prompts, tools, repeat panel",
+      "reuse_for": "Multi-tool execution cells C10-C12",
+      "prior_status": "Frozen; PC-S control panels measured 120-case subsets (Qwen3-8B 28/120, Qwen3-14B 45/120)."
+    },
+    {
+      "id": "suite-agentic-plan-v1",
+      "path": "benchmarks/agentic_planning_v1/ + benchmarks/agentic_planning_v2/",
+      "what": "AGENTIC-PLAN-V1: 800 frozen worlds, dual-track protocol (plan-first/acting-first), private task graphs, 160-case repeat panel; v2 adds execution/trace/safety/reachability contracts",
+      "reuse_for": "Planning cells (E2), C13-C17, dual-track 1,600-trajectory roster",
+      "prior_status": "Frozen; manifest live_model_status NOT_RUN; PC-S planning controls measured on 320-case subsets (Qwen3-8B 4/320, Qwen3-14B 35/320)."
+    },
+    {
+      "id": "suite-job-v1",
+      "path": "benchmarks/job_productivity_v1/",
+      "what": "JOB-V1: 600 frozen tasks/worlds/oracles independent synthetic holdout, model arms, statistics",
+      "reuse_for": "M2 purpose-built job cells; J01-J06 workload design base",
+      "prior_status": "Frozen."
+    },
+    {
+      "id": "suite-competitive-slm",
+      "path": "benchmarks/competitive_slm/",
+      "what": "Competitive SLM admission/freeze/statistics tooling, TC-V2 archive and batch records",
+      "reuse_for": "P2 model admission protocol and S3 candidate admission",
+      "prior_status": "Used in IJ-0.7 competitive benchmark."
+    },
+    {
+      "id": "model-gateway",
+      "path": "src/model_gateway/",
+      "what": "Local llama.cpp backend adapter, OpenAI protocol, streaming, strict JSON, tool validation, authorization, execution policy, metrics",
+      "reuse_for": "P4 unified adapter contract B0 arm and gateway layers",
+      "prior_status": "Ran in IJ-0.6/0.7 loops; B-011 notes some historical schemas lack stateful-write inputs for the SQLite gateway."
+    },
+    {
+      "id": "business-tools",
+      "path": "src/business_tools/ + src/skill_engine/ + src/sop_engine/ + src/audit/",
+      "what": "Deterministic business tool handlers and store, skill engine, SOP engine, audit",
+      "reuse_for": "P4 shared tool gateway, M2 domain intelligence, D0 deterministic arm",
+      "prior_status": "Used by purpose-built arms in IJ-0.7; B-011 records schema gaps to re-exercise with explicit inputs."
+    },
+    {
+      "id": "aeve-evaluator",
+      "path": "evaluation/aeve/",
+      "what": "AEVE evidence-based evaluator: dimension rubrics (D01...), gold proof, adjudication, history controls, evaluation_skill, evaluator_manifest",
+      "reuse_for": "P5 evaluator qualification base",
+      "prior_status": "NOT INHERITED AS PASS. Atlas verdicts ATLAS_BENCHMARK_VALIDITY_VERDICT=BLOCKED; gates G01-G05, G14 BLOCKED; the other worker is actively qualifying Judge families (Q1 truncation frozen 2026-11-27). IJ-SDK P5 must independently qualify any scope before use."
+    },
+    {
+      "id": "atlas-validity-witnesses",
+      "path": "benchmarks/atlas_validity/",
+      "what": "Witness tests: job, multitool, planning advanced/intent, public plan, quote, tc-holdout",
+      "reuse_for": "Oracle control battery (positive/alternative/negative) in P5",
+      "prior_status": "Built for Atlas validity; G01-G02 BLOCKED pending scheduled positive controls."
+    },
+    {
+      "id": "root-cause-tooling",
+      "path": "benchmarks/root_cause/",
+      "what": "failure_ledger, generation_capture, gpu_lease, historical_replay, performance, probes",
+      "reuse_for": "P13 failure ledger, GPU lease discipline, replay",
+      "prior_status": "Operational in IJ-0.6/0.7 root-cause missions."
+    },
+    {
+      "id": "ij06-sdk-wire-boundary",
+      "path": "benchmarks/ij06_sdk/",
+      "what": "SDK qualification harness and wire-boundary capture (qualify.py, wire_boundary.py)",
+      "reuse_for": "P3/P4 SDK wire-level capture design",
+      "prior_status": "Used for Antigravity qualification (G7 smoke PASS)."
+    },
+    {
+      "id": "engine-launch-scripts",
+      "path": "scripts/windows/",
+      "what": "start/stop/check llama-server scripts, ROCm runtime install, engine qualification workload",
+      "reuse_for": "P1 backend qualification on gfx1100",
+      "prior_status": "PASS on gfx1151 machine; scripts force 0 GPU layers for CPU-only builds (D-010). Re-verification on gfx1100 required."
+    },
+    {
+      "id": "engine-configs",
+      "path": "configs/llama_cpp/",
+      "what": "Pinned engine.json (b12359 identity) and launch.json (backends cpu/vulkan/rocm, models f16/q8/q4)",
+      "reuse_for": "P1 engine profiles",
+      "prior_status": "Pinned identity verified by IJ-0.3."
+    },
+    {
+      "id": "pc-s-reference-baselines",
+      "path": "evidence/IJ072/benchmark_validity/",
+      "what": "Qwen3-8B and Qwen3-14B partial positive-control measurements on TC-V2 dev, MULTITOOL-V1 and Planning subsets",
+      "reuse_for": "Stage D reference-model comparison anchors (R1=Qwen3-8B, R2=Qwen3-14B already represented in project)",
+      "prior_status": "Recorded in atlas/progress.json; subsets only (100/120/320 per suite), not full rosters."
+    },
+    {
+      "id": "adr-library",
+      "path": "docs/decisions/",
+      "what": "ADR-001 (llama.cpp primary inference), ADR-002 (versioned tool-calling acceptance thresholds)",
+      "reuse_for": "Protocol freeze citations",
+      "prior_status": "Accepted project decisions; ADR-002 thresholds apply to fresh freezes with reviewed rubric."
+    },
+    {
+      "id": "portability-and-schemas",
+      "path": "portability/ + schemas/",
+      "what": "Portability contracts and JSON schemas",
+      "reuse_for": "P18 runtime portability contract, event schema",
+      "prior_status": "Present on Atlas branch."
+    }
+  ],
+  "not_reusable": [
+    {
+      "item": "Prior GPU qualification evidence (IJ-0.5, IJ-0.7 GPU performance)",
+      "reason": "Measured on gfx1151 (AMD Radeon 8060S) workstation, not this gfx1100 RX 7900 XTX machine. P1 must re-qualify from zero on this hardware."
+    },
+    {
+      "item": "Atlas/AEVE qualification verdicts",
+      "reason": "All BLOCKED or NOT_RUN at source commit; other worker mid-qualification. Cannot be inherited as PASS (mission 8)."
+    },
+    {
+      "item": "Witness reference tests as cross-SDK evidence",
+      "reason": "AGENTS.md/mission rule: historical witness tests and GPU results do not automatically qualify cross-SDK evaluation evidence."
+    }
+  ]
+}

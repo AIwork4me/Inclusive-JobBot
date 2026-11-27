@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-SDK-1.0",
+  "mission_id": "IJ-SDK-1.0",
+  "generated_utc": "2026-11-27T11:55:00Z",
+  "purpose": "Frozen repository and research baseline for the cross-SDK agentic capability benchmark. Every value below was read from the live remote or the checked-out worktree on 2026-11-27.",
+  "repository": {
+    "url": "https://github.com/AIwork4me/Inclusive-JobBot",
+    "account": "AIwork4me",
+    "is_public": true,
+    "size_kb": 166073,
+    "last_remote_push_utc": "2026-11-27T03:20:48Z",
+    "default_branch": "codex/ij0-tool-calling",
+    "default_branch_head": "0592c319ab34",
+    "note": "HANDOFF.md (2026-11-24) states the remote does not exist; that statement is stale. The repository is published and carries open PRs #2, #4, #6 and issues #1, #3, #5."
+  },
+  "prior_mission_activity": {
+    "pr6": {
+      "number": 6,
+      "state": "OPEN",
+      "draft": true,
+      "title": "IJ-0.7.1 Atlas | baseline audit and benchmark validity controls",
+      "branch": "mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1",
+      "head_at_audit": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+      "commit_count_at_audit": 58,
+      "last_commit_message": "Freeze the Q1 truncation experiment and pin additional Judge families",
+      "historical_anchor_in_mission_order": "0e606b2fffc83f374190a56e13a7b98e58c1510e",
+      "historical_anchor_status": "SUPERSEDED_BUT_PRESERVED",
+      "historical_anchor_note": "0e606b2 is the direct parent of the current tip fe56f324. It remains reachable in git history; the branch advanced one commit past it on 2026-11-27.",
+      "active_worker": true,
+      "active_worker_evidence": "Commits pushed 2026-11-27 01:53Z-03:20Z; MISSION_STATE.json updated_utc 2026-11-26T17:02:32Z; atlas/progress.json shows in-flight PC-S judgments."
+    },
+    "other_open_prs": [
+      {"number": 2, "branch": "mission/ij-0.6-root-cause-and-purpose-built-execution", "state": "OPEN", "draft": true},
+      {"number": 4, "branch": "mission/ij-0.7-agentic-capability-qualification", "state": "OPEN", "draft": true}
+    ],
+    "open_issues": [
+      {"number": 1, "title": "IJ-0.6 native tool calling and purpose-built execution qualification"},
+      {"number": 3, "title": "IJ-0.7 小模型 Agentic 能力评估与源码因果闭环"},
+      {"number": 5, "title": "IJ-0.7.1 | JobBot Agentic Capability Atlas V1.0"}
+    ]
+  },
+  "ij_sdk_isolation": {
+    "strategy": "stacked_branch",
+    "rationale": "The required research assets (TC-V2, MULTITOOL-V1, AGENTIC-PLAN-V1, JOB-V1, AEVE, model gateway, business tools, root-cause tooling) exist only on the unmerged Atlas branch PR #6. The default branch carries only engine_qualification and tool_calling (TC-V1). A stacked branch with a documented parent dependency is used; no unrelated changes are imported and PR #6 itself is never modified.",
+    "research_branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
+    "frozen_source_commit": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+    "worktree": "<local-worktree-path-withheld> (repository checked out alongside the main clone on the workstation)",
+    "parent_dependency": {
+      "pr": 6,
+      "branch": "mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1",
+      "head_at_freeze": "fe56f324daf4ae106908e0d0a0f16967afc9c463"
+    },
+    "upstream_tracking": "unset (pushes go only to the IJ-SDK-1.0 branch)",
+    "isolation_rules": [
+      "Never modify PR #6, its branch, or its evidence.",
+      "Never force-push; never rewrite history; never merge PRs without owner authorization.",
+      "MISSION_STATE.json, TASK_LEDGER.md, BLOCKERS.md, HANDOFF.md, DECISIONS.md are actively maintained by the Atlas worker; IJ-SDK-1.0 keeps its own ledger files and only appends non-conflicting entries to shared ledgers when required.",
+      "Upstream issues/PRs to third-party projects require explicit owner authorization (AGENTS.md)."
+    ]
+  },
+  "engine_identity_inherited": {
+    "primary_engine": "llama.cpp llama-server, official build b12359 (stable release v1.0.0)",
+    "llama_cpp_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+    "minicpm5_parser_merge_commit": "c818263f2a5ddab028dea5f169ea2b2266421125",
+    "minicpm5_parser_pr": 24889,
+    "rocmlib_note": "Official ROCm build ships without hipBLAS; ROCm 10.0.0 runtime wheels supply the math libraries per decision D-009.",
+    "gpu_backend_prior_qualification": "gfx1151 (AMD Radeon 8060S) on the PREVIOUS workstation - not this machine. No prior GPU evidence transfers to gfx1100."
+  },
+  "model_identity_inherited": {
+    "s1_minicpm5_2b": {
+      "gguf_repo": "OpenBMB/MiniCPM5-2B-GGUF",
+      "gguf_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+      "license": "apache-2.0",
+      "quantizations_frozen": ["F16", "Q8_0", "Q4_K_M"],
+      "gguf_sha256": {
+        "F16": "0ffba3682a853295566b98bc38c0ab755d6b2d91b994bc031ed727a08cfcdf25",
+        "Q8_0": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+        "Q4_K_M": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd"
+      },
+      "bf16_repo": "OpenBMB/MiniCPM5-2B",
+      "bf16_revision": "4e7a94716d4526da493d68962f475390e852954b",
+      "gguf_embedded_chat_template": {
+        "chars": 9060,
+        "sha256": "cc945752db555d60949b16989df4ccfeb52a313d6b4b5c5229dd786e2e9fcf1c"
+      },
+      "repo_chat_template_jinja_sha256": "bc1f78ef8a86b6bdf64a056cf89dd0ac"
+    },
+    "reference_models_already_in_project": {
+      "qwen3_8b": "configs/qwen3_8b_reference.json exists; PC-S positive-control baselines measured on TC-V2 dev (56/100), MULTITOOL-V1 (28/120), Planning (4/320)",
+      "qwen3_14b": "PC-S baselines measured on TC-V2 dev (66/100), MULTITOOL-V1 (45/120), Planning (35/320)"
+    }
+  },
+  "suite_roster_verified": {
+    "verification_method": "Line counts and SHA-256 computed from checked-out frozen files on 2026-11-27; manifest fields cross-read.",
+    "tc_v2": {
+      "suite": "TC-V2/1.0",
+      "holdout_path": "benchmarks/tool_calling_v2/holdout/tc_v2_500.jsonl",
+      "holdout_cases": 500,
+      "holdout_sha256_prefix": "34fae92ce5fe0ea14d69",
+      "dev_path": "benchmarks/tool_calling_v2/holdout/tc_v2_dev.jsonl",
+      "dev_cases": 120,
+      "dev_sha256_prefix": "3cb578ba7cfc4c1e65fe",
+      "manifest_fields": {"first_pass_seed": 47, "streaming_pair": "every holdout case, full independent trajectory"}
+    },
+    "tc_v1_legacy": {
+      "test_path": "benchmarks/tool_calling/datasets/tool_calling_500.jsonl",
+      "test_cases": 500,
+      "test_sha256_prefix": "ce6bf6bf433baab69e51",
+      "test_sha256_matches_handoff_identity": true,
+      "dev_cases": 120,
+      "dev_sha256_prefix": "e5e2308ff8b4fe5a13df"
+    },
+    "multitool_v1": {
+      "suite": "MULTITOOL-V1",
+      "frozen_dir": "benchmarks/multitool_v1/frozen/",
+      "holdout_cases": 600,
+      "diagnostic_cases": 6,
+      "prompts_lines": 606,
+      "prompts_sha256_prefix": "997dbc8d2ec4e86d",
+      "worlds_lines": 606,
+      "worlds_sha256_prefix": "e8698865d0881a4f",
+      "freeze_sha256": "f6e4f5000bd8c8949125f44b1900152797a40844f82347b0e2daaa360420bb0a"
+    },
+    "agentic_plan_v1": {
+      "suite": "AGENTIC-PLAN-V1",
+      "public_holdout_path": "benchmarks/agentic_planning_v1/datasets/holdout.jsonl",
+      "public_cases": 800,
+      "public_sha256_prefix": "cb5f383b97f9600d",
+      "private_graphs_path": "benchmarks/agentic_planning_v1/task_graphs/holdout.jsonl",
+      "private_cases": 800,
+      "private_sha256_prefix": "a5bf376de757ea5de1af",
+      "tracks": "plan-first and acting-first share the 800 frozen worlds (protocol.json) -> 1,600 measured trajectories",
+      "levels": "L0-L7, 100 cases per level, 400 English + 400 Chinese",
+      "repeat_panel": "160 case IDs, 20 per level, three fixed seeds",
+      "manifest_status": "live_model_status NOT_RUN in manifest; measured results exist for MiniCPM5 (IJ-0.7 reports) and PC-S controls"
+    },
+    "job_v1": {
+      "suite": "JOB-V1",
+      "frozen_dir": "benchmarks/job_productivity_v1/holdout/frozen/",
+      "tasks_cases": 600,
+      "worlds_cases": 600,
+      "oracles_cases": 600,
+      "tasks_sha256_prefix": "c197ccfb6087ab14bc75",
+      "worlds_sha256_prefix": "34cfb0b5443f322f423c",
+      "oracles_sha256_prefix": "69a6e6f8e1fa2ddd3345",
+      "freeze_sha256": "7a04ed91976c8145704dec69b0ae9b76410c635866e6407b841c198dea9aacf8",
+      "split": "independent_synthetic_holdout"
+    },
+    "totals": {
+      "execution_cases_expected_by_mission": 3300,
+      "execution_cases_verified": "500 (TC-V2) + 600 (MULTITOOL-V1) + 1600 (AGENTIC-PLAN-V1 dual-track over 800 worlds) + 600 (JOB-V1) = 3300",
+      "match": true
+    }
+  }
+}
