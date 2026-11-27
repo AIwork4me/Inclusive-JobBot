@@ -6,7 +6,8 @@
 | Branch + tracking issue #12 + Draft PR #13 | DONE | GitHub | base `codex/ij0-tool-calling`, from audited `bc4555e` |
 | EA00 repository/state audit | DONE | this ledger + `MISSION_STATE_IJEVAL.json` | PR heads verified vs remote at start |
 | EA00 §2.2 N02RR residual-risk reproduction | DONE (f081655) | `evidence/IJEVAL/EA00/n02rr_residual_risk_reproduction.json` | R1/R2/R3 reproduced; sealed corpus zero-risk rows; structural only |
-| EA00 §2.1 historical defect inventory (EV/NA-D/PR-D/RS + cross-mission) | IN_PROGRESS | `evidence/IJEVAL/EA00/historical_defect_inventory.json` (pending) | IJ-NANO families swept; Atlas/IJ-SLM/IJ-SDK sweep running |
-| EA00 audit report | PENDING | `reports/IJEVAL_00_HISTORICAL_EVALUATION_AUDIT.md` | after cross-mission sweep returns |
-| EA01 threat model + FMEA matrix | PENDING | `reports/IJEVAL_01_EVALUATION_THREAT_MODEL.md`, `evidence/IJEVAL/EA01/failure_mode_matrix.json` | |
-| EA02 typed evaluation contract | PENDING | `src/eval_assurance/contracts/` + tests | must carry the EA02.4 eligibility function that closes the §2.2 finding |
+| EA00 §2.1 historical defect inventory (EV/NA-D/PR-D/RS + cross-mission) | DONE (6d7b24e) | `evidence/IJEVAL/EA00/historical_defect_inventory.json` (67 records) | incl. 38 cross-mission; IJSDK-D01/D02/D03 unrepaired |
+| EA00 audit report | DONE (6d7b24e) | `reports/IJEVAL_00_HISTORICAL_EVALUATION_AUDIT.md` | gate claimed, IJ-SLM scope limitation noted |
+| EA01 threat model + FMEA matrix | DONE (84c5ac2) | `reports/IJEVAL_01_EVALUATION_THREAT_MODEL.md`, `evidence/IJEVAL/EA01/failure_mode_matrix.json` | 48 modes / 38 critical / 27 layers |
+| EA02 typed evaluation contract | DONE (e2467f4) | `src/eval_assurance/contracts/` + adapters + `docs/IJEVAL_RESULT_CONTRACT.md` | 27/27 tests; ij_nano suite 213/213 OK; IJE-D001/D002 closed at interface |
+| EA03 dataset qualification engine | PENDING | — | Wave B start; N02R suite + N03 C01–C32 targets |

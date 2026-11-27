@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-EVAL-ASSURANCE-1.0",
   "mission_title": "Systemic Evaluation Integrity & Continuous Self-verification (Evaluation Assurance Engine, EAE)",
-  "updated_utc": "2026-11-28T07:30:00Z",
-  "current_phase": "EA00",
+  "updated_utc": "2026-11-28T08:45:00Z",
+  "current_phase": "EA03 (Wave B start)",
   "mission_order": "docs/IJEVAL_MISSION_ORDER.md",
   "tracking_issue": 12,
   "draft_pr": 13,
@@ -20,7 +20,13 @@
   "phases": {
     "EA00": {
       "title": "Repository audit and historical evaluation defect inventory",
-      "status": "IN_PROGRESS",
+      "status": "DONE (commit 6d7b24e)",
+      "deliverables": [
+        "reports/IJEVAL_00_HISTORICAL_EVALUATION_AUDIT.md",
+        "evidence/IJEVAL/EA00/historical_defect_inventory.json (67 records)",
+        "evidence/IJEVAL/EA00/cross_mission_sweep.json (38 records)",
+        "evidence/IJEVAL/EA00/n02rr_residual_risk_reproduction.json"
+      ],
       "section_2_2_n02rr_residual_audit": {
         "status": "DONE",
         "commit": "f081655",
@@ -36,6 +42,35 @@
         "correction_disposition": "to be closed by EA02 eligible_for_semantic_statistics + EA05/EAE verdict model; no retroactive edit to sealed N02RR evidence (INV07)"
       },
       "gate": "EA00_EVALUATION_BASELINE_AUDITED",
+      "gate_status": "GRANTED (scope limitation: IJ-SLM audited via shared commit history only)"
+    },
+    "EA01": {
+      "title": "Evaluation threat model and failure model",
+      "status": "DONE (commit 84c5ac2)",
+      "deliverables": [
+        "reports/IJEVAL_01_EVALUATION_THREAT_MODEL.md",
+        "evidence/IJEVAL/EA01/failure_mode_matrix.json (48 modes, 38 critical, 27/27 layers)"
+      ],
+      "gate": "EA01_EVALUATION_FAILURE_MODEL_COMPLETE",
+      "gate_status": "GRANTED"
+    },
+    "EA02": {
+      "title": "Unified strongly typed evaluation contract",
+      "status": "DONE (commit e2467f4)",
+      "deliverables": [
+        "src/eval_assurance/contracts/ (core, validator, eligibility, legacy)",
+        "src/eval_assurance/adapters/n02rr.py (IJE-D001/D002 interface closure)",
+        "tests/ij_eval_assurance/ (27/27 green)",
+        "docs/IJEVAL_RESULT_CONTRACT.md (spec v1.0.0)",
+        "existing ij_nano regression suite 213/213 OK in this worktree"
+      ],
+      "gate": "EA02_TYPED_EVALUATION_CONTRACT_GO",
+      "gate_status": "GRANTED"
+    },
+    "EA03": {
+      "title": "Dataset and ground truth qualification",
+      "status": "NOT_STARTED",
+      "gate": "EA03_DATASET_QUALIFICATION_GO",
       "gate_status": "NOT_GRANTED"
     }
   },
