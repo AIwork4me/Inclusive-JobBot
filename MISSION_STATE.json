@@ -11,6 +11,44 @@
   "additional_judge_families": {"pins": "evaluation/aeve/additional_candidate_pins.json", "O20": {"asset_identity": "PASS", "runtime": "NOT_RUN"}, "P14": {"asset_identity": "PASS", "runtime": "NOT_RUN"}, "L70": {"asset_identity": "NOT_RUN", "runtime": "NOT_RUN"}, "evidence": "evidence/IJ073/aeve/additional_family_assets.json"},
   "gold_proof_replay": {"status": "PASS", "scope": "Q1 discrepancy development replay", "cases": 101, "gold_defects": 45, "sufficient_alternatives": 81, "mutation_controls": 323, "formal_proof_routing": "NOT_RUN", "evidence": "evidence/IJ073/aeve/gold_proof.json"},
   "historical_route_matrix": {"status": "BLOCKED", "scopes": 600, "qualified": 0, "evidence": "evidence/IJ073/aeve/historical_route_matrix.json"},
+  "ij_slm_continuation": {
+    "p0_b": {
+      "causal_slots": {
+        "observed_A0_A5": 513,
+        "observed_controls": 144,
+        "BLOCKED": 10,
+        "NOT_RUN": 17
+      },
+      "paired_analyzer_software": "PASS",
+      "lfm3_holdout_physical": "NOT_RUN",
+      "paired_runner": "benchmarks/slm10/sdk_adapter_holdout_report.py"
+    },
+    "p0_c": {
+      "corrected_candidate": "atlas/slm/v1.0/multitool-v2-candidate-0.3/manifest.json",
+      "balance_and_software_witnesses": "PASS",
+      "content_review": "reports/SLM10_MULTITOOL_V2_CONTENT_REVIEW.md",
+      "formal_freeze": "NOT_RUN",
+      "formal_dispatch": "BLOCKED"
+    },
+    "p0_d": {
+      "sqlite_sandbox": "benchmarks/slm10/multitool_stateful.py",
+      "software_witnesses": "PASS",
+      "formal_stateful_dispatch": "BLOCKED"
+    },
+    "p0_f": {
+      "source_candidate": "atlas/slm/v1.0/planning-v2-source-candidate/manifest.json",
+      "software_replay": "PASS",
+      "independent_release_review": "NOT_RUN",
+      "formal_freeze": "NOT_RUN"
+    },
+    "p0_g": {
+      "matched_executor": "benchmarks/slm10/planning_matched_executor.py",
+      "offline_assessment": "benchmarks/slm10/planning_matched_assessment.py",
+      "software_transport": "PASS",
+      "physical_execution": "NOT_RUN",
+      "formal_dispatch": "BLOCKED"
+    }
+  },
   "gpu_handoff": {"status": "PASS", "q2_only_default": true, "managed_gpu_launcher": "benchmarks/root_cause/gpu_launch.py", "queue_deduplication_controls": "PASS", "deferred_recovery": "HANDOFF.md", "successor": "IJ-SLM-1.0", "evidence": "evidence/IJ073/aeve/gpu_handoff.json", "portable_manifest": "atlas/ij073/artifact_manifest.json"},
   "recovery_command": "python -m evaluation.aeve resume",
   "aeve_panel_planner": {"source": "evaluation/aeve/history_routing.py", "software_controls": "PASS", "qualified_route_coverage": "BLOCKED"},

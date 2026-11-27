@@ -2,6 +2,16 @@
 
 ## IJ-SLM-1.0 baseline
 
+| Task | Status | Evidence and scope |
+|---|---|---|
+| P0-B causal slot reconciliation | PASS | Sealed replay confirms 513 A0–A5 observations, 144 control observations, 10 BLOCKED and 17 NOT_RUN. The paired adapter analyzer retains the original dispositions. |
+| P0-B LFM3 compact-result holdout | NOT_RUN | Twelve preregistered pairs require the Radeon slot. The replay analyzer has simulated transport coverage and reports zero physical attribution before a capture. |
+| P0-C MULTITOOL balance and controls | PASS | Candidates 0.2 and 0.3 each replay 600 cases. Each has 120 per action band, 75 per category and 200 per language. The original candidate remains replayable. |
+| P0-C independent content qualification | BLOCKED | Candidate 0.2 failed content review. Candidate 0.3 addresses the tested branch, order and scope defects. Independent business expectations and release review are open. [Review](reports/SLM10_MULTITOOL_V2_CONTENT_REVIEW.md) |
+| P0-D persisted synthetic sandbox | PASS | SQLite software witnesses cover trusted draft-version authorization, denial, idempotent commits, rollback, audit, scope changes and session isolation. Stateful and higher-risk physical scope release remains BLOCKED. |
+| P0-F Planning source candidate software | PASS | 800 public cases and 2,000 synthetic worlds replay. The release review includes additional scenarios exposed by the task wording. Formal Freeze remains NOT_RUN. [Review](reports/SLM10_PLANNING_V2_SOURCE_REVIEW.md) |
+| P0-G Planning matched executor interface | PASS | Four local Direct and SDK paths, model-authored plans and callbacks exercised with scripted providers. Assessment runs after execution. Real Radeon transport, persisted sandbox binding and D12/D23/D24/D25 qualification are pending. |
+
 The complete diagnostic case panel covered 90 model–task combinations. It yielded 513 physical A0–A5 observations, 144 physical SDK and Guard controls, 10 BLOCKED slots and 17 NOT_RUN slots. All 27 scheduled waves have verified atomic seals. The separate LFM3 holdout has a pinned 24-trajectory SDK entry point with physical execution NOT_RUN. MULTITOOL-V2 has 600 original candidate cases and 12 passed software controls. The independent Planning V2 verifier preserves 20,800 planned slots and awaits its source bundle. The NPU deployment requirements define separate hardware and runtime admission. [Causal coverage](evidence/IJSLM/sdk-causal/ablation-coverage.json) · [LFM3 holdout](atlas/slm/v1.0/sdk-adapter-lfm3-holdout.json) · [Planning roster](docs/SLM10_PLANNING_ROSTER.md) · [NPU requirements](reports/SLM10_NPU_DEPLOYMENT_REQUIREMENTS.md)
 
 TC-V3 capability replay assessed 2,250 portable physical seals and exported five-model passports, a matched quality/resource Pareto view and four distinct outcome cost denominators. The original D25 remained BLOCKED on all rows. Six opt-in adapter components passed software and archived-request controls. Extension v0.2 passed four 18–21 boundary controls, nine scoped controls and five independent workflow witnesses. Extension and new adapter physical execution remain NOT_RUN. [Capability map](reports/SLM10_TOOL_CALLING_FULL_REPORT.md) · [Adapter qualification](reports/SLM10_ADAPTER_QUALIFICATION.md) · [Extension certificate](evidence/IJSLM/sdk-extension/qualification.json)

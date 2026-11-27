@@ -35,4 +35,17 @@ python -m benchmarks.slm10.planning_roster --bundle SOURCE_DIR --source-manifest
 
 The first command verifies the existing GPU handoff against the live host and device without acquiring the lease. With no bundle, it reports the allocation, the pending source gate and zero new formal observations. Freezing an eligible bundle writes the roster and a source-linked mechanical replay manifest. `--check` verifies both outputs byte for byte.
 
-The independent 800-case source bundle and full matched runner are pending. The existing interactive SDK planning control is development evidence and archived IJ-0.7 and AEVE results contribute zero IJ-SLM Planning V2 coverage. Formal dispatch requires the accepted source freeze, a matched runner, candidate-specific runtime admission and the verified handoff at dispatch. Strict qualification separately requires the applicable conditional-planning, persisted-state, authorization and D25 credentials.
+The [source candidate](../atlas/slm/v1.0/planning-v2-source-candidate/manifest.json)
+contains 800 tasks with separate AI authoring assignments for the public task
+and the private worlds and witnesses. Both assignments used the public
+contract. The [software replay certificate](../atlas/slm/v1.0/planning-v2-source-candidate/candidate-verification.json)
+binds the source, the 2,000 synthetic worlds and the 20,800 reserved trial IDs.
+Verify it with `python -m benchmarks.slm10.planning_source_candidate`.
+Independent release review of the workload and provenance is pending.
+
+The existing interactive SDK planning control is development evidence.
+Archived IJ-0.7 and AEVE results contribute zero IJ-SLM Planning V2 coverage.
+Formal dispatch requires the accepted source freeze, a matched runner,
+candidate-specific runtime admission and the verified handoff at dispatch.
+Strict qualification separately requires the applicable conditional-planning,
+persisted-state, authorization and D25 credentials.

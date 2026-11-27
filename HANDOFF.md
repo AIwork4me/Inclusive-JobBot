@@ -22,6 +22,25 @@ Verify the typed Extension certificate with `python -m benchmarks.slm10.sdk_exte
 
 Replay the 600 MULTITOOL-V2 candidate witnesses with `python -m benchmarks.slm10.multitool_v2_candidate`. The current candidate exercises 2–20 actions in software. AGENTIC-PLAN-V2 has a bundle verifier and reserved allocation. Its formal roster requires an independently sourced public task and world bundle. [MULTITOOL candidate](atlas/slm/v1.0/multitool-v2-candidate/manifest.json) · [Planning bundle requirements](docs/SLM10_PLANNING_ROSTER.md)
 
+Replay the balanced MULTITOOL candidates with `python -m benchmarks.slm10.multitool_v2_balanced`
+and `python -m benchmarks.slm10.multitool_v2_revised`. Review the separately
+versioned content and business expectation audit before any release. The SQLite
+sandbox tests exercise drafts, out-of-band approval and denial, transaction
+rollback, scope changes, and isolation. Formal transport qualification is pending.
+[Content review](reports/SLM10_MULTITOOL_V2_CONTENT_REVIEW.md)
+
+Replay the role-separated 800-case Planning source candidate with
+`python -m benchmarks.slm10.planning_source_candidate`. The four-track matched
+executor takes a synthetic service interface and keeps world assessment
+offline. Physical runner registration, independent release review and the
+formal evaluator credentials are pending.
+[Source and dispatch requirements](docs/SLM10_PLANNING_ROSTER.md)
+
+Replay the LFM3 paired holdout analyzer with
+`python -m benchmarks.slm10.sdk_adapter_holdout_report`. After the Radeon
+experiment, supply `--report` with its verified portable report. The analyzer
+also checks the blocked and unrun causal slots against the archived reports.
+
 ## IJ-0.7.3 local evaluator
 
 Use `python -m evaluation.aeve.progress --write` to synchronize Atlas progress, MISSION_STATE and sealed Q2 coverage from a single archive snapshot. The progress check in CI compares the published tree with its sealed captures. The [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md) covers the original 45 reference defects and 81 alternative proofs. The [history matrix](evidence/IJ073/aeve/historical_route_matrix.json) records every family, dimension and risk scope. Q3 credentials are still required for any formal route.
