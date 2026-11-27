@@ -1,6 +1,6 @@
 {
     "schema_version":  1,
-    "installed_utc":  "2026-11-27T03:56:41Z",
+    "installed_utc":  "2026-11-27T03:59:18Z",
     "installer":  "scripts/windows/install_llama_cpp.ps1",
     "repository":  "https://github.com/ggml-org/llama.cpp",
     "license":  "MIT",
@@ -40,14 +40,17 @@
                     },
     "smart_app_control":  "Off",
     "rocm_runtime":  {
-                         "present":  false,
+                         "present":  true,
                          "package_spec":  "rocm[libraries]==10.0.0",
                          "packages":  [
-
+                                          "rocm==10.0.0",
+                                          "rocm-sdk-core==10.0.0",
+                                          "rocm-sdk-libraries==10.0.0"
                                       ],
-                         "library_directories":  {
-
-                                                 }
+                         "library_directories":  [
+                                                     "runtime/llama-cpp/rocm-libs/Lib/site-packages/_rocm_sdk_libraries/bin",
+                                                     "runtime/llama-cpp/rocm-libs/Lib/site-packages/_rocm_sdk_core/bin"
+                                                 ]
                      },
     "backends":  [
                      {
@@ -93,11 +96,11 @@
                          "version_banner":  "version: 1.0.0-dev (build 12359, commit b1b770d90)\r\nbuilt with Clang 20.1.8 for Windows x86_64",
                          "version_exit_code":  0,
                          "list_devices_exit_code":  0,
-                         "list_devices_output":  "Available devices:\r\n  (none)",
-                         "rocm_runtime_on_path":  false,
-                         "status":  "BLOCKED",
-                         "reason":  "ROCm runtime libraries are not installed. Run install_rocm_runtime.ps1."
+                         "list_devices_output":  "Available devices:\r\n  ROCm0: AMD Radeon RX 7900 XTX (24560 MiB, 24411 MiB free)",
+                         "rocm_runtime_on_path":  true,
+                         "status":  "PASS",
+                         "reason":  ""
                      }
                  ],
-    "overall_status":  "FAIL"
+    "overall_status":  "PASS"
 }

@@ -1,0 +1,66 @@
+{
+ "schema_version": 1,
+ "protocol": "IJ-SDK-1.0 P1 backend qualification (frozen 2026-11-27)",
+ "mission": "IJ-SDK-1.0",
+ "generated_utc": "2026-11-27T04:19:22Z",
+ "engine": {
+  "build": "b12359",
+  "release": "v1.0.0",
+  "commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+  "exe_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995"
+ },
+ "gpu": {
+  "architecture": "gfx1100",
+  "device": "AMD Radeon RX 7900 XTX",
+  "device_id": "0x744c",
+  "driver": "32.0.21030.2001"
+ },
+ "rule": "Backend results never mix within one experimental cell; CPU is the reference arm; GPU arms require D-010 proof (offload line + counter engine activity).",
+ "arms": [
+  {
+   "backend": "rocm",
+   "model_alias": "q4",
+   "model_path": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q4_K_M.gguf",
+   "model_sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+   "started_utc": "2026-11-27T04:19:16Z",
+   "server": {
+    "port": 8080,
+    "backend_reported": "rocm",
+    "layers_offloaded": 43,
+    "layers_total": 43,
+    "offload_log_line": "0.00.539.275 I load_tensors: offloaded 43/43 layers to GPU",
+    "startup_seconds": 2.21,
+    "allocation_log_lines": [
+     "0.00.349.768 I llama_prepare_model_devices: using device ROCm0 (AMD Radeon RX 7900 XTX) (0000:03:00.0) - 24411 MiB free",
+     "0.00.539.279 I load_tensors: CPU_Mapped model buffer size = 143.44 MiB",
+     "0.00.539.280 I load_tensors: ROCm0 model buffer size = 1340.64 MiB",
+     "0.01.110.356 I llama_context: flash_attn = auto",
+     "0.01.118.758 I llama_context: ROCm_Host output buffer size = 0.50 MiB",
+     "0.01.132.829 I llama_kv_cache: ROCm0 KV buffer size = 336.00 MiB",
+     "0.01.153.892 I sched_reserve: ROCm0 compute buffer size = 60.01 MiB",
+     "0.01.153.895 I sched_reserve: ROCm_Host compute buffer size = 24.02 MiB"
+    ],
+    "server_log": ".runtime/logs/llama-server-rocm-q4-20261127-041916.log"
+   },
+   "counter_sampler_ready": true,
+   "probe_exit": 0,
+   "api_check_exit": 1,
+   "api_check_evidence": ".runtime/ijsdk_p1/api_check_rocm.json",
+   "tool_smoke_exit": 0,
+   "tool_smoke_evidence": ".runtime/ijsdk_p1/tool_smoke_rocm.json",
+   "gpu_counters": {
+    "nonzero_engine_rows": 3,
+    "max_utilization": 85,
+    "engine_types": [
+     "?"
+    ],
+    "max_dedicated_memory_bytes": 2114297856,
+    "evidence": ".runtime/ijsdk_p1/counters_rocm.jsonl"
+   },
+   "finished_utc": "2026-11-27T04:19:22Z",
+   "status": "FAIL",
+   "reason": "API surface check failed"
+  }
+ ],
+ "overall_status": "FAIL"
+}

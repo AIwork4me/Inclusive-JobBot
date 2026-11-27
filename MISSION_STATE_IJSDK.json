@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-SDK-1.0",
   "mission_title": "Cross-SDK Agentic Capability Benchmark for 2B-class SLMs",
-  "updated_utc": "2026-11-27T11:55:00Z",
-  "current_phase": "P1",
+  "updated_utc": "2026-11-27T12:30:00Z",
+  "current_phase": "P2-P3 (P1 gate reached)",
   "tracking_issue": 7,
   "draft_pr": 8,
   "research_branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
@@ -30,7 +30,22 @@
         "evidence/IJSDK/P0/known_limitations.json"
       ]
     },
-    "P1": {"progress": "in_progress", "status": "NOT_RUN", "gate": "P1_GFX1100_PHYSICAL_RUNTIME_GO", "evidence": []},
+    "P1": {"progress": "done", "status": "PASS", "gate": "P1_GFX1100_PHYSICAL_RUNTIME_GO", "primary_backend": "vulkan", "evidence": [
+      "reports/IJSDK_01_WINDOWS_GFX1100_QUALIFICATION.md",
+      "evidence/IJSDK/P1/environment.json",
+      "evidence/IJSDK/P1/gpu_inventory.json",
+      "evidence/IJSDK/P1/dependency_inventory.json",
+      "evidence/IJSDK/P1/engine_install.json",
+      "evidence/IJSDK/P1/rocm_runtime_install.json",
+      "evidence/IJSDK/P1/backend_qualification.json",
+      "evidence/IJSDK/P1/backend_qualification_rocm_retry.json",
+      "evidence/IJSDK/P1/gpu/"
+    ], "notes": [
+      "Vulkan: full PASS incl. streaming/non-streaming byte parity -> primary backend (frozen reason in report section 1).",
+      "ROCm/HIP: crashed on first run (rocBLAS TensileLibrary.dat missing from 10.0.0 wheels for gfx1100); CONFIRMED root cause; fixed version-preserving via rocm-sdk-device-gfx1100==10.0.0; post-fix 5/5 smoke, 43/43 layers, zero errors; stream-parity near-tie divergence documented (same class as CPU).",
+      "Matched F-vulkan vs F-rocm: 52/52 identical outputs; ROCm prefill 2159 tok/s vs Vulkan 1318, decode 249 vs 224.",
+      "Wheel identity drift recorded: same version spec served different bytes on 2026-11-24 vs 2026-11-27; pin by digest going forward."
+    ]},
     "P2": {"progress": "not_started", "status": "NOT_RUN", "gate": "P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN", "evidence": []},
     "P3": {"progress": "not_started", "status": "NOT_RUN", "gate": "P3_SDK_ADMISSION_AUDITED", "evidence": []},
     "P4": {"progress": "not_started", "status": "NOT_RUN", "gate": "P4_CROSS_SDK_HARNESS_GO", "evidence": []},
