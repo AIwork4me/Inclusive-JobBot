@@ -64,6 +64,20 @@ def summarize(root):
             if set(roster) != set((*FULL, *REPLAY)) or len(case["arms"]) != len(roster):
                 raise ValueError("ablation report has an incomplete arm roster")
             original = roster["A1"]
+            if "source_completion_id" in original:
+                control = roster["SDK_CONTROL"]["capture"]
+                source, = [event for event in control["wire"] if event.get("completion_id") == original["source_completion_id"]]
+                if (source["provider_request_sha256"] != original["source_request_sha256"]
+                        or source["response_sha256"] != original["source_response_sha256"]
+                        or original["capture"]["provider_request_sha256"] != original["source_request_sha256"]):
+                    raise ValueError("A1 no longer binds to its exact control request")
+                source_native = source.get("source_generation", {}).get("pre_parser_bytes_hex")
+                replay_native = original["capture"].get("source_generation", {}).get("pre_parser_bytes_hex")
+                if source_native is None or replay_native is None:
+                    key = "native_evidence_missing"
+                else:
+                    key = "same_native_generation" if source_native == replay_native else "different_native_generation"
+                paired[model, "A1"][key] += 1
             for arm, entry in roster.items():
                 row = {"status": entry.get("status", "BLOCKED"), "physical": physical(entry)}
                 captured = entry.get("capture")
@@ -96,7 +110,8 @@ def summarize(root):
             for name in ("wall_ms", "buffered_first_text_ms", "adapter_ms", "callback_ms", "requests"):
                 cell[name] = percentile([row[name] for row in rows if row.get(name) is not None])
         if (model, arm) in paired:
-            cell["paired_finish_transitions_from_A1"] = dict(paired[model, arm])
+            name = "source_generation_replay" if arm == "A1" else "paired_finish_transitions_from_A1"
+            cell[name] = dict(paired[model, arm])
         cells[model + "/" + arm] = cell
     return {"version": "IJ-SLM-SDK-ABLATION-SUMMARY/1.0", "formal_trials": 0, "paired_dev_cases": len(cases_seen),
             "physical_arm_observations": sum(r["physical_observations"] for r in cells.values()),
