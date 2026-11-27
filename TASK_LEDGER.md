@@ -2,6 +2,8 @@
 
 ## IJ-SLM-1.0 baseline
 
+Interleaved diagnostic recovery now checks the registered wave and artifact digests before sealing. Software controls covered cross-worktree identities, missing terminal captures and modified artifacts. The causal replay inventories all 720 planned arm slots, including 410 physical A0–A5 observations and 126 physical controls. F and G admission remain NOT_RUN. [Causal coverage](evidence/IJSLM/sdk-causal/ablation-coverage.json) · [F/G admission replay](evidence/IJSLM/tc-v3-admissions/manifest.json)
+
 Qwen3.5 completed the bounded SSE SDK retest on Radeon. The same 602,124 bytes failed the original 512 KiB cumulative check and passed the revised limit with a valid stop. An earlier length-terminated capture remained rejected. [Positive transport control](evidence/IJSLM/sdk-causal/transport-v1-1/report.json)
 
 The scheduled TC-V3 controller calls the additional F and G queue after all 4,950 priority captures verify. Both additional pinned weight files are present. Independent development evidence gates each candidate's physical dispatch. The priority seal gate correctly returned BLOCKED during the software check.
@@ -14,7 +16,7 @@ The frozen queue continued during the SDK loss investigation. SDK causal ablatio
 
 The interactive Planning development runner adds Plan-first and Acting-first SDK paths, live tools, an independent user update and terminal business checks. The sandbox phase and out-of-scope controls passed software replay. The first interactive Radeon run failed all four development cells. The Acting-first SDK provider asked for tool_choice=none, and both Plan-first plans failed replay. The revised run selected auto during execution and recovered ten real Acting-first SDK callbacks. Neither Acting-first mode completed the business task. Both Plan-first proposals failed the existing oracle checks. [Two execution rounds](evidence/IJSLM/planning-development/manifest.json)
 
-The formal TC-V3 dashboard records 1,494 executed physical trials against the 36,550-trial core plan. Its counts and scoped results replay from published session seals. [Formal dashboard](atlas/slm/v1.0/physical_progress.json)
+The formal TC-V3 dashboard records 2,250 executed physical trials against the 36,550-trial core plan. Its counts and scoped results replay from published session seals. [Formal dashboard](atlas/slm/v1.0/physical_progress.json)
 
 The continuation adds opt-in SDK request correlation and a bounded diagnostic SSE replay profile. The original 512 KiB aggregate decoder limit stays the default. A software loopback regression exercises rejection capture and same-byte acceptance under the explicit diagnostic limit. The observer build and its on/off Radeon development controls have their own runner. Formal TC-V3 trials remain NOT_RUN.
 

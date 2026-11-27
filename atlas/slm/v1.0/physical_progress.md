@@ -1,28 +1,28 @@
 # TC-V3 physical progress
 
-Core trials remaining: **35,056 of 36,550**.
+Core trials remaining: **34,300 of 36,550**.
 
 | Candidate | Planned | Executed | Sealed | Strict PASS | Strict FAIL | Strict BLOCKED | NOT_RUN |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| A | 1,650 | 546 | 546 | 0 | 0 | 546 | 1,104 |
-| B | 1,650 | 510 | 510 | 0 | 0 | 510 | 1,140 |
-| D | 1,650 | 438 | 438 | 0 | 0 | 438 | 1,212 |
+| A | 1,650 | 798 | 798 | 0 | 0 | 798 | 852 |
+| B | 1,650 | 762 | 762 | 0 | 0 | 762 | 888 |
+| D | 1,650 | 690 | 690 | 0 | 0 | 690 | 960 |
 
 ## Tool selection by track
 
 | Candidate and track | PASS | FAIL | BLOCKED | Wilson 95% CI |
 |---|---:|---:|---:|---:|
-| A / direct_first | 149 | 17 | 0 | 84.2%–93.5% |
-| A / sdk_first | 25 | 141 | 0 | 10.4%–21.3% |
-| A / sdk_repeat | 3 | 45 | 0 | 2.1%–16.8% |
-| A / sdk_streaming | 27 | 139 | 0 | 11.4%–22.6% |
-| B / direct_first | 138 | 17 | 0 | 83.1%–93.0% |
-| B / sdk_first | 82 | 73 | 0 | 45.1%–60.6% |
-| B / sdk_repeat | 23 | 22 | 0 | 37.0%–65.0% |
-| B / sdk_streaming | 89 | 66 | 0 | 49.5%–64.9% |
-| D / direct_first | 127 | 7 | 0 | 89.6%–97.4% |
-| D / sdk_first | 100 | 34 | 0 | 66.6%–81.2% |
-| D / sdk_repeat | 27 | 9 | 0 | 58.9%–86.2% |
-| D / sdk_streaming | 100 | 34 | 0 | 66.6%–81.2% |
+| A / direct_first | 225 | 17 | 0 | 89.0%–95.6% |
+| A / sdk_first | 35 | 207 | 0 | 10.6%–19.4% |
+| A / sdk_repeat | 3 | 69 | 0 | 1.4%–11.5% |
+| A / sdk_streaming | 35 | 207 | 0 | 10.6%–19.4% |
+| B / direct_first | 213 | 17 | 0 | 88.5%–95.3% |
+| B / sdk_first | 126 | 104 | 0 | 48.3%–61.1% |
+| B / sdk_repeat | 43 | 29 | 0 | 48.2%–70.3% |
+| B / sdk_streaming | 132 | 98 | 0 | 50.9%–63.6% |
+| D / direct_first | 203 | 7 | 0 | 93.3%–98.4% |
+| D / sdk_first | 176 | 34 | 0 | 78.2%–88.2% |
+| D / sdk_repeat | 51 | 9 | 0 | 73.9%–91.9% |
+| D / sdk_streaming | 176 | 34 | 0 | 78.2%–88.2% |
 
 The current rows represent the completed portion of the frozen roster. Use the full matrix for paired effects, case strata, repeats and provider telemetry. [Machine-readable dashboard](physical_progress.json)

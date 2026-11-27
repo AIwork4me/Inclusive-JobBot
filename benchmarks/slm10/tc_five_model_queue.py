@@ -9,7 +9,7 @@ from evaluation.aeve.gpu_handoff import HANDOFF
 from evaluation.aeve.runtime import ROOT
 
 from .mechanical_registry import REGISTRY, require_registry
-from .p0_evidence import read_report
+from .tc_admission_evidence import verify_admission
 from .tc_execution import development, records
 from .tc_queue import PRIORITY, SOURCE_FILES, connect, progress, run_batches, seal_session
 from .tc_v3 import HERE, verify_freeze
@@ -20,16 +20,7 @@ def candidate_preflight(candidate, assets, parent, port):
     if not folder.exists():
         development(candidate, assets, folder, port)
     sealed = folder / "portable"
-    report = read_report(sealed)
-    if (report["candidate"] != candidate or report["dataset_manifest_sha256"] != digest(HERE / "manifest.json")
-            or len(report["results"]) != 9):
-        raise ValueError("additional candidate development roster differs")
-    for track in ("sdk_first", "sdk_streaming"):
-        if not any(result["track"] == track and result["calls"] for result in report["results"]):
-            raise ValueError(f"{candidate} lacks a linked SDK callback for {track}")
-    for trial in report["results"]:
-        if not trial["wire"] or any(event["native_evidence"]["status"] != "PASS" for event in trial["wire"]):
-            raise ValueError(f"{candidate} lacks native evidence for a development request")
+    verify_admission(sealed, candidate)
     return digest(sealed / "report.json")
 
 
@@ -45,6 +36,7 @@ def run(assets, port):
     sources = {name: digest(Path(__file__).with_name(name)) for name in SOURCE_FILES if name != "wire_boundary.py"}
     sources["wire_boundary.py"] = digest(ROOT / "benchmarks/ij06_sdk/wire_boundary.py")
     sources[Path(__file__).name] = digest(Path(__file__))
+    sources["tc_admission_evidence.py"] = digest(Path(__file__).with_name("tc_admission_evidence.py"))
     blocked = False
     for candidate in ("F", "G"):
         candidate_folder = root / "tc-v3-additional" / candidate

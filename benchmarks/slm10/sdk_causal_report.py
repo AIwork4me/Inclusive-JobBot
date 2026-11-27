@@ -34,6 +34,8 @@ def inventory(directory, private_root=None):
     for path in sorted(directory.glob("*/manifest.json")):
         manifest, rows, memory = load_seal(path)
         candidate = manifest["identity"]["candidate"]
+        if candidate not in MODELS:
+            continue  # The original v1 causal replay is scoped to its three-model development panel.
         for row in rows:
             key = row["trial_id"]
             spec = specs[key]

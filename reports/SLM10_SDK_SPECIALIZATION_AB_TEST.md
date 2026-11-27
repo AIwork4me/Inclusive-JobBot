@@ -17,6 +17,10 @@ On the English single-tool task, the LFM3 A1 replay repeated the read. A2, A3 an
 
 The guard protected two callbacks in the MiniCPM5 dependent-tool pilot. The model continued proposing actions and the task still lacked a terminal answer. The guard applies only to verified successful static reads and excludes release, recovery and scope changes. Its protection belongs to the host. A5 changes SDK integration. A2 through A4 change model-visible context through experimental runtime controls.
 
+The published development snapshot covers 72 of 90 model–task combinations and 410 of 540 requested A0–A5 physical observations. A further 10 slots are BLOCKED and 120 are NOT_RUN, including slots whose matched history lacked the planned intervention. The 72 SDK controls and 54 applicable guard captures bring the physical total to 536. Scope and evidence origin are recorded for every slot. [Per-slot coverage](../evidence/IJSLM/sdk-causal/ablation-coverage.json)
+
+Across the 24 published tasks per model, LFM3 returned exact final JSON in 19 compact-result SDK tasks and 16 SDK control tasks. MiniCPM5 returned exact final JSON in six compact-result tasks and five controls. Qwen3.5 returned exact final JSON in five tasks in each arm. The LFM3 result nominates compact serialization for independent held-out retesting. Matched A1–A4 capture coverage varies with the availability of a delivered tool result. [Ablation summary](../evidence/IJSLM/sdk-causal/ablation-summary.json)
+
 The full development panel and new held-out retest remain open. The current SDK boundary buffers SSE before validation. Its first-visible-text measurements describe buffered delivery. The provider-delta experiment measures native SSE at the socket separately.
 
 

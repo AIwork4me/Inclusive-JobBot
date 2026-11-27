@@ -18,6 +18,7 @@ from .tc_v3 import HERE
 RESULT = OUTPUT / "ablation-summary.json"
 FULL = ("A0", "SDK_CONTROL", "A5", "GUARD")
 REPLAY = ("A1", "A2", "A3", "A4")
+COVERAGE = OUTPUT / "ablation-coverage.json"
 
 
 def check_report(folder):
@@ -41,7 +42,7 @@ def physical(arm):
     return any(event.get("native_evidence", {}).get("status") == "PASS" for event in wire)
 
 
-def summarize(root):
+def summarize(root, coverage=None):
     published = {}
     results = defaultdict(list)
     paired = defaultdict(Counter)
@@ -81,6 +82,14 @@ def summarize(root):
             for arm, entry in roster.items():
                 row = {"status": entry.get("status", "BLOCKED"), "physical": physical(entry)}
                 captured = entry.get("capture")
+                if coverage is not None:
+                    key = (model, case_id, arm)
+                    if key not in coverage:
+                        raise ValueError("diagnostic observation outside the registered development plan")
+                    coverage[key].update({"physical_capture": "PASS" if row["physical"] else (
+                        "BLOCKED" if captured is not None else row["status"]),
+                        "run_id": report["run_id"], "report_sha256": published[path.parent.name],
+                        "reason": entry.get("reason", entry.get("applicability"))})
                 if arm in FULL and captured is not None:
                     observations = analyze(captured, metrics[case_id], model, {})
                     row.update(wall_ms=entry.get("wall_ms", captured.get("wall_ms")),
@@ -122,22 +131,34 @@ def summarize(root):
 
 
 def import_waves(source):
-    for path in sorted(source.glob("*/portable/report.json")):
-        folder = path.parent
-        label = path.parents[1].name
-        report = check_report(folder)
-        if report["gpu_execution"] != "PASS":
+    from .sdk_wave_queue import expected_wave, report_path, verified_run, verify_seal
+
+    for wave in sorted(source.iterdir()):
+        if not wave.is_dir() or wave.name.startswith("."):
             continue
-        target = OUTPUT / ("wave-" + label)
-        target.mkdir(exist_ok=True)
-        for name in ("report.json", *report["artifacts"]):
-            new = folder / name
-            old = target / name
-            if old.exists():
-                if digest(old) != digest(new):
-                    raise ValueError("diagnostic publication differs from sealed runtime copy")
-            else:
-                shutil.copyfile(new, old)
+        candidate, number = wave.name.split("-")
+        expected = expected_wave(candidate, int(number))
+        legacy = report_path(wave)
+        if (wave / "wave-seal.json").is_file():
+            reports = verify_seal(wave, expected)
+        elif legacy.is_file():
+            verified_run(legacy.parent, expected, expected["cases"])
+            reports = [legacy.parent]
+        else:
+            continue
+        for folder in reports:
+            report = check_report(folder)
+            fragment = "-" + folder.parent.name if folder.parent != wave else ""
+            target = OUTPUT / ("wave-" + wave.name + fragment)
+            target.mkdir(exist_ok=True)
+            for name in ("report.json", *report["artifacts"]):
+                new = folder / name
+                old = target / name
+                if old.exists():
+                    if digest(old) != digest(new):
+                        raise ValueError("diagnostic publication differs from sealed runtime copy")
+                else:
+                    shutil.copyfile(new, old)
 
 
 def main():
@@ -149,11 +170,20 @@ def main():
         if not args.write:
             parser.error("--waves requires --write")
         import_waves(args.waves)
-    report = summarize(OUTPUT)
+    profile_path = HERE.parent / "sdk-causal-experiment.json"
+    profile = json.loads(profile_path.read_bytes())
+    coverage = {(model, case, arm): {"candidate": model, "case_id": case, "arm": arm,
+                "kind": "full-task" if arm in FULL else "next-decision", "physical_capture": "NOT_RUN"}
+                for model in profile["models"] for case in profile["development_case_ids"] for arm in profile["arms"]}
+    report = summarize(OUTPUT, coverage)
+    coverage_data = {"version": "IJ-SLM-SDK-CAUSAL-COVERAGE/1.0", "formal_trials": 0,
+                     "profile_sha256": digest(profile_path), "trials": list(coverage.values())}
+    coverage_payload = canonical(coverage_data) + b"\n"
     payload = canonical(report) + b"\n"
     if args.write:
         RESULT.write_bytes(payload)
-    elif RESULT.read_bytes() != payload:
+        COVERAGE.write_bytes(coverage_payload)
+    elif RESULT.read_bytes() != payload or COVERAGE.read_bytes() != coverage_payload:
         raise ValueError("published ablation summary differs from sealed run replay")
     path = OUTPUT / "manifest.json"
     files = {artifact.relative_to(OUTPUT).as_posix(): digest(artifact)

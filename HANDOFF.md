@@ -10,9 +10,9 @@ Publish completed batches with `python -m benchmarks.slm10.tc_dashboard --publis
 
 ### Interleaved SDK experiments
 
-The interleaved Windows controller advances a frozen 36-trial formal batch before each eligible diagnostic wave. Diagnostic runs occupy the shared Radeon lease between batches. The development wave output directories prevent redispatch. Interrupted diagnostic wave directories remain available for investigation.
+The interleaved Windows controller advances a frozen 36-trial formal batch before each eligible diagnostic wave. Diagnostic runs occupy the shared Radeon lease between batches. Use `scripts/windows/run_slm_sdk_causal_waves.ps1 -AssetsRoot ASSET_ROOT -Audit` to inspect scheduled wave evidence. After the original controller exits, use `-Resume` to adopt verified legacy reports and finish eligible waves from the same asset root. The successor controller uses a workstation-wide lock, a durable reservation and an atomic wave seal. It recovers a finalized private report after portable publication is interrupted. Existing attempts without a verified terminal capture require reconciliation before dispatch can continue. Preserve their original folders and traces.
 
-Replay the public offline metrics with the sdk_causal_report module and the measured interventions with sdk_ablation_summary. During publication, refresh both formal progress and offline metrics from the same sealed snapshot. Then verify the diagnostic manifest before committing. [SDK causal report](reports/SLM10_SDK_CAPABILITY_LOSS_ROOT_CAUSE.md) · [Experimental configuration](atlas/slm/v1.0/sdk-causal-experiment.json)
+Replay the public offline metrics with the sdk_causal_report module and the measured interventions with sdk_ablation_summary. During publication, refresh both formal progress and offline metrics from the same sealed snapshot. The latter emits a disposition for all 540 A0–A5 slots and 180 SDK_CONTROL and GUARD slots. Publish F and G session seals using additional `--publish-from` arguments to tc_dashboard and replay their admission manifests with tc_admission_evidence. [SDK causal report](reports/SLM10_SDK_CAPABILITY_LOSS_ROOT_CAUSE.md) · [Experimental configuration](atlas/slm/v1.0/sdk-causal-experiment.json)
 
 ## IJ-0.7.3 local evaluator
 

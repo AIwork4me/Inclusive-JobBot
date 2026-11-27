@@ -115,9 +115,10 @@ def combined(values):
 
 
 def dashboard(directory):
-    roster = {row["trial_id"]: row for row in objects(HERE / "roster.jsonl") if row["candidate"] in PRIORITY}
+    roster = {row["trial_id"]: row for row in objects(HERE / "roster.jsonl")}
     cases = {row["case_id"]: row for row in objects(HERE / "holdout-public.jsonl")}
-    baseline = {candidate: Counter(planned=1650) for candidate in PRIORITY}
+    planned = Counter(row["candidate"] for row in roster.values())
+    baseline = {candidate: Counter(planned=count) for candidate, count in planned.items()}
     catalog = {}
     groups = defaultdict(Counter)
     pairs = defaultdict(lambda: defaultdict(dict))
@@ -166,6 +167,8 @@ def dashboard(directory):
             sums[candidate, "all"]["session_peak_gpu_committed_bytes"].append(memory)
     models = {}
     for model, count in baseline.items():
+        if model not in PRIORITY and not count["sealed"]:
+            continue
         count["NOT_RUN"] = count["planned"] - count["sealed"]
         models[model] = {key: count[key] for key in ("planned", "executed", "sealed", *STATUS)}
     by_scope = {
@@ -231,10 +234,11 @@ def markdown(report):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--publish-from", type=Path)
+    parser.add_argument("--publish-from", type=Path, action="append")
     args = parser.parse_args()
     if args.publish_from is not None:
-        for path in sorted(args.publish_from.glob("*/manifest.json")):
+        paths = sorted(path for source in args.publish_from for path in source.glob("*/manifest.json"))
+        for path in paths:
             manifest, _, _ = load_seal(path)
             destination = ARCHIVE / path.parent.name
             destination.mkdir(parents=True, exist_ok=True)
