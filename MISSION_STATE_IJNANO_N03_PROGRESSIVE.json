@@ -4,7 +4,7 @@
  "mission_title": "Assurance-Gated Progressive N03 Execution",
  "mission_order": "docs/IJNANO_MISSION_ORDER_V1_3S.md",
  "order_sha256": "c447831de2c4683c366fd0f7ae50ffda6d8660aea69961358d17900624d7e584",
- "updated_utc": "2026-11-28T08:40:00Z",
+ "updated_utc": "2026-11-28T00:00:00Z",
  "tracking_issue": 10,
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
@@ -16,7 +16,7 @@
   "n02rr_experiment_id": "ec5b95357e960f99",
   "n02rr_corrected_headline": "870/2184 semantic PASS",
   "protocol_evidence": "evidence/IJNANO/N02RR/corrected_protocol_matrix.json",
-  "note": "IJEVAL worktree holds in-flight EA-R01..R04 hardening owned by a concurrent session; not reconciled here by design"
+  "note": "IJEVAL EA-R01..R04 hardening was owned by a concurrent session and delivered 2026-11-28 as 67af3dd; not duplicated here"
  },
  "authorization_levels": {
   "AUTH-0_SOFTWARE_PREPARATION": {
@@ -114,7 +114,7 @@
    "future Harness Adapter training",
    "NPU deployment"
   ],
-  "lane_a_status": "EA00/EA01/EA02/EA02-R delivered; EA-R01..R04 hardening in flight (concurrent session); EA03+ not started"
+  "lane_a_status": "EA00/EA01/EA02/EA02-R delivered; EA-R01..R04 trusted-boundary hardening delivered by concurrent IJEVAL session (commit 67af3dd, red at 9963926 -> green, 95/95 + 213/213); next: EA03 dataset/ground-truth qualification (Wave B)"
  },
  "preserved_blockers": {
   "IJE-B-004": "OPEN (IJ-SDK D01-D03, owned by that mission)",
