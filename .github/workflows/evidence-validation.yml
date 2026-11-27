@@ -9,7 +9,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
+          persist-credentials: false
+      - name: Verify the independent GitHub checkout
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          test -f .git/config
+          git fsck --no-dangling --no-reflogs "$EXPECTED_HEAD"
+          git diff --exit-code "$EXPECTED_HEAD" --
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

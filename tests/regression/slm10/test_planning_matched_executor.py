@@ -47,7 +47,12 @@ def provider(responses):
             self.send_response(302 if redirect else 200 if index < len(responses) else 500)
             if redirect:
                 self.send_header("Location", redirect)
-            self.send_header("Content-Type", "application/json")
+            media = "application/json"
+            if payload.get("stream") and index < len(responses) and not redirect:
+                from benchmarks.slm10.tc_execution import adapted_sse
+
+                media, raw = adapted_sse(media, raw, {"request": json.dumps(payload)})
+            self.send_header("Content-Type", media)
             self.send_header("Content-Length", str(len(raw)))
             self.end_headers()
             self.wfile.write(raw)
@@ -80,7 +85,7 @@ def case(level="L1"):
     return next(case for case in public_cases() if case["level"] == level and case["language"] == "en")
 
 
-def run(tmp_path, track, public, service, responses):
+def run(tmp_path, track, public, service, responses, **options):
     from benchmarks.slm10.planning_matched_executor import execute_trial
 
     kwargs = {}
@@ -92,7 +97,7 @@ def run(tmp_path, track, public, service, responses):
         kwargs = {"target": tmp_path / track, "harness": harness}
     with provider(responses) as (client, requests):
         trace = asyncio.run(execute_trial(client, "planning-fixture", public, service, "software-trial", track,
-                                          seed=7107, **kwargs))
+                                          seed=7107, **kwargs, **options))
     return trace, requests
 
 
@@ -235,3 +240,64 @@ def test_exact_external_event_authorizes_one_live_commit(tmp_path, track):
                              ("commit", {"draft_id": "draft-blue", "approval": "external-blue"})]
     assert "external-blue" not in json.dumps(requests[0])
     assert json.loads(requests[1]["messages"][-1]["content"])["external_event"]["approval"] == "external-blue"
+
+@pytest.mark.parametrize("track", ["direct_acting_first", "sdk_acting_first"])
+def test_attribution_names_the_original_context_contract(tmp_path, track):
+    public, service = case(), Register()
+    trace, _ = run(tmp_path, track, public, service, [
+        completion(tool="lookup", arguments=public["public"]),
+        completion(content='{"value":"live blue"}', call_id="terminal"),
+    ])
+    expected = "SDK_MATCHED_CONTEXT" if track.startswith("sdk") else "DIRECT_NATIVE"
+    assert trace["runtime_attribution"]["profile"] == expected
+    assert trace["execution_metrics"] == {
+        "actual_action_count": 1, "observed_sequential_depth": 1, "observed_parallel_width": 1,
+        "model_requests": 2, "user_turns": 1, "external_updates": 0,
+    }
+
+def parallel_fixture(public):
+    response = completion(tool="lookup", arguments=public["public"])
+    other = completion(tool="limit", arguments=public["public"], call_id="call-second")
+    response["choices"][0]["message"]["tool_calls"] += other["choices"][0]["message"]["tool_calls"]
+    return [response, completion(content='{"value":"live blue"}', call_id="terminal")]
+
+
+class ParallelRegister(Register):
+    parallel_read_tools = {"lookup", "limit"}
+
+    def execute_parallel_read(self, tool, arguments):
+        self.calls.append((tool, arguments))
+        return {"code": "ok", "data": {"value": "live blue"} if tool == "lookup" else {"limit": "two"}}
+
+
+@pytest.mark.parametrize("track", ["direct_acting_first", "sdk_acting_first"])
+def test_independent_parallel_batch_has_one_provider_layer(tmp_path, track):
+    public, service = case("L2"), ParallelRegister()
+    # The tool names and arguments are the public case interface, independent of the witness.
+    public["contract"]["tools"]["limit"] = public["contract"]["tools"].pop("limits")
+    trace, requests = run(tmp_path, track, public, service, parallel_fixture(public), parallel_reads=True)
+    assert trace["complete"], trace["failure"]
+    assert set(name for name, _ in service.calls) == {"lookup", "limit"}
+    assert trace["execution_metrics"]["observed_parallel_width"] == 2
+    assert trace["execution_metrics"]["observed_sequential_depth"] == 1
+    assert trace["execution_metrics"]["actual_action_count"] == 2
+    assert trace["runtime_attribution"]["tool_batch_policy"] == "registered_read_batches"
+    assert requests[0]["parallel_tool_calls"] is True
+
+
+def test_serial_control_rejects_batch_before_any_tool_runs(tmp_path):
+    public, service = case("L2"), ParallelRegister()
+    trace, _ = run(tmp_path, "direct_acting_first", public, service, parallel_fixture(public))
+    assert not trace["complete"] and service.calls == []
+
+
+def test_sdk_native_preserves_sdk_context(tmp_path):
+    public, service = case(), Register()
+    trace, requests = run(tmp_path, "sdk_acting_first", public, service, [
+        completion(tool="lookup", arguments=public["public"]),
+        completion(content='{"value":"live blue"}', call_id="terminal"),
+    ], runtime_profile="SDK_NATIVE")
+    assert trace["complete"], (trace["failure"], [row.get("failure") for row in trace["wire"]])
+    assert trace["runtime_attribution"]["profile"] == "SDK_NATIVE"
+    assert "<USER_REQUEST>" in requests[0]["messages"][1]["content"]
+    assert requests[0]["seed"] == 7107

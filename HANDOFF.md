@@ -8,6 +8,14 @@ Set `PYTHONPATH=.;src;benchmarks/tool_calling/runner` and use the pinned reposit
 
 Publish completed batches with `python -m benchmarks.slm10.tc_dashboard --publish-from ASSET_ROOT/.runtime/ij-slm-1.0/tc-v3-formal/sealed`. Update the mission and ledger counts from its executed rows. Keep the portable evidence and the original private traces identified separately. D25 and AG-11 remain BLOCKED.
 
+Verify the complete three-model paired view with
+`python -m benchmarks.slm10.tc_priority_report`. The F/G controller reuses the
+same physical lease and separate candidate admissions. The AG-11 collector
+requires the machine owner's separately elevated console.
+[Paired report](reports/SLM10_PRIORITY_TC_V3_CAPABILITIES.md) ·
+[AG-11 owner instructions](docs/AG11_OWNER_INSTRUCTIONS.md)
+
+
 ### Interleaved SDK experiments
 
 The interleaved Windows controller advances a frozen 36-trial formal batch before each eligible diagnostic wave. Diagnostic runs occupy the shared Radeon lease between batches. Use `scripts/windows/run_slm_sdk_causal_waves.ps1 -AssetsRoot ASSET_ROOT -Audit` to inspect scheduled wave evidence. After the original controller exits, use `-Resume` to adopt verified legacy reports and finish eligible waves from the same asset root. The successor controller uses a workstation-wide lock, a durable reservation and an atomic wave seal. It recovers a finalized private report after portable publication is interrupted. Existing attempts without a verified terminal capture require reconciliation before dispatch can continue. Preserve their original folders and traces.
@@ -40,6 +48,17 @@ executor takes a synthetic service interface and keeps world assessment
 offline. Physical runner registration, independent release review and the
 formal evaluator credentials are pending.
 [Source and dispatch requirements](docs/SLM10_PLANNING_ROSTER.md)
+
+Replay the supplemental identity freeze with `python -m benchmarks.slm10.planning_world_allocation`.
+The selected world is shared across the model, track and seed repetitions for
+each case. Independent scoped release requires its own pinned credentials.
+The priority development preflight roster can be inspected using
+`python -m benchmarks.slm10.p0e_radeon`. Its explicit dispatch path shares the
+Radeon lease and yields zero core-trial attribution. The workstation scheduler
+waits for the frozen F/G controller and the LFM3 holdout before dispatching
+A, B and D. Private output is under .runtime/ij-slm-1.0/p0e-radeon-v1 in
+the common asset root. A partial capture requires reconciliation before retry.
+
 
 Replay the LFM3 paired holdout analyzer with
 `python -m benchmarks.slm10.sdk_adapter_holdout_report`. After the Radeon

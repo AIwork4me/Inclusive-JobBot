@@ -8,6 +8,7 @@ from hashlib import sha256
 from http.client import HTTPConnection, HTTPException
 import json
 from pathlib import Path
+from threading import Lock
 from urllib.parse import urlsplit
 from uuid import uuid4
 
@@ -27,6 +28,12 @@ from .planning_controls import validate_public
 from .tc_verification import delivered_result
 
 TRACKS = ("direct_plan_first", "direct_acting_first", "sdk_plan_first", "sdk_acting_first")
+RUNTIME_PROFILES = {
+    "DIRECT_NATIVE": "direct_public_context",
+    "SDK_NATIVE": "sdk_authored_context",
+    "SDK_MATCHED_CONTEXT": "sdk_context_replaced_by_direct",
+    "SDK_SPECIALIZED": "reserved_requires_registered_intervention",
+}
 STREAM_LIMIT = 2 * MAX_WIRE_BYTES
 ACT_SYSTEM = (
     "Work only on the public synthetic task using its named tools. Use the public facts and live tool observations. "
@@ -35,14 +42,19 @@ ACT_SYSTEM = (
 )
 
 
-def _acting_messages(case, plan_raw):
+def _acting_messages(case, plan_raw, parallel_read_tools):
     contract = case["contract"]
     objective = {"goal_options": contract["goal_options"]} if "goal_options" in contract else {"goal": contract["goal"]}
     visible = {"task": case["task"], "public": case["public"], "tools": contract["tools"], "limits": case["limits"],
                "external_event_fields": contract["event_fields"], **objective}
     if plan_raw is not None:
         visible["your_proposed_plan"] = plan_raw
-    return [{"role": "system", "content": ACT_SYSTEM}, {"role": "user", "content": canonical(visible).decode()}]
+    system = ACT_SYSTEM
+    if parallel_read_tools:
+        system = system.replace("Propose at most one tool call per turn",
+                                "Batch only independent reads from the permitted tool list")
+        visible["parallel_read_tools"] = sorted(parallel_read_tools)
+    return [{"role": "system", "content": system}, {"role": "user", "content": canonical(visible).decode()}]
 
 
 def _observe_provider(client, event):
@@ -89,11 +101,14 @@ class _DirectOrigin:
 
 
 class _Trial:
-    def __init__(self, client, alias, case, sandbox, trial_id, seed):
+    def __init__(self, client, alias, case, sandbox, trial_id, seed, runtime_profile, parallel_read_tools):
         self.client, self.alias, self.case, self.sandbox = client, alias, case, sandbox
         self.trial_id, self.seed = trial_id, seed
         self.wire, self.calls, self.history, self.ids = [], [], [], set()
-        self.pending, self.grant = None, None
+        self.pending, self.grant = set(), None
+        self.runtime_profile = runtime_profile
+        self.parallel_read_tools = parallel_read_tools
+        self.callback_lock = Lock()
         self.limits = case["limits"]
         self.specs = case["contract"]["tools"]
         self.schemas = {name: input_schema(name, spec) for name, spec in self.specs.items()}
@@ -110,14 +125,14 @@ class _Trial:
         tokens = min(1536 if phase == "plan" else 768, self.limits["peak_context_tokens"])
         body = {"model": self.alias, "messages": body["messages"], "stream": False, "seed": self.seed,
                 "temperature": 0, "cache_prompt": False, "chat_template_kwargs": {"enable_thinking": False},
-                "max_completion_tokens": tokens, "parallel_tool_calls": False,
+                "max_completion_tokens": tokens, "parallel_tool_calls": bool(tools and self.parallel_read_tools),
                 "tool_choice": "auto" if tools else "none"}
         if tools:
             body["tools"] = tools
         return body
 
     def check_response(self, event, phase, content_type, raw):
-        if event["http_status"] != 200 or self.pending is not None:
+        if event["http_status"] != 200 or self.pending:
             raise ValueError("provider response is unavailable or a previous proposal was not delivered")
         response = assemble_reply(content_type, raw, max_stream_bytes=STREAM_LIMIT)
         usage = event.get("usage")
@@ -133,20 +148,28 @@ class _Trial:
         if event.get("source_generation", {}).get("truncated") is True:
             raise ValueError("provider reported a truncated generation")
         if response.calls:
-            if phase != "act" or len(response.calls) != 1 or len(self.calls) >= self.limits["tool_calls"]:
+            if phase != "act" or len(self.calls) + len(response.calls) > self.limits["tool_calls"]:
                 raise ValueError("proposal exceeds the current phase or tool call budget")
-            proposal, = response.calls
-            args = parse_proposal(proposal)
-            schema = self.schemas.get(proposal.name)
-            if (proposal.call_id in self.ids or schema is None or args.keys() != set(self.specs[proposal.name]["inputs"])
-                    or not matches(args, schema)):
-                raise ValueError("proposal is duplicate or outside the public tool schema")
-            self.ids.add(proposal.call_id)
-            self.pending = proposal.call_id
+            batching = len(response.calls) > 1
+            if batching and any(call.name not in self.parallel_read_tools for call in response.calls):
+                raise ValueError("only registered independent reads may share a provider completion")
+            marks = set()
+            for proposal in response.calls:
+                args = parse_proposal(proposal)
+                schema = self.schemas.get(proposal.name)
+                mark = proposal.name, fingerprint(args)
+                if (proposal.call_id in self.ids or proposal.call_id in self.pending or mark in marks
+                        or schema is None or args.keys() != set(self.specs[proposal.name]["inputs"])
+                        or not matches(args, schema)):
+                    raise ValueError("proposal is duplicate or outside the public tool schema")
+                marks.add(mark)
+                self.pending.add(proposal.call_id)
+            self.ids.update(self.pending)
+            event["validated_batch_width"] = len(response.calls)
         return response
 
     def dispatch(self, proposal, event):
-        if self.pending != proposal.call_id:
+        if proposal.call_id not in self.pending:
             raise ValueError("tool callback has no unique validated provider proposal")
         tool, args = proposal.name, parse_proposal(proposal)
         if tool == "commit" and (self.grant is None or self.grant != (args.get("draft_id"), args.get("approval"))):
@@ -154,16 +177,22 @@ class _Trial:
         before = deepcopy(self.sandbox.snapshot())
         if tool == "commit":
             self.grant = None
-        reply = self.sandbox.execute(tool, deepcopy(args))
+        batching = event["validated_batch_width"] > 1
+        handler = self.sandbox.execute_parallel_read if batching else self.sandbox.execute
+        reply = handler(tool, deepcopy(args))
+        if batching and "external_event" in reply:
+            raise ValueError("a batch read cannot carry a state or authorization update")
         record = {"tool": tool, "args": args, "arguments_raw": proposal.arguments_raw, "call_id": proposal.call_id,
                   "provider_request_id": event["provider_request_id"], "completion_id": event.get("completion_id"),
                   "observation": deepcopy(reply), "before": before, "after": deepcopy(self.sandbox.snapshot())}
         self.calls.append(record)
-        self.pending = None
+        self.pending.remove(proposal.call_id)
         self._apply_reply(tool, args, reply)
         result = canonical(reply).decode()
-        self.history.extend((event["parsed_response"][0]["message"],
-                             {"role": "tool", "tool_call_id": proposal.call_id, "content": result}))
+        if not event.get("assistant_history_recorded"):
+            self.history.append(event["parsed_response"][0]["message"])
+            event["assistant_history_recorded"] = True
+        self.history.append({"role": "tool", "tool_call_id": proposal.call_id, "content": result})
         return result
 
     def _apply_reply(self, tool, args, reply):
@@ -200,24 +229,51 @@ class _Trial:
             if not response.calls:
                 event["status"] = "PASS"
                 return response.content
-            proposal, = response.calls
-            self.dispatch(proposal, event)
+            for proposal in response.calls:
+                self.dispatch(proposal, event)
             event["status"] = "PASS"
         raise ValueError("model request budget exhausted before termination")
 
     def check_sdk_transcript(self, history):
-        if len(history) != 2 * len(self.calls):
-            raise ValueError("SDK transcript lacks an exact callback history")
-        for call, proposed, observed in zip(self.calls, history[::2], history[1::2], strict=True):
+        calls = {call["call_id"]: call for call in self.calls}
+        seen = set()
+        index = 0
+        while index < len(history):
+            proposed = history[index]
             envelopes = proposed.get("tool_calls", [])
-            if (proposed.get("role") != "assistant" or not isinstance(envelopes, list) or len(envelopes) != 1
-                    or observed.get("role") != "tool" or observed.get("tool_call_id") != call["call_id"]
-                    or not equal(delivered_result(observed, call, "sdk_acting_first"), call["observation"])):
-                raise ValueError("SDK callback result differs from the live sandbox capture")
-            proposal = decode_proposal(envelopes[0])
-            if ((proposal.call_id, proposal.name) != (call["call_id"], call["tool"])
-                    or not equal(parse_proposal(proposal), call["args"])):
-                raise ValueError("SDK conversation proposal differs from its validated provider capture")
+            if proposed.get("role") != "assistant" or not isinstance(envelopes, list) or not envelopes:
+                raise ValueError("SDK transcript lacks an exact callback history")
+            proposals = [decode_proposal(envelope) for envelope in envelopes]
+            by_id = {proposal.call_id: proposal for proposal in proposals}
+            results = history[index + 1:index + 1 + len(proposals)]
+            ids = {observed.get("tool_call_id") for observed in results}
+            if (len(ids) != len(proposals) or ids != by_id.keys() or ids.intersection(seen)
+                    or not ids.issubset(calls)
+                    or len({calls[key]["provider_request_id"] for key in ids}) != 1):
+                raise ValueError("SDK transcript lacks an exact callback batch")
+            for observed in results:
+                key = observed["tool_call_id"]
+                proposal, call = by_id[key], calls[key]
+                if (observed.get("role") != "tool" or proposal.name != call["tool"]
+                        or not equal(parse_proposal(proposal), call["args"])
+                        or not equal(delivered_result(observed, call, "sdk_acting_first"), call["observation"])):
+                    raise ValueError("SDK callback history differs from the live sandbox capture")
+            seen.update(ids)
+            index += 1 + len(proposals)
+        if seen != calls.keys():
+            raise ValueError("SDK transcript lacks complete callback history")
+
+    def execution_metrics(self):
+        batches = Counter(call["provider_request_id"] for call in self.calls)
+        return {
+            "actual_action_count": len(self.calls),
+            "observed_sequential_depth": len(batches),
+            "observed_parallel_width": max(batches.values(), default=0),
+            "model_requests": sum("provider_request" in row for row in self.wire),
+            "user_turns": int(bool(self.wire)),
+            "external_updates": sum(isinstance(call["observation"].get("external_event"), dict)
+                                    for call in self.calls),
+        }
 
     async def sdk_phase(self, messages, phase, budget, target, harness):
         from google.antigravity import Agent, LocalOpenAIAgentConfig, types
@@ -237,11 +293,12 @@ class _Trial:
             name = definition["name"]
 
             def callback(**args):
-                proposal = approvals.claim(name, args)
-                event = self.wire[-1]
-                if proposal.call_id not in event.get("parsed_tool_call_ids", ()):
-                    raise ValueError("SDK callback lacks unique provider provenance")
-                return self.dispatch(proposal, event)
+                with self.callback_lock:
+                    proposal = approvals.claim(name, args)
+                    event = self.wire[-1]
+                    if proposal.call_id not in event.get("parsed_tool_call_ids", ()):
+                        raise ValueError("SDK callback lacks unique provider provenance")
+                    return self.dispatch(proposal, event)
 
             callback.__name__, callback.__doc__ = name, definition["description"]
             return ToolWithSchema(callback, definition["parameters"])
@@ -252,7 +309,7 @@ class _Trial:
             got = Counter(tool["function"]["name"] for tool in body.get("tools", []))
             want = Counter(tool["function"]["name"] for tool in offered)
             sdk_messages = body.get("messages", [])
-            if (len(self.wire) - phase_start > budget or self.pending is not None
+            if (len(self.wire) - phase_start > budget or self.pending
                     or body.get("model") != self.alias or got != want or not isinstance(sdk_messages, list)
                     or len(sdk_messages) < 2 or any(not isinstance(item, dict) for item in sdk_messages)
                     or [item.get("role") for item in sdk_messages[:2]] != ["system", "user"]
@@ -260,7 +317,15 @@ class _Trial:
                     or messages[1]["content"] not in sdk_messages[1]["content"]):
                 raise ValueError("SDK request exceeds the matched public runtime contract")
             self.check_sdk_transcript(sdk_messages[2:])
-            # Retain the SDK transcript in wire evidence and match the actual provider input to Direct.
+            if self.runtime_profile == "SDK_NATIVE":
+                # Seed and limits are fixed provider controls. The SDK still owns the context and tool selection.
+                fixed = self.profile({"messages": sdk_messages}, phase)
+                for key in ("seed", "temperature", "cache_prompt", "chat_template_kwargs",
+                            "max_completion_tokens", "parallel_tool_calls"):
+                    body[key] = fixed[key]
+                if body.get("stream"):
+                    body["stream_options"] = {"include_usage": True}
+                return canonical(body)
             return canonical(self.profile({"messages": [*messages, *self.history]}, phase))
 
         def response_adapter(media, raw, event):
@@ -294,7 +359,7 @@ class _Trial:
                     answer = "".join([chunk async for chunk in response])
         phase_wire = self.wire[phase_start:]
         terminal = phase_wire[-1] if phase_wire else {}
-        if (self.pending is not None or any(event.get("status") != "PASS" for event in phase_wire)
+        if (self.pending or any(event.get("status") != "PASS" for event in phase_wire)
                 or terminal.get("validated_finish_reason") != "stop"):
             raise ValueError("SDK phase ended without complete provider and callback evidence")
         wire_answer = assemble_reply(terminal["content_type"], terminal["response"].encode()).content
@@ -303,13 +368,24 @@ class _Trial:
         return answer
 
 
-async def execute_trial(client, alias, case, sandbox, trial_id, track, *, seed, target=None, harness=None):
+async def execute_trial(client, alias, case, sandbox, trial_id, track, *, seed, target=None, harness=None,
+                        runtime_profile=None, parallel_reads=False):
     """Use an already admitted local provider and an independently implemented synthetic service."""
     validate_public(case, set())
     endpoint = urlsplit(client.base_url)
     if (track not in TRACKS or endpoint.scheme != "http" or not endpoint.port
             or endpoint.netloc != f"127.0.0.1:{endpoint.port}" or endpoint.path or endpoint.query or endpoint.fragment):
         raise ValueError("matched execution requires a registered track and a literal local provider origin")
+    profiles = ("SDK_NATIVE", "SDK_MATCHED_CONTEXT") if track.startswith("sdk_") else ("DIRECT_NATIVE",)
+    runtime_profile = runtime_profile or profiles[-1]
+    if runtime_profile not in profiles:
+        raise ValueError("runtime profile has no registered implementation for this track")
+    parallel_read_tools = frozenset()
+    if parallel_reads:
+        parallel_read_tools = frozenset(getattr(sandbox, "parallel_read_tools", ()))
+        if (not parallel_read_tools or not parallel_read_tools <= case["contract"]["tools"].keys()
+                or not callable(getattr(sandbox, "execute_parallel_read", None))):
+            raise ValueError("parallel mode requires an explicit read-only sandbox boundary")
     if case["limits"]["retries"] != 0:
         raise ValueError("matched execution currently supports the frozen zero-retry profile")
     failures = (OSError, ValueError, HTTPException, GatewayError)
@@ -323,7 +399,7 @@ async def execute_trial(client, alias, case, sandbox, trial_id, track, *, seed, 
         failures += (types.AntigravityCancelledError, types.AntigravityConnectionError,
                      types.AntigravityExecutionError, types.AntigravityValidationError)
     sandbox_state = deepcopy(sandbox.snapshot())
-    trial = _Trial(client, alias, case, sandbox, trial_id, seed)
+    trial = _Trial(client, alias, case, sandbox, trial_id, seed, runtime_profile, parallel_read_tools)
     plan_raw, answer, failure = None, None, None
     stage = "act"
     budget = case["limits"]["model_requests"]
@@ -350,11 +426,15 @@ async def execute_trial(client, alias, case, sandbox, trial_id, track, *, seed, 
                 raise ValueError("invalid public plan contract: " + ", ".join(errors))
             budget -= 1
         stage = "act"
-        answer = await phase(_acting_messages(case, plan_raw), "act", budget)
+        answer = await phase(_acting_messages(case, plan_raw, parallel_read_tools), "act", budget)
         strict_object(answer, max_bytes=65536)
     except failures as error:
         failure = {"phase": stage, "type": type(error).__name__, "message": str(error)}
     return {"trial_id": trial_id, "case_id": case["case_id"], "public_sha256": fingerprint(case), "track": track,
             "seed": seed, "plan_raw": plan_raw, "answer": answer, "wire": trial.wire, "calls": trial.calls,
             "before": sandbox_state, "after": deepcopy(sandbox.snapshot()), "complete": failure is None,
+            "runtime_attribution": {"profile": runtime_profile, "context_semantics": RUNTIME_PROFILES[runtime_profile],
+                                    "tool_batch_policy": ("registered_read_batches" if parallel_read_tools else "serial"),
+                                    "parallel_read_tools": sorted(parallel_read_tools)},
+            "execution_metrics": trial.execution_metrics(),
             "failure": failure, "formal_qualification": "NOT_RUN"}

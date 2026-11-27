@@ -51,3 +51,36 @@ Formal dispatch requires the accepted source freeze, a matched runner,
 candidate-specific runtime admission and the verified handoff at dispatch.
 Strict qualification separately requires the applicable conditional-planning,
 persisted-state, authorization and D25 credentials.
+
+## Runtime attribution and scoped admission
+
+Each physical roster slot binds the selected world from the
+[world allocation manifest](../atlas/slm/v1.0/planning-v2-world-allocation/manifest.json).
+All attempts for a case, including repeats, use that world. The bundle has
+1,500 additional counterfactual worlds with no physical attribution. Replay
+the allocation with python -m benchmarks.slm10.planning_world_allocation.
+
+| Runtime profile | Provider context and scope |
+| --- | --- |
+| DIRECT_NATIVE | The direct runtime sends the public task and its live provider history. |
+| SDK_NATIVE | The SDK owns messages, tools and tool selection. Pinned seed and generation limits apply at the provider boundary. |
+| SDK_MATCHED_CONTEXT | The runtime verifies SDK callbacks and replaces the provider context with the Direct-aligned context. This arm is a separate diagnostic with zero core attribution. |
+| SDK_SPECIALIZED | Reserved for a separately registered and pinned intervention. |
+
+Serial remains the development control. The parallel control accepts a
+validated same-completion batch only for sandbox tools registered as
+independent reads. Host callbacks execute in a serialized critical section.
+Observed width describes provider proposals that reached those callbacks.
+The authored DAG depth, observed completion layers, actual actions, provider
+requests, public user turns and trusted external updates have separate
+denominators.
+
+The preliminary offline assessment distinguishes missing evidence, observed
+necessary-condition failure, scoped software agreement and formal evaluator
+qualification. A separate pinned mechanical credential can release a
+qualified L0–L5 read-only scope while D25 remains blocked. Runtime admission,
+hardware provenance and independent release review apply to that scope.
+Write workflows require the corresponding affirmative authorization and
+state evidence. Independent review of corpus meaning and expected outcomes
+is still pending. Automated review and separated AI authorship are recorded
+as software evidence.
