@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Published 2,976 sealed Q2 Radeon assessments. A scratch-database restore recovered 2,880 sealed observations across two independent SQLite sessions and retained all 6,850 original job identities. This verified portable recovery without dispatching new trials from the scratch database. The predicate for a full Q2 report rejects incomplete coverage.
+
 Added the Q2-to-larger-candidate runtime transition and an exclusive waiting resume entry point. The completed Q2 roster is required before the transition, and Q2 results cannot authorize formal historical routes. Physical end-to-end transition evidence remains NOT_RUN while Q2 is in progress. [Q3 metric registration](evaluation/aeve/q3_metric_preregistration.json)
 
 Rebuilt and verified all 42,987 historical trial identities and rebound 211,012 stage-scoped evaluation dimensions to their archived sources. The 36 missing physical records remain in the completeness denominator. Added the 25-dimension Evaluation Skill compiler and E0–E6 treatment definitions. The paired physical experiment and formal historical AI judgments remain NOT_RUN. [Identity audit](evidence/IJ073/aeve/history_identity_reverify.json) · [Paired design](reports/IJ073_PURPOSE_BUILT_AEVE_EXPERIMENT.md)
