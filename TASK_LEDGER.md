@@ -1,5 +1,15 @@
 # Task Ledger
 
+## IJ-SLM-1.1 continuation
+
+| Task | Status | Evidence and scope |
+|---|---|---|
+| Three-model priority measurement replay | PASS | Reconstructed 4,950 A/B/D trial outcomes from 141 portable Radeon seals. [Milestone](atlas/slm/v1.0/milestones/tc-priority/README.md) |
+| M2 independent remote reproduction | BLOCKED | Local replay passed. Await remote checkout and exact HEAD verification of the publication. |
+| M5 schema, mapping and acceptance contract | PASS | TC-V3-scoped exchange. Interventions remain HYPOTHESIS and the matched NanoAgent experiment remains NOT_RUN. [Handoff](atlas/slm/v1.0/nanoagent-handoff/NANOAGENT_ENGINEERING_HANDOFF.md) |
+| M5 independent remote reproduction | BLOCKED | Local artifact and seal digest replay passed. Await remote replay of the handoff publication. |
+| AG-11 owner instructions and offline controls | PASS | [Owner procedure](AG11_OWNER_ACTION_REQUIRED.md). Physical collector capture and independent review remain BLOCKED. |
+
 ## IJ-SLM-1.0 baseline
 
 | Continuation | Status | Evidence |

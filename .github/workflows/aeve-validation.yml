@@ -32,6 +32,8 @@ jobs:
       - run: python -m benchmarks.slm10.tc_capability_metrics --summary atlas/slm/v1.0/tc-capability-matrix.json --rows evidence/IJSLM/tc-capability/assessments.jsonl.gz --check
       - run: python -m benchmarks.slm10.tc_atlas_views
       - run: python -m benchmarks.slm10.tc_priority_report
+      - run: python -m benchmarks.slm10.tc_priority_milestone
+      - run: python -m benchmarks.slm10.nanoagent_handoff
       - run: python -m benchmarks.slm10.multitool_v2_candidate
       - run: python -m benchmarks.slm10.multitool_v2_balanced
       - run: python -m benchmarks.slm10.multitool_v2_revised

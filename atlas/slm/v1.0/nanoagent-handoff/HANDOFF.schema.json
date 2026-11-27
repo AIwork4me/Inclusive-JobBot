@@ -1,0 +1,671 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "kind",
+    "scope",
+    "data"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "kind": {
+      "enum": [
+        "HANDOFF_MANIFEST",
+        "EVIDENCE_MANIFEST",
+        "MODEL_CAPABILITIES",
+        "SDK_CAPABILITY_DELTA",
+        "MODEL_FAILURE_SIGNATURES",
+        "CAPABILITY_DEFICITS",
+        "COMPENSATION_COMPONENTS",
+        "CAPABILITY_COMPONENT_MAPPING",
+        "MATCHED_BENCHMARK_CONTRACT",
+        "RESOURCE_BASELINES",
+        "AUTONOMY_PERMISSION_MATRIX",
+        "OPEN_RISKS"
+      ]
+    },
+    "scope": {
+      "const": "TC-V3/1.0 synthetic Radeon tool-calling measurement"
+    },
+    "data": {}
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "HANDOFF_MANIFEST"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "source_git_sha",
+              "core_trial_attribution",
+              "files"
+            ],
+            "properties": {
+              "source_git_sha": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "core_trial_attribution": {
+                "const": 0
+              },
+              "files": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "EVIDENCE_MANIFEST"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "source_git_sha",
+              "coverage",
+              "files",
+              "derived_priority_rows_sha256",
+              "raw_portable_sessions"
+            ],
+            "properties": {
+              "source_git_sha": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "coverage": {
+                "type": "object",
+                "required": [
+                  "planned",
+                  "executed",
+                  "sealed"
+                ],
+                "properties": {
+                  "planned": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "executed": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "sealed": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "files": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "derived_priority_rows_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "raw_portable_sessions": {
+                "type": "object",
+                "minProperties": 1,
+                "additionalProperties": {
+                  "type": "object",
+                  "required": [
+                    "path",
+                    "manifest_sha256"
+                  ],
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "manifest_sha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "MODEL_CAPABILITIES"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "A",
+              "B",
+              "D"
+            ],
+            "properties": {},
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "configurations",
+                "metrics",
+                "strict_d25"
+              ],
+              "properties": {
+                "configurations": {
+                  "type": "array",
+                  "minItems": 1
+                },
+                "metrics": {
+                  "type": "array",
+                  "minItems": 1
+                },
+                "strict_d25": {
+                  "const": "BLOCKED"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "SDK_CAPABILITY_DELTA"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "A",
+              "B",
+              "D"
+            ],
+            "properties": {}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "MODEL_FAILURE_SIGNATURES"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "failure_id",
+                "model",
+                "description",
+                "metric",
+                "frequency_status",
+                "failure_frequency",
+                "source_evidence"
+              ],
+              "properties": {
+                "failure_id": {
+                  "type": "string",
+                  "pattern": "^[ABD]-[a-z]+$"
+                },
+                "model": {
+                  "enum": [
+                    "A",
+                    "B",
+                    "D"
+                  ]
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "metric": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "frequency_status": {
+                  "enum": [
+                    "PASS",
+                    "FAIL",
+                    "BLOCKED",
+                    "NOT_RUN"
+                  ]
+                },
+                "failure_frequency": {
+                  "type": "object"
+                },
+                "source_evidence": {
+                  "type": "object",
+                  "required": [
+                    "matrix",
+                    "manifest"
+                  ],
+                  "properties": {
+                    "matrix": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "manifest": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "CAPABILITY_DEFICITS"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "failure_id",
+                "metric",
+                "qualification_scope"
+              ],
+              "properties": {
+                "failure_id": {
+                  "type": "string",
+                  "pattern": "^[ABD]-[a-z]+$"
+                },
+                "metric": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "qualification_scope": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "COMPENSATION_COMPONENTS"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "component",
+                "required_invariant",
+                "qualification"
+              ],
+              "properties": {
+                "component": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "required_invariant": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "qualification": {
+                  "const": "HYPOTHESIS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "CAPABILITY_COMPONENT_MAPPING"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "failure_id",
+                "model",
+                "description",
+                "metric",
+                "frequency_status",
+                "failure_frequency",
+                "source_evidence",
+                "runtime_identity_ref",
+                "confirmed_root_cause",
+                "unverified_hypothesis",
+                "intervention_status",
+                "proposed_component",
+                "required_invariant",
+                "expected_benefit",
+                "validation_experiment",
+                "observed_benefit",
+                "resource_overhead",
+                "remaining_risks",
+                "qualification_scope"
+              ],
+              "properties": {
+                "failure_id": {
+                  "type": "string",
+                  "pattern": "^[ABD]-[a-z]+$"
+                },
+                "model": {
+                  "enum": [
+                    "A",
+                    "B",
+                    "D"
+                  ]
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "metric": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "frequency_status": {
+                  "enum": [
+                    "PASS",
+                    "FAIL",
+                    "BLOCKED",
+                    "NOT_RUN"
+                  ]
+                },
+                "failure_frequency": {
+                  "type": "object"
+                },
+                "source_evidence": {
+                  "type": "object",
+                  "required": [
+                    "matrix",
+                    "manifest"
+                  ],
+                  "properties": {
+                    "matrix": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "manifest": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                "runtime_identity_ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "confirmed_root_cause": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "unverified_hypothesis": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "intervention_status": {
+                  "const": "HYPOTHESIS"
+                },
+                "proposed_component": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "required_invariant": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "expected_benefit": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "validation_experiment": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "observed_benefit": {
+                  "const": "NOT_RUN"
+                },
+                "resource_overhead": {
+                  "const": "NOT_RUN"
+                },
+                "remaining_risks": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "qualification_scope": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "MATCHED_BENCHMARK_CONTRACT"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "arms",
+              "pair_key",
+              "hold_constant",
+              "reference_exceptions",
+              "capture",
+              "evaluation",
+              "status"
+            ],
+            "properties": {
+              "arms": {
+                "type": "object",
+                "required": [
+                  "R0",
+                  "R1",
+                  "R2",
+                  "R3",
+                  "R4",
+                  "R5",
+                  "R6",
+                  "R7"
+                ],
+                "properties": {}
+              },
+              "pair_key": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "hold_constant": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "capture": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "evaluation": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "status": {
+                "const": "NOT_RUN"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "RESOURCE_BASELINES"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "A",
+              "B",
+              "D"
+            ],
+            "properties": {}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "AUTONOMY_PERMISSION_MATRIX"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "model_proposals",
+              "sandbox_read",
+              "draft",
+              "commit",
+              "permission_expansion",
+              "qualified_autonomy"
+            ],
+            "properties": {
+              "permission_expansion": {
+                "const": "BLOCKED"
+              },
+              "qualified_autonomy": {
+                "const": "BLOCKED"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "OPEN_RISKS"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "D25",
+              "production",
+              "AG11",
+              "planning_and_complexity",
+              "npu_physical",
+              "intervention_acceptance"
+            ],
+            "properties": {}
+          }
+        }
+      }
+    }
+  ]
+}
