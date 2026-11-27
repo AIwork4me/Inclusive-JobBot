@@ -12,6 +12,11 @@ from evaluation.aeve.runtime import ROOT, fingerprint
 SOURCE_PATHS = (
     "benchmarks/agentic_planning_v2/oracle.py",
     "benchmarks/agentic_planning_v2/contract.py",
+    "benchmarks/agentic_planning_v2/execution.py",
+    "benchmarks/agentic_planning_v2/events.py",
+    "benchmarks/agentic_planning_v2/types.py",
+    "schemas/conditional_plan_v2.schema.json",
+    "schemas/conditional_plan_v2_typed.schema.json",
     "evaluation/aeve/evaluation_skill.py",
     "evaluation/aeve/gold_proof.py",
 )

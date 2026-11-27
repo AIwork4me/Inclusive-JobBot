@@ -16,7 +16,14 @@ def test_registry_binds_full_identity_and_counts_a_physical_trial_once(tmp_path)
     origin = {"git_sha": "1" * 40, "runtime_session": "session-a", "physical_ordinal": 2}
     with sqlite3.connect(tmp_path / "global.sqlite") as db:
         registry = Registry(db)
+        assert registry.reserve("IJ-SDK-1.0", spec, origin["runtime_session"])
+        with sqlite3.connect(tmp_path / "global.sqlite") as competitor:
+            other = Registry(competitor)
+            assert not other.reserve("IJ-SLM-1.0", spec, "different-session")
+            with pytest.raises(MatchConflict, match="reserved"):
+                other.add("IJ-SLM-1.0", spec, origin, source, raw)
         assert registry.add("IJ-SDK-1.0", spec, origin, source, raw)
+        assert not registry.reserve("IJ-SLM-1.0", spec, "different-session")
         assert not registry.add("IJ-SLM-1.0", spec, origin, source, raw)
         assert registry.count() == 1
         assert registry.lookup(spec)["evidence_sha256"] == raw

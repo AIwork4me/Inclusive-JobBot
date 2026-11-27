@@ -12,7 +12,7 @@ class MatchConflict(ValueError):
 
 class TrialIdentity:
     HASH_FIELDS = {
-        "model_sha256", "dataset_sha256", "runtime_sha256", "sdk_sha256", "prompt_sha256",
+        "model_sha256", "model_identity_sha256", "dataset_sha256", "runtime_sha256", "sdk_sha256", "prompt_sha256",
         "template_sha256", "tools_sha256", "permissions_sha256", "evaluation_sha256",
         "gpu_sha256", "host_sha256", "configuration_sha256",
     }
@@ -41,6 +41,8 @@ class Registry:
                 signature TEXT PRIMARY KEY, physical_id TEXT NOT NULL UNIQUE,
                 git_sha TEXT NOT NULL, runtime_session TEXT NOT NULL,
                 physical_ordinal INTEGER NOT NULL, evidence_sha256 TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS reservations(
+                signature TEXT PRIMARY KEY, mission TEXT NOT NULL, runtime_session TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS references_by_mission(
                 mission TEXT NOT NULL, signature TEXT NOT NULL REFERENCES trials(signature),
                 PRIMARY KEY(mission, signature));
@@ -52,6 +54,19 @@ class Registry:
             "SELECT physical_id,git_sha,runtime_session,physical_ordinal,evidence_sha256 "
             "FROM trials WHERE signature=?", (identity(spec),)).fetchone()
         return dict(zip(fields, row, strict=True)) if row else None
+
+    def reserve(self, mission, spec, runtime_session):
+        """Reserve a physical dispatch without discarding an interrupted attempt."""
+        if not isinstance(mission, str) or not mission.strip() or not isinstance(runtime_session, str) or not runtime_session.strip():
+            raise ValueError("missing dispatch owner")
+        signature = identity(spec)
+        with self.db:
+            self.db.execute("BEGIN IMMEDIATE")
+            if self.db.execute("SELECT 1 FROM trials WHERE signature=?", (signature,)).fetchone():
+                return False
+            reserved = self.db.execute("INSERT OR IGNORE INTO reservations VALUES (?,?,?)",
+                                       (signature, mission, runtime_session))
+            return reserved.rowcount == 1
 
     def add(self, mission, spec, origin, evidence, expected_sha256):
         if not isinstance(mission, str) or not mission.strip():
@@ -72,13 +87,19 @@ class Registry:
         record = (signature, physical, sha, session, ordinal, observed)
         with self.db:
             self.db.execute("BEGIN IMMEDIATE")
+            pending = self.db.execute("SELECT mission,runtime_session FROM reservations WHERE signature=?",
+                                      (signature,)).fetchone()
+            if pending is not None and tuple(pending) != (mission, session):
+                raise MatchConflict("physical dispatch is reserved by another run")
             existing = self.db.execute(
                 "SELECT * FROM trials WHERE signature=? OR physical_id=?", record[:2]).fetchall()
-            if existing and existing != [record]:
+            if existing and [tuple(row) for row in existing] != [record]:
                 raise MatchConflict("physical trial or experiment identity already bound")
             if not existing:
                 self.db.execute("INSERT INTO trials VALUES (?,?,?,?,?,?)", record)
             self.db.execute("INSERT OR IGNORE INTO references_by_mission VALUES (?,?)", (mission, signature))
+            if pending is not None:
+                self.db.execute("DELETE FROM reservations WHERE signature=?", (signature,))
         return not existing
 
     def count(self):

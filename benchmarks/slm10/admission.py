@@ -16,6 +16,7 @@ from benchmarks.competitive_slm.admission import GATES, chat_ok, cpu_server, req
 from benchmarks.competitive_slm.tc_v2_candidate import server_environment, verify_launch, verify_runtime
 from benchmarks.ij06_sdk.qualify import CASE_SPECS, execute_case
 from .planning_pair import matched_plan
+from .portable import portable
 from benchmarks.root_cause.historical_replay import gpu_server
 from evaluation.aeve.archive import check_text, digest
 from evaluation.aeve.runtime import ROOT, canonical, write_json
@@ -26,8 +27,10 @@ def git_head():
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
 
-def archive(source, destination):
+def archive(source, destination, *, redact=False):
     raw = source.read_bytes()
+    if redact:
+        raw = b"".join(canonical(portable(json.loads(line))) + b"\n" for line in raw.splitlines())
     check_text(raw)
     destination.write_bytes(gzip.compress(raw, mtime=0))
     return digest(destination)
@@ -112,15 +115,19 @@ def execute(candidate, assets, handoff_root, port):
         passed = verify_gpu({"gpu_launch": launch_record,
                              "gpu_counters": target / report["gpu"]["counter_file"]}, "vulkan")
         report["gates"]["gpu_execution"] = "PASS" if passed else "FAIL"
-        portable = target / "portable"
-        portable.mkdir()
+        published = target / "portable"
+        published.mkdir()
+        trace, counters = (report["gpu"][key] for key in ("trace_file", "counter_file"))
         report["sha256"] = {
-            name + ".gz": archive(target / name, portable / (name + ".gz"))
-            for name in (report["gpu"]["counter_file"], report["gpu"]["trace_file"])
+            counters + ".gz": archive(target / counters, published / (counters + ".gz")),
+            trace + ".gz": archive(target / trace, published / (trace + ".gz"), redact=True),
         }
+        report["raw_private_artifact_sha256"] = {name: digest(target / name) for name in (trace, counters)}
         report["diagnostic_coverage"] = "PASS"
-        check_text(canonical(report))
-        write_json(portable / "report.json", report)
+        write_json(report_path, report)
+        public_report = {**portable(report), "raw_private_report_sha256": digest(report_path)}
+        check_text(canonical(public_report))
+        write_json(published / "report.json", public_report)
     except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
         report["diagnostic_coverage"] = "BLOCKED"
         report["interruption_type"] = type(error).__name__
