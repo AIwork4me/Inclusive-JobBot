@@ -4,7 +4,7 @@
  "mission_title": "Assurance-Gated Progressive N03 Execution",
  "mission_order": "docs/IJNANO_MISSION_ORDER_V1_3S.md",
  "order_sha256": "c447831de2c4683c366fd0f7ae50ffda6d8660aea69961358d17900624d7e584",
- "updated_utc": "2026-11-28T08:05:00Z",
+ "updated_utc": "2026-11-28T08:40:00Z",
  "tracking_issue": 10,
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
@@ -73,7 +73,7 @@
  },
  "gates": {
   "N03_PROGRESSIVE_EXECUTION_PLAN_FROZEN": "GRANTED",
-  "N03_TAXONOMY_CONTRACTS_FROZEN": "PENDING",
+  "N03_TAXONOMY_CONTRACTS_FROZEN": "GRANTED",
   "N03_DATASET_FROZEN": "PENDING",
   "N03_DATASET_VERIFIED": "PENDING",
   "N03_DATASET_AND_RUNNER_PREPARATION_READY": "PENDING",
@@ -1067,6 +1067,14 @@
   "regression": "python -I -m unittest discover -s tests/ij_nano -t .",
   "publish_gate": "python -I scripts/tools/publish_check.py --staged",
   "gpu_lease": "python benchmarks/root_cause/gpu_lease.py",
-  "next_task": "N03-B1 taxonomy contracts (AUTH-0)"
+  "next_task": "N03-B2 dataset build (AUTH-0)"
+ },
+ "taxonomy": {
+  "path": "evaluation/ij_nano/n03/taxonomy.json",
+  "schema": "evaluation/ij_nano/n03/taxonomy.schema.json",
+  "validator": "scripts/ij_nano/n03/validate_taxonomy.py",
+  "tests": "tests/ij_nano/test_n03_taxonomy.py",
+  "sha256": "cb800bce6efc01723e1e34ad10e159d3a95c44ed8592a3c0112c17e74f23861c",
+  "frozen_utc": "2026-11-28T08:40:00Z"
  }
 }
