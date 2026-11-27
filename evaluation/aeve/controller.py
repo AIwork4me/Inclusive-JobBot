@@ -62,13 +62,16 @@ def gpu_lock(folder, filename="gpu.lock"):
 def add(db, collection, item, candidate, dimension, role, spec):
     key = fingerprint([collection, item, candidate, dimension, role, spec])
     args = (collection, item, candidate, dimension, role)
-    old = db.execute("SELECT id FROM jobs WHERE collection=? AND item=? AND candidate=? AND dimension=? AND role=?", args).fetchone()
-    if old:
-        if old["id"] != key:
-            raise ValueError(f"input changed for frozen job {item}/{candidate}/{dimension}; version the collection")
-        return
-    db.execute("INSERT INTO jobs(id,collection,item,candidate,dimension,role,spec,created) VALUES(?,?,?,?,?,?,?,?)",
-               (key, *args, gzip.compress(canonical(spec), compresslevel=1, mtime=0), time.time_ns()))
+    db.execute(
+        """INSERT INTO jobs(id,collection,item,candidate,dimension,role,spec,created)
+           VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(collection,item,candidate,dimension,role) DO NOTHING""",
+        (key, *args, gzip.compress(canonical(spec), compresslevel=1, mtime=0), time.time_ns()),
+    )
+    old = db.execute(
+        "SELECT id FROM jobs WHERE collection=? AND item=? AND candidate=? AND dimension=? AND role=?", args,
+    ).fetchone()
+    if old["id"] != key:
+        raise ValueError(f"input changed for frozen job {item}/{candidate}/{dimension}; version the collection")
 
 
 def judge_job(db, collection, item, candidate, packet, role=None):

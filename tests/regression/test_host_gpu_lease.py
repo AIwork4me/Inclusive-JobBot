@@ -2,6 +2,7 @@ import ctypes
 from ctypes import wintypes
 from pathlib import Path
 import os
+import sqlite3
 import subprocess
 import sys
 
@@ -71,3 +72,35 @@ with job_process([sys.executable, '-c', 'import time; time.sleep(60)']) as child
         finally:
             if child:
                 kernel.CloseHandle(child)
+
+def test_frozen_job_dedup_survives_two_controller_processes(tmp_path):
+    root = Path(__file__).resolve().parents[2]
+    other = Path(os.environ.get("JOBBOT_LEASE_OTHER_WORKTREE", root))
+    probe = """
+from pathlib import Path
+import sys
+from evaluation.aeve.controller import add, connect
+db = connect(Path(sys.argv[1]))
+try:
+    with db:
+        add(db, 'frozen', 'case-one', 'A', 'D20', 'candidate', {'request': sys.argv[2]})
+finally:
+    db.close()
+"""
+    cmd = [sys.executable, "-c", probe, str(tmp_path)]
+    env = {**os.environ, "PYTHONPATH": os.pathsep.join((".", "src"))}
+    from evaluation.aeve.controller import connect
+
+    connect(tmp_path).close()
+    # Race two independent queue writers.
+    with subprocess.Popen([*cmd, "original"], cwd=root, env=env, stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE) as first:
+        second = subprocess.run([*cmd, "original"], cwd=other, env=env, capture_output=True, timeout=30)
+        _, first_error = first.communicate(timeout=30)
+    assert first.returncode == 0, first_error
+    assert second.returncode == 0, second.stderr
+    conflict = subprocess.run([*cmd, "changed"], cwd=other, env=env, capture_output=True, timeout=30)
+    assert conflict.returncode != 0
+    assert b"input changed for frozen job" in conflict.stderr
+    with sqlite3.connect(tmp_path / "queue.sqlite") as db:
+        assert db.execute("SELECT count(*) FROM jobs").fetchone() == (1,)
