@@ -2,6 +2,10 @@
 
 ## IJ-0.7.3
 
+Replayed 101 Gold discrepancy packets using independent proof obligations. The 45 Gold defects and 81 sufficient alternative citation sets were confirmed. All 323 deletion and reversal controls passed. Historical exact scores are preserved. Q3 proof routing and historical free-text rationale qualification remain NOT_RUN. [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md)
+
+Synchronized the frozen Q2 counter across Atlas progress, the mission state and the sealed coverage manifest. Its cohort admission remains NOT_RUN during live capture. Published a 600-scope historical Judge coverage matrix with zero Q3-qualified panels. [Sealed Q2 coverage](evidence/IJ073/aeve/q2_sealed_coverage.json) · [Routing matrix](evidence/IJ073/aeve/historical_route_matrix.json)
+
 Verified and published 3,360 sealed frozen Q2 Radeon assessments across 35 sessions. Formal Q2 Judge qualification remains NOT_RUN until all 6,850 attempts have verified seals.
 
 Added the larger-candidate matched development runner and source replay on the frozen 24-case development subset. Both runtime preflight and the 72-request cohorts remain NOT_RUN while Q2 holds the Radeon. Added a scope-bound panel planner with software controls for two primary and one dispute slot. Actual independently qualified historical routes remain BLOCKED.

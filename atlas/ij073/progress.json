@@ -11,7 +11,7 @@
     "witness_executions_replayed": 1600,
     "archived_model_trials_replayed": 2560,
     "new_physical_trials": 78,
-    "new_ai_judgments": 3986,
+    "new_ai_judgments": 8210,
     "new_human_reviews": 0,
     "executable_v2_witnesses": 800,
     "paired_guard_interventions": 602,
@@ -39,7 +39,7 @@
     "PRODUCTION_READINESS_VERDICT": "BLOCKED",
     "ATLAS_V1_RELEASE_VERDICT": "BLOCKED"
   },
-  "next_dependency": "Finish four sealed qualification cohorts; admit on frozen gates, then evaluate the full stage-eligible physical registry.",
+  "next_dependency": "Complete the frozen Q2 roster, then replay closure and exercise larger-candidate admission.",
   "evidence_gates": {
     "E00": "PASS",
     "E01": "PASS",
@@ -68,7 +68,7 @@
     "gold-development-q2-d1": 360,
     "gold-development-robustness-v1": 224,
     "gold-qualification": 3228,
-    "gold-qualification-q2-v1": 96,
+    "gold-qualification-q2-v1": 4320,
     "history": 12,
     "history-dispute": 6,
     "planning-development": 64
@@ -134,7 +134,7 @@
     "historical_physical_primary": 313796,
     "historical_nonphysical_primary": 108228,
     "formal_core_physical": 18440,
-    "q2_qualification": 6754
+    "q2_qualification": 2530
   },
   "gate_basis": {
     "E00": "Versioned bounded planning DSL, public and observed state, invalidation and typed tool contracts.",
@@ -158,5 +158,12 @@
     "E18": "The certified model, job and hardware joint matrix requires the new physical runs.",
     "E19": "Final remote and fresh-clone delivery audit follows the unified Atlas."
   },
-  "resume_command": "python -m evaluation.aeve resume"
+  "resume_command": "python -m evaluation.aeve resume",
+  "q2_qualification": {
+    "status": "NOT_RUN",
+    "roster_status": "NOT_RUN",
+    "recorded": 4320,
+    "required": 6850
+  },
+  "formal_q3_qualification": "NOT_RUN"
 }

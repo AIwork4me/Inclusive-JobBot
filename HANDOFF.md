@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3 local evaluator
 
+Use `python -m evaluation.aeve.progress --write` to synchronize Atlas progress, MISSION_STATE and sealed Q2 coverage from a single archive snapshot. The progress check in CI compares the published tree with its sealed captures. The [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md) covers the original 45 reference defects and 81 alternative proofs. The [history matrix](evidence/IJ073/aeve/historical_route_matrix.json) records every family, dimension and risk scope. Q3 credentials are still required for any formal route.
+
 Keep any current GPU worker alive while it advances the frozen Q2 queue. See [sealed coverage](evidence/IJ073/aeve/q2_sealed_coverage.json). Once all 6,850 results are sealed, run `python -m evaluation.aeve.q2_closure --output .runtime/q2_closure.json --markdown .runtime/q2_closure.md`. The report command requires every case from each frozen cohort and verifies the Q2 protocol from the archived development evidence.
 
 The updated `resume --wait-for-controller` waits for exclusive control before recovering the frozen queue. On full Q2 closure it writes the Q2 and routing reports, then exercises the pinned M14 and G31 runtime admissions using the same exclusive Radeon lease. Formal history stays blocked until independently qualified Q3 evaluator routes cover every subject family, dimension and risk. Rebuild the historical identity audit with `python -m evaluation.aeve.history_identity --replay evidence/IJ073/aeve/history_identity_reverify.json --output .runtime/history_identity_reverify.json`.

@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+- Q3 evaluator credentials are absent for all 600 historical family, dimension and risk combinations. Evaluation engineering owns the independent roster freeze and replay of complete routes. The Gold source replay is in-scope development evidence. [Route matrix](evidence/IJ073/aeve/historical_route_matrix.json)
+
 - The four initial local Judge families failed the frozen thresholds on all 3,228 completed Gold assessments. Evaluation engineering owns fresh qualification of revised configurations and independent families. The full historical review requires enough admitted independent families for each subject and an independent third family on disagreement. Status, counts and pinned inputs are in [the qualification report](reports/IJ073_JUDGE_QUALIFICATION.md).
 - The original reviewed archives lack sufficient decision evidence for 36 historical physical trials. Preserve them in the completeness denominator. The remaining 17,458 have citable stage projections. [Coverage](evidence/IJ073/aeve/history/coverage.json)
 

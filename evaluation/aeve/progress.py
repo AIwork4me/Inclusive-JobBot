@@ -4,14 +4,38 @@ from collections import Counter
 import json
 from pathlib import Path
 
-from .archive import verify
+from .archive import digest
 from .qualification import measure
-from .runtime import ROOT
+from .history import lines
+from .history_routing import route_matrix
+from .meta_evaluation import snapshot as sealed_snapshot
+from .q2_closure import FROZEN, scan
+from .q2_qualification import COLLECTION, roster
+from .runtime import ROOT, write_json
+
+EVIDENCE = ROOT / "evidence/IJ073/aeve"
 
 
-def snapshot():
-    archive = ROOT/"evaluation/aeve/results"
-    verify(archive)
+def coverage_summary(seen, cases, candidates, manifests):
+    by_candidate = {code: len(seen.get(code, ())) for code in candidates}
+    if set(seen) - set(candidates) or any(items - cases for items in seen.values()):
+        raise ValueError("sealed Q2 assessment is outside the frozen roster")
+    recorded = sum(by_candidate.values())
+    required = len(cases) * len(candidates)
+    return {"version": "IJ073-Q2-SEALED-COVERAGE-2", "recorded": recorded, "required": required,
+            "remaining": required - recorded, "by_candidate": by_candidate, "session_manifests": manifests,
+            "roster_status": "PASS" if recorded == required else "NOT_RUN", "status": "NOT_RUN"}
+
+
+def q2_coverage(view, hashes):
+    protocol = json.loads(FROZEN.read_bytes())
+    sessions, seen = scan(view)
+    return {**coverage_summary(seen, set(roster()), tuple(protocol["arms"]),
+                               {p.parent.name: hashes[p.parent.name] for p in sessions}),
+            "protocol_file_sha256": digest(FROZEN)}
+
+
+def snapshot(archive):
     counts = Counter()
     for stamp in (archive/"sessions").glob("*/manifest.json"):
         for r in json.loads((stamp.parent/"outcomes.json").read_bytes()):
@@ -49,27 +73,17 @@ def snapshot():
         gates["E09"] = ("BLOCKED","All 224 paired interventions ran; retest bias and interference on independently qualified revised configurations.")
     elif counts["gold-development-robustness-v1"]:
         gates["E09"] = ("BLOCKED","Physical robustness evidence exists; the interference and bias review must close separately.")
-    if gates["E08"][0] == "PASS" and counts["history-v2"]:
-        from .human_review import verify_coverage
-        from .history import lines, OUT
-        from .runtime import REGISTRY
-        families = {c:cfg["family"] for c,cfg in json.loads(REGISTRY.read_bytes())["candidates"].items()}
-        summary = json.loads((OUT/"rescore_summary.json").read_bytes())
-        try:
-            verify_coverage(summary,lines(OUT/"rescore.jsonl.gz"),measure(archive),families)
-        except ValueError:
-            pass
-        else:
-            gates["E07"] = ("PASS","Each applicable physical and nonphysical stage has independently verified review coverage.")
-            gates["E10"] = ("PASS","All required historical disagreements have a recorded independent third review.")
     return counts,history,admitted,gates
 
 
 def main():
     cli=argparse.ArgumentParser(description=__doc__)
     cli.add_argument("--write",action="store_true")
+    cli.add_argument("--archive", type=Path, default=ROOT / "evaluation/aeve/results")
     args=cli.parse_args()
-    counts,history,admitted,gates=snapshot()
+    with sealed_snapshot(args.archive) as (view, hashes):
+        counts,history,admitted,gates=snapshot(view)
+        coverage=q2_coverage(view, hashes)
     path=ROOT/"atlas/ij073/progress.json"
     data=json.loads(path.read_bytes())
     data["evidence_class"]="deterministic software controls, historical archive replay and sealed local Radeon sessions"
@@ -91,21 +105,46 @@ def main():
                        "historical_physical_primary":2*(sum(history["formal_dimensions"].values())+extra_physical)-counts["history-v2"],
                        "historical_nonphysical_primary":2*sum(extra["dimensions"].values())-counts["history-supplement-v2"],
                        "formal_core_physical":18440}
-    q2=ROOT/"evidence/IJ073/aeve/q2_qualification_protocol.json"
-    if q2.is_file():
-        frozen=json.loads(q2.read_bytes())
-        required=frozen["roster_size"]*len(frozen["arms"])
-        data["remaining"]["q2_qualification"]=required-counts["gold-qualification-q2-v1"]
+    data["remaining"]["q2_qualification"]=coverage["remaining"]
+    if counts[COLLECTION] != coverage["recorded"]:
+        raise ValueError("Q2 snapshot counts disagree")
+    data["q2_qualification"] = {k: coverage[k] for k in ("status", "roster_status", "recorded", "required")}
+    data["formal_q3_qualification"] = "NOT_RUN"
     data["evidence_gates"]={k:v for k,(v,reason) in gates.items()}
     data["gate_basis"]={k:reason for k,(v,reason) in gates.items()}
     data["qualification"].update(AEVE_IMPLEMENTATION_VERDICT="PASS",
             AEVE_FULL_SELF_EVALUATION_VERDICT=gates["E07"][0],AEVE_AI_JUDGE_QUALIFICATION_VERDICT=gates["E08"][0])
-    data["next_dependency"]="Finish four sealed qualification cohorts; admit on frozen gates, then evaluate the full stage-eligible physical registry."
+    data["next_dependency"]=(
+        "Complete the frozen Q2 roster, then replay closure and exercise larger-candidate admission."
+        if coverage["remaining"] else "Replay complete Q2 closure and exercise larger-candidate admission."
+    )
+    coverage_path = EVIDENCE / "q2_sealed_coverage.json"
+    mission_path = ROOT / "MISSION_STATE.json"
+    mission = json.loads(mission_path.read_bytes())["q2_sealed_coverage"]
+    mission_fields = {k: coverage[k] for k in ("status", "roster_status", "recorded", "required", "remaining")}
+    replacement = {**mission, **mission_fields}
+    matrix_path = EVIDENCE / "historical_route_matrix.json"
+    family_index = EVIDENCE / "history/coverage.json"
+    supplement = EVIDENCE / "history/judge_inputs_nonphysical_v2.jsonl.gz"
+    subjects = set(history["source_families"])
+    subjects.update(row["source_family"] for row in lines(supplement))
+    matrix = {"version": "IJ073-ROUTE-MATRIX-1", "formal_history": "BLOCKED",
+              "q3_credentials": "NOT_RUN",
+              "source_sha256": {"physical": digest(family_index), "nonphysical": digest(supplement)},
+              **route_matrix([], subjects)}
     data["resume_command"]="python -m evaluation.aeve resume"
     raw=(json.dumps(data,ensure_ascii=False,indent=2)+"\n").encode()
     if args.write:
         path.write_bytes(raw)
-    elif raw != path.read_bytes():
+        write_json(coverage_path, coverage)
+        write_json(matrix_path, matrix)
+        # Preserve the existing layout outside the synchronized Q2 entry.
+        lines_before = mission_path.read_bytes()
+        old_field = next(line for line in lines_before.splitlines() if b'"q2_sealed_coverage":' in line)
+        new_field = ('  "q2_sealed_coverage": ' + json.dumps(replacement, ensure_ascii=False) + ',').encode()
+        mission_path.write_bytes(lines_before.replace(old_field, new_field, 1))
+    elif (raw != path.read_bytes() or json.loads(coverage_path.read_bytes()) != coverage
+          or mission != replacement or json.loads(matrix_path.read_bytes()) != matrix):
         raise SystemExit("mission ledger differs from published sessions")
     print(json.dumps(data["remaining"]))
 

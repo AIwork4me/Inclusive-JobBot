@@ -41,3 +41,24 @@ def plan_panel(profiles, subject, dimension, risk):
     first, second, dispute = selected[:3]
     return {"status": "PASS", "primary": [first["code"], second["code"]], "dispute": dispute["code"],
             "bindings": {item["code"]: sha(item) for item in (first, second, dispute)}}
+
+
+def route_matrix(profiles, subjects):
+    """Enumerate routing coverage without inferring a qualification credential."""
+    subjects = sorted(set(subjects))
+    profiles = tuple(profiles)
+    matrix = {}
+    for subject in subjects:
+        scopes = {}
+        for dimension in sorted(DIMENSIONS):
+            for risk in sorted(RISKS):
+                key = f"{dimension}/{risk}"
+                if not subject.strip() or subject.casefold() in {"unknown", "unresolved"}:
+                    scopes[key] = {"status": "BLOCKED", "reason": "unresolved subject family"}
+                else:
+                    scopes[key] = plan_panel(profiles, subject, dimension, risk)
+        matrix[subject] = scopes
+    return {"subject_family_count": len(subjects),
+            "scope_count": sum(map(len, matrix.values())),
+            "covered_scopes": sum(row["status"] == "PASS" for scopes in matrix.values() for row in scopes.values()),
+            "subjects": matrix}
