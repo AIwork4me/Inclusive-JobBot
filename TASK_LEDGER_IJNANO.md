@@ -33,10 +33,28 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N00R | Blockers updated: IJN-B-001 CLOSED, IJN-B-002 narrowed to formal business claims; shared evaluation architecture adopted | done | PASS | `BLOCKERS_IJNANO.md` |
 | N00R | N00R report | done | PASS | `reports/IJNANO_00R_RESOURCE_AND_DEPENDENCY_RECONCILIATION.md` |
 
-## N01 (opened, not started)
+## N01 (in progress)
 
 | Phase | Task | Progress | Status | Evidence |
 |---|---|---|---|---|
-| N01 | Verify R01 effGen, R02 PTC-Decoder, R03 TinyAgent, R04 slm-harness-adaptation, R05 Growing Harness, R06 meta-harness, R07 MagenticLite, R08 constrained decoding (GBNF/LLGuidance/XGrammar), R09 general-purpose frameworks | not started | NOT_RUN | — |
-| N01 | Reuse-vs-rebuild classification with license matrix | not started | NOT_RUN | — |
+| N01 | Primary-source verification R01-R09 via four parallel research agents (papers, repos, licenses, models, mechanisms, statistics) | done | PASS (verification sweeps; consolidation pending) | `evidence/IJNANO/N01/agent_reports/{R01_R04,R02_R08,R03_R05_R06,R07_R09}_verification.md` |
+| N01 | research_catalog.json + license_matrix.json | not started | NOT_RUN | — |
 | N01 | Landscape reports CN/EN + open-source reuse decision | not started | NOT_RUN | — |
+
+## N02 (in progress)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| N02 | Fresh SHA256 verification: 10/10 weight files MATCH committed manifest; 95 engine binaries hashed (cpu/vulkan/rocm) | done | PASS | `evidence/IJNANO/N02/identity_verification.json`, `benchmarks/ij_nano/verify_model_identities.py` |
+| N02 | Engine provisioned via gitignored junctions (b12359 verified: `build 12359, commit b1b770d90`) | done | PASS | `.runtime/n02/make_junctions.ps1` (local); runtime/llama-cpp/README conventions |
+| N02 | Admission smokes under host-wide lease (S1,S2,S3d,R1,R2; vulkan) — all 9/10, D-010 offload proof per model | done | PASS | `evidence/IJNANO/N02/admission/*.json`, `evidence/IJNANO/N02/session_record.json` |
+| N02 | Protocol probe v3: health/socket, D-010 offload, generation+usage, native tool-call, chat json_schema (strict, 1024), GBNF charclass, escaped-quote engine record, /completion json_schema, SSE streaming, cancellation | done | PASS (S1/S3/R1/R2 overall PASS; S2 protocol-surface PASS + chat-path reasoning-burn model-behavior finding recorded) | `evidence/IJNANO/N02/protocol/*.json`, `benchmarks/ij_nano/n02_protocol_probe.py` |
+| N02 | Gate `N02_PHYSICAL_MODEL_RUNTIME_QUALIFIED` (runtime/protocol scope only; ROCm comparator and Q4 sensitivity explicitly NOT_RUN) | done | PASS | `reports/IJNANO_02_PHYSICAL_RUNTIME_QUALIFICATION.md` |
+
+## N06/N07 Layer A (software, in progress)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| N06 | Layer A execution-integrity core: BudgetController (D05), EventLog hash-chain+seal (D07), TypedTaskState complete-reset+epoch-abort (D04), SafeToolGateway fixed-order transactions (D06), checkpoint/cancellation | done (software) | PASS under unittest | `src/nanoagent/{core,gateway}/`, `tests/ij_nano/` |
+| N06 | Layer A regression suite: 36 tests green (`python -I -m unittest discover -s tests/ij_nano -t .`); IJ-SDK suite unaffected (93 OK) | done | PASS | test run recorded in this row; rerun command in HANDOFF |
+| N06/N07 | Layers B (context compiler, tool filtering, grammar, slot binding) and C (action graph, recovery, goal controller) | not started | NOT_RUN | — |

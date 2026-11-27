@@ -1,0 +1,86 @@
+{
+ "schema_version": 1,
+ "candidate": "R2",
+ "alias": "qwen3-14b",
+ "model_path": "<outside-repository>",
+ "model_sha256": "a0dfe649137410b7d82f06a209240508e218f32f5b6fd81b69d6932160cfcd9d",
+ "backend": "vulkan",
+ "started_utc": "2026-11-27T11:32:14Z",
+ "gpu": {
+  "layers_offloaded": 41,
+  "layers_total": 41
+ },
+ "cases": {
+  "basic_instruction": {
+   "pass": true,
+   "detail": [
+    true,
+    true
+   ],
+   "status": "PASS"
+  },
+  "json_generation": {
+   "pass": true,
+   "valid": 12,
+   "schema_ok": 12,
+   "n": 12,
+   "status": "PASS"
+  },
+  "zero_tool_response": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "single_tool_invocation": {
+   "pass": true,
+   "ok": 8,
+   "n": 8,
+   "status": "PASS"
+  },
+  "tool_result_continuation": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "multiple_sequential_tools": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "structured_output": {
+   "pass": true,
+   "status": "PASS"
+  },
+  "invalid_argument_recovery": {
+   "pass": false,
+   "second_call": {
+    "name": null,
+    "args": null
+   },
+   "status": "FAIL"
+  },
+  "context_handling": {
+   "pass": true,
+   "status": "PASS"
+  },
+  "stop_conditions": {
+   "pass": true,
+   "finish_reason": "length",
+   "completion_tokens": 96,
+   "status": "PASS"
+  }
+ },
+ "finished_utc": "2026-11-27T11:33:00Z",
+ "token_usage": {
+  "prompt_tokens": 27942,
+  "completion_tokens": 1980
+ },
+ "dev_score": {
+  "passed_cases": 9.0,
+  "scored_cases": 10,
+  "rate": 0.9
+ }
+}

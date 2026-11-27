@@ -78,20 +78,38 @@
     },
     "N01": {
       "title": "Comprehensive literature and open-source technology investigation (R01-R09)",
-      "progress": "not_started",
+      "progress": "in_progress",
       "status": "NOT_RUN",
       "gate": "N01_RESEARCH_LANDSCAPE_VERIFIED",
       "gate_status": "NOT_RUN",
-      "gpu_required": false
+      "gpu_required": false,
+      "notes": [
+        "All four primary-source verification sweeps completed 2026-11-27 and stored under evidence/IJNANO/N01/agent_reports/ (R01_R04, R02_R08, R03_R05_R06, R07_R09).",
+        "Key verified facts: effGen Apache-2.0, real 1.5B/3B models, runtime-only gains, McNemar p<0.05, ~52 deps; slm-harness-adaptation MIT but no 1-3B total models (MoE active-param distinction); TinyAgent MIT, only 1.1B model is 1-3B but headline rests on fine-tuned weights (+66 pts LoRA vs +1.2 ToolRAG), macOS-only tools, dormant; Growing Harness paper-only (no code, >=4B models, arXiv 2609.26760); Meta-Harness MIT, frozen >=20B models, no LLM judge, Claude-Code proposer, artifact repo unlicensed; PTC-Decoder VERIFIED incl. Qwen3.5-2B experiments, transformers-only (not llama.cpp), LLM-judged, 2.07x token overhead, MIT; llama.cpp current stable v1.1.0 vs our pinned b12359; LLGuidance MIT ~50us/token masks; XGrammar Apache-2.0 with XGrammar-2 triggered_tags as the state-dependent-constraint reference design; MagenticLite = microsoft/magentic-ui next gen, MIT, 9-14B models, WSL2-only on Windows, 27 deps; SDK reuse ranking: PocketFlow (0 deps) > pydantic-ai-slim (9 deps) > smolagents (LlamaCppModel).",
+        "Remaining for gate: consolidated research_catalog.json, license_matrix.json, CN/EN landscape reports, reuse decision report."
+      ]
     },
     "N02": {
       "title": "Physical runtime and model identity qualification (S1/S2/S3/R1/R2)",
-      "progress": "not_started",
-      "status": "NOT_RUN",
-      "note": "N00R: local GPU lease available; proceed under host-wide lease with fresh hash verification; runtime/protocol tests are not formal business claims",
+      "progress": "done",
+      "status": "PASS",
       "gate": "N02_PHYSICAL_MODEL_RUNTIME_QUALIFIED",
-      "gate_status": "NOT_RUN",
-      "gpu_required": true
+      "gate_status": "PASS",
+      "gpu_required": true,
+      "evidence": [
+        "reports/IJNANO_02_PHYSICAL_RUNTIME_QUALIFICATION.md",
+        "evidence/IJNANO/N02/identity_verification.json",
+        "evidence/IJNANO/N02/admission/",
+        "evidence/IJNANO/N02/protocol/",
+        "evidence/IJNANO/N02/session_record.json"
+      ],
+      "notes": [
+        "Identity: 10/10 weights SHA256 MATCH vs committed manifest; 95 engine binaries hashed; engine self-reports build 12359 commit b1b770d90.",
+        "Admission under host-wide lease (vulkan): S1/S2/S3/R1/R2 all 9/10 (dev-gen v1.0.1); D-010 offload proof per model (43/43, 25/25, 25/25, 37/37, 41/41).",
+        "Protocol probe v3: S1/S3/R1/R2 overall PASS; S2 PASS on protocol surface with chat-path json_schema model-behavior finding (reasoning burn 4030 chars at 1024 tokens; constrained JSON itself PASSes via GBNF and /completion json_schema) - feeds N03 and Runtime Profile design.",
+        "Engine records: b12359 rejects escaped-quote GBNF literals (use [\"] char classes); /completion json_schema takes an object.",
+        "NOT_RUN in this scope: Q4-class quantization sensitivity, ROCm/HIP comparator (separately identified, never mixed)."
+      ]
     },
     "N03": {
       "title": "Fine-grained SLM cognitive capability profiling (C01-C32)",
