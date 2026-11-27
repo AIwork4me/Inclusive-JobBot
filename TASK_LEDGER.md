@@ -13,6 +13,7 @@
 | M2 author-harness reproduction | BLOCKED | Exact historical roster, pinned harness identities and an isolated execution environment remain open. [Reproduction status](reports/LFM3_HA_UPSTREAM_REPRODUCTION.md) |
 | M3 60-case candidate freeze | PASS | 480 trial slots registered. Scope qualification and physical dispatch remain BLOCKED pending action/callback verification. [Transfer scope](reports/LFM3_HA_CROSS_HARNESS_TRANSFER.md) |
 | M3 known SDK callback issue isolated | PASS | Two archived B first replies reproduced integral-number transport changes. Both raw claim checks FAIL, both trial-local witness checks PASS. Real SDK with scripted provider, zero physical trials. |
+| M3 action-phase preflight | FAIL | 30 local Radeon controls. Direct execution process 10/10 PASS, Original SDK 1/10, tool-choice-only SDK 9/10. No attribution to M3 or core slots. |
 | M12 NanoAgent evidence exchange | PASS | Scoped adapter admission and rejected runtime profiles are available to PR #11. NanoAgent execution remains NOT_RUN. [Handoff](atlas/slm/v1.0/lfm3-harness-adapters/NANOAGENT_ENGINEERING_HANDOFF.md) |
 | M9 and M10 design artifacts | PASS | DX-M2 deployment requirements and JobBot-native A/B design drafted. Physical portability and training readiness remain NOT_RUN. |
 | M4 through M12 physical experiments | NOT_RUN | Gates, planned scope and prerequisites are recorded in the admission contract. |

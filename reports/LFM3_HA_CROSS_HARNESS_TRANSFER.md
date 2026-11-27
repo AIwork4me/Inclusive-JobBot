@@ -46,3 +46,35 @@ new physical model trials. The 60-case transfer candidate uses string
 references. It still requires its own Original SDK action-phase tests
 across the declared families before dispatch.
 [Callback replay evidence](../atlas/slm/v1.0/lfm3-harness-adapters/SDK_CALLBACK_REPLAY.json)
+
+## Radeon action-phase preflight
+
+Ten new scope-control worlds covered the same ten families at seed 7107
+on Original LFM3, the pinned Radeon runtime and the cache-disabled admission
+profile. The ten scripted-provider witnesses passed with the real SDK.
+The physical panel used a separate namespace and recorded 30 trajectories.
+It contributes zero registered M3 or core trials.
+
+| Profile | Native requests captured | SDK or Direct linked actions | Execution process PASS/FAIL | Output contract PASS/FAIL |
+|---|---:|---:|---:|---:|
+| Direct | 22/22 | 13 | 10/0 | 10/0 |
+| Original SDK | 10/10 | 0 | 1/9 | 1/9 |
+| SDK_MATCHED_CONTEXT, tool choice only | 23/23 | 14 | 9/1 | 10/0 |
+
+Original SDK sent all ten initial requests with tools present and
+`tool_choice: "none"`. Nine generated a tool call as plain response text
+with no structured call or callback. The single clarification case did
+not require a tool. The fixed-adapter lookup admitted earlier took a
+different SDK request path and carried `tool_choice: "auto"`. In the
+single-field comparison, the host changed `none` to `auto` for
+tool-bearing requests and left other request values intact. Structured
+calls returned. A roundtrip case executed the same read twice and failed
+its exact action path. Timing, cost and any adapter weight effect are
+outside this preflight result.
+
+Original SDK action-phase scope is FAIL on this bounded control. The
+single-field arm remains a separate runtime experiment with a measured
+execution failure. The frozen 480 development slots remain unexecuted.
+Production and full independent qualification require their existing
+scope and authorization evidence.
+[Portable preflight](../atlas/slm/v1.0/lfm3-harness-adapters/SDK_ACTION_PHASE_PREFLIGHT.json)

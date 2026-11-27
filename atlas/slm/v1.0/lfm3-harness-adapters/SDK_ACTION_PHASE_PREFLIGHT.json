@@ -1,0 +1,1023 @@
+{
+  "M3_registered_attribution": 0,
+  "base_admission_digest": "72054d8db7de00e534177db2bf0c08685ce3558327322346b5739a1513e1d7c9",
+  "core_trial_attribution": 0,
+  "matched_tool_choice_scope": "FAIL",
+  "original_sdk_action_scope": "FAIL",
+  "physical_trials": 30,
+  "profiles": {
+    "DIRECT": {
+      "dataset_sha256": "aa4b9c7a1f8a1a74cc260c9991280a2c5b150a0f4a3ad5c2859ded0cb92d8b14",
+      "git_sha": "c2ba89ff7d581b5c61344d9f1a10662f52c6bf42",
+      "launch_flags": [
+        "--ctx-size",
+        "8192",
+        "--parallel",
+        "1",
+        "--n-gpu-layers",
+        "99",
+        "--device",
+        "Vulkan0",
+        "--cache-ram",
+        "0",
+        "--ctx-checkpoints",
+        "0",
+        "--jinja",
+        "--offline",
+        "--no-webui",
+        "--verbosity",
+        "4",
+        "--seed",
+        "7107",
+        "--temp",
+        "0",
+        "--chat-template-kwargs",
+        "{\"enable_thinking\":false}"
+      ],
+      "launch_identity_sha256": "25311cdbc0fa7ae2320fd0d079fe39b783e628b25f82c56655950717f3f9c944",
+      "method_sha256": "e16862daf9ba557e00c80957185c5875da3d460fc9232b9ae3b312d8bfb0bb81",
+      "metrics": {
+        "EXECUTION_PROCESS_CORRECTNESS": {
+          "BLOCKED": 0,
+          "FAIL": 0,
+          "NOT_RUN": 0,
+          "PASS": 10
+        },
+        "OUTPUT_CONTRACT_COMPLIANCE": {
+          "BLOCKED": 0,
+          "FAIL": 0,
+          "NOT_RUN": 0,
+          "PASS": 10
+        },
+        "QUALIFIED_BUSINESS_COMPLETION": {
+          "BLOCKED": 1,
+          "FAIL": 0,
+          "NOT_RUN": 1,
+          "PASS": 8
+        },
+        "STRICT_END_TO_END_SUCCESS": {
+          "BLOCKED": 10,
+          "FAIL": 0,
+          "NOT_RUN": 0,
+          "PASS": 0
+        },
+        "TERMINATION_CORRECTNESS": {
+          "BLOCKED": 0,
+          "FAIL": 0,
+          "NOT_RUN": 0,
+          "PASS": 10
+        }
+      },
+      "physical_coverage": "PASS",
+      "physical_run_id": "lfm3-ha-scope-4bb35a7899594a6ba61fe2283b648d62",
+      "private_gpu_counters_sha256": "fcc71a1bc83a8611945c0ad552aacb163b08ac5abfbb10d0015128f37ea2527e",
+      "private_native_trace_sha256": "f4e9a9dcc27ff8cca0d0090de9d6a1ec19c322de19802c07ed16ef6b5ff0aef6",
+      "private_report_sha256": "30b4081743ceb742c905ee08344a8e5e6533826242ff1659b5f21c8811412ea6",
+      "rows": [
+        {
+          "callbacks": 1,
+          "case_id": "TCV3-HA-SCOPE-V1-single-000",
+          "family": "single",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "7a1327624a909a1e5da776d172c771e184535d2ef384bd41c8c008a2b3a1b0a3",
+          "first_provider_response_sha256": "4c6e81d3a11369bacce08a930bd8af281b19c74151451fbb428717971c0adc0b",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "d8012c87a3e1f0d7e99c5078fd8e01891bad9cf124d59b808ec86c131b512d32"
+        },
+        {
+          "callbacks": 1,
+          "case_id": "TCV3-HA-SCOPE-V1-selection-000",
+          "family": "selection",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "bc78ad48b0a3e648c0d496adaacbf42303eca8e561c3c3f4b58e6aa37c0cdde1",
+          "first_provider_response_sha256": "c5cc21be055cbf049c0fc5808a7d342828496e9b5371b8b42b658eae8b3b0300",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "9f065122f81c19206a31d4debbd35c8d3261af338a026127e110b5960e8b0572"
+        },
+        {
+          "callbacks": 1,
+          "case_id": "TCV3-HA-SCOPE-V1-binding-000",
+          "family": "binding",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "187ff8b905ec8fbbcd7aaa0834bb2a0bc69e4205573cdddc5e071bb3280f1256",
+          "first_provider_response_sha256": "b656a70e52675552a1b6b06b108a912979ba16116cc2e58338e4498ffda56a21",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "1232f926239bff1efb6b98cc5bd181a5a9e846c0547a1a72d522bf64f4a49969"
+        },
+        {
+          "callbacks": 1,
+          "case_id": "TCV3-HA-SCOPE-V1-roundtrip-000",
+          "family": "roundtrip",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "487b6b352d5e572234cbd064f93da26184c90bcd0b74f8ffe3d274d0d76f2c2e",
+          "first_provider_response_sha256": "613a94ebdfb97fd5b1cdc66195914892631dc5564b9116412c7e9de7fa66cca3",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "b63b45798d6222892cd4d6d478e3cbab86da3c53bfe3f815ed16756c175dfc2f"
+        },
+        {
+          "callbacks": 2,
+          "case_id": "TCV3-HA-SCOPE-V1-dependency-000",
+          "family": "dependency",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "dd25723ec3d97635bdba62938c82d4e50a102ffa76230f1b90ba4b68e55d23c9",
+          "first_provider_response_sha256": "da52a58fb6a29c12af6ce66d5577a57ee540cce85a07714104c767afea3e6f52",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 3,
+          "private_trial_sha256": "65d1b1e92b4070b2bd5651f55d6c5ad5f74948d2b623cffe6b5f450b281ad116"
+        },
+        {
+          "callbacks": 2,
+          "case_id": "TCV3-HA-SCOPE-V1-parallel-000",
+          "family": "parallel",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "7e135a62a27d22e68af4e839e44dd91b30a97455277f703d15bc650d5eebad0d",
+          "first_provider_response_sha256": "c5256224df297a2b63e83bc04946491f035a58bb451119b2790961e8983d2ddb",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "96c1a1070400bb9e0bc658e91dbe82b320dd37868305b1a5b479b68a0ab8dc5f"
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-clarification-000",
+          "family": "clarification",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "195d478bec7111d92a1d499b382e01c40de3c2839f23bce55cc00599930cab04",
+          "first_provider_response_sha256": "015ae2e3fec62672e9aa9c6fa7fd6a526627f45b0cf0d0258bfcaabbf2447c89",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "NOT_RUN",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "09a33eb4eb59a6c4317c82f0763735340b96c0b549af6a86201f1df2690b84d3"
+        },
+        {
+          "callbacks": 2,
+          "case_id": "TCV3-HA-SCOPE-V1-recovery-000",
+          "family": "recovery",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "e73d8cc5bce29842184cc1c03357edec2d4113a780bb553df1da4e27991eb6e9",
+          "first_provider_response_sha256": "bb65effaff15adca0d4687d16b46a5eccd671db1cda1df7194b4942943056bf1",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 3,
+          "private_trial_sha256": "ba27c5ac9dd538cab07a0e540015df12d51ee51b40cada57e0a35a28c3d7f577"
+        },
+        {
+          "callbacks": 2,
+          "case_id": "TCV3-HA-SCOPE-V1-scope_update-000",
+          "family": "scope_update",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "93305d23236dce44add8df90cff5dd83830623615f1ea21ecb560a1747316ec5",
+          "first_provider_response_sha256": "cc1dcebd17da3f4ed4c805a1a365e9ee939608deff04cacae57c7c52df49051f",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 3,
+          "private_trial_sha256": "06f7b68b30b653dc8c34610a010224e6059d911620043a8519d8ee1b25e64c9a"
+        },
+        {
+          "callbacks": 1,
+          "case_id": "TCV3-HA-SCOPE-V1-authorization-000",
+          "family": "authorization",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "9ea3541883e39327c332df356763c924709f39ec9f525c68b6674f784cbdd229",
+          "first_provider_response_sha256": "b3bf8076860dbbf9aa616c6283430aa99b314a5b792a6301110af988a0a80767",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "BLOCKED",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "64b12fb7cf6cab9810819be276eb150d151a05de2b1d9ab58ace04acaa142500"
+        }
+      ],
+      "seed": 7107
+    },
+    "ORIGINAL_SDK": {
+      "dataset_sha256": "aa4b9c7a1f8a1a74cc260c9991280a2c5b150a0f4a3ad5c2859ded0cb92d8b14",
+      "git_sha": "c2ba89ff7d581b5c61344d9f1a10662f52c6bf42",
+      "launch_flags": [
+        "--ctx-size",
+        "8192",
+        "--parallel",
+        "1",
+        "--n-gpu-layers",
+        "99",
+        "--device",
+        "Vulkan0",
+        "--cache-ram",
+        "0",
+        "--ctx-checkpoints",
+        "0",
+        "--jinja",
+        "--offline",
+        "--no-webui",
+        "--verbosity",
+        "4",
+        "--seed",
+        "7107",
+        "--temp",
+        "0",
+        "--chat-template-kwargs",
+        "{\"enable_thinking\":false}"
+      ],
+      "launch_identity_sha256": "25311cdbc0fa7ae2320fd0d079fe39b783e628b25f82c56655950717f3f9c944",
+      "method_sha256": "e16862daf9ba557e00c80957185c5875da3d460fc9232b9ae3b312d8bfb0bb81",
+      "metrics": {
+        "EXECUTION_PROCESS_CORRECTNESS": {
+          "BLOCKED": 0,
+          "FAIL": 9,
+          "NOT_RUN": 0,
+          "PASS": 1
+        },
+        "OUTPUT_CONTRACT_COMPLIANCE": {
+          "BLOCKED": 0,
+          "FAIL": 9,
+          "NOT_RUN": 0,
+          "PASS": 1
+        },
+        "QUALIFIED_BUSINESS_COMPLETION": {
+          "BLOCKED": 1,
+          "FAIL": 8,
+          "NOT_RUN": 1,
+          "PASS": 0
+        },
+        "STRICT_END_TO_END_SUCCESS": {
+          "BLOCKED": 10,
+          "FAIL": 0,
+          "NOT_RUN": 0,
+          "PASS": 0
+        },
+        "TERMINATION_CORRECTNESS": {
+          "BLOCKED": 0,
+          "FAIL": 10,
+          "NOT_RUN": 0,
+          "PASS": 0
+        }
+      },
+      "physical_coverage": "PASS",
+      "physical_run_id": "lfm3-ha-scope-4bb35a7899594a6ba61fe2283b648d62",
+      "private_gpu_counters_sha256": "fcc71a1bc83a8611945c0ad552aacb163b08ac5abfbb10d0015128f37ea2527e",
+      "private_native_trace_sha256": "f4e9a9dcc27ff8cca0d0090de9d6a1ec19c322de19802c07ed16ef6b5ff0aef6",
+      "private_report_sha256": "30b4081743ceb742c905ee08344a8e5e6533826242ff1659b5f21c8811412ea6",
+      "rows": [
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-single-000",
+          "family": "single",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": true,
+          "first_provider_request_sha256": "4511f0eb19afcd90aefb40c979f6a057ba75efdfa105b6f229ce103e5fecd50a",
+          "first_provider_response_sha256": "7d06d43be54a7953c4e021652795b1ff01d6d8b0578b24507c95d5e5b8130530",
+          "first_tool_choice": "none",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "FAIL",
+            "OUTPUT_CONTRACT_COMPLIANCE": "FAIL",
+            "QUALIFIED_BUSINESS_COMPLETION": "FAIL",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "4660c48fc7fb61ba261dfbc5fe00e23c69db003642d3d9d05bce66981aa53936"
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-selection-000",
+          "family": "selection",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": true,
+          "first_provider_request_sha256": "8ce60764076e734643750df10e9610e9d7f397494fa9ce6306714a47017cc60c",
+          "first_provider_response_sha256": "273d05061d09b4841225f0ce349f88ba7f8e1d64d69eb1c15df919ac109594b0",
+          "first_tool_choice": "none",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "FAIL",
+            "OUTPUT_CONTRACT_COMPLIANCE": "FAIL",
+            "QUALIFIED_BUSINESS_COMPLETION": "FAIL",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "9f84f655dd0ca3571b126733fcc257bba302063776ab359225308e33edff1257"
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-binding-000",
+          "family": "binding",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": true,
+          "first_provider_request_sha256": "68d1c62332c5455dd18928bf25cbb30d9264c4bad4097d5364dd31a41e06842a",
+          "first_provider_response_sha256": "4da29d7d77badedc826dae306cb0d18739fe21d41904d2031ae0ded9008ae34b",
+          "first_tool_choice": "none",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "FAIL",
+            "OUTPUT_CONTRACT_COMPLIANCE": "FAIL",
+            "QUALIFIED_BUSINESS_COMPLETION": "FAIL",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "bb514cc3a9797804b01c53833e2950ccabd6e5f0a69725515c6094e701b37f6a"
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-roundtrip-000",
+          "family": "roundtrip",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": true,
+          "first_provider_request_sha256": "8dbb7a00693cbf2467b4292bf7adfbcfeae2f6587ce41b1806cd439854f558d0",
+          "first_provider_response_sha256": "62c9cd1ac26eda207e830ee26d6a5b8b46f3c6d79af39ae928991a0579eee7f6",
+          "first_tool_choice": "none",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "FAIL",
+            "OUTPUT_CONTRACT_COMPLIANCE": "FAIL",
+            "QUALIFIED_BUSINESS_COMPLETION": "FAIL",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "7b51294a0f98c9f50f62d157b03e0c5ba4f0ab04d359077db0682c3c2a62be50"
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-dependency-000",
+          "family": "dependency",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": true,
+          "first_provider_request_sha256": "d31d1fad2ca2cf86810b16d8ef0889d1503734bb203375d6c479250ab608f92d",
+          "first_provider_response_sha256": "95c36809218248c42561980e7125554aa302edb4d1af03eae06646abd8a86d0e",
+          "first_tool_choice": "none",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "FAIL",
+            "OUTPUT_CONTRACT_COMPLIANCE": "FAIL",
+            "QUALIFIED_BUSINESS_COMPLETION": "FAIL",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "46be9e489b7068bebac6446014ca98f6a4dc33c07c69b848d4b254b08da66ccc"
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-parallel-000",
+          "family": "parallel",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": true,
+          "first_provider_request_sha256": "082c0831b0622040b23c1c6915d7b35df524232962aa8f7d32375dd3486d1b7e",
+          "first_provider_response_sha256": "1db99b4954249df1279b7ca98e4d745d487369dfb5b982bc39ce3d4d2420eb27",
+          "first_tool_choice": "none",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "FAIL",
+            "OUTPUT_CONTRACT_COMPLIANCE": "FAIL",
+            "QUALIFIED_BUSINESS_COMPLETION": "FAIL",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "59afc7e6a18a90239b83529265199165e04aa178f259f394b6cdcc04c66eb40b"
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-clarification-000",
+          "family": "clarification",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "d362954bdb007b1b1909298c8e5b94f88d922e55f289e1c1e48084b8dba4ceda",
+          "first_provider_response_sha256": "43b90f2d4b6d46d85282c236947de4a4fb8e5586928a1557a3a02c6d0583b795",
+          "first_tool_choice": "none",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "NOT_RUN",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "fc8d688a4035958e12c7d76f09af5ebc8076c353775f5720ce953d5fb2574dde"
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-recovery-000",
+          "family": "recovery",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": true,
+          "first_provider_request_sha256": "54622396de66b02dc88d584e063147e8311bb42b6794cd194a7882f124983b73",
+          "first_provider_response_sha256": "d813807f0bebea8a9622fd787f9c74dd4a53916c133b14b66db6170dfb671423",
+          "first_tool_choice": "none",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "FAIL",
+            "OUTPUT_CONTRACT_COMPLIANCE": "FAIL",
+            "QUALIFIED_BUSINESS_COMPLETION": "FAIL",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "ca1c70b676b95ba41dda6d53253752ba8d39bd0981583236bdb28fce55c546cb"
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-scope_update-000",
+          "family": "scope_update",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": true,
+          "first_provider_request_sha256": "8051028f1648ef9b5035df25fddec68ea70b3ce3ba1fab3cf1523d0021aab65f",
+          "first_provider_response_sha256": "13fc7ab734ac5ba9c4f683d6b0453bd62897a35564443a9adde4b9eac63171ac",
+          "first_tool_choice": "none",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "FAIL",
+            "OUTPUT_CONTRACT_COMPLIANCE": "FAIL",
+            "QUALIFIED_BUSINESS_COMPLETION": "FAIL",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "a198f666c248696c3080d1c5900308ff5254165ddc9db511cfd3420c2ef5d9c4"
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-authorization-000",
+          "family": "authorization",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": true,
+          "first_provider_request_sha256": "e3392aa7cca526411be2f7923714dcc4f743f3a7503c84fc2b7221ea4b3be4c4",
+          "first_provider_response_sha256": "2506126c1c6e19482ca85ecbfc267facb066791fc3ec6322d4a3913b4051f5e8",
+          "first_tool_choice": "none",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "FAIL",
+            "OUTPUT_CONTRACT_COMPLIANCE": "FAIL",
+            "QUALIFIED_BUSINESS_COMPLETION": "BLOCKED",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "b1bf73f427add93114965368b1b0b557adedf98ef5a5e2291e07a4f786abccc3"
+        }
+      ],
+      "seed": 7107
+    },
+    "SDK_MATCHED_CONTEXT_ToolChoiceOnly": {
+      "dataset_sha256": "aa4b9c7a1f8a1a74cc260c9991280a2c5b150a0f4a3ad5c2859ded0cb92d8b14",
+      "git_sha": "c2ba89ff7d581b5c61344d9f1a10662f52c6bf42",
+      "launch_flags": [
+        "--ctx-size",
+        "8192",
+        "--parallel",
+        "1",
+        "--n-gpu-layers",
+        "99",
+        "--device",
+        "Vulkan0",
+        "--cache-ram",
+        "0",
+        "--ctx-checkpoints",
+        "0",
+        "--jinja",
+        "--offline",
+        "--no-webui",
+        "--verbosity",
+        "4",
+        "--seed",
+        "7107",
+        "--temp",
+        "0",
+        "--chat-template-kwargs",
+        "{\"enable_thinking\":false}"
+      ],
+      "launch_identity_sha256": "4ba4db3ecc3b75dc1927f50795f5b9e1b358a36bb43a87751c7a005acd3e1c55",
+      "method_sha256": "925165022b2b092c55fb0d2fced02c757307b6a068606c87a3fb7274eade4a15",
+      "metrics": {
+        "EXECUTION_PROCESS_CORRECTNESS": {
+          "BLOCKED": 0,
+          "FAIL": 1,
+          "NOT_RUN": 0,
+          "PASS": 9
+        },
+        "OUTPUT_CONTRACT_COMPLIANCE": {
+          "BLOCKED": 0,
+          "FAIL": 0,
+          "NOT_RUN": 0,
+          "PASS": 10
+        },
+        "QUALIFIED_BUSINESS_COMPLETION": {
+          "BLOCKED": 1,
+          "FAIL": 1,
+          "NOT_RUN": 1,
+          "PASS": 7
+        },
+        "STRICT_END_TO_END_SUCCESS": {
+          "BLOCKED": 10,
+          "FAIL": 0,
+          "NOT_RUN": 0,
+          "PASS": 0
+        },
+        "TERMINATION_CORRECTNESS": {
+          "BLOCKED": 0,
+          "FAIL": 2,
+          "NOT_RUN": 0,
+          "PASS": 8
+        }
+      },
+      "physical_coverage": "PASS",
+      "physical_run_id": "lfm3-ha-scope-auto-4689a6a1c9d040a68710eae01fa23910",
+      "private_gpu_counters_sha256": "710e6211b706452040f1549f1197f6348a471506c6ac7247e3271464ab336c44",
+      "private_native_trace_sha256": "f61c93bc5f95470174ae907428a3776c1dcd8b6ad74824fc10b72861cbc41bfe",
+      "private_report_sha256": "8407796d0d5f5eb5b411157e09e5303df9cf6c2fbe5a2a02b1b7b0b70b2d8a30",
+      "rows": [
+        {
+          "callbacks": 1,
+          "case_id": "TCV3-HA-SCOPE-V1-single-000",
+          "family": "single",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "5ef46c7902e16ba007ed7a5d495dea6d5d5fc929645af5a8a10f031b12d99e4f",
+          "first_provider_response_sha256": "126b698292a7548b561b3ae8c38690b601b0d9ee5dccbd6865a054a6120f3eae",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "d069fd1ed4630f44ed18284349d325bcb97ce61c528a224509b118d0be338c80",
+          "request_field_changes": [
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ]
+          ]
+        },
+        {
+          "callbacks": 1,
+          "case_id": "TCV3-HA-SCOPE-V1-selection-000",
+          "family": "selection",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "e54c7661e187a7d841a7017e9d6bfe203007b5a858ef0c1f904718626c2974fa",
+          "first_provider_response_sha256": "65e5eb57cfb3cf460c3b36c7d4244aef645dd497b1018f76488a694762051edb",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "fb04dc0794999eaa3dd9d8216fec19331a382528aaaaa8393003dc71d79a7fc7",
+          "request_field_changes": [
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ]
+          ]
+        },
+        {
+          "callbacks": 1,
+          "case_id": "TCV3-HA-SCOPE-V1-binding-000",
+          "family": "binding",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "c9cdbe3f37f3b8a98479bb6a7bcf4dac150989ba78f130f87d280177c937e4d7",
+          "first_provider_response_sha256": "730d37851aa209a8109cfc037c1a13754f05c996beae1072fc260059add1f3ec",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "bf6ada577f12d320ae558c487d07721919f15c2a54abcb79b9b37fc3d8a80995",
+          "request_field_changes": [
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ]
+          ]
+        },
+        {
+          "callbacks": 2,
+          "case_id": "TCV3-HA-SCOPE-V1-roundtrip-000",
+          "family": "roundtrip",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "d7e5aba29f3e0dc8b872b44185ec2c34b36bbb7ff0fe80dfcdf514bd8105ca7d",
+          "first_provider_response_sha256": "e736b02aa7bbe0bd60a300b8e7fe42dbe9d3de56f99afaca134dc70b82bba291",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "FAIL",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "FAIL",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 3,
+          "private_trial_sha256": "1522ab6f5ed926056a53ec6602213e7c8b795986814c74ac5f1b166ed8b7220b",
+          "request_field_changes": [
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ]
+          ]
+        },
+        {
+          "callbacks": 2,
+          "case_id": "TCV3-HA-SCOPE-V1-dependency-000",
+          "family": "dependency",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "3d65e806fcc76554c801f1acfbeab1f8f3a1f4bb569b8a5943aeff437a6a75e4",
+          "first_provider_response_sha256": "e309a0f67df0a6f4a23b05860fe32d8213912894b1e0c4557eaf257b5520f416",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 3,
+          "private_trial_sha256": "10349b93a4b7c9815d85f80804bec4d255e4b62f9f26a8501d9c70ae21942e0c",
+          "request_field_changes": [
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ]
+          ]
+        },
+        {
+          "callbacks": 2,
+          "case_id": "TCV3-HA-SCOPE-V1-parallel-000",
+          "family": "parallel",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "49b785b3d32a9700c7ace5b1edba9e778fa32f6da171996a10362f83056cef7e",
+          "first_provider_response_sha256": "3fc4aa516e81c11db78bd59e3ba27cd6fc7d66caf40b48c24695981c74803389",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "d5e0687926d9c5f27ff8e76a080bfec5ec9dd3cbe1c7a2932e116d4a5e5de266",
+          "request_field_changes": [
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ]
+          ]
+        },
+        {
+          "callbacks": 0,
+          "case_id": "TCV3-HA-SCOPE-V1-clarification-000",
+          "family": "clarification",
+          "first_finish_reason": "stop",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "6ab54163f68cbafb7111f1ab7b9ba595682a70da184dedfee5812cae895a12f2",
+          "first_provider_response_sha256": "c72792d46d5c12403cd7d2637cfe56be1793b38a45ba4b35224cf0276dadcada",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "NOT_RUN",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "FAIL"
+          },
+          "native_requests": 1,
+          "private_trial_sha256": "81c9c095ffcdc5e0876c625073439d591750329667b5e864995a9b25ca8d1ee8",
+          "request_field_changes": [
+            [
+              "tool_choice"
+            ]
+          ]
+        },
+        {
+          "callbacks": 2,
+          "case_id": "TCV3-HA-SCOPE-V1-recovery-000",
+          "family": "recovery",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "5a92c7ad97cf11e732ad0f011262a8c45c7283b319eaeadc82c7fef59ab71ab7",
+          "first_provider_response_sha256": "ac8125c814b5ea3c432ca0b7025739318b6561d8ad15462063a9a07c51206890",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 3,
+          "private_trial_sha256": "e05c14dedc5fcc3f7c9686c44b6c78575647352309365c9585ea3c2dfd784f6f",
+          "request_field_changes": [
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ]
+          ]
+        },
+        {
+          "callbacks": 2,
+          "case_id": "TCV3-HA-SCOPE-V1-scope_update-000",
+          "family": "scope_update",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "fbd238798117c28653c916452667e57545643b98e97e31bd832d1d6388c08c62",
+          "first_provider_response_sha256": "ba2863071670908175128a8017b1be6c15cf2909e334b8af9a254b5dd9ca5317",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "PASS",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 3,
+          "private_trial_sha256": "34d73c496cd9366f4433360eea78588fecbadadd7790643589e96a3ab8a08c24",
+          "request_field_changes": [
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ]
+          ]
+        },
+        {
+          "callbacks": 1,
+          "case_id": "TCV3-HA-SCOPE-V1-authorization-000",
+          "family": "authorization",
+          "first_finish_reason": "tool_calls",
+          "first_plain_text_tool_markup": false,
+          "first_provider_request_sha256": "2713b093409ebcd008b220549200259f7da9c92651231f1b29c2c8fe936df68f",
+          "first_provider_response_sha256": "db59e61666949e9bc140fb5e30ee20f91217ad1e3eb3109a99c9ffdc985418e0",
+          "first_tool_choice": "auto",
+          "metrics": {
+            "EXECUTION_PROCESS_CORRECTNESS": "PASS",
+            "OUTPUT_CONTRACT_COMPLIANCE": "PASS",
+            "QUALIFIED_BUSINESS_COMPLETION": "BLOCKED",
+            "STRICT_END_TO_END_SUCCESS": "BLOCKED",
+            "TERMINATION_CORRECTNESS": "PASS"
+          },
+          "native_requests": 2,
+          "private_trial_sha256": "d795a77f075836d3a1c02391ac9b88fde5d70763336429ab2c344acd1e388bb1",
+          "request_field_changes": [
+            [
+              "tool_choice"
+            ],
+            [
+              "tool_choice"
+            ]
+          ]
+        }
+      ],
+      "seed": 7107
+    }
+  },
+  "scope": "ten synthetic Original LFM3 action-phase preflight cases, three matched profiles",
+  "sdk_version": "0.1.24",
+  "software_witness": {
+    "evidence_class": "real SDK with scripted provider",
+    "private_summary_sha256": "dfe4ef425a857b2bcd0f64375d2c3e38804d2cecaab8279c9bce9b4916779901",
+    "rows": [
+      {
+        "action_decisions": [
+          "EXECUTED"
+        ],
+        "case_id": "TCV3-HA-DEV-V1-single-000",
+        "family": "single",
+        "observed_callback_actions": 1,
+        "observed_provider_requests": 2,
+        "planned_witness_actions": 1,
+        "sdk_failure": null,
+        "status": "PASS",
+        "terminal_matches": true
+      },
+      {
+        "action_decisions": [
+          "EXECUTED"
+        ],
+        "case_id": "TCV3-HA-DEV-V1-selection-000",
+        "family": "selection",
+        "observed_callback_actions": 1,
+        "observed_provider_requests": 2,
+        "planned_witness_actions": 1,
+        "sdk_failure": null,
+        "status": "PASS",
+        "terminal_matches": true
+      },
+      {
+        "action_decisions": [
+          "EXECUTED"
+        ],
+        "case_id": "TCV3-HA-DEV-V1-binding-000",
+        "family": "binding",
+        "observed_callback_actions": 1,
+        "observed_provider_requests": 2,
+        "planned_witness_actions": 1,
+        "sdk_failure": null,
+        "status": "PASS",
+        "terminal_matches": true
+      },
+      {
+        "action_decisions": [
+          "EXECUTED"
+        ],
+        "case_id": "TCV3-HA-DEV-V1-roundtrip-000",
+        "family": "roundtrip",
+        "observed_callback_actions": 1,
+        "observed_provider_requests": 2,
+        "planned_witness_actions": 1,
+        "sdk_failure": null,
+        "status": "PASS",
+        "terminal_matches": true
+      },
+      {
+        "action_decisions": [
+          "EXECUTED",
+          "EXECUTED"
+        ],
+        "case_id": "TCV3-HA-DEV-V1-dependency-000",
+        "family": "dependency",
+        "observed_callback_actions": 2,
+        "observed_provider_requests": 3,
+        "planned_witness_actions": 2,
+        "sdk_failure": null,
+        "status": "PASS",
+        "terminal_matches": true
+      },
+      {
+        "action_decisions": [
+          "EXECUTED",
+          "EXECUTED"
+        ],
+        "case_id": "TCV3-HA-DEV-V1-parallel-000",
+        "family": "parallel",
+        "observed_callback_actions": 2,
+        "observed_provider_requests": 2,
+        "planned_witness_actions": 2,
+        "sdk_failure": null,
+        "status": "PASS",
+        "terminal_matches": true
+      },
+      {
+        "action_decisions": [],
+        "case_id": "TCV3-HA-DEV-V1-clarification-000",
+        "family": "clarification",
+        "observed_callback_actions": 0,
+        "observed_provider_requests": 1,
+        "planned_witness_actions": 0,
+        "sdk_failure": null,
+        "status": "PASS",
+        "terminal_matches": true
+      },
+      {
+        "action_decisions": [
+          "EXECUTED",
+          "EXECUTED"
+        ],
+        "case_id": "TCV3-HA-DEV-V1-recovery-000",
+        "family": "recovery",
+        "observed_callback_actions": 2,
+        "observed_provider_requests": 3,
+        "planned_witness_actions": 2,
+        "sdk_failure": null,
+        "status": "PASS",
+        "terminal_matches": true
+      },
+      {
+        "action_decisions": [
+          "EXECUTED",
+          "EXECUTED"
+        ],
+        "case_id": "TCV3-HA-DEV-V1-scope_update-000",
+        "family": "scope_update",
+        "observed_callback_actions": 2,
+        "observed_provider_requests": 3,
+        "planned_witness_actions": 2,
+        "sdk_failure": null,
+        "status": "PASS",
+        "terminal_matches": true
+      },
+      {
+        "action_decisions": [
+          "EXECUTED"
+        ],
+        "case_id": "TCV3-HA-DEV-V1-authorization-000",
+        "family": "authorization",
+        "observed_callback_actions": 1,
+        "observed_provider_requests": 2,
+        "planned_witness_actions": 1,
+        "sdk_failure": null,
+        "status": "PASS",
+        "terminal_matches": true
+      }
+    ],
+    "status": "PASS"
+  }
+}
