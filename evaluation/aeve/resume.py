@@ -69,6 +69,8 @@ def main():
     cli.add_argument("--batch",type=int,default=96)
     cli.add_argument("--port",type=int,default=18744)
     cli.add_argument("--wait-for-controller", action="store_true")
+    cli.add_argument("--resume-deferred", action="store_true",
+                     help="Explicitly resume the preserved IJ-0.7.3 research queue after the GPU is returned.")
     args = cli.parse_args()
     if args.batch < 1:
         cli.error("batch must be positive")
@@ -107,6 +109,14 @@ def drive(db, folder, args):
         if existing != archive["attempts"]:
             restore(db,folder,args.out)
             break
+    if not args.resume_deferred:
+        from .q2_qualification import run as qualify_q2
+        from .qualification_transition import advance
+
+        export(db, folder, args.out)
+        qualify_q2(db, folder, args.assets.resolve(), args.port, args.out)
+        advance(folder, args.out, args.history, args.assets.resolve(), args.port, run_admission=False)
+        return
     prepare(db)
     retries = 0
     while True:

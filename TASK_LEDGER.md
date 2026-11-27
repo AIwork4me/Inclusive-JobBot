@@ -1,5 +1,10 @@
 # Task Ledger
 
+## IJ-0.7.3 GPU handoff
+
+The shared Radeon launcher now binds controller and device identities to the existing host mutex. The default AEVE resume stops after Q2 and preserves the deferred queue. Cross-worktree verification of the production mutex and the GPU handoff remain BLOCKED until the frozen queue releases the Radeon. The Windows child-termination control is process-only evidence.
+
+
 ## IJ-0.7.3
 
 Verified the full local O20 and P14 weight files against the independent ModelScope size and SHA256 pins. Published the per-artifact identity evidence and refreshed frozen Q2 coverage. Runtime admission for the additional families remains NOT_RUN. [Local weight identity](evidence/IJ073/aeve/additional_family_assets.json)

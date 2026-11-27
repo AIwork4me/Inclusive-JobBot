@@ -120,6 +120,13 @@ def details(stamps):
     return sessions, responses
 
 
+def memory_peaks(sessions):
+    return {field: max((value for session in sessions
+                        if (value := session["process_gpu_memory_peaks"][field]) is not None),
+                       default=None)
+            for field in ("dedicated_bytes", "shared_bytes", "committed_bytes")}
+
+
 def build(archive, manifest_hashes=None):
     plan = json.loads(FROZEN.read_bytes())
     with snapshot(archive, manifest_hashes) as (view, hashes):
@@ -145,13 +152,14 @@ def build(archive, manifest_hashes=None):
             for name in ("language", "dimension")
         }
         model["runtime_sessions"] = sorted(run for run, session in sessions.items() if session["candidate"] == code)
+        model["cost"]["gpu_memory_peaks_bytes"] = memory_peaks(
+            [sessions[run] for run in model["runtime_sessions"]])
     total = measured_cost([row for model in report["models"].values() for row in model["cases"]])
-    total["gpu_memory_peaks_bytes"] = {
-        field: max((session["process_gpu_memory_peaks"][field] for session in sessions.values()
-                    if session["process_gpu_memory_peaks"][field] is not None), default=None)
-        for field in ("dedicated_bytes", "shared_bytes", "committed_bytes")}
+    total["gpu_memory_peaks_bytes"] = memory_peaks(list(sessions.values()))
     total["electricity_and_currency_cost"] = {"status": "NOT_RUN", "reason": "energy and tariff not captured"}
-    return {"version": "IJ073-Q2-CLOSURE-2", "measured_operating_cost": total, "protocol_sha256": fingerprint(plan),
+    verdict = "PASS" if sum(row["status"] == "PASS" for row in report["models"].values()) >= 2 else "FAIL"
+    return {"version": "IJ073-Q2-CLOSURE-3", "judge_qualification": verdict,
+            "measured_operating_cost": total, "protocol_sha256": fingerprint(plan),
             "source_sha256": digest(Path(__file__)), "dataset_sha256": plan["dataset_sha256"],
             "session_manifests": hashes, "recorded": len(responses), "sessions": sessions, **report}
 
@@ -160,13 +168,17 @@ def markdown(report):
     gates = report["protocol"]["thresholds"]
     parts = ["# IJ-0.7.3 full Q2 Judge qualification", "",
              f"All {report['recorded']:,} frozen Radeon assessments have sealed source evidence.", "",
-             "| Judge | Admission | Unmet individual gates | P50 ms | P95 ms | Evaluations / request-wall second |",
-             "|---|---|---|---:|---:|---:|"]
+             f"**Formal Q2 Judge qualification: {report['judge_qualification']}.**", "",
+             "| Judge | Admission | Unmet individual gates | P50 ms | P95 ms | Input tokens | Output tokens | Peak committed GPU bytes | Inference ms |",
+             "|---|---|---|---:|---:|---:|---:|---:|---:|"]
     for code, model in report["models"].items():
         cost = model["cost"]
         unmet = ", ".join(model["unmet"]) or "None"
         parts.append(f"| {code} | {model['status']} | {unmet} | {cost['p50_wall_ms']} | "
-                     f"{cost['p95_wall_ms']} | {cost['evaluations_per_request_wall_second']:.3f} |")
+                     f"{cost['p95_wall_ms']} | {cost['prompt_tokens']['total']:,} | "
+                     f"{cost['completion_tokens']['total']:,} | "
+                     f"{cost['gpu_memory_peaks_bytes']['committed_bytes'] or '—'} | "
+                     f"{cost['native_inference_ms']['total']:,.0f} |")
     parts.extend(["", "Admission uses the frozen individual and cross-family gates.", "",
                   "| Metric | Floor | " + " | ".join(report["models"]) + " |",
                   "|---|---:" + "|---:" * len(report["models"]) + "|"])

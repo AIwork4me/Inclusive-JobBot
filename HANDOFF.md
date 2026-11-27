@@ -6,9 +6,26 @@ Use `python -m evaluation.aeve.progress --write` to synchronize Atlas progress, 
 
 Keep any current GPU worker alive while it advances the frozen Q2 queue. See [sealed coverage](evidence/IJ073/aeve/q2_sealed_coverage.json). Once all 6,850 results are sealed, run `python -m evaluation.aeve.q2_closure --output .runtime/q2_closure.json --markdown .runtime/q2_closure.md`. The report command requires every case from each frozen cohort and verifies the Q2 protocol from the archived development evidence.
 
-The updated `resume --wait-for-controller` waits for exclusive control before recovering the frozen queue. On full Q2 closure it writes the Q2 and routing reports, then exercises the pinned M14 and G31 runtime admissions using the same exclusive Radeon lease. Formal history stays blocked until independently qualified Q3 evaluator routes cover every subject family, dimension and risk. Rebuild the historical identity audit with `python -m evaluation.aeve.history_identity --replay evidence/IJ073/aeve/history_identity_reverify.json --output .runtime/history_identity_reverify.json`.
+## IJ-0.7.3 → IJ-SLM-1.0 GPU handoff
 
-Run `python -m evaluation.aeve resume` from this worktree using the project environment and PYTHONPATH containing the repository root and src. The controller seals physical sessions, recovers partial sessions, checks the four independent Gold cohorts and routes eligible historical evidence to admitted families. See [AEVE architecture](reports/IJ073_AEVE_ARCHITECTURE.md), [frozen protocol](evaluation/aeve/qualification_freeze.json) and [current gate ledger](atlas/ij073/progress.json). Preserve the original 22 blind-review cases. Dispatch requires actual formal archive coverage and independent Judge qualification.
+The default AEVE resume completes and replays only the frozen Q2 queue. The host lease uses the existing Windows global mutex shared by the Radeon launchers. Each new shared-launcher session records its hashed host and physical device identities, mission, owner, controller PID and runtime session. The llama-server process runs in an owner-bound Windows job. Use the shared launcher for Radeon work on this workstation.
+
+Open the GPU Handoff Gate only after the complete 6,850-case Q2 report replays, Q2 has stopped dispatching, the host mutex is available, and Windows cross-worktree contention and abnormal owner exit checks pass. Record the result in `evidence/IJ073/aeve/gpu_handoff.json`. Q2 coverage and Judge qualification are separate gates.
+
+Run the following recovery steps after the Radeon has been returned to IJ-0.7.3. Set `PYTHONPATH=.;src` and use the repository Python environment. Supply the original `--state`, `--out`, and `--assets` paths when resuming the original queue from a different checkout.
+
+| Deferred research | Remaining work | Resume or validation command |
+|---|---|---|
+| M14/G31 Admission | Two admissions plus the matched 72-request cohort per eligible candidate | `python -m evaluation.aeve.larger_candidate_admission M14 --matched-development`, then repeat for G31 |
+| gpt-oss-20b/Phi-4/Llama Admission | Three runtime admissions; verify all pinned weights before each run | `python -m evaluation.aeve.larger_candidate_admission O20`, then repeat for P14 and L70 |
+| Q1 truncation | 393 reserved requests for 131 original truncations, subject to archive replay | `python -m evaluation.aeve.truncation run --output .runtime/aeve-ij073/truncation-report.json` |
+| E0–E7 | Eight matched arms; freeze the eligible roster and its E6 subset before physical dispatch | `python -m evaluation.aeve.paired_evaluation ROSTER OBSERVATIONS --output .runtime/paired-report.json` replays recorded results. Physical dispatch still needs a frozen roster and runner. |
+| Q3 | Independent source-proof bundle, partition freeze and physical execution | `python -m evaluation.aeve.q3_cohort BUNDLE --output .runtime/q3-freeze.json`; the physical runner still needs implementation. |
+| Full history AI evaluation | Recompute remaining physical and nonphysical judgments from the published ledger. Obtain qualified routes for the 600 candidate-family, dimension and risk combinations. | `python -m evaluation.aeve.progress` verifies the ledger. Physical dispatch depends on independently qualified Q3 routes. |
+| Human blind review | Original 22 retained. Freeze the expanded panel and collect independent submissions. | `python -m evaluation.aeve.human_review --out .runtime/private-blind-review` |
+| IJ-0.7.3 legacy queued development | Resume the same SQLite queue and session archive | `python -m evaluation.aeve resume --wait-for-controller --resume-deferred` |
+
+Keep the original Q2 and Q3 protocols and evidence and use new run identities for new experiments.
 
 ## IJ-0.7.3 conditional planning checkpoint
 
