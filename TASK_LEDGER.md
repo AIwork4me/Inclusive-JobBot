@@ -2,6 +2,8 @@
 
 ## IJ-SLM-1.0 baseline
 
+The frozen queue continued during the SDK loss investigation. SDK causal ablation version 1.0 freezes independent development inputs and records the complete SDK control, Direct baseline, same-request replay, three single-factor comparisons, compact SDK and an independent bounded read guard. The version 1.0 offline evaluator keeps formal TC-V3 scores and independently records proposal, callback, delivery, answer and termination evidence. Physical diagnostic results remain NOT_RUN at this source seal.
+
 The interactive Planning development runner adds Plan-first and Acting-first SDK paths, live tools, an independent user update and terminal business checks. The sandbox phase and out-of-scope controls passed software replay. The first interactive Radeon run failed all four development cells. The Acting-first SDK provider asked for tool_choice=none, and both Plan-first plans failed replay. The revised run selected auto during execution and recovered ten real Acting-first SDK callbacks. Neither Acting-first mode completed the business task. Both Plan-first proposals failed the existing oracle checks. [Two execution rounds](evidence/IJSLM/planning-development/manifest.json)
 
 The formal TC-V3 dashboard records 342 executed physical trials against the 36,550-trial core plan. Its counts and scoped results replay from published session seals. [Formal dashboard](atlas/slm/v1.0/physical_progress.json)
