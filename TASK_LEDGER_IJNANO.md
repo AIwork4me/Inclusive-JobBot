@@ -131,3 +131,21 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N02R | Protocol matrix deliverable (scopes + T-set + contrasts + budget curves + denominators) | done | PASS | `evidence/IJNANO/N02R/protocol_matrix.json`, `scripts/ij_nano/n02r_analyze_v2.py` |
 | N02R | Causal report (sections 5-7: matrix, T0-T3 trade-off, recommendation candidates, limitations) | done | PASS | `reports/IJNANO_02R_PROTOCOL_CAUSAL_ANALYSIS.md` |
 | N02R | Gate `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED` | done | PASS (scoped; limitations documented) | `MISSION_STATE_IJNANO.json` phase N02R |
+
+## N02RR (2026-11-28, IJ-NANO-1.2R order, closed)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| N02RR | Mission order committed verbatim (preregistration) | done | PASS | `docs/IJNANO_MISSION_ORDER_V1_2R.md` |
+| N02RR | RS01 red reproduction of the rescore loader defect on the published witness artifact + exact impact count (1,397/1,397 affected; 588 verdict flips, all false negatives; 0 false positives) | done | PASS | `evidence/IJNANO/N02RR/rs01_red_reproduction.json`, `reports/IJNANO_02RR_OFFLINE_RESCORE_ROOT_CAUSE.md` |
+| N02RR | RS01 repair: key-based schema-validated loader, ArtifactIntegrityError as separately classified evidence failure; `n02r_rescore.py` rewritten fail-closed (no silent appends) | done | PASS | `scripts/ij_nano/n02rr_replay_lib.py`, `scripts/ij_nano/n02r_rescore.py` |
+| N02RR | RS02 P7S two-stage causal replay: stage-1 selection recomputed, stage-2 payload verified against ACTUAL selection (30/30 consistent; 23 wrong selections fail visibly; 5 stage-1 failures; total latency/tokens across stages) | done | PASS | `evidence/IJNANO/N02RR/trial_reconciliation.jsonl` (p7s_reconstruction fields) |
+| N02RR | Replay integration qualification: 19 end-to-end controls red-to-green incl. the dictionary-unpacking mutant (rejected on every positive control) | done | PASS | `evidence/IJNANO/N02RR/replay_qualification.json`, `tests/ij_nano/test_n02rr_replay_qualification.py` |
+| N02RR | Gate `N02R_OFFLINE_REPLAY_INTEGRITY_GO` | done | PASS | same |
+| N02RR | RS03 evidence-chain reconstruction: 2,184/2,184 slots at all six evidence levels, 0 findings; roster + trial-id recomputation; source/destination manifest comparison; request-renderer AST equivalence (12 functions/9 constants) + identical chat-template fingerprints; session PID evidence | done | PASS | `evidence/IJNANO/N02RR/evidence_verification.json` |
+| N02RR | Gate `N02R_QUANTITATIVE_EVIDENCE_RECONCILED` | done | PASS | same |
+| N02RR | Corrected full-corpus re-score under immutable replay identity `6701a6a6a08b34d9` (no GPU): 588 CORRECTED_FALSE_NEGATIVE, 809 TELEMETRY_CORRECTED, 787 UNCHANGED_VALID (physical rows reproduced 787/787 payload-identical; source verdicts restored 1,397/1,397); 0 EVIDENCE_INSUFFICIENT / 0 PHYSICAL_REEXECUTION_REQUIRED | done | PASS | `evidence/IJNANO/N02RR/{manifest.json,trial_reconciliation.jsonl}` |
+| N02RR | RS04-RS08 corrected analysis: paired McNemar + Newcombe CIs on intersected applicable tasks; corrected telemetry with sample counts (missing never zero); failure taxonomy with mechanism split; T-set recalc; budget-panel caveat (total-generation budget, NOT reasoning-budget) | done | PASS | `evidence/IJNANO/N02RR/corrected_protocol_matrix.json`, `scripts/ij_nano/n02rr_analyze.py` |
+| N02RR | Scientific conclusion recovery (13 questions) + supersession notices on both N02R reports + PR #11 description corrected | done | PASS | `reports/IJNANO_02RR_QUANTITATIVE_EVIDENCE_RECONCILIATION.md` §8; notices in `reports/IJNANO_02R_*.md` |
+| N02RR | Gate `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED` re-granted for corrected comparison scopes | done | PASS (corrected scopes) | `MISSION_STATE_IJNANO.json` phases.N02R/N02RR |
+| N02RR | Corrected headline: 870/2,184 semantic PASS (39.8%) vs 282/2,184 defective; withdrawn claims: reasoning improves all three models, thinking-off harms S2, 256-token reasoning-budget optimality; confirmed: DSL zero success, S3 thinking-control requirement | done | PASS (negative results preserved) | reconciliation report §8 |

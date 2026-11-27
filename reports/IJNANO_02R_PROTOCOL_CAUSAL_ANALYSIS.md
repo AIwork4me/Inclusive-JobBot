@@ -1,5 +1,23 @@
 # IJ-NANO-1.2 N02R — Model × Protocol Causal Analysis
 
+> **SUPERSEDED (IJ-NANO-1.2R, 2026-11-28) — QUANTITATIVE SECTIONS.**
+> The offline re-score that filled 1,397 of the 2,184 slots of
+> `ec5b95357e960f99` contained a loader defect (positional unpacking of the
+> persisted stage dict): every re-scored trial was sealed `PARSE_INVALID`
+> regardless of content (1,397/1,397 affected; 588 false negatives). All
+> quantitative tables, rates, contrasts and recommendation candidates in
+> THIS report that derive from `ec5b95357e960f99` are historical and
+> superseded by
+> `reports/IJNANO_02RR_QUANTITATIVE_EVIDENCE_RECONCILIATION.md`
+> (corrected matrix: `evidence/IJNANO/N02RR/corrected_protocol_matrix.json`;
+> row-level reconciliation: `evidence/IJNANO/N02RR/trial_reconciliation.jsonl`;
+> root cause: `reports/IJNANO_02RR_OFFLINE_RESCORE_ROOT_CAUSE.md`).
+> Preserved scopes: physical execution coverage, artifact integrity,
+> source-level findings, probe audits, evaluator qualification. Gate
+> `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED` was re-granted by 1.2R only
+> for the corrected comparison scopes.
+
+
 - Mission order: `docs/IJNANO_MISSION_ORDER_V1_2.md` §3
 - Gate: `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED`
 - Engine: llama.cpp b12359 (commit `b1b770d90`), Vulkan backend, RX 7900 XTX

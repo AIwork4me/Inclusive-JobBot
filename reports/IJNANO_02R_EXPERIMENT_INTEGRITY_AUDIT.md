@@ -1,5 +1,14 @@
 # IJ-NANO-1.2 N02R — Experiment Integrity Audit (addendum PR-D01..PR-D10)
 
+> **SCOPE NOTE (IJ-NANO-1.2R, 2026-11-28).** This audit remains valid for
+> PR-D01..PR-D10. A later, separate defect — the offline re-score loader of
+> `scripts/ij_nano/n02r_rescore.py` — was found outside this audit's scope
+> and repaired under mission IJ-NANO-1.2R; see
+> `reports/IJNANO_02RR_OFFLINE_RESCORE_ROOT_CAUSE.md` and the replay
+> qualification gate `N02R_OFFLINE_REPLAY_INTEGRITY_GO`
+> (`evidence/IJNANO/N02RR/replay_qualification.json`).
+
+
 - Addendum order: `docs/IJNANO_MISSION_ORDER_V1_2_N02R_ADDENDUM.md`
 - Audited implementation: `9b137f6` (experiment `36bfed1d55a9987b`)
 - Reproduction evidence: `evidence/IJNANO/N02R/pr_concerns_red_run.txt`

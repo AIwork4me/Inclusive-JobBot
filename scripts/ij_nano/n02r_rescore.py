@@ -1,33 +1,51 @@
 #!/usr/bin/env python3
-"""N02R offline re-score (addendum section 11: parser-only defects prefer
-offline re-scoring when complete raw evidence exists).
+"""N02R offline re-score — REPAIRED (mission IJ-NANO-1.2R RS01).
 
-Takes the trials of a source experiment whose raw responses are preserved
-as content-addressed artifacts, re-runs the FIXED parser + evaluator on
-the stored final-stage responses, and writes the rescored records into
-the NEW experiment's results.jsonl (same identity the corrected controller
-computes), marked as offline re-scores so denominator accounting stays
-honest. The source results are never modified.
+ROOT CAUSE (audited implementation @ 26445d6, sealed defective evidence in
+ec5b95357e960f99): the persisted stage object is a DICTIONARY, and the
+audited line
 
-Precondition (verified here): the request-rendering code is byte-identical
-between the source run's implementation and the current one (only parser
-internals changed)."""
+    stage, path, http_json, http_error, latency = art["stages"][-1]
+
+iterated the dict, assigning the KEY NAMES ("stage", "path", "http",
+"http_error", "latency_s"). The isinstance(http_json, dict) guard then
+substituted None, so every replayed trial reached the parser as None and
+was sealed PARSE_INVALID with corrupted telemetry. All 1,397 offline
+re-scores of ec5b95357e960f99 were affected (588 verdict flips, all false
+negatives). See evidence/IJNANO/N02RR/rs01_red_reproduction.json and
+reports/IJNANO_02RR_OFFLINE_RESCORE_ROOT_CAUSE.md.
+
+REPAIR (this file):
+- stage fields are read explicitly by key via the qualified loader
+  (scripts/ij_nano/n02rr_replay_lib.py);
+- the artifact schema is validated BEFORE replay (hash, trial identity,
+  stage schema/types/order, http/http_error consistency);
+- integrity rejections raise ArtifactIntegrityError and are recorded as
+  EVIDENCE_INSUFFICIENT — never converted into ordinary model failures;
+- the tool refuses to append into an experiment whose results already
+  contain the trial (the original silent-append design is what let 1,397
+  defective rows enter a sealed experiment);
+- P7S two-stage trials are replayed causally (stage-1 selection
+  recomputed, stage-2 payload checked against the ACTUAL selection).
+
+The corrected corpus re-score lives in scripts/ij_nano/n02rr_rescore.py
+(analysis-replay identity, reconciliation output). This repaired tool is
+kept for future experiment-filling rescores.
+"""
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import pathlib
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "benchmarks" / "root_cause"))
-sys.path.insert(0, str(ROOT / "benchmarks" / "ij_nano"))
-sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "scripts" / "ij_nano"))
+import n02rr_replay_lib as rl  # noqa: E402
 
-from n02r import controller_v2  # noqa: E402
-from n02r import arms_v2 as arms  # noqa: E402
-from n02r import scorer  # noqa: E402
+rl.bootstrap_paths()
+
+from n02r.controller_v2 import ControllerV2  # noqa: E402
 
 
 def main() -> int:
@@ -45,7 +63,7 @@ def main() -> int:
     cargs = type("A", (), {"weights_root": args.weights_root,
                            "models": args.models, "backend": "vulkan",
                            "port": 8096, "phase": "main"})()
-    c = controller_v2.ControllerV2(cargs)
+    c = ControllerV2(cargs)
     new_id = c.identity["experiment_id"]
     if new_id == src.name:
         print("source run already has the current identity; nothing to do")
@@ -57,77 +75,83 @@ def main() -> int:
                        indent=1, ensure_ascii=False), encoding="utf-8")
     (c.run_dir / "responses").mkdir(parents=True, exist_ok=True)
 
-    done, written, bad_hash = 0, 0, 0
+    # fail-closed: never append duplicates into existing results
+    existing = set()
+    if c.results_path.exists():
+        for line in c.results_path.read_text(encoding="utf-8").splitlines():
+            try:
+                existing.add(json.loads(line)["trial_id"])
+            except Exception:
+                continue
+
+    engine = rl.ReplayEngine(c)
+    written = rejected = skipped = 0
+    rejects: list[dict] = []
     with open(c.results_path, "ab") as out:
         for r in rows:
-            art_path = ROOT / r["response_artifact"]
-            if not art_path.exists():
-                continue
-            blob = art_path.read_bytes()
-            if hashlib.sha256(blob).hexdigest() != r["response_artifact_sha256"]:
-                bad_hash += 1
-                continue
-            art = json.loads(blob.decode("utf-8"))
-            stage, path, http_json, http_error, latency = art["stages"][-1]
-            # P7S replay: the stage-2 response already carries the selected
-            # tool inside its JSON; the stage-1 request is not needed
-            parse_arm = {"T2": "M-P1", "P7S": "M-P3"}.get(r["arm"], r["arm"])
-            task = next(t for t in c.suite if t["task_id"] == r["task_id"])
-            try:
-                parsed = arms.parse_response(parse_arm, task,
-                                             http_json if isinstance(
-                                                 http_json, dict) else None,
-                                             http_error)
-                scored = scorer.score(task, parsed.get("payload"))
-            except Exception as e:                     # never lose a trial
-                parsed = {"structural_ok": False, "warnings":
-                          [f"rescore parse error: {e!r}"], "payload": None,
-                          "normalizations": []}
-                scored = {"semantic_correct": False, "reasons": ["PARSE_INVALID"],
-                          "tool_correct": False, "args_correct": False}
-            tel = c._telemetry(r["arm"], http_json, http_error,
-                               art["stages"][-1]["latency_s"])
             tid = c._trial_id(r["model"], r["arm"], r["task_id"], r["budget"])
+            if tid in existing:
+                skipped += 1
+                continue
+            try:
+                rec = engine.replay({**r, "trial_id": tid,
+                                     "experiment_id": new_id},
+                                    source_row=r)
+            except rl.ArtifactIntegrityError as e:
+                # evidence-integrity failure: separately classified, NEVER
+                # an ordinary model failure
+                rejects.append({"source_trial": r["trial_id"], "code": e.code,
+                                "detail": e.detail})
+                rejected += 1
+                continue
             record = {
                 "trial_id": tid, "experiment_id": new_id,
                 "model": r["model"], "arm": r["arm"],
                 "task_id": r["task_id"], "family": r["family"],
                 "lang": r["lang"], "budget": r["budget"],
-                "http_ok": http_json is not None,
-                "http_error": http_error,
-                "telemetry": tel,
-                "parser": {"structural_ok": bool(parsed.get("structural_ok")),
-                           "warnings": parsed.get("warnings", []),
-                           "normalizations": parsed.get("normalizations", []),
-                           "payload": parsed.get("payload")},
-                "semantic_correct": scored["semantic_correct"],
-                "tool_correct": scored["tool_correct"],
-                "args_correct": scored["args_correct"],
-                "reasons": scored["reasons"],
+                "http_ok": rec["http_ok"], "http_error": rec["http_error"],
+                "telemetry": rec["telemetry"],
+                "telemetry_totals": {
+                    k: v for k, v in rec["telemetry_totals"].items()
+                    if k != "per_stage"},
+                "parser": rec["parser"],
+                "semantic_correct": rec["semantic_correct"],
+                "tool_correct": rec["tool_correct"],
+                "args_correct": rec["args_correct"],
+                "reasons": rec["reasons"],
+                "failure_class": rl.classify_failure(rec),
                 "response_artifact": r["response_artifact"],
                 "response_artifact_sha256": r["response_artifact_sha256"],
                 "execution": {"kind": "offline_rescore",
                               "source_experiment": src.name,
                               "source_trial_id": r["trial_id"],
-                              "source_stage_latency_s": latency,
+                              "source_stage_latency_s":
+                                  rec["telemetry"]["latency_s"],
+                              "loader": "n02rr_replay_lib (key-based, "
+                                        "schema-validated)",
                               "physical": False},
             }
             out.write((json.dumps(record, ensure_ascii=False) + "\n")
                       .encode("utf-8"))
             out.flush()
             written += 1
-            done += 1
+            existing.add(tid)
     manifest = json.loads((c.run_dir / "manifest.json").read_text(encoding="utf-8"))
     manifest["rescore"] = {
         "source_experiment": src.name,
         "source_trials": len(rows), "rescored": written,
-        "artifact_hash_mismatches": bad_hash,
-        "note": "parser-only defect repair; request renderers verified "
-                "byte-identical; raw artifacts reused unchanged"}
+        "skipped_already_present": skipped,
+        "evidence_integrity_rejects": rejected,
+        "rejects": rejects,
+        "loader": "n02rr_replay_lib key-based schema-validated (IJ-NANO-1.2R "
+                  "RS01 repair; the audited positional-unpacking defect is "
+                  "reproduced red in evidence/IJNANO/N02RR/"
+                  "rs01_red_reproduction.json)"}
     (c.run_dir / "manifest.json").write_text(
         json.dumps(manifest, indent=1, ensure_ascii=False), encoding="utf-8")
     print(json.dumps({"source": src.name, "new_experiment": new_id,
-                      "rescored": written, "bad_hash": bad_hash}, indent=1))
+                      "rescored": written, "skipped": skipped,
+                      "integrity_rejects": rejected}, indent=1))
     return 0
 
 

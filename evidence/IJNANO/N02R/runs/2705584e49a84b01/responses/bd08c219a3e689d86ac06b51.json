@@ -1,0 +1,148 @@
+{
+ "trial_id": "bd08c219a3e689d86ac06b51",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to generate the full action: tool and all arguments. The user says: \"订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments. Tools: ... Answer with the NUMBER of the tool to call only (1-8).\"\n\nWe need to interpret the request. The user gives an order ORD-1042 with amount 120.0 CNY, reason damaged_item. They want to generate the full action: tool and all arguments. They list tools. Then they say \"Answer with the NUMBER of the tool to call only (1-8).\" So we need to decide which tool to call based on the situation. The situation: order ORD-1042, damaged item. Likely we need to check refund eligibility? Or cancel order? Or trace shipment? The user didn't specify a specific action, just \"生成完整动作：工具与全部参数。\" That means \"Generate the full action: tool and all arguments.\" Possibly they want to know which tool to call to handle this damaged item order. The tools include orders.lookup_order, orders.cancel_order, orders.get_refund_eligibility, refunds.sub"
+      }
+     }
+    ],
+    "created": 1795791303,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 256,
+     "prompt_tokens": 122,
+     "total_tokens": 378,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-RUbmiJbG3PY8dqcS8WGz77cHaHTVnOLc",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to generate the full action: tool and all arguments. The user says: \"订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments. Tools: ... Answer with the NUMBER of the tool to call only (1-8).\"\n\nWe need to interpret the request. The user gives an order ORD-1042 with amount 120.0 CNY, reason damaged_item. They want to generate the full action: tool and all arguments. They list tools. Then they say \"Answer with the NUMBER of the tool to call only (1-8).\" So we need to decide which tool to call based on the situation. The situation: order ORD-1042, damaged item. Likely we need to check refund eligibility? Or cancel order? Or trace shipment? The user didn't specify a specific action, just \"生成完整动作：工具与全部参数。\" That means \"Generate the full action: tool and all arguments.\" Possibly they want to know which tool to call to handle this damaged item order. The tools include orders.lookup_order, orders.cancel_order, orders.get_refund_eligibility, refunds.sub",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 256,
+     "tokens_evaluated": 122,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 256,
+      "n_predict": 256,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\nTools:\n1. orders.lookup_order\n2. orders.cancel_order\n3. orders.get_refund_eligibility\n4. refunds.submit\n5. customers.get_profile\n6. logistics.trace_shipment\n7. inventory.check_stock\n8. notify.send_update\nAnswer with the NUMBER of the tool to call only (1-8).<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 377,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 122,
+      "prompt_ms": 34.96,
+      "prompt_per_token_ms": 0.28655737704918033,
+      "prompt_per_second": 3489.7025171624714,
+      "predicted_n": 256,
+      "predicted_ms": 1372.456,
+      "predicted_per_token_ms": 5.3821803921568625,
+      "predicted_per_second": 185.798306102345
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 122,
+     "prompt_ms": 34.96,
+     "prompt_per_token_ms": 0.28655737704918033,
+     "prompt_per_second": 3489.7025171624714,
+     "predicted_n": 256,
+     "predicted_ms": 1372.456,
+     "predicted_per_token_ms": 5.3821803921568625,
+     "predicted_per_second": 185.798306102345
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.406
+  }
+ ]
+}

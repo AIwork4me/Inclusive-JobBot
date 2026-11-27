@@ -1,0 +1,181 @@
+{
+ "mission": "IJ-NANO-1.2R RS01",
+ "audited_head": "26445d6f79949d51da7a9ce3f5669b032ab51efe",
+ "audited_module": "scripts/ij_nano/n02r_rescore.py",
+ "audited_defect_line": "stage, path, http_json, http_error, latency = art[\"stages\"][-1]",
+ "audited_fragment_in_live_file": false,
+ "audited_fragment_note": "true at audited HEAD 26445d6 (git-preserved); false after the RS01 repair rewrote the tool; the verbatim semantics are preserved as the canonical mutant in n02rr_replay_lib.mutant_unpack_last_stage",
+ "identity_reproduced": true,
+ "corpus": {
+  "rescored_trials": 1397,
+  "source_experiment": "7a1b9d7d160202d8",
+  "destination_experiment": "ec5b95357e960f99"
+ },
+ "witnesses": [
+  {
+   "artifact": "evidence\\IJNANO\\N02R\\runs\\7a1b9d7d160202d8\\responses\\003abb9e2604141bd8b016ec.json",
+   "artifact_sha256_recorded": "519e66ebdee80a34d7286ba48d0dde67793971cda108e1743d9316ff07c862e5",
+   "artifact_sha256_actual": "519e66ebdee80a34d7286ba48d0dde67793971cda108e1743d9316ff07c862e5",
+   "last_stage_actual_types": {
+    "stage": "int",
+    "path": "str",
+    "http": "dict",
+    "http_error": "NoneType",
+    "latency_s": "float"
+   },
+   "audited_unpack_values": {
+    "stage": "stage",
+    "path": "path",
+    "http_json": "http",
+    "http_error": "http_error",
+    "latency": "latency_s"
+   },
+   "audited_parser_received": "{'structural_ok': False, 'payload': None, 'warnings': ['http_error: http_error'], 'raw_content': None, 'normalizations': []}",
+   "audited_verdict": {
+    "structural_ok": false,
+    "warnings": [
+     "http_error: http_error"
+    ],
+    "semantic_correct": false,
+    "reasons": [
+     "PARSE_INVALID"
+    ],
+    "telemetry_usage": "NOT_CAPTURED (non-object response body)",
+    "http_ok_field": true
+   },
+   "sealed_destination_verdict": {
+    "structural_ok": false,
+    "reasons": [
+     "PARSE_INVALID"
+    ],
+    "http_error": "http_error",
+    "usage": "NOT_CAPTURED (non-object response body)"
+   },
+   "corrected_replay_verdict": {
+    "structural_ok": true,
+    "semantic_correct": false,
+    "reasons": [
+     "INTENT_MISMATCH"
+    ],
+    "payload": {
+     "intent": "A3"
+    },
+    "telemetry_usage": {
+     "prompt_tokens": 190,
+     "completion_tokens": 11,
+     "total_tokens": 201,
+     "cached_tokens": 1
+    },
+    "latency_s": 0.156
+   },
+   "source_experiment_physical_verdict": {
+    "structural_ok": true,
+    "semantic_correct": false,
+    "reasons": [
+     "INTENT_MISMATCH"
+    ]
+   },
+   "parser_input_is_none_demonstrated": true
+  },
+  {
+   "case": "genuine_model_semantic_error",
+   "artifact": "evidence\\IJNANO\\N02R\\runs\\7a1b9d7d160202d8\\responses\\7aff9d3c5f76371a2bfb4900.json",
+   "arm": "M-P3",
+   "task_id": "TS01",
+   "audited_verdict": {
+    "semantic_correct": false,
+    "reasons": [
+     "PARSE_INVALID"
+    ]
+   },
+   "source_physical_verdict": {
+    "semantic_correct": false,
+    "reasons": [
+     "TOOL_MISMATCH"
+    ]
+   },
+   "corrected_replay_verdict": {
+    "semantic_correct": false,
+    "reasons": [
+     "TOOL_MISMATCH"
+    ]
+   }
+  },
+  {
+   "case": "two_stage_p7s",
+   "artifact": "evidence\\IJNANO\\N02R\\runs\\7a1b9d7d160202d8\\responses\\3eafb66017f11460e9399a41.json",
+   "arm": "P7S",
+   "task_id": "SA01",
+   "audited_verdict": {
+    "semantic_correct": false,
+    "reasons": [
+     "PARSE_INVALID"
+    ]
+   },
+   "source_physical_verdict": {
+    "semantic_correct": false,
+    "reasons": [
+     "TOOL_MISMATCH"
+    ]
+   },
+   "corrected_replay_verdict": {
+    "semantic_correct": false,
+    "reasons": [
+     "TOOL_MISMATCH"
+    ]
+   }
+  },
+  {
+   "case": "empty_final_content",
+   "artifact": "evidence\\IJNANO\\N02R\\runs\\7a1b9d7d160202d8\\responses\\74cc0c690bf78f09ab3630ea.json",
+   "arm": "P5B",
+   "task_id": "SX01",
+   "audited_verdict": {
+    "semantic_correct": false,
+    "reasons": [
+     "PARSE_INVALID"
+    ]
+   },
+   "source_physical_verdict": {
+    "semantic_correct": false,
+    "reasons": [
+     "PARSE_INVALID"
+    ]
+   },
+   "corrected_replay_verdict": {
+    "semantic_correct": false,
+    "reasons": [
+     "PARSE_INVALID"
+    ]
+   }
+  },
+  {
+   "case": "t2_reasoning_budget",
+   "artifact": "evidence\\IJNANO\\N02R\\runs\\7a1b9d7d160202d8\\responses\\63981e356df471ad92c71911.json",
+   "arm": "T2",
+   "task_id": "TS01",
+   "audited_verdict": {
+    "semantic_correct": false,
+    "reasons": [
+     "PARSE_INVALID"
+    ]
+   },
+   "source_physical_verdict": {
+    "semantic_correct": true,
+    "reasons": []
+   },
+   "corrected_replay_verdict": {
+    "semantic_correct": true,
+    "reasons": []
+   }
+  }
+ ],
+ "affected_records": 1397,
+ "affected_breakdown": {
+  "verdict_flip": 588,
+  "structure_only": 306,
+  "telemetry_only": 503
+ },
+ "defect_fingerprint_rows_in_sealed_destination": 1397,
+ "conclusion": "Dictionary unpacking of the persisted stage object yields the key names ('stage','path','http','http_error','latency_s'); the isinstance(http_json, dict) guard substitutes None, so the parser receives None instead of the stored response for every replayed trial. All offline-rescored records are affected; verdicts, failure reasons and telemetry in the sealed destination experiment are invalid for these rows until re-scored with the corrected key-based loader."
+}

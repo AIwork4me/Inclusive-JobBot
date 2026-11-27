@@ -74,7 +74,19 @@ missions' state files.
 - Weights and engines are outside git. Record SHA256 evidence fresh at first
   use per session series; the committed manifest is an identity anchor.
 
-## 5. Next steps, in order (IJ-NANO-1.2 execution directive)
+## 5. Next steps, in order (IJ-NANO-1.2R closed 2026-11-28; N03 next)
+
+IJ-NANO-1.2R delivered the offline-rescore integrity recovery: the N02R
+rescore loader defect (all 1,397 rescored rows of `ec5b95357e960f99`
+PARSE_INVALID regardless of content) was reproduced red, repaired, gated
+(`N02R_OFFLINE_REPLAY_INTEGRITY_GO`) and the corpus re-scored offline
+(replay identity `6701a6a6a08b34d9`; corrected headline 870/2,184 semantic
+PASS; paired statistics; see
+`reports/IJNANO_02RR_QUANTITATIVE_EVIDENCE_RECONCILIATION.md`). Use the
+CORRECTED matrix (`evidence/IJNANO/N02RR/corrected_protocol_matrix.json`)
+for N03 protocol candidates; do not freeze DSL/two-stage/thinking-policy
+decisions from the superseded matrix. Original experiments and the
+defective evidence remain sealed and untouched.
 
 1. N05AR targeted evaluator corrections EV01–EV07 — reproduce each concern
    red first, then repair (gate
