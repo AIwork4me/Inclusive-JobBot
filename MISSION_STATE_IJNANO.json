@@ -2,8 +2,8 @@
  "schema_version": 1,
  "mission": "IJ-NANO-1.0",
  "mission_title": "SLM-native Agentic Runtime Co-design & Capability-driven Harness Optimization",
- "updated_utc": "2026-11-28T00:00:00Z",
- "current_phase": "IJ-NANO-1.2R delivered (offline rescore integrity recovery: gates N02R_OFFLINE_REPLAY_INTEGRITY_GO, N02R_QUANTITATIVE_EVIDENCE_RECONCILED, N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED re-granted for corrected scopes; corrected headline 870/2184 semantic PASS). Next: N03 (C01-C32 atlas, 640+320 cases) using corrected N02RR evidence",
+ "updated_utc": "2026-11-28T08:05:00Z",
+ "current_phase": "IJ-NANO-1.3S active (S0 plan frozen: N03_PROGRESSIVE_EXECUTION_PLAN_FROZEN; AUTH-0 CPU-only until EAE gates). N02R/N02RR closed 2026-11-28",
  "mission_order": "docs/IJNANO_MISSION_ORDER.md (verbatim preregistration, committed at N00)",
  "research_protocol": "docs/IJNANO_RESEARCH_PROTOCOL.md",
  "tracking_issue": 10,
@@ -436,6 +436,16 @@
     "scripts/ij_nano/n02r_rescore.py (repaired, fail-closed)",
     "tests/ij_nano/test_n02rr_replay_qualification.py"
    ]
+  },
+  "N03_PROGRESSIVE": {
+   "title": "IJ-NANO-1.3S assurance-gated progressive N03 execution",
+   "status": "ACTIVE (S0 complete)",
+   "mission_order": "docs/IJNANO_MISSION_ORDER_V1_3S.md",
+   "state_file": "MISSION_STATE_IJNANO_N03_PROGRESSIVE.json",
+   "execution_plan": "docs/IJNANO_N03_PROGRESSIVE_EXECUTION_PLAN.md",
+   "authorization": "AUTH-0 only; controller benchmarks/ij_nano/n03/authorization.py NOT_IMPLEMENTED",
+   "gate": "N03_PROGRESSIVE_EXECUTION_PLAN_FROZEN",
+   "gate_status": "GRANTED"
   }
  },
  "final_verdicts": {

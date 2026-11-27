@@ -149,3 +149,16 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N02RR | Scientific conclusion recovery (13 questions) + supersession notices on both N02R reports + PR #11 description corrected | done | PASS | `reports/IJNANO_02RR_QUANTITATIVE_EVIDENCE_RECONCILIATION.md` §8; notices in `reports/IJNANO_02R_*.md` |
 | N02RR | Gate `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED` re-granted for corrected comparison scopes | done | PASS (corrected scopes) | `MISSION_STATE_IJNANO.json` phases.N02R/N02RR |
 | N02RR | Corrected headline: 870/2,184 semantic PASS (39.8%) vs 282/2,184 defective; withdrawn claims: reasoning improves all three models, thinking-off harms S2, 256-token reasoning-budget optimality; confirmed: DSL zero success, S3 thinking-control requirement | done | PASS (negative results preserved) | reconciliation report §8 |
+
+## N03-PROGRESSIVE (2026-11-28, IJ-NANO-1.3S order, ACTIVE)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| S0 | Mission order committed verbatim (preregistration) | done | PASS | `docs/IJNANO_MISSION_ORDER_V1_3S.md` (SHA256 c447831d…) |
+| S0 | Repository reconciliation: PR #11 HEAD bc4555e == audited == remote; PR #13 remote HEAD 9963926 == audited (local +1 unpushed preregistration + in-flight EA-R hardening owned by concurrent IJEVAL session, left untouched) | done | PASS | this commit; `MISSION_STATE_IJNANO_N03_PROGRESSIVE.json` reconciliation block |
+| S0 | Progressive execution plan + machine state: dependency graph, AUTH-0..3 levels, batch register, budgets, protocol candidates, canary policy, confirmation protection | done | PASS | `docs/IJNANO_N03_PROGRESSIVE_EXECUTION_PLAN.md`, `MISSION_STATE_IJNANO_N03_PROGRESSIVE.json` |
+| S0 | Gate `N03_PROGRESSIVE_EXECUTION_PLAN_FROZEN` | done | GRANTED | this commit |
+| B1 | Taxonomy contracts C01–C32 (definitions, witnesses, boundaries, failure taxonomy, EAE deps) | not started | PENDING | planned `evaluation/ij_nano/n03/taxonomy/` |
+| B2 | Dataset build 640 dev + 320 confirmation (CN+EN, family splits) | not started | PENDING | planned `evaluation/ij_nano/n03/` |
+| B3 | Independent dataset verification | not started | PENDING | planned `tests/ij_nano/n03/` |
+| B4 | Runner + authorization controller + synthetic transport | not started | PENDING | planned `benchmarks/ij_nano/n03/` |

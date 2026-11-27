@@ -74,7 +74,17 @@ missions' state files.
 - Weights and engines are outside git. Record SHA256 evidence fresh at first
   use per session series; the committed manifest is an identity anchor.
 
-## 5. Next steps, in order (IJ-NANO-1.2R closed 2026-11-28; N03 next)
+## 5. Next steps, in order (IJ-NANO-1.3S active 2026-11-28; N03 progressive)
+
+**IJ-NANO-1.3S is the active order** (`docs/IJNANO_MISSION_ORDER_V1_3S.md`,
+preregistered verbatim). Its execution plan is frozen:
+`docs/IJNANO_N03_PROGRESSIVE_EXECUTION_PLAN.md` +
+`MISSION_STATE_IJNANO_N03_PROGRESSIVE.json` (gate
+`N03_PROGRESSIVE_EXECUTION_PLAN_FROZEN`, granted 2026-11-28). AUTH-0
+CPU-only work is permitted immediately; anything needing the GPU waits for
+the EAE gates owned by PR #13. Do not write to the IJEVAL worktree while
+its own session is active (concurrent EA-R01..R04 hardening observed
+2026-11-28 ~07:45 +0800).
 
 IJ-NANO-1.2R delivered the offline-rescore integrity recovery: the N02R
 rescore loader defect (all 1,397 rescored rows of `ec5b95357e960f99`
