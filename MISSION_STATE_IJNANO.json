@@ -3,7 +3,7 @@
   "mission": "IJ-NANO-1.0",
   "mission_title": "SLM-native Agentic Runtime Co-design & Capability-driven Harness Optimization",
   "updated_utc": "2026-11-27T09:46:53Z",
-  "current_phase": "N00 baseline and dependency audit delivered; N01 literature investigation next; all physical phases BLOCKED on GPU lease",
+  "current_phase": "N00R resource reconciliation delivered (cross-host GPU conflict resolved; local lease available); parallel lanes: N01 literature, N02/N03 physical under host-wide lease, N06/N07 software",
   "mission_order": "docs/IJNANO_MISSION_ORDER.md (verbatim preregistration, committed at N00)",
   "research_protocol": "docs/IJNANO_RESEARCH_PROTOCOL.md",
   "tracking_issue": 10,
@@ -53,6 +53,29 @@
         "No qualified Harness/Gateway/Oracle inherited: IJ-SDK P3/P4-core/P5 remain reopened FAIL; P4A harness code classified REFERENCE_ONLY."
       ]
     },
+    "N00R": {
+      "title": "Dependency reconciliation and parallel research execution setup",
+      "progress": "done",
+      "status": "PASS",
+      "gate": "N00R_RESOURCE_AND_DEPENDENCY_RECONCILIATION_DELIVERED",
+      "gate_status": "PASS",
+      "evidence": [
+        "reports/IJNANO_00R_RESOURCE_AND_DEPENDENCY_RECONCILIATION.md",
+        "evidence/IJNANO/N00R/gpu_identity_comparison.json",
+        "evidence/IJNANO/N00R/lease_scope_decision.json"
+      ],
+      "verdicts": {
+        "cross_host": "CROSS_HOST_GPU_LEASE_CONFLICT_RESOLVED",
+        "local": "LOCAL_GPU_LEASE_AVAILABLE",
+        "gpu_identity": "GPU_IDENTITY_VERIFIED"
+      },
+      "notes": [
+        "IJ-SLM-1.0 sealed runs bind to a gfx1151 Radeon 8060S host (PR #9 @ 364c7ca); this workstation is gfx1100 RX 7900 XTX - distinct physical devices; IJ-SLM's lease untouched.",
+        "Existing host-wide lease protocol reused: benchmarks/root_cause/gpu_lease.py named kernel mutex; probe ACQUIRED_FREE 2026-11-27T11:20:07Z.",
+        "Dependency scope corrected: IJ-SDK formal-matrix non-authorization blocks formal business claims, not independently qualified physical admission/microbenchmarks/diagnostics.",
+        "Evaluation architecture adopted: one common business evaluation contract, multiple independently qualified specialized evaluators; IJ-NANO-specific scopes do not wait for IJ-SDK P5R."
+      ]
+    },
     "N01": {
       "title": "Comprehensive literature and open-source technology investigation (R01-R09)",
       "progress": "not_started",
@@ -64,8 +87,8 @@
     "N02": {
       "title": "Physical runtime and model identity qualification (S1/S2/S3/R1/R2)",
       "progress": "not_started",
-      "status": "BLOCKED",
-      "blocker": "IJN-B-001 GPU lease held by IJ-SLM-1.0; IJN-B-002 formal GPU matrix not authorized",
+      "status": "NOT_RUN",
+      "note": "N00R: local GPU lease available; proceed under host-wide lease with fresh hash verification; runtime/protocol tests are not formal business claims",
       "gate": "N02_PHYSICAL_MODEL_RUNTIME_QUALIFIED",
       "gate_status": "NOT_RUN",
       "gpu_required": true
@@ -73,8 +96,8 @@
     "N03": {
       "title": "Fine-grained SLM cognitive capability profiling (C01-C32)",
       "progress": "not_started",
-      "status": "BLOCKED",
-      "blocker": "requires N02",
+      "status": "NOT_RUN",
+      "note": "priority: 12 capability families named in the N00R order (enumerated/native/grammar action selection, DSL, slot extraction, entity resolution, context interference, tool-inventory sensitivity, error recognition, invalid-argument recovery, stop-vs-continue, conditional branching); requires N02; consume only sealed published IJ-SLM evidence as prior art",
       "gate": "N03_COGNITIVE_CAPABILITY_PROFILES_AVAILABLE",
       "gate_status": "NOT_RUN",
       "gpu_required": true
@@ -82,17 +105,18 @@
     "N04": {
       "title": "Reproduce existing SLM-native agentic approaches (E01-E06)",
       "progress": "not_started",
-      "status": "BLOCKED",
-      "blocker": "physical arms require N02; software tiers of the reproduction analysis can start after N01",
+      "status": "NOT_RUN",
+      "note": "after N01 source/license verification: E01 effGen native, E02 PTC-inspired, E03 TinyAgent ToolRAG, E04 action representation; same weights across arms",
       "gate": "N04_EXISTING_SLM_APPROACHES_CHARACTERIZED",
       "gate_status": "NOT_RUN",
       "gpu_required": true
     },
     "N05": {
-      "title": "Independent benchmark and Oracle qualification (E0-E6)",
+      "title": "Independent benchmark and evaluator qualification (specialized scopes + business gate)",
       "progress": "not_started",
-      "status": "BLOCKED",
-      "blocker": "IJN-B-002: no qualified evaluator exists; either reuse a future qualified IJ-SDK P5R scope or build and independently qualify our own",
+      "status": "NOT_RUN",
+      "note": "N00R split: IJ-NANO-specific evaluator scopes (C01-C32, context sufficiency/loss, retrieval recall, dependency closure, dynamic constraints, DSL, slot provenance, typed state, profile effectiveness, recovery attribution, transfer) proceed now with own deterministic controls and mutation tests; formal end-to-end business evaluation BLOCKED on qualified business oracle (re-audited IJ-SDK P5R or minimum necessary independent evaluator satisfying the same business contract)",
+      "blocker_formal_scope": "IJN-B-002 (narrowed)",
       "gate": "N05_INDEPENDENT_EVALUATION_QUALIFIED",
       "gate_status": "NOT_RUN",
       "gpu_required": true
@@ -228,13 +252,15 @@
     "A scientifically valid negative result is an acceptable outcome; hypothesis statuses are SUPPORTED / NOT_SUPPORTED / INCONCLUSIVE / BLOCKED / NOT_RUN."
   ],
   "recovery": {
-    "state": "N00 delivered; nothing running; all work committed on the research branch",
+    "state": "N00+N00R delivered; no physical run active; all work committed on the research branch",
     "resume_with": "HANDOFF_IJNANO.md, then this file and TASK_LEDGER_IJNANO.md",
+    "gpu_lease_protocol": "benchmarks/root_cause/gpu_lease.py physical_gpu() context manager; host-wide named mutex; acquire for every physical session",
     "next_steps_in_order": [
-      "N01: verify R01-R09 primary sources (papers, repositories, licenses) and produce the research landscape reports.",
-      "Draft the N08 experimental protocol skeleton and N05 evaluator architecture while the GPU is leased elsewhere.",
-      "Pure-software NanoAgent skeleton (N06) with unit tests once N01 reuse decisions are recorded.",
-      "N02 physical qualification when the GPU lease allows."
+      "Lane A - N01: verify R01-R09 primary sources; research landscape reports + reuse decision.",
+      "Lane D - N02: fresh SHA256 verification of S1/S2/S3/R1/R2 + engine under the host-wide lease; admission smokes; publish fresh N02 evidence.",
+      "Lane B - N05 specialized evaluator development (cognitive/mechanism scopes with deterministic controls).",
+      "Lane C - N06/N07 Layer A execution-integrity core (budget controller, events, typed state, safe gateway, D01-D07 regression tests), then Layers B/C.",
+      "Lane E/F - N04 reproductions and the SLM Harness Causal Pilot (A0-A9, 120 matched development cases per model per applicable arm, ~3,600 trial slots) once its prerequisites qualify."
     ]
   }
 }

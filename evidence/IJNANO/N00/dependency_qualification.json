@@ -29,7 +29,7 @@
       "scope_qualified": "IJ-SDK P2 PASS (admissions under dev-gen v1.0.1, preregistered selection rule) and P0R live SHA256 re-verification.",
       "identity": "models/ij_sdk/model_manifest.json at 56c6c74b; weights on disk outside git",
       "classification": "REUSE_AFTER_SHA256_REVERIFICATION",
-      "limits": "Full digests re-verified against disk before first IJ-NANO use. S2 (LFM3-1.7B) license is revenue-conditioned (commercial only below USD 10M annual revenue); research use permitted; commercial deployment eligibility is a separate owner decision recorded in IJN-B-005."
+      "limits": "Full digests re-verified against disk before first IJ-NANO use. S2 (LFM3-1.7B) license is revenue-conditioned (commercial only below USD 10M annual revenue); research use permitted; commercial deployment eligibility is a separate owner decision recorded in IJN-B-003. [N00R 2026-11-27: reference corrected from IJN-B-005 to IJN-B-003.]"
     },
     {
       "id": "DEP-04",
@@ -87,13 +87,23 @@
     "N01 literature and open-source investigation (network via gh api / web).",
     "Research protocol, hypothesis preregistration and statistical analysis design.",
     "Pure-software development with unit tests that do not require model inference: NanoAgent SDK skeleton, typed state, action graphs, recovery policies, evidence contracts - each labelled software-only until physically qualified.",
-    "Dataset generators, evaluator design and Oracle challenge-test design (software qualification only; formal claims BLOCKED)."
+    "Dataset generators, evaluator design and Oracle challenge-test design (software qualification only; formal claims BLOCKED).",
+    "[N00R 2026-11-27] Physical runtime admission, cognitive microbenchmarks and protocol diagnostics on the local gfx1100 GPU under the host-wide lease (benchmarks/root_cause/gpu_lease.py) with IJ-NANO's own preregistered qualification - the IJ-SDK formal-matrix non-authorization is scoped to IJ-SDK's unqualified benchmark/evaluator scopes, not to all physical inference. See evidence/IJNANO/N00R/lease_scope_decision.json."
   ],
   "blocked_now": [
-    "All physical model inference for IJ-NANO purposes (GPU lease + matrix authorization).",
-    "Formal business performance claims of any kind (no qualified evaluator).",
+    "[N00R 2026-11-27: narrowed] Formal end-to-end business performance evaluation (requires qualified business oracle - re-audited IJ-SDK P5R scope or minimum necessary independent evaluator).",
     "Any modification of PR #6 / PR #8 / PR #9 branches or their state files."
   ],
+  "superseded_by_n00r": {
+    "date": "2026-11-27",
+    "report": "reports/IJNANO_00R_RESOURCE_AND_DEPENDENCY_RECONCILIATION.md",
+    "changes": [
+      "DEP-07 (IJ-SLM-1.0): its GPU lease binds to a different physical device (gfx1151 Radeon 8060S host); it is a coordination dependency for evidence consumption only, not a local resource blocker.",
+      "DEP-08 (formal GPU matrix authorization): scope corrected to IJ-SDK's own benchmark/evaluator; it blocks formal business claims, not independently qualified physical runtime admission or cognitive microbenchmarks.",
+      "DEP-03: license blocker reference corrected to IJN-B-003."
+    ],
+    "original_wording": "preserved in git history at commit ee44482 (apart from the DEP-03 reference fix requested by the N00R order)"
+  },
   "owner_input_needed": [
     "GPU lease policy between IJ-SLM-1.0 and IJ-NANO-1.0 (sequential, shared windows, or reprioritized).",
     "Confirmation that IJ-NANO should not wait for IJ-SDK P4B/P5R before building its own evaluator (mission order permits an independent evaluator with separately qualified scope)."

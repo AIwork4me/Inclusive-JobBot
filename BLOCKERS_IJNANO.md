@@ -7,43 +7,65 @@ environment constraints (see IJN-B-004).
 
 ## IJN-B-001 The Radeon GPU is leased to IJ-SLM-1.0
 
-- Priority: P0 for every physical phase (N02+)
-- Status: OPEN
+- Priority: P0 for every physical phase (N02+) — **while open**
+- Status: **CLOSED 2026-11-27 (N00R)** — `CROSS_HOST_GPU_LEASE_CONFLICT_RESOLVED` + `LOCAL_GPU_LEASE_AVAILABLE`
 - Owner: operator (lease policy between missions)
-- Found: 2026-11-27, N00 audit
+- Found: 2026-11-27, N00 audit. Closed: 2026-11-27, N00R reconciliation.
 
-**Evidence.** PR #9 (codex/ij-slm-1.0, IJ-SLM-1.0) states it gives
-MiniCPM5-2B, LFM3-1.7B and Qwen3.5-2B first access to the Radeon after frozen
-Q2 is sealed and the GPU handoff is verified. The branch records
-`gpu_handoff: PASS` and Q2 sealed; `physical_progress.json` at the audited
-head already contains executed arm-A direct-runtime trials against a
-36,550-trial formal plan. No IJ-SLM process was running on this workstation
-at audit time, but the reservation is respected regardless of momentary
-idleness.
+**Resolution (N00R).** IJ-SLM-1.0's sealed physical runs bind to a different
+physical device on a different host: Radeon 8060S, gfx1151, driver
+32.0.22018.5, AMD Ryzen AI MAX+ PRO 395 platform, host_sha256 `8c12b292...`
+(PR #9 @ `364c7ca`: `atlas/slm/v1.0/environment.json`,
+`evidence/IJ073/aeve/gpu_handoff.json`, IJSLM tc-v3 run manifest). This
+workstation is RX 7900 XTX, gfx1100, PCI `DEV_744C`, driver 32.0.21030.2001,
+i7-13700K/B760M — the host where IJ-SDK P1 qualified gfx1100. IJ-SLM's lease
+on its own host is untouched.
 
-**What IJ-NANO does.** Software-only work now (N00, N01, protocol design,
-pure-software SDK development). Physical phases stay BLOCKED. When the
-operator releases or shares the lease, N02 starts with a preregistered
-qualification protocol of its own.
+**Local coordination.** The existing host-wide lease protocol is reused:
+`benchmarks/root_cause/gpu_lease.py` (named kernel mutex
+`Global\InclusiveJobBotPhysicalGPU`, atomic acquisition, abandoned-owner
+recovery, clean release). Probe 2026-11-27T11:20:07Z: `ACQUIRED_FREE`,
+released cleanly. No mission-specific mutex is created. Every IJ-NANO
+physical session acquires this lease.
+
+**Evidence.** `evidence/IJNANO/N00R/gpu_identity_comparison.json`,
+`evidence/IJNANO/N00R/lease_scope_decision.json`,
+`reports/IJNANO_00R_RESOURCE_AND_DEPENDENCY_RECONCILIATION.md`.
 
 ## IJN-B-002 No qualified evaluator, harness or oracle is inheritable
 
-- Priority: P0 for formal business claims (N05, N08+)
-- Status: OPEN
+- Priority: P0 for **formal business claims only** (scope narrowed 2026-11-27, N00R)
+- Status: OPEN (narrowed)
 - Owner: project (IJ-SDK-1.1 line) and IJ-NANO (own evaluator decision)
-- Found: 2026-11-27, N00 audit
+- Found: 2026-11-27, N00 audit. Narrowed: 2026-11-27, N00R.
 
 **Evidence.** MISSION_STATE_IJSDK.json at the base commit: P3 and P5 reopened
 FAIL by the P0R integrity audit; the P4 harness core reopened FAIL (D04-D07);
 `formal_gpu_matrix_authorized: false`; P4A checkpoint 1 was stopped by the
 operator with the gate NOT_RUN.
 
-**What IJ-NANO does.** Nothing from those scopes is inherited as qualified.
-The P4A harness source is classified REFERENCE_ONLY. N05 proceeds either by
-re-auditing a future qualified IJ-SDK P5R scope or by building an independent
-evaluator under the E0-E6 architecture with its own qualification. The
-original 14-control oracle is never relied on. IJ-SDK-1.1 repairs are not
-duplicated or interfered with.
+**Scope correction (N00R).** The IJ-SDK formal-matrix non-authorization
+applies to IJ-SDK's own unqualified benchmark and evaluator scopes. It is not
+a repository-wide ban on physical model inference. Not blocked: physical
+runtime admission (N02), cognitive microbenchmarks (N03), protocol
+diagnostics, runtime mechanism development — each under IJ-NANO's own
+preregistered qualification and the host-wide lease. Blocked: formal
+end-to-end business performance evaluation and product qualification claims.
+
+**What IJ-NANO does.** Nothing from reopened-FAIL scopes is inherited as
+qualified; P4A harness source stays REFERENCE_ONLY. Shared evaluation
+architecture per the N00R order: one common business evaluation contract,
+multiple independently qualified specialized evaluators. IJ-NANO-specific
+scopes (C01-C32 cognitive primitives, context sufficiency/loss, tool
+retrieval recall, dependency closure, dynamic constraints, DSL correctness,
+slot-binding provenance, typed state, profile effectiveness, recovery
+attribution, model×harness and cross-job transfer) get their own
+deterministic controls, independent expected results and mutation tests, and
+do not wait for the full IJ-SDK P5R business oracle. Formal end-to-end
+business evaluation waits for either a re-audited qualified P5R evaluator or
+the minimum necessary independent evaluator satisfying the same business
+contract (documented why it cannot be reused). IJ-SDK-1.1 repairs are not
+duplicated.
 
 ## IJN-B-003 S2 (LFM3-1.7B) commercial-deployment license is revenue-conditioned
 

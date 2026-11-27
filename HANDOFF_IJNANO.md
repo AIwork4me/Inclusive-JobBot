@@ -21,11 +21,13 @@ Then read `MISSION_STATE_IJNANO.json` (phase/gate status),
 
 ## 2. Where the work is
 
-N00 (repository audit and research isolation) is complete. The mission is
-parked at the start of N01 (literature investigation) with all physical
-phases BLOCKED: the Radeon GPU is leased to IJ-SLM-1.0 (PR #9), and no
-qualified evaluator/harness/oracle is inheritable from IJ-SDK (P3/P4-core/P5
-reopened FAIL; formal GPU matrix not authorized).
+N00 (audit/isolation) and N00R (resource reconciliation) are complete.
+**Cross-host GPU conflict resolved** (IJ-SLM-1.0 runs on a gfx1151/8060S
+host; this workstation is gfx1100/RX 7900 XTX) and **the local GPU lease is
+available** through the existing host-wide protocol. Execution lanes: N01
+literature, N02/N03 physical under lease, N05 specialized evaluators, N06/N07
+software. Formal end-to-end business evaluation stays BLOCKED (IJN-B-002
+narrowed).
 
 Branch: `mission/ij-nano-1.0-slm-native-agentic-runtime`, base `56c6c74b`
 (PR #8 head at N00 audit). Never rebase onto moving parents; never touch the

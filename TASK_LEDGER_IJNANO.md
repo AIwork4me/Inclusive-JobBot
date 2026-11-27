@@ -19,6 +19,20 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N00 | Tracking Issue + Draft PR created on GitHub | done | PASS | issue #10, draft PR #11 (base: default branch; stacking documentary, mission-only diff `git diff 56c6c74...mission/ij-nano-1.0-slm-native-agentic-runtime`) |
 | N00 | Gate `N00_RESEARCH_BASELINE_FROZEN` | done | PASS | `reports/IJNANO_00_BASELINE_AND_DEPENDENCY_AUDIT.md` §9 |
 
+## N00R (2026-11-27, done)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| N00R | Re-query PR #9 live state; confirm audited HEAD `364c7ca` (updated 10:23:34Z; local ref synced) | done | PASS | `evidence/IJNANO/N00R/gpu_identity_comparison.json` (ij_slm_published_identity) |
+| N00R | Read IJ-SLM identity evidence: `atlas/slm/v1.0/environment.json`, `evidence/IJ073/aeve/gpu_handoff.json`, sealed IJSLM tc-v3 run manifest | done | PASS | same; 8060S / gfx1151 / driver 32.0.22018.5 / Ryzen AI MAX+ PRO 395 host |
+| N00R | Independent local identity: PCI `VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8`, gfx1100, driver 32.0.21030.2001, i7-13700K/B760M, host UUID hash 16-prefix, Vulkan0 device report cross-checked against IJ-SDK P1 | done | PASS | `evidence/IJNANO/N00R/gpu_identity_comparison.json` (local_workstation_identity) |
+| N00R | Verdict `CROSS_HOST_GPU_LEASE_CONFLICT_RESOLVED`; IJ-SLM lease untouched | done | PASS | same (comparison, verdict) |
+| N00R | Local lease: reuse existing host-wide protocol `benchmarks/root_cause/gpu_lease.py`; probe `ACQUIRED_FREE` + clean release at 11:20:07Z; IJ-SDK-1.1 idle, no reservation | done | PASS | `evidence/IJNANO/N00R/lease_scope_decision.json` |
+| N00R | Verdict `LOCAL_GPU_LEASE_AVAILABLE`; no mission-specific mutex created | done | PASS | same |
+| N00R | Dependency scope correction: formal-matrix non-authorization scoped to IJ-SDK's unqualified benchmark/evaluator; physical admission/microbenchmarks/diagnostics proceed under own qualification; DEP-03 reference fixed (IJN-B-005 → IJN-B-003); `superseded_by_n00r` block added | done | PASS | `evidence/IJNANO/N00/dependency_qualification.json`, `evidence/IJNANO/N00R/lease_scope_decision.json` (dependency_scope_correction) |
+| N00R | Blockers updated: IJN-B-001 CLOSED, IJN-B-002 narrowed to formal business claims; shared evaluation architecture adopted | done | PASS | `BLOCKERS_IJNANO.md` |
+| N00R | N00R report | done | PASS | `reports/IJNANO_00R_RESOURCE_AND_DEPENDENCY_RECONCILIATION.md` |
+
 ## N01 (opened, not started)
 
 | Phase | Task | Progress | Status | Evidence |
