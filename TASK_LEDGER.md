@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3 GPU handoff
 
+The release verification manifests include the completed Q2 captures and handoff source files. The frozen experimental protocol is byte-identical to the reviewed baseline.
+
 All 6,850 frozen Q2 Radeon trials sealed and replayed. Formal Judge qualification is FAIL (B FAIL, E FAIL, F FAIL, G FAIL, J FAIL). Windows OS mutex contention across worktrees, owner-termination recovery and concurrent duplicate-queue protection passed. The physical lease and the original state locks were free at handoff to IJ-SLM-1.0. Deferred research remains recoverable through the handoff commands. [Q2 report](reports/IJ073_Q2_JUDGE_QUALIFICATION.md) [GPU handoff](evidence/IJ073/aeve/gpu_handoff.json)
 
 The shared Radeon launcher now binds controller and device identities to the existing host mutex. The default AEVE resume stops after Q2 and preserves the deferred queue. The Windows child-termination and concurrent queue deduplication controls are process-only evidence. The managed llama-server start script uses the same physical lease for new Radeon runs.
