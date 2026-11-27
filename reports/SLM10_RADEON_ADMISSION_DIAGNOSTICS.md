@@ -16,7 +16,7 @@ The Qwen3.5-2B streaming prose probe AG-02 returned an SDK execution failure aft
 
 ## Matched plan-first diagnostics
 
-The same four existing public tasks ran through Direct llama.cpp and the real SDK for each model. The comparison retains the SDK wire payload and the separate native engine capture. The public task, visible system instruction and scoring rule match. The SDK controls its effective request, wrapper prompts and transport. These scores replay the existing oracle and carry no new mechanical qualification credential.
+The same four existing public tasks ran through Direct llama.cpp and the real SDK for each model. All 12 Direct trajectories have matching native pre-parser generation records. The SDK arm retains the provider wire payload and SDK results. Native pre-parser capture was not enabled for the SDK requests in this diagnostic. These SDK records cannot establish parser-stage causality. The public task, visible system instruction and scoring rule match. The SDK controls its effective request, wrapper prompts and transport. These scores replay the existing oracle and carry no new mechanical qualification credential.
 
 | Model | Direct PASS / FAIL / BLOCKED | SDK PASS / FAIL / BLOCKED |
 |---|---:|---:|
