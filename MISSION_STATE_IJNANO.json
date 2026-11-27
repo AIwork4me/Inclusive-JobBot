@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-NANO-1.0",
   "mission_title": "SLM-native Agentic Runtime Co-design & Capability-driven Harness Optimization",
-  "updated_utc": "2026-11-27T09:46:53Z",
-  "current_phase": "N00R resource reconciliation delivered (cross-host GPU conflict resolved; local lease available); parallel lanes: N01 literature, N02/N03 physical under host-wide lease, N06/N07 software",
+  "updated_utc": "2026-11-27T11:58:54Z",
+  "current_phase": "IJ-NANO-1.1 active (order: docs/IJNANO_MISSION_ORDER_V1_1.md). Delivered: N00, N00R, N02 (physical qualification PASS). Parallel lanes: N01 closure, N06A-R integrity hardening, N05A cognitive evaluator, N02R protocol causal analysis under host-wide lease",
   "mission_order": "docs/IJNANO_MISSION_ORDER.md (verbatim preregistration, committed at N00)",
   "research_protocol": "docs/IJNANO_RESEARCH_PROTOCOL.md",
   "tracking_issue": 10,
@@ -76,6 +76,18 @@
         "Evaluation architecture adopted: one common business evaluation contract, multiple independently qualified specialized evaluators; IJ-NANO-specific scopes do not wait for IJ-SDK P5R."
       ]
     },
+    "N00RR": {
+      "title": "IJ-NANO-1.1 resume and reconcile",
+      "progress": "done",
+      "status": "PASS",
+      "gate": null,
+      "order": "docs/IJNANO_MISSION_ORDER_V1_1.md",
+      "notes": [
+        "Audited anchor f3d5817 verified locally and on origin (identical SHAs); working tree clean; no completed work restarted.",
+        "Stale records corrected: TASK_LEDGER N01 catalog row, N02 heading/progress, N06 Layer-A software progress recorded separately from the N06 gate, HANDOFF refreshed, PR #11 description updated.",
+        "IJ-SLM-1.0 remote advanced 364c7ca..a34aae7 (other host); not touched, per isolation rules."
+      ]
+    },
     "N01": {
       "title": "Comprehensive literature and open-source technology investigation (R01-R09)",
       "progress": "in_progress",
@@ -86,7 +98,8 @@
       "notes": [
         "All four primary-source verification sweeps completed 2026-11-27 and stored under evidence/IJNANO/N01/agent_reports/ (R01_R04, R02_R08, R03_R05_R06, R07_R09).",
         "Key verified facts: effGen Apache-2.0, real 1.5B/3B models, runtime-only gains, McNemar p<0.05, ~52 deps; slm-harness-adaptation MIT but no 1-3B total models (MoE active-param distinction); TinyAgent MIT, only 1.1B model is 1-3B but headline rests on fine-tuned weights (+66 pts LoRA vs +1.2 ToolRAG), macOS-only tools, dormant; Growing Harness paper-only (no code, >=4B models, arXiv 2609.26760); Meta-Harness MIT, frozen >=20B models, no LLM judge, Claude-Code proposer, artifact repo unlicensed; PTC-Decoder VERIFIED incl. Qwen3.5-2B experiments, transformers-only (not llama.cpp), LLM-judged, 2.07x token overhead, MIT; llama.cpp current stable v1.1.0 vs our pinned b12359; LLGuidance MIT ~50us/token masks; XGrammar Apache-2.0 with XGrammar-2 triggered_tags as the state-dependent-constraint reference design; MagenticLite = microsoft/magentic-ui next gen, MIT, 9-14B models, WSL2-only on Windows, 27 deps; SDK reuse ranking: PocketFlow (0 deps) > pydantic-ai-slim (9 deps) > smolagents (LlamaCppModel).",
-        "Remaining for gate: consolidated research_catalog.json, license_matrix.json, CN/EN landscape reports, reuse decision report."
+        "research_catalog.json (all subjects R01-R09 + cross-cutting answers) committed at f3d5817; ledger entry corrected at N00RR.",
+        "Remaining for gate: license_matrix.json, CN/EN landscape reports, reuse decision report (IJ-NANO-1.1 section 2)."
       ]
     },
     "N02": {
@@ -110,6 +123,15 @@
         "Engine records: b12359 rejects escaped-quote GBNF literals (use [\"] char classes); /completion json_schema takes an object.",
         "NOT_RUN in this scope: Q4-class quantization sensitivity, ROCm/HIP comparator (separately identified, never mixed)."
       ]
+    },
+    "N02R": {
+      "title": "IJ-NANO-1.1 Model x Inference Protocol causal analysis (A0-A7 arms, 64..1024 budgets, >=60-task screen)",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": true,
+      "note": "raw S2 protocol artifact overall:FAIL is preserved as-is; probe false-positive audit (empty-content PASS, tool-call semantics, cancellation scope, SSE accounting) precedes the controlled arms"
     },
     "N03": {
       "title": "Fine-grained SLM cognitive capability profiling (C01-C32)",
@@ -139,14 +161,46 @@
       "gate_status": "NOT_RUN",
       "gpu_required": true
     },
-    "N06": {
-      "title": "NanoAgent SDK modular architecture (software)",
+    "N05A": {
+      "title": "IJ-NANO-1.1 Independent cognitive evaluator qualification (scoped; not the business Oracle)",
       "progress": "not_started",
       "status": "NOT_RUN",
+      "gate": "N05A_COGNITIVE_EVALUATOR_QUALIFIED",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false,
+      "note": "typed evaluation contracts for the N03 cognitive families; deterministic semantic comparison (no substring primary matching); positive+negative controls mapped to every scoring rule; mutation tests against weakened evaluators; never grants end-to-end business Oracle qualification"
+    },
+    "N06": {
+      "title": "NanoAgent SDK modular architecture (software)",
+      "progress": "layer_a_software_delivered; modular runtime not started",
+      "status": "NOT_RUN",
       "note": "pure-software development is permitted now under dependency_qualification.json permitted_now; physical qualification of the runtime still requires N02",
+      "layer_a_software": {
+        "recorded_utc": "2026-11-27T11:58:54Z",
+        "scope": "SOFTWARE_ONLY (unittest; no physical runtime qualification implied)",
+        "progress": "done",
+        "status": "PASS",
+        "evidence": ["src/nanoagent/{core,gateway}/", "tests/ij_nano/ (36 tests green)"],
+        "covered_defect_classes": ["D04", "D05", "D06", "D07 (event-log half)"],
+        "outstanding": "IJ-NANO-1.1 NA-D01..NA-D08 adversarial hardening (see N06A-R)"
+      },
       "gate": "N06_NANOAGENT_MODULAR_RUNTIME_IMPLEMENTED",
       "gate_status": "NOT_RUN",
       "gpu_required": false
+    },
+    "N06A-R": {
+      "title": "IJ-NANO-1.1 Execution integrity hardening (NA-D01..NA-D08 against Layer A)",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "NANOAGENT_LAYER_A_SOFTWARE_INTEGRITY_GO",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false,
+      "deliverables": [
+        "reports/IJNANO_06A_RUNTIME_INTEGRITY_HARDENING.md",
+        "evidence/IJNANO/N06A-R/defect_ledger.json",
+        "evidence/IJNANO/N06A-R/regression_results.json"
+      ],
+      "note": "red reproduction before repair per class; software qualification only - never claimed as production transaction safety"
     },
     "N07": {
       "title": "Individual runtime mechanisms (M01-M10) development and validation",
@@ -270,15 +324,16 @@
     "A scientifically valid negative result is an acceptable outcome; hypothesis statuses are SUPPORTED / NOT_SUPPORTED / INCONCLUSIVE / BLOCKED / NOT_RUN."
   ],
   "recovery": {
-    "state": "N00+N00R delivered; no physical run active; all work committed on the research branch",
+    "state": "N00+N00R+N02 delivered; no physical run active; all work committed on the research branch; IJ-NANO-1.1 lanes active",
     "resume_with": "HANDOFF_IJNANO.md, then this file and TASK_LEDGER_IJNANO.md",
     "gpu_lease_protocol": "benchmarks/root_cause/gpu_lease.py physical_gpu() context manager; host-wide named mutex; acquire for every physical session",
     "next_steps_in_order": [
-      "Lane A - N01: verify R01-R09 primary sources; research landscape reports + reuse decision.",
-      "Lane D - N02: fresh SHA256 verification of S1/S2/S3/R1/R2 + engine under the host-wide lease; admission smokes; publish fresh N02 evidence.",
-      "Lane B - N05 specialized evaluator development (cognitive/mechanism scopes with deterministic controls).",
-      "Lane C - N06/N07 Layer A execution-integrity core (budget controller, events, typed state, safe gateway, D01-D07 regression tests), then Layers B/C.",
-      "Lane E/F - N04 reproductions and the SLM Harness Causal Pilot (A0-A9, 120 matched development cases per model per applicable arm, ~3,600 trial slots) once its prerequisites qualify."
+      "Lane A - N01 closure: license_matrix.json, CN/EN landscape reports, reuse decision (gate N01_RESEARCH_LANDSCAPE_VERIFIED).",
+      "Lane B - N06A-R: reproduce NA-D01..NA-D08 against Layer A, adversarial tests, minimal repairs, defect ledger + report (gate NANOAGENT_LAYER_A_SOFTWARE_INTEGRITY_GO).",
+      "Lane C - N05A cognitive evaluator contracts with controls and mutation tests (gate N05A_COGNITIVE_EVALUATOR_QUALIFIED).",
+      "Lane D - N02R protocol causal analysis under the host-wide lease (gate N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED).",
+      "Lane E - N03 twelve priority cognitive families once N05A scopes qualify.",
+      "Lanes F/G - evidence-driven N06B/C + N04/N07 mechanisms, then the 3,600-slot causal pilot."
     ]
   }
 }

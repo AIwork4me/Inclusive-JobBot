@@ -33,15 +33,26 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N00R | Blockers updated: IJN-B-001 CLOSED, IJN-B-002 narrowed to formal business claims; shared evaluation architecture adopted | done | PASS | `BLOCKERS_IJNANO.md` |
 | N00R | N00R report | done | PASS | `reports/IJNANO_00R_RESOURCE_AND_DEPENDENCY_RECONCILIATION.md` |
 
+## N00RR (2026-11-27, IJ-NANO-1.1, done)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| N00RR | Reconcile HEAD against audited anchor `f3d5817f` (local == origin; clean tree; no completed work restarted) | done | PASS | `git rev-parse HEAD origin/mission/ij-nano-1.0-slm-native-agentic-runtime` (identical) |
+| N00RR | Commit IJ-NANO-1.1 mission order verbatim (preregistration) | done | PASS | `docs/IJNANO_MISSION_ORDER_V1_1.md` |
+| N00RR | Correct stale records: N01 catalog row (catalog was committed at `f3d5817`), N02 heading/progress, N06 Layer-A software progress split from the N06 gate, HANDOFF refresh | done | PASS | this file; `MISSION_STATE_IJNANO.json` |
+| N00RR | Update PR #11 description (old GPU blocker -> N00R resolution + N02 PASS + scoped status) | done | PASS | PR #11 body |
+| N00RR | IJ-SLM-1.0 remote advanced `364c7ca..a34aae7`; confirmed untouched | done | PASS | `git fetch` record in N00RR notes |
+
 ## N01 (in progress)
 
 | Phase | Task | Progress | Status | Evidence |
 |---|---|---|---|---|
 | N01 | Primary-source verification R01-R09 via four parallel research agents (papers, repos, licenses, models, mechanisms, statistics) | done | PASS (verification sweeps; consolidation pending) | `evidence/IJNANO/N01/agent_reports/{R01_R04,R02_R08,R03_R05_R06,R07_R09}_verification.md` |
-| N01 | research_catalog.json + license_matrix.json | not started | NOT_RUN | — |
+| N01 | research_catalog.json (all subjects + cross-cutting answers; committed at `f3d5817`; ledger row corrected at N00RR) | done | PASS | `evidence/IJNANO/N01/research_catalog.json` |
+| N01 | license_matrix.json | not started | NOT_RUN | — |
 | N01 | Landscape reports CN/EN + open-source reuse decision | not started | NOT_RUN | — |
 
-## N02 (in progress)
+## N02 (2026-11-27, done)
 
 | Phase | Task | Progress | Status | Evidence |
 |---|---|---|---|---|
@@ -51,10 +62,11 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N02 | Protocol probe v3: health/socket, D-010 offload, generation+usage, native tool-call, chat json_schema (strict, 1024), GBNF charclass, escaped-quote engine record, /completion json_schema, SSE streaming, cancellation | done | PASS (S1/S3/R1/R2 overall PASS; S2 protocol-surface PASS + chat-path reasoning-burn model-behavior finding recorded) | `evidence/IJNANO/N02/protocol/*.json`, `benchmarks/ij_nano/n02_protocol_probe.py` |
 | N02 | Gate `N02_PHYSICAL_MODEL_RUNTIME_QUALIFIED` (runtime/protocol scope only; ROCm comparator and Q4 sensitivity explicitly NOT_RUN) | done | PASS | `reports/IJNANO_02_PHYSICAL_RUNTIME_QUALIFICATION.md` |
 
-## N06/N07 Layer A (software, in progress)
+## N06/N07 Layer A (software scope only; recorded separately from the N06 Runtime gate, which stays NOT_RUN)
 
 | Phase | Task | Progress | Status | Evidence |
 |---|---|---|---|---|
-| N06 | Layer A execution-integrity core: BudgetController (D05), EventLog hash-chain+seal (D07), TypedTaskState complete-reset+epoch-abort (D04), SafeToolGateway fixed-order transactions (D06), checkpoint/cancellation | done (software) | PASS under unittest | `src/nanoagent/{core,gateway}/`, `tests/ij_nano/` |
+| N06 | Layer A execution-integrity core: BudgetController (D05), EventLog hash-chain+seal (D07), TypedTaskState complete-reset+epoch-abort (D04), SafeToolGateway fixed-order transactions (D06), checkpoint/cancellation | done (software) | PASS under unittest (software scope only; NOT a Runtime qualification) | `src/nanoagent/{core,gateway}/`, `tests/ij_nano/` |
 | N06 | Layer A regression suite: 36 tests green (`python -I -m unittest discover -s tests/ij_nano -t .`); IJ-SDK suite unaffected (93 OK) | done | PASS | test run recorded in this row; rerun command in HANDOFF |
+| N06A-R | IJ-NANO-1.1 adversarial hardening NA-D01..NA-D08 (red reproduction -> minimal repair -> green regression -> negative controls) | not started | NOT_RUN | deliverables per `docs/IJNANO_MISSION_ORDER_V1_1.md` section 4 |
 | N06/N07 | Layers B (context compiler, tool filtering, grammar, slot binding) and C (action graph, recovery, goal controller) | not started | NOT_RUN | — |
