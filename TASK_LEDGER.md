@@ -2,6 +2,9 @@
 
 ## IJ-SLM-1.0 baseline
 
+The first admission diagnostic exposed a preflight path that prevented controlled reproduction of MiniCPM5's historical failed admission and an SDK capture serializer that could not preserve Decimal values. Diagnostic revision 2 uses the existing identity and GPU checks, records exact numbers and retains prior interrupted run IDs. Formal admission remains NOT_RUN.
+
+
 The independent worktree preserves the 36,550-trial core allocation and references pinned IJ-SDK-1.0 and IJ-0.7.3 assets. Registry software tests cover exact identity, duplicate reservations and conflicting physical origins. SDK case captures retain raw local files and publish separately identified redacted copies after verifying each evidence file and Radeon handoff identity. Software controls verify that unqualified proof replay stays BLOCKED and redacted output cannot carry private token encodings. Independent mechanical scope qualification, GPU admission and core trial execution remain NOT_RUN. [SLM baseline](reports/SLM10_BASELINE_AUDIT.md) The Radeon admission runner additionally preserves four matched Direct/SDK plan-first diagnostics on a legacy roster.
 ## IJ-0.7.3 GPU handoff
 

@@ -76,7 +76,7 @@ def read_json(path):
     return json.loads(path.read_bytes())
 
 
-def verify_runtime(candidate, model, engine_dir, *, root=ROOT):
+def verify_runtime(candidate, model, engine_dir, *, root=ROOT, require_prior_admission=True):
     """Hash local files and compare official, packaged and admitted identities."""
     if candidate not in CANDIDATES:
         raise ValueError("candidate is outside the GGUF Vulkan track")
@@ -111,8 +111,9 @@ def verify_runtime(candidate, model, engine_dir, *, root=ROOT):
         raise ValueError("candidate model asset is unverified")
     report = read_json(report_path)
     if (report.get("candidate") != candidate or report.get("model_id") != identity["official_model_id"]
-            or report.get("asset") != asset or report.get("status") != "PASS"
-            or report.get("requested_disable_thinking") is not True
+            or report.get("asset") != asset or report.get("requested_disable_thinking") is not True):
+        raise ValueError("prior Vulkan assessment does not match the candidate identity")
+    if require_prior_admission and (report.get("status") != "PASS"
             or any(report.get("gates", {}).get(gate) != "PASS" for gate in GATES)):
         raise ValueError("strict Vulkan admission did not pass for this candidate and identity")
     gpu = report["gpu"]

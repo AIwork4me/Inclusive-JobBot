@@ -12,6 +12,8 @@ from uuid import uuid4
 
 from google.antigravity import bin as harness_package
 
+from audit import write_evidence
+from business_tools import encode_state
 from benchmarks.competitive_slm.admission import GATES, chat_ok, cpu_server, request, test_gpu
 from benchmarks.competitive_slm.tc_v2_candidate import server_environment, verify_launch, verify_runtime
 from benchmarks.ij06_sdk.qualify import CASE_SPECS, execute_case
@@ -40,7 +42,7 @@ async def sdk_probes(client, alias, target, harness):
     results = {}
     for gate in CASE_SPECS:
         results[gate] = await execute_case(client.base_url, alias, target / gate, harness, gate)
-        write_json(target / "sdk-observations.json", results)
+        write_evidence(target / "sdk-observations.json", results)
     return results
 
 
@@ -57,7 +59,7 @@ def execute(candidate, assets, handoff_root, port):
     sdk_version = version("google-antigravity")
     if sdk_version != "0.1.24":
         raise ValueError("unexpected installed Antigravity SDK version")
-    identity = verify_runtime(candidate, model, engines)
+    identity = verify_runtime(candidate, model, engines, require_prior_admission=False)
     if identity["model"]["model_sha256"] != record["asset"]["expected_sha256"]:
         raise ValueError("SLM model file differs from the registered identity")
     pin = ROOT / record["reference_model_identity"]
@@ -66,13 +68,13 @@ def execute(candidate, assets, handoff_root, port):
     state = assets / ".runtime/ij-slm-1.0"
     state.mkdir(parents=True, exist_ok=True)
     run_id = "ijslm-admission-" + uuid4().hex
-    target = state / ("admission-" + candidate)
+    target = state / ("admission-" + candidate + "-v2")
     # The shared, fixed host asset root keeps another worktree from rescheduling
     # this diagnostic. Preserve interrupted artifacts for explicit reconciliation.
     target.mkdir(exist_ok=False)
     alias = "ijslm-candidate-" + candidate.lower()
     report = {
-        "version": "IJ-SLM-ADMISSION-DIAGNOSTIC-1", "git_sha": git_head(),
+        "version": "IJ-SLM-ADMISSION-DIAGNOSTIC-2", "git_sha": git_head(),
         "run_id": run_id, "candidate": candidate, "runtime": identity,
         "handoff_sha256": digest(handoff_root / HANDOFF), "sdk_version": sdk_version,
         "sdk_harness_sha256": digest(harness), "model_registry_sha256": digest(registry_path),
@@ -81,8 +83,13 @@ def execute(candidate, assets, handoff_root, port):
         "offline_egress": "BLOCKED", "gates": dict.fromkeys(GATES, "NOT_RUN"),
         "wire": [], "sdk": {},
     }
+    prior = state / ("admission-" + candidate) / "report.json"
+    if prior.is_file():
+        previous = json.loads(prior.read_bytes())
+        report["prior_interrupted_run"] = {"run_id": previous["run_id"], "report_sha256": digest(prior),
+                                           "status": "BLOCKED"}
     report_path = target / "report.json"
-    write_json(report_path, report)
+    write_evidence(report_path, report)
 
     def send_for(client):
         return partial(request, client, alias, wire=report["wire"], disable_thinking=True)
@@ -93,7 +100,7 @@ def execute(candidate, assets, handoff_root, port):
             report["cpu"] = {"engine_sha256": digest(cpu_binary), "build": build}
             report["gates"]["load"] = "PASS"
             report["gates"]["cpu_reference"] = "PASS" if chat_ok(send_for(client)) else "FAIL"
-        write_json(report_path, report)
+        write_evidence(report_path, report)
         with gpu_server(engines / "llama-server.exe", model, "vulkan", server_environment(),
                         target, port, "vulkan", True, alias=alias, mission_id="IJ-SLM-1.0",
                         lease_owner="slm-admission", runtime_session=run_id) as (client, launch):
@@ -102,13 +109,13 @@ def execute(candidate, assets, handoff_root, port):
                 if launch["gpu_lease"][field] != gate["lease"][field]:
                     raise ValueError("Radeon lease does not match the handoff identity")
             report["gpu"] = launch
-            write_json(report_path, report)
+            write_evidence(report_path, report)
             test_gpu(send_for(client), report)
-            write_json(report_path, report)
+            write_evidence(report_path, report)
             sdk_dir = target / "sdk"
             sdk_dir.mkdir()
             report["sdk"] = asyncio.run(sdk_probes(client, alias, sdk_dir, harness))
-            write_json(report_path, report)
+            write_evidence(report_path, report)
             report["paired_plan_first_diagnostics"] = matched_plan(client, alias, target / "paired-plan", harness)
         launch_record = target / "launch.json"
         write_json(launch_record, {**report["gpu"], "status": "PASS"})
@@ -124,16 +131,16 @@ def execute(candidate, assets, handoff_root, port):
         }
         report["raw_private_artifact_sha256"] = {name: digest(target / name) for name in (trace, counters)}
         report["diagnostic_coverage"] = "PASS"
-        write_json(report_path, report)
+        write_evidence(report_path, report)
         public_report = {**portable(report), "raw_private_report_sha256": digest(report_path)}
-        check_text(canonical(public_report))
-        write_json(published / "report.json", public_report)
-    except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
+        check_text(encode_state(public_report).encode("utf-8"))
+        write_evidence(published / "report.json", public_report)
+    except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
         report["diagnostic_coverage"] = "BLOCKED"
         report["interruption_type"] = type(error).__name__
         raise
     finally:
-        write_json(report_path, report)
+        write_evidence(report_path, report)
     return report
 
 

@@ -43,7 +43,7 @@ def publish(assets, handoff_root, repo):
     gate = require_handoff(handoff_root)
     rows = []
     for candidate in "ABDFG":
-        source = assets / ".runtime/ij-slm-1.0" / ("admission-" + candidate) / "portable"
+        source = assets / ".runtime/ij-slm-1.0" / ("admission-" + candidate + "-v2") / "portable"
         if not (source / "report.json").is_file():
             private = source.parent / "report.json"
             if private.is_file():
