@@ -9,7 +9,7 @@ from .qualification import measure
 from .history import lines
 from .history_routing import route_matrix
 from .meta_evaluation import snapshot as sealed_snapshot
-from .q2_closure import FROZEN, scan
+from .q2_closure import FROZEN, build as build_q2, scan
 from .q2_qualification import COLLECTION, roster
 from .runtime import ROOT, write_json
 
@@ -26,6 +26,16 @@ def coverage_summary(seen, cases, candidates, manifests):
             "remaining": required - recorded, "by_candidate": by_candidate, "session_manifests": manifests,
             "roster_status": "PASS" if recorded == required else "NOT_RUN", "status": "NOT_RUN"}
 
+
+
+def attach_q2_admission(coverage, closure, closure_sha256):
+    statuses = {code: row["status"] for code, row in closure["models"].items()}
+    if (coverage["roster_status"] != "PASS" or coverage["recorded"] != closure["recorded"]
+            or set(statuses) != set(coverage["by_candidate"])
+            or set(statuses.values()) - {"PASS", "FAIL", "BLOCKED"}):
+        raise ValueError("Q2 admission requires a complete sealed roster")
+    return {**coverage, "status": "PASS" if list(statuses.values()).count("PASS") >= 2 else "FAIL",
+            "candidate_admission": statuses, "closure_sha256": closure_sha256}
 
 def q2_coverage(view, hashes):
     protocol = json.loads(FROZEN.read_bytes())
@@ -84,6 +94,12 @@ def main():
     with sealed_snapshot(args.archive) as (view, hashes):
         counts,history,admitted,gates=snapshot(view)
         coverage=q2_coverage(view, hashes)
+        closure_path = EVIDENCE / "q2_closure.json"
+        if closure_path.is_file():
+            sealed = json.loads(closure_path.read_bytes())
+            if build_q2(view, sealed["session_manifests"]) != sealed:
+                raise ValueError("published Q2 closure does not replay")
+            coverage = attach_q2_admission(coverage, sealed, digest(closure_path))
     path=ROOT/"atlas/ij073/progress.json"
     data=json.loads(path.read_bytes())
     data["evidence_class"]="deterministic software controls, historical archive replay and sealed local Radeon sessions"
@@ -110,6 +126,12 @@ def main():
         raise ValueError("Q2 snapshot counts disagree")
     data["q2_qualification"] = {k: coverage[k] for k in ("status", "roster_status", "recorded", "required")}
     data["formal_q3_qualification"] = "NOT_RUN"
+    identity = json.loads((EVIDENCE / "history_identity_reverify.json").read_bytes())
+    data["experiment_coverage"].update(
+        registered_historical_identities=identity["registered_trials"],
+        applicable_historical_dimensions=identity["physical_dimensions"] + identity["nonphysical_dimensions"],
+        unassessable_historical_physical_trials=identity["unassessable_physical_trials"],
+    )
     data["evidence_gates"]={k:v for k,(v,reason) in gates.items()}
     data["gate_basis"]={k:reason for k,(v,reason) in gates.items()}
     data["qualification"].update(AEVE_IMPLEMENTATION_VERDICT="PASS",
@@ -117,6 +139,7 @@ def main():
     data["next_dependency"]=(
         "Complete the frozen Q2 roster, then replay closure and exercise larger-candidate admission."
         if coverage["remaining"] else "Replay complete Q2 closure and exercise larger-candidate admission."
+        if coverage["status"] == "NOT_RUN" else "Complete paired runtime development and independent Q3 qualification."
     )
     coverage_path = EVIDENCE / "q2_sealed_coverage.json"
     mission_path = ROOT / "MISSION_STATE.json"

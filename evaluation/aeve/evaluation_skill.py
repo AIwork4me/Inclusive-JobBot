@@ -68,6 +68,7 @@ ARMS = {
     "E4": ("independent_pair", True, True, 2, False),
     "E5": ("independent_pair", True, True, 2, True),
     "E6": ("no_llm", True, True, 0, False),
+    "E7": ("qualified_proof_router", True, True, 2, True),
 }
 
 

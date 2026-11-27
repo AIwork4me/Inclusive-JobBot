@@ -26,3 +26,16 @@ def test_history_matrix_records_absent_qualification_at_every_scope():
     assert matrix["covered_scopes"] == 0
     assert matrix["subjects"]["Qwen"]["D24/critical"]["status"] == "BLOCKED"
     assert matrix["subjects"]["unknown"]["D24/critical"]["status"] == "BLOCKED"
+
+
+def test_complete_coverage_and_admission_are_distinct():
+    from evaluation.aeve.progress import attach_q2_admission
+
+    coverage = coverage_summary({"A": {"one"}, "B": {"one"}}, {"one"}, ("A", "B"), {})
+    complete = {"recorded": 2, "models": {"A": {"status": "FAIL"}, "B": {"status": "BLOCKED"}}}
+    assert attach_q2_admission(coverage, complete, "digest")["status"] == "FAIL"
+    complete["models"] = {"A": {"status": "PASS"}, "B": {"status": "PASS"}}
+    assert attach_q2_admission(coverage, complete, "digest")["status"] == "PASS"
+    incomplete = coverage_summary({"A": {"one"}}, {"one"}, ("A", "B"), {})
+    with pytest.raises(ValueError, match="complete sealed roster"):
+        attach_q2_admission(incomplete, complete, "digest")

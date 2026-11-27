@@ -4,7 +4,7 @@ The independent obligations reproduced the published labels for all 101 distinct
 
 The audit enumerates minimal proofs from the positive obligations and independently sufficient counterexamples. It tests deletion of each exhibit from each minimal proof and reverses the decisive source facts in every packet. All 323 controls passed. Citation identity, sufficiency, extra evidence, rationale support and business polarity are recorded independently. The rationale check accepts structured claims bound to a cited obligation. Qualification of the archived free-text reasons remains NOT_RUN.
 
-These seven registered synthetic templates support development and source replay. They do not certify zero-call decisions on real historical workflows. Q1 and Q2 use their original verdicts, citation criteria and thresholds. Q3 requires new task families and archival episodes under the formal freeze.
+These seven registered synthetic templates support development and source replay. Zero-call routing on real historical workflows remains NOT_RUN. Q1 and Q2 use their original verdicts, citation criteria and thresholds. Q3 requires new task families and archival episodes under the formal freeze.
 
 Run the replay from the Atlas worktree with the repository root and src on PYTHONPATH.
 

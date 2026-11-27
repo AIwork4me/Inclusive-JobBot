@@ -23,4 +23,6 @@ def test_original_truncations_are_enrolled_once_for_each_treatment():
     items = truncation.roster()
     assert len(items) == 131
     assert len({(row["judge"], row["case_id"]) for row in items}) == 131
-    assert truncation.freeze()["required"] == 393
+    freeze = truncation.freeze()
+    assert freeze["required"] == 393
+    assert freeze == json.loads(truncation.FREEZE.read_bytes())

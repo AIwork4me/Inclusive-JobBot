@@ -2,7 +2,13 @@
 
 ## IJ-0.7.3
 
-Pinned the three additional independent families, gpt-oss-20b, Phi-4 and Llama 3.3 70B. Runtime and matched quality evidence remain separate from asset identity. Froze 393 diagnostic Radeon requests from the 131 original Q1 truncations under the original budget, a larger budget or a more compact output contract. The diagnostic does not qualify a route. [Candidate registry](evaluation/aeve/additional_candidate_pins.json) · [Truncation freeze](evaluation/aeve/truncation_freeze.json)
+The local O20 GGUF passed a full-file SHA256 and size check. Radeon runtime admission remains NOT_RUN. Added paired E0-E7 report compilation for full-roster coverage, error counts, resource cost and matched differences. The paired observations are still pending.
+
+Added a Q3 cohort freeze validator with trial identity binding, template and episode partition guards, and configuration hashes. The independent source-proof bundle and Q3 physical results remain NOT_RUN.
+
+Added the E7 Proof-based Evaluation Router planner. Software controls cover packet and qualification binding, zero-call decisions under a verified proof, semantic backstop and missing third-family coverage. The paired physical experiment and formal credential issuance remain NOT_RUN.
+
+Pinned the three additional independent families, gpt-oss-20b, Phi-4 and Llama 3.3 70B. Runtime and matched quality evidence remain separate from asset identity. Froze 393 diagnostic Radeon requests from the 131 original Q1 truncations under the original budget, a larger budget or a more compact output contract. Formal route qualification remains NOT_RUN. [Candidate registry](evaluation/aeve/additional_candidate_pins.json) · [Truncation freeze](evaluation/aeve/truncation_freeze.json)
 
 Replayed 101 Gold discrepancy packets using independent proof obligations. The 45 Gold defects and 81 sufficient alternative citation sets were confirmed. All 323 deletion and reversal controls passed. Historical exact scores are preserved. Q3 proof routing and historical free-text rationale qualification remain NOT_RUN. [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md)
 
