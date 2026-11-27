@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-SDK-1.0",
   "mission_title": "Cross-SDK Agentic Capability Benchmark for 2B-class SLMs",
-  "updated_utc": "2026-11-27T14:20:00Z",
-  "current_phase": "P5 (P0-P3 gates reached)",
+  "updated_utc": "2026-11-27T07:01:24Z",
+  "current_phase": "P0R audit delivered (IJ-SDK-1.1); P4A integrity hardening next",
   "tracking_issue": 7,
   "draft_pr": 8,
   "research_branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
@@ -30,69 +30,194 @@
         "evidence/IJSDK/P0/known_limitations.json"
       ]
     },
-    "P1": {"progress": "done", "status": "PASS", "gate": "P1_GFX1100_PHYSICAL_RUNTIME_GO", "primary_backend": "vulkan", "evidence": [
-      "reports/IJSDK_01_WINDOWS_GFX1100_QUALIFICATION.md",
-      "evidence/IJSDK/P1/environment.json",
-      "evidence/IJSDK/P1/gpu_inventory.json",
-      "evidence/IJSDK/P1/dependency_inventory.json",
-      "evidence/IJSDK/P1/engine_install.json",
-      "evidence/IJSDK/P1/rocm_runtime_install.json",
-      "evidence/IJSDK/P1/backend_qualification.json",
-      "evidence/IJSDK/P1/backend_qualification_rocm_retry.json",
-      "evidence/IJSDK/P1/gpu/"
-    ], "notes": [
-      "Vulkan: full PASS incl. streaming/non-streaming byte parity -> primary backend (frozen reason in report section 1).",
-      "ROCm/HIP: crashed on first run (rocBLAS TensileLibrary.dat missing from 10.0.0 wheels for gfx1100); CONFIRMED root cause; fixed version-preserving via rocm-sdk-device-gfx1100==10.0.0; post-fix 5/5 smoke, 43/43 layers, zero errors; stream-parity near-tie divergence documented (same class as CPU).",
-      "Matched F-vulkan vs F-rocm: 52/52 identical outputs; ROCm prefill 2159 tok/s vs Vulkan 1318, decode 249 vs 224.",
-      "Wheel identity drift recorded: same version spec served different bytes on 2026-11-24 vs 2026-11-27; pin by digest going forward."
-    ]},
-    "P2": {"progress": "done", "status": "PASS", "gate": "P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN", "evidence": [
-      "reports/IJSDK_02_MODEL_ADMISSION.md",
-      "configs/ij_sdk/model_admission_protocol.json",
-      "models/ij_sdk/model_manifest.json",
-      "evidence/IJSDK/P2/admission/"
-    ], "notes": [
-      "S3 = Qwen3.5-2B (preregistered rule). S1 9/10, S2 9/10 (dev-gen v1.0.1).",
-      "F19 dataset/task ambiguity CONFIRMED and repaired (v1.0.0 -> v1.0.1); v1.0.0 kept as diagnostic.",
-      "R1 byte-identical to prior pin; R2 pinned from atlas evidence, downloaded, digest-verified.",
-      "Recovery command: python -I benchmarks/ij_sdk/admission_smoke.py --candidate <ID> --model <path> --alias <alias> --backend vulkan --output <out.json>"
-    ]},
-    "P3": {"progress": "done", "status": "PASS", "gate": "P3_SDK_ADMISSION_AUDITED", "evidence": [
-      "reports/IJSDK_03_SDK_SURVEY_AND_ADMISSION.md",
-      "evidence/IJSDK/P3/sdk_research_findings.json",
-      "evidence/IJSDK/P3/installed_artifacts.json",
-      "evidence/IJSDK/P3/conformance/"
-    ], "notes": [
-      "All 10 arms (B1-B9, O1) pass C1/C2/C3 against pinned local server through their own interfaces.",
-      "SEC-01: agent-framework pinned 1.26.0 (1.26.1/.2 hijacked). Responses-API trap encoded for adapters.",
-      "Recovery command: python -I scripts/tools/ij_sdk_sdk_conformance.py --model q8 --backend vulkan"
-    ]},
-    "P4": {"progress": "not_started", "status": "NOT_RUN", "gate": "P4_CROSS_SDK_HARNESS_GO", "evidence": []},
-    "P5": {"progress": "done", "status": "PASS", "gate": "P5_EVALUATOR_SCOPE_QUALIFIED", "evidence": [
-      "reports/IJSDK_05_EVALUATOR_QUALIFICATION.md",
-      "evidence/IJSDK/P5/differential_results.json",
-      "evaluation/ij_sdk/business_oracle.py",
-      "evaluation/ij_sdk/qualify_oracle.py"
-    ], "notes": [
-      "Qualified scopes: E1/E3/E4/E5/E6 deterministic dimensions (14/14 controls, 0 critical failures).",
-      "4 oracle defects found by differential testing and fixed with rule attribution.",
-      "Qualitative/AI-judged/human dimensions NOT qualified - remain BLOCKED for formal claims.",
-      "Recovery command: python -I evaluation/ij_sdk/qualify_oracle.py"
-    ]},
-    "P6": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P7": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P8": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P9": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P10": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P11": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P12": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P13": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P14": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P15": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P16": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P17": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P18": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
-    "P19": {"progress": "not_started", "status": "NOT_RUN", "evidence": []}
+    "P0R": {
+      "progress": "done",
+      "status": "PASS",
+      "gate": null,
+      "title": "Resume and independent baseline audit (IJ-SDK-1.1)",
+      "evidence": [
+        "reports/IJSDK_11_RESUME_AND_INTEGRITY_AUDIT.md",
+        "evidence/IJSDK/P0R/baseline_reconciliation.json",
+        "evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json"
+      ],
+      "notes": [
+        "Audit delivered. Its findings reopen P3, P5 and the P4 harness core.",
+        "D01-D07 reproduced from the audited bytes: 75 of 76 probes; D06.07 (fault index) not reproduced, counterevidence recorded.",
+        "Original evidence preserved: 49 files under evidence/IJSDK byte-identical before and after the reproduction.",
+        "Repairs: inherited parent-mission evidence restored; P1 per-check detail published; model manifest committed with live-verified identities; stale ledger rows corrected.",
+        "G01-G20 acceptance gates are not defined in the repository: 0 mapped, 0 satisfied (owner input needed)."
+      ]
+    },
+    "P1": {
+      "progress": "done",
+      "status": "PASS",
+      "gate": "P1_GFX1100_PHYSICAL_RUNTIME_GO",
+      "primary_backend": "vulkan",
+      "evidence": [
+        "reports/IJSDK_01_WINDOWS_GFX1100_QUALIFICATION.md",
+        "evidence/IJSDK/P1/environment.json",
+        "evidence/IJSDK/P1/gpu_inventory.json",
+        "evidence/IJSDK/P1/dependency_inventory.json",
+        "evidence/IJSDK/P1/engine_install.json",
+        "evidence/IJSDK/P1/rocm_runtime_install.json",
+        "evidence/IJSDK/P1/backend_qualification.json",
+        "evidence/IJSDK/P1/backend_qualification_rocm_retry.json",
+        "evidence/IJSDK/P1/gpu/"
+      ],
+      "notes": [
+        "Vulkan: full PASS incl. streaming/non-streaming byte parity -> primary backend (frozen reason in report section 1).",
+        "ROCm/HIP: crashed on first run (rocBLAS TensileLibrary.dat missing from 10.0.0 wheels for gfx1100); CONFIRMED root cause; fixed version-preserving via rocm-sdk-device-gfx1100==10.0.0; post-fix 5/5 smoke, 43/43 layers, zero errors; stream-parity near-tie divergence documented (same class as CPU).",
+        "Matched F-vulkan vs F-rocm: 52/52 identical outputs; ROCm prefill 2159 tok/s vs Vulkan 1318, decode 249 vs 224.",
+        "Wheel identity drift recorded: same version spec served different bytes on 2026-11-24 vs 2026-11-27; pin by digest going forward."
+      ]
+    },
+    "P2": {
+      "progress": "done",
+      "status": "PASS",
+      "gate": "P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN",
+      "evidence": [
+        "reports/IJSDK_02_MODEL_ADMISSION.md",
+        "configs/ij_sdk/model_admission_protocol.json",
+        "models/ij_sdk/model_manifest.json",
+        "evidence/IJSDK/P2/admission/"
+      ],
+      "notes": [
+        "S3 = Qwen3.5-2B (preregistered rule). S1 9/10, S2 9/10 (dev-gen v1.0.1).",
+        "F19 dataset/task ambiguity CONFIRMED and repaired (v1.0.0 -> v1.0.1); v1.0.0 kept as diagnostic.",
+        "R1 byte-identical to prior pin; R2 pinned from atlas evidence, downloaded, digest-verified.",
+        "Recovery command: python -I benchmarks/ij_sdk/admission_smoke.py --candidate <ID> --model <path> --alias <alias> --backend vulkan --output <out.json>"
+      ]
+    },
+    "P3": {
+      "progress": "done",
+      "status": "FAIL",
+      "gate": "P3_SDK_ADMISSION_AUDITED",
+      "evidence": [
+        "reports/IJSDK_03_SDK_SURVEY_AND_ADMISSION.md",
+        "evidence/IJSDK/P3/sdk_research_findings.json",
+        "evidence/IJSDK/P3/installed_artifacts.json",
+        "evidence/IJSDK/P3/conformance/"
+      ],
+      "notes": [
+        "REOPENED as FAIL by IJ-SDK-1.1 P0R: 'all 10 arms pass C1/C2/C3' is contradicted by its own evidence. B1 has no tool round-trip and its chat check passed on a non-string object; O1 has none; C1/C2 are asserted; wire captures are empty; installed_artifacts.json is one environment's freeze repeated 8 times; B4 ran model-generated code unsandboxed. Re-qualified in P4B.",
+        "All 10 arms (B1-B9, O1) pass C1/C2/C3 against pinned local server through their own interfaces.",
+        "SEC-01: agent-framework pinned 1.26.0 (1.26.1/.2 hijacked). Responses-API trap encoded for adapters.",
+        "Recovery command: python -I scripts/tools/ij_sdk_sdk_conformance.py --model q8 --backend vulkan"
+      ],
+      "retained_scope": "Research admission only: a single-prompt tool round-trip on S1/Q8_0/Vulkan for B2-B9.",
+      "previous_status": "PASS",
+      "reopened_by": "P0R",
+      "reopened_utc": "2026-11-27T07:01:24Z"
+    },
+    "P4": {
+      "progress": "reopened",
+      "status": "FAIL",
+      "gate": "P4_CROSS_SDK_HARNESS_GO",
+      "evidence": [
+        "evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json",
+        "evidence/IJSDK/P0R/baseline_reconciliation.json"
+      ],
+      "gate_status": "NOT_RUN",
+      "fail_scope": "harness core only (contracts/events, adapters/base, adapters/b0_raw, gateway)",
+      "previous_status": "NOT_RUN",
+      "reopened_by": "P0R",
+      "reopened_utc": "2026-11-27T07:01:24Z",
+      "notes": [
+        "REOPENED as FAIL by IJ-SDK-1.1 P0R: the ledger had marked the harness core 'done PASS' while this file said 'not_started'. Against c28a41b the core reproduces D04 (session contamination), D05 (budgets), D06 (gateway authorization and fault order) and D07 (evidence contract). The gate itself was never claimed. Repaired in P4A; adapters qualified in P4B."
+      ]
+    },
+    "P5": {
+      "progress": "done",
+      "status": "FAIL",
+      "gate": "P5_EVALUATOR_SCOPE_QUALIFIED",
+      "evidence": [
+        "reports/IJSDK_05_EVALUATOR_QUALIFICATION.md",
+        "evidence/IJSDK/P5/differential_results.json",
+        "evaluation/ij_sdk/business_oracle.py",
+        "evaluation/ij_sdk/qualify_oracle.py"
+      ],
+      "notes": [
+        "REOPENED as FAIL by IJ-SDK-1.1 P0R: the published result reads gate=PASS beside all_negatives_rejected=false; 8 of 16 intentionally weakened oracles still pass the battery; 16 semantically wrong answers receive a correct verdict; the final business state is never reconstructed. No E-scope qualification survives. Re-qualified in P5R.",
+        "Qualified scopes: E1/E3/E4/E5/E6 deterministic dimensions (14/14 controls, 0 critical failures).",
+        "4 oracle defects found by differential testing and fixed with rule attribution.",
+        "Qualitative/AI-judged/human dimensions NOT qualified - remain BLOCKED for formal claims.",
+        "Recovery command: python -I evaluation/ij_sdk/qualify_oracle.py"
+      ],
+      "superseded_by": "P5R",
+      "previous_status": "PASS",
+      "reopened_by": "P0R",
+      "reopened_utc": "2026-11-27T07:01:24Z"
+    },
+    "P6": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P7": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P8": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P9": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P10": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P11": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P12": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P13": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P14": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P15": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P16": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P17": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P18": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    "P19": {
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
   },
   "final_verdicts": {
     "IJ_SDK_1_0_RESEARCH_COMPLETE": "NOT_RUN",
@@ -101,6 +226,36 @@
   },
   "notes": [
     "This ledger is IJ-SDK-1.0-specific. MISSION_STATE.json / TASK_LEDGER.md / BLOCKERS.md remain owned by the active Atlas worker (PR #6); IJ-SDK-1.0 only appends non-conflicting entries there.",
-    "All prior GPU evidence is from gfx1151 and does not transfer to this gfx1100 machine (see evidence/IJSDK/P0/known_limitations.json L-01)."
-  ]
+    "All prior GPU evidence is from gfx1151 and does not transfer to this gfx1100 machine (see evidence/IJSDK/P0/known_limitations.json L-01).",
+    "IJ-SDK-1.1 (2026-11-27): P3, P5 and the P4 harness core were reopened by the P0R audit; see reports/IJSDK_11_RESUME_AND_INTEGRITY_AUDIT.md.",
+    "Original reports and evidence are superseded, never rewritten."
+  ],
+  "sub_mission": "IJ-SDK-1.1 - Benchmark Integrity Hardening & Cross-SDK Physical Qualification",
+  "audited_head_before_1_1": "c28a41bad410b66103b499eaaec4ee1b3a227b10",
+  "formal_gpu_matrix_authorized": false,
+  "formal_gpu_matrix_authorization": "NOT authorized. P3 and P5 are reopened as FAIL and the P4 harness core fails D04-D07; P4A, P4B, P5R, P6, P7 and P8A must each pass on their own evidence first.",
+  "ij_sdk_1_1_verdicts": {
+    "IJSDK_HARNESS_INTEGRITY_GO": "NOT_RUN",
+    "IJSDK_CROSS_SDK_ADAPTER_QUALIFICATION_GO": "NOT_RUN",
+    "IJSDK_INDEPENDENT_ORACLE_QUALIFIED": "NOT_RUN",
+    "IJSDK_FRESH_HOLDOUT_FROZEN": "NOT_RUN",
+    "IJSDK_EXPERIMENTAL_MODES_QUALIFIED": "NOT_RUN",
+    "IJSDK_FORMAL_BENCHMARK_ADMISSION_GO": "NOT_RUN",
+    "IJSDK_FORMAL_BENCHMARK_IN_PROGRESS": "NOT_RUN",
+    "IJSDK_FORMAL_BENCHMARK_COMPLETE": "NOT_RUN"
+  },
+  "acceptance_gate_mapping": {
+    "phase_gates": "P0-P19 (and P0R/P4A/P4B/P5R/P8A/P8B of IJ-SDK-1.1) record phase completion.",
+    "final_acceptance_gates": "G01-G20 of the original mission order.",
+    "gate_list_present_in_repository": false,
+    "mapped": 0,
+    "satisfied": 0,
+    "note": "Only the parent Atlas gate system (G00-G29, atlas/gates.json) exists in the repository. Mapping requires the owner to supply the G01-G20 definitions. No phase gate is reported as an acceptance gate."
+  },
+  "dashboard": "evidence/IJSDK/dashboard.json",
+  "recovery": {
+    "state": "idle; nothing running",
+    "next_action": "P4A - repair D01-D07 (start with D06, the gateway), add regression tests, record red -> green",
+    "reproduce_audit": "python -I scripts/tools/ij_sdk_integrity_repro.py --source c28a41bad410b66103b499eaaec4ee1b3a227b10 --out evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json"
+  }
 }

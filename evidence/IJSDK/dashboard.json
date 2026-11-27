@@ -1,0 +1,468 @@
+{
+ "schema_version": 1,
+ "generated_utc": "2026-11-27T07:03:16Z",
+ "mission": "IJ-SDK-1.0",
+ "sub_mission": "IJ-SDK-1.1 - Benchmark Integrity Hardening & Cross-SDK Physical Qualification",
+ "branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
+ "head": "c28a41bad410b66103b499eaaec4ee1b3a227b10",
+ "frozen_source_commit": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+ "current_phase": "P0R audit delivered (IJ-SDK-1.1); P4A integrity hardening next",
+ "phase_gates": {
+  "note": "Phase completion only. These are NOT final acceptance gates.",
+  "tally": {
+   "PASS": 4,
+   "FAIL": 2,
+   "BLOCKED": 0,
+   "NOT_RUN": 15
+  },
+  "rows": [
+   {
+    "phase": "P0",
+    "gate": "P0_REPOSITORY_BASELINE_FROZEN",
+    "status": "PASS",
+    "gate_status": "PASS",
+    "progress": "done",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": [
+     "reports/IJSDK_00_BASELINE_AUDIT.md",
+     "evidence/IJSDK/P0/baseline_manifest.json",
+     "evidence/IJSDK/P0/reusable_assets.json",
+     "evidence/IJSDK/P0/known_limitations.json"
+    ]
+   },
+   {
+    "phase": "P0R",
+    "gate": null,
+    "status": "PASS",
+    "gate_status": "PASS",
+    "progress": "done",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": [
+     "reports/IJSDK_11_RESUME_AND_INTEGRITY_AUDIT.md",
+     "evidence/IJSDK/P0R/baseline_reconciliation.json",
+     "evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json"
+    ]
+   },
+   {
+    "phase": "P1",
+    "gate": "P1_GFX1100_PHYSICAL_RUNTIME_GO",
+    "status": "PASS",
+    "gate_status": "PASS",
+    "progress": "done",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": [
+     "reports/IJSDK_01_WINDOWS_GFX1100_QUALIFICATION.md",
+     "evidence/IJSDK/P1/environment.json",
+     "evidence/IJSDK/P1/gpu_inventory.json",
+     "evidence/IJSDK/P1/dependency_inventory.json",
+     "evidence/IJSDK/P1/engine_install.json",
+     "evidence/IJSDK/P1/rocm_runtime_install.json",
+     "evidence/IJSDK/P1/backend_qualification.json",
+     "evidence/IJSDK/P1/backend_qualification_rocm_retry.json",
+     "evidence/IJSDK/P1/gpu/"
+    ]
+   },
+   {
+    "phase": "P2",
+    "gate": "P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN",
+    "status": "PASS",
+    "gate_status": "PASS",
+    "progress": "done",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": [
+     "reports/IJSDK_02_MODEL_ADMISSION.md",
+     "configs/ij_sdk/model_admission_protocol.json",
+     "models/ij_sdk/model_manifest.json",
+     "evidence/IJSDK/P2/admission/"
+    ]
+   },
+   {
+    "phase": "P3",
+    "gate": "P3_SDK_ADMISSION_AUDITED",
+    "status": "FAIL",
+    "gate_status": "FAIL",
+    "progress": "done",
+    "reopened_by": "P0R",
+    "previous_status": "PASS",
+    "superseded_by": null,
+    "evidence": [
+     "reports/IJSDK_03_SDK_SURVEY_AND_ADMISSION.md",
+     "evidence/IJSDK/P3/sdk_research_findings.json",
+     "evidence/IJSDK/P3/installed_artifacts.json",
+     "evidence/IJSDK/P3/conformance/"
+    ]
+   },
+   {
+    "phase": "P4",
+    "gate": "P4_CROSS_SDK_HARNESS_GO",
+    "status": "FAIL",
+    "gate_status": "NOT_RUN",
+    "progress": "reopened",
+    "reopened_by": "P0R",
+    "previous_status": "NOT_RUN",
+    "superseded_by": null,
+    "evidence": [
+     "evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json",
+     "evidence/IJSDK/P0R/baseline_reconciliation.json"
+    ]
+   },
+   {
+    "phase": "P5",
+    "gate": "P5_EVALUATOR_SCOPE_QUALIFIED",
+    "status": "FAIL",
+    "gate_status": "FAIL",
+    "progress": "done",
+    "reopened_by": "P0R",
+    "previous_status": "PASS",
+    "superseded_by": "P5R",
+    "evidence": [
+     "reports/IJSDK_05_EVALUATOR_QUALIFICATION.md",
+     "evidence/IJSDK/P5/differential_results.json",
+     "evaluation/ij_sdk/business_oracle.py",
+     "evaluation/ij_sdk/qualify_oracle.py"
+    ]
+   },
+   {
+    "phase": "P6",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P7",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P8",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P9",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P10",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P11",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P12",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P13",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P14",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P15",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P16",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P17",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P18",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   },
+   {
+    "phase": "P19",
+    "gate": null,
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "not_started",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": []
+   }
+  ]
+ },
+ "final_acceptance_gates": {
+  "system": "G01-G20 of the original mission order",
+  "defined_in_repository": false,
+  "mapped": 0,
+  "satisfied": 0,
+  "total": 20,
+  "rows": [
+   {
+    "id": "G01",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G02",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G03",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G04",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G05",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G06",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G07",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G08",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G09",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G10",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G11",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G12",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G13",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G14",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G15",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G16",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G17",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G18",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G19",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   },
+   {
+    "id": "G20",
+    "status": "UNMAPPED",
+    "definition": "NOT_DEFINED_IN_REPOSITORY",
+    "source_phase_gate": null
+   }
+  ]
+ },
+ "verdicts": {
+  "IJ_SDK_1_0_RESEARCH_COMPLETE": "NOT_RUN",
+  "JOBBOT_ARCHITECTURE_SELECTION_GO": "NOT_RUN",
+  "JOBBOT_SYNTHETIC_QUALIFICATION_GO": "NOT_RUN",
+  "IJSDK_HARNESS_INTEGRITY_GO": "NOT_RUN",
+  "IJSDK_CROSS_SDK_ADAPTER_QUALIFICATION_GO": "NOT_RUN",
+  "IJSDK_INDEPENDENT_ORACLE_QUALIFIED": "NOT_RUN",
+  "IJSDK_FRESH_HOLDOUT_FROZEN": "NOT_RUN",
+  "IJSDK_EXPERIMENTAL_MODES_QUALIFIED": "NOT_RUN",
+  "IJSDK_FORMAL_BENCHMARK_ADMISSION_GO": "NOT_RUN",
+  "IJSDK_FORMAL_BENCHMARK_IN_PROGRESS": "NOT_RUN",
+  "IJSDK_FORMAL_BENCHMARK_COMPLETE": "NOT_RUN"
+ },
+ "verdict_tally": {
+  "GO": 0,
+  "QUALIFIED": 0,
+  "FROZEN": 0,
+  "PASS": 0,
+  "BLOCKED": 0,
+  "FAIL": 0,
+  "NOT_RUN": 11
+ },
+ "formal_benchmark": {
+  "gpu_matrix_authorized": false,
+  "authorization_basis": "NOT authorized. P3 and P5 are reopened as FAIL and the P4 harness core fails D04-D07; P4A, P4B, P5R, P6, P7 and P8A must each pass on their own evidence first.",
+  "trials": {
+   "note": "Formal-matrix accounting. Development qualification cases are listed separately and are never counted as formal trials.",
+   "planned_applicable_slots": 0,
+   "executed": 0,
+   "evidence_valid": 0,
+   "business_pass": 0,
+   "business_fail": 0,
+   "blocked": 0,
+   "not_run": 0,
+   "inapplicable_cells": 0
+  },
+  "development_qualification_trials": {
+   "p3_conformance_pre_hardening": {
+    "arms": 10,
+    "cases_per_arm": 1,
+    "counts_as_formal_evidence": false,
+    "status": "superseded; gate reopened by P0R"
+   }
+  }
+ },
+ "recovery": {
+  "state": "idle; nothing running",
+  "next_action": "P4A - repair D01-D07 (start with D06, the gateway), add regression tests, record red -> green",
+  "reproduce_audit": "python -I scripts/tools/ij_sdk_integrity_repro.py --source c28a41bad410b66103b499eaaec4ee1b3a227b10 --out evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json"
+ }
+}
