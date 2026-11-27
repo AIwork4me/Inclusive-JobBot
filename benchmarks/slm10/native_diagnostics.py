@@ -27,9 +27,13 @@ from .admission import archive, git_head
 from .portable import portable
 
 BASE_ENGINE = ".tools/ij07-toolchoice-p4b-vulkan"
-OBSERVER_ENGINE = ".tools/ijslm-native-observer-vulkan"
+OBSERVER_ENGINE = ".tools/ijslm-native-observer-vulkan-v2"
 OBSERVER_PATCH = "patches/ij07/llama-b12359-sdk-native-observer.patch"
 REPAIRED_STREAM_LIMIT = 2 * MAX_WIRE_BYTES
+OBSERVER_HASHES = {
+    "llama-server.exe": "cf5a25e9237eca6e442be87aaa19d1ceffc3bf1520c54b113d0ffdda7362d256",
+    "llama-server-impl.dll": "4696947cdbdae100ba54c7a5aec2ab379a26cc50ab844c65fa1f1b693352cf51",
+}
 
 
 def observe_wire(client, event):
@@ -94,9 +98,10 @@ def run(candidate, assets, output, port, profile):
     baseline_hashes = identity["engine"]["dll_sha256"] | {"llama-server.exe": identity["engine"]["exe_sha256"]}
     runtime_changes = {key for key in engine_hashes.keys() | baseline_hashes.keys()
                        if engine_hashes.get(key) != baseline_hashes.get(key)}
-    expected_changes = set() if engine == baseline else {"llama-server-impl.dll"}
-    if runtime_changes != expected_changes:
-        raise ValueError("observer package differs outside the server implementation")
+    expected_changes = {} if engine == baseline else OBSERVER_HASHES
+    if runtime_changes != expected_changes.keys() or any(engine_hashes[key] != value
+                                                         for key, value in expected_changes.items()):
+        raise ValueError("observer engine differs from the pinned package")
     run_id = "ijslm-native-" + uuid4().hex
     output.mkdir(parents=True, exist_ok=False)
     report = {
@@ -115,7 +120,7 @@ def run(candidate, assets, output, port, profile):
     with gpu_server(engine / "llama-server.exe", model, "vulkan", server_environment(), output, port,
                     "vulkan", observe, alias=alias, mission_id="IJ-SLM-1.0",
                     lease_owner="slm-native-development", runtime_session=run_id) as (client, launch):
-        verify_launch(launch | {"trace_file": "disabled-for-control"} if not observe else launch, identity)
+        verify_launch(launch, identity, require_trace=observe)
         for field in ("host_sha256", "gpu_physical_sha256"):
             if launch["gpu_lease"][field] != gate["lease"][field]:
                 raise ValueError("Radeon lease differs from the SLM handoff")

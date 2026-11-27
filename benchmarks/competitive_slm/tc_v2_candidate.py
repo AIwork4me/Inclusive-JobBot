@@ -298,14 +298,14 @@ def server_environment():
             not key.upper().startswith(("LLAMA_ARG_", "GGML_BACKEND_PATH", "LLAMA_IJ07_TRACE_PATH"))}
 
 
-def verify_launch(launch, runtime):
+def verify_launch(launch, runtime, *, require_trace=True):
     if (launch["backend"] != "vulkan" or launch["owns_port"] is not True
             or launch["gpu"] != runtime["gpu"] or launch["build"] != runtime["engine"]["build"]
             or launch["template_sha256"] != runtime["template"]["sha256"]
             or launch["layers_offloaded"] != runtime["engine"]["layers"]
             or launch["layers_offloaded"] != launch["layers_total"]
             or launch["args"][launch["args"].index("--ctx-size") + 1] != str(BUDGETS["context_tokens"])
-            or not launch["trace_file"]):
+            or bool(launch["trace_file"]) is not require_trace):
         raise CaptureError("live Vulkan configuration differs from the pinned identity")
 
 

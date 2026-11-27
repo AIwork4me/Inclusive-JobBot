@@ -4,6 +4,8 @@
 
 The continuation adds opt-in SDK request correlation and a bounded diagnostic SSE replay profile. The original 512 KiB aggregate decoder limit stays the default. A software loopback regression exercises rejection capture and same-byte acceptance under the explicit diagnostic limit. The observer build and its on/off Radeon development controls have their own runner. Formal TC-V3 trials remain NOT_RUN.
 
+The initial observer build failed the properties probe with HTTP 500 after a partial incremental C++ rebuild. The replacement build recompiled every server translation unit and has separately pinned launcher and server DLL digests. The original failures are retained as development startup diagnostics.
+
 All three priority models completed Radeon and real Antigravity SDK admission diagnostics under the same verified host GPU handoff. The report includes captured Direct/SDK plan-first comparisons, passed and failed SDK probes, and preserved interrupted runs. All 12 Direct planning completions were matched to native traces. SDK native pre-parser capture remains NOT_RUN. No diagnostic is counted in the formal core denominator. [Radeon admission diagnostics](reports/SLM10_RADEON_ADMISSION_DIAGNOSTICS.md)
 
 The first admission diagnostic exposed a preflight path that prevented controlled reproduction of MiniCPM5's historical failed admission and an SDK capture serializer that could not preserve Decimal values. Diagnostic revision 2 uses the existing identity and GPU checks, records exact numbers and retains prior interrupted run IDs. Formal admission remains NOT_RUN.
