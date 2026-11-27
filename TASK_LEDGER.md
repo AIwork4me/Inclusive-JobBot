@@ -2,13 +2,19 @@
 
 ## IJ-SLM-1.0 baseline
 
+All three priority models completed Radeon and real Antigravity SDK admission diagnostics under the same verified host GPU handoff. The report includes captured Direct/SDK plan-first comparisons, passed and failed SDK probes, and preserved interrupted runs. No diagnostic is counted in the formal core denominator. [Radeon admission diagnostics](reports/SLM10_RADEON_ADMISSION_DIAGNOSTICS.md)
+
 The first admission diagnostic exposed a preflight path that prevented controlled reproduction of MiniCPM5's historical failed admission and an SDK capture serializer that could not preserve Decimal values. Diagnostic revision 2 uses the existing identity and GPU checks, records exact numbers and retains prior interrupted run IDs. Formal admission remains NOT_RUN.
 
 
-The independent worktree preserves the 36,550-trial core allocation and references pinned IJ-SDK-1.0 and IJ-0.7.3 assets. Registry software tests cover exact identity, duplicate reservations and conflicting physical origins. SDK case captures retain raw local files and publish separately identified redacted copies after verifying each evidence file and Radeon handoff identity. Software controls verify that unqualified proof replay stays BLOCKED and redacted output cannot carry private token encodings. Independent mechanical scope qualification, GPU admission and core trial execution remain NOT_RUN. [SLM baseline](reports/SLM10_BASELINE_AUDIT.md) The Radeon admission runner additionally preserves four matched Direct/SDK plan-first diagnostics on a legacy roster.
+The independent worktree preserves the 36,550-trial core allocation and references pinned IJ-SDK-1.0 and IJ-0.7.3 assets. Registry software tests cover exact identity, duplicate reservations and conflicting physical origins. SDK case captures retain raw local files and publish separately identified redacted copies after verifying each evidence file and Radeon handoff identity. Software controls verify that unqualified proof replay stays BLOCKED and redacted output cannot carry private token encodings. Independent mechanical scope qualification, formal GPU admission and core trial execution remain NOT_RUN. [SLM baseline](reports/SLM10_BASELINE_AUDIT.md) The Radeon admission runner additionally preserves four matched Direct/SDK plan-first diagnostics on a legacy roster.
 ## IJ-0.7.3 GPU handoff
 
-The shared Radeon launcher now binds controller and device identities to the existing host mutex. The default AEVE resume stops after Q2 and preserves the deferred queue. Cross-worktree verification of the production mutex and the GPU handoff remain BLOCKED until the frozen queue releases the Radeon. The Windows child-termination and concurrent queue deduplication controls are process-only evidence. The managed llama-server start script uses the same physical lease for new Radeon runs.
+The release verification manifests include the completed Q2 captures and handoff source files. The frozen experimental protocol is byte-identical to the reviewed baseline.
+
+All 6,850 frozen Q2 Radeon trials sealed and replayed. Formal Judge qualification is FAIL (B FAIL, E FAIL, F FAIL, G FAIL, J FAIL). Windows OS mutex contention across worktrees, owner-termination recovery and concurrent duplicate-queue protection passed. The physical lease and the original state locks were free at handoff to IJ-SLM-1.0. Deferred research remains recoverable through the handoff commands. [Q2 report](reports/IJ073_Q2_JUDGE_QUALIFICATION.md) [GPU handoff](evidence/IJ073/aeve/gpu_handoff.json)
+
+The shared Radeon launcher now binds controller and device identities to the existing host mutex. The default AEVE resume stops after Q2 and preserves the deferred queue. The Windows child-termination and concurrent queue deduplication controls are process-only evidence. The managed llama-server start script uses the same physical lease for new Radeon runs.
 
 
 ## IJ-0.7.3
