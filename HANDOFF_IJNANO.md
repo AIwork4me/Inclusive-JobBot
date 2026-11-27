@@ -1,6 +1,6 @@
-# HANDOFF — IJ-NANO-1.0 / IJ-NANO-1.1
+# HANDOFF — IJ-NANO-1.0 / IJ-NANO-1.1 / IJ-NANO-1.2
 
-Read this first when resuming this mission. Last updated: 2026-11-27 (N00RR).
+Read this first when resuming this mission. Last updated: 2026-11-27 (N1.2R).
 
 If anything here disagrees with the machine or the remote, trust the machine,
 fix this file, and say so in the commit.
@@ -27,13 +27,16 @@ reconciliation — cross-host GPU conflict resolved, `IJN-B-001` CLOSED, local
 lease available), **N02** (physical runtime qualification PASS: identities,
 admissions, protocol probes; S2 chat-path finding feeds N02R).
 
-IJ-NANO-1.1 is active (order: `docs/IJNANO_MISSION_ORDER_V1_1.md`).
+IJ-NANO-1.2 is active (order: `docs/IJNANO_MISSION_ORDER_V1_2.md`,
+committed verbatim at N1.2R; audited HEAD `dfce2952`).
 Delivered under 1.1: **N00RR** (reconcile), **N01** (research landscape
 gate PASS), **N06A-R** (Layer A execution-integrity hardening PASS — 8/8
 defect classes red-reproduced against `f3d5817` and repaired), **N05A**
 (cognitive evaluator gate PASS, scoped — 12 families, control battery +
-mutation tests, deterministic only). Next lanes: N02R protocol causal
-analysis (GPU, under lease) and N03 profiling (evaluator contracts ready).
+mutation tests, deterministic only). Under 1.2: **N1.2R** (resume verified;
+preserved artifacts checked incl. raw S2 `overall: FAIL`). Next lane:
+**N05AR** evaluator requalification (EV01–EV07), then N02R physical
+protocol causal analysis (GPU, under lease) and N03 profiling.
 Formal end-to-end business evaluation stays BLOCKED (IJN-B-002 narrowed).
 
 Branch: `mission/ij-nano-1.0-slm-native-agentic-runtime`, base `56c6c74b`
@@ -67,19 +70,26 @@ missions' state files.
 - Weights and engines are outside git. Record SHA256 evidence fresh at first
   use per session series; the committed manifest is an identity anchor.
 
-## 5. Next steps, in order
+## 5. Next steps, in order (IJ-NANO-1.2 execution directive)
 
-1. N02R protocol causal analysis under lease (gate
+1. N05AR targeted evaluator corrections EV01–EV07 — reproduce each concern
+   red first, then repair (gate
+   `N05AR_COGNITIVE_EVALUATOR_INTEGRITY_GO`); stays separate from the
+   business Oracle.
+2. N02R protocol causal analysis under lease (gate
    `N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED`); preserve the raw S2
    `overall: FAIL` artifact unchanged; probe false-positive audit first
    (empty-content PASS, tool-call semantics, cancellation scope, SSE
    accounting).
-2. N03 twelve priority cognitive families — evaluator contracts from N05A
-   are ready; build the 640/320 dataset (distinct families/worlds, CN+EN).
-3. Evidence-driven N06B/C layers and N04/N07 mechanism reproductions
+3. N03 full cognitive profiling (C01–C32; 640 dev + 320 confirmation,
+   CN+EN) and capability-to-Runtime mappings (gate
+   `N03_COGNITIVE_CAPABILITY_PROFILES_AVAILABLE`).
+4. Evidence-driven N06B/C layers and N04/N07 mechanism reproductions
    (reuse candidates recorded in
    `reports/IJNANO_OPEN_SOURCE_REUSE_DECISION.md`).
-4. The 3,600-slot causal pilot once its prerequisites qualify.
+5. The 3,600-slot causal pilot once its prerequisites qualify.
+6. Fail-closed publication check (scanner finding-count based) with a
+   synthetic scanner control — mission order 1.2 §10.
 
 ## 6. Things that will trip you up
 

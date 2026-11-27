@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-NANO-1.0",
   "mission_title": "SLM-native Agentic Runtime Co-design & Capability-driven Harness Optimization",
-  "updated_utc": "2026-11-27T14:05:00Z",
-  "current_phase": "IJ-NANO-1.1 active (order: docs/IJNANO_MISSION_ORDER_V1_1.md). Delivered: N00, N00R, N02 (physical qualification PASS). Delivered under 1.1: N00RR, N01 (gate PASS), N06A-R (gate PASS), N05A cognitive evaluator (gate PASS, scoped). Next lanes: N02R protocol causal analysis under host-wide lease, then N03 profiling (evaluator contracts ready)",
+  "updated_utc": "2026-11-27T21:10:00Z",
+  "current_phase": "IJ-NANO-1.2 active (order: docs/IJNANO_MISSION_ORDER_V1_2.md; physical cognitive discovery). Delivered: N00, N00R, N02 (physical qualification PASS). Delivered under 1.1: N00RR, N01 (gate PASS), N06A-R (gate PASS), N05A cognitive evaluator (gate PASS, scoped). Under 1.2: N1.2R resume verified against audited HEAD dfce2952; next lane N05AR evaluator requalification (EV01-EV07), then N02R physical protocol causal analysis under host-wide lease, then N03",
   "mission_order": "docs/IJNANO_MISSION_ORDER.md (verbatim preregistration, committed at N00)",
   "research_protocol": "docs/IJNANO_RESEARCH_PROTOCOL.md",
   "tracking_issue": 10,
@@ -153,6 +153,15 @@
         "Engine records: b12359 rejects escaped-quote GBNF literals (use [\"] char classes); /completion json_schema takes an object.",
         "NOT_RUN in this scope: Q4-class quantization sensitivity, ROCm/HIP comparator (separately identified, never mixed)."
       ]
+    },
+    "N05AR": {
+      "title": "IJ-NANO-1.2 Targeted cognitive evaluator requalification (EV01-EV07)",
+      "progress": "not_started",
+      "status": "NOT_RUN",
+      "gate": "N05AR_COGNITIVE_EVALUATOR_INTEGRITY_GO",
+      "gate_status": "NOT_RUN",
+      "gpu_required": false,
+      "note": "seven source-review concerns: state-predicate completeness (EV01), undeclared action arguments (EV02), predicate semantics split (EV03), identifier collision classes (EV04), missing unit handling (EV05), comparator-level mutation testing (EV06), reason-code coverage reconciliation incl. PARSE_INVALID + dataset-level qualification rules (EV07); each concern reproduced red before repair; remains separate from the end-to-end business Oracle"
     },
     "N02R": {
       "title": "IJ-NANO-1.1 Model x Inference Protocol causal analysis (A0-A7 arms, 64..1024 budgets, >=60-task screen)",
@@ -376,16 +385,11 @@
     "A scientifically valid negative result is an acceptable outcome; hypothesis statuses are SUPPORTED / NOT_SUPPORTED / INCONCLUSIVE / BLOCKED / NOT_RUN."
   ],
   "recovery": {
-    "state": "N00+N00R+N02 delivered; no physical run active; all work committed on the research branch; IJ-NANO-1.1 lanes active",
+    "state": "N00+N00R+N02+N00RR+N01+N06A-R+N05A delivered; no physical run active; all work committed on the research branch; IJ-NANO-1.2 lanes active",
     "resume_with": "HANDOFF_IJNANO.md, then this file and TASK_LEDGER_IJNANO.md",
     "gpu_lease_protocol": "benchmarks/root_cause/gpu_lease.py physical_gpu() context manager; host-wide named mutex; acquire for every physical session",
     "next_steps_in_order": [
-      "Lane A - N01 closure: license_matrix.json, CN/EN landscape reports, reuse decision (gate N01_RESEARCH_LANDSCAPE_VERIFIED).",
-      "Lane B - N06A-R: reproduce NA-D01..NA-D08 against Layer A, adversarial tests, minimal repairs, defect ledger + report (gate NANOAGENT_LAYER_A_SOFTWARE_INTEGRITY_GO).",
-      "Lane C - N05A cognitive evaluator contracts with controls and mutation tests (gate N05A_COGNITIVE_EVALUATOR_QUALIFIED).",
-      "Lane D - N02R protocol causal analysis under the host-wide lease (gate N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED).",
-      "Lane E - N03 twelve priority cognitive families once N05A scopes qualify.",
-      "Lanes F/G - evidence-driven N06B/C + N04/N07 mechanisms, then the 3,600-slot causal pilot."
+      "IJ-NANO-1.2 order: 1) resume/baseline verify (done, N1.2R). 2) N05AR targeted evaluator corrections EV01-EV07 (gate N05AR_COGNITIVE_EVALUATOR_INTEGRITY_GO). 3) N02R physical protocol causal analysis (gate N02R_MODEL_PROTOCOL_BEHAVIOR_CHARACTERIZED). 4) N03 full cognitive profiling + 5) capability-to-Runtime mappings (gate N03_COGNITIVE_CAPABILITY_PROFILES_AVAILABLE). 6) N06B/C evidence-driven runtime layers. 7) N04/N07 mechanism reproduction. 8) balanced 3,600-slot causal pilot."
     ]
   }
 }

@@ -83,3 +83,13 @@ Status vocabulary: `PASS`, `FAIL`, `BLOCKED`, `NOT_RUN`.
 | N05A | Mutation tests: every scoring rule load-bearing (drop-one-rule mutants detected; substring/unit-blind/polarity-blind mutants demonstrated) | done | PASS | `tests/ij_nano/test_n05a_mutation.py` |
 | N05A | Coverage published per family | done | PASS | `evidence/IJNANO/N05A/evaluator_coverage.json` |
 | N05A | Gate `N05A_COGNITIVE_EVALUATOR_QUALIFIED` (scoped; explicitly NOT the business Oracle) | done | PASS | `reports/IJNANO_05A_COGNITIVE_EVALUATOR_QUALIFICATION.md` |
+
+## N1.2R (2026-11-27, IJ-NANO-1.2 resume, done)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| N1.2R | Reconcile HEAD against audited checkpoint `dfce2952` (local == origin, clean tree, no completed phase restarted) | done | PASS | `git rev-parse HEAD origin/mission/ij-nano-1.0-slm-native-agentic-runtime` (identical: dfce2952accb48c177bd4798cc23bd425c88a9ca) |
+| N1.2R | Verify live git/GitHub identities (AIwork4me; gh auth active) and remote URL | done | PASS | `git config user.name/email`, `gh auth status` |
+| N1.2R | Commit IJ-NANO-1.2 mission order verbatim (preregistration) | done | PASS | `docs/IJNANO_MISSION_ORDER_V1_2.md` |
+| N1.2R | Verify preserved artifacts: N00/N00R/N00RR evidence, N01 closure, N02 admission evidence, N06A-R red/green, N05A qualification, raw S2 protocol artifact `overall: FAIL` | done | PASS | `evidence/IJNANO/{N00,N00R,N01,N02,N05A,N06A-R}/`, `evidence/IJNANO/N02/protocol/S2.json` |
+| N1.2R | Physical preconditions observed: no llama-server running; GPU present (RX 7900 XTX, driver 32.0.21030.2001); model hashes + engine identity to be reverified fresh at first physical execution (N02R) per HANDOFF §4 | done | PASS | this row; N02R will record fresh hashes |
