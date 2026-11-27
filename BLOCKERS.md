@@ -1,5 +1,11 @@
 # Blockers
 
+## IJ-SLM-1.1 release dependencies
+
+- **Independent benchmark review.** Benchmark engineering must assign reviewers independent of public, world and witness authoring. Use the [blind packets and verdict schema](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md). Freeze each independently derived expectation before comparing it with the candidate. A release issuer must pin the corresponding receipts and dispatch credentials to the reviewed candidate, runner, runtime, hardware and evaluator scope. The Planning 0.3 packet covers the denial repair. Cross-level dependency and semantic diversity require independent closure before release.
+- **AG-11 collection.** The workstation owner runs the separately elevated collector after the physical schedule yields. The normal-token SDK diagnostic and replay commands are in [the owner action file](AG11_OWNER_ACTION_REQUIRED.md). Physical capture and independent review remain BLOCKED.
+
+
 ## IJ-SLM-1.0 continuation
 
 - Mechanical qualification covers nine scoped TC-V3 components. D25, native parser semantics, affirmative authorization writes, persisted state and conditional planning lack the applicable independent credentials. Synthetic read-only physical dispatch uses the scoped TC-V3 gate.

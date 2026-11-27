@@ -13,6 +13,7 @@ from model_gateway.openai_protocol import MAX_WIRE_BYTES, parse_proposal
 from model_gateway.strict_json import strict_object
 
 from .planning_controls import DENIALS, WRITE_TOOLS, validate_world
+from .planning_source_release import stage_sources
 
 
 def verdict(passed):
@@ -211,6 +212,46 @@ def state_assessment(trial, steps, complete):
                    and (not calls or equal(calls[-1]["after"], trial["after"])))
 
 
+def stage_provenance(case, world, calls, complete):
+    """Check the source and observed provenance without consulting expected draft values."""
+    stages = [call for call in calls if call["tool"] == "stage"]
+    try:
+        expected = stage_sources(case, world)
+    except ValueError:
+        return "FAIL"
+    if not stages:
+        return ("FAIL" if complete else "BLOCKED") if expected else "NOT_RUN"
+    observed = []
+    for call in calls:
+        reply = call.get("observation")
+        if (not isinstance(reply, dict) or not isinstance(reply.get("data"), dict)
+                or not isinstance(reply.get("code"), str)):
+            return "BLOCKED"
+        step = {"tool": call["tool"], "args": call["args"], "result": reply["data"] | {"code": reply["code"]}}
+        if "external_event" in reply:
+            step["event"] = reply["external_event"]
+        observed.append(step)
+    try:
+        sources = stage_sources(case, {"steps": observed})
+    except ValueError:
+        return "FAIL"
+    for stage_index, audit_index in sources:
+        call, audit = calls[stage_index], calls[audit_index]
+        if call.get("provider_request_id") and call["provider_request_id"] == audit.get("provider_request_id"):
+            return "FAIL"
+        after = call.get("after")
+        if not isinstance(after, dict) or not isinstance(after.get("drafts"), dict):
+            return "BLOCKED"
+        receipt = call["observation"]
+        draft_id = receipt["data"].get("draft_id")
+        draft = after["drafts"].get(draft_id) if isinstance(draft_id, str) else None
+        if (receipt["code"] != "ok" or not isinstance(draft, dict) or draft.get("state") != "pending"
+                or any(not equal(draft.get(key), call["args"].get(key))
+                       for key in ("reference", "action", "assessment"))):
+            return "FAIL"
+    return verdict(bool(expected) and len(sources) == len(expected)) if complete else "BLOCKED"
+
+
 def local_response(calls, steps, trigger, complete):
     """Assess an observed trigger and its immediate response without requiring terminal success."""
     expected = [(steps[index], steps[index + 1]) for index in range(len(steps) - 1) if trigger(steps[index])]
@@ -264,6 +305,7 @@ def assess_trial(case, proof, world_id, trial):
         "authorization_trace": "NOT_RUN",
         "authorization_proposals": "NOT_RUN",
         "persisted_state": "NOT_RUN",
+        "stage_provenance": "NOT_RUN",
     }
     plan = decode(trial["plan_raw"])
     evidence_gaps = {}
@@ -295,7 +337,11 @@ def assess_trial(case, proof, world_id, trial):
         mechanics["authorization_proposals"] = authorization_proposals(case, trial)
     if stateful:
         mechanics["persisted_state"] = state_assessment(trial, steps, complete)
-    workflow = [mechanics[key] for key in ("actual_call_path", "final_facts", "authorization_trace", "persisted_state")]
+    if case["level"] == "L6":
+        mechanics["stage_provenance"] = stage_provenance(case, world, calls, complete)
+    workflow = [mechanics[key] for key in (
+        "actual_call_path", "final_facts", "authorization_trace", "persisted_state", "stage_provenance",
+    )]
     mechanics["observed_workflow"] = aggregate(workflow)
     mechanics["business_facts"] = mechanics["final_facts"]
     mechanics["strict_e2e_necessary_conditions"] = aggregate(

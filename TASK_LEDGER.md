@@ -9,6 +9,9 @@
 | M5 schema, mapping and acceptance contract | PASS | TC-V3-scoped exchange. Interventions remain HYPOTHESIS and the matched NanoAgent experiment remains NOT_RUN. [Handoff](atlas/slm/v1.0/nanoagent-handoff/NANOAGENT_ENGINEERING_HANDOFF.md) |
 | M5 independent remote reproduction | BLOCKED | Local artifact and seal digest replay passed. Await remote replay of the handoff publication. |
 | AG-11 owner instructions and offline controls | PASS | [Owner procedure](AG11_OWNER_ACTION_REQUIRED.md). Physical collector capture and independent review remain BLOCKED. |
+| M4 L5 alternate denial repair | PASS | Software replay covered all original 500 L5 worlds and 200 new alternate-denial variants. [Candidate 0.3](atlas/slm/v1.0/planning-v2-source-candidate-0.3/manifest.json) |
+| M4 L6 stage provenance | PASS | Software assessment binds observed audit, public action and captured draft state. Formal scope and physical database verification remain BLOCKED. |
+| M4 human blind review | NOT_RUN | Project engineering prepared 600 MULTITOOL cases and 800 Planning cases. Independent reviewer assignment, observations and credential issuance are pending. [Reviewer inputs and procedure](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md) |
 
 ## IJ-SLM-1.0 baseline
 

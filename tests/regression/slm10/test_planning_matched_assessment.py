@@ -145,3 +145,20 @@ def test_authorization_scores_observed_rejected_commit_proposal_separately_from_
     assert scored["authorization_trace"] == "BLOCKED"
     assert scored["authorization_proposals"] == "FAIL"
     assert scored["strict_e2e_necessary_conditions"] == "FAIL"
+
+
+def test_l6_stage_provenance_in_the_actual_assessment_path():
+    case, proof, world, trial = fixture("L6", "reviewed_draft")
+    dimensions = assess_trial(case, proof, world["world_id"], trial)["software_dimensions"]
+    assert dimensions["stage_provenance"] == "PASS"
+
+    overridden = deepcopy(trial)
+    stage = overridden["calls"][-1]
+    stage["args"]["assessment"] = "unobserved assessment"
+    stage["after"]["drafts"][stage["observation"]["data"]["draft_id"]]["assessment"] = "unobserved assessment"
+    assert assess_trial(case, proof, world["world_id"], overridden)["software_dimensions"]["stage_provenance"] == "FAIL"
+
+    different_draft = deepcopy(trial)
+    stage = different_draft["calls"][-1]
+    stage["after"]["drafts"][stage["observation"]["data"]["draft_id"]]["reference"] = "unrelated subject"
+    assert assess_trial(case, proof, world["world_id"], different_draft)["software_dimensions"]["stage_provenance"] == "FAIL"

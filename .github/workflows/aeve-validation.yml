@@ -41,6 +41,8 @@ jobs:
       - run: python -m benchmarks.slm10.planning_source_candidate
       - run: python -m benchmarks.slm10.planning_world_allocation
       - run: python -m benchmarks.slm10.planning_source_release
+      - run: python -m benchmarks.slm10.planning_l5_candidate
+      - run: python -m benchmarks.slm10.blind_review_packets
       - run: python -m evaluation.aeve.report_qualification --replay evidence/IJ073/aeve/judge_qualification.json --output ${{ runner.temp }}/aeve-qualification.json
       - run: python -m evaluation.aeve.meta_evaluation --split qualification --replay evidence/IJ073/aeve/qualification_meta.json --output ${{ runner.temp }}/aeve-meta.json
       - run: python -m evaluation.aeve.q2_report --replay evidence/IJ073/aeve/q2_development.json --output ${{ runner.temp }}/aeve-q2-development.json

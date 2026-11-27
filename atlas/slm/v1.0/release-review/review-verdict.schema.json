@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "packet",
+    "packet_manifest_sha256",
+    "expectations_sha256",
+    "reviewer_id",
+    "reviewed_date",
+    "independence_attested",
+    "review_scope",
+    "partition_status",
+    "semantic_duplicate_findings",
+    "findings"
+  ],
+  "properties": {
+    "packet": {
+      "enum": [
+        "MULTITOOL_V2_BLIND_REVIEW_PACKET",
+        "PLANNING_V2_BLIND_REVIEW_PACKET"
+      ]
+    },
+    "packet_manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "expectations_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "reviewer_id": {
+      "type": "string",
+      "pattern": "^reviewer-[a-z0-9-]+$"
+    },
+    "reviewed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "independence_attested": {
+      "const": true
+    },
+    "review_scope": {
+      "enum": [
+        "READ_ONLY_MECHANICAL",
+        "STATEFUL",
+        "AFFIRMATIVE_WRITE",
+        "STRICT_END_TO_END",
+        "CONTENT_AND_PARTITION"
+      ]
+    },
+    "partition_status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "NOT_RUN"
+      ]
+    },
+    "semantic_duplicate_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "case_ids",
+          "reason"
+        ],
+        "properties": {
+          "case_ids": {
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "case_id",
+          "scenario_id",
+          "status",
+          "independent_expectation",
+          "evidence_refs",
+          "rationale"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scenario_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "NOT_RUN"
+            ]
+          },
+          "independent_expectation": {
+            "type": "object",
+            "required": [
+              "acceptable_actions",
+              "terminal_facts",
+              "forbidden_actions",
+              "state_invariants"
+            ],
+            "properties": {
+              "acceptable_actions": {
+                "type": "array"
+              },
+              "terminal_facts": {
+                "type": "object"
+              },
+              "forbidden_actions": {
+                "type": "array"
+              },
+              "state_invariants": {
+                "type": "array"
+              }
+            }
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
