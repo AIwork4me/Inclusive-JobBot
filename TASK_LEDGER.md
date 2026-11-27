@@ -8,6 +8,7 @@
 | M1 base local identity and three adapter asset bundles | PASS | Pinned GGUF and PEFT identities, base SHA256, tensor shapes and converted values. [Registry](atlas/slm/v1.0/lfm3-harness-adapters/MODEL_ADAPTER_REGISTRY.json) |
 | M1 admission numerical comparison software | PASS | Native probability validation and fixed-prefix equivalence, intervention and repeat controls. |
 | M1 default-cache repeatability diagnostic | FAIL | Same-prefix native probabilities varied on the Original control. Raw captures retained locally. |
+| M1 fixed adapter routing boundary | PASS | Software guards reject wrong aliases and adapter overrides. The native ungated endpoint accepts unknown numeric IDs. |
 | M1 independent numerical and physical admission | NOT_RUN | [Preregistered admission contract](atlas/slm/v1.0/lfm3-harness-adapters/REPRODUCTION_GUIDE.md) |
 | M9 and M10 design artifacts | PASS | DX-M2 deployment requirements and JobBot-native A/B design drafted. Physical portability and training readiness remain NOT_RUN. |
 | M2 through M12 physical experiments | NOT_RUN | Gates, planned scope and prerequisites are recorded in the admission contract. |

@@ -12,7 +12,8 @@ import re
 import subprocess
 from struct import pack
 import time
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
+from urllib.request import Request
 from uuid import uuid4
 
 from audit import write_evidence
@@ -24,6 +25,8 @@ from benchmarks.root_cause.windows_job import job_process
 from evaluation.aeve.archive import digest
 from evaluation.aeve.gpu_handoff import HANDOFF, require_handoff
 from evaluation.aeve.runtime import ROOT, fingerprint, write_json
+from model_gateway.strict_json import strict_object
+from benchmarks.ij06_sdk.wire_boundary import ApprovalQueue, wire_boundary
 from scripts.tools.verify_ij06_evidence import verify_gpu
 
 from .sdk_adapter_development import require_idle_controller
@@ -38,6 +41,37 @@ PROMPTS = (
 SEED = 7107
 FLAGS = ("--ctx-size", "8192", "--parallel", "1", "--n-gpu-layers", "99",
          "--device", "Vulkan0", "--cache-ram", "0", "--ctx-checkpoints", "0", "--jinja", "--offline", "--no-webui", "--verbosity", "4")
+
+
+def admission_route(raw):
+    body = strict_object(raw)
+    if body.get("model") != ALIAS or "lora" in body:
+        raise ValueError("request must select the fixed model and cannot override its weights")
+    return raw
+
+
+def routing_controls(client, run_id):
+    outcomes, events = {}, []
+    with wire_boundary(client.base_url, ApprovalQueue(), events, trial_id=run_id,
+                       adapt_request=admission_route) as endpoint:
+        payloads = {
+            "wrong_model": {"model": "unregistered-model"},
+            "wrong_adapter": {"model": ALIAS, "lora": [{"id": 99, "scale": 1.0}]},
+        }
+        for name, payload in payloads.items():
+            request_body = json.dumps(payload).encode("utf-8")
+            req = Request(endpoint.url + "/chat/completions", request_body,
+                          headers={"Content-Type": "application/json"})
+            try:
+                response = client.opener.open(req, timeout=10)
+            except HTTPError as err:
+                response = err
+            with response:
+                refused = 400 <= response.code <= 599
+            outcomes[name] = verdict(refused and events[-1]["status"] == "FAIL"
+                                     and events[-1]["failure"]["function"] == "admission_route"
+                                     and "provider_request_id" not in events[-1])
+    return outcomes
 
 
 def numeric_row(reply):
@@ -239,7 +273,7 @@ def run(assets, port):
         folder = root / arm
         folder.mkdir()
         lora = None
-        results = report["arms"][arm] = {"status": "NOT_RUN", "negative_controls": "NOT_RUN"}
+        results = report["arms"][arm] = {"status": "NOT_RUN"}
         try:
             if arm != "Original":
                 spec, = (s for name, s in registry["adapters"][arm]["artifacts"].items() if name.endswith(".gguf"))
@@ -256,7 +290,8 @@ def run(assets, port):
                 results["launch"] = launch
                 if arm == "Original":
                     base = results["baseline"] = panel(client)
-                    results["baseline_repeatability"] = verdict(all(compare(base, panel(client), equivalent)))
+                    results["baseline_repeat"] = panel(client)
+                    results["baseline_repeatability"] = verdict(all(compare(base, results["baseline_repeat"], equivalent)))
                 else:
                     zero, one, again, after = panel(client, 0), panel(client, 1), panel(client, 1), panel(client, 0)
                     results["native_numeric"] = {"zero": zero, "one": one, "one_repeat": again, "zero_after": after}
@@ -276,7 +311,9 @@ def run(assets, port):
                 test_gpu(partial(request, client, ALIAS, wire=wire, disable_thinking=True), direct)
                 write_json(folder / "direct.json", {"wire": wire, **direct})
                 results["direct"] = direct["gates"]
-                sdk = asyncio.run(execute_case(client.base_url, ALIAS, folder / "sdk", harness, "AG-03"))
+                results["guarded_route_controls"] = routing_controls(client, run_id + "-" + arm)
+                sdk = asyncio.run(execute_case(client.base_url, ALIAS, folder / "sdk", harness, "AG-03",
+                                               trial_id=run_id + "-" + arm, adapt_request=admission_route))
                 write_evidence(folder / "sdk.json", sdk)
                 results["sdk_callbacks"] = sdk["status"]
             launch_path = folder / "launch.json"
@@ -291,9 +328,11 @@ def run(assets, port):
                 checks = [results[key] for key in ("zero_equivalence", "weight_intervention",
                           "post_intervention_isolation", "one_repeatability", "adapter_device_placement")]
                 checks.extend(entry["status"] for entry in report["load_controls"].values())
-                checks.extend((results["wrong_base_control"]["status"],
-                               verdict(400 <= results["native_invalid_id_http_status"] < 500)))
-                results["status"] = ("FAIL" if "FAIL" in [*common, *checks] else "BLOCKED")
+                checks.append(results["wrong_base_control"]["status"])
+                checks.extend(results["guarded_route_controls"].values())
+                checks.append(report["arms"]["Original"]["status"])
+                results["unguarded_native_route"] = verdict(400 <= results["native_invalid_id_http_status"] < 500)
+                results["status"] = verdict(all(value == "PASS" for value in [*common, *checks]))
 
         except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as exc:
             results["status"] = "BLOCKED"

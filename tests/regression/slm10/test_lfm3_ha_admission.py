@@ -1,6 +1,6 @@
 import unittest
 
-from benchmarks.slm10.lfm3_ha_admission import equivalent, intervention, numeric_row
+from benchmarks.slm10.lfm3_ha_admission import admission_route, equivalent, intervention, numeric_row
 
 
 class LoRANumericEvidenceTests(unittest.TestCase):
@@ -19,3 +19,11 @@ class LoRANumericEvidenceTests(unittest.TestCase):
                     [dict(row, top_logprobs=[{"id": 0, "logprob": float("nan")}] * 32)]):
             with self.assertRaises(ValueError):
                 numeric_row({"completion_probabilities": bad})
+
+    def test_guard_denies_wrong_model_and_weight_overrides(self):
+        allowed = b'{"model":"lfm3-ha","messages":[]}'
+        self.assertEqual(admission_route(allowed), allowed)
+        for raw in (b'{"model":"another"}', b'{}', b'{"model":"lfm3-ha","lora":[{"id":99,"scale":1}]}',
+                    b'{"model":"lfm3-ha","model":"another"}', b'{"model":"lfm3-ha","lora":[]}'):
+            with self.assertRaises(ValueError):
+                admission_route(raw)

@@ -97,7 +97,8 @@ def transcript_for(directory, conversation_id):
 
 
 async def execute_case(upstream, alias, directory, binary, gate, status=STATUS_CODE, *, deny_tool=False,
-                       retry_exhausted=False, trial_id=None, observe=None, max_stream_bytes=MAX_WIRE_BYTES):
+                       retry_exhausted=False, trial_id=None, observe=None, max_stream_bytes=MAX_WIRE_BYTES,
+                       adapt_request=None):
     prompt, tools_requested = CASE_SPECS[gate]
     if deny_tool:
         prompt = CASE_SPECS["AG-12"][0].replace(OTHER_ORDER, ORDER)
@@ -177,7 +178,8 @@ async def execute_case(upstream, alias, directory, binary, gate, status=STATUS_C
     try:
         with wire_boundary(upstream, approvals, events, transient_first=gate == "AG-09",
                            transient_all=retry_exhausted, request_started=started,
-                           trial_id=trial_id, observe=observe, max_stream_bytes=max_stream_bytes) as proxy:
+                           trial_id=trial_id, observe=observe, max_stream_bytes=max_stream_bytes,
+                           adapt_request=adapt_request) as proxy:
             config = LocalOpenAIAgentConfig(
                 model=alias, base_url=proxy.url,
                 system_instructions="Follow the user's requested response format. Use local business tools when asked, and treat errors as errors.",
