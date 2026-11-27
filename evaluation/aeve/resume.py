@@ -1,5 +1,6 @@
 """Resume the local single-GPU evaluation from immutable inputs and recorded attempts."""
 import argparse
+from contextlib import ExitStack
 import json
 from pathlib import Path
 import time
@@ -69,13 +70,23 @@ def main():
     cli.add_argument("--out",type=Path,default=ROOT/"evaluation/aeve/results")
     cli.add_argument("--batch",type=int,default=96)
     cli.add_argument("--port",type=int,default=18744)
+    cli.add_argument("--wait-for-controller", action="store_true")
     args = cli.parse_args()
     if args.batch < 1:
         cli.error("batch must be positive")
     folder = args.state.resolve()
     db = connect(folder)
     try:
-        with gpu_lock(folder,"controller.lock"):
+        with ExitStack() as lease:
+            while True:
+                try:
+                    lease.enter_context(gpu_lock(folder, "controller.lock"))
+                except BlockingIOError:
+                    if not args.wait_for_controller:
+                        raise
+                    time.sleep(20)
+                else:
+                    break
             drive(db, folder, args)
     finally:
         db.close()
@@ -141,9 +152,11 @@ def drive(db, folder, args):
                         export(db,folder,args.out)
                 write_json(folder/"q2_development.json",summarize(args.out))
                 from .q2_qualification import run as qualify_q2
-                rescue = qualify_q2(db,folder,args.assets.resolve(),args.port,args.out)
-                passing = [c for c,v in rescue["models"].items() if v["status"] == "PASS"]
-                print(f"Q2 independent admission: {len(passing)} qualified families. See the bound Q2 report.",flush=True)
+                qualify_q2(db,folder,args.assets.resolve(),args.port,args.out)
+                from .qualification_transition import advance
+                transition = advance(folder,args.out,args.history,args.assets.resolve(),args.port)
+                print(f"Q2 closed. Q2 passing judges: {len(transition['q2_passing'])}. "
+                      f"Formal history: {transition['formal_history']}.",flush=True)
                 break
             from .runtime import fingerprint
             for collection, name in FORMAL_INPUTS.items():

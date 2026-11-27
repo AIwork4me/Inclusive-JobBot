@@ -2,6 +2,10 @@
 
 ## IJ-0.7.3
 
+Added the Q2-to-larger-candidate runtime transition and an exclusive waiting resume entry point. The completed Q2 roster is required before the transition, and Q2 results cannot authorize formal historical routes. Physical end-to-end transition evidence remains NOT_RUN while Q2 is in progress. [Q3 metric registration](evaluation/aeve/q3_metric_preregistration.json)
+
+Rebuilt and verified all 42,987 historical trial identities and rebound 211,012 stage-scoped evaluation dimensions to their archived sources. The 36 missing physical records remain in the completeness denominator. Added the 25-dimension Evaluation Skill compiler and E0–E6 treatment definitions. The paired physical experiment and formal historical AI judgments remain NOT_RUN. [Identity audit](evidence/IJ073/aeve/history_identity_reverify.json) · [Paired design](reports/IJ073_PURPOSE_BUILT_AEVE_EXPERIMENT.md)
+
 Verified and published 2,592 sealed frozen Q2 Radeon assessments. Added a full-roster report command with per-case source references, model and engine identity, GPU counter evidence, measured latency and token cost. Full Q2 admission remains NOT_RUN pending the other 4,258 assessments. See [sealed coverage](evidence/IJ073/aeve/q2_sealed_coverage.json). M14 and G31 both match their ModelScope artifact lengths and SHA256 digests. [Weight admission](reports/IJ073_STRONG_JUDGE_ADMISSION.md)
 
 Replayed all 3,228 sealed Q1 judgments against public source rules for the 26 synthetic templates. The diagnostic ledger records minimal proof sets, citation sufficiency, raw-output failures and language-pair differences. The original Q1 qualification remains FAIL. See [the source audit](reports/IJ073_JUDGE_FAILURE_ROOT_CAUSE.md).

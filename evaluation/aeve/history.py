@@ -109,7 +109,7 @@ def verdict(row):
 
 
 class Inventory:
-    def __init__(self, local_runs):
+    def __init__(self, local_runs, output=OUT):
         self.registry, self.packets, self.assets, self.conflicts = {}, {}, {}, []
         self.formal = {}
         self.journal_first = {}
@@ -122,7 +122,7 @@ class Inventory:
                 if run:
                     self.local[run] = run_json.parent
         self.sealed = {}
-        self.context_path = OUT / "sealed_projections.jsonl.gz"
+        self.context_path = output / "sealed_projections.jsonl.gz"
         if not local_runs and self.context_path.is_file():
             self.sealed = {r["sha256"]: r for r in lines(self.context_path)}
         self.public = {r["case_id"]: r for r in lines(Path("benchmarks/agentic_planning_v1/datasets/holdout.jsonl"))}
@@ -386,12 +386,12 @@ class Inventory:
                     break
 
 
-def main():
+def main(argv=None, *, output=OUT):
     cli=argparse.ArgumentParser(description=__doc__)
     cli.add_argument("--local-runs",type=Path)
-    args=cli.parse_args()
-    OUT.mkdir(parents=True,exist_ok=True)
-    store=Inventory(args.local_runs)
+    args=cli.parse_args(argv)
+    output.mkdir(parents=True,exist_ok=True)
+    store=Inventory(args.local_runs,output)
     tree=subprocess.check_output(["git","ls-tree","-rl",BASE,"evidence"]).decode()
     for line in tree.splitlines():
         header,name=line.split("\t",1)
@@ -432,14 +432,14 @@ def main():
     totals={"sealed_projections":projections_digest}
     # The v1 GPU development cohort is sealed. Its queue identities and old
     # verdicts survive projection corrections in the independently versioned v2.
-    legacy = OUT / "judge_inputs.jsonl.gz"
+    legacy = output / "judge_inputs.jsonl.gz"
     expected_v1 = "7ffadb95f8a18f96d3eac6692081db624a999b428556f52c918cdb6301d4bf0b"
     with gzip.open(legacy, "rb") as original:
         if hashlib.file_digest(original, "sha256").hexdigest() != expected_v1:
             raise ValueError("frozen v1 input packet digest differs")
     totals["judge_inputs"] = expected_v1
     for name,items in (("registry",store.registry),("judge_inputs_v2",store.formal)):
-        totals[name]=seal(OUT/(name+".jsonl.gz"),(r for _,r in sorted(items.items())))
+        totals[name]=seal(output/(name+".jsonl.gz"),(r for _,r in sorted(items.items())))
     summary={"baseline":BASE,"asset_count":len(store.assets),"registry_sha256_uncompressed":totals,
         "distinct_case_ids":len({r["case_id"] for r in store.registry.values()}),
         "local_proofs":dict(Counter("available" if r["available"] else "unavailable" for r in store.sealed.values())),
@@ -461,8 +461,8 @@ def main():
 
         "unclassified_assets":[p for p,r in store.assets.items() if r["adapter"]!="supporting_asset" and not (r["records_indexed"] or r.get("attempt_journals") or r.get("ancillary_members"))],
         "judge_evaluations_completed_by_registry":0}
-    (OUT/"assets.json").write_bytes(canonical(store.assets)+b"\n")
-    (OUT/"coverage.json").write_bytes(json.dumps(summary,indent=2,sort_keys=True).encode()+b"\n")
+    (output/"assets.json").write_bytes(canonical(store.assets)+b"\n")
+    (output/"coverage.json").write_bytes(json.dumps(summary,indent=2,sort_keys=True).encode()+b"\n")
     print({k:v for k,v in summary.items() if k not in {"original_status_conflicts","unclassified_assets"}})
 
 
