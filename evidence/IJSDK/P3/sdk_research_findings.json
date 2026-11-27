@@ -1,0 +1,50 @@
+{
+ "schema_version": 1,
+ "mission": "IJ-SDK-1.0",
+ "collected_utc": "2026-11-27",
+ "collector": "web research agent (PyPI/GitHub/official docs, live verification 2026-11-27) + repository evidence reconciliation",
+ "status": "RESEARCH_INPUT - passports and installs still required before admission",
+ "security_findings": [
+  {
+   "id": "SEC-01",
+   "severity": "critical",
+   "finding": "Microsoft Agent Framework PyPI releases 1.26.1 and 1.26.2 (Nov 2026) were HIJACKED: a .pth hook executed at Python start exfiltrating environment variables and credential files; ~192k weekly downloads affected. The github.com/microsoft/agent-framework repository went offline 2026-11-18 and remained offline at research time.",
+   "source": "OX Security incident writeup; PyPI release history; GitHub repo state 2026-11-27",
+   "mission_consequence": "Arm B8 (Microsoft Agent Framework) may only be installed from the last clean release 1.26.0, inside an isolated venv with no secrets in the environment, and with hash verification from the clean release; if the project's security posture requires a trustworthy upstream, B8 stays BLOCKED with this record. Never install 1.26.1/1.26.2. This finding also justifies hash-pinning every SDK install in this mission."
+  },
+  {
+   "id": "SEC-02",
+   "severity": "advisory",
+   "finding": "LiteLLM 1.82.7/1.82.8 supply-chain advisory (Mar 2026) noted by ADK docs; affects the LiteLLM connector path of Google ADK if used.",
+   "mission_consequence": "ADK arm connects via the native OpenAILlm connector (google.adk.integrations.openai), not LiteLLM; LiteLLM path excluded unless separately qualified."
+  }
+ ],
+ "sdk_landscape": [
+  {"arm": "B0", "name": "Raw llama.cpp reference loop", "identity": "llama-server b12359 + src/model_gateway", "local_support": "native (our own loop)", "license": "MIT (llama.cpp)", "notes": "baseline arm; already qualified in P1"},
+  {"arm": "B1", "name": "Google Antigravity SDK", "pypi": "google-antigravity 0.1.24 (Nov 19, 2026)", "license": "Apache-2.0", "python": ">=3.10, <=3.13", "local_support": "SDK-native via LocalOpenAIAgentConfig(base_url=.../v1) - VERIFIED by repository evidence (benchmarks/tool_calling/runner/run_antigravity_smoke.py, G7 smoke PASS on 0.1.24); public docs only mention Gemini/Vertex/LiteRT-LM, docs incomplete", "tools": "Python tools + MCP; permission hooks deny/allow/ask_user", "notes": "existing project baseline arm; identity already pinned in requirements.lock"},
+  {"arm": "B2", "name": "OpenAI Agents SDK", "pypi": "openai-agents 0.26.0 (Nov 24, 2026)", "license": "MIT", "python": ">=3.10", "local_support": "built-in: OpenAIChatCompletionsModel + AsyncOpenAI(base_url=...); set_default_openai_api('chat_completions'); OpenAIProvider(use_responses=False)", "tools": "@tool/@function_tool -> JSON schema; handoffs; guardrails", "structured": "output_type via Pydantic TypeAdapter; needs json_schema response_format support", "offline": "yes with set_tracing_disabled(True) (else phones home to platform.openai.com)", "local_llama_issues": "issue #981 (retry loop on function calling with Ollama); force chat_completions API; buffer_streamed_tool_calls=True for flaky local streaming"},
+  {"arm": "B3", "name": "HF smolagents ToolCallingAgent", "pypi": "smolagents 1.26.0 (May 29, 2026; repo active, PyPI quiet since May)", "license": "Apache-2.0", "python": ">=3.10", "local_support": "built-in: OpenAIServerModel(api_base=..., api_key=dummy, flatten_messages_as_text=True)", "tools": "@tool -> JSON schema", "local_llama_issues": "issue #908: un-flattened messages break vLLM/llama.cpp-style servers; needs llama-server --jinja with tool-capable template", "notes": "ToolCallingAgent arm = native tool calls"},
+  {"arm": "B4", "name": "HF smolagents CodeAgent", "pypi": "same as B3", "license": "Apache-2.0", "python": ">=3.10", "local_support": "same OpenAIServerModel", "tools": "code-as-action (Python); sandbox REQUIRED for P3 security (mission 6.5): in-process executor default - must be contained (no host shell, no network, no secrets)", "notes": "community view: code action degrades most gracefully on small models; sandbox is the gating risk on Windows"},
+  {"arm": "B5", "name": "Pydantic AI", "pypi": "pydantic-ai-slim[openai] 2.76.0 (Nov 27, 2026); 1.x maintained (1.107.11)", "license": "MIT", "python": ">=3.11 (2.x)", "local_support": "built-in: OpenAIProvider(base_url=...) / OpenAIChatModel('openai-chat:' prefix); OpenAICompatibleProvider for non-OpenAI servers", "tools": "@agent.tool/@agent.tool_plain", "structured": "output_type Pydantic; ToolOutput (via tool call) recommended for weak local models; NativeOutput (json_schema strict)", "local_llama_issues": "issue #1801; llama.cpp #13774 (streaming mangles tool names), #15755 (null-content assistant messages), #20459 (json_schema vs json_object)"},
+  {"arm": "B6", "name": "LangGraph", "pypi": "langgraph 1.2.24 (Nov 20, 2026) + langchain-openai 1.8.5 (needs Python >=3.11)", "license": "MIT", "python": ">=3.10 (langgraph), >=3.11 for openai integration", "local_support": "built-in: ChatOpenAI(base_url='http://127.0.0.1:8080/v1', api_key=dummy)", "tools": "bind_tools([...]) JSON schema", "structured": "with_structured_output(Pydantic)", "notes": "state machine + checkpointing + HITL interrupts; create_agent (create_react_agent deprecated); ChatLlamaCpp has poor tool support - use ChatOpenAI"},
+  {"arm": "B7", "name": "Google ADK", "pypi": "google-adk 2.15.1 (Nov 25, 2026) + google-adk[openai]", "license": "Apache-2.0", "python": ">=3.11", "local_support": "built-in native connector: OpenAILlm(model=..., base_url=...) from google.adk.integrations.openai; OPENAI_BASE_URL env honored", "tools": "typed Python functions -> auto FunctionTool", "structured": "output_schema (OpenAI strict mode via connector)", "notes": "heavy dependency footprint (fastapi, uvicorn, google-genai, ...); LiteLLM path excluded per SEC-02; Windows PYTHONUTF8=1 only needed for LiteLLM path"},
+  {"arm": "B8", "name": "Microsoft Agent Framework", "pypi": "agent-framework 1.26.0 (Nov 12, 2026) - LAST CLEAN RELEASE; 1.26.1/.2 hijacked (SEC-01); upstream repo offline since 2026-11-18", "license": "MIT", "python": ">=3.11", "local_support": "built-in: OpenAIChatClient(base_url=..., api_key=..., model_id=...); prefer OpenAIChatCompletionClient for chat-completions-only servers (OpenAIChatClient may hit /responses -> 404 on llama.cpp)", "tools": "AIFunction auto JSON schema; MCP", "admission_status": "CONDITIONAL: hash-pinned 1.26.0 in isolated venv, no secrets in environment, egress observation during trials; else BLOCKED per SEC-01"},
+  {"arm": "B9", "name": "PocketFlow", "pypi": "pocketflow 0.0.3 (Jul 2025, frozen by design)", "license": "MIT", "python": "pure Python, zero dependencies", "local_support": "DIY - framework provides Node/Flow graph + shared store only; agent loop is a pattern we implement", "notes": "disclose exactly which agent behaviors are our reference implementation (mission 6.4); useful as minimal-overhead arm"},
+  {"arm": "O1", "name": "DSPy (optimization layer)", "pypi": "dspy 3.5.0 (Nov 10, 2026)", "license": "MIT", "python": ">=3.10,<3.16", "local_support": "built-in: dspy.LM('openai/<model>', api_base='http://127.0.0.1:8080/v1')", "notes": "not an agent runtime; A13 ablation arm; community report: local models silently lose constrained decoding - verify per experiment"}
+ ],
+ "hybrids": [
+  {"arm": "H1", "composition": "LangGraph + Pydantic AI", "notes": "graph orchestration + typed validation/recovery layer"},
+  {"arm": "H2", "composition": "PocketFlow + typed tool gateway", "notes": "minimal graph + our deterministic gateway (src/model_gateway)"},
+  {"arm": "H3", "composition": "best alternative identified from development evidence", "notes": "declared only after dev evidence; e.g. Pydantic AI + deterministic workflow"}
+ ],
+ "responses_api_trap": "OpenAI Agents SDK, Pydantic AI, and MS Agent Framework can all default to the OpenAI Responses API; llama.cpp b12359 implements Chat Completions. Every adapter must explicitly force Chat Completions mode; recorded as an adapter conformance test requirement.",
+ "cross_cutting_llama_cpp_issues": [
+  "llama.cpp discussion #11564: frameworks must normalize tool schemas before GBNF conversion",
+  "llama.cpp discussion #27737: native tool-call JSON rejection in some builds - F08/F09 layer must catch",
+  "llama-server requires --jinja + a tool-capable chat template for native tool calls (MiniCPM5 template verified in P1)"
+ ],
+ "reconciliation_with_repository": {
+  "antigravity": "Agent research said no OpenAI-compatible endpoint; repository evidence disproves for 0.1.24 (LocalOpenAIAgentConfig exists in the installed package and passed the G7 smoke). Passport records SDK-native local support with the repo evidence as source."
+ },
+ "version_freeze_policy": "Every SDK install is hash-pinned (pip --require-hashes or lock export) into an isolated venv; versions recorded per passport with exact PyPI artifact digests. Motivated by SEC-01."
+}

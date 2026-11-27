@@ -1,0 +1,88 @@
+{
+ "schema_version": 1,
+ "candidate": "S2",
+ "alias": "lfm3-1.7b",
+ "model_path": "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf",
+ "model_sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+ "backend": "vulkan",
+ "started_utc": "2026-11-27T05:02:50Z",
+ "gpu": {
+  "layers_offloaded": 25,
+  "layers_total": 25
+ },
+ "cases": {
+  "basic_instruction": {
+   "pass": true,
+   "detail": [
+    true,
+    true
+   ],
+   "status": "PASS"
+  },
+  "json_generation": {
+   "pass": false,
+   "valid": 0,
+   "schema_ok": 0,
+   "n": 12,
+   "status": "FAIL"
+  },
+  "zero_tool_response": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "single_tool_invocation": {
+   "pass": true,
+   "ok": 8,
+   "n": 8,
+   "status": "PASS"
+  },
+  "tool_result_continuation": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "multiple_sequential_tools": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "structured_output": {
+   "pass": true,
+   "status": "PASS"
+  },
+  "invalid_argument_recovery": {
+   "pass": true,
+   "second_call": {
+    "name": "get_purchase_order",
+    "args": {
+     "order_id": "PO-2026-0001"
+    }
+   },
+   "status": "PASS"
+  },
+  "context_handling": {
+   "pass": false,
+   "status": "FAIL"
+  },
+  "stop_conditions": {
+   "pass": true,
+   "finish_reason": "length",
+   "completion_tokens": 96,
+   "status": "PASS"
+  }
+ },
+ "finished_utc": "2026-11-27T05:03:06Z",
+ "token_usage": {
+  "prompt_tokens": 22605,
+  "completion_tokens": 2619
+ },
+ "dev_score": {
+  "passed_cases": 8.0,
+  "scored_cases": 10,
+  "rate": 0.8
+ }
+}

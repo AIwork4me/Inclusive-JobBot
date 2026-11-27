@@ -1,0 +1,696 @@
+{
+  "by_backend": {
+    "rocm": {
+      "argument_correct": 794,
+      "argument_total": 821,
+      "business_state_status": {
+        "BLOCKED": 63,
+        "NOT_RUN": 437
+      },
+      "by_category": {
+        "argument_types": {
+          "argument_correct": 180,
+          "argument_total": 191,
+          "business_state_status": {
+            "BLOCKED": 41,
+            "NOT_RUN": 39
+          },
+          "cases": 80,
+          "cases_by_finding": {
+            "F02_MODEL_TOOL_SELECTION_ERROR": 1,
+            "F03_MODEL_ARGUMENT_ERROR": 11,
+            "F05_PROTOCOL_ERROR": 1,
+            "F12_FINAL_ANSWER_ERROR": 2,
+            "F15_INSUFFICIENT_EVIDENCE": 41
+          },
+          "comparison": {
+            "V1_FAIL_V2_TRACE_FAIL": 12,
+            "V1_PASS_V2_TRACE_PASS": 68
+          },
+          "status": {
+            "BLOCKED": 31,
+            "FAIL": 12,
+            "PASS": 37
+          },
+          "strict_sop_status": {
+            "FAIL": 12,
+            "PASS": 68
+          },
+          "trace_status": {
+            "FAIL": 12,
+            "PASS": 68
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "FAIL": 12,
+            "PASS": 68
+          }
+        },
+        "error_recovery": {
+          "argument_correct": 33,
+          "argument_total": 33,
+          "business_state_status": {
+            "NOT_RUN": 30
+          },
+          "cases": 30,
+          "cases_by_finding": {
+            "F02_MODEL_TOOL_SELECTION_ERROR": 6
+          },
+          "comparison": {
+            "V1_FAIL_V2_TRACE_FAIL": 6,
+            "V1_PASS_V2_TRACE_PASS": 24
+          },
+          "status": {
+            "FAIL": 6,
+            "PASS": 24
+          },
+          "strict_sop_status": {
+            "FAIL": 6,
+            "PASS": 24
+          },
+          "trace_status": {
+            "FAIL": 6,
+            "PASS": 24
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "FAIL": 6,
+            "PASS": 24
+          }
+        },
+        "sequential_multi_tool": {
+          "argument_correct": 251,
+          "argument_total": 266,
+          "business_state_status": {
+            "BLOCKED": 22,
+            "NOT_RUN": 78
+          },
+          "cases": 100,
+          "cases_by_finding": {
+            "F03_MODEL_ARGUMENT_ERROR": 15,
+            "F12_FINAL_ANSWER_ERROR": 1,
+            "F15_INSUFFICIENT_EVIDENCE": 22
+          },
+          "comparison": {
+            "V1_FAIL_V2_TRACE_FAIL": 1,
+            "V1_FAIL_V2_TRACE_PASS": 41,
+            "V1_PASS_V2_TRACE_FAIL": 15,
+            "V1_PASS_V2_TRACE_PASS": 43
+          },
+          "status": {
+            "BLOCKED": 7,
+            "FAIL": 16,
+            "PASS": 77
+          },
+          "strict_sop_status": {
+            "FAIL": 57,
+            "PASS": 43
+          },
+          "trace_status": {
+            "FAIL": 16,
+            "PASS": 84
+          },
+          "v1_false_failure_reasons": {
+            "V1_ANSWER_MATCHING": 3,
+            "V1_STRICT_ORDER_OR_GROUPING": 41
+          },
+          "v1_status": {
+            "FAIL": 42,
+            "PASS": 58
+          }
+        },
+        "single_tool": {
+          "argument_correct": 122,
+          "argument_total": 122,
+          "business_state_status": {
+            "NOT_RUN": 100
+          },
+          "cases": 100,
+          "cases_by_finding": {},
+          "comparison": {
+            "V1_PASS_V2_TRACE_PASS": 100
+          },
+          "status": {
+            "PASS": 100
+          },
+          "strict_sop_status": {
+            "PASS": 100
+          },
+          "trace_status": {
+            "PASS": 100
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "PASS": 100
+          }
+        },
+        "streaming_tool_call": {
+          "argument_correct": 60,
+          "argument_total": 60,
+          "business_state_status": {
+            "NOT_RUN": 50
+          },
+          "cases": 50,
+          "cases_by_finding": {},
+          "comparison": {
+            "V1_PASS_V2_TRACE_PASS": 50
+          },
+          "status": {
+            "PASS": 50
+          },
+          "strict_sop_status": {
+            "PASS": 50
+          },
+          "trace_status": {
+            "PASS": 50
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "PASS": 50
+          }
+        },
+        "thinking_separation": {
+          "argument_correct": 36,
+          "argument_total": 36,
+          "business_state_status": {
+            "NOT_RUN": 30
+          },
+          "cases": 30,
+          "cases_by_finding": {},
+          "comparison": {
+            "V1_PASS_V2_TRACE_PASS": 30
+          },
+          "status": {
+            "PASS": 30
+          },
+          "strict_sop_status": {
+            "PASS": 30
+          },
+          "trace_status": {
+            "PASS": 30
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "PASS": 30
+          }
+        },
+        "tool_result_round_trip": {
+          "argument_correct": 103,
+          "argument_total": 103,
+          "business_state_status": {
+            "NOT_RUN": 80
+          },
+          "cases": 80,
+          "cases_by_finding": {},
+          "comparison": {
+            "V1_PASS_V2_TRACE_PASS": 80
+          },
+          "status": {
+            "PASS": 80
+          },
+          "strict_sop_status": {
+            "PASS": 80
+          },
+          "trace_status": {
+            "PASS": 80
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "PASS": 80
+          }
+        },
+        "unauthorized_injection": {
+          "argument_correct": 9,
+          "argument_total": 10,
+          "business_state_status": {
+            "NOT_RUN": 30
+          },
+          "cases": 30,
+          "cases_by_finding": {
+            "F03_MODEL_ARGUMENT_ERROR": 1,
+            "F08_AUTHORIZATION_DENIAL": 7
+          },
+          "comparison": {
+            "V1_FAIL_V2_TRACE_FAIL": 8,
+            "V1_PASS_V2_TRACE_PASS": 22
+          },
+          "status": {
+            "FAIL": 8,
+            "PASS": 22
+          },
+          "strict_sop_status": {
+            "FAIL": 8,
+            "PASS": 22
+          },
+          "trace_status": {
+            "FAIL": 8,
+            "PASS": 22
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "FAIL": 8,
+            "PASS": 22
+          }
+        }
+      },
+      "cases": 500,
+      "cases_by_finding": {
+        "F02_MODEL_TOOL_SELECTION_ERROR": 7,
+        "F03_MODEL_ARGUMENT_ERROR": 27,
+        "F05_PROTOCOL_ERROR": 1,
+        "F08_AUTHORIZATION_DENIAL": 7,
+        "F12_FINAL_ANSWER_ERROR": 3,
+        "F15_INSUFFICIENT_EVIDENCE": 63
+      },
+      "comparison": {
+        "V1_FAIL_V2_TRACE_FAIL": 27,
+        "V1_FAIL_V2_TRACE_PASS": 41,
+        "V1_PASS_V2_TRACE_FAIL": 15,
+        "V1_PASS_V2_TRACE_PASS": 417
+      },
+      "status": {
+        "BLOCKED": 38,
+        "FAIL": 42,
+        "PASS": 420
+      },
+      "strict_sop_status": {
+        "FAIL": 83,
+        "PASS": 417
+      },
+      "trace_status": {
+        "FAIL": 42,
+        "PASS": 458
+      },
+      "v1_false_failure_reasons": {
+        "V1_ANSWER_MATCHING": 3,
+        "V1_STRICT_ORDER_OR_GROUPING": 41
+      },
+      "v1_status": {
+        "FAIL": 68,
+        "PASS": 432
+      }
+    },
+    "vulkan": {
+      "argument_correct": 794,
+      "argument_total": 821,
+      "business_state_status": {
+        "BLOCKED": 63,
+        "NOT_RUN": 437
+      },
+      "by_category": {
+        "argument_types": {
+          "argument_correct": 180,
+          "argument_total": 191,
+          "business_state_status": {
+            "BLOCKED": 41,
+            "NOT_RUN": 39
+          },
+          "cases": 80,
+          "cases_by_finding": {
+            "F03_MODEL_ARGUMENT_ERROR": 11,
+            "F12_FINAL_ANSWER_ERROR": 1,
+            "F15_INSUFFICIENT_EVIDENCE": 41
+          },
+          "comparison": {
+            "V1_FAIL_V2_TRACE_FAIL": 11,
+            "V1_PASS_V2_TRACE_PASS": 69
+          },
+          "status": {
+            "BLOCKED": 32,
+            "FAIL": 11,
+            "PASS": 37
+          },
+          "strict_sop_status": {
+            "FAIL": 11,
+            "PASS": 69
+          },
+          "trace_status": {
+            "FAIL": 11,
+            "PASS": 69
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "FAIL": 11,
+            "PASS": 69
+          }
+        },
+        "error_recovery": {
+          "argument_correct": 33,
+          "argument_total": 33,
+          "business_state_status": {
+            "NOT_RUN": 30
+          },
+          "cases": 30,
+          "cases_by_finding": {
+            "F02_MODEL_TOOL_SELECTION_ERROR": 6
+          },
+          "comparison": {
+            "V1_FAIL_V2_TRACE_FAIL": 6,
+            "V1_PASS_V2_TRACE_PASS": 24
+          },
+          "status": {
+            "FAIL": 6,
+            "PASS": 24
+          },
+          "strict_sop_status": {
+            "FAIL": 6,
+            "PASS": 24
+          },
+          "trace_status": {
+            "FAIL": 6,
+            "PASS": 24
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "FAIL": 6,
+            "PASS": 24
+          }
+        },
+        "sequential_multi_tool": {
+          "argument_correct": 251,
+          "argument_total": 266,
+          "business_state_status": {
+            "BLOCKED": 22,
+            "NOT_RUN": 78
+          },
+          "cases": 100,
+          "cases_by_finding": {
+            "F03_MODEL_ARGUMENT_ERROR": 15,
+            "F12_FINAL_ANSWER_ERROR": 1,
+            "F15_INSUFFICIENT_EVIDENCE": 22
+          },
+          "comparison": {
+            "V1_FAIL_V2_TRACE_FAIL": 1,
+            "V1_FAIL_V2_TRACE_PASS": 41,
+            "V1_PASS_V2_TRACE_FAIL": 15,
+            "V1_PASS_V2_TRACE_PASS": 43
+          },
+          "status": {
+            "BLOCKED": 7,
+            "FAIL": 16,
+            "PASS": 77
+          },
+          "strict_sop_status": {
+            "FAIL": 57,
+            "PASS": 43
+          },
+          "trace_status": {
+            "FAIL": 16,
+            "PASS": 84
+          },
+          "v1_false_failure_reasons": {
+            "V1_ANSWER_MATCHING": 4,
+            "V1_STRICT_ORDER_OR_GROUPING": 41
+          },
+          "v1_status": {
+            "FAIL": 42,
+            "PASS": 58
+          }
+        },
+        "single_tool": {
+          "argument_correct": 122,
+          "argument_total": 122,
+          "business_state_status": {
+            "NOT_RUN": 100
+          },
+          "cases": 100,
+          "cases_by_finding": {},
+          "comparison": {
+            "V1_PASS_V2_TRACE_PASS": 100
+          },
+          "status": {
+            "PASS": 100
+          },
+          "strict_sop_status": {
+            "PASS": 100
+          },
+          "trace_status": {
+            "PASS": 100
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "PASS": 100
+          }
+        },
+        "streaming_tool_call": {
+          "argument_correct": 60,
+          "argument_total": 60,
+          "business_state_status": {
+            "NOT_RUN": 50
+          },
+          "cases": 50,
+          "cases_by_finding": {},
+          "comparison": {
+            "V1_PASS_V2_TRACE_PASS": 50
+          },
+          "status": {
+            "PASS": 50
+          },
+          "strict_sop_status": {
+            "PASS": 50
+          },
+          "trace_status": {
+            "PASS": 50
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "PASS": 50
+          }
+        },
+        "thinking_separation": {
+          "argument_correct": 36,
+          "argument_total": 36,
+          "business_state_status": {
+            "NOT_RUN": 30
+          },
+          "cases": 30,
+          "cases_by_finding": {},
+          "comparison": {
+            "V1_PASS_V2_TRACE_PASS": 30
+          },
+          "status": {
+            "PASS": 30
+          },
+          "strict_sop_status": {
+            "PASS": 30
+          },
+          "trace_status": {
+            "PASS": 30
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "PASS": 30
+          }
+        },
+        "tool_result_round_trip": {
+          "argument_correct": 103,
+          "argument_total": 103,
+          "business_state_status": {
+            "NOT_RUN": 80
+          },
+          "cases": 80,
+          "cases_by_finding": {},
+          "comparison": {
+            "V1_PASS_V2_TRACE_PASS": 80
+          },
+          "status": {
+            "PASS": 80
+          },
+          "strict_sop_status": {
+            "PASS": 80
+          },
+          "trace_status": {
+            "PASS": 80
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "PASS": 80
+          }
+        },
+        "unauthorized_injection": {
+          "argument_correct": 9,
+          "argument_total": 10,
+          "business_state_status": {
+            "NOT_RUN": 30
+          },
+          "cases": 30,
+          "cases_by_finding": {
+            "F03_MODEL_ARGUMENT_ERROR": 1,
+            "F08_AUTHORIZATION_DENIAL": 7
+          },
+          "comparison": {
+            "V1_FAIL_V2_TRACE_FAIL": 8,
+            "V1_PASS_V2_TRACE_PASS": 22
+          },
+          "status": {
+            "FAIL": 8,
+            "PASS": 22
+          },
+          "strict_sop_status": {
+            "FAIL": 8,
+            "PASS": 22
+          },
+          "trace_status": {
+            "FAIL": 8,
+            "PASS": 22
+          },
+          "v1_false_failure_reasons": {},
+          "v1_status": {
+            "FAIL": 8,
+            "PASS": 22
+          }
+        }
+      },
+      "cases": 500,
+      "cases_by_finding": {
+        "F02_MODEL_TOOL_SELECTION_ERROR": 6,
+        "F03_MODEL_ARGUMENT_ERROR": 27,
+        "F08_AUTHORIZATION_DENIAL": 7,
+        "F12_FINAL_ANSWER_ERROR": 2,
+        "F15_INSUFFICIENT_EVIDENCE": 63
+      },
+      "comparison": {
+        "V1_FAIL_V2_TRACE_FAIL": 26,
+        "V1_FAIL_V2_TRACE_PASS": 41,
+        "V1_PASS_V2_TRACE_FAIL": 15,
+        "V1_PASS_V2_TRACE_PASS": 418
+      },
+      "status": {
+        "BLOCKED": 39,
+        "FAIL": 41,
+        "PASS": 420
+      },
+      "strict_sop_status": {
+        "FAIL": 82,
+        "PASS": 418
+      },
+      "trace_status": {
+        "FAIL": 41,
+        "PASS": 459
+      },
+      "v1_false_failure_reasons": {
+        "V1_ANSWER_MATCHING": 4,
+        "V1_STRICT_ORDER_OR_GROUPING": 41
+      },
+      "v1_status": {
+        "FAIL": 67,
+        "PASS": 433
+      }
+    }
+  },
+  "code_sha256": {
+    "evaluator.py": "10f0b0e698ec26d1d3607c6b0ed2acd03ff8de8d31cd20ef0326ad505afc3c87",
+    "legacy_oracle.py": "6c5f780982456b6aebf597fbd12080dd363ea554689b1c9689999e31ad18a898",
+    "oracle.py": "1968241f5b08d6151fc77ab28ff4982cca2b2e079eb4b7cb4bd9b503244cca3b",
+    "rescore.py": "b84a056884364ea29840659aafe8448262a46abcd8cba46c0b249d9a01aa8897"
+  },
+  "dataset_sha256": "ce6bf6bf433baab69e511328faae42c34d6a245e44dfd432e2a30f94c84e6add",
+  "evidence_type": "RESCORED_DIAGNOSTIC_V2",
+  "historical_baseline": "DIAGNOSTIC_BASELINE_V1",
+  "historical_sources": {
+    "rocm": {
+      "engine": {
+        "build_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+        "build_tag": "b12359",
+        "dll_sha256": {
+          "ggml-hip.dll": "4748285cbb736778747c2b9f61d1c3a75ff4ad6c1b81ce0e4f03a7d8b0753129",
+          "llama-common.dll": "a0e0b993dede7c95eb1ca79cdcc2a003f2f79ff59fc129cb46ec5daac80fd057",
+          "llama-server-impl.dll": "c81c23738405831cacda737e64ce8f08870d4f44beb63e3aa9515b3ad2e4286e",
+          "llama.dll": "17b0063b06c4561f46929a809a60bf60c857783bb22f593528145cc1e1108d7d"
+        },
+        "exe_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+        "stable_release_tag": "v1.0.0"
+      },
+      "files_sha256": {
+        "metrics.json": "ec57d0797af635174f4d8a393001f5cc2f9b254e2aab9d8ffd0f1bfd3a2e3422",
+        "results.jsonl": "146a0fab801eeb55532231a0a4a903a775082dbb19fa6a2b43f30e17823808b5",
+        "run.json": "eb104f7c8f096410cc9a3841fa2550a7117c5f2480125be2b349bb8244a61e7b"
+      },
+      "git": {
+        "commit": "1edf497cb96a217c45b4a5fc8d7653b6b6eda102",
+        "dirty": true
+      },
+      "run_id": "tc-test-5d6fd88cfc16436d922c7bc75b752003",
+      "sdk": {
+        "used": false,
+        "version": null
+      },
+      "server": {
+        "backend": "rocm",
+        "chat_template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+        "context_length": 8192,
+        "gpu": {
+          "architecture": "gfx1151",
+          "device": "ROCm0",
+          "name": "AMD Radeon(TM) 8060S Graphics"
+        },
+        "gpu_layers": 99,
+        "launch_arguments_sha256": "fb85ce5f66ffe6ce1bf74cf2b1ca2f37d90e030e56db15b52e2a39e5db6a677e",
+        "layers_offloaded": 43,
+        "layers_total": 43,
+        "model_alias": "minicpm5-2b",
+        "model_file": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf",
+        "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+        "modelscope_id": "OpenBMB/MiniCPM5-2B-GGUF",
+        "modelscope_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+        "parallel_slots": 1,
+        "reasoning_format": ""
+      }
+    },
+    "vulkan": {
+      "engine": {
+        "build_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+        "build_tag": "b12359",
+        "dll_sha256": {
+          "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+          "llama-common.dll": "a0e0b993dede7c95eb1ca79cdcc2a003f2f79ff59fc129cb46ec5daac80fd057",
+          "llama-server-impl.dll": "c81c23738405831cacda737e64ce8f08870d4f44beb63e3aa9515b3ad2e4286e",
+          "llama.dll": "17b0063b06c4561f46929a809a60bf60c857783bb22f593528145cc1e1108d7d"
+        },
+        "exe_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+        "stable_release_tag": "v1.0.0"
+      },
+      "files_sha256": {
+        "metrics.json": "acc0512d887053e4e511aeda031d071154f065e09190b5c88abc19cfb9cbc0ee",
+        "results.jsonl": "da4ad655ad24c02bb08e1b474a7236746bc24fdfd2c66d068316b773a312827a",
+        "run.json": "270c5736443a9b7244372e184b052e65f7cd9d7d8e7333b84a0bb0e0c6f3833b"
+      },
+      "git": {
+        "commit": "1edf497cb96a217c45b4a5fc8d7653b6b6eda102",
+        "dirty": false
+      },
+      "run_id": "tc-test-d0cd7479ef414381875ca8d892ed4a61",
+      "sdk": {
+        "used": false,
+        "version": null
+      },
+      "server": {
+        "backend": "vulkan",
+        "chat_template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+        "context_length": 8192,
+        "gpu": {
+          "architecture": "gfx1151",
+          "device": "Vulkan0",
+          "name": "AMD Radeon(TM) 8060S Graphics"
+        },
+        "gpu_layers": 99,
+        "launch_arguments_sha256": "fb85ce5f66ffe6ce1bf74cf2b1ca2f37d90e030e56db15b52e2a39e5db6a677e",
+        "layers_offloaded": 43,
+        "layers_total": 43,
+        "model_alias": "minicpm5-2b",
+        "model_file": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf",
+        "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+        "modelscope_id": "OpenBMB/MiniCPM5-2B-GGUF",
+        "modelscope_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+        "parallel_slots": 1,
+        "reasoning_format": ""
+      }
+    }
+  },
+  "independent_holdout": false,
+  "new_inference": false,
+  "results_sha256": {
+    "rocm.jsonl": "23063444bd3ff7eeaa16b509876c7b6caf1f442e466d53da71a1ec4d7ed0c780",
+    "vulkan.jsonl": "575f4574e083e0238baa363f07509a8348dd12a5bf0c563e3645340b2ba325f7"
+  }
+}

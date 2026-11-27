@@ -1,0 +1,33 @@
+diff --git a/common/chat.cpp b/common/chat.cpp
+--- a/common/chat.cpp
++++ b/common/chat.cpp
+@@ -16,6 +16,8 @@
+ #include "jinja/runtime.h"
+ #include "jinja/caps.h"
+ #include "peg-parser.h"
++
++#include <nlohmann/json.hpp>
+ 
+ #include <algorithm>
+ #include <cstdio>
+@@ -1837,14 +1839,19 @@
+     if (strict_terminal && result.success()) {
+         std::set<std::string_view> argument_names;
+         bool duplicate = false;
++        bool invalid_json_value = false;
+         ctx.ast.visit(result, [&](const common_peg_ast_node & node) {
+             if (node.tag == common_chat_peg_builder::TOOL_OPEN) {
+                 argument_names.clear();
+             } else if (node.tag == common_chat_peg_builder::TOOL_ARG_NAME) {
+                 duplicate |= !argument_names.insert(node.text).second;
++            } else if (node.tag == common_chat_peg_builder::TOOL_ARG_VALUE) {
++                // Check the original spelling before the generic mapper can
++                // normalize it. SAX acceptance does not construct an object.
++                invalid_json_value |= !nlohmann::json::accept(node.text);
+             }
+         });
+-        if (duplicate || !result.invalid_utf8.empty()) {
++        if (duplicate || invalid_json_value || !result.invalid_utf8.empty()) {
+             throw std::runtime_error("The model produced output that does not match the expected peg-native format");
+         }
+     }

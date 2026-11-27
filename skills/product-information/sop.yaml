@@ -1,0 +1,8 @@
+{
+  "version":"1.0.0",
+  "steps":[
+    {"id":"product","operation":"get_product","depends_on":[]},
+    {"id":"inventory","operation":"get_inventory","depends_on":["product"]},
+    {"id":"assessment","operation":"summarize_inventory","depends_on":["product","inventory"]}
+  ]
+}

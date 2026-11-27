@@ -1,0 +1,106 @@
+{
+    "schema_version":  1,
+    "installed_utc":  "2026-11-27T03:59:18Z",
+    "installer":  "scripts/windows/install_llama_cpp.ps1",
+    "repository":  "https://github.com/ggml-org/llama.cpp",
+    "license":  "MIT",
+    "stable_release_tag":  "v1.0.0",
+    "stable_release_commit":  "2d8a32502909ca065c41c4cf5f2fb1c427c047fc",
+    "build_tag":  "b12359",
+    "build_commit":  "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+    "download_base_url":  "https://github.com/ggml-org/llama.cpp/releases/download/b12359",
+    "archives":  [
+                     {
+                         "file":  "llama-b12359-bin-win-cpu-x64.zip",
+                         "size":  25097509,
+                         "sha256":  "837c1655e87df3b66989f4be33a792a1399c785bf259038dc75c900096683e69",
+                         "digest_source":  "GitHub release asset digest",
+                         "verified":  true
+                     },
+                     {
+                         "file":  "llama-b12359-bin-win-vulkan-x64.zip",
+                         "size":  38090643,
+                         "sha256":  "e8d18c6e4210cca87e7307c2ea78363ac8d158e4e1397358ec96ab70b53a0d5e",
+                         "digest_source":  "GitHub release asset digest",
+                         "verified":  true
+                     },
+                     {
+                         "file":  "llama-b12359-bin-win-rocm-10.0-x64.zip",
+                         "size":  280132437,
+                         "sha256":  "d5021cebbd3bd50a7cab3b9f121a887e45df76c360ecfa927940aac3bb64a982",
+                         "digest_source":  "GitHub release asset digest",
+                         "verified":  true
+                     }
+                 ],
+    "build_flags":  {
+                        "source":  ".github/workflows/release.yml at the build commit",
+                        "cpu":  "-G Ninja Multi-Config -DCMAKE_TOOLCHAIN_FILE=cmake/x64-windows-llvm.cmake -DLLAMA_BUILD_BORINGSSL=ON -DGGML_NATIVE=OFF -DGGML_BACKEND_DL=ON -DGGML_CPU_ALL_VARIANTS=ON -DGGML_OPENMP=ON -DGGML_OPENMP_FETCH=ON",
+                        "vulkan":  "-DGGML_VULKAN=ON (Vulkan SDK 1.4.357.0), backend library only, merged with the CPU build",
+                        "rocm":  "-DGGML_BACKEND_DL=ON -DGGML_HIP=ON -DAMDGPU_TARGETS=gfx1010;gfx1011;gfx1012;gfx1030;gfx1031;gfx1032;gfx1033;gfx1034;gfx1035;gfx1036;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201 (ROCm 10.0.0 wheels)"
+                    },
+    "smart_app_control":  "Off",
+    "rocm_runtime":  {
+                         "present":  true,
+                         "package_spec":  "rocm[libraries]==10.0.0",
+                         "packages":  [
+                                          "rocm==10.0.0",
+                                          "rocm-sdk-core==10.0.0",
+                                          "rocm-sdk-libraries==10.0.0"
+                                      ],
+                         "library_directories":  [
+                                                     "runtime/llama-cpp/rocm-libs/Lib/site-packages/_rocm_sdk_libraries/bin",
+                                                     "runtime/llama-cpp/rocm-libs/Lib/site-packages/_rocm_sdk_core/bin"
+                                                 ]
+                     },
+    "backends":  [
+                     {
+                         "backend":  "cpu",
+                         "directory":  "runtime/llama-cpp/cpu",
+                         "archives":  [
+                                          "llama-b12359-bin-win-cpu-x64.zip"
+                                      ],
+                         "exe_sha256":  "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+                         "authenticode":  "NotSigned",
+                         "version_banner":  "version: 1.0.0-dev (build 12359, commit b1b770d90)\r\nbuilt with Clang 20.1.8 for Windows x86_64",
+                         "version_exit_code":  0,
+                         "list_devices_exit_code":  0,
+                         "list_devices_output":  "Available devices:\r\n  (none)",
+                         "rocm_runtime_on_path":  false,
+                         "status":  "PASS",
+                         "reason":  ""
+                     },
+                     {
+                         "backend":  "vulkan",
+                         "directory":  "runtime/llama-cpp/vulkan",
+                         "archives":  [
+                                          "llama-b12359-bin-win-vulkan-x64.zip"
+                                      ],
+                         "exe_sha256":  "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+                         "authenticode":  "NotSigned",
+                         "version_banner":  "version: 1.0.0-dev (build 12359, commit b1b770d90)\r\nbuilt with Clang 20.1.8 for Windows x86_64",
+                         "version_exit_code":  0,
+                         "list_devices_exit_code":  0,
+                         "list_devices_output":  "Available devices:\r\n  Vulkan0: AMD Radeon RX 7900 XTX (24560 MiB, 23737 MiB free)\r\n  Vulkan1: Intel(R) UHD Graphics 770 (16267 MiB, 15499 MiB free)",
+                         "rocm_runtime_on_path":  false,
+                         "status":  "PASS",
+                         "reason":  ""
+                     },
+                     {
+                         "backend":  "rocm",
+                         "directory":  "runtime/llama-cpp/rocm",
+                         "archives":  [
+                                          "llama-b12359-bin-win-rocm-10.0-x64.zip"
+                                      ],
+                         "exe_sha256":  "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+                         "authenticode":  "NotSigned",
+                         "version_banner":  "version: 1.0.0-dev (build 12359, commit b1b770d90)\r\nbuilt with Clang 20.1.8 for Windows x86_64",
+                         "version_exit_code":  0,
+                         "list_devices_exit_code":  0,
+                         "list_devices_output":  "Available devices:\r\n  ROCm0: AMD Radeon RX 7900 XTX (24560 MiB, 24411 MiB free)",
+                         "rocm_runtime_on_path":  true,
+                         "status":  "PASS",
+                         "reason":  ""
+                     }
+                 ],
+    "overall_status":  "PASS"
+}

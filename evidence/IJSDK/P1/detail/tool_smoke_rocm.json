@@ -1,0 +1,1057 @@
+{
+  "schema_version": 1,
+  "run_time_utc": "2026-11-27T04:19:20+00:00",
+  "tool": "scripts/tools/tool_calling_smoke.py",
+  "base_url": "http://127.0.0.1:8080",
+  "thinking_enabled": false,
+  "checks": [
+    {
+      "name": "tool_schema_reaches_prompt",
+      "status": "PASS",
+      "prompt_tail": "ithin <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n请查询采购订单 PO-2026-0001 的信息。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
+    },
+    {
+      "name": "single_call_non_stream",
+      "status": "PASS",
+      "calls": [
+        {
+          "id": "jjV6V8smSEkW5IL6wxXcwU9dQJUk7HsK",
+          "name": "get_purchase_order",
+          "arguments": {
+            "order_id": "PO-2026-0001"
+          },
+          "arguments_are_json_object": true
+        }
+      ],
+      "content": "",
+      "finish_reason": "tool_calls",
+      "error": null
+    },
+    {
+      "name": "single_call_stream_matches_non_stream",
+      "status": "PASS",
+      "calls": [
+        {
+          "id": "kl59MgglsLb1IdrADfu5bQRJqyqWGzgK",
+          "name": "get_purchase_order",
+          "arguments": {
+            "order_id": "PO-2026-0001"
+          },
+          "arguments_are_json_object": true
+        }
+      ],
+      "chunk_count": 14,
+      "error": null
+    },
+    {
+      "name": "tool_result_round_trip",
+      "status": "PASS",
+      "executed_calls": [
+        "get_purchase_order",
+        "get_supplier"
+      ],
+      "step_count": 3,
+      "final_text": "采购订单 PO-2026-0002 的供应商信息如下：\n\n- **供应商编号**：SUP-013\n- **供应商名称**：南方文具厂\n- **是否在合格供应商名单中**：否（不在合格名单中）\n\n如需进一步核对订单金额或进行其他操作，请告知。"
+    },
+    {
+      "name": "tool_choice_none_makes_no_call",
+      "status": "PASS",
+      "calls": [],
+      "content": "<function name=\"get_purchase_order\"><param name=\"order_id\">PO-2026-0001</param></function>"
+    }
+  ],
+  "status": "PASS",
+  "trace": [
+    {
+      "path": "/apply-template",
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "你是单据审核助手。需要查询数据时调用工具，不要编造数据。"
+          },
+          {
+            "role": "user",
+            "content": "请查询采购订单 PO-2026-0001 的信息。"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_purchase_order",
+              "description": "按订单号查询采购订单，返回供应商编号、商品明细和总金额。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "采购订单号，例如 PO-2026-0001"
+                  }
+                },
+                "required": [
+                  "order_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "get_supplier",
+              "description": "按供应商编号查询供应商信息，包括名称、是否在合格供应商名单中。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "supplier_id": {
+                    "type": "string",
+                    "description": "供应商编号，例如 SUP-007"
+                  }
+                },
+                "required": [
+                  "supplier_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "validate_amount",
+              "description": "核对订单总金额与明细行金额之和是否一致，容差 0.01 元。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "line_amounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "description": "各明细行金额"
+                  },
+                  "order_total": {
+                    "type": "number",
+                    "description": "订单总金额"
+                  }
+                },
+                "required": [
+                  "line_amounts",
+                  "order_total"
+                ]
+              }
+            }
+          }
+        ],
+        "add_generation_prompt": true,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "response": {
+        "prompt": "<s><|im_start|>system\n你是单据审核助手。需要查询数据时调用工具，不要编造数据。\n\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"get_purchase_order\", \"description\": \"按订单号查询采购订单，返回供应商编号、商品明细和总金额。\", \"parameters\": {\"type\": \"object\", \"properties\": {\"order_id\": {\"type\": \"string\", \"description\": \"采购订单号，例如 PO-2026-0001\"}}, \"required\": [\"order_id\"]}}}\n{\"type\": \"function\", \"function\": {\"name\": \"get_supplier\", \"description\": \"按供应商编号查询供应商信息，包括名称、是否在合格供应商名单中。\", \"parameters\": {\"type\": \"object\", \"properties\": {\"supplier_id\": {\"type\": \"string\", \"description\": \"供应商编号，例如 SUP-007\"}}, \"required\": [\"supplier_id\"]}}}\n{\"type\": \"function\", \"function\": {\"name\": \"validate_amount\", \"description\": \"核对订单总金额与明细行金额之和是否一致，容差 0.01 元。\", \"parameters\": {\"type\": \"object\", \"properties\": {\"line_amounts\": {\"type\": \"array\", \"items\": {\"type\": \"number\"}, \"description\": \"各明细行金额\"}, \"order_total\": {\"type\": \"number\", \"description\": \"订单总金额\"}}, \"required\": [\"line_amounts\", \"order_total\"]}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n请查询采购订单 PO-2026-0001 的信息。<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
+      },
+      "elapsed_ms": 12
+    },
+    {
+      "path": "/v1/chat/completions",
+      "request": {
+        "model": "minicpm5-2b",
+        "temperature": 0,
+        "stream": false,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_purchase_order",
+              "description": "按订单号查询采购订单，返回供应商编号、商品明细和总金额。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "采购订单号，例如 PO-2026-0001"
+                  }
+                },
+                "required": [
+                  "order_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "get_supplier",
+              "description": "按供应商编号查询供应商信息，包括名称、是否在合格供应商名单中。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "supplier_id": {
+                    "type": "string",
+                    "description": "供应商编号，例如 SUP-007"
+                  }
+                },
+                "required": [
+                  "supplier_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "validate_amount",
+              "description": "核对订单总金额与明细行金额之和是否一致，容差 0.01 元。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "line_amounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "description": "各明细行金额"
+                  },
+                  "order_total": {
+                    "type": "number",
+                    "description": "订单总金额"
+                  }
+                },
+                "required": [
+                  "line_amounts",
+                  "order_total"
+                ]
+              }
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "system",
+            "content": "你是单据审核助手。需要查询数据时调用工具，不要编造数据。"
+          },
+          {
+            "role": "user",
+            "content": "请查询采购订单 PO-2026-0001 的信息。"
+          }
+        ]
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_purchase_order",
+                    "arguments": "{\"order_id\":\"PO-2026-0001\"}"
+                  },
+                  "id": "jjV6V8smSEkW5IL6wxXcwU9dQJUk7HsK"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1795753161,
+        "model": "minicpm5-2b",
+        "system_fingerprint": "b12359-b1b770d90",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 24,
+          "prompt_tokens": 463,
+          "total_tokens": 487,
+          "prompt_tokens_details": {
+            "cached_tokens": 2
+          }
+        },
+        "id": "chatcmpl-7CNNmipShXCu8diKjX7hGs4AVM1AIayl",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 461,
+          "prompt_ms": 421.188,
+          "prompt_per_token_ms": 0.9136399132321041,
+          "prompt_per_second": 1094.5231108198716,
+          "predicted_n": 24,
+          "predicted_ms": 96.372,
+          "predicted_per_token_ms": 4.190086956521739,
+          "predicted_per_second": 238.65853152367907
+        }
+      },
+      "elapsed_ms": 525
+    },
+    {
+      "path": "/v1/chat/completions",
+      "stream": true,
+      "request": {
+        "model": "minicpm5-2b",
+        "temperature": 0,
+        "stream": true,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_purchase_order",
+              "description": "按订单号查询采购订单，返回供应商编号、商品明细和总金额。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "采购订单号，例如 PO-2026-0001"
+                  }
+                },
+                "required": [
+                  "order_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "get_supplier",
+              "description": "按供应商编号查询供应商信息，包括名称、是否在合格供应商名单中。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "supplier_id": {
+                    "type": "string",
+                    "description": "供应商编号，例如 SUP-007"
+                  }
+                },
+                "required": [
+                  "supplier_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "validate_amount",
+              "description": "核对订单总金额与明细行金额之和是否一致，容差 0.01 元。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "line_amounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "description": "各明细行金额"
+                  },
+                  "order_total": {
+                    "type": "number",
+                    "description": "订单总金额"
+                  }
+                },
+                "required": [
+                  "line_amounts",
+                  "order_total"
+                ]
+              }
+            }
+          }
+        ],
+        "stream_options": {
+          "include_usage": true
+        },
+        "messages": [
+          {
+            "role": "system",
+            "content": "你是单据审核助手。需要查询数据时调用工具，不要编造数据。"
+          },
+          {
+            "role": "user",
+            "content": "请查询采购订单 PO-2026-0001 的信息。"
+          }
+        ]
+      },
+      "response": {
+        "content": "",
+        "reasoning_content": "",
+        "tool_calls": [
+          {
+            "id": "kl59MgglsLb1IdrADfu5bQRJqyqWGzgK",
+            "type": "function",
+            "function": {
+              "name": "get_purchase_order",
+              "arguments": "{\"order_id\":\"PO-2026-0001\"}"
+            }
+          }
+        ],
+        "timings": {
+          "cache_n": 462,
+          "prompt_n": 1,
+          "prompt_ms": 4.658,
+          "prompt_per_token_ms": 4.658,
+          "prompt_per_second": 214.68441391155,
+          "predicted_n": 24,
+          "predicted_ms": 92.846,
+          "predicted_per_token_ms": 4.036782608695653,
+          "predicted_per_second": 247.72203433642807
+        },
+        "usage": {
+          "completion_tokens": 24,
+          "prompt_tokens": 463,
+          "total_tokens": 487,
+          "prompt_tokens_details": {
+            "cached_tokens": 462
+          }
+        },
+        "chunk_count": 14
+      },
+      "elapsed_ms": 100
+    },
+    {
+      "path": "/v1/chat/completions",
+      "request": {
+        "model": "minicpm5-2b",
+        "temperature": 0,
+        "stream": false,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_purchase_order",
+              "description": "按订单号查询采购订单，返回供应商编号、商品明细和总金额。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "采购订单号，例如 PO-2026-0001"
+                  }
+                },
+                "required": [
+                  "order_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "get_supplier",
+              "description": "按供应商编号查询供应商信息，包括名称、是否在合格供应商名单中。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "supplier_id": {
+                    "type": "string",
+                    "description": "供应商编号，例如 SUP-007"
+                  }
+                },
+                "required": [
+                  "supplier_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "validate_amount",
+              "description": "核对订单总金额与明细行金额之和是否一致，容差 0.01 元。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "line_amounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "description": "各明细行金额"
+                  },
+                  "order_total": {
+                    "type": "number",
+                    "description": "订单总金额"
+                  }
+                },
+                "required": [
+                  "line_amounts",
+                  "order_total"
+                ]
+              }
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "system",
+            "content": "你是单据审核助手。需要查询数据时调用工具，不要编造数据。每次只调用当前步骤需要的工具。"
+          },
+          {
+            "role": "user",
+            "content": "查询采购订单 PO-2026-0002，然后查出它供应商的名称，并判断该供应商是否在合格名单中。"
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "get_purchase_order",
+                  "arguments": "{\"order_id\":\"PO-2026-0002\"}"
+                },
+                "id": "feLCQEDE3c0bYmRDBNw9Kg1vQVn5sSw7"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "feLCQEDE3c0bYmRDBNw9Kg1vQVn5sSw7",
+            "content": "{\"order_id\": \"PO-2026-0002\", \"supplier_id\": \"SUP-013\", \"lines\": [{\"sku\": \"SKU-C305\", \"name\": \"文件夹\", \"unit_price\": 8.0, \"quantity\": 15}], \"total\": 118.0, \"status\": \"待审核\"}"
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "get_supplier",
+                  "arguments": "{\"supplier_id\":\"SUP-013\"}"
+                },
+                "id": "y8AOnfv5EQcafrfHLxcJzEtfffERu6to"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "y8AOnfv5EQcafrfHLxcJzEtfffERu6to",
+            "content": "{\"supplier_id\": \"SUP-013\", \"name\": \"南方文具厂\", \"qualified\": false, \"contact\": \"王芳\"}"
+          }
+        ],
+        "max_tokens": 512
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_purchase_order",
+                    "arguments": "{\"order_id\":\"PO-2026-0002\"}"
+                  },
+                  "id": "feLCQEDE3c0bYmRDBNw9Kg1vQVn5sSw7"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1795753161,
+        "model": "minicpm5-2b",
+        "system_fingerprint": "b12359-b1b770d90",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 24,
+          "prompt_tokens": 484,
+          "total_tokens": 508,
+          "prompt_tokens_details": {
+            "cached_tokens": 18
+          }
+        },
+        "id": "chatcmpl-4bYkFLQ59Q4MJUoJIsNLZhjbQrDLxi63",
+        "timings": {
+          "cache_n": 18,
+          "prompt_n": 466,
+          "prompt_ms": 52.872,
+          "prompt_per_token_ms": 0.11345922746781116,
+          "prompt_per_second": 8813.738840974429,
+          "predicted_n": 24,
+          "predicted_ms": 95.17,
+          "predicted_per_token_ms": 4.1378260869565215,
+          "predicted_per_second": 241.67279604917516
+        }
+      },
+      "elapsed_ms": 179
+    },
+    {
+      "path": "/v1/chat/completions",
+      "request": {
+        "model": "minicpm5-2b",
+        "temperature": 0,
+        "stream": false,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_purchase_order",
+              "description": "按订单号查询采购订单，返回供应商编号、商品明细和总金额。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "采购订单号，例如 PO-2026-0001"
+                  }
+                },
+                "required": [
+                  "order_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "get_supplier",
+              "description": "按供应商编号查询供应商信息，包括名称、是否在合格供应商名单中。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "supplier_id": {
+                    "type": "string",
+                    "description": "供应商编号，例如 SUP-007"
+                  }
+                },
+                "required": [
+                  "supplier_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "validate_amount",
+              "description": "核对订单总金额与明细行金额之和是否一致，容差 0.01 元。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "line_amounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "description": "各明细行金额"
+                  },
+                  "order_total": {
+                    "type": "number",
+                    "description": "订单总金额"
+                  }
+                },
+                "required": [
+                  "line_amounts",
+                  "order_total"
+                ]
+              }
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "system",
+            "content": "你是单据审核助手。需要查询数据时调用工具，不要编造数据。每次只调用当前步骤需要的工具。"
+          },
+          {
+            "role": "user",
+            "content": "查询采购订单 PO-2026-0002，然后查出它供应商的名称，并判断该供应商是否在合格名单中。"
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "get_purchase_order",
+                  "arguments": "{\"order_id\":\"PO-2026-0002\"}"
+                },
+                "id": "feLCQEDE3c0bYmRDBNw9Kg1vQVn5sSw7"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "feLCQEDE3c0bYmRDBNw9Kg1vQVn5sSw7",
+            "content": "{\"order_id\": \"PO-2026-0002\", \"supplier_id\": \"SUP-013\", \"lines\": [{\"sku\": \"SKU-C305\", \"name\": \"文件夹\", \"unit_price\": 8.0, \"quantity\": 15}], \"total\": 118.0, \"status\": \"待审核\"}"
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "get_supplier",
+                  "arguments": "{\"supplier_id\":\"SUP-013\"}"
+                },
+                "id": "y8AOnfv5EQcafrfHLxcJzEtfffERu6to"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "y8AOnfv5EQcafrfHLxcJzEtfffERu6to",
+            "content": "{\"supplier_id\": \"SUP-013\", \"name\": \"南方文具厂\", \"qualified\": false, \"contact\": \"王芳\"}"
+          }
+        ],
+        "max_tokens": 512
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_supplier",
+                    "arguments": "{\"supplier_id\":\"SUP-013\"}"
+                  },
+                  "id": "y8AOnfv5EQcafrfHLxcJzEtfffERu6to"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1795753161,
+        "model": "minicpm5-2b",
+        "system_fingerprint": "b12359-b1b770d90",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 21,
+          "prompt_tokens": 596,
+          "total_tokens": 617,
+          "prompt_tokens_details": {
+            "cached_tokens": 507
+          }
+        },
+        "id": "chatcmpl-mCp19T8VHtnP4clHZNotkGIrvVSm1WJ9",
+        "timings": {
+          "cache_n": 507,
+          "prompt_n": 89,
+          "prompt_ms": 18.595,
+          "prompt_per_token_ms": 0.2089325842696629,
+          "prompt_per_second": 4786.2328582952405,
+          "predicted_n": 21,
+          "predicted_ms": 83.029,
+          "predicted_per_token_ms": 4.15145,
+          "predicted_per_second": 240.8796926375122
+        }
+      },
+      "elapsed_ms": 105
+    },
+    {
+      "path": "/v1/chat/completions",
+      "request": {
+        "model": "minicpm5-2b",
+        "temperature": 0,
+        "stream": false,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_purchase_order",
+              "description": "按订单号查询采购订单，返回供应商编号、商品明细和总金额。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "采购订单号，例如 PO-2026-0001"
+                  }
+                },
+                "required": [
+                  "order_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "get_supplier",
+              "description": "按供应商编号查询供应商信息，包括名称、是否在合格供应商名单中。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "supplier_id": {
+                    "type": "string",
+                    "description": "供应商编号，例如 SUP-007"
+                  }
+                },
+                "required": [
+                  "supplier_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "validate_amount",
+              "description": "核对订单总金额与明细行金额之和是否一致，容差 0.01 元。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "line_amounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "description": "各明细行金额"
+                  },
+                  "order_total": {
+                    "type": "number",
+                    "description": "订单总金额"
+                  }
+                },
+                "required": [
+                  "line_amounts",
+                  "order_total"
+                ]
+              }
+            }
+          }
+        ],
+        "messages": [
+          {
+            "role": "system",
+            "content": "你是单据审核助手。需要查询数据时调用工具，不要编造数据。每次只调用当前步骤需要的工具。"
+          },
+          {
+            "role": "user",
+            "content": "查询采购订单 PO-2026-0002，然后查出它供应商的名称，并判断该供应商是否在合格名单中。"
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "get_purchase_order",
+                  "arguments": "{\"order_id\":\"PO-2026-0002\"}"
+                },
+                "id": "feLCQEDE3c0bYmRDBNw9Kg1vQVn5sSw7"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "feLCQEDE3c0bYmRDBNw9Kg1vQVn5sSw7",
+            "content": "{\"order_id\": \"PO-2026-0002\", \"supplier_id\": \"SUP-013\", \"lines\": [{\"sku\": \"SKU-C305\", \"name\": \"文件夹\", \"unit_price\": 8.0, \"quantity\": 15}], \"total\": 118.0, \"status\": \"待审核\"}"
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "get_supplier",
+                  "arguments": "{\"supplier_id\":\"SUP-013\"}"
+                },
+                "id": "y8AOnfv5EQcafrfHLxcJzEtfffERu6to"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "y8AOnfv5EQcafrfHLxcJzEtfffERu6to",
+            "content": "{\"supplier_id\": \"SUP-013\", \"name\": \"南方文具厂\", \"qualified\": false, \"contact\": \"王芳\"}"
+          }
+        ],
+        "max_tokens": 512
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "采购订单 PO-2026-0002 的供应商信息如下：\n\n- **供应商编号**：SUP-013\n- **供应商名称**：南方文具厂\n- **是否在合格供应商名单中**：否（不在合格名单中）\n\n如需进一步核对订单金额或进行其他操作，请告知。"
+            }
+          }
+        ],
+        "created": 1795753162,
+        "model": "minicpm5-2b",
+        "system_fingerprint": "b12359-b1b770d90",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 65,
+          "prompt_tokens": 664,
+          "total_tokens": 729,
+          "prompt_tokens_details": {
+            "cached_tokens": 616
+          }
+        },
+        "id": "chatcmpl-Au7BXwTOPdYR1i79oOdBLG1YpxxqBSJn",
+        "timings": {
+          "cache_n": 616,
+          "prompt_n": 48,
+          "prompt_ms": 13.772,
+          "prompt_per_token_ms": 0.28691666666666665,
+          "prompt_per_second": 3485.332558814987,
+          "predicted_n": 65,
+          "predicted_ms": 258.321,
+          "predicted_per_token_ms": 4.036265625,
+          "predicted_per_second": 247.75376372807474
+        }
+      },
+      "elapsed_ms": 277
+    },
+    {
+      "path": "/v1/chat/completions",
+      "request": {
+        "model": "minicpm5-2b",
+        "temperature": 0,
+        "stream": false,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "get_purchase_order",
+              "description": "按订单号查询采购订单，返回供应商编号、商品明细和总金额。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string",
+                    "description": "采购订单号，例如 PO-2026-0001"
+                  }
+                },
+                "required": [
+                  "order_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "get_supplier",
+              "description": "按供应商编号查询供应商信息，包括名称、是否在合格供应商名单中。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "supplier_id": {
+                    "type": "string",
+                    "description": "供应商编号，例如 SUP-007"
+                  }
+                },
+                "required": [
+                  "supplier_id"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "validate_amount",
+              "description": "核对订单总金额与明细行金额之和是否一致，容差 0.01 元。",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "line_amounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "description": "各明细行金额"
+                  },
+                  "order_total": {
+                    "type": "number",
+                    "description": "订单总金额"
+                  }
+                },
+                "required": [
+                  "line_amounts",
+                  "order_total"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": "none",
+        "messages": [
+          {
+            "role": "system",
+            "content": "你是单据审核助手。需要查询数据时调用工具，不要编造数据。"
+          },
+          {
+            "role": "user",
+            "content": "请查询采购订单 PO-2026-0001 的信息。"
+          }
+        ],
+        "max_tokens": 200
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "<function name=\"get_purchase_order\"><param name=\"order_id\">PO-2026-0001</param></function>"
+            }
+          }
+        ],
+        "created": 1795753162,
+        "model": "minicpm5-2b",
+        "system_fingerprint": "b12359-b1b770d90",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 24,
+          "prompt_tokens": 463,
+          "total_tokens": 487,
+          "prompt_tokens_details": {
+            "cached_tokens": 462
+          }
+        },
+        "id": "chatcmpl-ARwtnmihWLjgDTlGdHzXtLI9197EW65h",
+        "timings": {
+          "cache_n": 462,
+          "prompt_n": 1,
+          "prompt_ms": 5.453,
+          "prompt_per_token_ms": 5.453,
+          "prompt_per_second": 183.38529249954152,
+          "predicted_n": 24,
+          "predicted_ms": 94.732,
+          "predicted_per_token_ms": 4.1187826086956525,
+          "predicted_per_second": 242.79018705400497
+        }
+      },
+      "elapsed_ms": 122
+    }
+  ]
+}

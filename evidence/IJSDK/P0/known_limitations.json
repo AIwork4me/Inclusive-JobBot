@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-SDK-1.0",
+  "generated_utc": "2026-11-27T11:55:00Z",
+  "source_commit": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+  "limitations": [
+    {
+      "id": "L-01",
+      "title": "Prior GPU evidence measured on different hardware",
+      "detail": "All IJ-0/0.6/0.7 GPU evidence (GPU backend qualification, paired baselines, performance) was measured on a gfx1151 workstation (AMD Radeon 8060S Graphics). This mission's machine has an AMD Radeon RX 7900 XTX (gfx1100), driver 32.0.21030.2001. No prior GPU result transfers; P1 must qualify from zero.",
+      "impact": "P1 gate cannot reuse GFX1151_DUAL_GPU_BACKEND_QUALIFIED; a new gfx1100 qualification identity is required.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-02",
+      "title": "Pinned native MiniCPM5 parser fails fixed fixtures (B-009)",
+      "detail": "Official llama.cpp b12359 native parser: strict fixtures 20/26 on both prior backends. Failures cover whitespace in typed values, incomplete structured arguments, out-of-enum values, duplicate JSON keys. Upstream PR #32746 (malformed XML recovery) not merged.",
+      "impact": "Native tool-calling cells may fail for parser reasons, not model reasons. Layer E0/F08/F09 must distinguish parser failures from model failures in every SDK arm.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-03",
+      "title": "MiniCPM5 fails independent sequential tool qualification (B-012)",
+      "detail": "P4b observer candidate passed 25/100 independent sequential cases per backend; TC-V2 first-pass below 90%.",
+      "impact": "Expected low S1 baseline in autonomous modes; this is a research outcome to be re-measured under IJ-SDK M0, not a defect to hide.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-04",
+      "title": "AEVE/Atlas evaluator qualification unresolved",
+      "detail": "Atlas gates G01-G05 and G14 BLOCKED; all Atlas verdicts BLOCKED or NOT_RUN at source commit; another worker is actively qualifying Judge families (Q1 truncation frozen 2026-11-27).",
+      "impact": "P5 must independently qualify every evaluation scope claimed by IJ-SDK-1.0. Qualitative dimensions stay BLOCKED until qualified.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-05",
+      "title": "Historical V1 data lacks confirmed stateful write inputs (B-011)",
+      "detail": "Frozen generator 1.0.2 tool signatures and in-memory synthetic receipts preserve comparability, but some schemas omit resource and approval inputs required by the SQLite Gateway.",
+      "impact": "Transactional/replay cells must use explicit, validated stateful inputs; historical replay stays diagnostic.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-06",
+      "title": "SDK process egress isolation not established (B-010)",
+      "detail": "SDK suites target loopback inference with cleared API keys, but full process egress isolation or trusted traffic observation is still open.",
+      "impact": "P3 CodeAgent sandbox (mission 6.5) and local-only verification (G05) must address egress observation on Windows without changing machine security policy; otherwise mark affected arms BLOCKED with evidence.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-07",
+      "title": "No power meter; energy stays NOT_MEASURED (B-006)",
+      "detail": "No wall-plug power meter or trustworthy whole-machine telemetry.",
+      "impact": "Energy per task reported NOT_MEASURED; GPU TDP never used as a substitute (mission 15.2).",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-08",
+      "title": "Long runs exceed one session (B-004)",
+      "detail": "Multi-hour/24h runs need resumable background execution with checkpoints.",
+      "impact": "P8 execution protocol must implement persistent queue, atomic checkpoints, resume, duplicate detection (mission 11.5).",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-09",
+      "title": "Soak tests need machine awake for days (B-007)",
+      "detail": "24h/168h soak requires owner-approved power settings.",
+      "impact": "Soak gates stay NOT_RUN until the machine can remain awake; partial soak recorded without final soak gate (mission 15.4).",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-10",
+      "title": "C++ toolchain availability unknown on this machine (B-005 predecessor)",
+      "detail": "The previous workstation had no CMake/Ninja/MSVC. This machine has not been checked yet.",
+      "impact": "P1 checks cmake/ninja/MSVC availability; absence restricts debug builds and upstream test-chat but the public-API fixture path remains available.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-11",
+      "title": "Shared mission-state files are actively maintained by another worker",
+      "detail": "MISSION_STATE.json, TASK_LEDGER.md, BLOCKERS.md, HANDOFF.md, DECISIONS.md are being updated by the Atlas worker (last MISSION_STATE update 2026-11-26T17:02Z, commits through 2026-11-27T03:20Z).",
+      "impact": "IJ-SDK-1.0 keeps its own mission ledger (MISSION_STATE_IJSDK.json, TASK_LEDGER_IJSDK.md) and only appends non-conflicting entries to shared files. AGENTS.md requires updating shared ledgers for finished work; the conflict-avoidance rule from the mission order takes precedence for files under active edit by another worker.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-12",
+      "title": "HANDOFF.md contains stale statements",
+      "detail": "HANDOFF says 'No remote. AIwork4me/Inclusive-JobBot does not exist on GitHub' and omits the current machine. The repository is published with PRs #2/#4/#6 and issues #1/#3/#5.",
+      "impact": "Audit statements in IJ-SDK-1.0 documents use live remote state, not HANDOFF prose. HANDOFF.md itself is not edited (other worker owns it).",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-13",
+      "title": "Network constraints on this network",
+      "detail": "files.pythonhosted.org resets TLS; raw.githubusercontent.com unreliable; GitHub release assets throttled to ~100 KB/s per connection (observed on prior machine, assumed similar here until P1 verifies).",
+      "impact": "Use gh api, Tsinghua PyPI mirror with pypi.org hash cross-check, parallel_fetch.py for large assets. Model weights come only from ModelScope (D-006).",
+      "status": "OPEN"
+    },
+    {
+      "id": "L-14",
+      "title": "Previously exposed suites are legacy benchmarks",
+      "detail": "TC-V2, MULTITOOL-V1, AGENTIC-PLAN-V1, JOB-V1 holdouts were exposed to MiniCPM5 and PC-S control models in prior missions.",
+      "impact": "They serve as regression/comparative rosters; fresh unseen holdout (>=1,200 cases) is authored in P6 with protected artifacts (mission 9.3).",
+      "status": "OPEN"
+    }
+  ]
+}

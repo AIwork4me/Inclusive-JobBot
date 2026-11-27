@@ -1,5 +1,6 @@
 # Python
 .venv/
+.venvs/
 __pycache__/
 *.pyc
 .pytest_cache/
@@ -12,11 +13,17 @@ dist/
 .scratch/
 .runtime/
 *.part
+.writer.lock
 
-# Model weights are never committed; only the manifest that describes them.
+# Model weights are never committed; only the manifests that describe them.
+# A directory ignored by "models/*" must be re-included before a file inside it
+# can be, which is why the IJ-SDK passport needed its own two lines.
 models/*
 !models/model_manifest.json
 !models/README.md
+!models/ij_sdk/
+models/ij_sdk/*
+!models/ij_sdk/model_manifest.json
 *.gguf
 *.safetensors
 

@@ -1,0 +1,1121 @@
+{
+ "schema_version": 1,
+ "mission": "IJ-SDK-1.1 (P0R resume and independent baseline audit)",
+ "generated_utc": "2026-11-27T07:52:06Z",
+ "audited_head": "c28a41bad410b66103b499eaaec4ee1b3a227b10",
+ "frozen_source_commit": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+ "identities": {
+  "frozen_source": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+  "audited_head": "c28a41bad410b66103b499eaaec4ee1b3a227b10",
+  "tool_sha256": "55f8170cd35a49861059e8765c03db7744e07525c9de174dff2140b1a5a54ff3"
+ },
+ "git": {
+  "local_head": "71660fbb885d2ee9cdf73c37293ea6f616d86947",
+  "branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
+  "upstream": "origin/mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
+  "ahead_of_upstream": 0,
+  "behind_upstream": 0,
+  "worktree_dirty": true,
+  "audited_head_equals_local_head": false,
+  "frozen_source_is_ancestor": true,
+  "commits_since_frozen_source": 14,
+  "inherited_files_modified_since_frozen_source": [],
+  "local_worktrees": [
+   {
+    "branch": "codex/ij0-tool-calling",
+    "head": "0592c319ab341f70bda979874697386e33ccc680"
+   },
+   {
+    "branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
+    "head": "71660fbb885d2ee9cdf73c37293ea6f616d86947"
+   }
+  ]
+ },
+ "github": {
+  "repository": {
+   "full_name": "AIwork4me/Inclusive-JobBot",
+   "default_branch": "codex/ij0-tool-calling",
+   "visibility": "public",
+   "pushed_at": "2026-11-27T07:48:31Z"
+  },
+  "open_pull_requests": [
+   {
+    "baseRefName": "mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1",
+    "headRefName": "codex/ij-slm-1.0",
+    "headRefOid": "3b2edb733a7456dd0f8d5d15b2834cfaaf8d9703",
+    "isDraft": true,
+    "number": 9,
+    "title": "IJ-SLM-1.0 | 2B-class Agentic Capability Atlas",
+    "updatedAt": "2026-11-27T07:48:32Z"
+   },
+   {
+    "baseRefName": "codex/ij0-tool-calling",
+    "headRefName": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
+    "headRefOid": "71660fbb885d2ee9cdf73c37293ea6f616d86947",
+    "isDraft": true,
+    "number": 8,
+    "title": "IJ-SDK-1.0 | Cross-SDK Agentic Capability Benchmark for 2B-class SLMs",
+    "updatedAt": "2026-11-27T07:06:44Z"
+   },
+   {
+    "baseRefName": "mission/ij-0.7-agentic-capability-qualification",
+    "headRefName": "mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1",
+    "headRefOid": "06f25ab50db9e8ef074d9fb804de3191d7eadb98",
+    "isDraft": true,
+    "number": 6,
+    "title": "IJ-0.7.1 Atlas | baseline audit and benchmark validity controls",
+    "updatedAt": "2026-11-27T05:37:10Z"
+   },
+   {
+    "baseRefName": "mission/ij-0.6-root-cause-and-purpose-built-execution",
+    "headRefName": "mission/ij-0.7-agentic-capability-qualification",
+    "headRefOid": "888f910b99b90dd7a3ac0f8d8760c6a6bbdc4102",
+    "isDraft": true,
+    "number": 4,
+    "title": "IJ-0.7 small-model agentic capability qualification",
+    "updatedAt": "2026-11-24T18:32:05Z"
+   },
+   {
+    "baseRefName": "codex/ij0-tool-calling",
+    "headRefName": "mission/ij-0.6-root-cause-and-purpose-built-execution",
+    "headRefOid": "d2e5b31aa1f0894638f7b648a4cf3591fbb71e6e",
+    "isDraft": true,
+    "number": 2,
+    "title": "IJ-0.6 native tool calling and purpose-built execution",
+    "updatedAt": "2026-11-24T10:16:03Z"
+   }
+  ],
+  "tracking_issue_7": {
+   "state": "OPEN",
+   "updatedAt": "2026-11-27T07:06:41Z"
+  },
+  "parent_dependency": {
+   "branch": "mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1",
+   "head_at_p0_audit": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+   "head_now": "06f25ab50db9e8ef074d9fb804de3191d7eadb98",
+   "advanced_since_freeze": true,
+   "frozen_source_still_reachable_from_parent_branch": true,
+   "pr8_base_is_parent_branch": false,
+   "pr8_base": "codex/ij0-tool-calling"
+  }
+ },
+ "recorded_state": {
+  "updated_utc_recorded": "2026-11-27T14:20:00Z",
+  "current_phase_recorded": "P5 (P0-P3 gates reached)",
+  "phases": {
+   "P0": {
+    "progress": "done",
+    "status": "PASS",
+    "gate": "P0_REPOSITORY_BASELINE_FROZEN"
+   },
+   "P1": {
+    "progress": "done",
+    "status": "PASS",
+    "gate": "P1_GFX1100_PHYSICAL_RUNTIME_GO"
+   },
+   "P2": {
+    "progress": "done",
+    "status": "PASS",
+    "gate": "P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN"
+   },
+   "P3": {
+    "progress": "done",
+    "status": "PASS",
+    "gate": "P3_SDK_ADMISSION_AUDITED"
+   },
+   "P4": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": "P4_CROSS_SDK_HARNESS_GO"
+   },
+   "P5": {
+    "progress": "done",
+    "status": "PASS",
+    "gate": "P5_EVALUATOR_SCOPE_QUALIFIED"
+   },
+   "P6": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P7": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P8": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P9": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P10": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P11": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P12": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P13": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P14": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P15": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P16": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P17": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P18": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   },
+   "P19": {
+    "progress": "not_started",
+    "status": "NOT_RUN",
+    "gate": null
+   }
+  },
+  "final_verdicts_recorded": {
+   "IJ_SDK_1_0_RESEARCH_COMPLETE": "NOT_RUN",
+   "JOBBOT_ARCHITECTURE_SELECTION_GO": "NOT_RUN",
+   "JOBBOT_SYNTHETIC_QUALIFICATION_GO": "NOT_RUN"
+  },
+  "ij_sdk_1_1_verdicts_recorded": "ABSENT"
+ },
+ "recorded_evidence_checks": {
+  "p5_differential": {
+   "controls_total": 14,
+   "positives": 5,
+   "negatives": 9,
+   "critical_rejections_required": 9,
+   "critical_failures": 0,
+   "all_positives_accepted": true,
+   "all_negatives_rejected": false,
+   "gate": "P5 differential battery PASS"
+  },
+  "p3_installed_artifacts": {
+   "environments_recorded": 8,
+   "all_entries_identical": true,
+   "packages_per_entry": {
+    "b2-openai-agents": 27,
+    "b3b4-smolagents": 27,
+    "b5-pydantic-ai": 27,
+    "b6-langgraph": 27,
+    "b7-adk": 27,
+    "b8-agent-framework": 27,
+    "b9-pocketflow": 27,
+    "o1-dspy": 27
+   },
+   "own_sdk_package_present_in_recorded_entry": {
+    "b2-openai-agents": false,
+    "b3b4-smolagents": false,
+    "b5-pydantic-ai": false,
+    "b6-langgraph": false,
+    "b7-adk": false,
+    "b8-agent-framework": false,
+    "b9-pocketflow": false,
+    "o1-dspy": true
+   },
+   "b1_antigravity_recorded": false
+  },
+  "p3_conformance": {
+   "b1": {
+    "support_tier": "sdk-native",
+    "checks": {
+     "c2_chat": "PASS",
+     "c1_connect": "PASS"
+    },
+    "has_tool_roundtrip": false,
+    "wire_records": 0,
+    "c2_final_output_is_text": false,
+    "c2_final_output_prefix": "<google.antigravity.types.ChatResponse object at 0x0000024114229CD0>"
+   },
+   "b2": {
+    "support_tier": "sdk-native",
+    "checks": {
+     "c3_tool_roundtrip": "PASS",
+     "c2_chat": "PASS",
+     "c1_connect": "PASS"
+    },
+    "has_tool_roundtrip": true,
+    "wire_records": 0,
+    "c2_final_output_is_text": false,
+    "c2_final_output_prefix": "None"
+   },
+   "b3": {
+    "support_tier": "sdk-native",
+    "checks": {
+     "c3_tool_roundtrip": "PASS",
+     "c2_chat": "PASS",
+     "c1_connect": "PASS"
+    },
+    "has_tool_roundtrip": true,
+    "wire_records": 0,
+    "c2_final_output_is_text": false,
+    "c2_final_output_prefix": "None"
+   },
+   "b4": {
+    "support_tier": "sdk-native",
+    "checks": {
+     "c3_tool_roundtrip": "PASS",
+     "c2_chat": "PASS",
+     "c1_connect": "PASS"
+    },
+    "has_tool_roundtrip": true,
+    "wire_records": 0,
+    "c2_final_output_is_text": false,
+    "c2_final_output_prefix": "None"
+   },
+   "b5": {
+    "support_tier": "sdk-native",
+    "checks": {
+     "c3_tool_roundtrip": "PASS",
+     "c2_chat": "PASS",
+     "c1_connect": "PASS"
+    },
+    "has_tool_roundtrip": true,
+    "wire_records": 0,
+    "c2_final_output_is_text": false,
+    "c2_final_output_prefix": "None"
+   },
+   "b6": {
+    "support_tier": "sdk-native",
+    "checks": {
+     "c3_tool_roundtrip": "PASS",
+     "c2_chat": "PASS",
+     "c1_connect": "PASS"
+    },
+    "has_tool_roundtrip": true,
+    "wire_records": 0,
+    "c2_final_output_is_text": false,
+    "c2_final_output_prefix": "None"
+   },
+   "b7": {
+    "support_tier": "sdk-native",
+    "checks": {
+     "c3_tool_roundtrip": "PASS",
+     "c2_chat": "PASS",
+     "c1_connect": "PASS"
+    },
+    "has_tool_roundtrip": true,
+    "wire_records": 0,
+    "c2_final_output_is_text": false,
+    "c2_final_output_prefix": "None"
+   },
+   "b8": {
+    "support_tier": "sdk-native",
+    "checks": {
+     "c3_tool_roundtrip": "PASS",
+     "c2_chat": "PASS",
+     "c1_connect": "PASS"
+    },
+    "has_tool_roundtrip": true,
+    "wire_records": 0,
+    "c2_final_output_is_text": false,
+    "c2_final_output_prefix": "None"
+   },
+   "b9": {
+    "support_tier": "custom-adapter",
+    "checks": {
+     "c3_tool_roundtrip": "PASS",
+     "c2_chat": "PASS",
+     "c1_connect": "PASS"
+    },
+    "has_tool_roundtrip": true,
+    "wire_records": 0,
+    "c2_final_output_is_text": false,
+    "c2_final_output_prefix": "None"
+   },
+   "o1": {
+    "support_tier": "sdk-native",
+    "checks": {
+     "c2_chat": "PASS",
+     "c1_connect": "PASS"
+    },
+    "has_tool_roundtrip": false,
+    "wire_records": 0,
+    "c2_final_output_is_text": true,
+    "c2_final_output_prefix": "采购订单是买方向供应商发出的、要求购买特定商品和数量的正式请求文件。"
+   }
+  },
+  "model_manifest": {
+   "present_in_audited_commit": false,
+   "note_if_absent": "models/ij_sdk/model_manifest.json is excluded by the .gitignore rule 'models/*' and was never committed; the P2 report cites it as frozen evidence. The only committed model identities at the audited commit are the model_sha256 fields inside evidence/IJSDK/P2/admission/*.json. Values below are from the working tree.",
+   "generated_utc_recorded": "2026-11-27T13:10:00Z",
+   "entries": {
+    "S1": {
+     "status": "frozen",
+     "has_sha256": true
+    },
+    "S2": {
+     "status": "frozen",
+     "has_sha256": true
+    },
+    "S3a": {
+     "status": "frozen",
+     "has_sha256": true
+    },
+    "S3b": {
+     "status": "verified",
+     "has_sha256": true
+    },
+    "S3c": {
+     "status": "verified",
+     "has_sha256": true
+    },
+    "S3d": {
+     "status": "verified",
+     "has_sha256": true
+    },
+    "R1": {
+     "status": "verified",
+     "has_sha256": true
+    },
+    "R2": {
+     "status": "verified",
+     "has_sha256": true
+    }
+   }
+  }
+ },
+ "artifacts": {
+  "models": {
+   "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q4_K_M.gguf": {
+    "expected_sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+    "expected_source": "models/ij_sdk/model_manifest.json",
+    "live_sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+    "matches": true
+   },
+   "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf": {
+    "expected_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "expected_source": "evidence/IJSDK/P2/admission/S1.json",
+    "live_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "matches": true
+   },
+   "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q4_K_M.gguf": {
+    "expected_sha256": "3793e1e6e2266919d6e015287221b41100175a98eddaba92e111aed3b05c93c4",
+    "expected_source": "models/ij_sdk/model_manifest.json",
+    "live_sha256": "3793e1e6e2266919d6e015287221b41100175a98eddaba92e111aed3b05c93c4",
+    "matches": true
+   },
+   "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf": {
+    "expected_sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+    "expected_source": "evidence/IJSDK/P2/admission/S2.json",
+    "live_sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+    "matches": true
+   },
+   "models/ij_sdk/Qwen3-1.7B-GGUF/Qwen3-1.7B-Q8_0.gguf": {
+    "expected_sha256": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+    "expected_source": "evidence/IJSDK/P2/admission/S3a_qwen3_1.7b.json",
+    "live_sha256": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+    "matches": true
+   },
+   "models/ij_sdk/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf": {
+    "expected_sha256": "a0dfe649137410b7d82f06a209240508e218f32f5b6fd81b69d6932160cfcd9d",
+    "expected_source": "atlas/benchmarks/pc_s_qwen3_14b.json",
+    "live_sha256": "a0dfe649137410b7d82f06a209240508e218f32f5b6fd81b69d6932160cfcd9d",
+    "matches": true
+   },
+   "models/ij_sdk/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf": {
+    "expected_sha256": "408b955510e196121c1c375201744783b5c9a43c7956d73fc78df54c66e883d6",
+    "expected_source": "configs/qwen3_8b_reference.json",
+    "live_sha256": "408b955510e196121c1c375201744783b5c9a43c7956d73fc78df54c66e883d6",
+    "matches": true
+   },
+   "models/ij_sdk/Qwen3.5-2B-GGUF/Qwen3.5-2B-Q8_0.gguf": {
+    "expected_sha256": "1b04acba824817554f4ce23639bc8495ff70453b8fcb047900c731521021f2c1",
+    "expected_source": "evidence/IJSDK/P2/admission/S3d_qwen3.5_2b.json",
+    "live_sha256": "1b04acba824817554f4ce23639bc8495ff70453b8fcb047900c731521021f2c1",
+    "matches": true
+   },
+   "models/ij_sdk/SmolLM3-3B-GGUF/SmolLM3-Q8_0.gguf": {
+    "expected_sha256": "8aa8cc74656137174a1988d993b00828e65a86fd68773412b632a75aa1373248",
+    "expected_source": "evidence/IJSDK/P2/admission/S3c_smollm3_3b.json",
+    "live_sha256": "8aa8cc74656137174a1988d993b00828e65a86fd68773412b632a75aa1373248",
+    "matches": true
+   },
+   "models/ij_sdk/granite-4.0-1b-GGUF/granite-4.0-1b-Q8_0.gguf": {
+    "expected_sha256": "0660c20c3d3d3672b90f0468f62dc128a82a6e3ee2ec05d310d242969be06140",
+    "expected_source": "evidence/IJSDK/P2/admission/S3b_granite_4.0_1b.json",
+    "live_sha256": "0660c20c3d3d3672b90f0468f62dc128a82a6e3ee2ec05d310d242969be06140",
+    "matches": true
+   }
+  },
+  "engine_binaries": {
+   "runtime/llama-cpp/cpu/llama-server.exe": {
+    "live_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+    "p1_recorded_exe_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+    "matches_p1_recorded": true
+   },
+   "runtime/llama-cpp/rocm/llama-server.exe": {
+    "live_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+    "p1_recorded_exe_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+    "matches_p1_recorded": true
+   },
+   "runtime/llama-cpp/vulkan/llama-server.exe": {
+    "live_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+    "p1_recorded_exe_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+    "matches_p1_recorded": true
+   }
+  },
+  "all_hashed_models_match_recorded_identity": true,
+  "models_without_any_recorded_identity": [],
+  "hash_file_supplied": true
+ },
+ "sdk_environments": {
+  "environments": {
+   "b2-openai-agents": {
+    "python": "3.12.10",
+    "package_count": 40,
+    "key_packages": {
+     "openai-agents": "0.26.0",
+     "openai": "3.60.0"
+    }
+   },
+   "b3b4-smolagents": {
+    "python": "3.12.10",
+    "package_count": 37,
+    "key_packages": {
+     "smolagents": "1.26.0",
+     "openai": "3.60.0"
+    }
+   },
+   "b5-pydantic-ai": {
+    "python": "3.12.10",
+    "package_count": 27,
+    "key_packages": {
+     "pydantic-ai-slim": "2.76.0",
+     "openai": "3.60.0"
+    }
+   },
+   "b6-langgraph": {
+    "python": "3.12.10",
+    "package_count": 44,
+    "key_packages": {
+     "langgraph": "1.2.24",
+     "langchain-openai": "1.8.5",
+     "openai": "3.60.0"
+    }
+   },
+   "b7-adk": {
+    "python": "3.12.10",
+    "package_count": 53,
+    "key_packages": {
+     "google-adk": "2.15.1",
+     "openai": "2.54.0"
+    }
+   },
+   "b8-agent-framework": {
+    "python": "3.12.10",
+    "package_count": 212,
+    "key_packages": {
+     "openai-agents": "0.26.0",
+     "agent-framework": "1.26.0",
+     "openai": "3.60.0"
+    }
+   },
+   "b9-pocketflow": {
+    "python": "3.12.10",
+    "package_count": 2,
+    "key_packages": {
+     "pocketflow": "0.0.3"
+    }
+   },
+   "o1-dspy": {
+    "python": "3.12.10",
+    "package_count": 28,
+    "key_packages": {
+     "dspy": "3.5.0"
+    }
+   },
+   "project .venv (not arm-isolated)": {
+    "python": "3.12.10",
+    "package_count": 55,
+    "key_packages": {
+     "google-antigravity": "0.1.24"
+    }
+   }
+  },
+  "isolated_venv_count": 8,
+  "openai_client_version_by_env": {
+   "b2-openai-agents": "3.60.0",
+   "b3b4-smolagents": "3.60.0",
+   "b5-pydantic-ai": "3.60.0",
+   "b6-langgraph": "3.60.0",
+   "b7-adk": "2.54.0",
+   "b8-agent-framework": "3.60.0",
+   "b9-pocketflow": null,
+   "o1-dspy": null,
+   "project .venv (not arm-isolated)": null
+  }
+ },
+ "defect_reproduction": {
+  "evidence": "evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json",
+  "audited_commit": "c28a41bad410b66103b499eaaec4ee1b3a227b10",
+  "tool_sha256": "6693e1b9af9bacbfd146d115dc4782b9e4640f503b0745ab6f03d0f488cf9116",
+  "protected_evidence_byte_identical": true,
+  "per_defect": {
+   "D01": {
+    "title": "Oracle qualification false-pass risk",
+    "reproduced": 6,
+    "not_reproduced": 0,
+    "not_applicable": 0,
+    "probe_error": 0
+   },
+   "D02": {
+    "title": "Semantic false positives in business correctness",
+    "reproduced": 16,
+    "not_reproduced": 0,
+    "not_applicable": 0,
+    "probe_error": 0
+   },
+   "D03": {
+    "title": "Final business state not validated",
+    "reproduced": 9,
+    "not_reproduced": 0,
+    "not_applicable": 0,
+    "probe_error": 0
+   },
+   "D04": {
+    "title": "Adapter session contamination",
+    "reproduced": 5,
+    "not_reproduced": 0,
+    "not_applicable": 0,
+    "probe_error": 0
+   },
+   "D05": {
+    "title": "Resource budgets not strictly enforced",
+    "reproduced": 13,
+    "not_reproduced": 0,
+    "not_applicable": 0,
+    "probe_error": 0
+   },
+   "D06": {
+    "title": "Gateway authorization and fault-injection order",
+    "reproduced": 13,
+    "not_reproduced": 1,
+    "not_applicable": 0,
+    "probe_error": 0
+   },
+   "D07": {
+    "title": "Evidence contract (capture labels, correlation, completeness)",
+    "reproduced": 13,
+    "not_reproduced": 0,
+    "not_applicable": 0,
+    "probe_error": 0
+   }
+  },
+  "total_probes": 76,
+  "reproduced": 75,
+  "not_reproduced": [
+   {
+    "id": "D06.07",
+    "title": "VERIFICATION: fault index fires on the documented invocation",
+    "observed": {
+     "fault_call_index": 1,
+     "first_invocation_result": {
+      "name": "get_purchase_order",
+      "result": {}
+     },
+     "second_invocation_result": {
+      "name": "get_purchase_order",
+      "result": {
+       "total_amount": 17420.5
+      }
+     },
+     "fault_fired_on_invocation": 1,
+     "documented_as": "1-based"
+    }
+   }
+  ],
+  "weakened_oracle_mutants": {
+   "applied": 16,
+   "survivors": [
+    "M03",
+    "M04",
+    "M07",
+    "M08",
+    "M10",
+    "M11",
+    "M13",
+    "M15"
+   ]
+  }
+ },
+ "phase_gate_dispositions": [
+  {
+   "phase": "P0",
+   "gate": "P0_REPOSITORY_BASELINE_FROZEN",
+   "recorded": "PASS",
+   "audited": "PASS",
+   "disposition": "KEEP (point-in-time audit)",
+   "basis": "Suite roster and frozen-source verification stand. The report's PR #6 head (fe56f324) was true at audit time; the parent branch has since advanced. The frozen source remains an ancestor of the parent branch."
+  },
+  {
+   "phase": "P1",
+   "gate": "P1_GFX1100_PHYSICAL_RUNTIME_GO",
+   "recorded": "PASS",
+   "audited": "PASS (scope narrowed)",
+   "disposition": "KEEP_WITH_NARROWED_SCOPE",
+   "basis": "Vulkan arm: API check exit 0, tool smoke exit 0, 43/43 layers, counters bound to the server PID. Limits now explicit: (1) streaming/non-streaming byte parity was shown on one prompt set only - not universal backend determinism; (2) per-check detail lives only in gitignored scratch, published evidence carries exit codes; (3) the run overwrote inherited parent-mission evidence files (finding E-03); (4) qualification used the pre-hardening harness and is re-verified with the formal adapters in P8A."
+  },
+  {
+   "phase": "P2",
+   "gate": "P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN",
+   "recorded": "PASS",
+   "audited": "PASS (scope = development admission)",
+   "disposition": "KEEP_WITH_NARROWED_SCOPE",
+   "basis": "Live SHA256 of every mandatory model matches the identity recorded in the committed admission evidence. Admission is a 10-case development smoke per candidate and is not a capability ranking. The model manifest cited as the passport was never committed (finding E-22) and lagged the evidence (S3/R1/R2 'downloading', no SHA256 for S3); it is now committed with live-verified identities. Q8_0 was the only quantization admitted; the Q4-class comparison is P8A."
+  },
+  {
+   "phase": "P3",
+   "gate": "P3_SDK_ADMISSION_AUDITED",
+   "recorded": "PASS",
+   "audited": "FAIL",
+   "disposition": "REOPENED - gate claim contradicted by its own evidence",
+   "basis": "The recorded claim 'all 10 arms pass C1/C2/C3' is false: B1 has no tool round-trip and its chat check passed on a truthy non-string object; O1 has no tool round-trip; C1/C2 are asserted, not tested; no wire capture exists; installed_artifacts.json is the DSPy freeze repeated for every environment (finding E-04); B4 executed model-generated code unsandboxed on the host. Retained as research admission only: a single-prompt tool round-trip on S1/Q8_0/Vulkan for B2-B9. Re-qualified in P4B."
+  },
+  {
+   "phase": "P4",
+   "gate": "P4_CROSS_SDK_HARNESS_GO",
+   "recorded": "NOT_RUN (ledger: harness core 'done PASS')",
+   "audited": "FAIL for the harness core; gate NOT_RUN",
+   "disposition": "REOPENED - ledger row corrected",
+   "basis": "D04 (session contamination), D05 (budgets), D06 (gateway order) and D07 (evidence contract) reproduce against the audited commit. The gate itself was never claimed. Repaired and re-qualified in P4A/P4B."
+  },
+  {
+   "phase": "P5",
+   "gate": "P5_EVALUATOR_SCOPE_QUALIFIED",
+   "recorded": "PASS",
+   "audited": "FAIL",
+   "disposition": "REOPENED - gate claim contradicted by its own evidence",
+   "basis": "The published result reads gate=PASS beside all_negatives_rejected=false; 8 of 16 intentionally weakened oracles still pass the battery; 16 semantically wrong answers receive a correct verdict; the final business state is never reconstructed. No E-scope qualification survives. Re-qualified in P5R."
+  },
+  {
+   "phase": "P6",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P7",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P8",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P9",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P10",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P11",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P12",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P13",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P14",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P15",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P16",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P17",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P18",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  },
+  {
+   "phase": "P19",
+   "gate": null,
+   "recorded": "NOT_RUN",
+   "audited": "NOT_RUN",
+   "disposition": "UNCHANGED",
+   "basis": ""
+  }
+ ],
+ "ledger_corrections": [
+  {
+   "location": "MISSION_STATE_IJSDK.json P3",
+   "recorded": "PASS; 'All 10 arms (B1-B9, O1) pass C1/C2/C3'",
+   "problem": "b1.json has no c3 check; its c2 passed on a non-string object; wire arrays are empty",
+   "correction": "FAIL (reopened); retained scope = single-prompt tool round-trip for B2-B9"
+  },
+  {
+   "location": "MISSION_STATE_IJSDK.json P5",
+   "recorded": "PASS; '14/14 controls, 0 critical failures'",
+   "problem": "gate=PASS beside all_negatives_rejected=false; N07/N08 accepted; no rule attribution",
+   "correction": "FAIL (reopened); superseded by P5R"
+  },
+  {
+   "location": "MISSION_STATE_IJSDK.json P4 vs TASK_LEDGER_IJSDK.md P4 rows",
+   "recorded": "state: not_started; ledger: harness core 'done PASS'",
+   "problem": "the two ledgers contradict each other, and the harness core fails D04-D07",
+   "correction": "P4 harness core = FAIL (reopened); remaining adapters NOT_RUN"
+  },
+  {
+   "location": "TASK_LEDGER_IJSDK.md P2 row 'Admission smoke runs S1/S2/S3 + R1/R2 downloads'",
+   "recorded": "not started / NOT_RUN",
+   "problem": "duplicate stale row; contradicts the PASS row above it",
+   "correction": "superseded by the PASS row (kept for history, marked superseded)"
+  },
+  {
+   "location": "TASK_LEDGER_IJSDK.md P3 row 'SDK passports + isolated installs + admission'",
+   "recorded": "not started / NOT_RUN",
+   "problem": "duplicate stale row; contradicts the PASS row above it",
+   "correction": "superseded; the PASS row itself is reopened (see P3)"
+  },
+  {
+   "location": "TASK_LEDGER_IJSDK.md P3 row '10 isolated SDK venvs installed'",
+   "recorded": "10 isolated SDK venvs, pip freeze per venv",
+   "problem": "8 venvs exist; B1 sits in the shared project venv; the recorded freeze is one environment's list",
+   "correction": "8 isolated venvs + B1 in the project venv; true per-environment freeze recorded in P0R/P4B"
+  },
+  {
+   "location": "TASK_LEDGER_IJSDK.md P0 row 'upstream tracking unset'",
+   "recorded": "upstream tracking unset",
+   "problem": "the branch tracks origin and has been pushed since",
+   "correction": "tracks origin/<branch>; ahead 0 / behind 0 at reconciliation"
+  },
+  {
+   "location": "PR #8 body / Issue #7 body / P0-P5 reports 'stacked on PR #6'",
+   "recorded": "'stacked on PR #6'",
+   "problem": "the PR base is the default branch, not the PR #6 branch; stacking is documentary only",
+   "correction": "described as 'branched from the PR #6 tip; base = default branch'"
+  },
+  {
+   "location": "PR #8 body; Issue #7 body",
+   "recorded": "P1 in progress; P2-P5 NOT_RUN",
+   "problem": "stale relative to MISSION_STATE_IJSDK.json",
+   "correction": "rewritten at delivery with the audited gate table"
+  },
+  {
+   "location": "models/ij_sdk/model_manifest.json",
+   "recorded": "cited by the P2 report and ledger as the frozen model passport",
+   "problem": "the file is gitignored (models/*) and was never committed; it exists only on the workstation",
+   "correction": ".gitignore re-includes the manifest; it is committed with live-verified identities (weights stay ignored)"
+  },
+  {
+   "location": "models/ij_sdk/model_manifest.json",
+   "recorded": "S3b/S3c/S3d/R1/R2 status 'downloading'; no SHA256 for S3",
+   "problem": "files are on disk and hash-verified; S3 identity was recorded only in admission evidence",
+   "correction": "manifest updated with live-verified SHA256 and status 'verified'"
+  },
+  {
+   "location": "models/ij_sdk/model_manifest.json admission blocks",
+   "recorded": "dev_score 8/10 for S1 and S2; weaknesses quote dev-gen v1.0.0 results",
+   "problem": "the v1.0.1 rerun scored 9/10 for S1/S2 and is the record of note in the P2 report",
+   "correction": "dev_score and fail_families derived from the v1.0.1 evidence cases; v1.0.0 values kept as history"
+  },
+  {
+   "location": "evidence/IJ0/model_identity.json, evidence/IJ0/rocm_runtime_install.json, models/model_manifest.json",
+   "recorded": "2026-11-27 gfx1100 output",
+   "problem": "inherited 2026-11-24 parent-mission records overwritten on this branch",
+   "correction": "originals restored from the frozen source; the gfx1100 re-run preserved under evidence/IJSDK/P1/"
+  }
+ ],
+ "integrity_findings": [
+  {
+   "id": "E-01",
+   "severity": "critical",
+   "status": "REPRODUCED",
+   "title": "Oracle qualification gate PASS beside all_negatives_rejected=false",
+   "detail": "The gate expression ignores all_negatives_rejected; the exit code is 0. The published summary is reproduced exactly.",
+   "evidence": "D01.01"
+  },
+  {
+   "id": "E-02",
+   "severity": "critical",
+   "status": "REPRODUCED",
+   "title": "No rule attribution; duplicate effect undetectable",
+   "detail": "N06 and N07 are 'rejected' with rules=[]; N07's expected list admits CORRECT_RESULT; a duplicate write with a completion-style answer yields CORRECT_RESULT; expects_duplicate_detection is never read.",
+   "evidence": "D01.02, D01.04, D01.05"
+  },
+  {
+   "id": "E-03",
+   "severity": "critical",
+   "status": "REPRODUCED",
+   "title": "8 of 16 weakened oracles pass the published battery",
+   "detail": "Dropping rule attribution, tolerating wrong arguments, accepting any refusal, ignoring completion markers, mislabelling an unauthorized state change, dropping entity mentions and ignoring empty answers all survive.",
+   "evidence": "D01.06"
+  },
+  {
+   "id": "E-04",
+   "severity": "critical",
+   "status": "REPRODUCED",
+   "title": "Substring semantics accept wrong business answers",
+   "detail": "Polarity (合格/不合格, approved/not approved), numbers inside numbers (100 in 1100), zero vs non-zero, negated refusals, conflicting statements, wrong currency/unit, wrong entity association and added false assertions all receive CORRECT_RESULT or CORRECT_REFUSAL.",
+   "evidence": "D02.01-D02.16"
+  },
+  {
+   "id": "E-05",
+   "severity": "critical",
+   "status": "REPRODUCED",
+   "title": "Final business state is never validated",
+   "detail": "final_state_hash is never read; an unauthorized write with no rejection event is CORRECT_RESULT; a rejected attempt plus an authorized change is reported as UNAUTHORIZED_STATE_CHANGE; partial writes and policy violations raise no rule.",
+   "evidence": "D03.01-D03.09"
+  },
+  {
+   "id": "E-06",
+   "severity": "high",
+   "status": "REPRODUCED",
+   "title": "Adapter session contamination",
+   "detail": "Usage, counters, tokens, tool registrations and the business world survive reset_session; the next trial inherits cumulative counts and fails on a budget it never consumed ([PASS, FAIL, FAIL] vs [PASS, PASS, PASS]).",
+   "evidence": "D04.01-D04.05"
+  },
+  {
+   "id": "E-07",
+   "severity": "high",
+   "status": "REPRODUCED",
+   "title": "Budgets not enforced",
+   "detail": "180 generated tokens against a 100 budget (PASS); requests always ask for 1024 tokens; 1.6 s against a 1.0 s deadline; failed attempts uncharged; timeout, malformed and truncated responses escape run_task as uncaught exceptions.",
+   "evidence": "D05.01-D05.13"
+  },
+  {
+   "id": "E-08",
+   "severity": "critical",
+   "status": "REPRODUCED",
+   "title": "Fault injection grants permission",
+   "detail": "A write-denied action under a scheduled stale_data or malicious_content fault executed the handler (inventory 120 -> 115) and returned data instead of a denial; under malicious_content the injected instruction rode on real data.",
+   "evidence": "D06.01-D06.06"
+  },
+  {
+   "id": "E-09",
+   "severity": "high",
+   "status": "REPRODUCED",
+   "title": "No schema validation, idempotency, transaction or audit",
+   "detail": "Handlers receive invalid arguments; the same write applies twice; a failed handler's partial mutation persists; denials leave no record; a failing permission check escapes as an exception.",
+   "evidence": "D06.08-D06.13"
+  },
+  {
+   "id": "E-10",
+   "severity": "medium",
+   "status": "REPRODUCED (low frequency)",
+   "title": "Concurrent dispatch is nondeterministic",
+   "detail": "With 4 threads over 1500 runs the scheduled fault applied to 0 or 2 calls in 32 runs; 0 of 200 runs with 2 threads.",
+   "evidence": "D06.14"
+  },
+  {
+   "id": "E-11",
+   "severity": "high",
+   "status": "REPRODUCED",
+   "title": "Evidence contract violations",
+   "detail": "A parsed Chat Completions body is labelled model_generation; no event or parent IDs; tools correlated by position; five stages neither emitted nor declared; sequence numbers restart on reopen; missing, duplicated, reordered and corrupted evidence is accepted as CORRECT_RESULT.",
+   "evidence": "D07.01-D07.13"
+  },
+  {
+   "id": "E-12",
+   "severity": "high",
+   "status": "CONFIRMED",
+   "title": "Inherited parent-mission evidence overwritten",
+   "detail": "Running the inherited installers on this machine replaced evidence/IJ0/model_identity.json and evidence/IJ0/rocm_runtime_install.json (2026-11-24 gfx1151 records) and the timestamp of models/model_manifest.json.",
+   "evidence": "git diff fe56f32..c28a41b -- evidence/IJ0 models/model_manifest.json"
+  },
+  {
+   "id": "E-13",
+   "severity": "high",
+   "status": "CONFIRMED",
+   "title": "P3 installed-artifact record is invalid",
+   "detail": "All eight entries of evidence/IJSDK/P3/installed_artifacts.json are the DSPy environment's 27-package freeze; none of the other seven SDKs' dependency identities were recorded.",
+   "evidence": "recorded_evidence_checks.p3_installed_artifacts"
+  },
+  {
+   "id": "E-14",
+   "severity": "high",
+   "status": "CONFIRMED",
+   "title": "B1 (Antigravity) conformance claim unsupported",
+   "detail": "No tool round-trip exists in code or evidence; c2_chat passed on a truthy ChatResponse object.",
+   "evidence": "recorded_evidence_checks.p3_conformance.b1"
+  },
+  {
+   "id": "E-15",
+   "severity": "medium",
+   "status": "CONFIRMED",
+   "title": "No wire capture was ever recorded",
+   "detail": "wire is an empty list in all ten conformance records although the P3 report says the fields record what each SDK exposes.",
+   "evidence": "recorded_evidence_checks.p3_conformance[*].wire_records"
+  },
+  {
+   "id": "E-16",
+   "severity": "medium",
+   "status": "CONFIRMED",
+   "title": "B4 executed model-generated code unsandboxed on the host",
+   "detail": "The P3 probe ran CodeAgent with the default in-process Python executor (add_base_tools=False is the only restriction).",
+   "evidence": "benchmarks/ij_sdk/conformance.py probe_b3_b4"
+  },
+  {
+   "id": "E-17",
+   "severity": "medium",
+   "status": "CONFIRMED",
+   "title": "No regression tests exist for the harness or the oracle",
+   "detail": "No file under tests/ references ij_sdk; the oracle and its controls landed in one commit, so the '4 defects fixed by differential testing' have no red state in history.",
+   "evidence": "git log -- evaluation/ij_sdk; grep -rl ij_sdk tests"
+  },
+  {
+   "id": "E-18",
+   "severity": "medium",
+   "status": "CONFIRMED",
+   "title": "Cross-arm dependency confounds",
+   "detail": "B7 runs openai 2.54.0 while every other arm runs openai 3.60.0; B8's environment has 211 packages (pip freeze) and depends on openai-agents 0.26.0, so B8 and B2 do not have independent stacks.",
+   "evidence": "sdk_env_facts"
+  },
+  {
+   "id": "E-19",
+   "severity": "low",
+   "status": "CONFIRMED",
+   "title": "Parent dependency advanced and sibling work appeared",
+   "detail": "PR #6's branch advanced beyond the frozen source; PR #9 (codex/ij-slm-1.0) was opened. The frozen source stays an ancestor. Neither was touched.",
+   "evidence": "github_facts.parent_dependency"
+  },
+  {
+   "id": "E-20",
+   "severity": "low",
+   "status": "CONFIRMED",
+   "title": "G01-G20 acceptance gates are not defined in the repository",
+   "detail": "Only the parent Atlas gate system (G00-G29) is present; no IJ-SDK gate list exists to map phases onto.",
+   "evidence": "ACCEPTANCE_GATE_MAPPING"
+  },
+  {
+   "id": "E-21",
+   "severity": "low",
+   "status": "NOT REPRODUCED",
+   "title": "Suspected fault-index off-by-one",
+   "detail": "Counterevidence: Fault(call_index=1) fires on the first invocation, as documented. Closed as not a defect.",
+   "evidence": "D06.07"
+  },
+  {
+   "id": "E-22",
+   "severity": "high",
+   "status": "CONFIRMED",
+   "title": "IJ-SDK model manifest was never committed",
+   "detail": "models/ij_sdk/model_manifest.json is excluded by the .gitignore rule 'models/*'. The P2 report and ledger cite it as the frozen model passport, but it existed only on the workstation. Published model identities therefore rest solely on the model_sha256 fields of the admission evidence files.",
+   "evidence": "git cat-file -e c28a41b:models/ij_sdk/model_manifest.json (absent); git check-ignore -v"
+  }
+ ],
+ "acceptance_gate_mapping": {
+  "phase_gates_and_final_acceptance_gates_are_different_systems": true,
+  "ij_sdk_final_acceptance_gate_list_present_in_repository": false,
+  "only_gate_system_in_repository": {
+   "system": "parent Atlas (G00-G29)",
+   "belongs_to_mission": "IJ-0.7.1 Atlas",
+   "path": "atlas/gates.json"
+  },
+  "phase_gates_mapped_to_acceptance_gates": 0,
+  "acceptance_gates_satisfied_by_evidence": 0,
+  "statement": "Phase gates P0-P19 record phase completion. The G01-G20 final acceptance gates of the original mission order are not defined anywhere in the repository, so no phase gate can be mapped onto one and none is reported as satisfied. Mapping requires the owner to supply the G01-G20 definitions.",
+  "phase_gate_summary_after_audit": {
+   "PASS": [
+    "P0",
+    "P1 (narrowed)",
+    "P2 (narrowed)"
+   ],
+   "FAIL_reopened": [
+    "P3",
+    "P4 harness core",
+    "P5"
+   ],
+   "NOT_RUN": "P6-P19 and the P4 gate itself"
+  }
+ },
+ "formal_gpu_matrix_authorized": false,
+ "formal_gpu_matrix_authorization_basis": "P4A, P4B, P5R, P6, P7 and P8A have not passed; P3 and P5 are reopened as FAIL."
+}

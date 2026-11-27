@@ -70,7 +70,7 @@ try {
         if ($engine.CimInstanceProperties.Name -notcontains "UtilizationPercentage") {
           throw "Win32_PerfFormattedData_GPUPerformanceCounters_GPUEngine has no UtilizationPercentage property"
         }
-        [void]$rows.Add([ordered]@{ t = $stamp; elapsed_s = $sampleStarted; kind = "gpu_engine"; engtype = $type; utilization = [double]$engine.UtilizationPercentage })
+        [void]$rows.Add([ordered]@{ t = $stamp; elapsed_s = $sampleStarted; kind = "gpu_engine"; instance = $engine.Name; engtype = $type; utilization = [double]$engine.UtilizationPercentage })
       }
       foreach ($memory in @(Get-CimInstance $processMemoryClass -ErrorAction Stop | Where-Object { $_.Name -like $pidPattern })) {
         [void]$rows.Add([ordered]@{ t = $stamp; elapsed_s = $sampleStarted; kind = "gpu_process_memory"; instance = $memory.Name; dedicated_bytes = [long]$memory.DedicatedUsage; shared_bytes = [long]$memory.SharedUsage; committed_bytes = [long]$memory.TotalCommitted })

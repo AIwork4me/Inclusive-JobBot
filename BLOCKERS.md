@@ -1,5 +1,25 @@
 # Blockers
 
+## IJ-0.7.3
+
+- Q3 evaluator credentials are absent for all 600 historical family, dimension and risk combinations. Evaluation engineering owns the independent roster freeze and replay of complete routes. The Gold source replay is in-scope development evidence. [Route matrix](evidence/IJ073/aeve/historical_route_matrix.json)
+
+- The four initial local Judge families failed the frozen thresholds on all 3,228 completed Gold assessments. Evaluation engineering owns fresh qualification of revised configurations and independent families. The full historical review requires enough admitted independent families for each subject and an independent third family on disagreement. Status, counts and pinned inputs are in [the qualification report](reports/IJ073_JUDGE_QUALIFICATION.md).
+- The original reviewed archives lack sufficient decision evidence for 36 historical physical trials. Preserve them in the completeness denominator. The remaining 17,458 have citable stage projections. [Coverage](evidence/IJ073/aeve/history/coverage.json)
+
+- Benchmark engineering owns the open Oracle qualification. In 81 of 128 originally rejected plans the archived independent path cannot be expressed using the proposed nodes even with relaxed guards. Repaired V2 witnesses now pass on all 800 frozen worlds. Remaining engineering gates include independent transaction, rollback and audit checks and end-to-end model transport. See the [per-case analysis](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md).
+- Independent reviewers own formal human calibration after the AEVE and review-packet freezes. The original 22-case packet remains unreviewed. Formal benchmark validity and new physical qualification depend on the specified gates.
+
+## IJ-0.7.1 Atlas
+
+| ID | Status | Owner | Condition |
+|---|---|---|---|
+| B-IJ071-01 | BLOCKED | Benchmark engineering | The frozen Plan-first initial gate fails on 128/800 independent software witnesses. The revised scorer freeze and cross-suite qualification depend on the discrepancy review and the independent human assessments. Both 540-trial PC-S controls and all 1,152 PC-P physical trials are sealed. |
+| B-IJ071-02 | BLOCKED | Benchmark engineering | The legacy JOB-V1 controller yielded the Radeon slot. Arm A is sealed, and Arm B has seven unsealed records. The A1 reference and prompt queues and the matched draft authorization diagnostic are sealed. Further qualification depends on the A1 gate. See `atlas/physical_queue.json`. |
+| B-IJ071-03 | CLOSED | Runtime engineering | The pinned Qwen3-8B launchers completed the frozen Planning and MULTITOOL PC-S trials with raw wire and GPU evidence. |
+| B-IJ072-01 | BLOCKED | Independent human reviewers | The 22-case score-blind packet is ready. Independent assessments and reconciliation are pending. See `reports/ATLAS_A1_BLIND_REVIEW.md`. |
+| B-IJ072-02 | BLOCKED | Benchmark engineering and independent reviewers | The frozen initial plan evaluator accepts 602 contradictory action-condition mutations. The original traces and scores are preserved. A revised condition contract needs blind validation against the ambiguous public cases and independent positive and negative witnesses. See `evidence/IJ072/benchmark_validity/planning-precondition-controls.json`. |
+
 Status values: `OPEN`, `MITIGATED` (workaround in use, cause still present),
 `CLOSED`. "Owner" is who can remove the cause.
 
@@ -77,18 +97,17 @@ The 24-hour and 168-hour soak tests and large benchmark runs need real elapsed
 time. They are launched as resumable background jobs with checkpoints and are
 reported with the real completed duration only.
 
-## B-005 No C++ toolchain: upstream parser unit tests cannot be built locally
+## B-005 Upstream parser unit tests require the native C++ build
 
 - Priority: P1
-- Status: OPEN
-- Owner: machine owner
+- Status: CLOSED (2026-11-24)
+- Owner: project
 - Found: 2026-11-24, IJ-0 tool-calling step
 
-The machine has no CMake, Ninja, MSVC or Clang. That blocks two things the
-change order allows: running llama.cpp's own `test-chat` at the pinned commit
-(PR #24889 added MiniCPM5 cases to it), and building a debug binary to capture
-raw model output before the parser sees it. Installing Visual Studio is a
-system-level change the project does not make on its own.
+The initial PATH probes found no toolchain. IJ-0.6 located an existing Visual
+Studio Community 2026 installation via `vswhere`, with MSVC 19.52, CMake
+4.3.1 and Ninja. Use its process-local developer environment. The pinned
+`test-chat` and the direct probe both built and ran. [Windows test-chat evidence](evidence/IJ06/parser/p0-windows-upstream-test-chat.log)
 
 **Workaround in use.** The fixture runner reaches the native parser through
 the public API via assistant prefix continuation. It verifies that successful
@@ -117,25 +136,64 @@ The 168-hour soak test needs real elapsed time with the machine awake and the
 remote session undisturbed. Sleep and hibernation settings are the owner's to
 change; the project does not touch power settings.
 
-## B-008 The original ECO-01 SDK checklist is unavailable in the checkout
+The IJ-0.7 read-only power query showed timeout 0 for both AC and DC idle
+sleep in the active scheme. The uninterrupted test interval and single-GPU
+availability remain unverified. No power policy change was applied.
+
+## B-008 The original ECO-01 SDK checklist was unavailable in the checkout
 
 - Priority: P0 for full SDK acceptance
-- Status: OPEN
-- Owner: project owner (provide the change order)
+- Status: CLOSED (2026-11-24)
+- Owner: project
 
-The handoff references a 12-item SDK acceptance checklist. The checkout and
-its Git history contain no copy. The SDK tool-loop smoke can be measured
-independently. The owner requested new thresholds, which are established in
-`docs/decisions/ADR-002-IJ0-TOOL-CALLING-ACCEPTANCE.md`.
+The owner provided the twelve gates in the IJ-0.6 mission. The restored
+requirements are in `docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md`. Technical
+qualification is tracked independently.
 
 ## B-009 The pinned MiniCPM5 native parser fails the fixed fixtures
 
 - Priority: P0 for native tool-calling qualification
-- Status: OPEN
+- Status: MITIGATED
 - Owner: project
 
 The official llama.cpp b12359 native parser fails fixed expectations.
 Observed failures cover whitespace in a typed value, incomplete structured
-arguments, out-of-enum values and duplicate JSON keys. The benchmark host
-validates tool proposals independently. Qualify any parser fix or alternate
-engine identity as a separate run.
+arguments, out-of-enum values and duplicate JSON keys. P4b closes the measured
+native defects in fixture conformance on the separate CPU/Vulkan/ROCm candidate.
+The original pinned binary still fails the frozen suite. Independent model
+admission and production selection are pending. [Parser report](reports/IJ06_PARSER_ROOT_CAUSE_REPORT.md)
+
+## B-010 SDK process egress has no trusted observation or isolation
+
+- Priority: P0 for AG-11
+- Status: OPEN
+- Owner: project and machine owner if machine-level changes are needed
+
+Both SDK suites target a verified loopback inference service with API keys
+cleared. Full process egress isolation or complete trusted traffic observation
+is still needed. Preserve the network and remote session during this test.
+
+## B-011 Historical V1 data lacks confirmed stateful write inputs
+
+- Priority: P0 for IJ-0.7 transactional and SDK replay evidence
+- Status: OPEN
+- Owner: project
+
+The frozen generator 1.0.2 tool signatures and in-memory synthetic receipts
+preserve experimental comparability. Some schemas omit resource and approval
+inputs required by the SQLite Gateway. Record the original diagnostic as
+executed and exercise the validated stateful path with independent, explicit
+inputs. [Historical replay](reports/IJ07_HISTORICAL_REPRODUCTION.md)
+
+## B-012 MiniCPM5 fails independent sequential tool qualification
+
+- Priority: P0 for IJ-0.7 model and production qualification
+- Status: OPEN
+- Owner: project
+
+The P4b observer candidate passed 25/100 independent sequential cases on
+each Radeon backend. Both full TC-V2 first-pass rates were below 90%.
+Trace the omitted calls, incorrect arguments and final facts through the
+preserved raw requests and checkpoint hashes before testing any revised
+model profile. Keep the completed holdout immutable.
+[TC-V2 qualification](reports/IJ07_TC_V2_QUALIFICATION.md)

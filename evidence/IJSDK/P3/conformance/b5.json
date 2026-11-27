@@ -1,0 +1,27 @@
+{
+ "schema_version": 1,
+ "arm": "b5",
+ "checked_utc": "2026-11-27T05:44:59Z",
+ "python": "3.12.10",
+ "packages": {
+  "pydantic-ai-slim": "2.76.0"
+ },
+ "support_tier": "sdk-native",
+ "checks": {
+  "c3_tool_roundtrip": {
+   "status": "PASS",
+   "final_output": {
+    "order_id": "PO-2026-0001",
+    "total": 17420.5
+   }
+  },
+  "c2_chat": {
+   "status": "PASS"
+  },
+  "c1_connect": {
+   "status": "PASS"
+  }
+ },
+ "notes": "OpenAIChatModel('openai-chat:' prefix forces Chat Completions); ToolOutput for local models",
+ "wire": []
+}

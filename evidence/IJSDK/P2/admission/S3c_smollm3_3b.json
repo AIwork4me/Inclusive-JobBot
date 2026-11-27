@@ -1,0 +1,83 @@
+{
+ "schema_version": 1,
+ "candidate": "S3c-smollm3-3b",
+ "alias": "smollm3-3b",
+ "model_path": "models/ij_sdk/SmolLM3-3B-GGUF/SmolLM3-Q8_0.gguf",
+ "model_sha256": "8aa8cc74656137174a1988d993b00828e65a86fd68773412b632a75aa1373248",
+ "backend": "vulkan",
+ "started_utc": "2026-11-27T04:59:35Z",
+ "gpu": {
+  "layers_offloaded": 37,
+  "layers_total": 37
+ },
+ "cases": {
+  "basic_instruction": {
+   "pass": true,
+   "detail": [
+    true,
+    true
+   ],
+   "status": "PASS"
+  },
+  "json_generation": {
+   "pass": false,
+   "valid": 0,
+   "schema_ok": 0,
+   "n": 12,
+   "status": "FAIL"
+  },
+  "zero_tool_response": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "single_tool_invocation": {
+   "pass": false,
+   "ok": 0,
+   "n": 8,
+   "status": "FAIL"
+  },
+  "tool_result_continuation": {
+   "pass": false,
+   "ok": 0,
+   "n": 6,
+   "status": "FAIL"
+  },
+  "multiple_sequential_tools": {
+   "pass": false,
+   "ok": 0,
+   "n": 6,
+   "status": "FAIL"
+  },
+  "structured_output": {
+   "pass": true,
+   "status": "PASS"
+  },
+  "invalid_argument_recovery": {
+   "pass": false,
+   "detail": "no first call",
+   "status": "FAIL"
+  },
+  "context_handling": {
+   "pass": true,
+   "status": "PASS"
+  },
+  "stop_conditions": {
+   "pass": true,
+   "finish_reason": "length",
+   "completion_tokens": 96,
+   "status": "PASS"
+  }
+ },
+ "finished_utc": "2026-11-27T04:59:58Z",
+ "token_usage": {
+  "prompt_tokens": 6684,
+  "completion_tokens": 3678
+ },
+ "dev_score": {
+  "passed_cases": 5.0,
+  "scored_cases": 10,
+  "rate": 0.5
+ }
+}

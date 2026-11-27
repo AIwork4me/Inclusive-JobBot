@@ -1,0 +1,103 @@
+name: Evidence and privacy validation
+on:
+  [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pytest==9.2.0 jsonschema==4.26.0
+      - run: python scripts/tools/scan_sensitive.py
+      - run: python scripts/tools/verify_atlas_artifacts.py
+      - run: python -m scripts.tools.ij073_verify
+      - run: python scripts/tools/atlas_progress.py --check
+      - run: python scripts/tools/atlas_reference_panel.py --check
+      - run: python scripts/tools/atlas_replay_planning.py --check
+      - run: python scripts/tools/atlas_controls.py --check
+      - run: |
+          python -m scripts.tools.atlas_quote_controls evidence/IJ072/benchmark_validity/quote-controls.json --check
+          python -m scripts.tools.atlas_failure_ledger --check
+          python -m scripts.tools.atlas_planning_intent_controls --check
+          python -m scripts.tools.atlas_tc_holdout_witness --check
+          python -m scripts.tools.atlas_tc_holdout_witness --extended --check
+          python -m scripts.tools.atlas_multitool_witness --check
+          python -m scripts.tools.atlas_multitool_witness --observed-draft-controls --check
+          python -m scripts.tools.atlas_multitool_witness --extended --check
+          python -m scripts.tools.atlas_multitool_witness --unicode --check
+          python -m scripts.tools.atlas_compare_pc_p_pilot --matrix --check
+          python -m scripts.tools.atlas_planning_read_controls --check
+          python -m scripts.tools.atlas_planning_advanced_controls --check
+          python -m scripts.tools.atlas_planning_write_controls --check
+          python -m scripts.tools.atlas_planning_plan_controls --check
+          python -m scripts.tools.atlas_audit_plan_ambiguity --check
+          python -m scripts.tools.atlas_audit_plan_ambiguity --preconditions --check
+          python -m scripts.tools.atlas_job_witness --check
+          python -m scripts.tools.atlas_job_witness --extended --check
+          python -m scripts.tools.atlas_a1_review_packet --check
+          python -m scripts.tools.atlas_pc_p --check
+          python -m scripts.tools.atlas_audit_pc_p_schema --check
+          python -m scripts.tools.atlas_audit_pc_p_schema --paired --check
+          python -m scripts.tools.atlas_audit_pc_p_schema --full --check
+          python -m scripts.tools.atlas_audit_pc_p_tools --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --matrix --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --full-h --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --wire H --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --wire A --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --wire B --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --wire G --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --progress --check
+          python -m scripts.tools.atlas_compare_pc_p_factorial --full-matrix --check
+          python -m scripts.tools.atlas_planning_layered_report --check
+          python -m scripts.tools.atlas_planning_layered_report --strong --check
+          python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc
+          python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-j-tc
+          python -m scripts.tools.atlas_compare_pc_s_multitool --check
+          python -m scripts.tools.atlas_compare_pc_s_multitool --stream-pairs --check
+          python -m scripts.tools.atlas_compare_pc_s_multitool --draft-guard-pairs --check
+        env:
+          PYTHONPATH: src
+      - run: python scripts/tools/verify_ij06_evidence.py
+      - run: python -m scripts.tools.audit_ij07_baseline --check
+      - run: python -m scripts.tools.verify_ij07_artifacts
+      - run: python -m scripts.tools.build_ij07_passports --check
+      - run: python -m scripts.tools.index_ij07_tc_v2_failures evidence/IJ07/tc_v2/holdout --check
+      - run: python -m scripts.tools.summarize_ij07_multitool evidence/IJ07/multitool/primary-vulkan-full evidence/IJ07/multitool/primary-vulkan-full/metrics.json --check
+        env:
+          PYTHONPATH: src
+      - run: python -m scripts.tools.archive_ij07_planning --source evidence/IJ07/planning/primary-l0-checkpoint > /dev/null
+        env:
+          PYTHONPATH: src
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ07/planning/primary-vulkan-full
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ07/planning/repeat-vulkan-full
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-planning-full
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-020
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-080
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-160
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-checkpoint-240
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-s-j-planning-full
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-p-h-clean-p0-032
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-p-h-clean-p1-032
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-p-h-clean-p2-032
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-p-h-clean-p5-es-032
+      - run: python -m scripts.tools.bundle_ij07_planning evidence/IJ072/benchmark_validity/pc-p-h-clean-p5-ec-032
+      - run: |
+          digest=$(python -c 'import json; print(json.load(open("configs/ij07/tc_v2_competitive_plan.lock.json"))["plan_sha256"])')
+          python -m benchmarks.competitive_slm.tc_v2_archive verify --plan configs/ij07/tc_v2_competitive_plan.json --plan-sha256 "$digest" --archive evidence/IJ07/competitive_slm/tc-v2-B-first-checkpoint
+          for arm in B D F G; do
+            python -m benchmarks.competitive_slm.tc_v2_archive verify --plan configs/ij07/tc_v2_competitive_plan.json --plan-sha256 "$digest" --archive "evidence/IJ071/legacy_competitive/$arm"
+          done
+        env:
+          PYTHONPATH: src
+      - run: python -m scripts.tools.index_ij07_multitool_planning_failures evidence/IJ07 evidence/IJ07/root_causes/physical_primary_failure_index.jsonl --check
+      - run: python -m scripts.tools.summarize_ij07_multitool_repeat evidence/IJ07/multitool/repeat-vulkan-full evidence/IJ07/multitool/repeat-vulkan-full/reliability.json --check
+        env:
+          PYTHONPATH: src
+      - run: python -m pytest -q -o asyncio_mode= tests/evidence

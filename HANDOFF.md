@@ -1,5 +1,131 @@
 # Handoff
 
+## IJ-0.7.3 local evaluator
+
+Use `python -m evaluation.aeve.progress --write` to synchronize Atlas progress, MISSION_STATE and sealed Q2 coverage from a single archive snapshot. The progress check in CI compares the published tree with its sealed captures. The [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md) covers the original 45 reference defects and 81 alternative proofs. The [history matrix](evidence/IJ073/aeve/historical_route_matrix.json) records every family, dimension and risk scope. Q3 credentials are still required for any formal route.
+
+Keep any current GPU worker alive while it advances the frozen Q2 queue. See [sealed coverage](evidence/IJ073/aeve/q2_sealed_coverage.json). Once all 6,850 results are sealed, run `python -m evaluation.aeve.q2_closure --output .runtime/q2_closure.json --markdown .runtime/q2_closure.md`. The report command requires every case from each frozen cohort and verifies the Q2 protocol from the archived development evidence.
+
+The updated `resume --wait-for-controller` waits for exclusive control before recovering the frozen queue. On full Q2 closure it writes the Q2 and routing reports, then exercises the pinned M14 and G31 runtime admissions using the same exclusive Radeon lease. Formal history stays blocked until independently qualified Q3 evaluator routes cover every subject family, dimension and risk. Rebuild the historical identity audit with `python -m evaluation.aeve.history_identity --replay evidence/IJ073/aeve/history_identity_reverify.json --output .runtime/history_identity_reverify.json`.
+
+Run `python -m evaluation.aeve resume` from this worktree using the project environment and PYTHONPATH containing the repository root and src. The controller seals physical sessions, recovers partial sessions, checks the four independent Gold cohorts and routes eligible historical evidence to admitted families. See [AEVE architecture](reports/IJ073_AEVE_ARCHITECTURE.md), [frozen protocol](evaluation/aeve/qualification_freeze.json) and [current gate ledger](atlas/ij073/progress.json). Preserve the original 22 blind-review cases. Dispatch requires actual formal archive coverage and independent Judge qualification.
+
+## IJ-0.7.3 conditional planning checkpoint
+
+Resume on PR #6. Use the [baseline](reports/IJ073_BASELINE_AUDIT.md), [root causes](reports/IJ073_CONDITIONAL_PLAN_ORACLE_ROOT_CAUSE.md) and [validation commands](reports/IJ073_CONDITIONAL_PLAN_ORACLE_VALIDATION.md). The repaired witness now executes its declared graph in all 800 worlds, including the 128 original discrepancies and 13 public-equivalent groups. Run `python -m scripts.tools.ij073_verify` to reproduce all nine derived artifacts. The standalone public request/reply boundary and 21 independent control worlds have software coverage. Four local Qwen3-14B requests exercised the wire boundary and all failed the zero-tool development task. Conditional graph execution now exports per-call state transitions. Complete the independent cross-suite and safety qualification before evaluator freeze.
+
+## IJ-0.7.2 A1 checkpoint
+
+Status **INCOMPLETE**. Start with the [checkpoint report](reports/ATLAS_IJ072_CHECKPOINT_CN.md) and
+[physical queue](atlas/physical_queue.json). The frozen 540-trial Qwen3-8B PC-S protocol is archived. Matched L0 P0/P1
+replays and the larger reference admission remain separate diagnostics. Work
+from the existing PR #6 branch. Reserve the Radeon for a single process at a
+time. The original JOB-V1 A and B run directories remain under the IJ-0.7
+worktree and keep their own identities and checkpoints.
+
+The Qwen3 PC-S Planning source is `6a7ea4f9d527fffeeb32d8ef88496916d9dbc8ed`.
+A pinned local worktree at `.scratch/ij072-plan-runtime` preserves that runtime
+identity. The TC-V2 development and MULTITOOL sources are bound individually in
+their run manifests. Keep separate outputs for any changed runtime or prompt.
+
+From a fresh checkout, verify the portable evidence with
+`python scripts/tools/verify_atlas_artifacts.py`,
+`python -m scripts.tools.atlas_archive_pc_s_tc --verify-archive evidence/IJ072/benchmark_validity/pc-s-tc`
+and `python -m scripts.tools.atlas_failure_ledger --check`.
+Qwen3-14B passed [admission](evidence/IJ072/model_identity/admission/J/report.json) and
+completed the [100-trial TC-V2 component](evidence/IJ072/benchmark_validity/pc-s-j-tc/summary.json).
+The [complete MULTITOOL archive](evidence/IJ072/benchmark_validity/pc-s-j-multi-full/coverage.json)
+sealed 120/120 trials and the [streaming comparison](evidence/IJ072/benchmark_validity/pc-s-j-multitool-streaming-pairs.json)
+verified 10 physical pairs. Its [complete Planning archive](evidence/IJ072/benchmark_validity/pc-s-j-planning-full/diagnostic.json)
+sealed 320/320 trials. The larger reference's original source and outputs are
+linked to the clean workstation worktree `.scratch/ij072-reference-runtime`
+at `cbe2107f434890f14ff3431cc16a4c0bf41fd752`.
+
+The [stratified PC-P experiment](reports/ATLAS_PROMPT_CAUSAL_ABLATION_FINAL.md)
+sealed all 1,152 physical trials. Its frozen runtime source is
+`876ee84baa86f86399a5ae46bd7721671e16a090` in `.scratch/ij072-prompt-runtime`.
+The [complete matrix](evidence/IJ072/benchmark_validity/pc-p-factorial-full-four-models.json)
+contains nine archived runs per model and exact per-case results.
+
+The [draft authorization comparison](evidence/IJ072/benchmark_validity/pc-s-j-multitool-draft-guard-pairs.json)
+sealed 37 physical pairs. Workstation source is `.scratch/ij072-draft-runtime`
+at `230b51e611ef5ff0d2078db5f23b352c85ef4775`. The software controls cover
+premature drafts and a moderation event that invalidates a prior review.
+The physical negative check is `NOT_RUN` because the reference model made
+only prior-reviewed draft calls in this matched cohort. Reproduction commands
+and exact source artifacts are recorded in the [reproduction guide](docs/ATLAS_A1_REPRODUCIBILITY.md).
+
+Resume A1 with the [22-case score-blind review packet](reports/ATLAS_A1_BLIND_REVIEW.md).
+Reconcile the independent assessments with the 128 strict witness discrepancies
+and 602 contradictory precondition mutations before freezing a revised scorer.
+The raw competitive and JOB-V1 A/B reconciliation commands use the original
+workstation data. Revised large-scale qualification depends on A1.
+
+## IJ-0.7.1 Atlas checkpoint
+
+See [baseline audit](reports/ATLAS_A0_BASELINE_AUDIT.md), [live progress entry](atlas/progress.json), and [tracking issue #5](https://github.com/AIwork4me/Inclusive-JobBot/issues/5). Work from branch `mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1`, stacked on the reviewed IJ-0.7 HEAD `888f910b99b90dd7a3ac0f8d8760c6a6bbdc4102`.
+
+A0 rechecks historical records. A1 remains BLOCKED pending full independent Witness, critical mutations across all suites, prompt ablations, and real strong-model controls. The 3,300 passed reference fixtures are software controls. Preserve the original workload identities and consult [the GPU queue](atlas/physical_queue.json) before reserving the Radeon slot.
+
+To regenerate the dashboard run `python scripts/tools/atlas_progress.py`. To regenerate the software-control records run `python scripts/tools/atlas_controls.py --output .runtime/atlas-controls.json`.
+
+## IJ-0.7
+
+IJ-0.7 starts from the exact reviewed IJ-0.6 HEAD
+`d2e5b31aa1f0894638f7b648a4cf3591fbb71e6e` on the separate mission branch.
+Follow [issue #3](https://github.com/AIwork4me/Inclusive-JobBot/issues/3)
+and the [execution plan](docs/IJ07_EXECUTION_PLAN.md). G0 has archival
+audit evidence. Follow the [audit report](reports/IJ07_INITIAL_INDEPENDENT_AUDIT.md)
+for the regenerated figures, original failures and local hardware capture.
+
+The historical replay, candidate admissions and fresh holdout runners use
+separate identities. Start with the [historical runbook](benchmarks/root_cause/README.md)
+and the [TC-V2 runbook](benchmarks/tool_calling_v2/holdout/README.md).
+The latter uses separate SQLite stores and a trusted synthetic confirmation
+source. The [planning runbook](benchmarks/agentic_planning_v1/README.md)
+uses the native model and retains both Plan-first and Acting-first traces.
+The capture worktree stays pinned to the exact experiment commit. Continue
+reporting and software changes in the mission branch worktree.
+
+The four historical arms and both independent TC-V2 backend profiles
+finished. See the [dual-backend report](reports/IJ07_TC_V2_QUALIFICATION.md)
+and [JOB-V1 Arm F results](reports/IJ07_PURPOSE_BUILT_VALIDATION.md).
+Use the [multi-tool runbook](benchmarks/multitool_v1/README.md) for the full
+primary roster and the planning runbook for the paired tracks. Retain exact
+runtime and source identity when resuming an interrupted output directory.
+The MULTITOOL-V1 primary run completed 600/600 trials with the original
+16-call wire limit. Keep the first 213-case archive as the wire control's
+exact input. The explicit 32-call profile has a separate wire-only
+regression. Assign a new output directory to a live test of that profile.
+ [Full primary evidence](evidence/IJ07/multitool/primary-vulkan-full/)
+
+The [competitive TC-V2 batch runner](benchmarks/competitive_slm/TC_V2_BATCH.md)
+keeps the strict-admission Vulkan server loaded through a roster. Use the
+[frozen B/D/F/G plan](configs/ij07/tc_v2_competitive_plan.json) and the
+[journal archive runbook](benchmarks/competitive_slm/TC_V2_ARCHIVE.md). The
+[JOB-V1 model treatment runner](benchmarks/job_productivity_v1/holdout/MODEL_ARMS.md)
+uses the same frozen inputs for A–E. Physical full-roster results are pending
+for both runners. Use the planning archive CLI to verify journals and produce
+separate Plan-first and Acting-first coverage by level.
+
+The original planning profile completed the full 1,600-trial roster in
+eight sessions using the unchanged P4b observer. Both tracks failed the
+entry level. Use a new output directory for live runs of the corrected
+Chinese reference profile. [Planning archive](evidence/IJ07/planning/primary-vulkan-full/)
+
+The original MULTITOOL repeat panel completed 300/300 physical trials.
+The original planning repeat panel completed all 960 frozen trials. Each
+track failed all 480. The strict B/D/F/G TC-V2 queue uses the same single-GPU
+slot. Its first B session verified 200 trials. The A–E JOB-V1 queue waits for
+all four competitive TC-V2 rosters before using the GPU. Each active run
+keeps its resumable local folder and exact runtime source identity.
+ [Multi-tool repeat archive](evidence/IJ07/multitool/repeat-vulkan-full/) · [Planning repeat archive](evidence/IJ07/planning/repeat-vulkan-full/)
+
+The [Arm F receipt-correction control](evidence/IJ07/job_ablation/F/receipt-correction/)
+reruns the observed holdout on two clean commits with source digests that
+differ only at `arm_f.py`. Keep these exploratory results separate from the
+original registered F archive and future independent qualification.
+
 Read this first when resuming. Last updated: 2026-11-24.
 
 Everything below was checked against the disk and the running system at the
@@ -17,16 +143,19 @@ python scripts/tools/scan_sensitive.py                 # must report 0 findings
 Get-Process llama-server -ErrorAction SilentlyContinue
 ```
 
-Then read sections 6–8. The two baseline runs and strict smoke tests finished,
-and the managed server was stopped.
+For IJ-0.6 read the [closure matrix](reports/IJ06_P0_CLOSURE_MATRIX.md)
+and [open risks](reports/IJ06_OPEN_RISKS.md). The managed and candidate
+servers were stopped after the dual-backend trials.
 
 ## 2. Where the work is
 
-IJ-0 (change order ECO-01) is complete through IJ-0.5. The pinned b12359
-tool-calling qualification has a failing native parser gate. Both baseline
-runs finished. Antigravity passed the local read-only loop on both backends.
-The full SDK checklist, Model Gateway, performance qualification and IJ-1.0
-missions M3 to M10 are pending.
+IJ-0 is complete through IJ-0.5. IJ-0.6 reproduced the original b12359
+parser failures and qualified P4b against the expanded fixed suite on both
+GPU backends. The original baseline failed its frozen strict fixtures.
+Evaluator V2 replayed 1,000 archived traces. The Gateway and SQLite simulator
+passed software regression, and the SDK and SOP trials produced real
+local development evidence. Full SDK, independent holdouts, production
+backend selection and IJ-1.0 qualification are pending.
 
 | Step | Status | What it established | Evidence |
 |---|---|---|---|
@@ -55,8 +184,10 @@ sampled only the configured end-of-sequence token.
 
 - Local qualification work is on `codex/ij0-tool-calling`, based on
   `mission/ij-1.0-windows-fullstack-qualification`.
-- **No remote.** `AIwork4me/Inclusive-JobBot` does not exist on GitHub. Nothing
-  has been pushed or published.
+- GitHub default branch `codex/ij0-tool-calling` and local HEAD matched
+  `0592c319ab341f70bda979874697386e33ccc680` at the IJ-0.6 audit.
+  New work uses `mission/ij-0.6-root-cause-and-purpose-built-execution`
+  and tracking issue [#1](https://github.com/AIwork4me/Inclusive-JobBot/issues/1).
 - Repository-local git identity: `AIwork4me <AIwork4me@qq.com>`. The global
   git identity was not changed.
 - Not in git on purpose: `.venv`, `.tools`, `.runtime`, `.scratch`, `models/*`
@@ -81,12 +212,11 @@ See `BLOCKERS.md` for detail.
 
 | ID | Item | Owner |
 |---|---|---|
-| B-005 | No C++ toolchain: upstream `test-chat` and debug builds are not possible locally | owner (optional install) |
 | B-006 | No power meter: energy per task stays `NOT_RUN` | owner (hardware) |
 | B-007 | 24 h and 168 h soak tests need the machine awake for days | owner (power settings) |
 | B-004 | Long runs exceed one session; everything must stay resumable | project |
-| B-008 | The checkout lacks the original SDK acceptance checklist | project owner |
-| B-009 | The pinned native parser fails fixed fixtures | project |
+| B-009 | The pinned native parser fails fixed fixtures. P4b has passed the fixed conformance suite. | project |
+| B-010 | SDK offline gate requires complete process egress evidence | project |
 
 Open technical questions, none of them a blocker today:
 
@@ -101,11 +231,10 @@ Open technical questions, none of them a blocker today:
 
 ### 7.1 Resolve the native parser gate
 
-Review the six strict fixture failures in `reports/IJ0_TOOL_CALLING_BENCHMARK.md`
-before choosing a parser fix or alternate engine identity. Any prompt, schema
-or decoding experiments belong on the development split. The frozen generator
-1.0.2 results are a diagnostic baseline. Freeze the new rubric and independent
-holdout before the next qualification under ADR-002.
+Use the P4b source and candidate hashes in
+`reports/IJ06_PARSER_ROOT_CAUSE_REPORT.md`. The frozen generator 1.0.2
+results and V2 replay are diagnostics. Freeze the new independent data,
+oracle and candidate configurations before model admission.
 
 ### 7.2 Antigravity SDK against llama-server
 
@@ -113,7 +242,8 @@ The read-only smoke command and evidence are in
 `benchmarks/tool_calling/runner/run_antigravity_smoke.py` and
 `evidence/IJ0/antigravity/`. The command explicitly allowlists one synthetic
 lookup and disables built-in tools, subagents and MCP. Finish the full SDK
-checklist when B-008 is resolved.
+checklist in `docs/ANTIGRAVITY_SDK_ACCEPTANCE_SPEC.md`. Resolve the remaining
+structured-output and process egress cases listed in the SDK report.
 
 ### 7.3 After that
 
@@ -126,18 +256,10 @@ IJ-1.0.
 The project does not install system-level software and does not change
 Windows, security or power settings.
 
-**Optional, useful (blocker B-005)**: Visual Studio 2022 Build Tools with the
-"Desktop development with C++" workload, including the CMake and Ninja
-components. This lets the project build and run llama.cpp's own `test-chat` at
-commit `b1b770d9` on this machine and build a debug binary if raw model output
-has to be captured before the parser. Without it, upstream tests run only in
-GitHub-hosted Linux CI. It is checked with `cmake --version`, `ninja --version`
-and a build of `test-chat`.
-
-**Required for full SDK acceptance (B-008)**: provide the originating SDK
-checklist or approve a replacement. PowerShell 7 is optional. The project
-scripts also run with Windows PowerShell `-ExecutionPolicy RemoteSigned` for
-each invocation on this machine.
+Visual Studio Community 2026 includes MSVC, CMake and Ninja. Initialize the
+developer environment in a child process when building `test-chat`.
+PowerShell 7 is optional. The project scripts also run with Windows PowerShell
+`-ExecutionPolicy RemoteSigned` for each invocation on this machine.
 
 **Decisions that belong to the owner, when the time comes**: power settings
 for the soak tests (B-007), a power meter if energy per task is wanted (B-006),

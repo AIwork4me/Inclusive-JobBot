@@ -1,0 +1,21 @@
+{
+ "schema_version": 1,
+ "arm": "o1",
+ "checked_utc": "2026-11-27T05:45:57Z",
+ "python": "3.12.10",
+ "packages": {
+  "dspy": "3.5.0"
+ },
+ "support_tier": "sdk-native",
+ "checks": {
+  "c2_chat": {
+   "status": "PASS",
+   "final_output": "采购订单是买方向供应商发出的、要求购买特定商品和数量的正式请求文件。"
+  },
+  "c1_connect": {
+   "status": "PASS"
+  }
+ },
+ "notes": "dspy.LM('openai/<model>', api_base=...) - O1 is an optimization arm, not a runtime",
+ "wire": []
+}

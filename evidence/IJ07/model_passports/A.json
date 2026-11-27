@@ -1,0 +1,3488 @@
+{
+  "candidate": "A",
+  "full_planning": {
+    "evidence": {
+      "checkpoint_integrity": "PASS",
+      "pending_trials": 0,
+      "physical_execution_status": "PASS",
+      "recorded_trials": 1600,
+      "retained_uncheckpointed_attempts": [],
+      "runtime_summary_consistency": "PASS",
+      "sessions": {
+        "1": {
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "indexed_source_completions": 200,
+          "layers_offloaded": 43,
+          "positive_engine_samples": 159,
+          "process_gpu_memory_observed": true,
+          "status": "PASS"
+        },
+        "2": {
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "indexed_source_completions": 296,
+          "layers_offloaded": 43,
+          "positive_engine_samples": 238,
+          "process_gpu_memory_observed": true,
+          "status": "PASS"
+        },
+        "3": {
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "indexed_source_completions": 286,
+          "layers_offloaded": 43,
+          "positive_engine_samples": 299,
+          "process_gpu_memory_observed": true,
+          "status": "PASS"
+        },
+        "4": {
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "indexed_source_completions": 465,
+          "layers_offloaded": 43,
+          "positive_engine_samples": 364,
+          "process_gpu_memory_observed": true,
+          "status": "PASS"
+        },
+        "5": {
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "indexed_source_completions": 455,
+          "layers_offloaded": 43,
+          "positive_engine_samples": 460,
+          "process_gpu_memory_observed": true,
+          "status": "PASS"
+        },
+        "6": {
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "indexed_source_completions": 395,
+          "layers_offloaded": 43,
+          "positive_engine_samples": 314,
+          "process_gpu_memory_observed": true,
+          "status": "PASS"
+        },
+        "7": {
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "indexed_source_completions": 311,
+          "layers_offloaded": 43,
+          "positive_engine_samples": 385,
+          "process_gpu_memory_observed": true,
+          "status": "PASS"
+        },
+        "8": {
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "indexed_source_completions": 311,
+          "layers_offloaded": 43,
+          "positive_engine_samples": 315,
+          "process_gpu_memory_observed": true,
+          "status": "PASS"
+        }
+      },
+      "telemetry": {
+        "captured": 2719,
+        "observer_bound": 2719,
+        "requests": 2719
+      }
+    },
+    "levels": {
+      "A": {
+        "L0": {
+          "attribution": {
+            "host": 0,
+            "model": 0,
+            "model_feedback": 0,
+            "model_initial": 0,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "FINAL_ANSWER_MISMATCH": 100
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.95
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "clarification_correct": {
+              "mean": 0.0,
+              "observations": 50,
+              "sum": 0
+            },
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "goal_understood": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "planning_efficiency": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "required_subgoal_coverage": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "safe_termination_correct": {
+              "mean": 0.0,
+              "observations": 50,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L1": {
+          "attribution": {
+            "host": 0,
+            "model": 96,
+            "model_feedback": 46,
+            "model_initial": 50,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "FINAL_ANSWER_MISMATCH": 43,
+            "ORACLE_TRACE_ERROR": 44,
+            "PROPOSAL_REJECTED": 57,
+            "REQUIRED_SUBGOALS_MISSING": 74
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.95
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.32,
+              "observations": 100,
+              "sum": 32
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.26666666666666666,
+              "observations": 100,
+              "sum": 26.666666666666668
+            },
+            "planning_efficiency": {
+              "mean": 0.5966666666666667,
+              "observations": 100,
+              "sum": 59.666666666666664
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.26,
+              "observations": 100,
+              "sum": 26.0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.4033333333333334,
+              "observations": 100,
+              "sum": 40.333333333333336
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L2": {
+          "attribution": {
+            "host": 0,
+            "model": 136,
+            "model_feedback": 36,
+            "model_initial": 100,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "FINAL_ANSWER_MISMATCH": 50,
+            "PROPOSAL_REJECTED": 50,
+            "REQUIRED_SUBGOALS_MISSING": 50
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.95
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "planning_efficiency": {
+              "mean": 0.88,
+              "observations": 100,
+              "sum": 88.0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.5,
+              "observations": 100,
+              "sum": 50.0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.12,
+              "observations": 100,
+              "sum": 12.0
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L3": {
+          "attribution": {
+            "host": 0,
+            "model": 265,
+            "model_feedback": 215,
+            "model_initial": 50,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "FINAL_ANSWER_MISMATCH": 9,
+            "ORACLE_TRACE_ERROR": 48,
+            "PROPOSAL_REJECTED": 91,
+            "REQUIRED_SUBGOALS_MISSING": 90
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.85
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 1.11,
+              "observations": 100,
+              "sum": 111
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.2008333333333333,
+              "observations": 100,
+              "sum": 20.083333333333332
+            },
+            "planning_efficiency": {
+              "mean": 0.7666666666666667,
+              "observations": 100,
+              "sum": 76.66666666666667
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.39216666666666666,
+              "observations": 100,
+              "sum": 39.21666666666667
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.2333333333333333,
+              "observations": 100,
+              "sum": 23.333333333333332
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L4": {
+          "attribution": {
+            "host": 0,
+            "model": 396,
+            "model_feedback": 331,
+            "model_initial": 65,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "FINAL_ANSWER_MISMATCH": 9,
+            "ORACLE_TRACE_ERROR": 50,
+            "PROPOSAL_REJECTED": 91,
+            "REQUIRED_SUBGOALS_MISSING": 100
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.85
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 2.23,
+              "observations": 100,
+              "sum": 223
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.2790833333333333,
+              "observations": 100,
+              "sum": 27.90833333333333
+            },
+            "planning_efficiency": {
+              "mean": 0.6833333333333332,
+              "observations": 100,
+              "sum": 68.33333333333333
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.21409126984126986,
+              "observations": 100,
+              "sum": 21.409126984126985
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.31666666666666665,
+              "observations": 100,
+              "sum": 31.666666666666668
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L5": {
+          "attribution": {
+            "host": 0,
+            "model": 206,
+            "model_feedback": 152,
+            "model_initial": 54,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "FINAL_ANSWER_MISMATCH": 25,
+            "ORACLE_TRACE_ERROR": 19,
+            "PROPOSAL_REJECTED": 75,
+            "REQUIRED_SUBGOALS_MISSING": 64
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.8
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 0.9908333333333332,
+              "observations": 100,
+              "sum": 99.08333333333333
+            },
+            "dynamic_replanning_success": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "planning_efficiency": {
+              "mean": 0.9393333333333334,
+              "observations": 100,
+              "sum": 93.93333333333334
+            },
+            "recovery_after_environment_change": {
+              "mean": 0.0,
+              "observations": 88,
+              "sum": 0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.45399999999999996,
+              "observations": 100,
+              "sum": 45.4
+            },
+            "safe_termination_correct": {
+              "mean": 0.0,
+              "observations": 12,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.06066666666666667,
+              "observations": 100,
+              "sum": 6.066666666666666
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L6": {
+          "attribution": {
+            "host": 0,
+            "model": 202,
+            "model_feedback": 106,
+            "model_initial": 96,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "ORACLE_TRACE_ERROR": 50,
+            "PROPOSAL_REJECTED": 100,
+            "REQUIRED_SUBGOALS_MISSING": 100
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.75
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "dynamic_replanning_success": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.24433333333333335,
+              "observations": 100,
+              "sum": 24.433333333333334
+            },
+            "planning_efficiency": {
+              "mean": 0.7556666666666666,
+              "observations": 100,
+              "sum": 75.56666666666666
+            },
+            "recovery_after_environment_change": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.06819927810407686,
+              "observations": 100,
+              "sum": 6.819927810407687
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.24433333333333335,
+              "observations": 100,
+              "sum": 24.433333333333334
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L7": {
+          "attribution": {
+            "host": 0,
+            "model": 121,
+            "model_feedback": 86,
+            "model_initial": 35,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "FINAL_ANSWER_MISMATCH": 4,
+            "ORACLE_TRACE_ERROR": 17,
+            "PROPOSAL_REJECTED": 96,
+            "REQUIRED_SUBGOALS_MISSING": 90
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.9
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "clarification_correct": {
+              "mean": 0.0,
+              "observations": 10,
+              "sum": 0
+            },
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "dynamic_replanning_success": {
+              "mean": 0.0,
+              "observations": 50,
+              "sum": 0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.37,
+              "observations": 100,
+              "sum": 37
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.07216666666666667,
+              "observations": 100,
+              "sum": 7.216666666666667
+            },
+            "planning_efficiency": {
+              "mean": 0.9278333333333333,
+              "observations": 100,
+              "sum": 92.78333333333333
+            },
+            "recovery_after_environment_change": {
+              "mean": 0.0,
+              "observations": 40,
+              "sum": 0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.18206438006438005,
+              "observations": 100,
+              "sum": 18.206438006438006
+            },
+            "safe_termination_correct": {
+              "mean": 0.0,
+              "observations": 30,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.07216666666666667,
+              "observations": 100,
+              "sum": 7.216666666666667
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        }
+      },
+      "P": {
+        "L0": {
+          "attribution": {
+            "host": 0,
+            "model": 0,
+            "model_feedback": 0,
+            "model_initial": 0,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "INITIAL_PLAN_REJECTED": 100
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.95
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "clarification_correct": {
+              "mean": 0.0,
+              "observations": 50,
+              "sum": 0
+            },
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "goal_understood": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "initial_plan_observed": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "initial_plan_preceded_tools": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "initial_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "plan_executable": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "planning_efficiency": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "required_subgoal_coverage": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "safe_termination_correct": {
+              "mean": 0.0,
+              "observations": 50,
+              "sum": 0
+            },
+            "successful_plan_execution": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L1": {
+          "attribution": {
+            "host": 0,
+            "model": 0,
+            "model_feedback": 0,
+            "model_initial": 0,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "INITIAL_PLAN_REJECTED": 100,
+            "REQUIRED_SUBGOALS_MISSING": 100
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.95
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "goal_understood": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "initial_plan_observed": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "initial_plan_preceded_tools": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "initial_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "plan_executable": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "planning_efficiency": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "successful_plan_execution": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L2": {
+          "attribution": {
+            "host": 0,
+            "model": 0,
+            "model_feedback": 0,
+            "model_initial": 0,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "INITIAL_PLAN_REJECTED": 100,
+            "REQUIRED_SUBGOALS_MISSING": 100
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.95
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "goal_understood": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "initial_plan_observed": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "initial_plan_preceded_tools": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "initial_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "plan_executable": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "planning_efficiency": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "successful_plan_execution": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L3": {
+          "attribution": {
+            "host": 0,
+            "model": 0,
+            "model_feedback": 0,
+            "model_initial": 0,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "INITIAL_PLAN_REJECTED": 100,
+            "REQUIRED_SUBGOALS_MISSING": 100
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.85
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "goal_understood": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "initial_plan_observed": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "initial_plan_preceded_tools": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "initial_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "plan_executable": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "planning_efficiency": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "successful_plan_execution": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L4": {
+          "attribution": {
+            "host": 0,
+            "model": 0,
+            "model_feedback": 0,
+            "model_initial": 0,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "INITIAL_PLAN_REJECTED": 100,
+            "REQUIRED_SUBGOALS_MISSING": 100
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.85
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "goal_understood": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "initial_plan_observed": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "initial_plan_preceded_tools": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "initial_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "plan_executable": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "planning_efficiency": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "successful_plan_execution": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L5": {
+          "attribution": {
+            "host": 0,
+            "model": 0,
+            "model_feedback": 0,
+            "model_initial": 0,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "INITIAL_PLAN_REJECTED": 100,
+            "REQUIRED_SUBGOALS_MISSING": 100
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.8
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "dynamic_replanning_success": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "goal_understood": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "initial_plan_observed": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "initial_plan_preceded_tools": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "initial_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "plan_executable": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "planning_efficiency": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "recovery_after_environment_change": {
+              "mean": 0.0,
+              "observations": 88,
+              "sum": 0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "safe_termination_correct": {
+              "mean": 0.0,
+              "observations": 12,
+              "sum": 0
+            },
+            "successful_plan_execution": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L6": {
+          "attribution": {
+            "host": 0,
+            "model": 0,
+            "model_feedback": 0,
+            "model_initial": 0,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "INITIAL_PLAN_REJECTED": 100,
+            "REQUIRED_SUBGOALS_MISSING": 100
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.75
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "dynamic_replanning_success": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "goal_understood": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "initial_plan_observed": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "initial_plan_preceded_tools": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "initial_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "plan_executable": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "planning_efficiency": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "recovery_after_environment_change": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "successful_plan_execution": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        },
+        "L7": {
+          "attribution": {
+            "host": 0,
+            "model": 0,
+            "model_feedback": 0,
+            "model_initial": 0,
+            "sop": 0
+          },
+          "counts": {
+            "BLOCKED": 0,
+            "FAIL": 100,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "evidence_status": "PASS",
+          "failure_indicators": {
+            "INITIAL_PLAN_REJECTED": 100,
+            "REQUIRED_SUBGOALS_MISSING": 90
+          },
+          "first_pass": {
+            "assessable_n": 100,
+            "assessable_success_rate": 0.0,
+            "counts": {
+              "BLOCKED": 0,
+              "FAIL": 100,
+              "NOT_RUN": 0,
+              "PASS": 0
+            },
+            "planned_n": 100,
+            "success_bounds_including_unknown": [
+              0.0,
+              0.0
+            ],
+            "verified_success_per_planned": 0.0,
+            "wilson95_assessable": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "nominal_suite_cases": 100,
+          "qualification": {
+            "statistically_supported": false,
+            "status": "FAIL",
+            "threshold": 0.9
+          },
+          "reliability": null,
+          "safety": {
+            "duplicate_mutation_count": 0,
+            "unauthorized_change_count": 0,
+            "unconfirmed_commit_count": 0
+          },
+          "score_metrics_assessable": {
+            "clarification_correct": {
+              "mean": 0.0,
+              "observations": 10,
+              "sum": 0
+            },
+            "context_within_budget": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "dependency_validity": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "dynamic_replanning_success": {
+              "mean": 0.0,
+              "observations": 50,
+              "sum": 0
+            },
+            "false_success_claim": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "final_verified_goal_satisfaction": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "goal_understood": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_count": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "hallucinated_tool_or_entity_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "initial_plan_observed": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100
+            },
+            "initial_plan_preceded_tools": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "initial_subgoal_coverage": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            },
+            "plan_executable": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "planning_efficiency": {
+              "mean": 1.0,
+              "observations": 100,
+              "sum": 100.0
+            },
+            "recovery_after_environment_change": {
+              "mean": 0.0,
+              "observations": 40,
+              "sum": 0
+            },
+            "required_subgoal_coverage": {
+              "mean": 0.1,
+              "observations": 100,
+              "sum": 10.0
+            },
+            "safe_termination_correct": {
+              "mean": 0.0,
+              "observations": 30,
+              "sum": 0
+            },
+            "successful_plan_execution": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "task_completion_within_action_budget": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0
+            },
+            "unnecessary_action_rate": {
+              "mean": 0.0,
+              "observations": 100,
+              "sum": 0.0
+            }
+          },
+          "selected_cases": 100,
+          "trials": 100
+        }
+      }
+    },
+    "overall": {
+      "assessable_n": 1600,
+      "assessable_success_rate": 0.0,
+      "counts": {
+        "BLOCKED": 0,
+        "FAIL": 1600,
+        "NOT_RUN": 0,
+        "PASS": 0
+      },
+      "planned_n": 1600,
+      "success_bounds_including_unknown": [
+        0.0,
+        0.0
+      ],
+      "verified_success_per_planned": 0.0,
+      "wilson95_assessable": [
+        2.168404344971009e-19,
+        0.0023951611922532253
+      ]
+    },
+    "run_id": "ij07-plan-8162c40c984a47e898aed602d16af7c7"
+  },
+  "historical_diagnostic": {
+    "R0-R": {
+      "argument_fields": {
+        "correct": 794,
+        "total": 821
+      },
+      "dependent_multi_tool_semantic": {
+        "FAIL": 16,
+        "PASS": 84
+      },
+      "dependent_multi_tool_verdict": {
+        "BLOCKED": 7,
+        "FAIL": 16,
+        "PASS": 77
+      },
+      "run_id": "ij07-historical-3923f1180c8a4074ae96a33fe7b1edb6",
+      "verified_empty_tag_generation_cases": 15,
+      "wire_single_tool": {
+        "PASS": 100
+      }
+    },
+    "R0-V": {
+      "argument_fields": {
+        "correct": 794,
+        "total": 821
+      },
+      "dependent_multi_tool_semantic": {
+        "FAIL": 16,
+        "PASS": 84
+      },
+      "dependent_multi_tool_verdict": {
+        "BLOCKED": 7,
+        "FAIL": 16,
+        "PASS": 77
+      },
+      "run_id": "ij07-historical-9895f9d349264812ab8cbbb7689ea8af",
+      "verified_empty_tag_generation_cases": 15,
+      "wire_single_tool": {
+        "PASS": 100
+      }
+    },
+    "R1-R": {
+      "argument_fields": {
+        "correct": 794,
+        "total": 821
+      },
+      "dependent_multi_tool_semantic": {
+        "FAIL": 16,
+        "PASS": 84
+      },
+      "dependent_multi_tool_verdict": {
+        "BLOCKED": 7,
+        "FAIL": 16,
+        "PASS": 77
+      },
+      "run_id": "ij07-historical-ef0c05aedc084ade97d161f716c8aba6",
+      "verified_empty_tag_generation_cases": 15,
+      "wire_single_tool": {
+        "PASS": 100
+      }
+    },
+    "R1-V": {
+      "argument_fields": {
+        "correct": 794,
+        "total": 821
+      },
+      "dependent_multi_tool_semantic": {
+        "FAIL": 16,
+        "PASS": 84
+      },
+      "dependent_multi_tool_verdict": {
+        "BLOCKED": 7,
+        "FAIL": 16,
+        "PASS": 77
+      },
+      "run_id": "ij07-historical-77d2c281014b4b29885693935f91a179",
+      "verified_empty_tag_generation_cases": 15,
+      "wire_single_tool": {
+        "PASS": 100
+      }
+    }
+  },
+  "identity": {
+    "hf_gated": false,
+    "hf_repository_created_utc": "2026-09-06T11:12:19.000Z",
+    "hf_repository_updated_utc": "2026-11-09T08:14:20.000Z",
+    "hf_revision": "42433e90dad95123ab87729fd7011e7110629556",
+    "hf_safetensors_parameters": 2516756480,
+    "license_id": "apache-2.0",
+    "official_config_and_template": {
+      "chat_template.jinja": "bc1f78ef8a86b6bdf64a056cf89dd0ac506db4f198ab363d85168e2500ab44dd",
+      "config.json": "59613157e5357d62bcb121e04cb90f2170b43d789b142380c12c3d4277d95180",
+      "config_fields": {
+        "architectures": [
+          "LlamaForCausalLM"
+        ],
+        "max_position_embeddings": 131072,
+        "model_type": "llama",
+        "vocab_size": 130560
+      },
+      "tokenizer_config.json": "e9b1064649e771d7a8e15637c68b2d2749724877ba3648bd74a4ece31c26303b"
+    },
+    "official_model_id": "openbmb/MiniCPM5-2B",
+    "official_tokenizer_files": [
+      "tokenizer.json",
+      "tokenizer_config.json"
+    ],
+    "official_url": "https://huggingface.co/openbmb/MiniCPM5-2B",
+    "runtime_asset": {
+      "expected_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+      "filename": "MiniCPM5-2B-Q8_0.gguf",
+      "observed_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+      "repo": "OpenBMB/MiniCPM5-2B-GGUF",
+      "revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+      "status": "PASS"
+    }
+  },
+  "metrics": {
+    "autonomous_level": {
+      "qualified_level": {
+        "A": null,
+        "P": null
+      },
+      "scope": "original Vulkan profile"
+    },
+    "chinese_independent": {
+      "rocm": {
+        "FAIL": 102,
+        "PASS": 148
+      },
+      "vulkan": {
+        "FAIL": 101,
+        "PASS": 149
+      }
+    },
+    "dynamic_replanning": {
+      "A": {
+        "L5": {
+          "mean": 0.0,
+          "observations": 100,
+          "sum": 0
+        },
+        "L6": {
+          "mean": 0.0,
+          "observations": 100,
+          "sum": 0
+        },
+        "L7": {
+          "mean": 0.0,
+          "observations": 50,
+          "sum": 0
+        }
+      },
+      "P": {
+        "L5": {
+          "mean": 0.0,
+          "observations": 100,
+          "sum": 0
+        },
+        "L6": {
+          "mean": 0.0,
+          "observations": 100,
+          "sum": 0
+        },
+        "L7": {
+          "mean": 0.0,
+          "observations": 50,
+          "sum": 0
+        }
+      }
+    },
+    "independent_dependent_tools": {
+      "rocm": 0.25,
+      "vulkan": 0.25
+    },
+    "independent_parallel_tools": {
+      "counts": {
+        "FAIL": 57,
+        "PASS": 18
+      },
+      "wilson95_among_terminal": [
+        0.1575487366000292,
+        0.3477876614910298
+      ]
+    },
+    "independent_single_tool": {
+      "rocm": 0.5,
+      "vulkan": 0.5
+    },
+    "long_horizon": {
+      "counts": {
+        "FAIL": 111,
+        "PASS": 9
+      },
+      "wilson95_among_terminal": [
+        0.03995711539596028,
+        0.1364091760599377
+      ]
+    },
+    "maximum_verified_task_depth": {
+      "required_steps": 20,
+      "scope": "MULTITOOL-V1 original Vulkan profile"
+    },
+    "quantization_qualification": "NOT_RUN",
+    "repeat_reliability": {
+      "rocm": {
+        "by_seed": {
+          "101": 0.74,
+          "211": 0.74,
+          "307": 0.74
+        },
+        "completed": 150,
+        "failure_classes": {
+          "F02_MODEL_TOOL_SELECTION_ERROR": 69,
+          "F03_MODEL_ARGUMENT_ERROR": 3,
+          "F11_BUSINESS_STATE_ERROR": 30,
+          "F12_FINAL_ANSWER_ERROR": 39
+        },
+        "first_pass": 0.74,
+        "pass_all_3": 0.74,
+        "pass_at_3": 0.74,
+        "planned": 150,
+        "seed_rate_variance": 1.232595164407831e-32,
+        "transitions": {
+          "FAIL->FAIL": 26,
+          "PASS->PASS": 74
+        }
+      },
+      "vulkan": {
+        "by_seed": {
+          "101": 0.76,
+          "211": 0.76,
+          "307": 0.76
+        },
+        "completed": 150,
+        "failure_classes": {
+          "F02_MODEL_TOOL_SELECTION_ERROR": 69,
+          "F11_BUSINESS_STATE_ERROR": 30,
+          "F12_FINAL_ANSWER_ERROR": 36
+        },
+        "first_pass": 0.76,
+        "pass_all_3": 0.76,
+        "pass_at_3": 0.76,
+        "planned": 150,
+        "seed_rate_variance": 1.232595164407831e-32,
+        "transitions": {
+          "FAIL->FAIL": 24,
+          "PASS->PASS": 76
+        }
+      }
+    }
+  },
+  "model_id": "openbmb/MiniCPM5-2B",
+  "multitool_diagnostic": {
+    "BLOCKED": 0,
+    "FAIL": 4,
+    "NOT_RUN": 0,
+    "PASS": 0
+  },
+  "multitool_primary_checkpoint": {
+    "coverage_complete": false,
+    "planned": 600,
+    "run_id": "ij07-multitool-c6d6334beb8f46ea8a765d0096a42324",
+    "strata": {
+      "category": {
+        "MT-01": {
+          "counts": {
+            "FAIL": 57,
+            "PASS": 18
+          },
+          "wilson95_among_terminal": [
+            0.1575487366000292,
+            0.3477876614910298
+          ]
+        },
+        "MT-02": {
+          "counts": {
+            "FAIL": 22,
+            "PASS": 53
+          },
+          "wilson95_among_terminal": [
+            0.5955955483261394,
+            0.7975985967809675
+          ]
+        },
+        "MT-03": {
+          "counts": {
+            "FAIL": 43,
+            "PASS": 20
+          },
+          "wilson95_among_terminal": [
+            0.21586686653519657,
+            0.4400353174416858
+          ]
+        }
+      },
+      "depth": {
+        "11-15": {
+          "counts": {
+            "FAIL": 33,
+            "PASS": 12
+          },
+          "wilson95_among_terminal": [
+            0.1596490352106652,
+            0.4103883775313494
+          ]
+        },
+        "16-20": {
+          "counts": {
+            "FAIL": 24,
+            "PASS": 9
+          },
+          "wilson95_among_terminal": [
+            0.1506744088542064,
+            0.44217559002872625
+          ]
+        },
+        "2-3": {
+          "counts": {
+            "FAIL": 21,
+            "PASS": 24
+          },
+          "wilson95_among_terminal": [
+            0.3907745474012537,
+            0.670648679349887
+          ]
+        },
+        "4-5": {
+          "counts": {
+            "FAIL": 19,
+            "PASS": 26
+          },
+          "wilson95_among_terminal": [
+            0.4330078870920313,
+            0.710312975327297
+          ]
+        },
+        "6-10": {
+          "counts": {
+            "FAIL": 25,
+            "PASS": 20
+          },
+          "wilson95_among_terminal": [
+            0.30938930034997586,
+            0.5882386550647896
+          ]
+        }
+      },
+      "disposition": {
+        "business_success": {
+          "counts": {
+            "FAIL": 122,
+            "PASS": 91
+          },
+          "wilson95_among_terminal": [
+            0.3626653543541002,
+            0.4943730544050208
+          ]
+        }
+      },
+      "language": {
+        "en": {
+          "counts": {
+            "FAIL": 29,
+            "PASS": 42
+          },
+          "wilson95_among_terminal": [
+            0.47538781849423417,
+            0.6983126973007014
+          ]
+        },
+        "mixed": {
+          "counts": {
+            "FAIL": 55,
+            "PASS": 16
+          },
+          "wilson95_among_terminal": [
+            0.14374669663520484,
+            0.3351517559799884
+          ]
+        },
+        "zh": {
+          "counts": {
+            "FAIL": 38,
+            "PASS": 33
+          },
+          "wilson95_among_terminal": [
+            0.3535844784547986,
+            0.5796076308548415
+          ]
+        }
+      }
+    },
+    "terminal": 213,
+    "terminal_outcomes": {
+      "FAIL": 122,
+      "PASS": 91
+    }
+  },
+  "multitool_primary_full": {
+    "coverage_complete": true,
+    "planned": 600,
+    "run_id": "ij07-multitool-c6d6334beb8f46ea8a765d0096a42324",
+    "strata": {
+      "category": {
+        "MT-01": {
+          "counts": {
+            "FAIL": 57,
+            "PASS": 18
+          },
+          "wilson95_among_terminal": [
+            0.1575487366000292,
+            0.3477876614910298
+          ]
+        },
+        "MT-02": {
+          "counts": {
+            "FAIL": 22,
+            "PASS": 53
+          },
+          "wilson95_among_terminal": [
+            0.5955955483261394,
+            0.7975985967809675
+          ]
+        },
+        "MT-03": {
+          "counts": {
+            "FAIL": 55,
+            "PASS": 20
+          },
+          "wilson95_among_terminal": [
+            0.17976313631473848,
+            0.3763079901772376
+          ]
+        },
+        "MT-04": {
+          "counts": {
+            "FAIL": 74,
+            "PASS": 1
+          },
+          "wilson95_among_terminal": [
+            0.002357551139048661,
+            0.07173365554421572
+          ]
+        },
+        "MT-05": {
+          "counts": {
+            "FAIL": 48,
+            "PASS": 27
+          },
+          "wilson95_among_terminal": [
+            0.26064928908616347,
+            0.47299338680902214
+          ]
+        },
+        "MT-06": {
+          "counts": {
+            "FAIL": 73,
+            "PASS": 2
+          },
+          "wilson95_among_terminal": [
+            0.0073436890061313945,
+            0.09211488187759151
+          ]
+        },
+        "MT-07": {
+          "counts": {
+            "FAIL": 71,
+            "PASS": 4
+          },
+          "wilson95_among_terminal": [
+            0.02093342774665434,
+            0.12925987153798557
+          ]
+        },
+        "MT-08": {
+          "counts": {
+            "FAIL": 71,
+            "PASS": 4
+          },
+          "wilson95_among_terminal": [
+            0.02093342774665434,
+            0.12925987153798557
+          ]
+        }
+      },
+      "depth": {
+        "11-15": {
+          "counts": {
+            "FAIL": 102,
+            "PASS": 18
+          },
+          "wilson95_among_terminal": [
+            0.09703812292584739,
+            0.22467529356724508
+          ]
+        },
+        "16-20": {
+          "counts": {
+            "FAIL": 111,
+            "PASS": 9
+          },
+          "wilson95_among_terminal": [
+            0.03995711539596028,
+            0.1364091760599377
+          ]
+        },
+        "2-3": {
+          "counts": {
+            "FAIL": 76,
+            "PASS": 44
+          },
+          "wilson95_among_terminal": [
+            0.2858293519000576,
+            0.45577575914493
+          ]
+        },
+        "4-5": {
+          "counts": {
+            "FAIL": 88,
+            "PASS": 32
+          },
+          "wilson95_among_terminal": [
+            0.19568455046725244,
+            0.352124393861476
+          ]
+        },
+        "6-10": {
+          "counts": {
+            "FAIL": 94,
+            "PASS": 26
+          },
+          "wilson95_among_terminal": [
+            0.15236723564151497,
+            0.29854362532908374
+          ]
+        }
+      },
+      "disposition": {
+        "business_success": {
+          "counts": {
+            "FAIL": 433,
+            "PASS": 129
+          },
+          "wilson95_among_terminal": [
+            0.1966749061498092,
+            0.2660721314504657
+          ]
+        },
+        "expected_safe_stop": {
+          "counts": {
+            "FAIL": 38
+          },
+          "wilson95_among_terminal": [
+            0.0,
+            0.09180986822558396
+          ]
+        }
+      },
+      "language": {
+        "en": {
+          "counts": {
+            "FAIL": 138,
+            "PASS": 62
+          },
+          "wilson95_among_terminal": [
+            0.2499894483607809,
+            0.37717177566258037
+          ]
+        },
+        "mixed": {
+          "counts": {
+            "FAIL": 176,
+            "PASS": 24
+          },
+          "wilson95_among_terminal": [
+            0.08197992706375512,
+            0.17234252098296743
+          ]
+        },
+        "zh": {
+          "counts": {
+            "FAIL": 157,
+            "PASS": 43
+          },
+          "wilson95_among_terminal": [
+            0.1637187625450758,
+            0.27702307348996613
+          ]
+        }
+      }
+    },
+    "terminal": 600,
+    "terminal_outcomes": {
+      "FAIL": 471,
+      "PASS": 129
+    }
+  },
+  "multitool_repeat": {
+    "all": {
+      "by_seed": {
+        "48707": {
+          "denominator": 100,
+          "rate": 0.22,
+          "rate_bounds": [
+            0.22,
+            0.22
+          ],
+          "status": "PASS",
+          "status_counts": {
+            "BLOCKED": 0,
+            "FAIL": 78,
+            "NOT_RUN": 0,
+            "PASS": 22
+          },
+          "wilson_ci95": [
+            0.150012823846054,
+            0.31070353514985793
+          ]
+        },
+        "65719": {
+          "denominator": 100,
+          "rate": 0.22,
+          "rate_bounds": [
+            0.22,
+            0.22
+          ],
+          "status": "PASS",
+          "status_counts": {
+            "BLOCKED": 0,
+            "FAIL": 78,
+            "NOT_RUN": 0,
+            "PASS": 22
+          },
+          "wilson_ci95": [
+            0.150012823846054,
+            0.31070353514985793
+          ]
+        },
+        "98123": {
+          "denominator": 100,
+          "rate": 0.22,
+          "rate_bounds": [
+            0.22,
+            0.22
+          ],
+          "status": "PASS",
+          "status_counts": {
+            "BLOCKED": 0,
+            "FAIL": 78,
+            "NOT_RUN": 0,
+            "PASS": 22
+          },
+          "wilson_ci95": [
+            0.150012823846054,
+            0.31070353514985793
+          ]
+        }
+      },
+      "failure_class_transitions": {
+        "48707->65719": {
+          "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 33,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 0,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 0,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 1,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 0,
+            "PASS": 0
+          },
+          "FAIL:F03_MODEL_ARGUMENT_ERROR": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 1,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 20,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 0,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 0,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 0,
+            "PASS": 0
+          },
+          "FAIL:F08_AUTHORIZATION_DENIAL": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 0,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 0,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 2,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 0,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 0,
+            "PASS": 0
+          },
+          "FAIL:F12_FINAL_ANSWER_ERROR": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 0,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 0,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 0,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 17,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 0,
+            "PASS": 0
+          },
+          "FAIL:F15_INSUFFICIENT_EVIDENCE": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 0,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 0,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 0,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 0,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 4,
+            "PASS": 0
+          },
+          "PASS": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 0,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 0,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 0,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 0,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 0,
+            "PASS": 22
+          }
+        },
+        "65719->98123": {
+          "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 34,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 0,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 0,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 0,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 0,
+            "PASS": 0
+          },
+          "FAIL:F03_MODEL_ARGUMENT_ERROR": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 0,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 20,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 0,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 0,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 0,
+            "PASS": 0
+          },
+          "FAIL:F08_AUTHORIZATION_DENIAL": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 0,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 0,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 2,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 0,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 0,
+            "PASS": 0
+          },
+          "FAIL:F12_FINAL_ANSWER_ERROR": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 1,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 0,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 0,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 17,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 0,
+            "PASS": 0
+          },
+          "FAIL:F15_INSUFFICIENT_EVIDENCE": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 0,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 0,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 0,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 0,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 4,
+            "PASS": 0
+          },
+          "PASS": {
+            "FAIL:F02_MODEL_TOOL_SELECTION_ERROR": 0,
+            "FAIL:F03_MODEL_ARGUMENT_ERROR": 0,
+            "FAIL:F08_AUTHORIZATION_DENIAL": 0,
+            "FAIL:F12_FINAL_ANSWER_ERROR": 0,
+            "FAIL:F15_INSUFFICIENT_EVIDENCE": 0,
+            "PASS": 22
+          }
+        }
+      },
+      "panel_cases": 100,
+      "pass_all_3": {
+        "denominator": 100,
+        "rate": 0.22,
+        "rate_bounds": [
+          0.22,
+          0.22
+        ],
+        "status": "PASS",
+        "status_counts": {
+          "BLOCKED": 0,
+          "FAIL": 78,
+          "NOT_RUN": 0,
+          "PASS": 22
+        },
+        "wilson_ci95": [
+          0.150012823846054,
+          0.31070353514985793
+        ]
+      },
+      "pass_at_3": {
+        "denominator": 100,
+        "rate": 0.22,
+        "rate_bounds": [
+          0.22,
+          0.22
+        ],
+        "status": "PASS",
+        "status_counts": {
+          "BLOCKED": 0,
+          "FAIL": 78,
+          "NOT_RUN": 0,
+          "PASS": 22
+        },
+        "wilson_ci95": [
+          0.150012823846054,
+          0.31070353514985793
+        ]
+      },
+      "repeat_first_pass": {
+        "denominator": 100,
+        "rate": 0.22,
+        "rate_bounds": [
+          0.22,
+          0.22
+        ],
+        "status": "PASS",
+        "status_counts": {
+          "BLOCKED": 0,
+          "FAIL": 78,
+          "NOT_RUN": 0,
+          "PASS": 22
+        },
+        "wilson_ci95": [
+          0.150012823846054,
+          0.31070353514985793
+        ]
+      },
+      "seed_pass_rate_variance": 0.0,
+      "status": "PASS",
+      "transitions": {
+        "48707->65719": {
+          "BLOCKED": {
+            "BLOCKED": 0,
+            "FAIL": 0,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "FAIL": {
+            "BLOCKED": 0,
+            "FAIL": 78,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "NOT_RUN": {
+            "BLOCKED": 0,
+            "FAIL": 0,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "PASS": {
+            "BLOCKED": 0,
+            "FAIL": 0,
+            "NOT_RUN": 0,
+            "PASS": 22
+          }
+        },
+        "65719->98123": {
+          "BLOCKED": {
+            "BLOCKED": 0,
+            "FAIL": 0,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "FAIL": {
+            "BLOCKED": 0,
+            "FAIL": 78,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "NOT_RUN": {
+            "BLOCKED": 0,
+            "FAIL": 0,
+            "NOT_RUN": 0,
+            "PASS": 0
+          },
+          "PASS": {
+            "BLOCKED": 0,
+            "FAIL": 0,
+            "NOT_RUN": 0,
+            "PASS": 22
+          }
+        }
+      }
+    },
+    "run_id": "ij07-multitool-71682c0b49f941d0bde28e66b0f63ec8",
+    "scope": "original Vulkan profile, fixed repeat panel; failure class uses the first recorded finding"
+  },
+  "planning_diagnostic": {
+    "BLOCKED": 0,
+    "FAIL": 4,
+    "NOT_RUN": 0,
+    "PASS": 0
+  },
+  "production_admission": "BLOCKED",
+  "qualification": "FAIL",
+  "resource_evidence": {
+    "R0-R": {
+      "gpu_peak_bytes": {
+        "committed": 3478999040,
+        "dedicated": 3081662464,
+        "shared": 397336576
+      },
+      "request_ms": {
+        "max": 5222,
+        "min": 212,
+        "missing": 0,
+        "observations": 1057,
+        "p50": 560,
+        "p95": 1435,
+        "sum": 724651
+      }
+    },
+    "R0-V": {
+      "gpu_peak_bytes": {
+        "committed": 3356213248,
+        "dedicated": 2984493056,
+        "shared": 371720192
+      },
+      "request_ms": {
+        "max": 4884,
+        "min": 211,
+        "missing": 0,
+        "observations": 1054,
+        "p50": 560,
+        "p95": 1370,
+        "sum": 710492
+      }
+    },
+    "R1-R": {
+      "gpu_peak_bytes": {
+        "committed": 3478999040,
+        "dedicated": 3081662464,
+        "shared": 397336576
+      },
+      "request_ms": {
+        "max": 5418,
+        "min": 208,
+        "missing": 0,
+        "observations": 1057,
+        "p50": 558,
+        "p95": 1464,
+        "sum": 728099
+      }
+    },
+    "R1-V": {
+      "gpu_peak_bytes": {
+        "committed": 3356213248,
+        "dedicated": 2984493056,
+        "shared": 371720192
+      },
+      "request_ms": {
+        "max": 4777,
+        "min": 223,
+        "missing": 0,
+        "observations": 1054,
+        "p50": 555,
+        "p95": 1356,
+        "sum": 707717
+      }
+    }
+  },
+  "runtime_admission": {
+    "admission": {
+      "asset": {
+        "expected_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+        "filename": "MiniCPM5-2B-Q8_0.gguf",
+        "observed_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+        "repo": "OpenBMB/MiniCPM5-2B-GGUF",
+        "revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+        "status": "PASS"
+      },
+      "gates": {
+        "artifact_identity": "PASS",
+        "cpu_reference": "PASS",
+        "dependent_call": "PASS",
+        "gpu_execution": "PASS",
+        "load": "PASS",
+        "native_call": "PASS",
+        "ordinary_chat": "PASS",
+        "result_roundtrip": "PASS",
+        "schema_and_invalid_choice": "FAIL",
+        "stream_parity": "PASS"
+      },
+      "gpu": {
+        "args": [
+          "--ctx-size",
+          "8192",
+          "--parallel",
+          "1",
+          "--n-gpu-layers",
+          "99",
+          "--device",
+          "Vulkan0",
+          "--jinja",
+          "--offline",
+          "--no-webui",
+          "--verbosity",
+          "4"
+        ],
+        "backend": "vulkan",
+        "build": "b12359-b1b770d90",
+        "counter_file": "vulkan-gpu.jsonl",
+        "gpu": {
+          "architecture": "gfx1151",
+          "device": "Vulkan0",
+          "name": "AMD Radeon(TM) 8060S Graphics"
+        },
+        "launched_utc": "2026-11-24T12:32:35+00:00",
+        "layers_offloaded": 43,
+        "layers_total": 43,
+        "owns_port": true,
+        "pid": 15692,
+        "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+        "trace_file": null
+      },
+      "gpu_engine": {
+        "dll_sha256": {
+          "ggml-base.dll": "20e4986ec6fd88eb61630433ff172e08885f8fecfbd0c1960a5d55c8854019e3",
+          "ggml-cpu-alderlake.dll": "f4bd2a5bd4c99669a5efcbc0edf5326c6f51cf556c3301ae5c8fc2994b913440",
+          "ggml-cpu-cannonlake.dll": "b6a69981682c6e9dfb5fefcfc3677b9e17c112c3c33fc9d59405daa618e63304",
+          "ggml-cpu-cascadelake.dll": "488337fb896ac54ec8a74a5e8163b48d8ec4c8e082da4bbb62ebe52139d3b3d8",
+          "ggml-cpu-cooperlake.dll": "7d30660f15d288d6da7c1d99ae8418c46f61d1d5036e0082aad6fbf4e461d2bb",
+          "ggml-cpu-haswell.dll": "26dbcf80225fe3c56aa750501247cebdc99b791f323c33d0d8fcd2ed7c4bafcb",
+          "ggml-cpu-icelake.dll": "0a35f7a655bb74ce2d64cbb64e6817b17f62964b060c6a503d3267b2133199bc",
+          "ggml-cpu-ivybridge.dll": "2e83b2aa5ad108445a599fcdd46fafcb227a3d2d66743994434b0bcaacb5a714",
+          "ggml-cpu-piledriver.dll": "851474816a574847b264e018de02410f5905359934c2fa2411f7ff3d7706620c",
+          "ggml-cpu-sandybridge.dll": "86b1c9114249492b8d39a1a3d9f9717c8969334a4bd12c279b91248a553cb254",
+          "ggml-cpu-sapphirerapids.dll": "b049b5672c3c246bb320ec011c735981628a9369687cfd64a4628c5bad238b3b",
+          "ggml-cpu-skylakex.dll": "183413744426f596c67fb206daf2cab17d666e22076e4a6b9a25d301de871d85",
+          "ggml-cpu-sse42.dll": "5b2f04b3ab1e76b09d887c496eb61b09a0ee4fc77b28c0602e45411906946ccd",
+          "ggml-cpu-x64.dll": "375434294cb7d22de0bf5da68fe67569fb5f8ca2c11e925850c8be3f52d052fe",
+          "ggml-cpu-zen4.dll": "dae5d12772f0213b6d70a3c4db032146b504dea32b1b35bbcc9dff769edf57f7",
+          "ggml-rpc.dll": "2e23f2c0782f5e61428dcc98b905d80fd28c3b9b70304b75c53490c13e1b76d4",
+          "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+          "ggml.dll": "92b081cfb031e2efe5cd2a8c71c872e8a92cb1d4a43619ad6614dc30ad357b80",
+          "libomp.dll": "a12116ba72d1d6820407cf30be23da04ce79d6bb8a71a5ee71759c5a1faa6f1c",
+          "llama-batched-bench-impl.dll": "85d22b25ca93b0cb313d69a05b945bf7775940d1074adff45bd0103cc4e070d7",
+          "llama-bench-impl.dll": "a95e01d0445dfeea1ecc64633adeba15189b02a6a1b6f04e003a654d4b7c6a31",
+          "llama-cli-impl.dll": "67ede23b0e9abd29bbfdd5440df5085c55727344f77d1b8959bcec26fa67f813",
+          "llama-common.dll": "a0e0b993dede7c95eb1ca79cdcc2a003f2f79ff59fc129cb46ec5daac80fd057",
+          "llama-completion-impl.dll": "f81f830e1e862a955cccbcc64bb24239794251a548b8d0a6147d33db16f25463",
+          "llama-fit-params-impl.dll": "b2f8f12f59f7176adc0269a94dde0bc42209ad8d8ea853917695a304dfbf99f1",
+          "llama-perplexity-impl.dll": "14862a589913098cb341c7588783cba38053f774f2ec9933374f5609a542dd07",
+          "llama-quantize-impl.dll": "4007bb641487b7baa431ba120eefb6240d0c7c1930c3908aa4587c8f4fdb6fa3",
+          "llama-server-impl.dll": "c81c23738405831cacda737e64ce8f08870d4f44beb63e3aa9515b3ad2e4286e",
+          "llama.dll": "17b0063b06c4561f46929a809a60bf60c857783bb22f593528145cc1e1108d7d",
+          "mtmd.dll": "558d7c41475cc6f54d6da41eea23876cd35cfd2e9d8f2b3e637b8c49c9928ed5"
+        },
+        "exe_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995"
+      },
+      "run_id": "ij07-admission-b53194b1780a4c7eb3455bf237e68fea",
+      "status": "FAIL"
+    },
+    "admission_strict": {
+      "asset": {
+        "expected_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+        "filename": "MiniCPM5-2B-Q8_0.gguf",
+        "observed_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+        "repo": "OpenBMB/MiniCPM5-2B-GGUF",
+        "revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+        "status": "PASS"
+      },
+      "gates": {
+        "artifact_identity": "PASS",
+        "cpu_reference": "PASS",
+        "dependent_call": "NOT_RUN",
+        "gpu_execution": "PASS",
+        "load": "PASS",
+        "native_call": "FAIL",
+        "ordinary_chat": "PASS",
+        "result_roundtrip": "NOT_RUN",
+        "schema_and_invalid_choice": "PASS",
+        "stream_parity": "FAIL"
+      },
+      "gpu": {
+        "args": [
+          "--ctx-size",
+          "8192",
+          "--parallel",
+          "1",
+          "--n-gpu-layers",
+          "99",
+          "--device",
+          "Vulkan0",
+          "--jinja",
+          "--offline",
+          "--no-webui",
+          "--verbosity",
+          "4"
+        ],
+        "backend": "vulkan",
+        "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+        "counter_file": "vulkan-gpu.jsonl",
+        "gpu": {
+          "architecture": "gfx1151",
+          "device": "Vulkan0",
+          "name": "AMD Radeon(TM) 8060S Graphics"
+        },
+        "launched_utc": "2026-11-24T13:33:26+00:00",
+        "layers_offloaded": 43,
+        "layers_total": 43,
+        "owns_port": true,
+        "pid": 23780,
+        "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+        "trace_file": null
+      },
+      "gpu_engine": {
+        "dll_sha256": {
+          "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+          "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+          "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+          "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+          "llama-common.dll": "e7573a81ba8fc85bfe77797e643e05e7f6895d94c29e8301861460337ebbb30a",
+          "llama-server-impl.dll": "f19ed08afaa34b40173b200df9b495d2ce5d916ea390ad74a7902edd9dcc9659",
+          "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+          "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e"
+        },
+        "exe_sha256": "9ed4473e7c31d8ce225ee6ec8b33f88ea9a51e7381bb08e899bd71fc15cfb9a8"
+      },
+      "run_id": "ij07-admission-604adf24d5ae4ec5be50fce036733cc4",
+      "status": "FAIL"
+    }
+  },
+  "scope": "interim diagnostic",
+  "tc_v2": {
+    "rocm": {
+      "first_pass": {
+        "argument_accuracy": 0.756993006993007,
+        "business_state": {
+          "FAIL": 50,
+          "PASS": 450
+        },
+        "case_rates": {
+          "argument_types": 0.9875,
+          "error_recovery": 1.0,
+          "overall": 0.694,
+          "sequential_multi_tool": 0.25,
+          "single_tool": 0.5,
+          "streaming_tool_call": 0.5,
+          "thinking_separation": 1.0,
+          "tool_result_round_trip": 0.9875,
+          "unauthorized_injection": 0.9666666666666667
+        },
+        "findings": {
+          "F02_MODEL_TOOL_SELECTION_ERROR": 252,
+          "F03_MODEL_ARGUMENT_ERROR": 1,
+          "F11_BUSINESS_STATE_ERROR": 100,
+          "F12_FINAL_ANSWER_ERROR": 153
+        },
+        "invalid_proposal_rate": 0.0,
+        "invalid_proposals": 0,
+        "planned": 500,
+        "proposals": 492,
+        "terminal": 500
+      },
+      "first_pass_by_language": {
+        "en": {
+          "FAIL": 51,
+          "PASS": 199
+        },
+        "zh": {
+          "FAIL": 102,
+          "PASS": 148
+        }
+      },
+      "gates": {
+        "argument_accuracy": "FAIL",
+        "authorization_and_write_safety": "BLOCKED",
+        "coverage_and_provenance": "BLOCKED",
+        "invalid_proposals": "PASS",
+        "native_parser": "PASS",
+        "repeat_panel": "PASS",
+        "streaming_and_thinking": "FAIL",
+        "success": "FAIL"
+      },
+      "repeat": {
+        "by_seed": {
+          "101": 0.74,
+          "211": 0.74,
+          "307": 0.74
+        },
+        "completed": 150,
+        "failure_classes": {
+          "F02_MODEL_TOOL_SELECTION_ERROR": 69,
+          "F03_MODEL_ARGUMENT_ERROR": 3,
+          "F11_BUSINESS_STATE_ERROR": 30,
+          "F12_FINAL_ANSWER_ERROR": 39
+        },
+        "first_pass": 0.74,
+        "pass_all_3": 0.74,
+        "pass_at_3": 0.74,
+        "planned": 150,
+        "seed_rate_variance": 1.232595164407831e-32,
+        "transitions": {
+          "FAIL->FAIL": 26,
+          "PASS->PASS": 74
+        }
+      },
+      "run_id": "ij07-tcv2-be92ce2e76da4a5bb76a6b23af49e615",
+      "status": "FAIL",
+      "wilson95_first_pass": [
+        0.652255219632054,
+        0.7327865362688636
+      ]
+    },
+    "vulkan": {
+      "first_pass": {
+        "argument_accuracy": 0.7596153846153846,
+        "business_state": {
+          "FAIL": 50,
+          "PASS": 450
+        },
+        "case_rates": {
+          "argument_types": 1.0,
+          "error_recovery": 1.0,
+          "overall": 0.698,
+          "sequential_multi_tool": 0.25,
+          "single_tool": 0.5,
+          "streaming_tool_call": 0.5,
+          "thinking_separation": 1.0,
+          "tool_result_round_trip": 0.9875,
+          "unauthorized_injection": 1.0
+        },
+        "findings": {
+          "F02_MODEL_TOOL_SELECTION_ERROR": 250,
+          "F11_BUSINESS_STATE_ERROR": 100,
+          "F12_FINAL_ANSWER_ERROR": 151
+        },
+        "invalid_proposal_rate": 0.0,
+        "invalid_proposals": 0,
+        "planned": 500,
+        "proposals": 494,
+        "terminal": 500
+      },
+      "first_pass_by_language": {
+        "en": {
+          "FAIL": 50,
+          "PASS": 200
+        },
+        "zh": {
+          "FAIL": 101,
+          "PASS": 149
+        }
+      },
+      "gates": {
+        "argument_accuracy": "FAIL",
+        "authorization_and_write_safety": "PASS",
+        "coverage_and_provenance": "BLOCKED",
+        "invalid_proposals": "PASS",
+        "native_parser": "PASS",
+        "repeat_panel": "PASS",
+        "streaming_and_thinking": "FAIL",
+        "success": "FAIL"
+      },
+      "repeat": {
+        "by_seed": {
+          "101": 0.76,
+          "211": 0.76,
+          "307": 0.76
+        },
+        "completed": 150,
+        "failure_classes": {
+          "F02_MODEL_TOOL_SELECTION_ERROR": 69,
+          "F11_BUSINESS_STATE_ERROR": 30,
+          "F12_FINAL_ANSWER_ERROR": 36
+        },
+        "first_pass": 0.76,
+        "pass_all_3": 0.76,
+        "pass_at_3": 0.76,
+        "planned": 150,
+        "seed_rate_variance": 1.232595164407831e-32,
+        "transitions": {
+          "FAIL->FAIL": 24,
+          "PASS->PASS": 76
+        }
+      },
+      "run_id": "ij07-tcv2-b9cf4a498f064a728bc9bd66f9d47b36",
+      "status": "FAIL",
+      "wilson95_first_pass": [
+        0.6563723120570819,
+        0.7366084491201434
+      ]
+    }
+  }
+}

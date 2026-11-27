@@ -1,0 +1,23 @@
+# IJ-0.7.3 基线复核
+
+PR #6 的远端分支与工作树基线均为 `0ba158cf95cd802ca9f9091d6abc893dce543644`。本次按归档中的逐条记录计数。A/B 的业务完成数引用封存检查点摘要。输入文件的 SHA256 和机器结果见[基线清单](../evidence/IJ073/baseline.json)。
+
+| 历史实验 | 分母 | 复核结果 |
+|---|---:|---|
+| 独立软件 Witness | 3,300 | 严格通过 3,172 |
+| Plan-first | 800 | 严格通过 672，L4 为 15/100，L7 为 57/100 |
+| 初始计划拒绝 | 128 | 数量限制 53，私有图覆盖检查 75 |
+| 条件干预 | 602 | V1 漏判 562 个禁用动作和 40 个拒绝后提交 |
+| 公开合同归一化 | 200 | 13 组共 29 条观察到不同路径 |
+| Qwen3 对照 | 每模型 540 | 8B 与 14B 的 TC 分别为 56、66/100，多工具 28、45/120，Acting-first 4、35/160，Plan-first 均为 0/160 |
+| 提示消融 | 1,152 | 严格通过 4，业务通过 53。含 Schema 的子集首轮协议 512/512，业务通过 49/512 |
+| 报价两项业务事实 | 每模型 80 | LFM3、Qwen3.5、Ministral、Gemma 分别为 56、80、39、80。原严格通过均为 0 |
+| 岗位 | A 已封存 600，B 已封存 300 | 严格通过 23、22；实际业务完成均为 0 |
+| 无模型 F | 同集各 600 | 原始 592，通过修订的同集诊断 600 |
+| 历史盲审包 | 22 | 人工评审 NOT_RUN |
+
+在仓库根目录运行 `python -m scripts.tools.ij073_baseline` 可重新生成计数和输入哈希。物理结果沿用封存时的模型、设备及运行身份。本次执行的是离线重算。[任务进度](../atlas/ij073/progress.json)
+
+## Physical inventory
+
+Windows 11 build 26200 reports a Ryzen AI MAX+ PRO 395 and Radeon 8060S, driver 32.0.22018.5. Installed memory is 128 GiB. Six pinned MiniCPM weight/tokenizer/template files matched their hashes, as did the three pinned server binaries. Vulkan and ROCm each enumerated the Radeon. The SDK environment reports 0.1.24. These checks establish installed identity and enumeration only. [Inventory](../evidence/IJ073/machine_inventory.json) · [Initial ROCm probe diagnostic](../evidence/IJ073/inventory_probe_diagnostic.json)

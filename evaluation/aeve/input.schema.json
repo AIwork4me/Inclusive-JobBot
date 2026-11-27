@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": "aeve.input/1"
+    },
+    "trial_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "public_task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "missing": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "tools",
+          "initial_state",
+          "policy",
+          "user_update",
+          "plan",
+          "raw_generation",
+          "parsed_call",
+          "arguments",
+          "observation",
+          "trace",
+          "persisted_state",
+          "final_answer",
+          "provenance",
+          "runtime_identity"
+        ]
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "tools",
+              "initial_state",
+              "policy",
+              "user_update",
+              "plan",
+              "raw_generation",
+              "parsed_call",
+              "arguments",
+              "observation",
+              "trace",
+              "persisted_state",
+              "final_answer",
+              "provenance",
+              "runtime_identity"
+            ]
+          },
+          "visibility": {
+            "enum": [
+              "judge",
+              "internal"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "value": {},
+          "source_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "visibility",
+          "source",
+          "sha256",
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "version",
+    "trial_id",
+    "public_task",
+    "missing",
+    "events"
+  ]
+}
