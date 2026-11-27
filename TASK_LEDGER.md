@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Pinned the three additional independent families, gpt-oss-20b, Phi-4 and Llama 3.3 70B. Runtime and matched quality evidence remain separate from asset identity. Froze 393 diagnostic Radeon requests from the 131 original Q1 truncations under the original budget, a larger budget or a more compact output contract. The diagnostic does not qualify a route. [Candidate registry](evaluation/aeve/additional_candidate_pins.json) · [Truncation freeze](evaluation/aeve/truncation_freeze.json)
+
 Replayed 101 Gold discrepancy packets using independent proof obligations. The 45 Gold defects and 81 sufficient alternative citation sets were confirmed. All 323 deletion and reversal controls passed. Historical exact scores are preserved. Q3 proof routing and historical free-text rationale qualification remain NOT_RUN. [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md)
 
 Synchronized the frozen Q2 counter across Atlas progress, the mission state and the sealed coverage manifest. Its cohort admission remains NOT_RUN during live capture. Published a 600-scope historical Judge coverage matrix with zero Q3-qualified panels. [Sealed Q2 coverage](evidence/IJ073/aeve/q2_sealed_coverage.json) · [Routing matrix](evidence/IJ073/aeve/historical_route_matrix.json)

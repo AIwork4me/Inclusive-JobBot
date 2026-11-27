@@ -20,6 +20,8 @@ The single-Judge arms are experimental baselines. Every formal semantic skill ke
 
 The compiler and stage projection have software regression evidence. Matched Radeon E0–E6 execution is **NOT_RUN**.
 
+The Q1 truncation diagnostic freezes 393 physical requests for the 131 original truncated responses. Each failed original receives a matched baseline, a 320-token arm preserving the original contract, and a compact-field contract arm preserving the 160-token ceiling, prompt and semantics. All three retain the same case, Judge, evidence and required rationale. The resulting changes apply to the selected truncation cohort. Performance on ordinary and new cases requires independent qualification. Run `python -m evaluation.aeve.truncation run --output .runtime/aeve-ij073/truncation-report.json`, using the exclusive controller. [Frozen protocol](../evaluation/aeve/truncation_freeze.json)
+
 The Q3 metric registration preserves the Q1 floors and defines the additional citation, language, safety and abstention gates. The final runner, family-separated roster and case-level proof obligations still require a separate freeze before physical qualification. [Q3 metric registration](../evaluation/aeve/q3_metric_preregistration.json)
 
 The history panel planner requires an exact dimension and risk match and binds each slot to the model revision, weight, quantization, binary, runtime configuration, prompt, rubric, schema, algorithm and Q3 report. Tested controls cover subject-family exclusion, duplicate variants, absent dispute coverage and missing binding fields. Candidate-qualification artifacts and the verified historical dispatch still require physical closure.

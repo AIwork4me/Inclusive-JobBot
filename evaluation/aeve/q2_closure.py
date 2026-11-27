@@ -2,7 +2,7 @@
 import argparse
 from collections import Counter, defaultdict
 import json
-from math import ceil
+from math import ceil, isfinite
 from pathlib import Path
 
 from .archive import digest
@@ -34,6 +34,20 @@ def wall_summary(samples):
             "p95_wall_ms": values[ceil(count * .95) - 1] if count else None,
             "total_request_wall_ms": elapsed,
             "evaluations_per_request_wall_second": 1000 * count / elapsed if elapsed else None}
+
+
+def measured_cost(rows):
+    summary = wall_summary([row["wall_ms"] for row in rows])
+    for field in ("prompt_tokens", "completion_tokens", "total_tokens"):
+        values = [row["usage"][field] for row in rows if type(row["usage"].get(field)) is int]
+        summary[field] = {"recorded": len(values), "total": sum(values)}
+    durations = []
+    for row in rows:
+        prompt, decode = (row["timings"].get(key) for key in ("prompt_ms", "predicted_ms"))
+        if all(type(value) in {int, float} and isfinite(value) and value >= 0 for value in (prompt, decode)):
+            durations.append(prompt + decode)
+    summary["native_inference_ms"] = {"recorded": len(durations), "total": round(sum(durations), 3)}
+    return summary
 
 
 def scan(out):
@@ -86,7 +100,10 @@ def details(stamps):
             if row["collection"] != COLLECTION:
                 continue
             capture = row["capture"]
-            wire = json.loads(capture["raw_response"] or "{}")
+            try:
+                wire = json.loads(capture["raw_response"] or "{}")
+            except ValueError:
+                wire = {}
             choices = wire.get("choices") or [{}]
             reason = choices[0].get("finish_reason")
             evaluation = row["evaluation"]
@@ -98,6 +115,7 @@ def details(stamps):
                          "judgment_contract" if "verdict" not in evaluation else None,
                 "citations": evaluation.get("evidence_refs"), "reason_summary": evaluation.get("reason_summary"),
                 "wall_ms": capture["wall_ms"], "usage": wire.get("usage") or {},
+                "timings": wire.get("timings") or {},
             }
     return sessions, responses
 
@@ -118,10 +136,7 @@ def build(archive, manifest_hashes=None):
         rows = model["cases"]
         for row in rows:
             row.update(responses[row["job"]])
-        model["cost"] = wall_summary([row["wall_ms"] for row in rows])
-        for field in ("prompt_tokens", "completion_tokens"):
-            values = [row["usage"][field] for row in rows if type(row["usage"].get(field)) is int]
-            model["cost"][field] = {"recorded": len(values), "total": sum(values)}
+        model["cost"] = measured_cost(rows)
         model["error_counts"] = dict(Counter(row["error"] for row in rows if row["error"]))
         model["strata"] = {
             name: {key: rate([row for row in rows if row[name] == key],
@@ -130,7 +145,13 @@ def build(archive, manifest_hashes=None):
             for name in ("language", "dimension")
         }
         model["runtime_sessions"] = sorted(run for run, session in sessions.items() if session["candidate"] == code)
-    return {"version": "IJ073-Q2-CLOSURE-1", "protocol_sha256": fingerprint(plan),
+    total = measured_cost([row for model in report["models"].values() for row in model["cases"]])
+    total["gpu_memory_peaks_bytes"] = {
+        field: max((session["process_gpu_memory_peaks"][field] for session in sessions.values()
+                    if session["process_gpu_memory_peaks"][field] is not None), default=None)
+        for field in ("dedicated_bytes", "shared_bytes", "committed_bytes")}
+    total["electricity_and_currency_cost"] = {"status": "NOT_RUN", "reason": "energy and tariff not captured"}
+    return {"version": "IJ073-Q2-CLOSURE-2", "measured_operating_cost": total, "protocol_sha256": fingerprint(plan),
             "source_sha256": digest(Path(__file__)), "dataset_sha256": plan["dataset_sha256"],
             "session_manifests": hashes, "recorded": len(responses), "sessions": sessions, **report}
 
@@ -157,7 +178,9 @@ def markdown(report):
         parts.append(f"| {metric} | {floor:g} | " + " | ".join(values) + " |")
     parts.extend(["", f"Paired Cohen’s κ floor is {gates['kappa']:g}. The companion JSON records agreement, "
                   "world-cluster intervals, error categories, run identity, token usage and GPU counters. "
-                  "Request wall time excludes server startup and model switching.", ""])
+                  "Request wall time excludes server startup and model switching. Native inference time is "
+                  "the engine's measured prefill plus decode time on the qualified GPU-offloaded runtime. "
+                  "Electricity and currency cost were not measured.", ""])
     return "\n".join(parts)
 
 

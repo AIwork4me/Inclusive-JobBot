@@ -24,6 +24,10 @@ Replay a completed portable cohort with `python -m evaluation.aeve.larger_develo
 
 ## Additional independent families researched
 
+The additional registry pins exact ModelScope files for O20 (gpt-oss-20b MXFP4), P14 (Phi-4 Q8_0) and L70 (Llama 3.3 70B Q4_K_M). Each length and SHA256 matches the corresponding Hugging Face LFS metadata. Their runtime and matched development are NOT_RUN. M14 and G31 retain their original pinned registry. [Additional registry](../evaluation/aeve/additional_candidate_pins.json)
+
+The llama.cpp maintainers document native MXFP4 support on Vulkan. The local O20 admission still needs to exercise the deployed Harmony template and verify the output boundary. Microsoft's Phi-4 GGUF is an English-focused release. Meta's Llama 3.3 lists eight supported languages and the selected GGUF is a third-party quantization. The bilingual physical comparison determines the observed language coverage for both families. [llama.cpp MXFP4 announcement](https://github.com/ggml-org/llama.cpp/discussions/15095) · [Microsoft Phi-4 GGUF](https://huggingface.co/microsoft/phi-4-gguf) · [Meta Llama 3.3](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct)
+
 | Candidate | Publisher information relevant to intake | Local qualification |
 |---|---|---|
 | OpenAI gpt-oss-20b | Apache 2.0. The publisher reports MXFP4 runs within 16 GB and requires Harmony formatting. Pin the matching local parser and template before edge admission. [Model card](https://huggingface.co/openai/gpt-oss-20b) | NOT_RUN |

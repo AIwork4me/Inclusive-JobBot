@@ -18,6 +18,7 @@ from .q2_development import REGISTRY
 from .runtime import ROOT, canonical, fingerprint, write_json
 
 PINS = Path(__file__).with_name("larger_candidate_pins.json")
+ADDITIONAL_PINS = Path(__file__).with_name("additional_candidate_pins.json")
 
 
 def local_asset(candidate, assets):
@@ -71,7 +72,7 @@ def copy_ranges(candidate, assets, folder, proxy):
     return final
 
 
-def test(candidate, assets, output, port, *, matched_development=False):
+def test(candidate, assets, output, port, *, matched_development=False, pins=PINS):
     # Candidate E supplies the verified engine identity, independently of the larger model.
     engine = assets/".tools/ij07-toolchoice-p4b-vulkan"
     reference = json.loads(REGISTRY.read_bytes())["candidates"]["E"]
@@ -85,7 +86,7 @@ def test(candidate, assets, output, port, *, matched_development=False):
     target = output/run
     target.mkdir(parents=True)
     report = {"run_id":run,"evidence_type":"runtime_admission","candidate":candidate,
-              "git":legacy.git_state(),"pins_sha256":digest(PINS),"engine":control["engine"],
+              "git":legacy.git_state(),"pins_sha256":digest(pins),"engine":control["engine"],
               "template_sha256":template,"gates":dict.fromkeys(GATES,"NOT_RUN"),"wire":[]}
     gates = report["gates"]
     gates["artifact_identity"] = "PASS"
@@ -133,7 +134,9 @@ def test(candidate, assets, output, port, *, matched_development=False):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("candidate",choices=("M14","G31"))
+    registries = {row["code"]: (row, pins) for pins in (PINS, ADDITIONAL_PINS)
+                  for row in json.loads(pins.read_bytes())["candidates"]}
+    parser.add_argument("candidate", choices=tuple(registries))
     parser.add_argument("--assets",type=Path,default=ROOT.parent.parent)
     parser.add_argument("--out",type=Path,default=ROOT/".runtime/larger-judge-admission")
     parser.add_argument("--port",type=int,default=18745)
@@ -143,7 +146,7 @@ def main():
     parser.add_argument("--proxy")
     parser.add_argument("--matched-development", action="store_true")
     args = parser.parse_args()
-    pin = next(r for r in json.loads(PINS.read_bytes())["candidates"] if r["code"] == args.candidate)
+    pin, registry = registries[args.candidate]
     if args.download:
         download(pin,args.assets.resolve(),args.proxy)
         print(pin["code"],pin["sha256"])
@@ -151,7 +154,7 @@ def main():
         local_asset(pin,args.assets.resolve())
         print(pin["code"],pin["sha256"])
     else:
-        test(pin,args.assets.resolve(),args.out.resolve(),args.port,matched_development=args.matched_development)
+        test(pin,args.assets.resolve(),args.out.resolve(),args.port,matched_development=args.matched_development,pins=registry)
 
 
 if __name__ == "__main__":

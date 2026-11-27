@@ -19,13 +19,13 @@ def routing_readiness(report, families):
     }
 
 
-def admission_runs(out, candidate):
+def admission_runs(out, candidate, pins=PINS):
     sealed = []
     for path in sorted(out.glob("*/portable/report.json")):
         report = json.loads(path.read_bytes())
         if report["candidate"] != candidate:
             continue
-        if (report["pins_sha256"] != digest(PINS) or report["run_id"] != path.parent.parent.name
+        if (report["pins_sha256"] != digest(pins) or report["run_id"] != path.parent.parent.name
                 or any(digest(path.with_name(name)) != sha for name, sha in report["sha256"].items())):
             raise ValueError("larger candidate admission evidence differs from its seal")
         development = report.get("matched_development", {})
@@ -40,17 +40,17 @@ def admission_runs(out, candidate):
     return sealed
 
 
-def candidate_admission(state, assets, port):
+def candidate_admission(state, assets, port, *, pins=PINS):
     out = state / "larger-candidate-admission"
     out.mkdir(parents=True, exist_ok=True)
     results = {}
-    for candidate in json.loads(PINS.read_bytes())["candidates"]:
+    for candidate in json.loads(pins.read_bytes())["candidates"]:
         code = candidate["code"]
-        sealed = admission_runs(out, candidate)
+        sealed = admission_runs(out, candidate, pins)
         if not sealed:
             try:
                 with gpu_lock(state):
-                    test(candidate, assets, out, port, matched_development=True)
+                    test(candidate, assets, out, port, matched_development=True, pins=pins)
             except FileNotFoundError:
                 results[code] = {"status": "BLOCKED", "reason": "pinned local weight or runtime is absent"}
                 continue
@@ -61,7 +61,7 @@ def candidate_admission(state, assets, port):
                 write_json(out / f"{code}-last-error.json", {"error": type(error).__name__, "message": str(error)})
                 results[code] = {"status": "BLOCKED", "reason": "runtime admission interrupted before sealing"}
                 continue
-            sealed = admission_runs(out, candidate)
+            sealed = admission_runs(out, candidate, pins)
         status = "PASS" if any(row["status"] == "PASS" for row in sealed) else (
             "FAIL" if any(row["status"] == "FAIL" for row in sealed) else "BLOCKED")
         matched = "PASS" if any(row["matched_development"] == "PASS" for row in sealed) else (
