@@ -6,6 +6,7 @@ from benchmarks.agentic_planning_v2.events import approval, external_event, refu
 from benchmarks.agentic_planning_v2.execution import execute
 from benchmarks.agentic_planning_v2.oracle import validate, verify
 from benchmarks.ij06_sdk.wire_boundary import assemble_reply
+from benchmarks.root_cause.generation_capture import protocol_reply
 from benchmarks.tool_calling_v2.oracle import equal
 from evaluation.aeve.runtime import fingerprint
 from model_gateway.errors import GatewayError
@@ -14,6 +15,7 @@ from model_gateway.strict_json import strict_object
 
 from .planning_controls import DENIALS, WRITE_TOOLS, validate_world
 from .planning_source_release import stage_sources
+from .tc_verification import delivered_result
 
 
 def verdict(passed):
@@ -213,7 +215,7 @@ def state_assessment(trial, steps, complete):
 
 
 def stage_provenance(case, world, calls, complete):
-    """Check the source and observed provenance without consulting expected draft values."""
+    """Check callback and draft provenance without consulting expected draft values."""
     stages = [call for call in calls if call["tool"] == "stage"]
     try:
         expected = stage_sources(case, world)
@@ -250,6 +252,60 @@ def stage_provenance(case, world, calls, complete):
                        for key in ("reference", "action", "assessment"))):
             return "FAIL"
     return verdict(bool(expected) and len(sources) == len(expected)) if complete else "BLOCKED"
+
+
+def stage_provider_delivery(trial):
+    """Tie each captured stage proposal to the exact earlier audit result visible to the provider."""
+    try:
+        wire = trial["wire"]
+        if not wire or not any(call["tool"] == "stage" for call in trial["calls"]):
+            return "BLOCKED"
+        events = {event["provider_request_id"]: (index, event) for index, event in enumerate(wire)}
+        if len(events) != len(wire):
+            return "BLOCKED"
+        prior = {}
+        for call in trial["calls"]:
+            name, reference = call["tool"], call["args"].get("reference")
+            reply = call["observation"]
+            if scope_changed(external_event(reply)) or refused(reply, external_event(reply)):
+                prior.clear()
+            if name == "audit_read" and reply["code"] == "ok":
+                prior[reference] = call
+            if name != "stage":
+                continue
+            audit = prior[reference]
+            earlier, audit_event = events[audit["provider_request_id"]]
+            later, stage_event = events[call["provider_request_id"]]
+            if later <= earlier:
+                return "FAIL"
+            for callback, event in ((audit, audit_event), (call, stage_event)):
+                raw = event["response"].encode()
+                if (event["http_status"] != 200 or event["trial_id"] != trial["trial_id"]
+                        or sha256(raw).hexdigest() != event["response_sha256"]
+                        or callback["completion_id"] != event["completion_id"]):
+                    return "BLOCKED"
+                content_type = event["content_type"]
+                if protocol_reply(raw, content_type.startswith("text/event-stream"))["id"] != callback["completion_id"]:
+                    return "BLOCKED"
+                response = assemble_reply(content_type, raw, max_stream_bytes=2 * MAX_WIRE_BYTES)
+                matching = [proposal for proposal in response.calls if proposal.call_id == callback["call_id"]]
+                if (len(matching) != 1 or matching[0].name != callback["tool"]
+                        or not equal(parse_proposal(matching[0]), callback["args"])):
+                    return "BLOCKED"
+            request = stage_event["provider_request"].encode()
+            if sha256(request).hexdigest() != stage_event["provider_request_sha256"]:
+                return "BLOCKED"
+            messages = strict_object(request, max_bytes=2 * MAX_WIRE_BYTES)["messages"]
+            replies = [row for row in messages if row.get("role") == "tool"
+                       and row.get("tool_call_id") == audit["call_id"]]
+            if len(replies) != 1:
+                return "FAIL"
+            track = trial["track"] if trial["track"].startswith("sdk_") else "direct_first"
+            if not equal(delivered_result(replies[0], audit, track), audit["observation"]):
+                return "FAIL"
+    except (AttributeError, GatewayError, KeyError, TypeError, ValueError):
+        return "BLOCKED"
+    return "PASS"
 
 
 def local_response(calls, steps, trigger, complete):
@@ -306,6 +362,7 @@ def assess_trial(case, proof, world_id, trial):
         "authorization_proposals": "NOT_RUN",
         "persisted_state": "NOT_RUN",
         "stage_provenance": "NOT_RUN",
+        "stage_provider_delivery": "NOT_RUN",
     }
     plan = decode(trial["plan_raw"])
     evidence_gaps = {}
@@ -339,8 +396,11 @@ def assess_trial(case, proof, world_id, trial):
         mechanics["persisted_state"] = state_assessment(trial, steps, complete)
     if case["level"] == "L6":
         mechanics["stage_provenance"] = stage_provenance(case, world, calls, complete)
+        if mechanics["stage_provenance"] == "PASS":
+            mechanics["stage_provider_delivery"] = stage_provider_delivery(trial)
     workflow = [mechanics[key] for key in (
         "actual_call_path", "final_facts", "authorization_trace", "persisted_state", "stage_provenance",
+        "stage_provider_delivery",
     )]
     mechanics["observed_workflow"] = aggregate(workflow)
     mechanics["business_facts"] = mechanics["final_facts"]

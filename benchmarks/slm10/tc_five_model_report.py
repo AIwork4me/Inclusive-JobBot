@@ -9,12 +9,13 @@ import json
 from evaluation.aeve.archive import check_text, digest
 from evaluation.aeve.runtime import canonical
 
+from .portable_seal_refs import verify_seal_artifacts
 from .tc_atlas_views import ROWS, SOURCE
 from .tc_capability_metrics import RATE_COUNTS, event_rate
 from .tc_capability_replay import VERDICTS
-from .tc_dashboard import STATUS, objects
+from .tc_dashboard import ARCHIVE, objects
 from .tc_priority_milestone import SEALED_COMPONENTS, metric_cell, outcome
-from .tc_v3 import HERE
+from .tc_v3 import HERE, verify_freeze
 
 OUT = HERE.parent / "tc-five-model-report.json"
 SCOPED = ("CLARIFICATION_CORRECTNESS", "FAILURE_RECOVERY")
@@ -24,7 +25,15 @@ STREAM_METRICS = ("FIRST_TOOL_CHOICE", "EXACT_ACTION_SEQUENCE", "EXECUTION_PROCE
 
 
 def index():
+    verify_freeze()
     matrix = json.loads(SOURCE.read_bytes())
+    if digest(HERE / "manifest.json") != matrix["dataset_manifest_sha256"]:
+        raise ValueError("assessment dataset differs from the frozen manifest")
+    manifests = {path.parent.name: path for path in ARCHIVE.glob("*/manifest.json")}
+    if manifests.keys() != matrix["sealed_manifests"].keys():
+        raise ValueError("published seal inventory differs from the assessment source")
+    for run, seal in matrix["sealed_manifests"].items():
+        verify_seal_artifacts(manifests[run], seal["manifest_sha256"])
     raw = gzip.decompress(ROWS.read_bytes())
     if sha256(raw).hexdigest() != matrix["derived_rows_sha256"]:
         raise ValueError("five-model input differs from the verified seal replay")
@@ -34,7 +43,11 @@ def index():
     if len(rows) != len(seen) or len(rows) != matrix["totals"]["sealed"] or seen.keys() - roster.keys():
         raise ValueError("five-model input includes duplicate or unregistered trials")
     for key, row in seen.items():
-        if any(row[field] != roster[key][field] for field in ("candidate", "case_id", "track", "seed")):
+        seal = matrix["sealed_manifests"].get(row["physical_run_id"], {})
+        if (row["physical_manifest_sha256"] != seal.get("manifest_sha256")
+                or row["physical_trials_sha256"] != seal.get("trials_sha256")
+                or row["candidate"] != seal.get("candidate")
+                or any(row[field] != roster[key][field] for field in ("candidate", "case_id", "track", "seed"))):
             raise ValueError("assessment identity differs from its scheduled trial")
     return matrix, roster, seen
 
@@ -80,6 +93,23 @@ def repeat_status(rows):
     return trials_status(statuses) or ("PASS" if all(value == "PASS" for value in statuses) else "FAIL")
 
 
+def summarize_stratum(items, track):
+    measured = [row for row, _, _ in items if row]
+    metrics = {metric: metric_cell(metric_outcome(row, metric, task, oracle) for row, task, oracle in items)
+               for metric in (*VERDICTS, *SEALED_COMPONENTS, *SCOPED)}
+    if track == "sdk_repeat":
+        for cell in metrics.values():
+            cell["wilson_95"] = None
+    not_run = len(items) - len(measured)
+    return {
+        "planned": len(items), "sealed": len(measured),
+        "executed": sum(row["physical_execution"] == "PASS" for row in measured), "metrics": metrics,
+        "event_rates": {metric: event_rate(measured, *fields) | {"planned_trials": len(items),
+                         "unsealed_trials": not_run, "rate_scope": "sealed trials with observed event counts"}
+                        for metric, fields in RATE_COUNTS.items()},
+    }
+
+
 def compile_report():
     matrix, roster, rows = index()
     public = {case["case_id"]: case for case in objects(HERE / "holdout-public.jsonl")}
@@ -99,14 +129,7 @@ def compile_report():
             repeats[case_key].append(row)
     cells, pair_cells = {}, defaultdict(list)
     for key, items in sorted(strata.items()):
-        cells["/".join(key)] = {
-            "planned": len(items), "sealed": sum(row is not None for row, _, _ in items),
-            "executed": sum(bool(row and row["physical_execution"] == "PASS") for row, _, _ in items),
-            "metrics": {metric: metric_cell(metric_outcome(row, metric, task, oracle) for row, task, oracle in items)
-                        for metric in (*VERDICTS, *SEALED_COMPONENTS, *SCOPED)},
-            "event_rates": {metric: event_rate([row for row, _, _ in items if row], *fields)
-                            for metric, fields in RATE_COUNTS.items()},
-        }
+        cells["/".join(key)] = summarize_stratum(items, key[1])
     if any(len(cohort) != 3 for cohort in repeats.values()):
         raise ValueError("the frozen repeat panel requires three seeds per case")
     for (model, case_id), group in paired.items():
@@ -144,7 +167,7 @@ def compile_report():
             "required_arguments": "Frozen required arguments component with tool cases as the applicable cohort.",
             "entity_binding": "Frozen entity binding component with tool cases as the applicable cohort.",
         },
-        "interval_scope": "Wilson intervals use observed binary case outcomes. Duplicate and redundant event counts "
+        "interval_scope": "Wilson intervals use observed binary case outcomes. Repeat seed-slot proportions omit Wilson intervals because seeds share cases. Duplicate and redundant event counts "
                           "share trial contexts and are published as counts without independent-event intervals.",
     }
 

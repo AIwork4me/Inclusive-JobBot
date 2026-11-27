@@ -151,6 +151,7 @@ def test_l6_stage_provenance_in_the_actual_assessment_path():
     case, proof, world, trial = fixture("L6", "reviewed_draft")
     dimensions = assess_trial(case, proof, world["world_id"], trial)["software_dimensions"]
     assert dimensions["stage_provenance"] == "PASS"
+    assert dimensions["stage_provider_delivery"] == "BLOCKED"
 
     overridden = deepcopy(trial)
     stage = overridden["calls"][-1]
@@ -162,3 +163,31 @@ def test_l6_stage_provenance_in_the_actual_assessment_path():
     stage = different_draft["calls"][-1]
     stage["after"]["drafts"][stage["observation"]["data"]["draft_id"]]["reference"] = "unrelated subject"
     assert assess_trial(case, proof, world["world_id"], different_draft)["software_dimensions"]["stage_provenance"] == "FAIL"
+
+
+
+def test_stage_provider_delivery_requires_the_exact_audit_reply():
+    from benchmarks.slm10.planning_matched_assessment import stage_provider_delivery
+
+    case, _, _, trace = fixture("L6", "reviewed_draft")
+    audit, stage = trace["calls"][-2:]
+    trace["trial_id"] = case["case_id"]
+    trace["wire"] = []
+    for index, call in enumerate((audit, stage)):
+        call.update(provider_request_id=f"request-{index}", completion_id=f"completion-{index}", call_id=f"call-{index}")
+        request = canonical({"messages": [{"role": "tool", "tool_call_id": audit["call_id"],
+                                          "content": canonical(audit["observation"]).decode()}] if index else []})
+        message = {"role": "assistant", "content": None, "tool_calls": [{"type": "function", "id": call["call_id"],
+                   "function": {"name": call["tool"], "arguments": canonical(call["args"]).decode()}}]}
+        response = canonical({"id": call["completion_id"], "object": "chat.completion",
+                              "choices": [{"index": 0, "message": message, "finish_reason": "tool_calls"}]})
+        trace["wire"].append({"provider_request_id": call["provider_request_id"],
+                              "completion_id": call["completion_id"], "trial_id": trace["trial_id"],
+                              "provider_request": request.decode(), "provider_request_sha256": sha256(request).hexdigest(),
+                              "http_status": 200, "content_type": "application/json",
+                              "response": response.decode(), "response_sha256": sha256(response).hexdigest()})
+    assert stage_provider_delivery(trace) == "PASS"
+    last = trace["wire"][-1]
+    missing = canonical({"messages": []})
+    last.update(provider_request=missing.decode(), provider_request_sha256=sha256(missing).hexdigest())
+    assert stage_provider_delivery(trace) == "FAIL"

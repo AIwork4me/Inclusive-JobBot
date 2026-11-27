@@ -51,8 +51,8 @@ def expectation_digest(findings):
     return sha256(canonical(payload)).hexdigest()
 
 
-def receipt(packet, verdict_path, recorded_sha256):
-    allowed = (OUT / COLLECTION[0], OUT / COLLECTION[1], OUT / COLLECTION[1] / "candidate-0.4")
+def receipt(packet, verdict_path, recorded_sha256, *, phase_one_sha256=None):
+    allowed = (OUT / COLLECTION[0], OUT / COLLECTION[1], OUT / COLLECTION[1] / "candidate-0.4-review-v2")
     if packet.resolve() not in allowed:
         raise ValueError("provide an exact repository review packet directory")
     if digest(verdict_path) != recorded_sha256:
@@ -65,6 +65,11 @@ def receipt(packet, verdict_path, recorded_sha256):
     if (review["packet_manifest_sha256"] != digest(source) or review["packet"] != manifest["packet"]
             or review["expectations_sha256"] != expectation_digest(review["findings"])):
         raise ValueError("review does not bind the exact packet and independently recorded expectations")
+    if "scenario_inputs_sha256" in manifest:
+        if not phase_one_sha256 or review.get("phase_one_expectations_sha256") != phase_one_sha256:
+            raise ValueError("Planning review is missing the prior independently frozen path expectation")
+        if digest(packet / "SCENARIO_INPUTS.jsonl") != manifest["scenario_inputs_sha256"]:
+            raise ValueError("scenario input digest differs from the pinned packet")
     inputs = packet / "REVIEW_INPUTS.jsonl"
     if digest(inputs) != manifest["review_inputs_sha256"]:
         raise ValueError("packet reviewer input digest differs from its manifest")
@@ -93,8 +98,10 @@ def main():
     parser.add_argument("--packet", type=Path, required=True)
     parser.add_argument("--verdict", type=Path, required=True)
     parser.add_argument("--received-sha256", required=True, help="digest recorded on authorized receipt")
+    parser.add_argument("--phase-one-sha256", help="Planning path expectation receipt recorded before scenario release")
     args = parser.parse_args()
-    print(json.dumps(receipt(args.packet, args.verdict, args.received_sha256), indent=2))
+    result = receipt(args.packet, args.verdict, args.received_sha256, phase_one_sha256=args.phase_one_sha256)
+    print(json.dumps(result, indent=2))
 
 
 if __name__ == "__main__":

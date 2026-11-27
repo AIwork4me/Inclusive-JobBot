@@ -98,6 +98,8 @@ def compile_milestone():
     for (model, track, stratum, value), cohort in sorted(grouped.items()):
         for metric in (*VERDICTS, *SEALED_COMPONENTS):
             cells = metric_cell(outcome(row, metric, oracle[row["case_id"]]) for row in cohort)
+            if track == "sdk_repeat":
+                cells["wilson_95"] = None
             matrix.append({"model": model, "track": track, "stratum": stratum, "value": value, "metric": metric,
                            "planned": len(cohort), "executed": len(cohort), "sealed": len(cohort), **cells})
     sessions, identities = {}, defaultdict(dict)
@@ -165,7 +167,8 @@ def compile_milestone():
         }
     return {"schema_version": "1.0", "scope": "TC-V3/1.0 priority Radeon measurement", "planned": 4950,
             "executed": len(rows), "sealed": len(rows), "strict_d25": "BLOCKED",
-            "definitions": replay["definitions"], "models": models, "cells": matrix}, {
+            "definitions": replay["definitions"], "models": models, "cells": matrix,
+            "interval_scope": "Wilson intervals apply to binary first-attempt case outcomes. Repeat seed slots share cases."}, {
         "schema_version": "1.0", "dataset_manifest_sha256": replay["dataset_manifest_sha256"],
         "mechanical_registry_sha256": replay["mechanical_registry_sha256"], "sources": replay["sources"],
         "sessions": sessions, "derived_priority_rows_sha256": sha256(

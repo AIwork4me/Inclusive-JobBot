@@ -8,6 +8,8 @@ from jsonschema import Draft202012Validator
 
 from evaluation.aeve.archive import check_text, digest
 from evaluation.aeve.runtime import ROOT, canonical
+from .portable_seal_refs import verify_seal_artifacts
+from .tc_dashboard import ARCHIVE
 from .tc_priority_milestone import HYPOTHESES, MODELS, OUT as PRIORITY
 
 OUT = PRIORITY.parent.parent / "nanoagent-handoff"
@@ -164,9 +166,11 @@ def main():
     matrix = json.loads((PRIORITY / "CAPABILITY_MATRIX.json").read_bytes())
     evidence = json.loads((PRIORITY / "EVIDENCE_MANIFEST.json").read_bytes())
     docs = exchange(matrix, evidence)
-    for seal in docs["EVIDENCE_MANIFEST"]["raw_portable_sessions"].values():
-        if digest(ROOT / seal["path"]) != seal["manifest_sha256"]:
-            raise ValueError(f"Published raw seal digest differs for {seal['path']}")
+    for run, seal in docs["EVIDENCE_MANIFEST"]["raw_portable_sessions"].items():
+        path = ARCHIVE / run / "manifest.json"
+        if path.parent.parent != ARCHIVE or path.relative_to(ROOT).as_posix() != seal["path"]:
+            raise ValueError("handoff seal path lies outside the TC-V3 archive")
+        verify_seal_artifacts(path, seal["manifest_sha256"])
     files = {}
     validate = validator()
     for kind, data in docs.items():

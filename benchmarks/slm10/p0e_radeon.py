@@ -101,11 +101,13 @@ def run(candidate, assets, output, port):
         trace_path = output / launch["trace_file"]
         report["gpu_execution"] = "PASS" if verify_gpu(
             {"gpu_launch": output / "launch.json", "gpu_counters": counter}, "vulkan") else "FAIL"
-        report["development_execution"] = ("PASS" if report["gpu_execution"] == "PASS"
-                                           and all(row["native_capture"] == "PASS" and (
-                                               not row["state_readback"]["applicable"]
-                                               or row["state_readback"]["status"] == "PASS") for row in report["results"])
-                                           else "BLOCKED")
+        evidence = [report["gpu_execution"]]
+        for row in report["results"]:
+            evidence.append(row["native_capture"])
+            if row["state_readback"]["applicable"]:
+                evidence.append(row["state_readback"]["status"])
+        report["development_execution"] = ("FAIL" if "FAIL" in evidence else
+                                           "PASS" if set(evidence) == {"PASS"} else "BLOCKED")
         report["native_private_sha256"] = digest(trace_path)
         write_evidence(private, report)
         destination = output / "portable"
