@@ -68,7 +68,17 @@
       "Recovery command: python -I scripts/tools/ij_sdk_sdk_conformance.py --model q8 --backend vulkan"
     ]},
     "P4": {"progress": "not_started", "status": "NOT_RUN", "gate": "P4_CROSS_SDK_HARNESS_GO", "evidence": []},
-    "P5": {"progress": "not_started", "status": "NOT_RUN", "gate": "P5_EVALUATOR_SCOPE_QUALIFIED", "evidence": []},
+    "P5": {"progress": "done", "status": "PASS", "gate": "P5_EVALUATOR_SCOPE_QUALIFIED", "evidence": [
+      "reports/IJSDK_05_EVALUATOR_QUALIFICATION.md",
+      "evidence/IJSDK/P5/differential_results.json",
+      "evaluation/ij_sdk/business_oracle.py",
+      "evaluation/ij_sdk/qualify_oracle.py"
+    ], "notes": [
+      "Qualified scopes: E1/E3/E4/E5/E6 deterministic dimensions (14/14 controls, 0 critical failures).",
+      "4 oracle defects found by differential testing and fixed with rule attribution.",
+      "Qualitative/AI-judged/human dimensions NOT qualified - remain BLOCKED for formal claims.",
+      "Recovery command: python -I evaluation/ij_sdk/qualify_oracle.py"
+    ]},
     "P6": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
     "P7": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},
     "P8": {"progress": "not_started", "status": "NOT_RUN", "evidence": []},

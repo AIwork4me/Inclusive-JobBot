@@ -22,6 +22,17 @@ only non-conflicting entries there. Status vocabulary: `PASS`, `FAIL`,
 | P1 | Backend selection frozen: Vulkan primary (only byte-parity arm); ROCm preserved as comparator | done | PASS | `reports/IJSDK_01_WINDOWS_GFX1100_QUALIFICATION.md` §1 |
 | P1 | Repair: Get-VulkanDevices implemented (was undefined); D-011 pipe trap hit twice -> Python runner replaces PowerShell orchestrator | done | PASS | `scripts/windows/common.ps1`, `scripts/tools/ij_sdk_p1_backend_qualify.py` |
 | P1 | Gate P1_GFX1100_PHYSICAL_RUNTIME_GO | done | PASS | `reports/IJSDK_01_WINDOWS_GFX1100_QUALIFICATION.md` |
+| P2 | Admission smokes S1 9/10, S2 9/10, S3a 7/10, S3b 8/10, S3c 5/10, S3d 9/10, R1 9/10 (dev-gen v1.0.1); F19 defect CONFIRMED + repaired (v1.0.0 preserved as diagnostic); S3=Qwen3.5-2B; R1/R2 digests verified | done | PASS | `reports/IJSDK_02_MODEL_ADMISSION.md`, `evidence/IJSDK/P2/admission/` |
+| P2 | Gate P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN | done | PASS | `reports/IJSDK_02_MODEL_ADMISSION.md` |
+| P3 | 10 isolated SDK venvs installed (pip freeze recorded); SEC-01 honored (agent-framework 1.26.0) | done | PASS | `evidence/IJSDK/P3/installed_artifacts.json` |
+| P3 | Conformance: ALL 10 arms pass C1/C2/C3 via their own interfaces (3 sweeps; every failure root-caused) | done | PASS | `evidence/IJSDK/P3/conformance/`, `reports/IJSDK_03_SDK_SURVEY_AND_ADMISSION.md` |
+| P3 | Gate P3_SDK_ADMISSION_AUDITED | done | PASS | `reports/IJSDK_03_SDK_SURVEY_AND_ADMISSION.md` |
+| P4 | Wire-capture event contract (13 stages, closed vocab), AgentAdapter contract, B0 raw reference loop, deterministic fault-injectable gateway | done | PASS | `benchmarks/ij_sdk/contracts/events.py`, `adapters/base.py`, `adapters/b0_raw.py`, `gateway.py` |
+| P5 | Independent business oracle + 14-control differential battery; 4 oracle defects found and fixed; 14/14 PASS; AEVE not inherited | done | PASS | `reports/IJSDK_05_EVALUATOR_QUALIFICATION.md`, `evidence/IJSDK/P5/differential_results.json` |
+| P5 | Gate P5_EVALUATOR_SCOPE_QUALIFIED (E1/E3/E4/E5/E6 deterministic scopes) | done | PASS | `reports/IJSDK_05_EVALUATOR_QUALIFICATION.md` |
+| P4 | Remaining SDK adapters (B2/B5 wired on conformance-verified paths) + one-command runner + conformance tests | not started | NOT_RUN | - |
+| P6 | Fresh holdout authoring (>=1,200 cases, protected artifacts) + freeze | not started | NOT_RUN | - |
+| P8 | Formal matrix execution (M0/M1/M2 across S1/S2/S3 x B0-B9) via resumable queue | not started | NOT_RUN | - |
 | P2 | Candidate research (ModelScope): LFM3-1.7B verified live incl. official GGUF + LFM license $10M cap; Qwen3.5-2B / Granite-4.0-1b / SmolLM3-3B / Gemma-4-E2B verified; MiniCPM5-2B agent pedigree confirmed | done | PASS | research summary (to be frozen into P2 passports) |
 | P2 | Admission protocol preregistered before any candidate result | done | PASS | `configs/ij_sdk/model_admission_protocol.json` |
 | P2 | Admission smoke runs S1/S2/S3 + R1/R2 downloads | not started | NOT_RUN | - |
