@@ -26,3 +26,23 @@ including parallel actions, changed scope and denials. Record the review
 by scope. AG-03 admission covers a single read-only lookup. The candidate
 freeze attributes zero physical trials and zero core trials.
 [Callback mismatch evidence](SLM11_PHYSICAL_FOLLOWUP.md)
+
+## Replayed SDK callback defect
+
+Two archived Original LFM3 SDK Extension first replies were replayed with
+Antigravity SDK 0.1.24 against a scripted loopback provider. The provider
+retained the exact archived first response bytes and sent a synthetic
+terminal reply. The original callback claim rejected both proposals
+because the SDK supplied a float for a schema-declared integer. The
+observed changes were `2048` to `2048.0` inside the nested rescan
+configuration and `7` to `7.0` in the layout case. The arguments
+otherwise matched at the claim boundary.
+
+A trial-local witness converted only those known integer fields from
+finite, exactly integral SDK floats to integers before matching. Both
+callbacks then reached the sandbox. The strict production matcher did
+not change. This recreates the callback defect with the real SDK and zero
+new physical model trials. The 60-case transfer candidate uses string
+references. It still requires its own Original SDK action-phase tests
+across the declared families before dispatch.
+[Callback replay evidence](../atlas/slm/v1.0/lfm3-harness-adapters/SDK_CALLBACK_REPLAY.json)
