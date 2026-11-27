@@ -2,6 +2,8 @@
 
 ## IJ-0.7.3
 
+Verified the full local O20 and P14 weight files against the independent ModelScope size and SHA256 pins. Published the per-artifact identity evidence and refreshed frozen Q2 coverage. Runtime admission for the additional families remains NOT_RUN. [Local weight identity](evidence/IJ073/aeve/additional_family_assets.json)
+
 The local O20 GGUF passed a full-file SHA256 and size check. Radeon runtime admission remains NOT_RUN. Added paired E0-E7 report compilation for full-roster coverage, error counts, resource cost and matched differences. The paired observations are still pending.
 
 Added a Q3 cohort freeze validator with trial identity binding, template and episode partition guards, and configuration hashes. The independent source-proof bundle and Q3 physical results remain NOT_RUN.
