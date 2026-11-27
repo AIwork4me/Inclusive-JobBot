@@ -13,7 +13,7 @@ only non-conflicting entries there. Status vocabulary: `PASS`, `FAIL`,
 | P0 | Prior-mission gate/verdict audit: Atlas G01-G05+G14 BLOCKED, all verdicts BLOCKED/NOT_RUN; AEVE not inherited as PASS | done | PASS | `evidence/IJSDK/P0/reusable_assets.json` |
 | P0 | Reusable asset inventory + known limitations L-01..L-14 frozen | done | PASS | `evidence/IJSDK/P0/known_limitations.json` |
 | P0 | Gate P0_REPOSITORY_BASELINE_FROZEN | done | PASS | `reports/IJSDK_00_BASELINE_AUDIT.md` |
-| P0 | Tracking Issue + Draft PR created | not started | NOT_RUN | - |
+| P0 | Tracking Issue #7 + Draft PR #8 created (stacked on PR #6, base codex/ij0-tool-calling) | done | PASS | https://github.com/AIwork4me/Inclusive-JobBot/issues/7, https://github.com/AIwork4me/Inclusive-JobBot/pull/8 |
 | P1 | gfx1100 hardware/software fingerprint (this machine) | in progress | NOT_RUN | - |
 | P1 | llama.cpp b12359 reproduction on RX 7900 XTX (Vulkan + ROCm/HIP) | not started | NOT_RUN | - |
 | P1 | Function calling, structured output, tool-result continuation, multi-call on gfx1100 | not started | NOT_RUN | - |
