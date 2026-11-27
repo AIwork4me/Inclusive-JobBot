@@ -73,8 +73,18 @@ def main() -> int:
             # tool inside its JSON; the stage-1 request is not needed
             parse_arm = {"T2": "M-P1", "P7S": "M-P3"}.get(r["arm"], r["arm"])
             task = next(t for t in c.suite if t["task_id"] == r["task_id"])
-            parsed = arms.parse_response(parse_arm, task, http_json, http_error)
-            scored = scorer.score(task, parsed.get("payload"))
+            try:
+                parsed = arms.parse_response(parse_arm, task,
+                                             http_json if isinstance(
+                                                 http_json, dict) else None,
+                                             http_error)
+                scored = scorer.score(task, parsed.get("payload"))
+            except Exception as e:                     # never lose a trial
+                parsed = {"structural_ok": False, "warnings":
+                          [f"rescore parse error: {e!r}"], "payload": None,
+                          "normalizations": []}
+                scored = {"semantic_correct": False, "reasons": ["PARSE_INVALID"],
+                          "tool_correct": False, "args_correct": False}
             tel = c._telemetry(r["arm"], http_json, http_error,
                                art["stages"][-1]["latency_s"])
             tid = c._trial_id(r["model"], r["arm"], r["task_id"], r["budget"])

@@ -511,6 +511,10 @@ class ControllerV2:
         markers; never coerce missing usage to zero."""
         tel: dict = {"latency_s": latency,
                      "http_error": http_error}
+        if http_json is not None and not isinstance(http_json, dict):
+            tel["usage"] = "NOT_CAPTURED (non-object response body)"
+            tel["finish_reason"] = "NOT_CAPTURED"
+            return tel
         if http_json is None:
             tel["usage"] = "NOT_CAPTURED (request failed)"
             tel["finish_reason"] = "NOT_CAPTURED"

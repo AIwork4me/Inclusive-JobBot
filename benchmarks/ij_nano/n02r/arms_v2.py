@@ -475,6 +475,8 @@ def _kv_scan(text: str):
 
 def _content_of(http_json: dict, arm: str):
     """Extract the raw response channels per endpoint shape."""
+    if not isinstance(http_json, dict):
+        return {"content": "", "reasoning": "", "tool_calls": []}
     if arm in ("P5A", "P5B") or _base_arm(arm) in ("P0", "P1", "P2"):
         ch = (http_json.get("choices") or [{}])[0]
         msg = ch.get("message") or {}
