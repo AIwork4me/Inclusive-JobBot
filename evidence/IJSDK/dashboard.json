@@ -1,19 +1,19 @@
 {
  "schema_version": 1,
- "generated_utc": "2026-11-27T07:03:16Z",
+ "generated_utc": "2026-11-27T07:52:11Z",
  "mission": "IJ-SDK-1.0",
  "sub_mission": "IJ-SDK-1.1 - Benchmark Integrity Hardening & Cross-SDK Physical Qualification",
  "branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
- "head": "c28a41bad410b66103b499eaaec4ee1b3a227b10",
+ "head": "71660fbb885d2ee9cdf73c37293ea6f616d86947",
  "frozen_source_commit": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
- "current_phase": "P0R audit delivered (IJ-SDK-1.1); P4A integrity hardening next",
+ "current_phase": "P4A checkpoint 1 pushed and stopped by the operator; oracle repair (D01-D03) not started",
  "phase_gates": {
   "note": "Phase completion only. These are NOT final acceptance gates.",
   "tally": {
    "PASS": 4,
    "FAIL": 2,
    "BLOCKED": 0,
-   "NOT_RUN": 15
+   "NOT_RUN": 16
   },
   "rows": [
    {
@@ -112,6 +112,21 @@
     "evidence": [
      "evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json",
      "evidence/IJSDK/P0R/baseline_reconciliation.json"
+    ]
+   },
+   {
+    "phase": "P4A",
+    "gate": "IJSDK_HARNESS_INTEGRITY_GO",
+    "status": "NOT_RUN",
+    "gate_status": "NOT_RUN",
+    "progress": "in_progress",
+    "reopened_by": null,
+    "previous_status": null,
+    "superseded_by": null,
+    "evidence": [
+     "evidence/IJSDK/P4A/defect_reproductions_checkpoint1.json",
+     "evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json",
+     "tests/ij_sdk/"
     ]
    },
    {
@@ -461,8 +476,25 @@
   }
  },
  "recovery": {
-  "state": "idle; nothing running",
-  "next_action": "P4A - repair D01-D07 (start with D06, the gateway), add regression tests, record red -> green",
-  "reproduce_audit": "python -I scripts/tools/ij_sdk_integrity_repro.py --source c28a41bad410b66103b499eaaec4ee1b3a227b10 --out evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json"
+  "state": "idle; nothing running; all work committed and pushed",
+  "resume_with": "reports/IJSDK_11_RESUME_AND_INTEGRITY_AUDIT.md, then this file and TASK_LEDGER_IJSDK.md",
+  "verify_before_continuing": [
+   "python -I -m unittest discover -s tests/ij_sdk -t . -v",
+   "python -I scripts/tools/ij_sdk_integrity_repro.py --source WORKTREE --out .runtime/repro_worktree.json"
+  ],
+  "next_steps_in_order": [
+   "P4A: update the reproduction probes whose criteria are wrong (D05.03 corrective_retries name; D05.13 require feedback; D06.09 compare result not envelope; D06.10 use the transaction API; D07.13 accept verify() dict); re-run against c28a41b so red and green use one tool hash.",
+   "P4A: close the three real gaps - adapter emits/declares tool stages for plain handlers; adapter.cancel(); decide on gateway begin/commit/rollback.",
+   "P4A: evidence builder and validator (D07): completeness, uniqueness, order, correlation by call id, integrity; fail closed.",
+   "P4A: typed facts and conservative claim extractor (D02); Oracle A rewrite with rule attribution and state reconstruction (D01, D03).",
+   "P4A: strict qualification runner with control taxonomies; weakened-oracle tests for the new oracle.",
+   "P4A: run the regression suite against c28a41b to record red, record green, publish reports/IJSDK_P4A_INTEGRITY_HARDENING.md and evidence/IJSDK/P4A/.",
+   "Only then P4B, P5R, P6, P7, P8A, P8B in order."
+  ],
+  "open_items_for_the_owner": [
+   "G01-G20 acceptance gate definitions are not in the repository (0 of 20 mapped).",
+   "CI 'Evidence and privacy validation' is red on every run of this branch. Current cause: reports/IJ06_ARTIFACT_MANIFEST.json pins .gitignore (digest 0ca45fa6...); the file was changed by bd2e460 (+.venvs/) and by the P0R commit (re-include models/ij_sdk/model_manifest.json). Fix either by restoring .gitignore to the frozen bytes (.venvs/ via .git/info/exclude; model manifest tracked with git add -f once) or by adding .gitignore to the verifier's living files with a recorded rationale. Not done: it touches a frozen parent-mission artifact.",
+   "B8 trust decision (SEC-01 re-verification is P4B work) and the PR #8 base question remain open."
+  ]
  }
 }

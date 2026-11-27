@@ -2,8 +2,8 @@
   "schema_version": 1,
   "mission": "IJ-SDK-1.0",
   "mission_title": "Cross-SDK Agentic Capability Benchmark for 2B-class SLMs",
-  "updated_utc": "2026-11-27T07:01:24Z",
-  "current_phase": "P0R audit delivered (IJ-SDK-1.1); P4A integrity hardening next",
+  "updated_utc": "2026-11-27T07:51:35Z",
+  "current_phase": "P4A checkpoint 1 pushed and stopped by the operator; oracle repair (D01-D03) not started",
   "tracking_issue": 7,
   "draft_pr": 8,
   "research_branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
@@ -124,6 +124,27 @@
       "reopened_utc": "2026-11-27T07:01:24Z",
       "notes": [
         "REOPENED as FAIL by IJ-SDK-1.1 P0R: the ledger had marked the harness core 'done PASS' while this file said 'not_started'. Against c28a41b the core reproduces D04 (session contamination), D05 (budgets), D06 (gateway authorization and fault order) and D07 (evidence contract). The gate itself was never claimed. Repaired in P4A; adapters qualified in P4B."
+      ]
+    },
+    "P4A": {
+      "progress": "in_progress",
+      "status": "NOT_RUN",
+      "gate": "IJSDK_HARNESS_INTEGRITY_GO",
+      "gate_status": "NOT_RUN",
+      "title": "Benchmark integrity hardening (IJ-SDK-1.1 P4A) - checkpoint 1",
+      "checkpoint": 1,
+      "evidence": [
+        "evidence/IJSDK/P4A/defect_reproductions_checkpoint1.json",
+        "evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json",
+        "tests/ij_sdk/"
+      ],
+      "notes": [
+        "CHECKPOINT 1, stopped by the operator. The gate is NOT_RUN: D01-D03 are untouched and no red-vs-audited evidence exists yet for the regression suite.",
+        "Repaired in code: D04 (complete per-trial reset, epoch abort, usage returned as a copy); D05 (reservation budget controller: attempts counted at start, remaining budget per request, absolute monotonic deadline, failed calls charged, tool deadline, bounded corrective retries); D06 (tool exists -> schema -> authorize -> preconditions/approval -> idempotency -> fault -> transaction -> audit; a fault can no longer grant permission; handler runs on a transactional draft with rollback); D07 event-log half (decoded response and token ids are different stages, event and parent ids, resume-safe sequence, hash chain, seal).",
+        "Verified how: 93 stdlib-unittest tests in tests/ij_sdk pass on this Windows workstation with unittest. NOT yet verified: under pytest, on Linux, or in CI; and not yet run against the audited commit to record red.",
+        "Same 76 probes, current tree vs audited commit: reproduced 46 vs 75. D04 5->0, D05 13->3, D06 13->3, D07 13->9, D01 6->6, D02 16->16, D03 9->9.",
+        "Of the 46 still reproduced: 36 are work not started (D01-D03 oracle = 31; D07 evidence validator = 5); 3 are real gaps (adapter emits/declares no tool-stage events when the handler is a plain callable; no adapter-level cancel(); no explicit gateway begin/commit/rollback scope); the rest are probe criteria that need correcting and are already covered by unit tests (D05.03, D05.13, D06.09, D07.13; D06.10 uses a legacy closure-mutating handler that the gateway now flags as non-transactional).",
+        "NOT done: evidence builder and validator; typed facts and claim extractor; Oracle A rewrite; strict qualification runner; weakened-oracle tests for the new oracle; one-command runner."
       ]
     },
     "P5": {
@@ -254,8 +275,25 @@
   },
   "dashboard": "evidence/IJSDK/dashboard.json",
   "recovery": {
-    "state": "idle; nothing running",
-    "next_action": "P4A - repair D01-D07 (start with D06, the gateway), add regression tests, record red -> green",
-    "reproduce_audit": "python -I scripts/tools/ij_sdk_integrity_repro.py --source c28a41bad410b66103b499eaaec4ee1b3a227b10 --out evidence/IJSDK/P0R/defect_reproductions_audited_c28a41b.json"
+    "state": "idle; nothing running; all work committed and pushed",
+    "resume_with": "reports/IJSDK_11_RESUME_AND_INTEGRITY_AUDIT.md, then this file and TASK_LEDGER_IJSDK.md",
+    "verify_before_continuing": [
+      "python -I -m unittest discover -s tests/ij_sdk -t . -v",
+      "python -I scripts/tools/ij_sdk_integrity_repro.py --source WORKTREE --out .runtime/repro_worktree.json"
+    ],
+    "next_steps_in_order": [
+      "P4A: update the reproduction probes whose criteria are wrong (D05.03 corrective_retries name; D05.13 require feedback; D06.09 compare result not envelope; D06.10 use the transaction API; D07.13 accept verify() dict); re-run against c28a41b so red and green use one tool hash.",
+      "P4A: close the three real gaps - adapter emits/declares tool stages for plain handlers; adapter.cancel(); decide on gateway begin/commit/rollback.",
+      "P4A: evidence builder and validator (D07): completeness, uniqueness, order, correlation by call id, integrity; fail closed.",
+      "P4A: typed facts and conservative claim extractor (D02); Oracle A rewrite with rule attribution and state reconstruction (D01, D03).",
+      "P4A: strict qualification runner with control taxonomies; weakened-oracle tests for the new oracle.",
+      "P4A: run the regression suite against c28a41b to record red, record green, publish reports/IJSDK_P4A_INTEGRITY_HARDENING.md and evidence/IJSDK/P4A/.",
+      "Only then P4B, P5R, P6, P7, P8A, P8B in order."
+    ],
+    "open_items_for_the_owner": [
+      "G01-G20 acceptance gate definitions are not in the repository (0 of 20 mapped).",
+      "CI 'Evidence and privacy validation' is red on every run of this branch. Current cause: reports/IJ06_ARTIFACT_MANIFEST.json pins .gitignore (digest 0ca45fa6...); the file was changed by bd2e460 (+.venvs/) and by the P0R commit (re-include models/ij_sdk/model_manifest.json). Fix either by restoring .gitignore to the frozen bytes (.venvs/ via .git/info/exclude; model manifest tracked with git add -f once) or by adding .gitignore to the verifier's living files with a recorded rationale. Not done: it touches a frozen parent-mission artifact.",
+      "B8 trust decision (SEC-01 re-verification is P4B work) and the PR #8 base question remain open."
+    ]
   }
 }

@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generated_utc": "2026-11-27T06:45:57Z",
+ "generated_utc": "2026-11-27T07:49:31Z",
  "python": "3.12.10",
  "modules_probed": {
   "evaluation.ij_sdk.business_oracle": "evaluation/ij_sdk/business_oracle.py",
@@ -853,7 +853,7 @@
     "max_wall_seconds": 1.0,
     "status": "PASS",
     "error": null,
-    "wall_seconds": 1.615,
+    "wall_seconds": 1.658,
     "model_calls": 4
    },
    "defect_reproduced": true
@@ -948,7 +948,7 @@
    "observed": {
     "tool_ran_seconds": 0.8,
     "status": "PASS",
-    "wall_seconds": 0.815,
+    "wall_seconds": 0.816,
     "tool_duration_limit_in_budget": false
    },
    "defect_reproduced": true
@@ -1205,11 +1205,11 @@
     "concurrent_runs": 1500,
     "threads_per_run": 4,
     "faulted_calls_histogram": {
-     "1": 1468,
-     "0": 26,
-     "2": 6
+     "1": 1456,
+     "0": 34,
+     "2": 10
     },
-    "nondeterministic_runs": 32
+    "nondeterministic_runs": 44
    },
    "defect_reproduced": true
   },
@@ -1464,11 +1464,11 @@
    "evaluation/ij_sdk/business_oracle.py": "8ff8b1904d6cb537833c8ec73e356b23137c2180f84bbe3480a5da5038a219b2",
    "evaluation/ij_sdk/qualify_oracle.py": "4220365b985574e13e09c3c5a0cf796361150618001b01c76c25f84230126f43"
   },
-  "tool_sha256": "91075b21d125f629f863cd2ce5b3a972a8bbd0c90e2d88825c83a3e0b7aea557",
+  "tool_sha256": "6693e1b9af9bacbfd146d115dc4782b9e4640f503b0745ab6f03d0f488cf9116",
   "legacy_p5_result_sha256": "a392e8f6087fb001c761b194e2c6b447d9a58b8e66fbe9dac1e7ec125c3fef8d"
  },
  "protected_evidence": {
-  "files_under_evidence_IJSDK": 50,
+  "files_under_evidence_IJSDK": 59,
   "byte_identical_before_and_after": true,
   "note": "Every file under evidence/IJSDK hashed before and after the probes; the --out file is written afterwards."
  }
