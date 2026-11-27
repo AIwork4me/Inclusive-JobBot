@@ -79,11 +79,12 @@ def resource_summary(rows):
             for field, values in samples.items()}
 
 
-def compile_milestone():
+def compile_milestone(selected_models=MODELS):
+    planned = len(selected_models) * 1650
     raw_rows, replay = build()
-    rows = [row for row in raw_rows if row["candidate"] in MODELS]
-    if len(rows) != 4950 or any(row["physical_execution"] != "PASS" for row in rows):
-        raise ValueError("priority milestone requires the original 4950 physical trials")
+    rows = [row for row in raw_rows if row["candidate"] in selected_models]
+    if len(rows) != planned or any(row["physical_execution"] != "PASS" for row in rows):
+        raise ValueError(f"milestone requires {planned} verified physical trials")
     oracle = {row["case_id"]: row for row in objects(HERE / "holdout-oracle.jsonl")}
     grouped = defaultdict(list)
     for row in rows:
@@ -91,7 +92,7 @@ def compile_milestone():
                                ("risk_scope", row["risk_scope"])):
             grouped[row["candidate"], row["track"], stratum, value].append(row)
     counts = Counter((row["candidate"], row["track"]) for row in rows)
-    expected = { (model, track): 150 if track == "sdk_repeat" else 500 for model in MODELS for track in TRACKS }
+    expected = { (model, track): 150 if track == "sdk_repeat" else 500 for model in selected_models for track in TRACKS }
     if counts != expected:
         raise ValueError("priority track coverage differs from the frozen design")
     matrix = []
@@ -105,7 +106,7 @@ def compile_milestone():
     sessions, identities = {}, defaultdict(dict)
     for run, seal in replay["sealed_manifests"].items():
         model = seal["candidate"]
-        if model not in MODELS:
+        if model not in selected_models:
             continue
         path = ARCHIVE / run / "manifest.json"
         manifest = json.loads(path.read_bytes())
@@ -119,7 +120,7 @@ def compile_milestone():
         sessions[run] = seal | {"path": path.relative_to(ROOT).as_posix(),
                                 "execution_git_sha": manifest["identity"]["git_sha"]}
     models = {}
-    for m in MODELS:
+    for m in selected_models:
         selected = [row for row in rows if row["candidate"] == m]
         source = ROOT / f"evidence/IJ07/model_identity/{m}.json"
         official = json.loads(source.read_bytes())
@@ -159,13 +160,14 @@ def compile_milestone():
                 ][:3]
         models[m] = {
             "identity_source": {"path": source.relative_to(ROOT).as_posix(), "sha256": digest(source)},
-            "architecture": official["official_config_and_template"]["config_fields"]["architectures"],
+            "architecture": official["official_config_and_template"].get("config_fields", {}).get("architectures", []),
             "official_parameter_count": official["hf_safetensors_parameters"], "license_id": official["license_id"],
             "weight_file_bytes": weight_bytes,
             "configurations": list(identities[m].values()), "tracks": per_track, "matched": comparisons,
             "failure_examples": examples, "pareto": paired_frontier(selected, sessions),
         }
-    return {"schema_version": "1.0", "scope": "TC-V3/1.0 priority Radeon measurement", "planned": 4950,
+    scope = "priority" if selected_models == MODELS else "five-model"
+    return {"schema_version": "1.0", "scope": f"TC-V3/1.0 {scope} Radeon measurement", "planned": planned,
             "executed": len(rows), "sealed": len(rows), "strict_d25": "BLOCKED",
             "definitions": replay["definitions"], "models": models, "cells": matrix,
             "interval_scope": "Wilson intervals apply to binary first-attempt case outcomes. Repeat seed slots share cases."}, {
@@ -193,13 +195,16 @@ def overview(doc):
     return "\n".join(lines)
 
 
-def datasheet(model, entry, doc):
+def datasheet(model, entry, doc, *, hypotheses=HYPOTHESES):
     config = entry["configurations"][0]
     identity = config["model"]
-    symptom, component, validation = HYPOTHESES[model]
+    symptom, component, validation = hypotheses[model]
+    parameter_note = "Exact architecture and parameter metadata are unavailable in the frozen source record."
+    if entry["architecture"] and entry["official_parameter_count"] is not None:
+        parameter_note = (f"{entry['architecture'][0]} has {entry['official_parameter_count']:,} parameters "
+                          "in the frozen upstream source.")
     lines = [
-        f"# {identity['official_model_id']} TC-V3 datasheet", "",
-        f"{entry['architecture'][0]} has {entry['official_parameter_count']:,} parameters in the frozen upstream source.",
+        f"# {identity['official_model_id']} TC-V3 datasheet", "", parameter_note,
         f"The measured GGUF uses {identity['quantization']} and has SHA256 `{identity['model_sha256']}`.",
         f"Weight file size in bytes is {entry['weight_file_bytes'] or 'NOT_RUN in the published identity record'}.",
         f"The source license metadata is `{entry['license_id']}`. See the pinned source identity for revision details.",
