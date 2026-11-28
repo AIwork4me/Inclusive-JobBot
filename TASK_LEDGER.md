@@ -21,7 +21,7 @@
 | M5 TC-V3 compatibility registration | PASS | Each of four weights has 500 Direct, 500 SDK first, 500 SDK streaming and 150 repeats with a new Original arm. |
 | M5 SDK first and repeat transport admission | PASS | Twelve Radeon development captures and exact replay. [Transport receipt](evidence/IJSLM/lfm3-ha-1.1/tc-transport-admission.json) |
 | M5 supplemental replay measures | PASS | Six regression controls and a 144-trial sealed replay verified split callback-binding counts, matched positive and negative transitions, and original Atlas stratum and pair coverage. |
-| M5 full compatibility panel | BLOCKED | Latest published checkpoint verifies 3,300/6,600 physical trials over 100 sealed batches. All 4,030 decoded SDK callbacks in this prefix bound. The single-lease queue remains active. [Checkpoint](evidence/IJSLM/lfm3-ha-1.1/tc-compatibility-checkpoint-3300.json) |
+| M5 full compatibility panel | BLOCKED | Latest published checkpoint verifies 5,028/6,600 physical trials over 152 sealed batches. All 6,568 observed callbacks bound. The single-lease queue remains active. [Checkpoint](evidence/IJSLM/lfm3-ha-1.1/tc-compatibility-checkpoint-5028.json) |
 | M6 and M7 formal qualification | BLOCKED | Independent review, issuer and dispatcher dependencies remain open. |
 | M8 exact author reproduction | BLOCKED | Historical task roster, digests and isolation remain open. |
 | M8 public author dashboard metadata | PASS | The LFM3 snapshot contains 40 checkpoint aggregates per harness. The snapshot has no task-level evaluation records. [Dashboard receipt](evidence/IJSLM/lfm3-ha-1.1/author-dashboard-observation.json) |
