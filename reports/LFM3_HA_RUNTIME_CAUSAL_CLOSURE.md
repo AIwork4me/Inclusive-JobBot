@@ -16,7 +16,7 @@ The existing Draft PR #9 is the release vehicle. Startup matched the reviewed SH
 
 ## Author reproduction
 
-The author's public LFM3 recipe passes efficiency weight 0.1 to the trainer. The trainer's default is 0.3 and its reward uses the parsed override. The recipe's training job identifier appears in the dashboard run names. The public dashboard state supplies 40 aggregate checkpoints per LFM3 harness. At step 400, pass@1 was 84.67% for OpenCode, 80.67% for Pi and 78.00% for Hermes. Historical process arguments, exact package state and task-level run receipts remain BLOCKED. [Author article](https://huggingface.co/blog/harness-hub/harness-adapters) · [Dashboard receipt](../evidence/IJSLM/lfm3-ha-1.1/author-dashboard-observation.json) · [Audited recipe](LFM3_HA_UPSTREAM_REPRODUCTION.md)
+The author's public LFM3 recipe passes efficiency weight 0.1 to the trainer. The trainer's default is 0.3 and its reward uses the parsed override. The recipe's training job identifier appears in the dashboard run names. The public dashboard state supplies 40 aggregate checkpoints per LFM3 harness. At step 400, pass@1 was 84.67% for OpenCode, 80.67% for Pi and 78.00% for Hermes. Historical process arguments, exact package state and task-level run receipts remain BLOCKED. [Author article](https://huggingface.co/blog/harness-hub/harness-adapters) · [Dashboard receipt](../evidence/IJSLM/lfm3-ha-1.1/author-dashboard-observation.json) · [Audited recipe](LFM3_HA_UPSTREAM_REPRODUCTION_1_1.md)
 
 | Reproduction lane | Status |
 |---|---|

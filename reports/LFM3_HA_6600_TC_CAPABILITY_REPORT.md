@@ -15,15 +15,15 @@ SDK first and repeat use the `SDK_MATCHED_CONTEXT_PhaseAware` provider-JSON path
 
 ## Measurement status
 
-The 12-case Radeon development panel passed transport verification for SDK first and SDK repeat. Each recorded eligible provider request used the seeded JSON profile and returned validated SSE to the SDK. The full 6,600 compatibility queue started after the sealed 720 transfer measurements. The latest published checkpoint contains 1,704 replayed physical slots across the same first 130 tasks and 36 repeat trajectories for each weight. This roster prefix covers only a subset of the scenario families. The transport pilot contributes zero compatibility or core slots. [Transport receipt](../evidence/IJSLM/lfm3-ha-1.1/tc-transport-admission.json) · [1,704-trial checkpoint](../evidence/IJSLM/lfm3-ha-1.1/tc-compatibility-checkpoint-1704.json)
+The 12-case Radeon development panel passed transport verification for SDK first and SDK repeat. Each recorded eligible provider request used the seeded JSON profile and returned validated SSE to the SDK. The full 6,600 compatibility queue started after the sealed 720 transfer measurements. The latest published checkpoint contains 2,244 replayed physical slots across the same first 170 tasks and 51 repeat trajectories for each weight. This roster prefix covers a subset of the scenario families. The transport pilot contributes zero compatibility or core slots. [Transport receipt](../evidence/IJSLM/lfm3-ha-1.1/tc-transport-admission.json) · [2,244-trial checkpoint](../evidence/IJSLM/lfm3-ha-1.1/tc-compatibility-checkpoint-2244.json)
 
 | Weight | Direct scoped completion | SDK first | SDK streaming | SDK repeat |
 |---|---:|---:|---:|---:|
-| Original | 119 / 130 | 48 / 130 | 50 / 130 | 15 / 36 |
-| OpenCode | 115 / 130 | 49 / 130 | 47 / 130 | 14 / 36 |
-| Pi | 117 / 130 | 63 / 130 | 60 / 130 | 18 / 36 |
-| Hermes | 114 / 130 | 47 / 130 | 48 / 130 | 15 / 36 |
+| Original | 155 / 170 | 50 / 170 | 52 / 170 | 16 / 51 |
+| OpenCode | 151 / 170 | 50 / 170 | 50 / 170 | 14 / 51 |
+| Pi | 153 / 170 | 73 / 170 | 73 / 170 | 23 / 51 |
+| Hermes | 149 / 170 | 49 / 170 | 49 / 170 | 15 / 51 |
 
-The table gives scoped PASS counts over covered slots. The machine-readable checkpoint retains FAIL and BLOCKED separately. Peak process GPU commitment medians across the 13 matched launch batches per weight were about 83–88 MiB above Original for the three adapted routes. Resource fields include attempt and scoped-success percentiles. The queue remains active and the final tracker covers the full rotation of task families before reporting suite-level estimates.
+The table gives scoped PASS counts over covered slots. The machine-readable checkpoint retains FAIL and BLOCKED separately. The SDK binder accepted all 2,551 decoded callback proposals in the prefix. There were no integer conversions in this cohort. Pi gained 23 SDK-first scoped PASS pairs and lost zero across the 170 matched tasks. The remaining task families are required for suite-level estimates. The three adapted routes' median peak process GPU commitment was 83–86 MiB above Original across the 17 launch batches per weight. Resource fields include attempt and scoped-success percentiles.
 
 The registered panel reports the original Atlas dimensions and its family, language and risk denominators, streaming consistency, repeated-seed reliability, scoped completion, termination, request and tool efficiency and per-batch peak GPU memory. The replay records gains and losses against the fresh Original baseline on adjudicated pairs. It scores the exact proposed tool argument multiset and the SDK binder separately. The binder counters record accepted and rejected callbacks, missing delivery and the number of lossless integer conversions. Direct tracks and complete SDK trials that proposed no tools have no binder opportunity. The typed callback Extension has a separate scope. The TC-V3 compatibility set measures the existing scenario families. Formal generalization requires independent tasks and business witnesses. [Registered runner](../benchmarks/slm10/ha11_panel.py) · [Atlas replay](../benchmarks/slm10/ha11_panel_report.py)
