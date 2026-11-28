@@ -1,0 +1,435 @@
+{
+ "schema": "ijeval.wavebd.production_mutation_campaign.v1",
+ "scope": "Batch D production-logic faults, detected via dual-path classification flip vs the clean suite",
+ "summary": {
+  "faults": 11,
+  "detected": 11,
+  "escapes": 0
+ },
+ "faults": [
+  {
+   "fault": "D-P01_duplicate_keys_accepted",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C26-delivery-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C26-tour-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C27-access-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C27-refund-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "D-P02_fences_not_stripped",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C25-checklist-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C25-workflow-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C26-delivery-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C26-tour-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C27-access-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C27-refund-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C28-logs-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C28-notes-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C29-meetings-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C29-rooms-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 16
+  },
+  {
+   "fault": "D-P03_hedged_narration_accepted",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C25-checklist-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C25-checklist-b0-two-line dec",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C25-workflow-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C25-workflow-b0-two-line dec",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "D-P04_citations_ignored",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C31-policy-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C31-policy-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C31-policy-b0-citation SUP",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C31-support-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C31-support-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C31-support-b0-citation SUP",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 6
+  },
+  {
+   "fault": "D-E01_validity_gap_tolerated",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C26-delivery-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C26-delivery-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C26-tour-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C26-tour-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "D-E02_rules_ignored",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C27-access-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C27-access-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C27-refund-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C27-refund-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "D-E03_substring_answer",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C28-logs-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C28-logs-b0-multi-line a",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C28-notes-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C28-notes-b0-multi-line a",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "D-E04_first_id_resolution",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C29-meetings-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C29-meetings-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C29-meetings-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C29-meetings-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C29-meetings-b0-silent disam",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C29-rooms-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C29-rooms-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C29-rooms-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C29-rooms-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C29-rooms-b0-silent disam",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 10
+  },
+  {
+   "fault": "D-E05_prefix_canonical",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C30-design-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C30-design-b0-non-canonica",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C30-ops-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C30-ops-b0-non-canonica",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "D-E06_one_citation_enough",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C31-policy-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C31-support-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "D-E07_guess_tolerated",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C32-hours-mal",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C32-specs-mal",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  }
+ ],
+ "generated_utc": "2026-11-28T05:12:50Z"
+}
