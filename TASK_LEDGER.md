@@ -11,6 +11,7 @@
 | M2 same-byte archive replay | PASS | The five historic first responses were replayed against the real pinned SDK and scripted terminal provider. Every proposed integer tool call bound and reached its synthetic sandbox. |
 | M2 five Extension Radeon replays | PASS | All five executed on Radeon and 21/21 callbacks bound. Scoped outcomes were four FAIL and one BLOCKED. [Physical replay](evidence/IJSLM/lfm3-ha-1.1/extension-radeon.json) |
 | M3 cache factorial physical coverage | PASS | All 16 cells carry Radeon proof. Four-token numerical repeatability and native unknown-ID rejection are FAIL. [Cache and routing](reports/LFM3_HA_CACHE_AND_ROUTING_ROOT_CAUSE.md) |
+| M3 ShortConv slot-state reader | PASS | Source-bound parser and tensor comparison checked against seven software fixtures. The physical tensor-state panel is NOT_RUN pending the active Radeon queue. |
 | M3 native rejection candidate patch | PASS | The patch applies and compiled for CPU against pinned llama.cpp. Runtime controls and physical execution remain NOT_RUN. [Candidate build](evidence/IJSLM/lfm3-ha-1.1/native-routing-candidate-build.json) |
 | M3 guarded SDK request isolation | PASS | Software tests reject a cross-session route and an aborted route before either can reach the scripted provider. The fixed route rejects alias, scale and duplicate-key tampering. |
 | M4 transfer registration | PASS | Software replay preserves the 480 development slots and adds 240 corrected-runtime slots. No panel trajectories had executed at registration. |
@@ -19,6 +20,7 @@
 | M4 matched transfer physical coverage | PASS | 720/720 sealed and replayed. Pi gained 15.5 percentage points on adjudicated phase-aware pairs against Original. The comparison is development scoped. [Full paired replay](evidence/IJSLM/lfm3-ha-1.1/transfer-panel.json) |
 | M5 TC-V3 compatibility registration | PASS | Each of four weights has 500 Direct, 500 SDK first, 500 SDK streaming and 150 repeats with a new Original arm. |
 | M5 SDK first and repeat transport admission | PASS | Twelve Radeon development captures and exact replay. [Transport receipt](evidence/IJSLM/lfm3-ha-1.1/tc-transport-admission.json) |
+| M5 supplemental replay measures | PASS | Six regression controls and a 144-trial sealed replay verified split callback-binding counts, matched positive and negative transitions, and original Atlas stratum and pair coverage. |
 | M5 full compatibility panel | BLOCKED | Latest published checkpoint verifies 1,704/6,600 physical trials across the first 130 matched tasks. The single-lease queue remains active. [Checkpoint](evidence/IJSLM/lfm3-ha-1.1/tc-compatibility-checkpoint-1704.json) |
 | M6 and M7 formal qualification | BLOCKED | Independent review, issuer and dispatcher dependencies remain open. |
 | M8 exact author reproduction | BLOCKED | Historical task roster, digests and isolation remain open. |

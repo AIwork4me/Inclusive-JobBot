@@ -17,8 +17,8 @@ from .ha11_panel import (CORRECTED, DIRECT, ORIGINAL, WEIGHTS, build_plan, load_
 from .tc_capability_metrics import RATE_COUNTS, event_rate
 from .tc_capability_replay import VERDICTS, assess, read_wire
 from .tc_dashboard import percentile
-from .tc_five_model_report import SCOPED, compare_paths, metric_outcome, repeat_status
-from .tc_priority_milestone import SEALED_COMPONENTS, metric_cell
+from .tc_five_model_report import compare_paths, repeat_status, summarize_stratum
+from .tc_priority_milestone import metric_cell
 from .tc_v3 import FIRST_SEED, REPEAT_SEEDS
 from .tc_verification import component_verdicts, trace_evidence
 
@@ -27,6 +27,7 @@ REPORTED = ("FIRST_TOOL_CHOICE", "REQUIRED_ACTION_COVERAGE", "EXACT_ACTION_SEQUE
             "RESULT_COMPREHENSION", "EXECUTION_PROCESS_CORRECTNESS", "TERMINATION_CORRECTNESS",
             "OUTPUT_CONTRACT_COMPLIANCE", "QUALIFIED_BUSINESS_COMPLETION", "BUSINESS_FACT_CORRECTNESS")
 OUTCOMES = ("PASS", "FAIL", "BLOCKED", "NOT_RUN")
+ADDED_METRICS = ("EXACT_TOOL_ARGUMENT_MULTISET", "SCOPED_COMPLETION", "TYPED_CALLBACK_BINDING")
 COST_FIELDS = ("model_requests", "executed_tools", "input_tokens", "output_tokens", "total_tokens",
                "provider_inference_ms", "end_to_end_wall_ms")
 
@@ -70,12 +71,30 @@ def failure_signature(trial, assessment):
             "BLOCKED": "EVALUATION_UNCERTAINTY", "NOT_RUN": "EVALUATION_UNCERTAINTY"}[scoped_completion(assessment)]
 
 
-def trial_detail(trial, oracle, assessment):
+def typed_binding_evidence(turns, proposals, callbacks):
+    expected = {proposal["call_id"] for proposal in proposals}
+    received = {callback["call_id"] for callback in callbacks}
+    rejected = sum(callback["status"] == "FAIL" for callback in callbacks)
+    complete_wire = bool(turns) and all("reply" in turn for turn in turns)
+    counts = {"wire_proposals": len(expected), "callback_pass": len(callbacks) - rejected,
+              "callback_fail": rejected, "integer_conversions": sum(
+                  len(callback.get("binding", {}).get("integer_conversions", [])) for callback in callbacks),
+              "missing_callbacks": len(expected - received)}
+    if rejected or len(received) != len(callbacks) or (complete_wire and received - expected):
+        return "FAIL", counts
+    if not complete_wire or expected - received:
+        return "BLOCKED", counts
+    return ("PASS" if expected else "NOT_RUN"), counts
+
+
+def trial_detail(trial, oracle, assessment, *, typed_callback):
     turns, proposals = read_wire(trial, False)
     observed = Counter((entry["tool"], encode_state(entry["arguments"])) for entry in proposals)
     expected = Counter((entry["tool"], encode_state(entry["arguments"])) for entry in oracle["nodes"])
     arg_status = ("BLOCKED" if not turns or any("reply" not in turn for turn in turns) else
                   "PASS" if expected == observed else "FAIL")
+    binding_status, binding_counts = ("NOT_RUN", {}) if not typed_callback else typed_binding_evidence(
+        turns, proposals, trial["callbacks"])
     executed = sum(call["decision"] == "EXECUTED" for call in trial["calls"])
     counts = assessment["call_counts"]
     telemetry = assessment["telemetry"] | {"end_to_end_wall_ms": trial.get("elapsed_wall_ms")}
@@ -87,7 +106,9 @@ def trial_detail(trial, oracle, assessment):
             telemetry[field] = sum(native)
     return {
         "metrics": assessment["metrics"] | {"EXACT_TOOL_ARGUMENT_MULTISET": arg_status,
-                                           "SCOPED_COMPLETION": scoped_completion(assessment)},
+                                           "SCOPED_COMPLETION": scoped_completion(assessment),
+                                           "TYPED_CALLBACK_BINDING": binding_status},
+        "typed_callback_counts": binding_counts,
         "proposals": len(proposals), "duplicate_proposals": counts["duplicate_proposals"],
         "redundant_executions": counts["redundant_executions"],
         "call_counts": counts, "sealed_status": "BLOCKED", "physical_execution": "PASS",
@@ -102,7 +123,7 @@ def trial_detail(trial, oracle, assessment):
 def estimate(cells):
     shared = sorted(set.intersection(*(set(rows) for rows, _ in cells)))
     outcomes = {}
-    for key in (*REPORTED, "EXACT_TOOL_ARGUMENT_MULTISET", "SCOPED_COMPLETION"):
+    for key in (*REPORTED, *ADDED_METRICS):
         values = []
         for index in shared:
             results = [rows[index]["metrics"][key] for rows, _ in cells]
@@ -110,6 +131,9 @@ def estimate(cells):
                 values.append(sum(sign * (value == "PASS") for (_, sign), value in zip(cells, results, strict=True)))
         outcomes[key] = {"shared_observed": len(shared), "adjudicated_pairs": len(values),
                          "difference_pp": round(100 * mean(values), 3) if values else None}
+        if len(cells) == 2:
+            outcomes[key].update(pass_gain_pairs=values.count(1), pass_loss_pairs=values.count(-1),
+                                 unchanged_pairs=values.count(0))
     for key in ("duplicate_proposals", "redundant_executions"):
         values = []
         for index in shared:
@@ -135,10 +159,14 @@ def summarize(rows):
             "successful_trajectory_percentiles": percentile(successes),
         }
     report = {"observed": len(rows), "metric_counts": totals, "cost": costs}
-    for field in (*VERDICTS, "EXACT_TOOL_ARGUMENT_MULTISET", "SCOPED_COMPLETION"):
+    for field in (*VERDICTS, *ADDED_METRICS):
         grouped = Counter(row["metrics"][field] for row in rows)
         totals[field] = {key: grouped[key] for key in OUTCOMES}
+    binding_counts = Counter()
+    for row in rows:
+        binding_counts.update(row["typed_callback_counts"])
     return report | {"event_rates": {key: event_rate(rows, *value) for key, value in RATE_COUNTS.items()},
+                     "typed_callback_counts": dict(binding_counts),
                      "failure_signatures": dict(Counter(row["failure_signature"] for row in rows))}
 
 
@@ -151,15 +179,7 @@ def atlas_views(cells, slots, cases):
         for key, value in (("all", "all"), ("family", public["family"]), ("language", public["language"]),
                            ("risk_scope", oracle["risk_scope"])):
             strata[weight, track, key, value].append((row, public, oracle))
-    dimensions = {}
-    for key, rows in strata.items():
-        metrics = {metric: metric_cell(metric_outcome(row, metric, public, oracle)
-                                       for row, public, oracle in rows)
-                   for metric in (*VERDICTS, *SEALED_COMPONENTS, *SCOPED)}
-        if key[1] == "sdk_repeat":
-            for result in metrics.values():
-                result["wilson_95"] = None
-        dimensions["/".join(key)] = metrics
+    dimensions = {"/".join(key): summarize_stratum(rows, key[1]) for key, rows in strata.items()}
 
     pairs = defaultdict(list)
     repeat_ids = {slot["case_id"] for slot in slots if slot["track"] == "sdk_repeat"}
@@ -170,13 +190,16 @@ def atlas_views(cells, slots, cases):
         repeats = [cells[weight, "sdk_repeat"].get((case_id, seed)) for seed in REPEAT_SEEDS]
         for key, value in (("all", "all"), ("family", public["family"]), ("language", public["language"]),
                            ("risk_scope", oracle["risk_scope"])):
-            pairs[weight, "STREAMING_CONSISTENCY", key, value].append((True, compare_paths(first, stream)))
+            pairs[weight, "STREAMING_CONSISTENCY", key, value].append(
+                (True, compare_paths(first, stream), bool(first and stream)))
             if case_id in repeat_ids:
                 applicable = oracle["risk_scope"] == "synthetic-read-only" and bool(oracle["nodes"])
                 pairs[weight, "REPEAT_RELIABILITY", key, value].append(
-                    (applicable, repeat_status(repeats) if applicable else "NOT_RUN"))
-    return {"dimensions": dimensions, "paired_cases": {"/".join(key): metric_cell(rows)
-                                                        for key, rows in pairs.items()}}
+                    (applicable, repeat_status(repeats) if applicable else "NOT_RUN", all(repeats)))
+    return {"dimensions": dimensions, "paired_cases": {"/".join(key): {
+        **metric_cell((applicable, status) for applicable, status, _ in rows),
+        "planned_case_pairs": len(rows), "complete_seal_groups": sum(sealed for _, _, sealed in rows),
+    } for key, rows in pairs.items()}}
 
 
 def replay(suite, folder, *, paired_rows=None, through_batches=None):
@@ -210,7 +233,7 @@ def replay(suite, folder, *, paired_rows=None, through_batches=None):
             if assessment != row["assessment"] or row["trial_id"] != trial["trial_id"]:
                 raise ValueError("Trial assessment differs from its sealed trace")
             factor = row["profile"] if suite == "transfer" else row["track"]
-            detail = trial_detail(trial, oracle, assessment)
+            detail = trial_detail(trial, oracle, assessment, typed_callback=row["profile"] == CORRECTED)
             cells[row["weight"], factor][row["case_id"], row["seed"]] = detail
             if paired_rows is not None:
                 paired_rows.append({key: row[key] for key in

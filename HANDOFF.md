@@ -8,6 +8,8 @@ The active 6,600-case compatibility queue stores its freeze, reservations and se
 
 Use `python -m benchmarks.slm10.ha11_panel_report` with the private capture folder to replay either panel. All supplemental evidence contributes zero to the original 36,550 core denominator. [Independent qualification](reports/LFM3_HA_INDEPENDENT_QUALIFICATION.md) · [NanoAgent handoff](reports/LFM3_HA_NANOAGENT_HANDOFF.md)
 
+Once the compatibility queue yields the lease, the source-bound ShortConv reader can collect the serialized recurrent rows from the pinned Vulkan runtime with `python -m benchmarks.slm10.ha11_shortconv --assets ASSET_ROOT --output FRESH_PRIVATE_OUTPUT`. The slot-save endpoints are scoped to this synthetic diagnostic. Preserve the earlier cache factorial and its results. [Cache and routing](reports/LFM3_HA_CACHE_AND_ROUTING_ROOT_CAUSE.md)
+
 ## IJ-SLM-1.1 physical closure and release intake
 
 All 8,250 TC-V3 trial slots have verified Radeon seals. Preserve the four frozen execution paths and original strict BLOCKED results. Replay the complete milestone with `python -m benchmarks.slm10.tc_five_model_milestone` and the consumer exchange with `python -m benchmarks.slm10.nanoagent_five_model_handoff`. The first three-model exchange remains in the parent handoff directory. [Five-model milestone](atlas/slm/v1.0/milestones/tc-five-model/README.md) · [Consumer exchange](atlas/slm/v1.0/nanoagent-handoff/v1.1.0/README.md)

@@ -52,3 +52,40 @@ def test_native_token_exhaustion_has_distinct_diagnosis_from_sdk_transport_502()
     trial = {"wire": [event], "calls": [], "failure": {"type": "AntigravityExecutionError"}}
     metrics = {"metrics": {"TERMINATION_CORRECTNESS": "BLOCKED"}}
     assert ha11_panel_report.failure_signature(trial, metrics) == "MODEL_OUTPUT_LIMIT"
+
+
+def test_typed_binding_distinguishes_observed_rejection_missing_delivery_and_no_tool():
+    turns = [{"reply": object()}]
+    proposals = [{"call_id": "one"}]
+    callback = {"call_id": "one", "status": "PASS",
+                "binding": {"integer_conversions": [["profile", "max_width"]]}}
+    status, counts = ha11_panel_report.typed_binding_evidence(turns, proposals, [callback])
+    assert status == "PASS"
+    assert counts == {"wire_proposals": 1, "callback_pass": 1, "callback_fail": 0,
+                      "integer_conversions": 1, "missing_callbacks": 0}
+    assert ha11_panel_report.typed_binding_evidence(turns, proposals, [])[0] == "BLOCKED"
+    assert ha11_panel_report.typed_binding_evidence(turns, [], [callback])[0] == "FAIL"
+    assert ha11_panel_report.typed_binding_evidence(turns, proposals, [callback, callback])[0] == "FAIL"
+    rejected = {"call_id": "one", "status": "FAIL"}
+    assert ha11_panel_report.typed_binding_evidence(turns, proposals, [rejected])[0] == "FAIL"
+    assert ha11_panel_report.typed_binding_evidence([{}], [], [])[0] == "BLOCKED"
+    assert ha11_panel_report.typed_binding_evidence(turns, [], [])[0] == "NOT_RUN"
+
+
+def test_matched_weight_effect_keeps_gains_losses_and_unresolved_pairs():
+    key = "SCOPED_COMPLETION"
+    def rows(values):
+        return {index: {"metrics": dict.fromkeys((*ha11_panel_report.REPORTED,
+                                                 "EXACT_TOOL_ARGUMENT_MULTISET", key,
+                                                 "TYPED_CALLBACK_BINDING"), value),
+                        "duplicate_proposals": 0, "redundant_executions": 0}
+                for index, value in enumerate(values)}
+
+    comparison = ha11_panel_report.estimate([
+        (rows(["PASS", "FAIL", "PASS", "BLOCKED"]), 1),
+        (rows(["FAIL", "PASS", "PASS", "FAIL"]), -1),
+    ])[key]
+    assert comparison["pass_gain_pairs"] == comparison["pass_loss_pairs"] == 1
+    assert comparison["adjudicated_pairs"] == 3
+    assert comparison["shared_observed"] == 4
+    assert comparison["difference_pp"] == 0
