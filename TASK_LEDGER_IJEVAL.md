@@ -55,3 +55,13 @@
 | §3.6 EA11 analyzer | dual-path session → typed records → formal boundary; verified envelopes; roster reconciliation; partial scopes; final-boundary revocation recheck; tamper blocking |
 | Catastrophe pilot (order §4) | 13/13 detected/contained, 0 escapes; latencies: N02R 11, exception masking 1, false-positive 15, GT corruption 1; 2 system fixes forced by the pilot (canary payload completeness, full-family sweep) |
 | Tests | 196/196 ij_eval_assurance at commit time |
+
+## 2026-11-28 — AUTH-1 release (EAE side) + env resolution
+
+| item | result |
+| --- | --- |
+| AUTH-1 diagnostic scope | 48 slots (3 models x 16 tasks: first two dev cases per primitive, canonical order); roster digest bound |
+| Trusted evidence chain | register_trusted_execution_evidence for N03-AUTH1-DIAGNOSTIC-PANEL-v1, purpose AUTH-1, limits max_trials=48 |
+| ExecutionAuthorization | issued, checksum 4a09f5253a3aaa16…, serialized to evidence |
+| Acceptance artifact | AUTH-1-scoped ACCEPTED with EA12/EA14/EA13/EA18 explicitly remaining for AUTH-2 |
+| IJE-B-002 jsonschema | RESOLVED: hash-verified requirements.lock install; 316/316 full-repo |

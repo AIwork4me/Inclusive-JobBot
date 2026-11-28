@@ -1,0 +1,398 @@
+{
+ "schema": "ijeval.auth1.diagnostic_roster.v1",
+ "experiment": "N03-AUTH1-DIAGNOSTIC-PANEL-v1",
+ "models": [
+  "MiniCPM5-2B",
+  "LFM3-1.7B",
+  "Qwen3.5-2B"
+ ],
+ "selection_rule": "first two development cases of each primitive C01-C08 in pinned canonical file order",
+ "dataset_revision": "d23de5a (pinned snapshot)",
+ "slot_count": 48,
+ "slots": [
+  {
+   "slot": 1,
+   "case_id": "n03-C01-helpdesk-d00",
+   "primitive": "C01",
+   "family": "helpdesk",
+   "language": "en",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 2,
+   "case_id": "n03-C01-helpdesk-d01",
+   "primitive": "C01",
+   "family": "helpdesk",
+   "language": "zh",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 3,
+   "case_id": "n03-C02-project-d00",
+   "primitive": "C02",
+   "family": "project",
+   "language": "en",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 4,
+   "case_id": "n03-C02-project-d01",
+   "primitive": "C02",
+   "family": "project",
+   "language": "zh",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 5,
+   "case_id": "n03-C03-formatting-d00",
+   "primitive": "C03",
+   "family": "formatting",
+   "language": "en",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 6,
+   "case_id": "n03-C03-formatting-d01",
+   "primitive": "C03",
+   "family": "formatting",
+   "language": "zh",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 7,
+   "case_id": "n03-C04-retail-d00",
+   "primitive": "C04",
+   "family": "retail",
+   "language": "en",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 8,
+   "case_id": "n03-C04-retail-d01",
+   "primitive": "C04",
+   "family": "retail",
+   "language": "zh",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 9,
+   "case_id": "n03-C05-returns-d00",
+   "primitive": "C05",
+   "family": "returns",
+   "language": "en",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 10,
+   "case_id": "n03-C05-returns-d01",
+   "primitive": "C05",
+   "family": "returns",
+   "language": "zh",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 11,
+   "case_id": "n03-C06-plan-d00",
+   "primitive": "C06",
+   "family": "plan",
+   "language": "en",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 12,
+   "case_id": "n03-C06-plan-d01",
+   "primitive": "C06",
+   "family": "plan",
+   "language": "zh",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 13,
+   "case_id": "n03-C07-service-d00",
+   "primitive": "C07",
+   "family": "service",
+   "language": "en",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 14,
+   "case_id": "n03-C07-service-d01",
+   "primitive": "C07",
+   "family": "service",
+   "language": "zh",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 15,
+   "case_id": "n03-C08-biztools-d00",
+   "primitive": "C08",
+   "family": "biztools",
+   "language": "en",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 16,
+   "case_id": "n03-C08-biztools-d01",
+   "primitive": "C08",
+   "family": "biztools",
+   "language": "zh",
+   "model": "MiniCPM5-2B"
+  },
+  {
+   "slot": 1,
+   "case_id": "n03-C01-helpdesk-d00",
+   "primitive": "C01",
+   "family": "helpdesk",
+   "language": "en",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 2,
+   "case_id": "n03-C01-helpdesk-d01",
+   "primitive": "C01",
+   "family": "helpdesk",
+   "language": "zh",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 3,
+   "case_id": "n03-C02-project-d00",
+   "primitive": "C02",
+   "family": "project",
+   "language": "en",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 4,
+   "case_id": "n03-C02-project-d01",
+   "primitive": "C02",
+   "family": "project",
+   "language": "zh",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 5,
+   "case_id": "n03-C03-formatting-d00",
+   "primitive": "C03",
+   "family": "formatting",
+   "language": "en",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 6,
+   "case_id": "n03-C03-formatting-d01",
+   "primitive": "C03",
+   "family": "formatting",
+   "language": "zh",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 7,
+   "case_id": "n03-C04-retail-d00",
+   "primitive": "C04",
+   "family": "retail",
+   "language": "en",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 8,
+   "case_id": "n03-C04-retail-d01",
+   "primitive": "C04",
+   "family": "retail",
+   "language": "zh",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 9,
+   "case_id": "n03-C05-returns-d00",
+   "primitive": "C05",
+   "family": "returns",
+   "language": "en",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 10,
+   "case_id": "n03-C05-returns-d01",
+   "primitive": "C05",
+   "family": "returns",
+   "language": "zh",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 11,
+   "case_id": "n03-C06-plan-d00",
+   "primitive": "C06",
+   "family": "plan",
+   "language": "en",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 12,
+   "case_id": "n03-C06-plan-d01",
+   "primitive": "C06",
+   "family": "plan",
+   "language": "zh",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 13,
+   "case_id": "n03-C07-service-d00",
+   "primitive": "C07",
+   "family": "service",
+   "language": "en",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 14,
+   "case_id": "n03-C07-service-d01",
+   "primitive": "C07",
+   "family": "service",
+   "language": "zh",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 15,
+   "case_id": "n03-C08-biztools-d00",
+   "primitive": "C08",
+   "family": "biztools",
+   "language": "en",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 16,
+   "case_id": "n03-C08-biztools-d01",
+   "primitive": "C08",
+   "family": "biztools",
+   "language": "zh",
+   "model": "LFM3-1.7B"
+  },
+  {
+   "slot": 1,
+   "case_id": "n03-C01-helpdesk-d00",
+   "primitive": "C01",
+   "family": "helpdesk",
+   "language": "en",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 2,
+   "case_id": "n03-C01-helpdesk-d01",
+   "primitive": "C01",
+   "family": "helpdesk",
+   "language": "zh",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 3,
+   "case_id": "n03-C02-project-d00",
+   "primitive": "C02",
+   "family": "project",
+   "language": "en",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 4,
+   "case_id": "n03-C02-project-d01",
+   "primitive": "C02",
+   "family": "project",
+   "language": "zh",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 5,
+   "case_id": "n03-C03-formatting-d00",
+   "primitive": "C03",
+   "family": "formatting",
+   "language": "en",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 6,
+   "case_id": "n03-C03-formatting-d01",
+   "primitive": "C03",
+   "family": "formatting",
+   "language": "zh",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 7,
+   "case_id": "n03-C04-retail-d00",
+   "primitive": "C04",
+   "family": "retail",
+   "language": "en",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 8,
+   "case_id": "n03-C04-retail-d01",
+   "primitive": "C04",
+   "family": "retail",
+   "language": "zh",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 9,
+   "case_id": "n03-C05-returns-d00",
+   "primitive": "C05",
+   "family": "returns",
+   "language": "en",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 10,
+   "case_id": "n03-C05-returns-d01",
+   "primitive": "C05",
+   "family": "returns",
+   "language": "zh",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 11,
+   "case_id": "n03-C06-plan-d00",
+   "primitive": "C06",
+   "family": "plan",
+   "language": "en",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 12,
+   "case_id": "n03-C06-plan-d01",
+   "primitive": "C06",
+   "family": "plan",
+   "language": "zh",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 13,
+   "case_id": "n03-C07-service-d00",
+   "primitive": "C07",
+   "family": "service",
+   "language": "en",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 14,
+   "case_id": "n03-C07-service-d01",
+   "primitive": "C07",
+   "family": "service",
+   "language": "zh",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 15,
+   "case_id": "n03-C08-biztools-d00",
+   "primitive": "C08",
+   "family": "biztools",
+   "language": "en",
+   "model": "Qwen3.5-2B"
+  },
+  {
+   "slot": 16,
+   "case_id": "n03-C08-biztools-d01",
+   "primitive": "C08",
+   "family": "biztools",
+   "language": "zh",
+   "model": "Qwen3.5-2B"
+  }
+ ]
+}
