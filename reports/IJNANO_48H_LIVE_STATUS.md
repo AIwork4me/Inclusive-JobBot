@@ -3,7 +3,7 @@
 Campaign clock: **2026-11-28T04:34:00Z → 2026-11-30T04:34:00Z** (48h,
 never restarted). Updated at publication checkpoints.
 
-## Current phase: PHYSICAL EXECUTION LIVE (checkpoint H+11.9 — unchanged steady state, no new EAE releases)
+## Current phase: PHYSICAL EXECUTION LIVE (checkpoint H+13.9 — unchanged steady state, no new EAE releases)
 
 - **E1 Batch B COMPLETE** (480/480, seal cb4303b4): LFM3 .625 /
   MiniCPM .5875 / Qwen .0875 (S3 87.5% EMPTY, all finish=length).
