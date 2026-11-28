@@ -1,0 +1,84 @@
+"""Recheck private diagnostic seals and produce redaction-safe capability evidence."""
+
+import argparse
+from collections import Counter
+from itertools import product
+import json
+from pathlib import Path
+
+from evaluation.aeve.archive import check_text, digest
+from evaluation.aeve.runtime import canonical, fingerprint, write_json
+from scripts.tools.verify_ij06_evidence import verify_gpu
+
+from .ha11_preflight import PROFILES
+from .ha11_sdk import CORRECTED
+from .tc_capability_replay import assess, read_wire
+from .tc_v3 import LANGUAGES, PROMPTS, case_data
+
+
+def verified_preflight(folder):
+    source = folder / "report.json"
+    report = json.loads(source.read_bytes())
+    cases = [case_data(family, LANGUAGES[i % len(LANGUAGES)], "HA-SCOPE-V1", 0)
+             for i, family in enumerate(PROMPTS)]
+    oracles = {public["case_id"]: oracle for public, _, oracle in cases}
+    if ({(row["case_id"], row["profile"]) for row in report["results"]} != set(product(oracles, PROFILES))
+            or len(report["results"]) != len(PROFILES) * len(oracles)
+            or report["dataset_sha256"] != fingerprint(cases)
+            or report["gpu_execution"] != "PASS"
+            or report["formal_core_trials"] != 0
+            or any(digest(folder / name) != value for name, value in report["private_sha256"].items())
+            or not verify_gpu({"gpu_launch": folder / "launch.json", "gpu_counters": folder / "gpu.jsonl"}, "vulkan")):
+        raise ValueError("Preflight identities, roster or GPU proof differ")
+
+    rows = []
+    for row in report["results"]:
+        trial_id = fingerprint([report["run_id"], row["case_id"], row["profile"]])
+        trial_path = folder / f"{trial_id}.json"
+        trial = json.loads(trial_path.read_bytes())
+        assessment = assess(trial, oracles[row["case_id"]], "BLOCKED")
+        turns, proposals = read_wire(trial, False)
+        native = sum(event.get("native_evidence", {}).get("status") == "PASS" for event in trial["wire"])
+        if (trial_id != row["trial_id"] or trial_id != trial["trial_id"] or digest(trial_path) != row["capture_sha256"]
+                or assessment != row["assessment"] or row["executed_calls"] != len(trial["calls"])
+                or native != row["native_requests"] or len(turns) != native
+                or any("reply" not in turn for turn in turns)):
+            raise ValueError("Preflight trace, native binding or assessment differs")
+        callback_ok = {entry["call_id"] for entry in trial.get("callbacks", []) if entry["status"] == "PASS"}
+        if row["profile"] == CORRECTED and (callback_ok != {entry["call_id"] for entry in proposals}
+                                            or len(callback_ok) != len(trial["calls"])):
+            raise ValueError("Phase-aware callback evidence differs from provider proposals")
+        requests = []
+        for event in trial["wire"]:
+            original = json.loads(event.get("request", event["provider_request"]))
+            effective = json.loads(event["provider_request"])
+            requests.append({"provider_request_sha256": event["provider_request_sha256"],
+                             "provider_response_sha256": event["response_sha256"],
+                             "original_tool_choice": original.get("tool_choice"),
+                             "effective_tool_choice": effective.get("tool_choice"),
+                             "changed_fields": sorted(k for k in original.keys() | effective.keys()
+                                                      if original.get(k) != effective.get(k)),
+                             "phase": event.get("tool_phase"),
+                             "native_capture": event["native_evidence"]["status"],
+                             "finish_reason": event["provider_stop_reason"]})
+        rows.append(row | {"wire_stages": requests})
+    counts = {profile: dict(Counter(row["assessment"]["metrics"]["EXECUTION_PROCESS_CORRECTNESS"]
+                                    for row in rows if row["profile"] == profile)) for profile in PROFILES}
+    return report | {"results": rows, "private_report_sha256": digest(source),
+                     "replay": "PASS", "exact_execution": counts,
+                     "direct_executor_scope": "PASS", "corrected_sdk_executor_scope": "PASS"}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--preflight", required=True, type=Path)
+    parser.add_argument("--output", required=True, type=Path)
+    args = parser.parse_args()
+    evidence = verified_preflight(args.preflight)
+    check_text(canonical(evidence))
+    write_json(args.output, evidence)
+    print(evidence["replay"], len(evidence["results"]))
+
+
+if __name__ == "__main__":
+    main()

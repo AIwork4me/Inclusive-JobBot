@@ -145,10 +145,13 @@ def run(assets, output, port, *, scripted):
             raise BlockingIOError("AG-11 or another controller holds the owner window")
         registry = json.loads((ROOT / "atlas/slm/v1.0/model_registry.json").read_bytes())
         record = registry["models"][candidate]
-        model = ha.pinned_file(assets, record["asset"] | {"local_asset": record["local_asset"]},
-                               sha_key="expected_sha256", size_key="size")
+        model = (assets / record["local_asset"]).resolve(strict=True)
+        if not model.is_relative_to(assets):
+            raise ValueError("Extension model path leaves the pinned asset root")
         runtime = ext.verify_runtime(candidate, model, assets / ".tools/ij07-toolchoice-p4b-vulkan",
                                      require_prior_admission=False)
+        if runtime["model"]["model_sha256"] != record["asset"]["expected_sha256"]:
+            raise ValueError("Extension model differs from the frozen registry")
         with gpu_server(binary, model, "vulkan", ext.server_environment(), folder, port, "vulkan", True,
                         alias=alias, mission_id="LFM3-HA-1.1", lease_owner="typed-extension",
                         runtime_session=run_id + "-" + candidate) as (client, launch):
