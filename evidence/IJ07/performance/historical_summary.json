@@ -1,0 +1,1726 @@
+[
+  {
+    "cases": {
+      "planned": 500,
+      "recorded": 500,
+      "status_counts": {
+        "BLOCKED": 0,
+        "FAIL": 67,
+        "NOT_RUN": 0,
+        "PASS": 433
+      },
+      "without_captured_requests": 0
+    },
+    "identity": {
+      "arm": "R0-V",
+      "backend": "vulkan",
+      "dataset_sha256": "ce6bf6bf433baab69e511328faae42c34d6a245e44dfd432e2a30f94c84e6add",
+      "engine": {
+        "dll_sha256": {
+          "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+          "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+          "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+          "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+          "llama-common.dll": "aef88e8589e0eb4a7998bd50bdbd7eb294898fdd40b7a2a44435ae9666e08288",
+          "llama-server-impl.dll": "81f302e71ecd92a6cdee8265fa9d73706e6ec8bba8f3e4d9ded26e2b0847ea24",
+          "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+          "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e"
+        },
+        "exe_sha256": "2cbd97e2659f0578313fecb8cd7f311fb88c410fad3a4967c98be1aa697778a0"
+      },
+      "fingerprint": "841ef1ed1f2038ef91a17b41edd66d953690ab8efd8d65401057cd1143db6fdb",
+      "git": {
+        "commit": "617b87104640ff6871c4b9914bf4d6a21244537a",
+        "dirty": false
+      },
+      "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+      "modelscope_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+      "result_archive_digest_check": "PASS",
+      "results_uncompressed_sha256": "ec934a0a8599a5a7df2e098b00900467b44fe179d519e8e291b6487c64a2b842",
+      "run_id": "ij07-historical-9895f9d349264812ab8cbbb7689ea8af"
+    },
+    "latency": {
+      "request_wall_ms": {
+        "max": 4884,
+        "min": 211,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 553,
+        "p95": 1363,
+        "sum": 728163
+      },
+      "task_recorded_wall_ms": {
+        "max": 5931,
+        "min": 642,
+        "missing": 0,
+        "observations": 500,
+        "p50": 1147,
+        "p95": 2603,
+        "sum": 710492
+      },
+      "trajectory_request_wall_ms": {
+        "max": 4884,
+        "min": 211,
+        "missing": 0,
+        "observations": 1054,
+        "p50": 560,
+        "p95": 1370,
+        "sum": 710492
+      }
+    },
+    "method": {
+      "counter_coverage": "Observed sampler timestamps counted separately by session. Engine utilization is summed across process engines of one type; process and adapter memory peaks are the largest individual observed counter values.",
+      "percentiles": "Nearest rank over observed values; missing observations remain counted separately.",
+      "phase_throughput": "Duration-weighted average of the native prompt_per_second or predicted_per_second. The native decode rate can exclude the first token.",
+      "request_wall_ms": "CaptureClient chat HTTP request wall time. The separate template-render request is outside this clock.",
+      "task_recorded_wall_ms": "Historical runner's sum of step request wall times, including recorded step errors."
+    },
+    "phases": {
+      "decode": {
+        "duration_ms": {
+          "max": 4772.294,
+          "min": 151.135,
+          "missing": 0,
+          "observations": 1104,
+          "p50": 384.451,
+          "p95": 1256.062,
+          "sum": 564973.714
+        },
+        "duration_weighted_tokens_per_second": 70.470535,
+        "native_rate_observations": 1104,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 339,
+          "min": 12,
+          "missing": 0,
+          "observations": 1104,
+          "p50": 29,
+          "p95": 89,
+          "sum": 40918
+        },
+        "rate_weight_duration_ms": 564973.714
+      },
+      "prefill": {
+        "duration_ms": {
+          "max": 559.316,
+          "min": 13.771,
+          "missing": 0,
+          "observations": 1104,
+          "p50": 92.963,
+          "p95": 258.584,
+          "sum": 131756.932
+        },
+        "duration_weighted_tokens_per_second": 2093.597626,
+        "native_rate_observations": 1104,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 764,
+          "min": 1,
+          "missing": 0,
+          "observations": 1104,
+          "p50": 127,
+          "p95": 649,
+          "sum": 275846
+        },
+        "rate_weight_duration_ms": 131756.932
+      }
+    },
+    "resources": {
+      "counter_files_missing": 0,
+      "counter_files_present": 2,
+      "cpu_and_gpu_sampled_timestamps": 873,
+      "cpu_percent_of_machine": {
+        "max": 3.09375,
+        "min": 0.0,
+        "missing": 0,
+        "observations": 873,
+        "p50": 1.4375,
+        "p95": 2.03125,
+        "sum": 1258.0625
+      },
+      "cpu_sampled_timestamps": 873,
+      "foreign_process_rows": 0,
+      "gpu_compute_3d_busy_fraction": 0.996532,
+      "gpu_compute_3d_busy_threshold_percent": 5,
+      "gpu_compute_3d_excluded_timestamps": 8,
+      "gpu_compute_3d_observed_timestamps": 865,
+      "gpu_engine_invalid_rows": 8,
+      "gpu_engine_sampled_timestamps": 873,
+      "gpu_engine_sum_utilization_percent": {
+        "3D": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 873,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Compute": {
+          "max": 98,
+          "min": 0,
+          "missing": 8,
+          "observations": 865,
+          "p50": 82,
+          "p95": 92,
+          "sum": 67570
+        },
+        "Copy": {
+          "max": 1,
+          "min": 0,
+          "missing": 0,
+          "observations": 873,
+          "p50": 0,
+          "p95": 0,
+          "sum": 10
+        },
+        "Security": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 873,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Timer": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 873,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Video": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 873,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        }
+      },
+      "invalid_counter_rows": 0,
+      "matched_adapter_gpu_memory_peak_bytes": {
+        "committed": 5572927488,
+        "dedicated": 4908662784,
+        "shared": 569606144
+      },
+      "matched_adapter_gpu_memory_sampled_timestamps": 873,
+      "no_data_rows": 0,
+      "process_gpu_memory_peak_bytes": {
+        "committed": 3356213248,
+        "dedicated": 2984493056,
+        "shared": 371720192
+      },
+      "process_gpu_memory_sampled_timestamps": 873,
+      "process_peak": {
+        "private_bytes": 7996780544,
+        "threads": 43,
+        "working_set_private_bytes": 4959567872
+      },
+      "sample_error_rows": 0,
+      "sessions": [
+        {
+          "backend": "vulkan",
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "counter_file_status": "PASS",
+          "counter_uncompressed_sha256": "d141b9a87483c63c9b1b0253f5b6e7f7d743561045097aac7fb162b38b6e2885",
+          "cpu_sampled_timestamps": 39,
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "gpu_engine_sampled_timestamps": 39,
+          "layers_offloaded": 43,
+          "layers_total": 43,
+          "observed_window_seconds": 32.509787,
+          "sampling_gap_seconds": {
+            "max": 0.9836078999999991,
+            "min": 0.7333474999999989,
+            "missing": 0,
+            "observations": 38,
+            "p50": 0.8574167999999993,
+            "p95": 0.9730951000000019,
+            "sum": 32.509787
+          },
+          "session": 1,
+          "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+          "timestamps": 39
+        },
+        {
+          "backend": "vulkan",
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "counter_file_status": "PASS",
+          "counter_uncompressed_sha256": "bda4661be9493a3f7b51b75a503a6c3b8e0a0e6694ad179ac1cd12eb4783399d",
+          "cpu_sampled_timestamps": 834,
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "gpu_engine_sampled_timestamps": 834,
+          "layers_offloaded": 43,
+          "layers_total": 43,
+          "observed_window_seconds": 741.173648,
+          "sampling_gap_seconds": {
+            "max": 6.66189959999997,
+            "min": 0.7094838000000436,
+            "missing": 0,
+            "observations": 833,
+            "p50": 0.8912419000000114,
+            "p95": 0.9677914000000101,
+            "sum": 741.173648
+          },
+          "session": 2,
+          "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+          "timestamps": 834
+        }
+      ],
+      "timestamps": 873
+    },
+    "schema_version": 1,
+    "scope": "IJ07 historical diagnostic; observational timings for the captured configuration",
+    "tokens": {
+      "cache_n": {
+        "max": 1023,
+        "min": 0,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 676,
+        "p95": 852,
+        "sum": 581134
+      },
+      "source_prompt": {
+        "max": 1066,
+        "min": 534,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 765,
+        "p95": 939,
+        "sum": 856980
+      },
+      "source_sampled": {
+        "max": 339,
+        "min": 12,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 29,
+        "p95": 89,
+        "sum": 40918
+      },
+      "wire_completion": {
+        "max": 339,
+        "min": 12,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 29,
+        "p95": 89,
+        "sum": 40918
+      },
+      "wire_prompt": {
+        "max": 1066,
+        "min": 534,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 765,
+        "p95": 939,
+        "sum": 856980
+      }
+    },
+    "trajectory_phases": {
+      "decode": {
+        "duration_ms": {
+          "max": 4772.294,
+          "min": 151.135,
+          "missing": 0,
+          "observations": 1054,
+          "p50": 393.272,
+          "p95": 1271.616,
+          "sum": 549181.008
+        },
+        "duration_weighted_tokens_per_second": 70.492241,
+        "native_rate_observations": 1054,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 339,
+          "min": 12,
+          "missing": 0,
+          "observations": 1054,
+          "p50": 29,
+          "p95": 89,
+          "sum": 39767
+        },
+        "rate_weight_duration_ms": 549181.008
+      },
+      "prefill": {
+        "duration_ms": {
+          "max": 559.316,
+          "min": 37.91,
+          "missing": 0,
+          "observations": 1054,
+          "p50": 98.911,
+          "p95": 259.239,
+          "sum": 130945.022
+        },
+        "duration_weighted_tokens_per_second": 2106.196905,
+        "native_rate_observations": 1054,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 764,
+          "min": 31,
+          "missing": 0,
+          "observations": 1054,
+          "p50": 156,
+          "p95": 651,
+          "sum": 275796
+        },
+        "rate_weight_duration_ms": 130945.022
+      }
+    },
+    "unmeasured": {
+      "energy_and_power": {
+        "reason": "This capture has no sampled power or energy meter.",
+        "status": "NOT_RUN"
+      },
+      "host_device_transfers": {
+        "reason": "Engine utilization counters do not contain transfer bytes or transfer durations.",
+        "status": "NOT_RUN"
+      },
+      "soak_qualification": {
+        "reason": "Counter windows contain historical benchmark sessions. No dedicated soak trial was recorded.",
+        "status": "NOT_RUN"
+      },
+      "task_end_to_end_latency": {
+        "reason": "Historical case wall_ms sums benchmark step requests. There is no enclosing task clock.",
+        "status": "NOT_RUN"
+      },
+      "time_to_first_token": {
+        "reason": "Raw SSE frames have no individual arrival timestamps.",
+        "status": "NOT_RUN"
+      }
+    },
+    "wire_source_token_comparison": {
+      "completion": {
+        "disagreements": 0,
+        "paired_requests": 1104
+      },
+      "prompt": {
+        "disagreements": 0,
+        "paired_requests": 1104
+      }
+    },
+    "workload": {
+      "http_status": {
+        "200": 1104
+      },
+      "parity_requests": 50,
+      "requests": 1104,
+      "source_truncated": 0,
+      "source_truncation_unobserved": 0,
+      "streaming_requests": 100,
+      "trajectory_requests": 1054,
+      "wire_metadata": {
+        "observed": 1104
+      }
+    }
+  },
+  {
+    "cases": {
+      "planned": 500,
+      "recorded": 500,
+      "status_counts": {
+        "BLOCKED": 0,
+        "FAIL": 68,
+        "NOT_RUN": 0,
+        "PASS": 432
+      },
+      "without_captured_requests": 0
+    },
+    "identity": {
+      "arm": "R0-R",
+      "backend": "rocm",
+      "dataset_sha256": "ce6bf6bf433baab69e511328faae42c34d6a245e44dfd432e2a30f94c84e6add",
+      "engine": {
+        "dll_sha256": {
+          "amd_comgr.dll": "213db0bedaa07027ce136ba1797299a2b0cfa2c6bb33584ce3861be8be067937",
+          "amdhip64_7.dll": "546fb3d6e2d2194a9526fb94ec2fd3aa5b92a48a7595f04efece80162047ef69",
+          "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+          "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+          "ggml-hip.dll": "4748285cbb736778747c2b9f61d1c3a75ff4ad6c1b81ce0e4f03a7d8b0753129",
+          "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+          "hipblas.dll": "343bd57671dc96d035ff0e7591ecce926a102df1d52b50025f4a41a45cdf9581",
+          "llama-common.dll": "aef88e8589e0eb4a7998bd50bdbd7eb294898fdd40b7a2a44435ae9666e08288",
+          "llama-server-impl.dll": "81f302e71ecd92a6cdee8265fa9d73706e6ec8bba8f3e4d9ded26e2b0847ea24",
+          "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+          "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e",
+          "rocm_kpack.dll": "97b59ca4e7b5edfcda72d66c5b6643f557168b3c60091cf5c6fe9bb226597bf1"
+        },
+        "exe_sha256": "2cbd97e2659f0578313fecb8cd7f311fb88c410fad3a4967c98be1aa697778a0"
+      },
+      "fingerprint": "9a5f4ddf47d206629515dc5af77e68633d9c26987f8d0cf18b74198669ad1d94",
+      "git": {
+        "commit": "617b87104640ff6871c4b9914bf4d6a21244537a",
+        "dirty": false
+      },
+      "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+      "modelscope_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+      "result_archive_digest_check": "PASS",
+      "results_uncompressed_sha256": "9c66e18d5a98f654f276c6342cf45f2981e20f787916bc2b1424f87590187487",
+      "run_id": "ij07-historical-3923f1180c8a4074ae96a33fe7b1edb6"
+    },
+    "latency": {
+      "request_wall_ms": {
+        "max": 5222,
+        "min": 212,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 551,
+        "p95": 1433,
+        "sum": 742543
+      },
+      "task_recorded_wall_ms": {
+        "max": 6185,
+        "min": 616,
+        "missing": 0,
+        "observations": 500,
+        "p50": 1225,
+        "p95": 2740,
+        "sum": 724651
+      },
+      "trajectory_request_wall_ms": {
+        "max": 5222,
+        "min": 212,
+        "missing": 0,
+        "observations": 1057,
+        "p50": 560,
+        "p95": 1435,
+        "sum": 724651
+      }
+    },
+    "method": {
+      "counter_coverage": "Observed sampler timestamps counted separately by session. Engine utilization is summed across process engines of one type; process and adapter memory peaks are the largest individual observed counter values.",
+      "percentiles": "Nearest rank over observed values; missing observations remain counted separately.",
+      "phase_throughput": "Duration-weighted average of the native prompt_per_second or predicted_per_second. The native decode rate can exclude the first token.",
+      "request_wall_ms": "CaptureClient chat HTTP request wall time. The separate template-render request is outside this clock.",
+      "task_recorded_wall_ms": "Historical runner's sum of step request wall times, including recorded step errors."
+    },
+    "phases": {
+      "decode": {
+        "duration_ms": {
+          "max": 5156.402,
+          "min": 158.912,
+          "missing": 0,
+          "observations": 1107,
+          "p50": 418.88,
+          "p95": 1349.983,
+          "sum": 605982.66
+        },
+        "duration_weighted_tokens_per_second": 65.345104,
+        "native_rate_observations": 1107,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 343,
+          "min": 12,
+          "missing": 0,
+          "observations": 1107,
+          "p50": 29,
+          "p95": 89,
+          "sum": 40705
+        },
+        "rate_weight_duration_ms": 605982.66
+      },
+      "prefill": {
+        "duration_ms": {
+          "max": 428.617,
+          "min": 14.695,
+          "missing": 0,
+          "observations": 1107,
+          "p50": 59.544,
+          "p95": 206.852,
+          "sum": 100770.958
+        },
+        "duration_weighted_tokens_per_second": 2738.080549,
+        "native_rate_observations": 1107,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 764,
+          "min": 1,
+          "missing": 0,
+          "observations": 1107,
+          "p50": 127,
+          "p95": 649,
+          "sum": 275919
+        },
+        "rate_weight_duration_ms": 100770.958
+      }
+    },
+    "resources": {
+      "counter_files_missing": 0,
+      "counter_files_present": 2,
+      "cpu_and_gpu_sampled_timestamps": 926,
+      "cpu_percent_of_machine": {
+        "max": 5.6875,
+        "min": 0.0,
+        "missing": 0,
+        "observations": 926,
+        "p50": 2.03125,
+        "p95": 3.59375,
+        "sum": 1901.34375
+      },
+      "cpu_sampled_timestamps": 926,
+      "foreign_process_rows": 0,
+      "gpu_compute_3d_busy_fraction": 0.989679,
+      "gpu_compute_3d_busy_threshold_percent": 5,
+      "gpu_compute_3d_excluded_timestamps": 54,
+      "gpu_compute_3d_observed_timestamps": 872,
+      "gpu_engine_invalid_rows": 54,
+      "gpu_engine_sampled_timestamps": 926,
+      "gpu_engine_sum_utilization_percent": {
+        "3D": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 926,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Compute": {
+          "max": 99,
+          "min": 0,
+          "missing": 54,
+          "observations": 872,
+          "p50": 78,
+          "p95": 86,
+          "sum": 62247
+        },
+        "Copy": {
+          "max": 12,
+          "min": 0,
+          "missing": 0,
+          "observations": 926,
+          "p50": 2,
+          "p95": 7,
+          "sum": 2135
+        },
+        "Security": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 926,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Timer": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 926,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Video": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 926,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        }
+      },
+      "invalid_counter_rows": 0,
+      "matched_adapter_gpu_memory_peak_bytes": {
+        "committed": 5749293056,
+        "dedicated": 5027934208,
+        "shared": 595881984
+      },
+      "matched_adapter_gpu_memory_sampled_timestamps": 926,
+      "no_data_rows": 0,
+      "process_gpu_memory_peak_bytes": {
+        "committed": 3478999040,
+        "dedicated": 3081662464,
+        "shared": 397336576
+      },
+      "process_gpu_memory_sampled_timestamps": 926,
+      "process_peak": {
+        "private_bytes": 5166235648,
+        "threads": 41,
+        "working_set_private_bytes": 5005234176
+      },
+      "sample_error_rows": 0,
+      "sessions": [
+        {
+          "backend": "rocm",
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "counter_file_status": "PASS",
+          "counter_uncompressed_sha256": "a3520c3bdc285b6a9f5160d3cd2a1d038c0b6d8ec6d047db7c51eeb08b3e7f00",
+          "cpu_sampled_timestamps": 48,
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "ROCm0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "gpu_engine_sampled_timestamps": 48,
+          "layers_offloaded": 43,
+          "layers_total": 43,
+          "observed_window_seconds": 42.987818,
+          "sampling_gap_seconds": {
+            "max": 1.0166949999999986,
+            "min": 0.7625396000000002,
+            "missing": 0,
+            "observations": 47,
+            "p50": 0.9447539999999996,
+            "p95": 0.9955752999999987,
+            "sum": 42.987818
+          },
+          "session": 1,
+          "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+          "timestamps": 48
+        },
+        {
+          "backend": "rocm",
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "counter_file_status": "PASS",
+          "counter_uncompressed_sha256": "5faf7f31cf883370a48680e22b882e82113e232ff304ed79be07b24af85173f5",
+          "cpu_sampled_timestamps": 878,
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "ROCm0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "gpu_engine_sampled_timestamps": 878,
+          "layers_offloaded": 43,
+          "layers_total": 43,
+          "observed_window_seconds": 740.700933,
+          "sampling_gap_seconds": {
+            "max": 0.9567175999999993,
+            "min": 0.7192405000000002,
+            "missing": 0,
+            "observations": 877,
+            "p50": 0.8481094999999641,
+            "p95": 0.9191883999999959,
+            "sum": 740.700933
+          },
+          "session": 2,
+          "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+          "timestamps": 878
+        }
+      ],
+      "timestamps": 926
+    },
+    "schema_version": 1,
+    "scope": "IJ07 historical diagnostic; observational timings for the captured configuration",
+    "tokens": {
+      "cache_n": {
+        "max": 1023,
+        "min": 0,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 677,
+        "p95": 854,
+        "sum": 583706
+      },
+      "source_prompt": {
+        "max": 1066,
+        "min": 534,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 765,
+        "p95": 939,
+        "sum": 859625
+      },
+      "source_sampled": {
+        "max": 343,
+        "min": 12,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 29,
+        "p95": 89,
+        "sum": 40705
+      },
+      "wire_completion": {
+        "max": 343,
+        "min": 12,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 29,
+        "p95": 89,
+        "sum": 40705
+      },
+      "wire_prompt": {
+        "max": 1066,
+        "min": 534,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 765,
+        "p95": 939,
+        "sum": 859625
+      }
+    },
+    "trajectory_phases": {
+      "decode": {
+        "duration_ms": {
+          "max": 5156.402,
+          "min": 158.912,
+          "missing": 0,
+          "observations": 1057,
+          "p50": 425.564,
+          "p95": 1354.992,
+          "sum": 589857.249
+        },
+        "duration_weighted_tokens_per_second": 65.264943,
+        "native_rate_observations": 1057,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 343,
+          "min": 12,
+          "missing": 0,
+          "observations": 1057,
+          "p50": 29,
+          "p95": 89,
+          "sum": 39554
+        },
+        "rate_weight_duration_ms": 589857.249
+      },
+      "prefill": {
+        "duration_ms": {
+          "max": 428.617,
+          "min": 26.112,
+          "missing": 0,
+          "observations": 1057,
+          "p50": 75.615,
+          "p95": 208.113,
+          "sum": 99993.377
+        },
+        "duration_weighted_tokens_per_second": 2758.87272,
+        "native_rate_observations": 1057,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 764,
+          "min": 31,
+          "missing": 0,
+          "observations": 1057,
+          "p50": 156,
+          "p95": 651,
+          "sum": 275869
+        },
+        "rate_weight_duration_ms": 99993.377
+      }
+    },
+    "unmeasured": {
+      "energy_and_power": {
+        "reason": "This capture has no sampled power or energy meter.",
+        "status": "NOT_RUN"
+      },
+      "host_device_transfers": {
+        "reason": "Engine utilization counters do not contain transfer bytes or transfer durations.",
+        "status": "NOT_RUN"
+      },
+      "soak_qualification": {
+        "reason": "Counter windows contain historical benchmark sessions. No dedicated soak trial was recorded.",
+        "status": "NOT_RUN"
+      },
+      "task_end_to_end_latency": {
+        "reason": "Historical case wall_ms sums benchmark step requests. There is no enclosing task clock.",
+        "status": "NOT_RUN"
+      },
+      "time_to_first_token": {
+        "reason": "Raw SSE frames have no individual arrival timestamps.",
+        "status": "NOT_RUN"
+      }
+    },
+    "wire_source_token_comparison": {
+      "completion": {
+        "disagreements": 0,
+        "paired_requests": 1107
+      },
+      "prompt": {
+        "disagreements": 0,
+        "paired_requests": 1107
+      }
+    },
+    "workload": {
+      "http_status": {
+        "200": 1107
+      },
+      "parity_requests": 50,
+      "requests": 1107,
+      "source_truncated": 0,
+      "source_truncation_unobserved": 0,
+      "streaming_requests": 100,
+      "trajectory_requests": 1057,
+      "wire_metadata": {
+        "observed": 1107
+      }
+    }
+  },
+  {
+    "cases": {
+      "planned": 500,
+      "recorded": 500,
+      "status_counts": {
+        "BLOCKED": 0,
+        "FAIL": 67,
+        "NOT_RUN": 0,
+        "PASS": 433
+      },
+      "without_captured_requests": 0
+    },
+    "identity": {
+      "arm": "R1-V",
+      "backend": "vulkan",
+      "dataset_sha256": "ce6bf6bf433baab69e511328faae42c34d6a245e44dfd432e2a30f94c84e6add",
+      "engine": {
+        "dll_sha256": {
+          "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+          "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+          "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+          "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+          "llama-common.dll": "e7573a81ba8fc85bfe77797e643e05e7f6895d94c29e8301861460337ebbb30a",
+          "llama-server-impl.dll": "e77e0e0ceb934727597cc66e9ac282520cd93bf0782dda7376d738c21f4eef96",
+          "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+          "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e"
+        },
+        "exe_sha256": "f6281cbfcb9eaf154b6fe0a9667906957f2bf78d08e4c1a05b5dc32214a0f4d7"
+      },
+      "fingerprint": "001d345feec1fbe6d71e9ebeacef1403e651502b095b0130997e5f458852bbe8",
+      "git": {
+        "commit": "617b87104640ff6871c4b9914bf4d6a21244537a",
+        "dirty": false
+      },
+      "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+      "modelscope_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+      "result_archive_digest_check": "PASS",
+      "results_uncompressed_sha256": "2cd1568ba3460e3cf32a75f817cfa0d460ecaf388f85e63e84cccc12c0da4791",
+      "run_id": "ij07-historical-77d2c281014b4b29885693935f91a179"
+    },
+    "latency": {
+      "request_wall_ms": {
+        "max": 4777,
+        "min": 223,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 548,
+        "p95": 1334,
+        "sum": 725019
+      },
+      "task_recorded_wall_ms": {
+        "max": 5784,
+        "min": 650,
+        "missing": 0,
+        "observations": 500,
+        "p50": 1213,
+        "p95": 2594,
+        "sum": 707717
+      },
+      "trajectory_request_wall_ms": {
+        "max": 4777,
+        "min": 223,
+        "missing": 0,
+        "observations": 1054,
+        "p50": 555,
+        "p95": 1356,
+        "sum": 707717
+      }
+    },
+    "method": {
+      "counter_coverage": "Observed sampler timestamps counted separately by session. Engine utilization is summed across process engines of one type; process and adapter memory peaks are the largest individual observed counter values.",
+      "percentiles": "Nearest rank over observed values; missing observations remain counted separately.",
+      "phase_throughput": "Duration-weighted average of the native prompt_per_second or predicted_per_second. The native decode rate can exclude the first token.",
+      "request_wall_ms": "CaptureClient chat HTTP request wall time. The separate template-render request is outside this clock.",
+      "task_recorded_wall_ms": "Historical runner's sum of step request wall times, including recorded step errors."
+    },
+    "phases": {
+      "decode": {
+        "duration_ms": {
+          "max": 4667.174,
+          "min": 155.279,
+          "missing": 0,
+          "observations": 1104,
+          "p50": 383.646,
+          "p95": 1232.258,
+          "sum": 559229.89
+        },
+        "duration_weighted_tokens_per_second": 71.194335,
+        "native_rate_observations": 1104,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 339,
+          "min": 12,
+          "missing": 0,
+          "observations": 1104,
+          "p50": 29,
+          "p95": 89,
+          "sum": 40918
+        },
+        "rate_weight_duration_ms": 559229.89
+      },
+      "prefill": {
+        "duration_ms": {
+          "max": 574.591,
+          "min": 13.616,
+          "missing": 0,
+          "observations": 1104,
+          "p50": 95.72,
+          "p95": 265.832,
+          "sum": 136640.045
+        },
+        "duration_weighted_tokens_per_second": 2018.778609,
+        "native_rate_observations": 1104,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 764,
+          "min": 1,
+          "missing": 0,
+          "observations": 1104,
+          "p50": 127,
+          "p95": 649,
+          "sum": 275846
+        },
+        "rate_weight_duration_ms": 136640.045
+      }
+    },
+    "resources": {
+      "counter_files_missing": 0,
+      "counter_files_present": 2,
+      "cpu_and_gpu_sampled_timestamps": 884,
+      "cpu_percent_of_machine": {
+        "max": 2.4375,
+        "min": 0.0,
+        "missing": 0,
+        "observations": 884,
+        "p50": 1.4375,
+        "p95": 1.96875,
+        "sum": 1244.96875
+      },
+      "cpu_sampled_timestamps": 884,
+      "foreign_process_rows": 0,
+      "gpu_compute_3d_busy_fraction": 0.995444,
+      "gpu_compute_3d_busy_threshold_percent": 5,
+      "gpu_compute_3d_excluded_timestamps": 6,
+      "gpu_compute_3d_observed_timestamps": 878,
+      "gpu_engine_invalid_rows": 6,
+      "gpu_engine_sampled_timestamps": 884,
+      "gpu_engine_sum_utilization_percent": {
+        "3D": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 884,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Compute": {
+          "max": 99,
+          "min": 0,
+          "missing": 6,
+          "observations": 878,
+          "p50": 83,
+          "p95": 93,
+          "sum": 69324
+        },
+        "Copy": {
+          "max": 1,
+          "min": 0,
+          "missing": 0,
+          "observations": 884,
+          "p50": 0,
+          "p95": 0,
+          "sum": 13
+        },
+        "Security": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 884,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Timer": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 884,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Video": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 884,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        }
+      },
+      "invalid_counter_rows": 0,
+      "matched_adapter_gpu_memory_peak_bytes": {
+        "committed": 5546446848,
+        "dedicated": 4888133632,
+        "shared": 569606144
+      },
+      "matched_adapter_gpu_memory_sampled_timestamps": 884,
+      "no_data_rows": 0,
+      "process_gpu_memory_peak_bytes": {
+        "committed": 3356213248,
+        "dedicated": 2984493056,
+        "shared": 371720192
+      },
+      "process_gpu_memory_sampled_timestamps": 884,
+      "process_peak": {
+        "private_bytes": 7994642432,
+        "threads": 43,
+        "working_set_private_bytes": 4960059392
+      },
+      "sample_error_rows": 0,
+      "sessions": [
+        {
+          "backend": "vulkan",
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "counter_file_status": "PASS",
+          "counter_uncompressed_sha256": "4bb27444a6fa1a0ab3e93a0e8d46e612fae71d9881c9d467c3a887575df57000",
+          "cpu_sampled_timestamps": 39,
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "gpu_engine_sampled_timestamps": 39,
+          "layers_offloaded": 43,
+          "layers_total": 43,
+          "observed_window_seconds": 32.243932,
+          "sampling_gap_seconds": {
+            "max": 0.9757897999999976,
+            "min": 0.7108960999999994,
+            "missing": 0,
+            "observations": 38,
+            "p50": 0.8210398,
+            "p95": 0.9651089999999982,
+            "sum": 32.243932
+          },
+          "session": 1,
+          "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+          "timestamps": 39
+        },
+        {
+          "backend": "vulkan",
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "counter_file_status": "PASS",
+          "counter_uncompressed_sha256": "b695f6df6a6f689fd970d2d24381cf07e4bbdd2bc063844a1420eb5064dc6fa9",
+          "cpu_sampled_timestamps": 845,
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "Vulkan0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "gpu_engine_sampled_timestamps": 845,
+          "layers_offloaded": 43,
+          "layers_total": 43,
+          "observed_window_seconds": 738.275274,
+          "sampling_gap_seconds": {
+            "max": 1.0202449999999317,
+            "min": 0.7441743000000001,
+            "missing": 0,
+            "observations": 844,
+            "p50": 0.8831169999999702,
+            "p95": 0.9537040999999817,
+            "sum": 738.275274
+          },
+          "session": 2,
+          "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+          "timestamps": 845
+        }
+      ],
+      "timestamps": 884
+    },
+    "schema_version": 1,
+    "scope": "IJ07 historical diagnostic; observational timings for the captured configuration",
+    "tokens": {
+      "cache_n": {
+        "max": 1023,
+        "min": 0,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 676,
+        "p95": 852,
+        "sum": 581134
+      },
+      "source_prompt": {
+        "max": 1066,
+        "min": 534,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 765,
+        "p95": 939,
+        "sum": 856980
+      },
+      "source_sampled": {
+        "max": 339,
+        "min": 12,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 29,
+        "p95": 89,
+        "sum": 40918
+      },
+      "wire_completion": {
+        "max": 339,
+        "min": 12,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 29,
+        "p95": 89,
+        "sum": 40918
+      },
+      "wire_prompt": {
+        "max": 1066,
+        "min": 534,
+        "missing": 0,
+        "observations": 1104,
+        "p50": 765,
+        "p95": 939,
+        "sum": 856980
+      }
+    },
+    "trajectory_phases": {
+      "decode": {
+        "duration_ms": {
+          "max": 4667.174,
+          "min": 155.279,
+          "missing": 0,
+          "observations": 1054,
+          "p50": 390.829,
+          "p95": 1251.507,
+          "sum": 543653.539
+        },
+        "duration_weighted_tokens_per_second": 71.208954,
+        "native_rate_observations": 1054,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 339,
+          "min": 12,
+          "missing": 0,
+          "observations": 1054,
+          "p50": 29,
+          "p95": 89,
+          "sum": 39767
+        },
+        "rate_weight_duration_ms": 543653.539
+      },
+      "prefill": {
+        "duration_ms": {
+          "max": 574.591,
+          "min": 38.088,
+          "missing": 0,
+          "observations": 1054,
+          "p50": 124.407,
+          "p95": 267.074,
+          "sum": 135846.948
+        },
+        "duration_weighted_tokens_per_second": 2030.196512,
+        "native_rate_observations": 1054,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 764,
+          "min": 31,
+          "missing": 0,
+          "observations": 1054,
+          "p50": 156,
+          "p95": 651,
+          "sum": 275796
+        },
+        "rate_weight_duration_ms": 135846.948
+      }
+    },
+    "unmeasured": {
+      "energy_and_power": {
+        "reason": "This capture has no sampled power or energy meter.",
+        "status": "NOT_RUN"
+      },
+      "host_device_transfers": {
+        "reason": "Engine utilization counters do not contain transfer bytes or transfer durations.",
+        "status": "NOT_RUN"
+      },
+      "soak_qualification": {
+        "reason": "Counter windows contain historical benchmark sessions. No dedicated soak trial was recorded.",
+        "status": "NOT_RUN"
+      },
+      "task_end_to_end_latency": {
+        "reason": "Historical case wall_ms sums benchmark step requests. There is no enclosing task clock.",
+        "status": "NOT_RUN"
+      },
+      "time_to_first_token": {
+        "reason": "Raw SSE frames have no individual arrival timestamps.",
+        "status": "NOT_RUN"
+      }
+    },
+    "wire_source_token_comparison": {
+      "completion": {
+        "disagreements": 0,
+        "paired_requests": 1104
+      },
+      "prompt": {
+        "disagreements": 0,
+        "paired_requests": 1104
+      }
+    },
+    "workload": {
+      "http_status": {
+        "200": 1104
+      },
+      "parity_requests": 50,
+      "requests": 1104,
+      "source_truncated": 0,
+      "source_truncation_unobserved": 0,
+      "streaming_requests": 100,
+      "trajectory_requests": 1054,
+      "wire_metadata": {
+        "observed": 1104
+      }
+    }
+  },
+  {
+    "cases": {
+      "planned": 500,
+      "recorded": 500,
+      "status_counts": {
+        "BLOCKED": 0,
+        "FAIL": 68,
+        "NOT_RUN": 0,
+        "PASS": 432
+      },
+      "without_captured_requests": 0
+    },
+    "identity": {
+      "arm": "R1-R",
+      "backend": "rocm",
+      "dataset_sha256": "ce6bf6bf433baab69e511328faae42c34d6a245e44dfd432e2a30f94c84e6add",
+      "engine": {
+        "dll_sha256": {
+          "amd_comgr.dll": "213db0bedaa07027ce136ba1797299a2b0cfa2c6bb33584ce3861be8be067937",
+          "amdhip64_7.dll": "546fb3d6e2d2194a9526fb94ec2fd3aa5b92a48a7595f04efece80162047ef69",
+          "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+          "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+          "ggml-hip.dll": "4748285cbb736778747c2b9f61d1c3a75ff4ad6c1b81ce0e4f03a7d8b0753129",
+          "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+          "hipblas.dll": "343bd57671dc96d035ff0e7591ecce926a102df1d52b50025f4a41a45cdf9581",
+          "llama-common.dll": "e7573a81ba8fc85bfe77797e643e05e7f6895d94c29e8301861460337ebbb30a",
+          "llama-server-impl.dll": "e77e0e0ceb934727597cc66e9ac282520cd93bf0782dda7376d738c21f4eef96",
+          "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+          "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e",
+          "rocm_kpack.dll": "97b59ca4e7b5edfcda72d66c5b6643f557168b3c60091cf5c6fe9bb226597bf1"
+        },
+        "exe_sha256": "f6281cbfcb9eaf154b6fe0a9667906957f2bf78d08e4c1a05b5dc32214a0f4d7"
+      },
+      "fingerprint": "db74c361981d13a9e592291d9219be7cbc85092f1da391ad63a33b776e97541d",
+      "git": {
+        "commit": "617b87104640ff6871c4b9914bf4d6a21244537a",
+        "dirty": false
+      },
+      "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+      "modelscope_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+      "result_archive_digest_check": "PASS",
+      "results_uncompressed_sha256": "c418ff617deee2e955ccc5cb0343a417c60cc1c54f35bc1c8c40d14d39f70262",
+      "run_id": "ij07-historical-ef0c05aedc084ade97d161f716c8aba6"
+    },
+    "latency": {
+      "request_wall_ms": {
+        "max": 5418,
+        "min": 208,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 547,
+        "p95": 1447,
+        "sum": 746270
+      },
+      "task_recorded_wall_ms": {
+        "max": 6443,
+        "min": 621,
+        "missing": 0,
+        "observations": 500,
+        "p50": 1166,
+        "p95": 2801,
+        "sum": 728099
+      },
+      "trajectory_request_wall_ms": {
+        "max": 5418,
+        "min": 208,
+        "missing": 0,
+        "observations": 1057,
+        "p50": 558,
+        "p95": 1464,
+        "sum": 728099
+      }
+    },
+    "method": {
+      "counter_coverage": "Observed sampler timestamps counted separately by session. Engine utilization is summed across process engines of one type; process and adapter memory peaks are the largest individual observed counter values.",
+      "percentiles": "Nearest rank over observed values; missing observations remain counted separately.",
+      "phase_throughput": "Duration-weighted average of the native prompt_per_second or predicted_per_second. The native decode rate can exclude the first token.",
+      "request_wall_ms": "CaptureClient chat HTTP request wall time. The separate template-render request is outside this clock.",
+      "task_recorded_wall_ms": "Historical runner's sum of step request wall times, including recorded step errors."
+    },
+    "phases": {
+      "decode": {
+        "duration_ms": {
+          "max": 5347.133,
+          "min": 161.813,
+          "missing": 0,
+          "observations": 1107,
+          "p50": 409.919,
+          "p95": 1362.886,
+          "sum": 608256.348
+        },
+        "duration_weighted_tokens_per_second": 65.100841,
+        "native_rate_observations": 1107,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 343,
+          "min": 12,
+          "missing": 0,
+          "observations": 1107,
+          "p50": 29,
+          "p95": 89,
+          "sum": 40705
+        },
+        "rate_weight_duration_ms": 608256.348
+      },
+      "prefill": {
+        "duration_ms": {
+          "max": 247.673,
+          "min": 15.436,
+          "missing": 0,
+          "observations": 1107,
+          "p50": 58.346,
+          "p95": 202.773,
+          "sum": 97520.733
+        },
+        "duration_weighted_tokens_per_second": 2829.336814,
+        "native_rate_observations": 1107,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 764,
+          "min": 1,
+          "missing": 0,
+          "observations": 1107,
+          "p50": 127,
+          "p95": 649,
+          "sum": 275919
+        },
+        "rate_weight_duration_ms": 97520.733
+      }
+    },
+    "resources": {
+      "counter_files_missing": 0,
+      "counter_files_present": 2,
+      "cpu_and_gpu_sampled_timestamps": 923,
+      "cpu_percent_of_machine": {
+        "max": 6.09375,
+        "min": 0.0,
+        "missing": 0,
+        "observations": 923,
+        "p50": 2.0625,
+        "p95": 4.5,
+        "sum": 2105.25
+      },
+      "cpu_sampled_timestamps": 923,
+      "foreign_process_rows": 0,
+      "gpu_compute_3d_busy_fraction": 0.989679,
+      "gpu_compute_3d_busy_threshold_percent": 5,
+      "gpu_compute_3d_excluded_timestamps": 51,
+      "gpu_compute_3d_observed_timestamps": 872,
+      "gpu_engine_invalid_rows": 51,
+      "gpu_engine_sampled_timestamps": 923,
+      "gpu_engine_sum_utilization_percent": {
+        "3D": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 923,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Compute": {
+          "max": 100,
+          "min": 0,
+          "missing": 51,
+          "observations": 872,
+          "p50": 75,
+          "p95": 87,
+          "sum": 60383
+        },
+        "Copy": {
+          "max": 11,
+          "min": 0,
+          "missing": 0,
+          "observations": 923,
+          "p50": 2,
+          "p95": 8,
+          "sum": 2220
+        },
+        "Security": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 923,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Timer": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 923,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        },
+        "Video": {
+          "max": 0,
+          "min": 0,
+          "missing": 0,
+          "observations": 923,
+          "p50": 0,
+          "p95": 0,
+          "sum": 0
+        }
+      },
+      "invalid_counter_rows": 0,
+      "matched_adapter_gpu_memory_peak_bytes": {
+        "committed": 6055714816,
+        "dedicated": 5389783040,
+        "shared": 595222528
+      },
+      "matched_adapter_gpu_memory_sampled_timestamps": 923,
+      "no_data_rows": 0,
+      "process_gpu_memory_peak_bytes": {
+        "committed": 3478999040,
+        "dedicated": 3081662464,
+        "shared": 397336576
+      },
+      "process_gpu_memory_sampled_timestamps": 923,
+      "process_peak": {
+        "private_bytes": 5168152576,
+        "threads": 41,
+        "working_set_private_bytes": 5007429632
+      },
+      "sample_error_rows": 0,
+      "sessions": [
+        {
+          "backend": "rocm",
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "counter_file_status": "PASS",
+          "counter_uncompressed_sha256": "5f7436c84e2d7f822aea3651d8a47581a15b0eecccc53706f5e32536d903d79f",
+          "cpu_sampled_timestamps": 41,
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "ROCm0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "gpu_engine_sampled_timestamps": 41,
+          "layers_offloaded": 43,
+          "layers_total": 43,
+          "observed_window_seconds": 32.886815,
+          "sampling_gap_seconds": {
+            "max": 0.9454285999999996,
+            "min": 0.7087715000000001,
+            "missing": 0,
+            "observations": 40,
+            "p50": 0.8039726999999992,
+            "p95": 0.9357357999999998,
+            "sum": 32.886815
+          },
+          "session": 1,
+          "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+          "timestamps": 41
+        },
+        {
+          "backend": "rocm",
+          "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+          "counter_file_status": "PASS",
+          "counter_uncompressed_sha256": "4dec09858ec181eb3429e28b0adf5dd1ea890557a5a8e7de705b618b8491f940",
+          "cpu_sampled_timestamps": 882,
+          "gpu": {
+            "architecture": "gfx1151",
+            "device": "ROCm0",
+            "name": "AMD Radeon(TM) 8060S Graphics"
+          },
+          "gpu_engine_sampled_timestamps": 882,
+          "layers_offloaded": 43,
+          "layers_total": 43,
+          "observed_window_seconds": 757.37988,
+          "sampling_gap_seconds": {
+            "max": 6.396089200000006,
+            "min": 0.7298475,
+            "missing": 0,
+            "observations": 881,
+            "p50": 0.8490679000000014,
+            "p95": 0.9385019000000057,
+            "sum": 757.37988
+          },
+          "session": 2,
+          "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+          "timestamps": 882
+        }
+      ],
+      "timestamps": 923
+    },
+    "schema_version": 1,
+    "scope": "IJ07 historical diagnostic; observational timings for the captured configuration",
+    "tokens": {
+      "cache_n": {
+        "max": 1023,
+        "min": 0,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 677,
+        "p95": 854,
+        "sum": 583706
+      },
+      "source_prompt": {
+        "max": 1066,
+        "min": 534,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 765,
+        "p95": 939,
+        "sum": 859625
+      },
+      "source_sampled": {
+        "max": 343,
+        "min": 12,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 29,
+        "p95": 89,
+        "sum": 40705
+      },
+      "wire_completion": {
+        "max": 343,
+        "min": 12,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 29,
+        "p95": 89,
+        "sum": 40705
+      },
+      "wire_prompt": {
+        "max": 1066,
+        "min": 534,
+        "missing": 0,
+        "observations": 1107,
+        "p50": 765,
+        "p95": 939,
+        "sum": 859625
+      }
+    },
+    "trajectory_phases": {
+      "decode": {
+        "duration_ms": {
+          "max": 5347.133,
+          "min": 161.813,
+          "missing": 0,
+          "observations": 1057,
+          "p50": 424.484,
+          "p95": 1380.305,
+          "sum": 591991.041
+        },
+        "duration_weighted_tokens_per_second": 65.0297,
+        "native_rate_observations": 1057,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 343,
+          "min": 12,
+          "missing": 0,
+          "observations": 1057,
+          "p50": 29,
+          "p95": 89,
+          "sum": 39554
+        },
+        "rate_weight_duration_ms": 591991.041
+      },
+      "prefill": {
+        "duration_ms": {
+          "max": 247.673,
+          "min": 26.946,
+          "missing": 0,
+          "observations": 1057,
+          "p50": 61.869,
+          "p95": 203.562,
+          "sum": 96706.955
+        },
+        "duration_weighted_tokens_per_second": 2852.628335,
+        "native_rate_observations": 1057,
+        "native_rate_unavailable_or_zero_duration": 0,
+        "native_reported_token_count": {
+          "max": 764,
+          "min": 31,
+          "missing": 0,
+          "observations": 1057,
+          "p50": 156,
+          "p95": 651,
+          "sum": 275869
+        },
+        "rate_weight_duration_ms": 96706.955
+      }
+    },
+    "unmeasured": {
+      "energy_and_power": {
+        "reason": "This capture has no sampled power or energy meter.",
+        "status": "NOT_RUN"
+      },
+      "host_device_transfers": {
+        "reason": "Engine utilization counters do not contain transfer bytes or transfer durations.",
+        "status": "NOT_RUN"
+      },
+      "soak_qualification": {
+        "reason": "Counter windows contain historical benchmark sessions. No dedicated soak trial was recorded.",
+        "status": "NOT_RUN"
+      },
+      "task_end_to_end_latency": {
+        "reason": "Historical case wall_ms sums benchmark step requests. There is no enclosing task clock.",
+        "status": "NOT_RUN"
+      },
+      "time_to_first_token": {
+        "reason": "Raw SSE frames have no individual arrival timestamps.",
+        "status": "NOT_RUN"
+      }
+    },
+    "wire_source_token_comparison": {
+      "completion": {
+        "disagreements": 0,
+        "paired_requests": 1107
+      },
+      "prompt": {
+        "disagreements": 0,
+        "paired_requests": 1107
+      }
+    },
+    "workload": {
+      "http_status": {
+        "200": 1107
+      },
+      "parity_requests": 50,
+      "requests": 1107,
+      "source_truncated": 0,
+      "source_truncation_unobserved": 0,
+      "streaming_requests": 100,
+      "trajectory_requests": 1057,
+      "wire_metadata": {
+        "observed": 1107
+      }
+    }
+  }
+]

@@ -1,0 +1,16 @@
+{
+ "schema": "ijnano.n03h.fault_recovery.v1",
+ "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-B-v1",
+ "fault": {
+  "found_utc": "2026-11-28T05:07:25Z",
+  "symptom": "preflight canary failure in ALL Batch B families (0 positive checks)",
+  "root_cause": "campaign controller constructed the EA09 CanaryScheduler without injecting the Batch B production legs (parser_b/evaluator_b); the scheduler defaulted to the Batch A parse_response/ProductionEvaluator which cannot parse C09-C16 - a genuine controller software defect, correctly detected and contained by the preflight canary BEFORE any physical dispatch (0 trials affected)",
+  "repair": "eae.bootstrap now returns canary_legs; the campaign injects them into the scheduler exactly as the EAE release scripts do (sched.production_parser/production_evaluator override)"
+ },
+ "recovery": {
+  "procedure": "requalification-only: fresh evidence registration (new authoritative generation 1) + full-family canary sweep PASS after repair + breaker.recover_via_requalification",
+  "canary_families_passed": 8,
+  "physical_trials_affected": 0
+ },
+ "recorded_utc": "2026-11-28T06:40:00Z"
+}

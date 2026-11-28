@@ -1,0 +1,58 @@
+{
+ "schema": "ij_nano.n03h.adapter_assets.v1",
+ "note": "Official LFM3-1.7B harness adapters acquired and digest-verified for W1-W3 (mission order section 4). Weights stay out of git (models/adapters/, ignored); this manifest is the committed identity anchor. Physical adapter use additionally requires the EAE adapter-scope qualification (48H-B-002) plus the admission battery (scale-0 equivalence, scale-1 change, selection correctness, no silent fallback, no state leakage, identical cache policy).",
+ "acquisition": {
+  "endpoint_used": "https://hf-mirror.com (huggingface.co unreachable from this host: connection failure; modelscope.cn mirrors exist for all six repos with sha256-identical weights)",
+  "policy_deviation_note": "models/model_manifest.json source_policy allows modelscope.cn only with no HF fallback; the harness-hub adapters are pinned here via hf-mirror with upstream HF repo SHAs as identity anchors and per-file sha256 verification - deviation is network-reachability-driven, recorded, not silent",
+  "verified_against": "upstream LFS sha256 published on the HF repos (agent-verified 2026-11-28) + ModelScope mirror sha256 equality"
+ },
+ "base_model": {
+  "id": "LiquidAI/LFM3-1.7B",
+  "revision_pinned_upstream": false,
+  "local_quantized_pairing": "LFM3-1.7B-Q8_0.gguf sha256 8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+  "official_gguf_pairing_note": "adapter trained on BF16 weights; Q8_0 base + F16 LoRA is the officially published pairing; 'The GGUF version has not been re-evaluated' upstream"
+ },
+ "adapters": {
+  "W1_pi": {
+   "peft_repo": "harness-hub/LFM3-1.7B-pi",
+   "peft_repo_sha": "38c0d399de8f787aac77316586b3b2a1370e899a",
+   "gguf_repo": "harness-hub/LFM3-1.7B-pi-GGUF",
+   "gguf_repo_sha": "48c0a7c8142dec363acbe202360d0b50619a5551",
+   "file": "LFM3-1.7B-harbor-pi-lora-F16.gguf",
+   "size": 65897728,
+   "sha256": "d6b6229d3a4ad59a34a4e54b631a030fa82bb3f79290793522f6690f4aa61593",
+   "lora": {"r": 32, "alpha": 64, "dropout": 0.0, "targets": "all-linear (o_proj,w1,w2,w3,gate_proj,q_proj,k_proj,v_proj,in_proj,out_proj; no embed/lm_head)", "peft_version": "0.21.2", "params": 32937472},
+   "trained_on": ["FineEnvs/SmolDataEnvs-harbor-train (550 tasks)", "harness-hub/traj2envs-rl (230 tasks)"],
+   "license": "other/lfm1.0 (inherits LiquidAI/LFM3-1.7B; revenue-conditioned commercial terms - IJN-B-003)",
+   "published_delta": {"smoldatavens_150": "+10.7 +/- 6.7 (70.0->80.7)", "traj2envs_40": "-2.5 +/- 11.1 (15.0->12.5)"}
+  },
+  "W2_opencode": {
+   "peft_repo": "harness-hub/LFM3-1.7B-opencode",
+   "peft_repo_sha": "a10630d0bff34b1a77f258174392a16662256993",
+   "gguf_repo": "harness-hub/LFM3-1.7B-opencode-GGUF",
+   "gguf_repo_sha": "d8b61724660b96ff9033be6393b16b3404d00fc8",
+   "file": "LFM3-1.7B-harbor-opencode-lora-F16.gguf",
+   "size": 65897760,
+   "sha256": "5bd0ad64448be4eb52b8bd328955af5ae000903a39284f36927d9a6fc89ab517",
+   "lora": {"r": 32, "alpha": 64, "dropout": 0.0, "targets": "same 10 modules", "peft_version": "0.21.2", "params": 32937472},
+   "trained_on": ["FineEnvs/SmolDataEnvs-harbor-train (550 tasks)", "harness-hub/traj2envs-rl (107 tasks)"],
+   "license": "other/lfm1.0",
+   "published_delta": {"smoldatavens_150": "+15.3 +/- 6.6 (69.3->84.7)", "traj2envs_40": "+2.5 +/- 4.9 (2.5->5.0)"}
+  },
+  "W3_hermes": {
+   "peft_repo": "harness-hub/LFM3-1.7B-hermes",
+   "peft_repo_sha": "8d5c16bb28ef7aa630ac1f2981e4f72bb9399d43",
+   "gguf_repo": "harness-hub/LFM3-1.7B-hermes-GGUF",
+   "gguf_repo_sha": "02e1c45a1e96cb0a802fe3a98146c6ff7b866de9",
+   "file": "LFM3-1.7B-harbor-hermes-lora-F16.gguf",
+   "size": 65897536,
+   "sha256": "66f03073ac573cb0e2660ccd49e29bd883a54d1657564d172ecc814334708794",
+   "lora": {"r": 32, "alpha": 64, "dropout": 0.0, "targets": "same 10 modules", "peft_version": "0.21.2", "params": 32937472},
+   "trained_on": ["FineEnvs/SmolDataEnvs-harbor-train (474 tasks; traj2envs never reached in training)"],
+   "license": "other/lfm1.0",
+   "published_delta": {"smoldatavens_150": "+16.0 +/- 7.0 (62.0->78.0)", "traj2envs_40": "-7.5 +/- 10.8 (25.0->17.5)"}
+  }
+ },
+ "acquired_utc": "2026-11-28T06:05:00Z",
+ "local_paths": "models/adapters/<file> (gitignored weights area in this worktree)"
+}

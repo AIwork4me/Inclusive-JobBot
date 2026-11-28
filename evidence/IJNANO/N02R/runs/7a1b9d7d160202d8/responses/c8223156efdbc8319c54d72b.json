@@ -1,0 +1,146 @@
+{
+ "trial_id": "c8223156efdbc8319c54d72b",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "reports.export_snapshot",
+       "reasoning_content": "We need to parse the user's request.\n\nThe known data:\n- order ORD-1042\n- customer C-9\n- sku SKU-1001\n- tracking TRK-88771\n\nAvailable tools:\n- inventory.check_stock (params: sku)\n- inventory.adjust_stock (params: sku, quantity)\n- inventory.reserve_stock (params: sku, quantity)\n- warehouse.locate_bin (params: bin_id)\n- receiving.log_arrival (params: shipment_no)\n- picking.create_task (params: order_id)\n- reports.export_snapshot (params: zone)\n- alerts.raise_low_stock (params: sku)\n\nThe user says: \"Export the stock snapshot for zone north. 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nSo we need to find which tool corresponds to exporting a stock snapshot for zone north.\n\nLooking at available tools, there is `reports.export_snapshot` with param `zone`. So that matches: \"Export the stock snapshot for zone north\" -> call `reports.export_snapshot` with zone = \"north\"? The user says \"zone north\". So we need to pass parameter zone: \"north\".\n\nThus only tool needed is `reports.export_snapshot`.\n\nBut let's double-check if any other steps are required. The request mentions known order, customer, sku, tracking number. Possibly they want to export stock snapshot for the zone where that inventory resides? But we have no bin id or location info. However, the tool `reports.export_snapshot` only requires zone param. So just call it with \"north\". There's no mention of needing other tools.\n\nThus answer: reports.export_snapshot\n\nBut maybe they want to include parameters like zone = \"north\"? The instruction says \"只回答要调用的工具名。\" Means \"Only answer the tool name.\" So we should output exactly the tool name, likely including the dot and parentheses? Usually tool names are given as `reports.export_snapshot`. So I'll output that.\n\nThus final: reports.export_snapshot."
+      }
+     }
+    ],
+    "created": 1795795694,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 446,
+     "prompt_tokens": 232,
+     "total_tokens": 678,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-4kcSufgZFKu4d1Me514kkUhXPlcRjbhi",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request.\n\nThe known data:\n- order ORD-1042\n- customer C-9\n- sku SKU-1001\n- tracking TRK-88771\n\nAvailable tools:\n- inventory.check_stock (params: sku)\n- inventory.adjust_stock (params: sku, quantity)\n- inventory.reserve_stock (params: sku, quantity)\n- warehouse.locate_bin (params: bin_id)\n- receiving.log_arrival (params: shipment_no)\n- picking.create_task (params: order_id)\n- reports.export_snapshot (params: zone)\n- alerts.raise_low_stock (params: sku)\n\nThe user says: \"Export the stock snapshot for zone north. 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nSo we need to find which tool corresponds to exporting a stock snapshot for zone north.\n\nLooking at available tools, there is `reports.export_snapshot` with param `zone`. So that matches: \"Export the stock snapshot for zone north\" -> call `reports.export_snapshot` with zone = \"north\"? The user says \"zone north\". So we need to pass parameter zone: \"north\".\n\nThus only tool needed is `reports.export_snapshot`.\n\nBut let's double-check if any other steps are required. The request mentions known order, customer, sku, tracking number. Possibly they want to export stock snapshot for the zone where that inventory resides? But we have no bin id or location info. However, the tool `reports.export_snapshot` only requires zone param. So just call it with \"north\". There's no mention of needing other tools.\n\nThus answer: reports.export_snapshot\n\nBut maybe they want to include parameters like zone = \"north\"? The instruction says \"只回答要调用的工具名。\" Means \"Only answer the tool name.\" So we should output exactly the tool name, likely including the dot and parentheses? Usually tool names are given as `reports.export_snapshot`. So I'll output that.\n\nThus final: reports.export_snapshot.</think>reports.export_snapshot",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 446,
+     "tokens_evaluated": 232,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\nKnown: order ORD-1042, customer C-9, sku SKU-1001, tracking TRK-88771.\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\nExport the stock snapshot for zone north. 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 677,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 232,
+      "prompt_ms": 47.827,
+      "prompt_per_token_ms": 0.20615086206896552,
+      "prompt_per_second": 4850.81648441257,
+      "predicted_n": 446,
+      "predicted_ms": 2591.389,
+      "predicted_per_token_ms": 5.823346067415731,
+      "predicted_per_second": 171.72257812316096
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 232,
+     "prompt_ms": 47.827,
+     "prompt_per_token_ms": 0.20615086206896552,
+     "prompt_per_second": 4850.81648441257,
+     "predicted_n": 446,
+     "predicted_ms": 2591.389,
+     "predicted_per_token_ms": 5.823346067415731,
+     "predicted_per_second": 171.72257812316096
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.672
+  }
+ ]
+}

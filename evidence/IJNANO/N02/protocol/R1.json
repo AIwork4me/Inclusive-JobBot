@@ -1,0 +1,86 @@
+{
+ "schema_version": 1,
+ "mission": "IJ-NANO-1.0",
+ "phase": "N02",
+ "kind": "runtime_protocol_probe (not a business claim)",
+ "candidate": "R1",
+ "alias": "qwen3-8b",
+ "backend": "vulkan",
+ "started_utc": "2026-11-27T11:39:44Z",
+ "checks": {
+  "health_and_socket": {
+   "status": "PASS",
+   "socket_owner_pid": 12292,
+   "health_status": "ok",
+   "url": "/health ok"
+  },
+  "gpu_offload_d010": {
+   "status": "PASS",
+   "log_line": "offloaded 37/37 layers to GPU"
+  },
+  "basic_generation_usage": {
+   "status": "PASS",
+   "content": "",
+   "usage_fields": [
+    "completion_tokens",
+    "prompt_tokens",
+    "prompt_tokens_details",
+    "total_tokens"
+   ]
+  },
+  "native_tool_call": {
+   "status": "PASS",
+   "tool_calls": [
+    {
+     "name": "get_inventory",
+     "arguments": "{\"sku\": \"SKU-1001\"}"
+    }
+   ]
+  },
+  "json_schema_structured": {
+   "status": "PASS",
+   "parsed": {
+    "action": "query",
+    "sku": "SKU-1001"
+   },
+   "finish_reason": "stop",
+   "reasoning_burn_chars": 740,
+   "note": "thinking-capable models may spend tokens in reasoning_content before the constrained JSON"
+  },
+  "gbnf_grammar": {
+   "status": "PASS",
+   "sample": "{\"action\":\"query\",\"sku\":\"SKU-1001\"}"
+  },
+  "gbnf_escaped_quote_literals": {
+   "status": "ENGINE_REJECTS",
+   "http": 400,
+   "error": "{\"error\":{\"code\":400,\"message\":\"Failed to initialize samplers: failed to parse grammar\",\"type\":\"invalid_request_error\"}}",
+   "note": "b12359 grammar parser limitation; use [\"] char classes instead"
+  },
+  "completion_json_schema_field": {
+   "status": "PASS",
+   "parsed": {
+    "action": "query",
+    "sku": "SKU-1001"
+   }
+  },
+  "sse_streaming": {
+   "status": "PASS",
+   "data_chunks": 34,
+   "stream_usage_fields": [
+    "completion_tokens",
+    "prompt_tokens",
+    "prompt_tokens_details",
+    "total_tokens"
+   ]
+  },
+  "cancellation_and_recovery": {
+   "status": "PASS",
+   "client_aborted": true,
+   "server_healthy_after": true
+  }
+ },
+ "server_pid": 12292,
+ "finished_utc": "2026-11-27T11:40:04Z",
+ "overall": "PASS"
+}

@@ -1,0 +1,164 @@
+{
+ "trial_id": "145600806e43774bd5a63115",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，让我看看。用户提供了一个策略和观察结果，需要判断应走哪个分支。策略说“item category restricted from refunds”，观察结果是n=5。\n\n首先，我需要检查可用的工具。唯一提供的工具是record_answer，它接受一个分支参数：auto_approve、requires_manager_approval或reject_out_of_policy。\n\n策略指出商品类别被限制退款。因此，如果商品类别不允许退款，那么正确的分支应该是reject_out_of_policy。让我确认一下。观察结果是n=5，但可能只是样本量。关键点是策略说该类别被限制退款，所以答案应该是reject_out_of_policy。\n\n等等，工具的描述说这是用于记录所选答案的结构化答案。所以我需要调用record_answer并传入正确的分支。让我确保参数正确。分支必须是枚举值之一。是的，reject_out_of_policy是选项之一。所以函数调用应该是record_answer，参数branch为reject_out_of_policy。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"branch\":\"reject_out_of_policy\"}"
+         },
+         "id": "mjFfsFeOoplN6PR3nngWWn1KmRPhI6yk"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795793912,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 231,
+     "prompt_tokens": 279,
+     "total_tokens": 510,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-OsSDFmR8fA1Wpp1FFXVObvw0w3KRBSQQ",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，让我看看。用户提供了一个策略和观察结果，需要判断应走哪个分支。策略说“item category restricted from refunds”，观察结果是n=5。\n\n首先，我需要检查可用的工具。唯一提供的工具是record_answer，它接受一个分支参数：auto_approve、requires_manager_approval或reject_out_of_policy。\n\n策略指出商品类别被限制退款。因此，如果商品类别不允许退款，那么正确的分支应该是reject_out_of_policy。让我确认一下。观察结果是n=5，但可能只是样本量。关键点是策略说该类别被限制退款，所以答案应该是reject_out_of_policy。\n\n等等，工具的描述说这是用于记录所选答案的结构化答案。所以我需要调用record_answer并传入正确的分支。让我确保参数正确。分支必须是枚举值之一。是的，reject_out_of_policy是选项之一。所以函数调用应该是record_answer，参数branch为reject_out_of_policy。\n</think>\n\n<function name=\"record_answer\"><param name=\"branch\">reject_out_of_policy</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 231,
+     "tokens_evaluated": 279,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"branch\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"branch\": {\"type\": \"string\", \"enum\": [\"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\"]}}, \"required\": [\"branch\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n策略 / policy: item category restricted from refunds. 实况 / observation: n = 5.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 509,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 279,
+      "prompt_ms": 54.3,
+      "prompt_per_token_ms": 0.19462365591397848,
+      "prompt_per_second": 5138.121546961326,
+      "predicted_n": 231,
+      "predicted_ms": 1274.278,
+      "predicted_per_token_ms": 5.540339130434782,
+      "predicted_per_second": 180.49436622149955
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 279,
+     "prompt_ms": 54.3,
+     "prompt_per_token_ms": 0.19462365591397848,
+     "prompt_per_second": 5138.121546961326,
+     "predicted_n": 231,
+     "predicted_ms": 1274.278,
+     "predicted_per_token_ms": 5.540339130434782,
+     "predicted_per_second": 180.49436622149955
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.359
+  }
+ ]
+}

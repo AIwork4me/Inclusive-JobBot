@@ -1,0 +1,162 @@
+{
+ "trial_id": "ea18c240577c2cdfbecfbc75",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to query the order details using the function `orders.lookup_order` with the parameter `order_id`. The context provides `order_id = ORD-1042`. So we just need to call that function with that argument.\n\nThe user says: \"上下文 / context: order_id = ORD-1042. 工具已选定: orders.lookup_order. / Query order, order id in context. Only answer parameter value.\"\n\nThus, I should invoke `orders.lookup_order` with `{\"order_id\": \"ORD-1042\"}`.",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "orders.lookup_order",
+          "arguments": "{\"order_id\":\"ORD-1042\"}"
+         },
+         "id": "ZsRzU38GGS67eov6zOTvkVQij2Atvihu"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795796060,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 138,
+     "prompt_tokens": 611,
+     "total_tokens": 749,
+     "prompt_tokens_details": {
+      "cached_tokens": 100
+     }
+    },
+    "id": "chatcmpl-Danl7hN5A2vIU0bAjlByXKNwtumr5kdx",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to query the order details using the function `orders.lookup_order` with the parameter `order_id`. The context provides `order_id = ORD-1042`. So we just need to call that function with that argument.\n\nThe user says: \"上下文 / context: order_id = ORD-1042. 工具已选定: orders.lookup_order. / Query order, order id in context. Only answer parameter value.\"\n\nThus, I should invoke `orders.lookup_order` with `{\"order_id\": \"ORD-1042\"}`.</think><tool_call>\n<function=orders.lookup_order>\n<parameter=order_id>\nORD-1042\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 138,
+     "tokens_evaluated": 611,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 512,
+      "n_predict": 512,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"orders.lookup_order\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"order_id\" \">\\n\") xml-arg-string\ntool-1 ::= (\"<function=\" \"orders.cancel_order\" \">\\n\") (tool-1-arg-0) \"</function>\\n\"\ntool-1-arg-0 ::= (\"<parameter=\" \"order_id\" \">\\n\") xml-arg-string\ntool-2 ::= (\"<function=\" \"orders.get_refund_eligibility\" \">\\n\") (tool-2-arg-0) \"</function>\\n\"\ntool-2-arg-0 ::= (\"<parameter=\" \"order_id\" \">\\n\") xml-arg-string\ntool-3 ::= (\"<function=\" \"refunds.submit\" \">\\n\") tool-3-args-7 \"</function>\\n\"\ntool-3-arg-0 ::= (\"<parameter=\" \"order_id\" \">\\n\") xml-arg-string\ntool-3-arg-1 ::= (\"<parameter=\" \"amount\" \">\\n\") tool-3-arg-1-schema \"\\n</parameter>\\n\"\ntool-3-arg-1-schema ::= \"{\" space tool-3-arg-1-schema-value-kv \",\" space tool-3-arg-1-schema-unit-kv space \"}\"\ntool-3-arg-1-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-3-arg-1-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-3-arg-1-schema-unit\ntool-3-arg-1-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-3-arg-2 ::= (\"<parameter=\" \"reason\" \">\\n\") xml-arg-string\ntool-3-args-1 ::= tool-3-arg-0\ntool-3-args-2 ::= tool-3-arg-1\ntool-3-args-3 ::= tool-3-arg-0 tool-3-args-2 | tool-3-arg-1 tool-3-args-1\ntool-3-args-4 ::= tool-3-arg-2\ntool-3-args-5 ::= tool-3-arg-0 tool-3-args-4 | tool-3-arg-2 tool-3-args-1\ntool-3-args-6 ::= tool-3-arg-1 tool-3-args-4 | tool-3-arg-2 tool-3-args-2\ntool-3-args-7 ::= tool-3-arg-0 tool-3-args-6 | tool-3-arg-1 tool-3-args-5 | tool-3-arg-2 tool-3-args-3\ntool-4 ::= (\"<function=\" \"customers.get_profile\" \">\\n\") (tool-4-arg-0) \"</function>\\n\"\ntool-4-arg-0 ::= (\"<parameter=\" \"customer_id\" \">\\n\") xml-arg-string\ntool-5 ::= (\"<function=\" \"logistics.trace_shipment\" \">\\n\") (tool-5-arg-0) \"</function>\\n\"\ntool-5-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-6 ::= (\"<function=\" \"inventory.check_stock\" \">\\n\") (tool-6-arg-0) \"</function>\\n\"\ntool-6-arg-0 ::= (\"<parameter=\" \"sku\" \">\\n\") xml-arg-string\ntool-7 ::= (\"<function=\" \"notify.send_update\" \">\\n\") (tool-7-arg-0) \"</function>\\n\"\ntool-7-arg-0 ::= (\"<parameter=\" \"customer_id\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0 | tool-1 | tool-2 | tool-3 | tool-4 | tool-5 | tool-6 | tool-7) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"orders.lookup_order\", \"description\": \"查询订单详情 / look up an order\", \"parameters\": {\"type\": \"object\", \"properties\": {\"order_id\": {\"type\": \"string\"}}, \"required\": [\"order_id\"], \"additionalProperties\": false}}\n{\"name\": \"orders.cancel_order\", \"description\": \"取消订单 / cancel an order\", \"parameters\": {\"type\": \"object\", \"properties\": {\"order_id\": {\"type\": \"string\"}}, \"required\": [\"order_id\"], \"additionalProperties\": false}}\n{\"name\": \"orders.get_refund_eligibility\", \"description\": \"查询退款资格 / check refund eligibility\", \"parameters\": {\"type\": \"object\", \"properties\": {\"order_id\": {\"type\": \"string\"}}, \"required\": [\"order_id\"], \"additionalProperties\": false}}\n{\"name\": \"refunds.submit\", \"description\": \"提交退款 / submit a refund\", \"parameters\": {\"type\": \"object\", \"properties\": {\"order_id\": {\"type\": \"string\"}, \"amount\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}, \"reason\": {\"type\": \"string\"}}, \"required\": [\"order_id\", \"amount\", \"reason\"], \"additionalProperties\": false}}\n{\"name\": \"customers.get_profile\", \"description\": \"查询客户档案 / get customer profile\", \"parameters\": {\"type\": \"object\", \"properties\": {\"customer_id\": {\"type\": \"string\"}}, \"required\": [\"customer_id\"], \"additionalProperties\": false}}\n{\"name\": \"logistics.trace_shipment\", \"description\": \"追踪物流 / trace a shipment\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}\n{\"name\": \"inventory.check_stock\", \"description\": \"查询库存 / check stock\", \"parameters\": {\"type\": \"object\", \"properties\": {\"sku\": {\"type\": \"string\"}}, \"required\": [\"sku\"], \"additionalProperties\": false}}\n{\"name\": \"notify.send_update\", \"description\": \"发送通知 / send a notification\", \"parameters\": {\"type\": \"object\", \"properties\": {\"customer_id\": {\"type\": \"string\"}}, \"required\": [\"customer_id\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\n上下文 / context: order_id = ORD-1042. 工具已选定: orders.lookup_order. / Tool already chosen: orders.lookup_order.\n查询订单，单号在上下文里。 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 748,
+     "timings": {
+      "cache_n": 100,
+      "prompt_n": 511,
+      "prompt_ms": 67.526,
+      "prompt_per_token_ms": 0.13214481409001957,
+      "prompt_per_second": 7567.455498622753,
+      "predicted_n": 138,
+      "predicted_ms": 795.753,
+      "predicted_per_token_ms": 5.808416058394161,
+      "predicted_per_second": 172.16397550496197
+     }
+    },
+    "timings": {
+     "cache_n": 100,
+     "prompt_n": 511,
+     "prompt_ms": 67.526,
+     "prompt_per_token_ms": 0.13214481409001957,
+     "prompt_per_second": 7567.455498622753,
+     "predicted_n": 138,
+     "predicted_ms": 795.753,
+     "predicted_per_token_ms": 5.808416058394161,
+     "predicted_per_second": 172.16397550496197
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.859
+  }
+ ]
+}

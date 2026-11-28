@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-NANO-1.0",
+  "phase": "N01",
+  "generated_utc": "2026-11-27T12:05:00Z",
+  "verification_method": "primary sources only (GitHub API, arXiv, Hugging Face, PyPI, crates.io, vendor blogs) via four parallel verification sweeps on 2026-11-27; no cloning or execution of subject code; raw sweeps in agent_reports/",
+  "subjects": [
+    {
+      "id": "R01",
+      "name": "effGen",
+      "verification": "VERIFIED",
+      "repo": "https://github.com/ctrl-gaurav/effGen",
+      "repo_head_at_audit": "37de05a6b4ed01c90ee38b9c254a162927ca2ac2 (main, 2026-10-01)",
+      "latest_release": "v1.3.0 (2026-10-01); PyPI effgen; effgen.org",
+      "paper": "arXiv:2602.00887 'EffGen: Enabling Small Language Models as Capable Autonomous Agents' (v2 2026-06-14; ICML 2026 claimed, OpenReview unconfirmed -> PARTIALLY_VERIFIED venue)",
+      "authors": "Srivastava, Hussain, Wang, Lin, Wang (Virginia Tech)",
+      "license": "Apache-2.0",
+      "models_1_3b_total": ["Qwen2.5-1.5B-Instruct", "Qwen2.5-3B-Instruct", "Gemma 3 1B"],
+      "gain_origin": "runtime-only (frozen open weights; no fine-tuning)",
+      "llm_judge": false,
+      "statistics": "McNemar p<0.05 on 13 benchmarks; CIs in appendix (unread)",
+      "headline": "1.5B avg 47.44 vs Raw 34.28 / LangChain 32.81 / AutoGen 33.57 / Smolagents 27.81; scaling ablation: prompt-optimization worth 11.2% at 1.5B vs 2.4% at 32B",
+      "windows_local": "plausible-untested (OS-Independent, pure Python); llama-cpp-python GGUF + OpenAI-compatible base_url",
+      "footprint": "~52 base runtime deps (torch, transformers, fastapi, docker, 3 Google SDKs)",
+      "reuse_class": "RESEARCH_ONLY_FOR_REPRODUCTION (E01); mechanism study, not component reuse (footprint contradicts minimal-runtime thesis)",
+      "agent_report": "agent_reports/R01_R04_verification.md"
+    },
+    {
+      "id": "R02",
+      "name": "PTC-Decoder",
+      "verification": "VERIFIED",
+      "repo": "https://github.com/yuminghui/llm-tool-constrained-decoder",
+      "repo_status": "dormant since 2026-07-19; single author; 3 stars",
+      "paper": "arXiv:2609.30836 (v1 2026-09-25, preprint, no venue); Yu, Mu, Wu",
+      "license": "MIT (code) + CC BY 4.0 (benchmark data); paper text CC BY-NC-SA",
+      "models_1_3b_total": ["Qwen3.5-2B (mission expectation confirmed)", "Qwen3-1.7B", "gemma-3-1b-it", "DeepSeek-R1-Distill-Qwen-1.5B", "gemma-4-E2B-it (2.3B eff.)", "Qwen3-0.6B", "Qwen3.5-0.8B"],
+      "gain_origin": "runtime-only (training-free constrained decoding)",
+      "llm_judge": true,
+      "statistics": "mean Overall +1.21, p<0.01, 95% CI [+1.13,+1.29]; LLM judge DeepSeek-V4-flash; 20 samples human-checked",
+      "headline": "best Overall 3.12 on Qwen3.5-2B; weakest model +350%; token overhead 2.07x; Qwen3-1.7B counterexample (constrained F1 0.292 < unconstrained 0.355)",
+      "implementation": "HuggingFace transformers LogitsProcessor; NOT llama.cpp-compatible; no adapter exists",
+      "windows_local": "plausible-untested (pure Python; Jetson/Ubuntu tested)",
+      "reuse_class": "REIMPLEMENT_CLEAN_ROOM (mechanism: Plan-to-Act + per-tool DFA constraints re-expressed via llama.cpp per-request json_schema/grammar)",
+      "agent_report": "agent_reports/R02_R08_verification.md"
+    },
+    {
+      "id": "R03",
+      "name": "TinyAgent",
+      "verification": "VERIFIED",
+      "repo": "https://github.com/SqueezeAILab/TinyAgent (MIT; dormant since 2024-09)",
+      "paper": "arXiv:2409.00608 (EMNLP 2024 Demo)",
+      "models_1_3b_total": ["TinyAgent-1.1B (only 1-3B model in R01-R09 corpus)"],
+      "gain_origin": "MIXED: +66/+42 pts from LoRA fine-tuned weights; runtime mechanisms (ToolRAG +QAT) only +1.5-2 pts; ToolRAG halves prompts",
+      "llm_judge": false,
+      "windows_local": "core portable; ALL 16 tools are macOS AppleScript -> Windows requires full tool-layer rewrite",
+      "reuse_class": "RESEARCH_ONLY (weight-change headline not transferable; ToolRAG mechanism study for M02)",
+      "agent_report": "agent_reports/R03_R05_R06_verification.md"
+    },
+    {
+      "id": "R04",
+      "name": "Automated SLM Harness Adaptation",
+      "verification": "VERIFIED (repo renamed migration-analysis -> slm-harness-adaptation, 301 same id)",
+      "repo": "https://github.com/malusamayo/slm-harness-adaptation (MIT; no releases; last commit 2026-09-04)",
+      "paper": "arXiv:2607.08938 (v1 2026-07-09, cs.SE preprint); Yang, Zhao, Wu, Kaestner",
+      "models_1_3b_total": [],
+      "active_vs_total": "3-8B ACTIVE / 8-30B TOTAL (gemma-4-26b-a4b, qwen3-coder-30b-a3b, ministral-3-8b) - the mission-order question about total-vs-active is CONFIRMED relevant here",
+      "gain_origin": "runtime-only (GEPA-style genetic harness search; Gemini meta-agent inside loop; frozen cloud weights)",
+      "llm_judge": false,
+      "statistics": "3-run averages; no CIs; 'highly stochastic'; $20/run, $1260 total; 16/21 pairs improved, 3 regressed",
+      "headline": "gemma-4-26b-a4b 31.4% -> 80.2% at 4% of frontier cost",
+      "windows_local": "no (cloud APIs, Docker, Python>=3.14)",
+      "reuse_class": "RESEARCH_ONLY (methodology for N10 optimizer design; O0-O5 comparators)",
+      "agent_report": "agent_reports/R01_R04_verification.md"
+    },
+    {
+      "id": "R05",
+      "name": "Growing Harness (Grow the Harness, Not the Context)",
+      "verification": "VERIFIED as paper; NO CODE",
+      "paper": "arXiv:2609.26760 'Grow the Harness, Not the Context: From Strategy-Free Scaffolds to Reusable Specialist Agents' (v2 2026-09-24, preprint); Li, Li, Zhao, Ye, Li, Xu, Gao",
+      "models_1_3b_total": [],
+      "gain_origin": "runtime-only; optimizer = proprietary frontier models (GPT-5.6/GPT-5.4)",
+      "llm_judge": "inherited from BrowseComp-Plus benchmark only",
+      "statistics": "3-run means, bootstrap CIs; no independent validation (~3 citations)",
+      "headline": "LLM-call reduction 76.0-91.8%; WebArena 44.7-45.3% vs Tool-Calling 6.7% at 4B",
+      "windows_local": "nothing to run (paper-only)",
+      "reuse_class": "RESEARCH_ONLY (principle: compile repeated control decisions into deterministic code = M-mechanism 'Growing Harness' arm E06)",
+      "agent_report": "agent_reports/R03_R05_R06_verification.md"
+    },
+    {
+      "id": "R06",
+      "name": "Meta-Harness",
+      "verification": "VERIFIED",
+      "repo": "https://github.com/stanford-iris-lab/meta-harness (MIT; active 2026-11-05; 1814 stars)",
+      "paper": "arXiv:2603.28052 (preprint); Lee, Nair, Zhang, K. Lee, Khattab, Finn",
+      "models_1_3b_total": [],
+      "gain_origin": "runtime-only, frozen >=20B models; proposer = Claude Code + Opus-4.6 (cloud)",
+      "llm_judge": false,
+      "statistics": "no seed sweeps/SDs/CIs; released code 'minimally tested'; TB2 artifact repo UNLICENSED",
+      "headline": "math harness transfers +4.7 pts across five held-out models; +7.7 pts text classification with ~4x fewer context tokens",
+      "windows_local": "no Windows/local deployment story; TB2 assumes Linux sandboxes",
+      "reuse_class": "RESEARCH_ONLY (N10 optimizer methodology: raw-trace feedback > score-only feedback ablation is directly actionable)",
+      "agent_report": "agent_reports/R03_R05_R06_verification.md"
+    },
+    {
+      "id": "R07",
+      "name": "MagenticLite",
+      "verification": "VERIFIED (identity: next-gen of microsoft/magentic-ui, PyPI magentic_ui, MIT)",
+      "models_1_3b_total": [],
+      "notes": "small-model/harness co-design at 9-14B (MagenticBrain from Qwen3-14B; Fara1.5-9B); incremental planning, active context management, delegation, recovery, HITL; Quicksand QEMU sandbox; WSL2-only on Windows; 27 base deps (web-app stack)",
+      "reuse_class": "RESEARCH_ONLY (design-pattern reference for Layer B/C; not embeddable)",
+      "agent_report": "agent_reports/R07_R09_verification.md"
+    },
+    {
+      "id": "R08",
+      "name": "Constrained decoding infrastructure",
+      "verification": "VERIFIED",
+      "components": [
+        {"name": "llama.cpp GBNF + json_schema", "license": "MIT", "status": "stable v1.1.0 (2026-11-26) / nightly b12811 upstream; OUR PINNED ENGINE b12359 (v1.0.0)", "dynamic": "per-request grammar; mid-generation switching only via internal grammar triggers; no public per-token API", "reuse_class": "REUSE_DIRECTLY (pinned b12359; N02 probe evidence)"},
+        {"name": "LLGuidance", "license": "MIT", "status": "v1.9.1, active; llama.cpp integration optional (default OFF)", "dynamic": "~50us/token mask; cheap per-request grammar; JSON-schema coverage partial (oneOf 68%)", "reuse_class": "UNVERIFIED_FOR_WINDOWS (no win wheels confirmed); candidate via llama.cpp build flag"},
+        {"name": "XGrammar", "license": "Apache-2.0", "status": "v0.2.9 + XGrammar-2 (May 2026, triggered_tags structural DSL)", "dynamic": "state-dependent mid-generation switching by markers; cross-grammar cache; native Windows wheels", "reuse_class": "REUSE_WITH_ADAPTER_CANDIDATE (reference design for M04 if llama.cpp-native path insufficient)"}
+      ],
+      "engine_behavior_finding": "b12359 rejects backslash-escaped-quote GBNF literals; use [\"] char classes (N02 probe v2 evidence)"
+    },
+    {
+      "id": "R09",
+      "name": "General-purpose agentic SDKs",
+      "verification": "VERIFIED",
+      "components": [
+        {"name": "PocketFlow", "license": "MIT", "version": "0.0.3", "deps": 0, "notes": "99 lines; Node/Flow + max_retries/wait/exec_fallback", "reuse_class": "REUSE_DIRECTLY (skeleton candidate)"},
+        {"name": "Pydantic AI (pydantic-ai-slim)", "license": "MIT", "version": "2.76.0", "deps": 9, "notes": "typed tools, validated structured output, 9-layer retries, OpenAICompatibleProvider with weak-backend profiles", "reuse_class": "REUSE_WITH_ADAPTER (typed layer candidate)"},
+        {"name": "smolagents", "license": "Apache-2.0", "version": "1.26.0", "deps": 6, "notes": "only SDK with first-class LlamaCppModel; CodeAgent; executor not a security boundary", "reuse_class": "REUSE_WITH_ADAPTER (model client + loop patterns)"},
+        {"name": "LangGraph", "license": "MIT", "version": "1.2.24", "deps": 6 (+langchain-core tree)", "notes": "durable execution/checkpoints", "reuse_class": "TECHNICALLY_UNSUITABLE_FOR_MINIMAL (dependency tree)"},
+        {"name": "OpenAI Agents SDK", "license": "MIT", "version": "0.26.0", "deps": 14, "notes": "OpenAI-first defaults; tracing must be disabled", "reuse_class": "RESEARCH_ONLY (B-arm comparator)"},
+        {"name": "Google ADK", "license": "Apache-2.0", "version": "2.15.1", "deps": 24, "notes": "heaviest footprint", "reuse_class": "TECHNICALLY_UNSUITABLE_FOR_MINIMAL"},
+        {"name": "DSPy", "license": "MIT", "version": "3.5.0", "deps": 14, "notes": "offline optimizer; 1B quickstart; LLM-judge designed-in (build-time only)", "reuse_class": "RESEARCH_ONLY (N10 optimizer comparator)"}
+      ],
+      "agent_report": "agent_reports/R07_R09_verification.md"
+    }
+  ],
+  "cross_cutting_answers": {
+    "which_approaches_evaluated_1_3b_total": ["effGen (1.5B/3B/Gemma-1B)", "PTC-Decoder (7 SLMs <=2B incl. Qwen3.5-2B)", "TinyAgent (1.1B)"],
+    "which_use_larger_active_small_total": ["slm-harness-adaptation (3-8B active / 8-30B total MoE)"],
+    "gains_from_weights": ["TinyAgent (+66/+42 pts LoRA)"],
+    "gains_runtime_only": ["effGen", "PTC-Decoder", "slm-harness-adaptation", "Growing Harness", "Meta-Harness"],
+    "llm_judge_dependent": ["PTC-Decoder (DeepSeek-V4-flash judge)", "Growing Harness (benchmark-inherited judge only)"],
+    "independently_verified_business_correctness": "none found for any subject",
+    "windows_native_local": ["llama.cpp (native)", "PocketFlow (pure Python)", "Pydantic AI (wheels verified)", "XGrammar (native wheels)"],
+    "commercially_reusable_in_sdk": ["llama.cpp MIT", "PocketFlow MIT", "Pydantic AI MIT", "smolagents Apache-2.0", "XGrammar Apache-2.0", "effGen Apache-2.0 (footprint-heavy)", "PTC-Decoder MIT code"],
+    "not_commercially_clean": ["Meta-Harness TB2 artifact (unlicensed)", "PTC-Decoder paper text (CC BY-NC-SA)", "LFM3-1.7B weights (revenue-conditioned; see IJN-B-003)"]
+  }
+}

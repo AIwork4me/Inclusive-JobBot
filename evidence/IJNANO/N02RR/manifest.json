@@ -1,0 +1,65 @@
+{
+ "replay_id": "6701a6a6a08b34d9",
+ "kind": "offline_analysis_replay",
+ "physical": false,
+ "spec": {
+  "mission": "IJ-NANO-1.2R",
+  "replay_lib_sha256": "7381505315c58fd32c372d491fd1efe9778fd58275504ccfe6c137ad8f9e71c2",
+  "rescore_script_sha256": "9ab9705bb2256d35b14411bd92fce0e46148d409d33b399c5b732d2b9345a5ea",
+  "sealed_inputs": {
+   "source_experiment": {
+    "id": "7a1b9d7d160202d8",
+    "identity_sha256": "8e45f27ea13371f5d5a097e26abc0f903ffcc4939170726a7c9fdde43ef62555",
+    "results_sha256": "aa9a601f45ba003f68dfb7c8d3996efaff5b3df989f96343fdb96d6c2f4933dd",
+    "seal": {
+     "experiment_id": "7a1b9d7d160202d8",
+     "sealed_utc": "2026-11-27T16:19:06Z",
+     "executed_this_session": 504,
+     "skipped_done": 0,
+     "total_done": 1397,
+     "results_sha256": "aa9a601f45ba003f68dfb7c8d3996efaff5b3df989f96343fdb96d6c2f4933dd"
+    }
+   },
+   "destination_experiment": {
+    "id": "ec5b95357e960f99",
+    "identity_sha256": "e995803a141ff965309e75e1c174d9cf3f7791b5106575d079ef92017ef58137",
+    "results_sha256": "6f3c8b916255634ce2748f390920f3be6392114333d945faeceba7446b4d4d9d",
+    "seal": {
+     "experiment_id": "ec5b95357e960f99",
+     "sealed_utc": "2026-11-27T17:27:56Z",
+     "executed_this_session": 0,
+     "skipped_done": 504,
+     "total_done": 2184,
+     "results_sha256": "6f3c8b916255634ce2748f390920f3be6392114333d945faeceba7446b4d4d9d"
+    }
+   }
+  },
+  "runtime_modules_sha256": {
+   "benchmarks/ij_nano/n02r/controller_v2.py": "2018a29080dd6b0a961f6e2362f1a3ec7d665c1f6413381edf0debdb4d6c76e8",
+   "benchmarks/ij_nano/n02r/arms_v2.py": "78d33b9c5f04c79987ee7c603ff0b0c9bb9346021aea0711f4130826c957e125",
+   "benchmarks/ij_nano/n02r/tasks.py": "b4c8289a888a5967116bdf93253fc2cb0fed70174834bea0609b12c9f248d9b2",
+   "benchmarks/ij_nano/n02r/scorer.py": "cda3fbf0865d8a9f778a6fb64b158dffcb03dadbc6d469a0b82247cc6a86c5fa",
+   "src/nanoagent/eval/contracts.py": "19f17ead9263db5ba029896bfda7969cbe6820190c29b69b0c05739291cd1033",
+   "src/nanoagent/eval/comparators.py": "5403e4a0cd8446cc626c005b65b60025526155165593584dc6b29c68cf604b8d",
+   "src/nanoagent/eval/units.py": "13add5cd0250d16da99922fd9db7df6c9eab4852a6b394b0fbacd23bfbf4c1d3"
+  }
+ },
+ "inputs_read_only": true,
+ "counts": {
+  "total_rows": 2184,
+  "change_classifications": {
+   "CORRECTED_FALSE_NEGATIVE": 588,
+   "TELEMETRY_CORRECTED": 809,
+   "UNCHANGED_VALID": 787
+  },
+  "physical_consistency_verification": {
+   "match": 787,
+   "divergent": 0
+  },
+  "rescore_source_agreement": {
+   "match": 1397,
+   "divergent": 0
+  },
+  "integrity_rejects": []
+ }
+}

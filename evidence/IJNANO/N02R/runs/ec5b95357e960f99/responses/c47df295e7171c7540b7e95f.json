@@ -1,0 +1,146 @@
+{
+ "trial_id": "c47df295e7171c7540b7e95f",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Context: `stated amount = 125.0 CNY`.\n    *   Tool chosen: `refunds.submit`.\n    *   Task: Refund the stated amount (state the currency unit).\n    *   Constraint: \"只回答参数值。\" (Answer with the argument value only.)\n    *   Output format: The answer should be the value of the slot 'amount' (type quantity; state value and unit).\n\n2.  **Interpret the Context:**\n    *   The user wants to submit a refund.\n    *   The amount to refund is 125.0 CNY.\n    *   The tool is `refunds.submit`.\n    *   The instruction says \"Refund the stated amount (state the currency unit).\"\n    *   The instruction also says \"只回答参数值。\" (Answer with the argument value only).\n\n3.  **Determine the \"Argument Value\":**\n    *   The context explicitly states `stated amount = 125.0 CNY`.\n    *   The tool `refunds.submit` likely expects the amount to be passed as an argument.\n    *   The prompt asks to \"Refund the stated amount\".\n    *   The prompt asks to \"Answer with the argument value only\".\n    *   The value to refund is 125.0.\n    *   The currency unit is CNY.\n    *   The instruction says \"state the currency unit\" in parentheses, but the constraint \"只回答参数值\" (Answer with the argument value only) usually implies the specific value passed to the tool.\n    *   However, looking closely at the instruction: \"The answer is the value of the slot 'amount' (type quantity; state value and unit).\"\n    *   This suggests the output should include the value and the unit, or just the value?\n    *   Constraint: \"只回答参数值。\" (Answer with the argument value only).\n    *   Usually, in these types of few-shot or instruction-tuning tasks, if it asks for the \"argument value only\", it means just the number or the number with unit depending on how the tool expects it.\n    *   Let's look at the instruction again: \"Refund the stated amount (state the currency unit). 只回答参数值。\"\n    *   If I just write \"125.0\", it's the value. If I write \"125.0 CNY\", it's value + unit.\n    *   The prompt says \"The answer is the value of the slot 'amount' (type quantity; state value and unit).\" This is a bit contradictory with \"只回答参数值\".\n    *   However, often \"参数值\" (argument value) in the context of a tool call implies the specific data payload.\n    *   Let's check the previous examples or standard behavior for this specific prompt style (likely from a dataset like CoT or similar).\n    *   The prompt asks to \"Refund the stated amount\". The stated amount is 125.0 CNY.\n    *   The instruction \"只回答参数值\" means I should not explain, just give the value.\n    *   Does \"value of the slot 'amount'\" include the unit? The slot description says \"state value and unit\".\n    *   But the constraint says \"只回答参数值\" (Answer with the argument value only).\n    *   If I look at the instruction \"The answer is the value of the slot 'amount' (type quantity; state value and unit)\", it defines what the answer *is*.\n    *   Then it says \"Refund the stated amount (state the currency unit).\"\n    *   Then it says \"只回答参数值。\"\n    *   This is a common pattern where the user wants the specific value to be passed to the tool.\n    *   If I output \"125.0\", it's the numeric value.\n    *   If I output \"125.0 CNY\", it includes the unit.\n    *   Given \"只回答参数值\" (Answer with the argument value only), usually means just the number. But the slot description says \"state value and unit\".\n    *   Let's re-read carefully: \"The answer is the value of the slot 'amount' (type quantity; state value and unit).\" This defines the *content* of the answer.\n    *   Then \"Refund the stated amount (state the currency unit).\" This is the instruction.\n    *   Then \"只回答参数值。\" This is the constraint on the *format*.\n    *   If I have to choose between \"125.0\" and"
+      }
+     }
+    ],
+    "created": 1795799100,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 89,
+     "total_tokens": 1113,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-jsWefPDbs6JThTByR0EOLNoKyYqZamVi",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Context: `stated amount = 125.0 CNY`.\n    *   Tool chosen: `refunds.submit`.\n    *   Task: Refund the stated amount (state the currency unit).\n    *   Constraint: \"只回答参数值。\" (Answer with the argument value only.)\n    *   Output format: The answer should be the value of the slot 'amount' (type quantity; state value and unit).\n\n2.  **Interpret the Context:**\n    *   The user wants to submit a refund.\n    *   The amount to refund is 125.0 CNY.\n    *   The tool is `refunds.submit`.\n    *   The instruction says \"Refund the stated amount (state the currency unit).\"\n    *   The instruction also says \"只回答参数值。\" (Answer with the argument value only).\n\n3.  **Determine the \"Argument Value\":**\n    *   The context explicitly states `stated amount = 125.0 CNY`.\n    *   The tool `refunds.submit` likely expects the amount to be passed as an argument.\n    *   The prompt asks to \"Refund the stated amount\".\n    *   The prompt asks to \"Answer with the argument value only\".\n    *   The value to refund is 125.0.\n    *   The currency unit is CNY.\n    *   The instruction says \"state the currency unit\" in parentheses, but the constraint \"只回答参数值\" (Answer with the argument value only) usually implies the specific value passed to the tool.\n    *   However, looking closely at the instruction: \"The answer is the value of the slot 'amount' (type quantity; state value and unit).\"\n    *   This suggests the output should include the value and the unit, or just the value?\n    *   Constraint: \"只回答参数值。\" (Answer with the argument value only).\n    *   Usually, in these types of few-shot or instruction-tuning tasks, if it asks for the \"argument value only\", it means just the number or the number with unit depending on how the tool expects it.\n    *   Let's look at the instruction again: \"Refund the stated amount (state the currency unit). 只回答参数值。\"\n    *   If I just write \"125.0\", it's the value. If I write \"125.0 CNY\", it's value + unit.\n    *   The prompt says \"The answer is the value of the slot 'amount' (type quantity; state value and unit).\" This is a bit contradictory with \"只回答参数值\".\n    *   However, often \"参数值\" (argument value) in the context of a tool call implies the specific data payload.\n    *   Let's check the previous examples or standard behavior for this specific prompt style (likely from a dataset like CoT or similar).\n    *   The prompt asks to \"Refund the stated amount\". The stated amount is 125.0 CNY.\n    *   The instruction \"只回答参数值\" means I should not explain, just give the value.\n    *   Does \"value of the slot 'amount'\" include the unit? The slot description says \"state value and unit\".\n    *   But the constraint says \"只回答参数值\" (Answer with the argument value only).\n    *   If I look at the instruction \"The answer is the value of the slot 'amount' (type quantity; state value and unit)\", it defines what the answer *is*.\n    *   Then it says \"Refund the stated amount (state the currency unit).\"\n    *   Then it says \"只回答参数值。\"\n    *   This is a common pattern where the user wants the specific value to be passed to the tool.\n    *   If I output \"125.0\", it's the numeric value.\n    *   If I output \"125.0 CNY\", it includes the unit.\n    *   Given \"只回答参数值\" (Answer with the argument value only), usually means just the number. But the slot description says \"state value and unit\".\n    *   Let's re-read carefully: \"The answer is the value of the slot 'amount' (type quantity; state value and unit).\" This defines the *content* of the answer.\n    *   Then \"Refund the stated amount (state the currency unit).\" This is the instruction.\n    *   Then \"只回答参数值。\" This is the constraint on the *format*.\n    *   If I have to choose between \"125.0\" and",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 89,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n上下文 / context: stated amount = 125.0 CNY. 工具已选定: refunds.submit. / Tool already chosen: refunds.submit.\nThe answer is the value of the slot 'amount' (type quantity; state value and unit).\nRefund the stated amount (state the currency unit). 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1112,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 89,
+      "prompt_ms": 39.322,
+      "prompt_per_token_ms": 0.44182022471910115,
+      "prompt_per_second": 2263.364020141397,
+      "predicted_n": 1024,
+      "predicted_ms": 4973.496,
+      "predicted_per_token_ms": 4.861677419354839,
+      "predicted_per_second": 205.69032326556612
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 89,
+     "prompt_ms": 39.322,
+     "prompt_per_token_ms": 0.44182022471910115,
+     "prompt_per_second": 2263.364020141397,
+     "predicted_n": 1024,
+     "predicted_ms": 4973.496,
+     "predicted_per_token_ms": 4.861677419354839,
+     "predicted_per_second": 205.69032326556612
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.046
+  }
+ ]
+}

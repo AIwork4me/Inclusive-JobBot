@@ -1,0 +1,145 @@
+{
+ "trial_id": "96ea770823d168c09643c575",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "We need to generate a full action for item SKU-2210: quantity change 12 pcs. The user says \"生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\" So we must pick the appropriate tool(s) from the list, with parameters.\n\nGiven the context: \"Item SKU-2210: quantity change 12 pcs.\" This likely means that the stock quantity for SKU-2210 has changed by +12 (or -12? Usually \"quantity change 12 pcs\" could be increase or decrease; but we need to infer). Typically, adjusting inventory after receiving or selling. We have tools:\n\n1. inventory.check_stock\n2. inventory.adjust_stock\n3. inventory.reserve_stock\n4. warehouse.locate_bin\n5. receiving.log_arrival\n6. picking.create_task\n7. reports.export_snapshot\n8. alerts.raise_low_stock\n\nWe need to decide which tool(s) correspond to updating quantity change for an item.\n\n- \"inventory.check_stock\" probably checks current stock.\n- \"inventory.adjust_stock\" likely adjusts the stock level (increase or decrease).\n- \"inventory.reserve_stock\" reserves stock"
+      }
+     }
+    ],
+    "created": 1795799994,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 256,
+     "prompt_tokens": 120,
+     "total_tokens": 376,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-CDrDHyCifMOVWJe80BzCfIA6Nk1Wyg2O",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to generate a full action for item SKU-2210: quantity change 12 pcs. The user says \"生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\" So we must pick the appropriate tool(s) from the list, with parameters.\n\nGiven the context: \"Item SKU-2210: quantity change 12 pcs.\" This likely means that the stock quantity for SKU-2210 has changed by +12 (or -12? Usually \"quantity change 12 pcs\" could be increase or decrease; but we need to infer). Typically, adjusting inventory after receiving or selling. We have tools:\n\n1. inventory.check_stock\n2. inventory.adjust_stock\n3. inventory.reserve_stock\n4. warehouse.locate_bin\n5. receiving.log_arrival\n6. picking.create_task\n7. reports.export_snapshot\n8. alerts.raise_low_stock\n\nWe need to decide which tool(s) correspond to updating quantity change for an item.\n\n- \"inventory.check_stock\" probably checks current stock.\n- \"inventory.adjust_stock\" likely adjusts the stock level (increase or decrease).\n- \"inventory.reserve_stock\" reserves stock",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 256,
+     "tokens_evaluated": 120,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 256,
+      "n_predict": 256,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think></think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\nItem SKU-2210: quantity change 12 pcs.\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\nTools:\n1. inventory.check_stock\n2. inventory.adjust_stock\n3. inventory.reserve_stock\n4. warehouse.locate_bin\n5. receiving.log_arrival\n6. picking.create_task\n7. reports.export_snapshot\n8. alerts.raise_low_stock\nAnswer with the NUMBER of the tool to call only (1-8).<|im_end|>\n<|im_start|>assistant\n<think></think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 375,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 120,
+      "prompt_ms": 37.54,
+      "prompt_per_token_ms": 0.31283333333333335,
+      "prompt_per_second": 3196.590303676079,
+      "predicted_n": 256,
+      "predicted_ms": 1487.738,
+      "predicted_per_token_ms": 5.834266666666667,
+      "predicted_per_second": 171.40114724501223
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 120,
+     "prompt_ms": 37.54,
+     "prompt_per_token_ms": 0.31283333333333335,
+     "prompt_per_second": 3196.590303676079,
+     "predicted_n": 256,
+     "predicted_ms": 1487.738,
+     "predicted_per_token_ms": 5.834266666666667,
+     "predicted_per_second": 171.40114724501223
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.531
+  }
+ ]
+}

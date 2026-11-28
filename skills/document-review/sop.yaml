@@ -1,0 +1,9 @@
+{
+  "version":"1.0.0",
+  "steps":[
+    {"id":"order","operation":"order_lookup","depends_on":[]},
+    {"id":"supplier","operation":"supplier_lookup","depends_on":["order"]},
+    {"id":"products","operation":"product_lookups","depends_on":["order"]},
+    {"id":"assessment","operation":"assess","depends_on":["order","supplier","products"]}
+  ]
+}

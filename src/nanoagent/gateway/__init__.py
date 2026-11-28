@@ -1,0 +1,1 @@
+"""Safe business tool gateway."""

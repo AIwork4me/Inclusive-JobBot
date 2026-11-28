@@ -1,0 +1,146 @@
+{
+ "trial_id": "222bf159c43ff4fdad74df4c",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's query. It says:\n\n\"策略 / policy: system-physical variance 2 pcs, tolerance 5. 实况 / observation: n = 2.\nAllowed branches: accept_adjustment, require_second_count, reject_adjustment.\n判断应走的分支。 / Decide which branch applies.\"\n\nWe need to decide which of the allowed branches (accept_adjustment, require_second_count, reject_adjustment) should be taken given the policy and observation.\n\nWe have a \"policy\" that mentions \"system-physical variance 2 pcs, tolerance 5\". Possibly this is about some system physical variance? Not sure. The observation says n = 2. So maybe we need to compare something: variance of 2 items vs tolerance 5? Or perhaps it's about a count or measurement.\n\nWe need to infer the context. Usually in such tasks, there might be a decision rule: if observed value is within tolerance of expected, accept adjustment; else require second count; etc. The policy says \"system-physical variance 2 pcs, tolerance 5\". So maybe we have a system that has physical variance of 2 items? Or the variance is 2? Tolerance is 5. Observed n = 2.\n\nLet's parse: \"策略 / policy: system-physical variance 2 pcs, tolerance 5.\" Means the policy states that for this system, there are two physical units (maybe count of something) and tolerance is 5. Or maybe it's about a measurement with variance 2 and tolerance 5.\n\n\"实况 / observation: n = 2.\" So we observed n=2.\n\nThus we need to decide which branch: accept_adjustment, require_second_count, or reject_adjustment.\n\nGiven that the observed count (n) is 2. The policy says variance is 2 pcs? That seems like maybe the expected value of something is 2? Or perhaps \"system-physical variance\" means the system's physical variation is 2 items. If tolerance is 5, then difference between observed and expected within tolerance? Let's think.\n\nIf we have a target or expected count = variance? Not sure.\n\nAlternatively, maybe it's about adjusting some parameter: if the observed n matches the policy (like n=2 equals variance?), then accept adjustment; else require second count to verify. Or reject_adjustment if too far off tolerance.\n\nGiven typical decision frameworks:\n\n- accept_adjustment: we can adjust something based on current observation.\n- require_second_count: need more data before deciding.\n- reject_adjustment: do not accept, maybe because it's out of tolerance or insufficient evidence.\n\nWe have n=2. Policy variance = 2 pcs (maybe the system expects a count of 2?). Tolerance = 5. So difference between observed and expected? If expected is something else? Not given.\n\nMaybe \"system-physical variance\" refers to the standard deviation of physical measurements, which is 2. Tolerance is 5. Usually tolerance is ± some margin around true value. If observed n=2, maybe it's within tolerance of expected (maybe expected = 0?). Hard to guess.\n\nLet's try to reason: The phrase \"system-physical variance 2 pcs\" could be a translation error: \"系统物理方差 2 个\" meaning the physical variance is 2 items. So perhaps there are two physical instances? And tolerance is 5, which is larger than 2. So maybe it's within tolerance.\n\nThus we might accept adjustment (i.e., proceed with current data). Or require second count if not enough evidence.\n\nGiven n=2 and tolerance 5, the difference between observed and expected (maybe zero) is 2, which is less than tolerance 5? If expected = 0, then absolute difference = 2 < 5 => within tolerance. So accept_adjustment.\n\nAlternatively, maybe we need to check if n equals variance: n=2 matches variance=2 exactly, so accept adjustment.\n\nThus likely branch: accept_adjustment.\n\nBut let's examine the allowed branches: accept_adjustment, require_second_count, reject_adjustment. Usually \"require_second_count\" is used when we need more data to confirm. \"reject_adjustment\" is used if current observation fails policy.\n\nGiven n=2 and tolerance 5 > variance 2, it's within tolerance, so accept adjustment.\n\nThus answer: accept_adjustment.\n\nBut let's double-check typical decision logic:\n\n- If observed value (n) is less than or equal to tolerance? Or maybe we compare the difference between observed and expected. Without more context, I'd go with accept_adjustment.\n\nHence branch: accept_adjustment.\n\nThus output: \"accept_adjustment\".\n\nBut"
+      }
+     }
+    ],
+    "created": 1795797088,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 72,
+     "total_tokens": 1096,
+     "prompt_tokens_details": {
+      "cached_tokens": 1
+     }
+    },
+    "id": "chatcmpl-GZrgGORtL6klkcvdQXTUCJGj5T3342d5",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. It says:\n\n\"策略 / policy: system-physical variance 2 pcs, tolerance 5. 实况 / observation: n = 2.\nAllowed branches: accept_adjustment, require_second_count, reject_adjustment.\n判断应走的分支。 / Decide which branch applies.\"\n\nWe need to decide which of the allowed branches (accept_adjustment, require_second_count, reject_adjustment) should be taken given the policy and observation.\n\nWe have a \"policy\" that mentions \"system-physical variance 2 pcs, tolerance 5\". Possibly this is about some system physical variance? Not sure. The observation says n = 2. So maybe we need to compare something: variance of 2 items vs tolerance 5? Or perhaps it's about a count or measurement.\n\nWe need to infer the context. Usually in such tasks, there might be a decision rule: if observed value is within tolerance of expected, accept adjustment; else require second count; etc. The policy says \"system-physical variance 2 pcs, tolerance 5\". So maybe we have a system that has physical variance of 2 items? Or the variance is 2? Tolerance is 5. Observed n = 2.\n\nLet's parse: \"策略 / policy: system-physical variance 2 pcs, tolerance 5.\" Means the policy states that for this system, there are two physical units (maybe count of something) and tolerance is 5. Or maybe it's about a measurement with variance 2 and tolerance 5.\n\n\"实况 / observation: n = 2.\" So we observed n=2.\n\nThus we need to decide which branch: accept_adjustment, require_second_count, or reject_adjustment.\n\nGiven that the observed count (n) is 2. The policy says variance is 2 pcs? That seems like maybe the expected value of something is 2? Or perhaps \"system-physical variance\" means the system's physical variation is 2 items. If tolerance is 5, then difference between observed and expected within tolerance? Let's think.\n\nIf we have a target or expected count = variance? Not sure.\n\nAlternatively, maybe it's about adjusting some parameter: if the observed n matches the policy (like n=2 equals variance?), then accept adjustment; else require second count to verify. Or reject_adjustment if too far off tolerance.\n\nGiven typical decision frameworks:\n\n- accept_adjustment: we can adjust something based on current observation.\n- require_second_count: need more data before deciding.\n- reject_adjustment: do not accept, maybe because it's out of tolerance or insufficient evidence.\n\nWe have n=2. Policy variance = 2 pcs (maybe the system expects a count of 2?). Tolerance = 5. So difference between observed and expected? If expected is something else? Not given.\n\nMaybe \"system-physical variance\" refers to the standard deviation of physical measurements, which is 2. Tolerance is 5. Usually tolerance is ± some margin around true value. If observed n=2, maybe it's within tolerance of expected (maybe expected = 0?). Hard to guess.\n\nLet's try to reason: The phrase \"system-physical variance 2 pcs\" could be a translation error: \"系统物理方差 2 个\" meaning the physical variance is 2 items. So perhaps there are two physical instances? And tolerance is 5, which is larger than 2. So maybe it's within tolerance.\n\nThus we might accept adjustment (i.e., proceed with current data). Or require second count if not enough evidence.\n\nGiven n=2 and tolerance 5, the difference between observed and expected (maybe zero) is 2, which is less than tolerance 5? If expected = 0, then absolute difference = 2 < 5 => within tolerance. So accept_adjustment.\n\nAlternatively, maybe we need to check if n equals variance: n=2 matches variance=2 exactly, so accept adjustment.\n\nThus likely branch: accept_adjustment.\n\nBut let's examine the allowed branches: accept_adjustment, require_second_count, reject_adjustment. Usually \"require_second_count\" is used when we need more data to confirm. \"reject_adjustment\" is used if current observation fails policy.\n\nGiven n=2 and tolerance 5 > variance 2, it's within tolerance, so accept adjustment.\n\nThus answer: accept_adjustment.\n\nBut let's double-check typical decision logic:\n\n- If observed value (n) is less than or equal to tolerance? Or maybe we compare the difference between observed and expected. Without more context, I'd go with accept_adjustment.\n\nHence branch: accept_adjustment.\n\nThus output: \"accept_adjustment\".\n\nBut",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 72,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-branch-kv space \"}\"\nresponse-format-branch ::= (\"\\\"accept_adjustment\\\"\" | \"\\\"require_second_count\\\"\" | \"\\\"reject_adjustment\\\"\")\nresponse-format-branch-kv ::= \"\\\"branch\\\"\" space \":\" space response-format-branch\nroot ::= \"<|im_start|>assistant\\n\" (\"<think>\" space until-1 (\"\\n</think>\" | \"</think>\" | ))? space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-1 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<] until-1\nuntil-1-01 ::= | [\\n] until-1-01 | [<] until-1-02 | [^\\n<] until-1\nuntil-1-02 ::= | [\\n] until-1-01 | [/] until-1-03 | [<] until-1-10 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-03 ::= | [\\n] until-1-01 | [t] until-1-04 | [<] until-1-10 | [^\\n<t] until-1\nuntil-1-04 ::= | [\\n] until-1-01 | [h] until-1-05 | [<] until-1-10 | [^\\n<h] until-1\nuntil-1-05 ::= | [\\n] until-1-01 | [i] until-1-06 | [<] until-1-10 | [^\\n<i] until-1\nuntil-1-06 ::= | [\\n] until-1-01 | [n] until-1-07 | [<] until-1-10 | [^\\n<n] until-1\nuntil-1-07 ::= | [\\n] until-1-01 | [k] until-1-08 | [<] until-1-10 | [^\\n<k] until-1\nuntil-1-08 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-10 ::= | [\\n] until-1-01 | [<] until-1-10 | [/] until-1-11 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-11 ::= | [\\n] until-1-01 | [<] until-1-10 | [t] until-1-12 | [^\\n<t] until-1\nuntil-1-12 ::= | [\\n] until-1-01 | [<] until-1-10 | [h] until-1-13 | [^\\n<h] until-1\nuntil-1-13 ::= | [\\n] until-1-01 | [<] until-1-10 | [i] until-1-14 | [^\\n<i] until-1\nuntil-1-14 ::= | [\\n] until-1-01 | [<] until-1-10 | [n] until-1-15 | [^\\n<n] until-1\nuntil-1-15 ::= | [\\n] until-1-01 | [<] until-1-10 | [k] until-1-16 | [^\\n<k] until-1\nuntil-1-16 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-18 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-19 | [^\\n<o] until-1\nuntil-1-19 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-20 | [^\\n<o] until-1\nuntil-1-20 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-21 | [^\\n<l] until-1\nuntil-1-21 ::= | [\\n] until-1-01 | [<] until-1-10 | [_] until-1-22 | [^\\n<_] until-1\nuntil-1-22 ::= | [\\n] until-1-01 | [<] until-1-10 | [c] until-1-23 | [^\\n<c] until-1\nuntil-1-23 ::= | [\\n] until-1-01 | [<] until-1-10 | [a] until-1-24 | [^\\n<a] until-1\nuntil-1-24 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-25 | [^\\n<l] until-1\nuntil-1-25 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-26 | [^\\n<l] until-1\nuntil-1-26 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n策略 / policy: system-physical variance 2 pcs, tolerance 5. 实况 / observation: n = 2.\nAllowed branches: accept_adjustment, require_second_count, reject_adjustment.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1095,
+     "timings": {
+      "cache_n": 1,
+      "prompt_n": 71,
+      "prompt_ms": 29.543,
+      "prompt_per_token_ms": 0.41609859154929574,
+      "prompt_per_second": 2403.2765799004837,
+      "predicted_n": 1024,
+      "predicted_ms": 5947.11,
+      "predicted_per_token_ms": 5.813401759530792,
+      "predicted_per_second": 172.01632389513563
+     }
+    },
+    "timings": {
+     "cache_n": 1,
+     "prompt_n": 71,
+     "prompt_ms": 29.543,
+     "prompt_per_token_ms": 0.41609859154929574,
+     "prompt_per_second": 2403.2765799004837,
+     "predicted_n": 1024,
+     "predicted_ms": 5947.11,
+     "predicted_per_token_ms": 5.813401759530792,
+     "predicted_per_second": 172.01632389513563
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.984
+  }
+ ]
+}

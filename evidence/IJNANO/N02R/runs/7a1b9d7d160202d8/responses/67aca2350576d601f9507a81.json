@@ -1,0 +1,154 @@
+{
+ "trial_id": "67aca2350576d601f9507a81",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{\"decision\": \"stop\"}",
+       "reasoning_content": "1.  **分析请求：**\n    *   **目标：** 目标 / goal: stock corrected for SKU-2210.\n    *   **当前观测：** 当前观测 / observation: first adjustment failed with a timeout.\n    *   **允许决策：** 允许决策：stop, continue.\n    *   **任务：** 决定停止还是继续。\n\n2.  **评估当前观测：**\n    *   “first adjustment failed with a timeout.”（第一次调整因超时而失败。）\n    *   这意味着系统正在尝试对 SKU-2210 的库存进行纠正，但该过程未能完成。\n    *   这是一个失败/超时情况。\n\n3.  **评估目标：**\n    *   目标是对 SKU-2210 的库存进行纠正。\n    *   由于第一次尝试失败，我们目前尚未达到目标。\n\n4.  **评估决策选项：**\n    *   **停止：** 停止尝试纠正库存。系统将保持当前状态（可能是一个错误或未更新的库存状态）。这是一种安全措施，防止无限期地尝试失败的操作。\n    *   **继续：** 继续尝试纠正库存。这可能会导致系统再次尝试（如果系统支持重试机制），或者可能导致系统卡死/崩溃，取决于系统的设计。\n\n5.  **确定最佳行动：**\n    *   鉴于这是一个*第一次*调整失败且*超时*，继续下去可能会导致系统崩溃、无限期地尝试失败或产生更多错误。\n    *   停止是更安全、更稳健的选择。它允许系统记录错误并进行后续处理（例如人工干预、重新尝试或记录失败）。\n    *   然而，在某些自动化系统中，默认策略是“继续”以进行重试。但提示词明确指出“first adjustment failed with a timeout”，这通常意味着该操作已耗尽其时间限制或资源。\n    *   让我们考虑一下上下文。如果这是一个库存纠正系统，库存数据可能仍然不正确。停止意味着我们将等待人工干预或系统管理员介入。继续意味着我们可能会尝试其他方法或重试。\n    *   鉴于“超时”失败，停止是更稳妥的选择。它避免了在失败的情况下继续消耗资源。\n\n6.  **形成决策：**\n    *   决定：停止。\n    *   理由：第一次调整因超时而失败。继续下去可能会导致系统崩溃或无限期地尝试失败。停止允许系统记录错误并进行后续处理。\n\n7.  **起草回复：**\n    *   明确陈述决策：停止。\n    *   提供简短的理由：由于第一次调整因超时而失败，继续下去可能会导致系统崩溃或无限期地尝试失败。停止允许系统记录错误并进行后续处理（例如人工干预或重新尝试）。\n    *   保持简洁和直接。\n\n8.  **最终润色（中文）：**\n    *   决定：停止。\n    *   理由：第一次调整因超时失败，继续尝试可能导致系统资源耗尽或无限期重试。建议停止当前操作，记录错误并进行后续人工干预或重新尝试。\n"
+      }
+     }
+    ],
+    "created": 1795795535,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 654,
+     "prompt_tokens": 59,
+     "total_tokens": 713,
+     "prompt_tokens_details": {
+      "cached_tokens": 58
+     }
+    },
+    "id": "chatcmpl-kTTkckhCUDSdC4aE1MthJmSl0XOR7U8r",
+    "__verbose": {
+     "index": 0,
+     "content": "1.  **分析请求：**\n    *   **目标：** 目标 / goal: stock corrected for SKU-2210.\n    *   **当前观测：** 当前观测 / observation: first adjustment failed with a timeout.\n    *   **允许决策：** 允许决策：stop, continue.\n    *   **任务：** 决定停止还是继续。\n\n2.  **评估当前观测：**\n    *   “first adjustment failed with a timeout.”（第一次调整因超时而失败。）\n    *   这意味着系统正在尝试对 SKU-2210 的库存进行纠正，但该过程未能完成。\n    *   这是一个失败/超时情况。\n\n3.  **评估目标：**\n    *   目标是对 SKU-2210 的库存进行纠正。\n    *   由于第一次尝试失败，我们目前尚未达到目标。\n\n4.  **评估决策选项：**\n    *   **停止：** 停止尝试纠正库存。系统将保持当前状态（可能是一个错误或未更新的库存状态）。这是一种安全措施，防止无限期地尝试失败的操作。\n    *   **继续：** 继续尝试纠正库存。这可能会导致系统再次尝试（如果系统支持重试机制），或者可能导致系统卡死/崩溃，取决于系统的设计。\n\n5.  **确定最佳行动：**\n    *   鉴于这是一个*第一次*调整失败且*超时*，继续下去可能会导致系统崩溃、无限期地尝试失败或产生更多错误。\n    *   停止是更安全、更稳健的选择。它允许系统记录错误并进行后续处理（例如人工干预、重新尝试或记录失败）。\n    *   然而，在某些自动化系统中，默认策略是“继续”以进行重试。但提示词明确指出“first adjustment failed with a timeout”，这通常意味着该操作已耗尽其时间限制或资源。\n    *   让我们考虑一下上下文。如果这是一个库存纠正系统，库存数据可能仍然不正确。停止意味着我们将等待人工干预或系统管理员介入。继续意味着我们可能会尝试其他方法或重试。\n    *   鉴于“超时”失败，停止是更稳妥的选择。它避免了在失败的情况下继续消耗资源。\n\n6.  **形成决策：**\n    *   决定：停止。\n    *   理由：第一次调整因超时而失败。继续下去可能会导致系统崩溃或无限期地尝试失败。停止允许系统记录错误并进行后续处理。\n\n7.  **起草回复：**\n    *   明确陈述决策：停止。\n    *   提供简短的理由：由于第一次调整因超时而失败，继续下去可能会导致系统崩溃或无限期地尝试失败。停止允许系统记录错误并进行后续处理（例如人工干预或重新尝试）。\n    *   保持简洁和直接。\n\n8.  **最终润色（中文）：**\n    *   决定：停止。\n    *   理由：第一次调整因超时失败，继续尝试可能导致系统资源耗尽或无限期重试。建议停止当前操作，记录错误并进行后续人工干预或重新尝试。\n</think>\n\n{\"decision\": \"stop\"}",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 654,
+     "tokens_evaluated": 59,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-decision-kv space \"}\"\nresponse-format-decision ::= (\"\\\"stop\\\"\" | \"\\\"continue\\\"\")\nresponse-format-decision-kv ::= \"\\\"decision\\\"\" space \":\" space response-format-decision\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n目标 / goal: goal: stock corrected for SKU-2210. 当前观测 / observation: first adjustment failed with a timeout.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 712,
+     "timings": {
+      "cache_n": 58,
+      "prompt_n": 1,
+      "prompt_ms": 10.386,
+      "prompt_per_token_ms": 10.386,
+      "prompt_per_second": 96.28345850182939,
+      "predicted_n": 654,
+      "predicted_ms": 3611.273,
+      "predicted_per_token_ms": 5.530280245022971,
+      "predicted_per_second": 180.822662811701
+     }
+    },
+    "timings": {
+     "cache_n": 58,
+     "prompt_n": 1,
+     "prompt_ms": 10.386,
+     "prompt_per_token_ms": 10.386,
+     "prompt_per_second": 96.28345850182939,
+     "predicted_n": 654,
+     "predicted_ms": 3611.273,
+     "predicted_per_token_ms": 5.530280245022971,
+     "predicted_per_second": 180.822662811701
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.641
+  }
+ ]
+}

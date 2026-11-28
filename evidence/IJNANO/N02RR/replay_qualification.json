@@ -1,0 +1,309 @@
+{
+ "mission": "IJ-NANO-1.2R section 4",
+ "gate": "N02R_OFFLINE_REPLAY_INTEGRITY_GO",
+ "granted": true,
+ "identity_reproduced": true,
+ "pipeline": "raw API artifact -> validated loader -> stage reconstruction -> parser -> evaluator -> trial record -> analyzer",
+ "red_phase_mutant": {
+  "controls": [
+   {
+    "control": "correct_chat_json",
+    "mutant_verdict": [
+     "PARSE_INVALID"
+    ],
+    "expected_semantic": true,
+    "mutant_diverges": true
+   },
+   {
+    "control": "correct_completion_json",
+    "mutant_verdict": [
+     "PARSE_INVALID"
+    ],
+    "expected_semantic": true,
+    "mutant_diverges": true
+   },
+   {
+    "control": "correct_native_tool_call",
+    "mutant_verdict": [
+     "PARSE_INVALID"
+    ],
+    "expected_semantic": true,
+    "mutant_diverges": true
+   },
+   {
+    "control": "valid_dsl",
+    "mutant_verdict": [
+     "PARSE_INVALID"
+    ],
+    "expected_semantic": true,
+    "mutant_diverges": true
+   },
+   {
+    "control": "correct_two_stage_action",
+    "mutant_verdict": [
+     "PARSE_INVALID"
+    ],
+    "expected_semantic": true,
+    "mutant_diverges": true
+   },
+   {
+    "control": "missing_telemetry",
+    "mutant_verdict": [
+     "PARSE_INVALID"
+    ],
+    "expected_semantic": true,
+    "mutant_diverges": true
+   },
+   {
+    "control": "valid_response_stored_in_dictionary",
+    "mutant_verdict": [
+     "PARSE_INVALID"
+    ],
+    "expected_semantic": true,
+    "mutant_diverges": true
+   }
+  ],
+  "mutant_rejected": true,
+  "n_positive_controls": 7
+ },
+ "green_phase_controls": [
+  {
+   "control": "correct_chat_json",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true,
+    "parser_input_is_dict": true
+   },
+   "failure_class": "SUCCESS",
+   "detail": ""
+  },
+  {
+   "control": "correct_completion_json",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true,
+    "parser_input_is_dict": true
+   },
+   "failure_class": "SUCCESS",
+   "detail": ""
+  },
+  {
+   "control": "correct_native_tool_call",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true,
+    "parser_input_is_dict": true
+   },
+   "failure_class": "SUCCESS",
+   "detail": ""
+  },
+  {
+   "control": "valid_dsl",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true,
+    "parser_input_is_dict": true
+   },
+   "failure_class": "SUCCESS",
+   "detail": ""
+  },
+  {
+   "control": "correct_two_stage_action",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true,
+    "parser_input_is_dict": true,
+    "p7s_selected_tool": true,
+    "p7s_payload_matches_selection": true,
+    "total_latency": true,
+    "total_prompt_tokens": true
+   },
+   "failure_class": "SUCCESS",
+   "detail": ""
+  },
+  {
+   "control": "incorrect_first_stage_selection",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true,
+    "p7s_selected_tool": true,
+    "p7s_wrong_tool_flag": true,
+    "p7s_payload_matches_selection": true
+   },
+   "failure_class": "SEMANTIC_ERROR",
+   "detail": ""
+  },
+  {
+   "control": "wrong_selection_hidden_by_final_response",
+   "passed": true,
+   "checks": {
+    "failure_class": true,
+    "p7s_selected_tool": true,
+    "p7s_wrong_tool_flag": true,
+    "p7s_payload_matches_selection": true
+   },
+   "failure_class": "EVIDENCE_INCONSISTENT_STAGE2_TOOL",
+   "detail": ""
+  },
+  {
+   "control": "empty_final_content",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true
+   },
+   "failure_class": "EMPTY_FINAL_CONTENT_STOPPED",
+   "detail": ""
+  },
+  {
+   "control": "actual_http_error",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true
+   },
+   "failure_class": "TRANSPORT_ERROR",
+   "detail": ""
+  },
+  {
+   "control": "missing_response",
+   "passed": true,
+   "checks": {
+    "integrity_code": "ARTIFACT_UNPARSEABLE"
+   },
+   "failure_class": null,
+   "detail": "artifact unreadable: <path omitted>"
+  },
+  {
+   "control": "malformed_artifact",
+   "passed": true,
+   "checks": {
+    "integrity_code": "ARTIFACT_UNPARSEABLE"
+   },
+   "failure_class": null,
+   "detail": "qual_malformed.json: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+  },
+  {
+   "control": "duplicate_json_key",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true
+   },
+   "failure_class": "STRUCTURAL_GENERATION_ERROR_DUP_KEY",
+   "detail": ""
+  },
+  {
+   "control": "unexpected_tool_argument",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true,
+    "reasons_contains": true
+   },
+   "failure_class": "SEMANTIC_ERROR",
+   "detail": ""
+  },
+  {
+   "control": "invalid_stage_order",
+   "passed": true,
+   "checks": {
+    "integrity_code": "STAGE_ORDER_INVALID"
+   },
+   "failure_class": null,
+   "detail": "stage[0].stage == 2, expected 1"
+  },
+  {
+   "control": "hash_mismatch",
+   "passed": true,
+   "checks": {
+    "integrity_code": "HASH_MISMATCH"
+   },
+   "failure_class": null,
+   "detail": "qual0036.json: sha256 8f700abe4d0a... != recorded 000000000000..."
+  },
+  {
+   "control": "wrong_trial_identity",
+   "passed": true,
+   "checks": {
+    "integrity_code": "TRIAL_IDENTITY_MISMATCH"
+   },
+   "failure_class": null,
+   "detail": "artifact trial_id qual_artifact_15 != expected qual_row_15"
+  },
+  {
+   "control": "missing_telemetry",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true,
+    "usage_marker": true,
+    "usage_not_zero": true
+   },
+   "failure_class": "SUCCESS",
+   "detail": ""
+  },
+  {
+   "control": "valid_response_stored_in_dictionary",
+   "passed": true,
+   "checks": {
+    "semantic": true,
+    "structural": true,
+    "failure_class": true,
+    "parser_input_is_dict": true,
+    "telemetry_tokens": true
+   },
+   "failure_class": "SUCCESS",
+   "detail": ""
+  },
+  {
+   "control": "http_field_not_object",
+   "passed": true,
+   "checks": {
+    "integrity_code": "STAGE_SCHEMA_INVALID"
+   },
+   "failure_class": null,
+   "detail": "stage[0].http is str, not object|null"
+  }
+ ],
+ "green_all_pass": true,
+ "analyzer_integration": {
+  "n_records": 13,
+  "semantic_pass": 8,
+  "semantic_rate_denominator": 13,
+  "empty_final_content": 1,
+  "mean_latency_s": 0.152,
+  "latency_sample_n": 13,
+  "mean_prompt_tokens": 130.0,
+  "prompt_token_sample_n": 10
+ },
+ "published_witness_integration": {
+  "artifact": "evidence\\IJNANO\\N02R\\runs\\7a1b9d7d160202d8\\responses\\003abb9e2604141bd8b016ec.json",
+  "corrected_payload": {
+   "intent": "A3"
+  },
+  "source_payload": {
+   "intent": "A3"
+  },
+  "corrected_matches_source": true
+ },
+ "controls_total": 19,
+ "positive_controls_reaching_parser_as_dicts": 6
+}

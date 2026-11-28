@@ -1,0 +1,148 @@
+{
+ "trial_id": "4f74dc421edf4759a4073e36",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "要处理“Item SKU-2210: quantity change 12 pcs”，应使用工具 `inventory.adjust_stock`，参数为：\n\n- `sku`: `SKU-2210`\n- `quantity`: `12`\n\n完整动作：  \n`inventory.adjust_stock(sku=\"SKU-2210\", quantity=12)`",
+       "reasoning_content": "We need to produce a \"full action: tool and all arguments\". The user gave a scenario: \"Item SKU-2210: quantity change 12 pcs.\" They have tools listed. We need to generate the full action: tool and all parameters. The user likely wants to know which tool to use to adjust stock for SKU-2210 by 12 pcs. The tool \"inventory.adjust_stock\" takes params: sku, quantity. So the action would be: inventory.adjust_stock(sku=\"SKU-2210\", quantity=12). But maybe they want to produce a full action description? The prompt: \"生成完整动作：工具与全部参数。\" Means \"Generate the full action: tool and all arguments.\" So we need to output the tool name and arguments. Possibly in a specific format. The user might be expecting something like: \"inventory.adjust_stock(sku='SKU-2210', quantity=12)\". Or maybe they want to include the context: \"Item SKU-2210: quantity change 12 pcs.\" So the action is to adjust stock. So answer: tool: inventory.adjust_stock, arguments: sku=SKU-2210, quantity=12. I'll provide that.\n"
+      }
+     }
+    ],
+    "created": 1795799944,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 346,
+     "prompt_tokens": 214,
+     "total_tokens": 560,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-TDj8wxA8jfsFrDHL3kB1HfuTnozn3bKA",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to produce a \"full action: tool and all arguments\". The user gave a scenario: \"Item SKU-2210: quantity change 12 pcs.\" They have tools listed. We need to generate the full action: tool and all parameters. The user likely wants to know which tool to use to adjust stock for SKU-2210 by 12 pcs. The tool \"inventory.adjust_stock\" takes params: sku, quantity. So the action would be: inventory.adjust_stock(sku=\"SKU-2210\", quantity=12). But maybe they want to produce a full action description? The prompt: \"生成完整动作：工具与全部参数。\" Means \"Generate the full action: tool and all arguments.\" So we need to output the tool name and arguments. Possibly in a specific format. The user might be expecting something like: \"inventory.adjust_stock(sku='SKU-2210', quantity=12)\". Or maybe they want to include the context: \"Item SKU-2210: quantity change 12 pcs.\" So the action is to adjust stock. So answer: tool: inventory.adjust_stock, arguments: sku=SKU-2210, quantity=12. I'll provide that.\n</think>\n\n要处理“Item SKU-2210: quantity change 12 pcs”，应使用工具 `inventory.adjust_stock`，参数为：\n\n- `sku`: `SKU-2210`\n- `quantity`: `12`\n\n完整动作：  \n`inventory.adjust_stock(sku=\"SKU-2210\", quantity=12)`",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 346,
+     "tokens_evaluated": 214,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\nItem SKU-2210: quantity change 12 pcs.\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 559,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 214,
+      "prompt_ms": 45.757,
+      "prompt_per_token_ms": 0.21381775700934577,
+      "prompt_per_second": 4676.880040212427,
+      "predicted_n": 346,
+      "predicted_ms": 1886.653,
+      "predicted_per_token_ms": 5.468559420289855,
+      "predicted_per_second": 182.86351544242632
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 214,
+     "prompt_ms": 45.757,
+     "prompt_per_token_ms": 0.21381775700934577,
+     "prompt_per_second": 4676.880040212427,
+     "predicted_n": 346,
+     "predicted_ms": 1886.653,
+     "predicted_per_token_ms": 5.468559420289855,
+     "predicted_per_second": 182.86351544242632
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.937
+  }
+ ]
+}

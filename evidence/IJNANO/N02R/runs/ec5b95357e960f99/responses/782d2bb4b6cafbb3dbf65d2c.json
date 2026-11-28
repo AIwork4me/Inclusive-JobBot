@@ -1,0 +1,146 @@
+{
+ "trial_id": "782d2bb4b6cafbb3dbf65d2c",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   **Goal:** Determine the action for a customs declaration (TRK-40219).\n    *   **Observation:** The declaration was accepted with reference CD-887.\n    *   **Allowed Decisions:** \"stop\" or \"continue\".\n    *   **Task:** Decide whether to \"stop\" or \"continue\".\n\n2.  **Understand the Context:**\n    *   This looks like a workflow for customs clearance or a similar regulatory process.\n    *   \"Goal\": There's a declared value for a specific item (TRK-40219).\n    *   \"Observation\": The declaration has been accepted (accepted with reference CD-887).\n    *   \"Decision\": Stop or Continue.\n\n3.  **Evaluate the \"Observation\":**\n    *   \"Declaration accepted\" means the customs authority has reviewed the document and approved it.\n    *   \"Reference CD-887\" is a tracking number or ID for the specific transaction.\n    *   If the declaration is accepted, the process for that specific item is likely complete for that specific transaction.\n    *   Continuing would imply re-checking, re-submitting, or waiting for further instructions on a document that is already valid.\n    *   Stopping implies finalizing the process for this specific item.\n\n4.  **Determine the Logic:**\n    *   If a declaration is accepted, the system usually moves to the next step (e.g., release, payment, or end of process).\n    *   Continuing would mean the system is stuck in a loop or waiting for more data that isn't present.\n    *   Therefore, the logical action is to stop processing this specific declaration.\n\n5.  **Formulate the Decision:**\n    *   Decision: stop.\n\n6.  **Refine the Output:**\n    *   The user asked to decide \"stop\" or \"continue\".\n    *   I need to provide the decision clearly.\n\n7.  **Final Check:**\n    *   Input: Declaration accepted.\n    *   Action: Stop the current process for this item.\n    *   Reasoning: The acceptance means the system is done with this specific declaration.\n\n    *Wait, is there a nuance?*\n    Sometimes \"continue\" means \"process further\" (e.g., check for errors, verify value). But here, the observation says \"accepted\". Usually, \"accepted\" means the system is done with the validation.\n    However, in some workflow contexts (like a specific customs API or system), \"accepted\" might mean \"accepted for processing\" but the system might need to continue to the next step (e.g., release).\n    But looking at the prompt structure: \"Goal: customs value declared... Observation: declaration accepted... Allowed decisions: stop, continue.\"\n    If the goal is to process the value, and it's accepted, the process is complete for that item.\n    If I choose \"continue\", it implies I need to do something else.\n    If I choose \"stop\", it implies I am done with this item.\n    Given \"accepted\", the most logical step is to stop processing this specific declaration and move to the next one or finalize it.\n\n    Let's look at similar tasks. This looks like a classification task for a workflow system.\n    If the declaration is accepted, the workflow for this item is closed.\n    So, \"stop\" is the correct choice.\n\n    *Self-Correction/Alternative View:*\n    Could \"accepted\" mean \"accepted for further processing\"?\n    Usually, in customs systems, if a declaration is accepted, the system logs it and moves to the next step (e.g., release).\n    However, the decision options are \"stop\" or \"continue\".\n    If I choose \"continue\", it suggests I should keep processing this item.\n    If I choose \"stop\", it suggests I should end this item.\n    Since the observation says \"accepted\", the item is valid.\n    Therefore, I should stop processing this item.\n\n    Wait, let's consider the phrase \"customs value declared for TRK-40219\".\n    If the goal is to *process* the value, and it's accepted, the process is done.\n    So \"stop\" is the right answer.\n\n    Let's draft the response.\n    Decision: stop.\n    Reasoning: The declaration has been accepted, indicating the process is complete for this item.\n\n    Wait, I need to check if this is a specific dataset or task type. It looks like a classification task from a dataset (maybe a customs workflow dataset).\n    In many such datasets, if the status is \"accepted\", the action is to \"stop\""
+      }
+     }
+    ],
+    "created": 1795799657,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 66,
+     "total_tokens": 1090,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-UDiknHnZiAhXhwYpocmO5QKdZmerNO8h",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   **Goal:** Determine the action for a customs declaration (TRK-40219).\n    *   **Observation:** The declaration was accepted with reference CD-887.\n    *   **Allowed Decisions:** \"stop\" or \"continue\".\n    *   **Task:** Decide whether to \"stop\" or \"continue\".\n\n2.  **Understand the Context:**\n    *   This looks like a workflow for customs clearance or a similar regulatory process.\n    *   \"Goal\": There's a declared value for a specific item (TRK-40219).\n    *   \"Observation\": The declaration has been accepted (accepted with reference CD-887).\n    *   \"Decision\": Stop or Continue.\n\n3.  **Evaluate the \"Observation\":**\n    *   \"Declaration accepted\" means the customs authority has reviewed the document and approved it.\n    *   \"Reference CD-887\" is a tracking number or ID for the specific transaction.\n    *   If the declaration is accepted, the process for that specific item is likely complete for that specific transaction.\n    *   Continuing would imply re-checking, re-submitting, or waiting for further instructions on a document that is already valid.\n    *   Stopping implies finalizing the process for this specific item.\n\n4.  **Determine the Logic:**\n    *   If a declaration is accepted, the system usually moves to the next step (e.g., release, payment, or end of process).\n    *   Continuing would mean the system is stuck in a loop or waiting for more data that isn't present.\n    *   Therefore, the logical action is to stop processing this specific declaration.\n\n5.  **Formulate the Decision:**\n    *   Decision: stop.\n\n6.  **Refine the Output:**\n    *   The user asked to decide \"stop\" or \"continue\".\n    *   I need to provide the decision clearly.\n\n7.  **Final Check:**\n    *   Input: Declaration accepted.\n    *   Action: Stop the current process for this item.\n    *   Reasoning: The acceptance means the system is done with this specific declaration.\n\n    *Wait, is there a nuance?*\n    Sometimes \"continue\" means \"process further\" (e.g., check for errors, verify value). But here, the observation says \"accepted\". Usually, \"accepted\" means the system is done with the validation.\n    However, in some workflow contexts (like a specific customs API or system), \"accepted\" might mean \"accepted for processing\" but the system might need to continue to the next step (e.g., release).\n    But looking at the prompt structure: \"Goal: customs value declared... Observation: declaration accepted... Allowed decisions: stop, continue.\"\n    If the goal is to process the value, and it's accepted, the process is complete for that item.\n    If I choose \"continue\", it implies I need to do something else.\n    If I choose \"stop\", it implies I am done with this item.\n    Given \"accepted\", the most logical step is to stop processing this specific declaration and move to the next one or finalize it.\n\n    Let's look at similar tasks. This looks like a classification task for a workflow system.\n    If the declaration is accepted, the workflow for this item is closed.\n    So, \"stop\" is the correct choice.\n\n    *Self-Correction/Alternative View:*\n    Could \"accepted\" mean \"accepted for further processing\"?\n    Usually, in customs systems, if a declaration is accepted, the system logs it and moves to the next step (e.g., release).\n    However, the decision options are \"stop\" or \"continue\".\n    If I choose \"continue\", it suggests I should keep processing this item.\n    If I choose \"stop\", it suggests I should end this item.\n    Since the observation says \"accepted\", the item is valid.\n    Therefore, I should stop processing this item.\n\n    Wait, let's consider the phrase \"customs value declared for TRK-40219\".\n    If the goal is to *process* the value, and it's accepted, the process is done.\n    So \"stop\" is the right answer.\n\n    Let's draft the response.\n    Decision: stop.\n    Reasoning: The declaration has been accepted, indicating the process is complete for this item.\n\n    Wait, I need to check if this is a specific dataset or task type. It looks like a classification task from a dataset (maybe a customs workflow dataset).\n    In many such datasets, if the status is \"accepted\", the action is to \"stop\"",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 66,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n目标 / goal: goal: customs value declared for TRK-40219. 当前观测 / observation: declaration accepted with reference CD-887.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1089,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 66,
+      "prompt_ms": 38.086,
+      "prompt_per_token_ms": 0.577060606060606,
+      "prompt_per_second": 1732.9202331565407,
+      "predicted_n": 1024,
+      "predicted_ms": 4987.837,
+      "predicted_per_token_ms": 4.875695992179864,
+      "predicted_per_second": 205.09892364165066
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 66,
+     "prompt_ms": 38.086,
+     "prompt_per_token_ms": 0.577060606060606,
+     "prompt_per_second": 1732.9202331565407,
+     "predicted_n": 1024,
+     "predicted_ms": 4987.837,
+     "predicted_per_token_ms": 4.875695992179864,
+     "predicted_per_second": 205.09892364165066
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.047
+  }
+ ]
+}

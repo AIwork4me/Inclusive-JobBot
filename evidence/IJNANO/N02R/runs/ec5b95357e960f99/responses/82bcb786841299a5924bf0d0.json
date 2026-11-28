@@ -1,0 +1,152 @@
+{
+ "trial_id": "82bcb786841299a5924bf0d0",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "addresses.validate",
+       "reasoning_content": "用户要求检查地址 ADR-449 是否可投递，并只回答要调用的工具名。\n\n查看可用的工具，我可以看到有一个 `addresses.validate` 工具用于校验地址，它需要 `address_id` 参数。\n\n用户提供的地址 ID 是 \"ADR-449\"，所以我需要调用这个工具。\n\n根据要求，我只需要回答要调用的工具名，所以答案应该是 \"addresses.validate\"。"
+      }
+     }
+    ],
+    "created": 1795798182,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 99,
+     "prompt_tokens": 876,
+     "total_tokens": 975,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-GG8OPQw5xuk9lDocqry2rZRa4oyTInBS",
+    "__verbose": {
+     "index": 0,
+     "content": "用户要求检查地址 ADR-449 是否可投递，并只回答要调用的工具名。\n\n查看可用的工具，我可以看到有一个 `addresses.validate` 工具用于校验地址，它需要 `address_id` 参数。\n\n用户提供的地址 ID 是 \"ADR-449\"，所以我需要调用这个工具。\n\n根据要求，我只需要回答要调用的工具名，所以答案应该是 \"addresses.validate\"。\n</think>\n\naddresses.validate",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 99,
+     "tokens_evaluated": 876,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"logistics.trace_shipment\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-1 ::= (\"<function=\" \"logistics.reroute_shipment\" \">\\n\") (tool-1-arg-0) \"</function>\\n\"\ntool-1-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-2 ::= (\"<function=\" \"logistics.estimate_delivery\" \">\\n\") (tool-2-arg-0) \"</function>\\n\"\ntool-2-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-3 ::= (\"<function=\" \"addresses.validate\" \">\\n\") (tool-3-arg-0) \"</function>\\n\"\ntool-3-arg-0 ::= (\"<parameter=\" \"address_id\" \">\\n\") xml-arg-string\ntool-4 ::= (\"<function=\" \"customs.declare_value\" \">\\n\") tool-4-args-3 \"</function>\\n\"\ntool-4-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-4-arg-1 ::= (\"<parameter=\" \"amount\" \">\\n\") tool-4-arg-1-schema \"\\n</parameter>\\n\"\ntool-4-arg-1-schema ::= \"{\" space tool-4-arg-1-schema-value-kv \",\" space tool-4-arg-1-schema-unit-kv space \"}\"\ntool-4-arg-1-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-4-arg-1-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-4-arg-1-schema-unit\ntool-4-arg-1-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-4-args-1 ::= tool-4-arg-0\ntool-4-args-2 ::= tool-4-arg-1\ntool-4-args-3 ::= tool-4-arg-0 tool-4-args-2 | tool-4-arg-1 tool-4-args-1\ntool-5 ::= (\"<function=\" \"labels.generate\" \">\\n\") (tool-5-arg-0) \"</function>\\n\"\ntool-5-arg-0 ::= (\"<parameter=\" \"order_id\" \">\\n\") xml-arg-string\ntool-6 ::= (\"<function=\" \"couriers.list_rates\" \">\\n\") (tool-6-arg-0) \"</function>\\n\"\ntool-6-arg-0 ::= (\"<parameter=\" \"zone\" \">\\n\") xml-arg-string\ntool-7 ::= (\"<function=\" \"escalations.open_case\" \">\\n\") (tool-7-arg-0) \"</function>\\n\"\ntool-7-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0 | tool-1 | tool-2 | tool-3 | tool-4 | tool-5 | tool-6 | tool-7) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 248058
+       }
+      ],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>system\n# Tools\n\nYou have access to the following functions:\n\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"logistics.trace_shipment\", \"description\": \"追踪物流 / trace a shipment\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}}\n{\"type\": \"function\", \"function\": {\"name\": \"logistics.reroute_shipment\", \"description\": \"改派物流 / reroute a shipment\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}}\n{\"type\": \"function\", \"function\": {\"name\": \"logistics.estimate_delivery\", \"description\": \"预估送达 / estimate delivery\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}}\n{\"type\": \"function\", \"function\": {\"name\": \"addresses.validate\", \"description\": \"校验地址 / validate an address\", \"parameters\": {\"type\": \"object\", \"properties\": {\"address_id\": {\"type\": \"string\"}}, \"required\": [\"address_id\"], \"additionalProperties\": false}}}\n{\"type\": \"function\", \"function\": {\"name\": \"customs.declare_value\", \"description\": \"申报价值 / declare customs value\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}, \"amount\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}}, \"required\": [\"tracking_no\", \"amount\"], \"additionalProperties\": false}}}\n{\"type\": \"function\", \"function\": {\"name\": \"labels.generate\", \"description\": \"生成面单 / generate a label\", \"parameters\": {\"type\": \"object\", \"properties\": {\"order_id\": {\"type\": \"string\"}}, \"required\": [\"order_id\"], \"additionalProperties\": false}}}\n{\"type\": \"function\", \"function\": {\"name\": \"couriers.list_rates\", \"description\": \"查询运费 / list courier rates\", \"parameters\": {\"type\": \"object\", \"properties\": {\"zone\": {\"type\": \"string\"}}, \"required\": [\"zone\"], \"additionalProperties\": false}}}\n{\"type\": \"function\", \"function\": {\"name\": \"escalations.open_case\", \"description\": \"开升级单 / open an escalation case\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}}\n</tools>\n\nIf you choose to call a function ONLY reply in the following format with NO suffix:\n\n<tool_call>\n<function=example_function_name>\n<parameter=example_parameter_1>\nvalue_1\n</parameter>\n<parameter=example_parameter_2>\nThis is the value for the second parameter\nthat can span\nmultiple lines\n</parameter>\n</function>\n</tool_call>\n\n<IMPORTANT>\nReminder:\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\n- Required parameters MUST be specified\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\nKnown: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nCheck whether address ADR-449 is deliverable. 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 974,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 876,
+      "prompt_ms": 130.61,
+      "prompt_per_token_ms": 0.14909817351598176,
+      "prompt_per_second": 6706.990276395375,
+      "predicted_n": 99,
+      "predicted_ms": 478.941,
+      "predicted_per_token_ms": 4.887153061224489,
+      "predicted_per_second": 204.61810536162076
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 876,
+     "prompt_ms": 130.61,
+     "prompt_per_token_ms": 0.14909817351598176,
+     "prompt_per_second": 6706.990276395375,
+     "predicted_n": 99,
+     "predicted_ms": 478.941,
+     "predicted_per_token_ms": 4.887153061224489,
+     "predicted_per_second": 204.61810536162076
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.625
+  }
+ ]
+}

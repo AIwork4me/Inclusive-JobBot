@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-NANO-1.0",
+  "phase": "N01",
+  "generated_utc": "2026-11-27T12:00:00Z",
+  "basis": {
+    "catalog": "evidence/IJNANO/N01/research_catalog.json",
+    "verification_method": "primary sources only (GitHub API, arXiv, Hugging Face, PyPI, crates.io, vendor blogs) via four parallel verification sweeps on 2026-11-27; no cloning or execution of subject code; raw sweeps in evidence/IJNANO/N01/agent_reports/",
+    "status_convention": "subject verification values (VERIFIED / PARTIALLY_VERIFIED and the R05 special case 'VERIFIED as paper; NO CODE') are preserved verbatim from the catalog and are never upgraded; commercial_use values are OK / CONDITIONAL / NO / UNLICENSED"
+  },
+  "entries": [
+    {
+      "id": "R01",
+      "name": "effGen",
+      "verification": "VERIFIED",
+      "code_license": "Apache-2.0",
+      "weights_license": null,
+      "weights_license_note": "No weight artifacts distributed; runtime-only method over frozen third-party open weights (Qwen2.5, Gemma 3, GPT-OSS) governed by their upstream licenses.",
+      "paper_license": null,
+      "paper_license_note": "arXiv:2602.00887 paper-text license not recorded in the verification sweep.",
+      "commercial_use": "OK",
+      "commercial_use_note": "Apache-2.0 code is commercially clean; catalog records it as commercially reusable but footprint-heavy (~52 base runtime deps incl. torch, transformers, fastapi, docker, 3 Google SDKs).",
+      "windows_local": "plausible-untested (OS-Independent classifier, pure Python; undocumented)",
+      "reuse_class": "RESEARCH_ONLY_FOR_REPRODUCTION (E01); mechanism study, not component reuse (footprint contradicts minimal-runtime thesis)",
+      "source": {
+        "repo": "https://github.com/ctrl-gaurav/effGen",
+        "revision": "main @ 37de05a6b4ed01c90ee38b9c254a162927ca2ac2 (2026-10-01)",
+        "release": "v1.3.0 (2026-10-01); PyPI: effgen; effgen.org",
+        "paper": "arXiv:2602.00887 v2 (2026-06-14); ICML 2026 acceptance claimed on arXiv, OpenReview record unconfirmed -> venue PARTIALLY_VERIFIED"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R01_R04_verification.md"
+    },
+    {
+      "id": "R02",
+      "name": "PTC-Decoder",
+      "verification": "VERIFIED",
+      "code_license": "MIT (code) + CC BY 4.0 (benchmark data addendum)",
+      "weights_license": null,
+      "weights_license_note": "Training-free constrained decoding; zero weight changes; no weights distributed.",
+      "paper_license": "CC BY-NC-SA (paper text)",
+      "commercial_use": "CONDITIONAL",
+      "commercial_use_note": "MIT code and CC BY 4.0 benchmark data are commercially clean; the paper text is CC BY-NC-SA (non-commercial) and must not be copied into commercial artifacts.",
+      "windows_local": "plausible-untested (pure Python; tested on Jetson Orin NX / Ubuntu 22.04; bitsandbytes Linux-first history)",
+      "reuse_class": "REIMPLEMENT_CLEAN_ROOM (mechanism: Plan-to-Act + per-tool DFA constraints re-expressed via llama.cpp per-request json_schema/grammar)",
+      "source": {
+        "repo": "https://github.com/yuminghui/llm-tool-constrained-decoder",
+        "revision": "dormant since 2026-07-19; single author; 3 stars; commit hash not recorded in the sweep",
+        "paper": "arXiv:2609.30836 v1 (2026-09-25, preprint, no venue); Yu, Mu, Wu"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R02_R08_verification.md"
+    },
+    {
+      "id": "R03",
+      "name": "TinyAgent",
+      "verification": "VERIFIED",
+      "code_license": "MIT",
+      "weights_license": "MIT (Hugging Face cards: TinyAgent-1.1B/7B incl. GGUF, TinyAgent-ToolRAG, TinyAgent-dataset)",
+      "paper_license": null,
+      "paper_license_note": "arXiv:2409.00608 paper-text license not recorded in the sweep.",
+      "commercial_use": "OK",
+      "commercial_use_note": "MIT code and MIT-licensed weight/dataset artifacts; the headline result rests on LoRA fine-tuned weights and all 16 shipped tools are macOS AppleScript (Windows requires a full tool-layer rewrite).",
+      "windows_local": "core portable via llama.cpp GGUF serving; all 16 tools are macOS AppleScript -> Windows requires full tool-layer rewrite",
+      "reuse_class": "RESEARCH_ONLY (weight-change headline not transferable; ToolRAG mechanism study for M02)",
+      "source": {
+        "repo": "https://github.com/SqueezeAILab/TinyAgent",
+        "revision": "dormant since 2024-09-04 (~6 commits, 503 stars); commit hash not recorded in the sweep",
+        "paper": "arXiv:2409.00608, EMNLP 2024 Demo track"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R03_R05_R06_verification.md"
+    },
+    {
+      "id": "R04",
+      "name": "Automated SLM Harness Adaptation (slm-harness-adaptation)",
+      "verification": "VERIFIED (repo renamed migration-analysis -> slm-harness-adaptation, 301 same id)",
+      "code_license": "MIT (+ MIT submodule software-agent-sdk / OpenHands SDK)",
+      "weights_license": null,
+      "weights_license_note": "Runtime-only method over frozen cloud-served weights (Vertex AI / Bedrock); no weights distributed.",
+      "paper_license": null,
+      "paper_license_note": "arXiv:2607.08938 paper-text license not recorded in the sweep.",
+      "commercial_use": "OK",
+      "commercial_use_note": "MIT code and MIT submodule; method requires paid cloud APIs (USD 20/run, USD 1,260 total in the paper).",
+      "windows_local": "no (cloud APIs, Docker, Python>=3.14)",
+      "reuse_class": "RESEARCH_ONLY (methodology for N10 optimizer design; O0-O5 comparators)",
+      "source": {
+        "repo": "https://github.com/malusamayo/slm-harness-adaptation",
+        "revision": "main @ 2d31e1791a68f89554aa81c97d58fd62a636f4f4 (2026-09-04); 30 stars; no releases/tags",
+        "paper": "arXiv:2607.08938 v1 (2026-07-09, cs.SE preprint, no venue); Yang, Zhao, Wu, Kaestner"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R01_R04_verification.md"
+    },
+    {
+      "id": "R05",
+      "name": "Growing Harness (Grow the Harness, Not the Context)",
+      "verification": "VERIFIED as paper; NO CODE",
+      "code_license": null,
+      "code_license_note": "No code released; no repository link in the paper; searches return citation trackers only.",
+      "weights_license": null,
+      "weights_license_note": "Runtime-only method; optimizer is proprietary frontier models (GPT-5.6-terra / GPT-5.4); no weights distributed.",
+      "paper_license": "CC BY 4.0",
+      "commercial_use": "OK",
+      "commercial_use_note": "Paper text CC BY 4.0 (attribution); nothing executable exists to embed.",
+      "windows_local": "nothing to run (paper-only)",
+      "reuse_class": "RESEARCH_ONLY (principle: compile repeated control decisions into deterministic code = M-mechanism 'Growing Harness' arm E06)",
+      "source": {
+        "paper": "arXiv:2609.26760 v1 (2026-09-22) / v2 (2026-09-24, preprint); Li, Li, Zhao, Ye, Li, Xu, Gao"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R03_R05_R06_verification.md"
+    },
+    {
+      "id": "R06",
+      "name": "Meta-Harness",
+      "verification": "VERIFIED",
+      "code_license": "MIT (main repository)",
+      "weights_license": null,
+      "weights_license_note": "Frozen >=20B third-party base models (GPT-OSS-120B/20B, Claude Opus 4.6 / Haiku 4.5); parameter counts unstated; no weights distributed.",
+      "paper_license": null,
+      "paper_license_note": "arXiv:2603.28052 paper-text license not recorded in the sweep.",
+      "commercial_use": "CONDITIONAL",
+      "commercial_use_note": "Main repository is MIT, but the TB2 artifact repository (meta-harness-tbench2-artifact) is UNLICENSED (all rights reserved) and is excluded from any reuse.",
+      "windows_local": "no Windows/local deployment story; TB2 assumes Linux sandboxes; proposer is a cloud coding agent",
+      "reuse_class": "RESEARCH_ONLY (N10 optimizer methodology: raw-trace feedback > score-only feedback ablation is directly actionable)",
+      "source": {
+        "repo": "https://github.com/stanford-iris-lab/meta-harness",
+        "revision": "created 2026-04-15, pushed 2026-11-05, 1814 stars; active; commit hash not recorded in the sweep",
+        "paper": "arXiv:2603.28052 (preprint); Lee, Nair, Zhang, K. Lee, Khattab, Finn",
+        "artifact": "meta-harness-tbench2-artifact - exists, NO license (all-rights-reserved)"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R03_R05_R06_verification.md"
+    },
+    {
+      "id": "R07",
+      "name": "MagenticLite",
+      "verification": "VERIFIED (identity: next-gen of microsoft/magentic-ui, PyPI magentic_ui, MIT)",
+      "code_license": "MIT",
+      "weights_license": "MIT (MagenticBrain ~14B, weights changed via SFT+RL from Qwen3-14B, 32K ctx; Fara1.5-9B from Qwen3.5-9B, 262K ctx, vision-only)",
+      "paper_license": null,
+      "paper_license_note": "No paper; announced via the Microsoft Research AI Frontiers blog (May 2026).",
+      "commercial_use": "OK",
+      "commercial_use_note": "MIT code + MIT weights with research-grade caveats (Fara card: commercial use without additional testing out of scope). Other Fara sizes unverified beyond one blog sentence.",
+      "windows_local": "partial - supported on Windows x64 via WSL2 only (Quicksand QEMU/KVM sandbox); documented hosting assumes vLLM-class GPUs (48-96 GB); llama.cpp as a hosting path undocumented",
+      "reuse_class": "RESEARCH_ONLY (design-pattern reference for Layer B/C; not embeddable)",
+      "source": {
+        "repo": "https://github.com/microsoft/magentic-ui",
+        "release": "v0.2.1 (2026-05-21); PyPI: magentic_ui 0.2.2 (2026-07-21); Python >= 3.12; MagenticLite lives on main (old 0.1 AutoGen line on branch magentic-ui-0.1); 0.2 is NOT built on AutoGen/Agent Framework",
+        "commit": "pushed 2026-11-16, ~10.1k stars; commit hash not recorded in the sweep"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R07_R09_verification.md"
+    },
+    {
+      "id": "R08.1",
+      "name": "llama.cpp (GBNF + json_schema)",
+      "verification": "VERIFIED",
+      "code_license": "MIT",
+      "weights_license": null,
+      "weights_license_note": "Inference engine; serves third-party GGUF weights under their own licenses.",
+      "paper_license": null,
+      "paper_license_note": "Not a paper artifact.",
+      "commercial_use": "OK",
+      "commercial_use_note": "MIT; the mission-pinned engine b12359 (v1.0.0) is the qualified engine identity.",
+      "windows_local": "yes (native Windows binaries; mission-pinned engine b12359)",
+      "reuse_class": "REUSE_DIRECTLY (pinned b12359; N02 probe evidence)",
+      "source": {
+        "repo": "https://github.com/ggml-org/llama.cpp",
+        "release": "stable v1.1.0 (2026-11-26); nightly b12811 upstream; mission pin b12359 (v1.0.0)",
+        "engine_behavior": "b12359 rejects backslash-escaped-quote GBNF literals; use [\"] char classes (N02 probe v2 evidence)"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R02_R08_verification.md"
+    },
+    {
+      "id": "R08.2",
+      "name": "LLGuidance",
+      "verification": "VERIFIED",
+      "code_license": "MIT",
+      "weights_license": null,
+      "weights_license_note": "Constraint library; no weights.",
+      "paper_license": null,
+      "paper_license_note": "Not recorded as a paper artifact in the sweep.",
+      "commercial_use": "OK",
+      "commercial_use_note": "MIT (Microsoft-backed).",
+      "windows_local": "UNVERIFIED_FOR_WINDOWS (no Windows wheels confirmed)",
+      "reuse_class": "UNVERIFIED_FOR_WINDOWS (no win wheels confirmed); candidate via llama.cpp build flag (LLAMA_LLGUIDANCE integration optional, default OFF)",
+      "source": {
+        "release": "v1.9.1 (crate + PyPI), active (2026-11-18); ~50 us/token mask; full JSON-schema mask ~1.5 ms; JSON-schema coverage oneOf 68% / allOf 98% / pattern 99% / format 74%; no external $ref; lenient mode"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R02_R08_verification.md"
+    },
+    {
+      "id": "R08.3",
+      "name": "XGrammar",
+      "verification": "VERIFIED",
+      "code_license": "Apache-2.0",
+      "weights_license": null,
+      "weights_license_note": "Constraint library; no weights.",
+      "paper_license": null,
+      "paper_license_note": "XGrammar-2 described in an ACM paper (DOI 10.1145/3786335.3813124, May 2026); text license not recorded in the sweep.",
+      "commercial_use": "OK",
+      "commercial_use_note": "Apache-2.0; default structured backend for vLLM/SGLang/TensorRT-LLM/MLC-LLM.",
+      "windows_local": "yes (native Windows wheels win_amd64/arm64)",
+      "reuse_class": "REUSE_WITH_ADAPTER_CANDIDATE (reference design for M04 if llama.cpp-native path insufficient)",
+      "source": {
+        "release": "v0.2.9 (2026-11-09), active; XGrammar-2 (May 2026): triggered_tags structural DSL, cross-grammar cache (~50% reuse @ 50 tools), repetition compression 100x, up to 80x compilation speedup, batching + speculative decoding, fork/rollback states; v0.x compile-time precompute can cost seconds-to-minutes, v0.2.9 adds opt-in JIT compilation"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R02_R08_verification.md"
+    },
+    {
+      "id": "R09.1",
+      "name": "PocketFlow",
+      "verification": "VERIFIED",
+      "code_license": "MIT",
+      "weights_license": null,
+      "weights_license_note": "Orchestration skeleton; no model artifacts.",
+      "paper_license": null,
+      "paper_license_note": "Not a paper artifact.",
+      "commercial_use": "OK",
+      "commercial_use_note": "MIT; 99 total lines, 0 dependencies.",
+      "windows_local": "yes (pure Python)",
+      "reuse_class": "REUSE_DIRECTLY (skeleton candidate)",
+      "source": {
+        "repo": "https://github.com/The-Pocket/PocketFlow",
+        "release": "0.0.3 (PyPI); Node/Flow with max_retries/wait/exec_fallback; graph/conditional/batch/async; bring-your-own model client; no typed tools"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R07_R09_verification.md"
+    },
+    {
+      "id": "R09.2",
+      "name": "Pydantic AI (pydantic-ai-slim)",
+      "verification": "VERIFIED",
+      "code_license": "MIT",
+      "weights_license": null,
+      "weights_license_note": "Framework; no model artifacts.",
+      "paper_license": null,
+      "paper_license_note": "Not a paper artifact.",
+      "commercial_use": "OK",
+      "commercial_use_note": "MIT; 9 base dependencies.",
+      "windows_local": "yes (Windows wheels verified in the sweep)",
+      "reuse_class": "REUSE_WITH_ADAPTER (typed layer candidate)",
+      "source": {
+        "repo": "https://github.com/pydantic/pydantic-ai",
+        "release": "pydantic-ai-slim 2.76.0 (2026-11-27, PyPI); typed tools, validated structured output, 9 documented retry layers, OpenAICompatibleProvider with weak-backend profiles, VLLM/Ollama support"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R07_R09_verification.md"
+    },
+    {
+      "id": "R09.3",
+      "name": "smolagents",
+      "verification": "VERIFIED",
+      "code_license": "Apache-2.0",
+      "weights_license": null,
+      "weights_license_note": "Framework; no model artifacts.",
+      "paper_license": null,
+      "paper_license_note": "Not recorded as a paper artifact in the sweep.",
+      "commercial_use": "OK",
+      "commercial_use_note": "Apache-2.0; 6 base dependencies.",
+      "windows_local": "pure Python, local-first design (dedicated LlamaCppModel + Transformers/Ollama/LiteLLM); Windows compatibility not explicitly asserted in the sweep",
+      "reuse_class": "REUSE_WITH_ADAPTER (model client + loop patterns)",
+      "source": {
+        "repo": "https://github.com/huggingface/smolagents",
+        "release": "1.26.0 (PyPI); CodeAgent (actions as code) - SLM-relevant; only SDK surveyed with a first-class LlamaCppModel; local executor documented as 'not a security boundary'"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R07_R09_verification.md"
+    },
+    {
+      "id": "R09.4",
+      "name": "LangGraph",
+      "verification": "VERIFIED",
+      "code_license": "MIT",
+      "weights_license": null,
+      "weights_license_note": "Framework; no model artifacts.",
+      "paper_license": null,
+      "paper_license_note": "Not a paper artifact.",
+      "commercial_use": "OK",
+      "commercial_use_note": "MIT; 6 base dependencies but pulls the langchain-core tree.",
+      "windows_local": "not verified in the sweep (model-agnostic, no model client of its own)",
+      "reuse_class": "TECHNICALLY_UNSUITABLE_FOR_MINIMAL (dependency tree)",
+      "source": {
+        "repo": "https://github.com/langchain-ai/langgraph",
+        "release": "1.2.24 (PyPI); durable execution, interrupts, checkpointing"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R07_R09_verification.md"
+    },
+    {
+      "id": "R09.5",
+      "name": "OpenAI Agents SDK",
+      "verification": "VERIFIED",
+      "code_license": "MIT",
+      "weights_license": null,
+      "weights_license_note": "Framework; no model artifacts.",
+      "paper_license": null,
+      "paper_license_note": "Not a paper artifact.",
+      "commercial_use": "OK",
+      "commercial_use_note": "MIT; 14 base dependencies; OpenAI-first defaults; tracing must be disabled when no OpenAI key is used.",
+      "windows_local": "yes (native-Windows documented)",
+      "reuse_class": "RESEARCH_ONLY (B-arm comparator)",
+      "source": {
+        "release": "0.26.0 (PyPI); guardrails, sessions, handoffs; set_default_openai_client(base_url=...) for OpenAI-compatible endpoints"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R07_R09_verification.md"
+    },
+    {
+      "id": "R09.6",
+      "name": "Google ADK",
+      "verification": "VERIFIED",
+      "code_license": "Apache-2.0",
+      "weights_license": null,
+      "weights_license_note": "Framework; no model artifacts.",
+      "paper_license": null,
+      "paper_license_note": "Not a paper artifact.",
+      "commercial_use": "OK",
+      "commercial_use_note": "Apache-2.0; 24 base dependencies (heaviest surveyed: fastapi/uvicorn/google-auth/graphviz).",
+      "windows_local": "not verified in the sweep",
+      "reuse_class": "TECHNICALLY_UNSUITABLE_FOR_MINIMAL",
+      "source": {
+        "release": "2.15.1 (PyPI); workflow agents, callbacks, eval suite; Ollama/vLLM/LiteLLM connectors"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R07_R09_verification.md"
+    },
+    {
+      "id": "R09.7",
+      "name": "DSPy",
+      "verification": "VERIFIED",
+      "code_license": "MIT",
+      "weights_license": null,
+      "weights_license_note": "Framework; no model artifacts.",
+      "paper_license": null,
+      "paper_license_note": "Not recorded as a paper artifact in the sweep.",
+      "commercial_use": "OK",
+      "commercial_use_note": "MIT; 14 base dependencies; LLM judge designed-in for offline tuning (build-time only, not runtime).",
+      "windows_local": "not verified in the sweep",
+      "reuse_class": "RESEARCH_ONLY (N10 optimizer comparator)",
+      "source": {
+        "release": "3.5.0 (PyPI); Signatures + optimizers (GEPA); quickstart uses ollama_chat/llama3.2:1b (explicit 1B)"
+      },
+      "agent_report": "evidence/IJNANO/N01/agent_reports/R07_R09_verification.md"
+    },
+    {
+      "id": "MODEL-S2",
+      "name": "LFM3-1.7B (primary model S2)",
+      "verification": "VERIFIED",
+      "code_license": null,
+      "code_license_note": "Model-weights entry; not a code artifact.",
+      "weights_license": "LFM Open License v1.0",
+      "weights_license_note": "Revenue-conditioned license; research use permitted and unaffected for the research scope of this mission.",
+      "paper_license": null,
+      "paper_license_note": "Not recorded in the N01 sweep.",
+      "commercial_use": "CONDITIONAL",
+      "commercial_use_note": "LFM Open License v1.0 is revenue-conditioned: commercial use above the license's revenue threshold requires a separate commercial arrangement; research use OK (see IJN-B-003).",
+      "windows_local": "yes (served through the pinned llama.cpp engine; local inference is the mission operating mode)",
+      "reuse_class": "PRIMARY_MODEL (S2); not an open-source reuse candidate - weights used under their own license",
+      "source": {
+        "model": "LFM3-1.7B, mission-order primary model S2 (IJ-NANO-1.0/1.1 section 0)",
+        "license_reference": "IJN-B-003; evidence/IJNANO/N01/research_catalog.json cross_cutting_answers.not_commercially_clean"
+      },
+      "agent_report": "evidence/IJNANO/N01/research_catalog.json (cross-cutting license finding; no dedicated agent-report section)"
+    }
+  ]
+}

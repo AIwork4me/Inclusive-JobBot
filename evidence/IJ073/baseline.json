@@ -1,0 +1,195 @@
+{
+  "ambiguous_cases": 29,
+  "ambiguous_groups": 13,
+  "blind_review": [
+    "NOT_RUN",
+    22
+  ],
+  "inputs": {
+    "atlas/benchmarks/pc_p_factorial.json": "d6c2230c028b2b57a1dcc84eb09ec61823f9b2917c3f08a2e14a4bc0396cdb2b",
+    "evidence/IJ07/job_ablation/F/receipt-correction/baseline/primary/records.jsonl.gz": "7be417144bd30839afd37462083b4a53b894599429c01e6f41656b4eed77f4e7",
+    "evidence/IJ07/job_ablation/F/receipt-correction/corrected/primary/records.jsonl.gz": "57a5dbf52fd31dafb12dfe27fdc8ace7d5ebe2b5d8533d21971701f432039cfa",
+    "evidence/IJ072/benchmark_validity/a1-blind-review-packet.json": "182eb2a28ccfd63efe3575aa27cd9b62c3201120955b3a4d35ca32c09f45c027",
+    "evidence/IJ072/benchmark_validity/job-witness.json.gz": "2e5580992bbb9b8b420d104c578f7c464cb62ca222185ff035136e44af6dc283",
+    "evidence/IJ072/benchmark_validity/multitool-witness.json.gz": "0002023f9ab0331ce6be94ee7b4416c5d8e8c541f9f92c313bc076a2a03d9b61",
+    "evidence/IJ072/benchmark_validity/pc-p-factorial-full-four-models.json": "322d0964c3e99731269226d0026c2e7722170b815bb5ceb729881f5efe38894a",
+    "evidence/IJ072/benchmark_validity/pc-s-j-multi-full/terminal.jsonl.gz": "62e92b4b8afeec9e33f7574b9184cf8a7a30639336b3282b78ff1e2f3c10f0a7",
+    "evidence/IJ072/benchmark_validity/pc-s-j-planning-full/planning-part-01.jsonl.gz": "70081e5054ea74195b1377522bbd06aefea8aab8118af6db1cb5725cd18af83f",
+    "evidence/IJ072/benchmark_validity/pc-s-j-planning-full/planning-part-02.jsonl.gz": "875a0ecbe80735f06e940c501acee22d1a24a51874665dc5db03d1c6e8775d3b",
+    "evidence/IJ072/benchmark_validity/pc-s-j-tc/raw.jsonl.gz": "1db1a50babd9717a58452978c7ff64474eef247a85d7e1688b9d020dd41baab0",
+    "evidence/IJ072/benchmark_validity/pc-s-multi/terminal.jsonl.gz": "555e979ea081ceb37369738ade70ae1a33e550e508bff72c390141076bdf8377",
+    "evidence/IJ072/benchmark_validity/pc-s-planning-full/planning-part-01.jsonl.gz": "d852c77bea7b9efcd40940e4584378c98f1a47ec6b2010114b762e5fbdc25c14",
+    "evidence/IJ072/benchmark_validity/pc-s-planning-full/planning-part-02.jsonl.gz": "43fbe89b8fcc6e5b57be13a6fdb115ed9ddda4540586bed369d05789aba766c6",
+    "evidence/IJ072/benchmark_validity/pc-s-tc/raw.jsonl.gz": "8e0259dae81db8c49d5dfdffb98c7b88f842e12840369d2bcd4d38082741828c",
+    "evidence/IJ072/benchmark_validity/planning-advanced-controls.json": "4d2c32557e2a3a59ede5cdac4078c2f25977526a8ef85b7f6f904c270f184936",
+    "evidence/IJ072/benchmark_validity/planning-intent-controls.json": "88c782940cd62b4fcb0a9a7b4d48ee71a4f3330dd62070cecf707c28b877643a",
+    "evidence/IJ072/benchmark_validity/planning-plan-controls.json.gz": "d245f5f547f986c8a65096f3dec81c7dfcb959be91a6a7d50423d33e91223e5e",
+    "evidence/IJ072/benchmark_validity/planning-precondition-controls.json": "d2f2b3ab8ee59a6c09b57d1ed6082f7436d5b696138311bb2be1b196baec3a7c",
+    "evidence/IJ072/benchmark_validity/planning-public-ambiguity.json": "1e152d4418f30838641dbcb13269595384a1633cc855a17e6e3e928895408391",
+    "evidence/IJ072/benchmark_validity/planning-read-controls.json": "e6e72a30404142b679fadc36f1f8840b97e7e258a1eed246b278d5a037840b87",
+    "evidence/IJ072/benchmark_validity/tc-holdout-witness.json": "63b40c0e34da4f60cf93f4aaf477de082dda090acd8ba367477722aa803d57ab",
+    "evidence/IJ072/purpose_built/legacy-job-ab-checkpoint.json": "40349013995f78a534875a58d910229c12255346fb11c7041031c99ed49f042d",
+    "evidence/IJ072/root_causes/rc02-quote-diagnostic.json": "b1787670cda6e6ae12170e640c7e8fcbfebfc11edf94f73b660eb095971e973f"
+  },
+  "job_business_from_checkpoint_summary": {
+    "A": 0,
+    "B": 0
+  },
+  "job_f": {
+    "baseline": {
+      "FAIL": 8,
+      "PASS": 592
+    },
+    "corrected": {
+      "PASS": 600
+    }
+  },
+  "job_sealed": {
+    "A": {
+      "FAIL": 577,
+      "PASS": 23
+    },
+    "B": {
+      "FAIL": 278,
+      "PASS": 22
+    }
+  },
+  "missed_mutations": {
+    "disable_first_action": 562,
+    "require_denied_approval": 40
+  },
+  "plan_errors": {
+    "invalid plan action count": 53,
+    "plan omits initially applicable subgoals": 75
+  },
+  "plan_levels": {
+    "L0": {
+      "PASS": 100
+    },
+    "L1": {
+      "PASS": 100
+    },
+    "L2": {
+      "PASS": 100
+    },
+    "L3": {
+      "PASS": 100
+    },
+    "L4": {
+      "FAIL": 85,
+      "PASS": 15
+    },
+    "L5": {
+      "PASS": 100
+    },
+    "L6": {
+      "PASS": 100
+    },
+    "L7": {
+      "FAIL": 43,
+      "PASS": 57
+    }
+  },
+  "prompt_business": {
+    "FAIL": 1099,
+    "PASS": 53
+  },
+  "prompt_strict": {
+    "FAIL": 1148,
+    "PASS": 4
+  },
+  "quote": {
+    "B": {
+      "facts_correct": 56,
+      "strict": {
+        "FAIL": 80
+      }
+    },
+    "D": {
+      "facts_correct": 80,
+      "strict": {
+        "FAIL": 80
+      }
+    },
+    "F": {
+      "facts_correct": 39,
+      "strict": {
+        "FAIL": 80
+      }
+    },
+    "G": {
+      "facts_correct": 80,
+      "strict": {
+        "FAIL": 80
+      }
+    }
+  },
+  "references": {
+    "14B": {
+      "A": {
+        "FAIL": 125,
+        "PASS": 35
+      },
+      "MULTITOOL": {
+        "FAIL": 75,
+        "PASS": 45
+      },
+      "P": {
+        "FAIL": 160
+      },
+      "TC": {
+        "FAIL": 34,
+        "PASS": 66
+      }
+    },
+    "8B": {
+      "A": {
+        "FAIL": 156,
+        "PASS": 4
+      },
+      "MULTITOOL": {
+        "FAIL": 92,
+        "PASS": 28
+      },
+      "P": {
+        "FAIL": 160
+      },
+      "TC": {
+        "FAIL": 44,
+        "PASS": 56
+      }
+    }
+  },
+  "reviewed_sha": "0ba158cf95cd802ca9f9091d6abc893dce543644",
+  "schema_business": {
+    "FAIL": 463,
+    "PASS": 49
+  },
+  "schema_protocol": {
+    "PASS": 512
+  },
+  "witnesses": {
+    "job-witness.json.gz": {
+      "PASS": 600
+    },
+    "multitool-witness.json.gz": {
+      "PASS": 600
+    },
+    "planning-advanced-controls.json": {
+      "PASS": 400
+    },
+    "planning-intent-controls.json": {
+      "PASS": 100
+    },
+    "planning-plan-controls.json.gz": {
+      "FAIL": 128,
+      "PASS": 672
+    },
+    "planning-read-controls.json": {
+      "PASS": 300
+    },
+    "tc-holdout-witness.json": {
+      "PASS": 500
+    }
+  }
+}

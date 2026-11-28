@@ -1,0 +1,146 @@
+{
+ "trial_id": "e404f45cc744d1a2a10d82be",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "addresses.validate",
+       "reasoning_content": "We need to parse the user's request.\n\nUser says:\n\"Known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n\nCheck whether address ADR-449 is deliverable. 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nWe need to check if address ADR-449 is deliverable. The available tools include addresses.validate which takes address_id as param. So we should call addresses.validate with address_id \"ADR-449\". That seems straightforward.\n\nThus answer: addresses.validate.\n\nBut let's double-check context: Known order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002. The question: \"Check whether address ADR-449 is deliverable.\" So we need to validate the address ADR-449. There's a tool addresses.validate with param address_id. So call that.\n\nThus final answer: addresses.validate\n\nWe must output only the tool name. So just \"addresses.validate\". Possibly case-sensitive? The list shows \"addresses.validate\". Use exactly that.\n\nHence final."
+      }
+     }
+    ],
+    "created": 1795798121,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 417,
+     "prompt_tokens": 242,
+     "total_tokens": 659,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-2z93RvIG0jN3BYF56NjVHMtZWwjc3Sg3",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request.\n\nUser says:\n\"Known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n\nCheck whether address ADR-449 is deliverable. 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nWe need to check if address ADR-449 is deliverable. The available tools include addresses.validate which takes address_id as param. So we should call addresses.validate with address_id \"ADR-449\". That seems straightforward.\n\nThus answer: addresses.validate.\n\nBut let's double-check context: Known order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002. The question: \"Check whether address ADR-449 is deliverable.\" So we need to validate the address ADR-449. There's a tool addresses.validate with param address_id. So call that.\n\nThus final answer: addresses.validate\n\nWe must output only the tool name. So just \"addresses.validate\". Possibly case-sensitive? The list shows \"addresses.validate\". Use exactly that.\n\nHence final.</think>addresses.validate",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 417,
+     "tokens_evaluated": 242,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\nKnown: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\nCheck whether address ADR-449 is deliverable. 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 658,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 242,
+      "prompt_ms": 49.102,
+      "prompt_per_token_ms": 0.202900826446281,
+      "prompt_per_second": 4928.516150054988,
+      "predicted_n": 417,
+      "predicted_ms": 2421.378,
+      "predicted_per_token_ms": 5.820620192307692,
+      "predicted_per_second": 171.8029981275125
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 242,
+     "prompt_ms": 49.102,
+     "prompt_per_token_ms": 0.202900826446281,
+     "prompt_per_second": 4928.516150054988,
+     "predicted_n": 417,
+     "predicted_ms": 2421.378,
+     "predicted_per_token_ms": 5.820620192307692,
+     "predicted_per_second": 171.8029981275125
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.468
+  }
+ ]
+}

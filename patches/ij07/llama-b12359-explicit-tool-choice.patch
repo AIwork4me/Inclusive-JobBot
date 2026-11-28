@@ -1,0 +1,16 @@
+diff --git a/tools/server/server-common.cpp b/tools/server/server-common.cpp
+index 0013c09..684b8d0 100644
+--- a/tools/server/server-common.cpp
++++ b/tools/server/server-common.cpp
+@@ -1422,6 +1422,11 @@ json oaicompat_chat_params_parse(
+     auto tools = json_value(body, "tools", json());
+     auto has_tools = tools.is_array() && !tools.empty();
+     auto stream = json_value(body, "stream", false);
++    // This path supports string tool choices. Do not silently weaken an
++    // explicit selection to auto when the request uses an unsupported type.
++    if (body.contains("tool_choice") && !body.at("tool_choice").is_null() && !body.at("tool_choice").is_string()) {
++        throw std::invalid_argument("tool_choice must be auto, none, or required");
++    }
+     auto tool_choice = json_value(body, "tool_choice", std::string("auto"));
+ 
+     if (!opt.use_jinja) {

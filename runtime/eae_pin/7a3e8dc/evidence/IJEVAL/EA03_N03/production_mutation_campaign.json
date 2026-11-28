@@ -1,0 +1,857 @@
+{
+ "schema": "ijeval.ea03_n03.production_mutation_campaign.v1",
+ "generated_utc": "2026-11-28T03:23:35Z",
+ "detection_rule": "a fault is DETECTED when any witness classification changes from its clean expected value under the fault-injected production leg (dual-path disagreement, class collapse or software-error surfacing)",
+ "faults": [
+  {
+   "fault": "P02_duplicate_keys_accepted",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C01-helpdesk-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C01-smarthome-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-personal-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-project-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C06-plan-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C06-supplier-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-itops-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-service-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C08-biztools-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C08-dataplatform-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 10
+  },
+  {
+   "fault": "P03_drop_extra_fields",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C02-personal-extra",
+     "kind": "negative-extra-field",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-project-extra",
+     "kind": "negative-extra-field",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "P04_default_missing_fields",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C02-personal-missing",
+     "kind": "negative-missing-field",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-project-missing",
+     "kind": "negative-missing-field",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "P05_empty_as_incorrect",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C01-helpdesk-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C01-smarthome-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-personal-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-project-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C03-formatting-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C03-formfill-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C04-docs-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C04-retail-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C05-fulfill-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C05-returns-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C06-plan-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C06-supplier-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 16
+  },
+  {
+   "fault": "P06_empty_as_software",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C01-helpdesk-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C01-smarthome-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C02-personal-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C02-project-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C03-formatting-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C03-formfill-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C04-docs-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C04-retail-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C05-fulfill-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C05-returns-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C06-plan-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C06-supplier-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    }
+   ],
+   "detection_count": 16
+  },
+  {
+   "fault": "P08_hedge_unparseable",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C05-fulfill-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C05-fulfill-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C05-returns-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C05-returns-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "PARSER_SOFTWARE_ERROR"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "P09_markers_tolerated",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C03-formatting-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C03-formatting-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "P10_multiline_label_first",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C01-helpdesk-multiline",
+     "kind": "negative-multiline",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C01-smarthome-multiline",
+     "kind": "negative-multiline",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C06-plan-multiline",
+     "kind": "negative-multiline",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C06-supplier-multiline",
+     "kind": "negative-multiline",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-itops-multiline",
+     "kind": "negative-multiline",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-service-multiline",
+     "kind": "negative-multiline",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C08-biztools-multiline",
+     "kind": "negative-multiline",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C08-dataplatform-multiline",
+     "kind": "negative-multiline",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 8
+  },
+  {
+   "fault": "P11_identity_case_change",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C01-helpdesk-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C01-helpdesk-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C01-smarthome-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C01-smarthome-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-itops-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-itops-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-service-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-service-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C08-biztools-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C08-biztools-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C08-dataplatform-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C08-dataplatform-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 12
+  },
+  {
+   "fault": "P12_fences_not_stripped",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C01-helpdesk-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C01-smarthome-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-personal-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-project-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C03-formfill-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C05-fulfill-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C05-returns-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C06-plan-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C06-supplier-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-itops-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-service-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C08-biztools-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 13
+  },
+  {
+   "fault": "P13_predicate_dropped",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C02-personal-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-personal-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-project-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-project-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "P14_empty_list_not_explicit",
+   "verdict": "EQUIVALENT",
+   "detected": false,
+   "equivalent_justification": "No dev C04 case has an empty truth id-set and no case's first payload item equals a single-id truth, so the fallback guess never flips any witness verdict (checked exhaustively over the 160 dev expectations). Control stays active for datasets with empty-result C04 truths.",
+   "detections": [],
+   "detection_count": 0
+  },
+  {
+   "fault": "E01_any_catalog_member",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C01-helpdesk-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C01-smarthome-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-itops-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C07-service-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "E02_c04_subset_match",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C04-docs-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C04-retail-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "E03_flags_ignored",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C02-personal-flags",
+     "kind": "negative-flags-flip",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-project-flags",
+     "kind": "negative-flags-flip",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "E04_structural_conflation",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C01-helpdesk-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C01-helpdesk-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C01-helpdesk-multiline",
+     "kind": "negative-multiline",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C01-smarthome-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C01-smarthome-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C01-smarthome-multiline",
+     "kind": "negative-multiline",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C02-personal-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C02-personal-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C02-personal-extra",
+     "kind": "negative-extra-field",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C02-personal-missing",
+     "kind": "negative-missing-field",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C02-project-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C02-project-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 44
+  },
+  {
+   "fault": "E05_alternatives_ignored",
+   "verdict": "EQUIVALENT",
+   "detected": false,
+   "equivalent_justification": "Stored dev expectations carry descriptive alternatives only ('ties in unspecified keys may differ' / 'no alternatives') and no winners arrays, so production CORRECT never depends on the alternatives field on this dataset. Control stays active for datasets with answer-bearing alternatives.",
+   "detections": [],
+   "detection_count": 0
+  },
+  {
+   "fault": "E06_inverted_decision",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C05-fulfill-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C05-fulfill-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C05-fulfill-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C05-returns-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C05-returns-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C05-returns-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 6
+  },
+  {
+   "fault": "E07_c03_order_insensitive",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C03-formatting-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 1
+  },
+  {
+   "fault": "E08_c02_action_only",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C02-personal-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-personal-flags",
+     "kind": "negative-flags-flip",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-project-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C02-project-flags",
+     "kind": "negative-flags-flip",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 4
+  }
+ ],
+ "summary": {
+  "faults": 20,
+  "detected": 18,
+  "equivalent": 2,
+  "escapes": []
+ }
+}

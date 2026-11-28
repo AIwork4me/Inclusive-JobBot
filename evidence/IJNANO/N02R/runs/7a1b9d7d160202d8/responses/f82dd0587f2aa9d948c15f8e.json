@@ -1,0 +1,152 @@
+{
+ "trial_id": "f82dd0587f2aa9d948c15f8e",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "A5",
+       "reasoning_content": "We need to parse the user's query. The user says: \"可选动作 / available actions: ... 客户只问包裹到哪了，没有别的要求。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The customer asks \"包裹到哪了?\" which translates to \"Where is the package?\" or \"Where did the package go?\" They want to know the location/tracking of their shipment. Among the available actions, there is A5: 查询物流轨迹 / trace the shipment. That matches asking about where the package is.\n\nThus we need to output only the action label for that. The user says \"只回答动作编号。\" meaning answer with the action number/label only.\n\nSo the correct action is A5 (查询物流轨迹). Let's double-check: Options:\nA1. 换货: exchange item on ORD-3319\nA2. 退款: refund for ORD-3319\nA3. apologize and close ticket\nA4. escalate to human agent\nA5. trace shipment (查询物流轨迹)\nA6. send delay notification\n\nThe question is about package location, so A5.\n\nThus final answer: \"A5\"."
+      }
+     }
+    ],
+    "created": 1795793838,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 267,
+     "prompt_tokens": 256,
+     "total_tokens": 523,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-DeHjz8kwsk4M5dVQYTxkYaHGxu1LY4me",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. The user says: \"可选动作 / available actions: ... 客户只问包裹到哪了，没有别的要求。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The customer asks \"包裹到哪了?\" which translates to \"Where is the package?\" or \"Where did the package go?\" They want to know the location/tracking of their shipment. Among the available actions, there is A5: 查询物流轨迹 / trace the shipment. That matches asking about where the package is.\n\nThus we need to output only the action label for that. The user says \"只回答动作编号。\" meaning answer with the action number/label only.\n\nSo the correct action is A5 (查询物流轨迹). Let's double-check: Options:\nA1. 换货: exchange item on ORD-3319\nA2. 退款: refund for ORD-3319\nA3. apologize and close ticket\nA4. escalate to human agent\nA5. trace shipment (查询物流轨迹)\nA6. send delay notification\n\nThe question is about package location, so A5.\n\nThus final answer: \"A5\".</think>A5",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 267,
+     "tokens_evaluated": 256,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"action\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"action\": {\"type\": \"string\", \"enum\": [\"A1\", \"A2\", \"A3\", \"A4\", \"A5\", \"A6\"]}}, \"required\": [\"action\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\n可选动作 / available actions:\nA1. 换货：为客户 ORD-3319 创建换货单 / exchange the item on ORD-3319\nA2. 退款：为 ORD-3319 提交退款 / submit a refund for ORD-3319\nA3. 仅道歉并关闭工单 / apologize and close the ticket\nA4. 升级人工客服 / escalate to a human agent\nA5. 查询物流轨迹 / trace the shipment\nA6. 发送延迟通知 / send a delay notification\n客户只问包裹到哪了，没有别的要求。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 522,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 256,
+      "prompt_ms": 44.24,
+      "prompt_per_token_ms": 0.1728125,
+      "prompt_per_second": 5786.618444846293,
+      "predicted_n": 267,
+      "predicted_ms": 1549.39,
+      "predicted_per_token_ms": 5.824774436090226,
+      "predicted_per_second": 171.68046779700398
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 256,
+     "prompt_ms": 44.24,
+     "prompt_per_token_ms": 0.1728125,
+     "prompt_per_second": 5786.618444846293,
+     "predicted_n": 267,
+     "predicted_ms": 1549.39,
+     "predicted_per_token_ms": 5.824774436090226,
+     "predicted_per_second": 171.68046779700398
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.609
+  }
+ ]
+}

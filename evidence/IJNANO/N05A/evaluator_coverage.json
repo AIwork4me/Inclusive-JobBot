@@ -1,0 +1,167 @@
+{
+ "schema_version": 1,
+ "mission": "IJ-NANO-1.1",
+ "phase": "N05A",
+ "generated_utc": "2026-11-27T12:33:25Z",
+ "scope": "cognitive evaluator qualification only; never grants end-to-end business Oracle qualification",
+ "families": 12,
+ "total_cases": 41,
+ "positives": 17,
+ "negatives": 24,
+ "rules": {
+  "BRANCH_MISMATCH": [
+   "branch.neg.wrong"
+  ],
+  "CLARIFICATION_MISMATCH": [
+   "clar.neg.wrong_topics"
+  ],
+  "DECISION_MISMATCH": [
+   "stop.neg.premature",
+   "stop.neg.unnecessary"
+  ],
+  "ENTITY_MISMATCH": [
+   "action.neg.wrong_entity",
+   "entity.neg.wrong_entity",
+   "state.neg.wrong_entity"
+  ],
+  "EXTRA_ASSERTION": [
+   "action.neg.extra_assertion",
+   "entity.neg.extra",
+   "slot.neg.extra"
+  ],
+  "GOAL_MISMATCH": [
+   "goal.neg.wrong_params"
+  ],
+  "INTENT_MISMATCH": [
+   "intent.neg.wrong"
+  ],
+  "MISSING_SLOT": [
+   "action.neg.missing_slot",
+   "slot.neg.missing"
+  ],
+  "RECOVERY_INVALID": [
+   "recovery.neg.invalid"
+  ],
+  "TOOL_MISMATCH": [
+   "action.neg.wrong_tool",
+   "tool.neg.wrong_tool"
+  ],
+  "TYPE_MISMATCH": [
+   "num.neg.type"
+  ],
+  "UNIT_INVALID": [
+   "num.neg.unit_invalid"
+  ],
+  "UNIT_MISMATCH": [
+   "num.neg.unit_mismatch"
+  ],
+  "VALUE_MISMATCH": [
+   "num.neg.wrong_value",
+   "slot.neg.polarity",
+   "slot.neg.wrong_enum",
+   "state.neg.wrong_polarity"
+  ]
+ },
+ "coverage_per_family": {
+  "intent": {
+   "positives": 2,
+   "negatives": 1,
+   "reason_codes": [
+    "INTENT_MISMATCH"
+   ]
+  },
+  "goal": {
+   "positives": 1,
+   "negatives": 1,
+   "reason_codes": [
+    "GOAL_MISMATCH"
+   ]
+  },
+  "tool_selection": {
+   "positives": 1,
+   "negatives": 1,
+   "reason_codes": [
+    "TOOL_MISMATCH"
+   ]
+  },
+  "action_representation": {
+   "positives": 2,
+   "negatives": 4,
+   "reason_codes": [
+    "ENTITY_MISMATCH",
+    "EXTRA_ASSERTION",
+    "MISSING_SLOT",
+    "TOOL_MISMATCH"
+   ]
+  },
+  "entity_reference": {
+   "positives": 2,
+   "negatives": 2,
+   "reason_codes": [
+    "ENTITY_MISMATCH",
+    "EXTRA_ASSERTION"
+   ]
+  },
+  "slot_value": {
+   "positives": 1,
+   "negatives": 4,
+   "reason_codes": [
+    "EXTRA_ASSERTION",
+    "MISSING_SLOT",
+    "VALUE_MISMATCH"
+   ]
+  },
+  "numeric_value_unit": {
+   "positives": 2,
+   "negatives": 4,
+   "reason_codes": [
+    "TYPE_MISMATCH",
+    "UNIT_INVALID",
+    "UNIT_MISMATCH",
+    "VALUE_MISMATCH"
+   ]
+  },
+  "state_interpretation": {
+   "positives": 1,
+   "negatives": 2,
+   "reason_codes": [
+    "ENTITY_MISMATCH",
+    "VALUE_MISMATCH"
+   ]
+  },
+  "conditional_branch": {
+   "positives": 1,
+   "negatives": 1,
+   "reason_codes": [
+    "BRANCH_MISMATCH"
+   ]
+  },
+  "recovery_action": {
+   "positives": 1,
+   "negatives": 1,
+   "reason_codes": [
+    "RECOVERY_INVALID"
+   ]
+  },
+  "stop_continue": {
+   "positives": 1,
+   "negatives": 2,
+   "reason_codes": [
+    "DECISION_MISMATCH"
+   ]
+  },
+  "clarification": {
+   "positives": 2,
+   "negatives": 1,
+   "reason_codes": [
+    "CLARIFICATION_MISMATCH"
+   ]
+  }
+ },
+ "qualification": {
+  "battery_positives_pass": true,
+  "every_negative_single_intended_reason": true,
+  "mutation_tests": "each scoring rule is load-bearing: a mutant dropping any rule wrongly accepts at least one critical negative (tests/ij_nano/test_n05a_mutation.py)",
+  "substring_matching": "rejected as primary method (demonstrated by the substring-entity mutant test)"
+ }
+}

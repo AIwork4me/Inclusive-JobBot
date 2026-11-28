@@ -1,0 +1,162 @@
+{
+ "trial_id": "01568d77315772380e5297d1",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to decide whether to stop or continue based on the given information.\n\nGoal: \"TRK-65140 delivered.\" (i.e., goal is that shipment TRK-65140 has been delivered)\nObservation: carrier reports out-for-delivery.\nDecision: stop or continue?\n\nInterpretation: The goal is delivery. Currently, the observation says \"out-for-delivery\". That means the carrier has handed it off to the delivery driver and it's in transit to the destination. Typically, when a package is \"out for delivery\", it's on its way and should be delivered soon. So we might want to continue monitoring or perhaps stop? The user asks: \"决定 stop 还是 continue。\" (Decide stop or continue.)\n\nGiven that the goal is already achieved (\"delivered\"), but currently observation says \"out-for-delivery\". This seems like a status update before actual delivery. If the carrier reports out-for-delivery, it means it's still in transit and not yet delivered. So we should probably continue to wait for delivery? Or maybe since the goal was \"delivered\", and now it's just out for delivery (i.e., about to be delivered), perhaps we need to decide whether to stop tracking or continue.\n\nBut let's think: In logistics, if a package is \"out for delivery\", it means the carrier has left it at the local facility and is on its way. The goal was that it should have been delivered. So maybe we want to continue until it's actually delivered? Or perhaps we can consider that since it's out for delivery, it might be close to delivery, but not yet done. Usually, you'd continue monitoring.\n\nHowever, the user explicitly says: \"目标 / goal: goal: TRK-65140 delivered. 当前观测 / observation: carrier reports out-for-delivery. 决定 stop 还是 continue。 / Decide stop or continue.\"\n\nGiven that the goal is delivery and currently it's out for delivery (i.e., not yet delivered), I'd lean towards \"continue\" because we need to wait for it to be delivered. But maybe there's a nuance: If the carrier reports out-for-delivery, perhaps they consider that as the final stage before delivery? Actually, \"out for delivery\" typically means it's on the truck heading to customers; delivery hasn't happened yet. So you'd continue.\n\nBut let's see if any tool is needed. There's a function `record_answer` with parameter `decision`. It says: \"Record the chosen answer (structured answer recording, not business tool execution).\" So we need to call that with decision \"stop\" or \"continue\". The user asks us to decide.\n\nThus I should output the appropriate tool call. Let's choose \"continue\".\n\nSo I will invoke `record_answer` with {\"decision\": \"continue\"}.",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"decision\":\"continue\"}"
+         },
+         "id": "1eMeavzWkv6XFSZJyP218Gvwgzlia1pU"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795798021,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 608,
+     "prompt_tokens": 128,
+     "total_tokens": 736,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-9x1Q6eibB3fcWHDvQ0fNSreFPEAi7a96",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to decide whether to stop or continue based on the given information.\n\nGoal: \"TRK-65140 delivered.\" (i.e., goal is that shipment TRK-65140 has been delivered)\nObservation: carrier reports out-for-delivery.\nDecision: stop or continue?\n\nInterpretation: The goal is delivery. Currently, the observation says \"out-for-delivery\". That means the carrier has handed it off to the delivery driver and it's in transit to the destination. Typically, when a package is \"out for delivery\", it's on its way and should be delivered soon. So we might want to continue monitoring or perhaps stop? The user asks: \"决定 stop 还是 continue。\" (Decide stop or continue.)\n\nGiven that the goal is already achieved (\"delivered\"), but currently observation says \"out-for-delivery\". This seems like a status update before actual delivery. If the carrier reports out-for-delivery, it means it's still in transit and not yet delivered. So we should probably continue to wait for delivery? Or maybe since the goal was \"delivered\", and now it's just out for delivery (i.e., about to be delivered), perhaps we need to decide whether to stop tracking or continue.\n\nBut let's think: In logistics, if a package is \"out for delivery\", it means the carrier has left it at the local facility and is on its way. The goal was that it should have been delivered. So maybe we want to continue until it's actually delivered? Or perhaps we can consider that since it's out for delivery, it might be close to delivery, but not yet done. Usually, you'd continue monitoring.\n\nHowever, the user explicitly says: \"目标 / goal: goal: TRK-65140 delivered. 当前观测 / observation: carrier reports out-for-delivery. 决定 stop 还是 continue。 / Decide stop or continue.\"\n\nGiven that the goal is delivery and currently it's out for delivery (i.e., not yet delivered), I'd lean towards \"continue\" because we need to wait for it to be delivered. But maybe there's a nuance: If the carrier reports out-for-delivery, perhaps they consider that as the final stage before delivery? Actually, \"out for delivery\" typically means it's on the truck heading to customers; delivery hasn't happened yet. So you'd continue.\n\nBut let's see if any tool is needed. There's a function `record_answer` with parameter `decision`. It says: \"Record the chosen answer (structured answer recording, not business tool execution).\" So we need to call that with decision \"stop\" or \"continue\". The user asks us to decide.\n\nThus I should output the appropriate tool call. Let's choose \"continue\".\n\nSo I will invoke `record_answer` with {\"decision\": \"continue\"}.</think><tool_call>\n<function=record_answer>\n<parameter=decision>\ncontinue\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 608,
+     "tokens_evaluated": 128,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"decision\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"decision\": {\"type\": \"string\", \"enum\": [\"stop\", \"continue\"]}}, \"required\": [\"decision\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\n目标 / goal: goal: TRK-65140 delivered. 当前观测 / observation: carrier reports out-for-delivery.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 735,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 128,
+      "prompt_ms": 36.429,
+      "prompt_per_token_ms": 0.2846015625,
+      "prompt_per_second": 3513.6841527354577,
+      "predicted_n": 608,
+      "predicted_ms": 3525.952,
+      "predicted_per_token_ms": 5.8088171334431635,
+      "predicted_per_second": 172.15208828707821
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 128,
+     "prompt_ms": 36.429,
+     "prompt_per_token_ms": 0.2846015625,
+     "prompt_per_second": 3513.6841527354577,
+     "predicted_n": 608,
+     "predicted_ms": 3525.952,
+     "predicted_per_token_ms": 5.8088171334431635,
+     "predicted_per_second": 172.15208828707821
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.562
+  }
+ ]
+}

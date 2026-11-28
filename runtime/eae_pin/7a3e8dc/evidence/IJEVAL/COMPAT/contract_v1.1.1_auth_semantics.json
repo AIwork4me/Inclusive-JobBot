@@ -1,0 +1,23 @@
+{
+ "schema": "ijeval.compat.execution_authorization.contract",
+ "schema_version": "1.1.1",
+ "supersedes": "1.1.0",
+ "changed_utc": "2026-11-28T03:10:06Z",
+ "change": "authorization-semantics correction to the frozen IJ-NANO-1.3S contract",
+ "frozen_contract_levels": {
+  "AUTH-0": "SOFTWARE_PREPARATION (CPU only; no dispatch authorization needed)",
+  "AUTH-1": "DIAGNOSTIC_SMOKE",
+  "AUTH-2": "SCOPED_DEVELOPMENT_BENCHMARK",
+  "AUTH-3": "SCOPED_CONFIRMATION_BENCHMARK (protected confirmation)"
+ },
+ "corrections": [
+  "CONFIRMATION_LEVEL 'AUTH-2' -> 'AUTH-3' (only AUTH-3 authorizes protected confirmation execution)",
+  "symmetric enforcement: AUTH-3 always requires confirmation_execution coverage",
+  "new roster_split field (development|confirmation) with evidence-level invariant confirmation_execution <=> roster_split=='confirmation'",
+  "sub-confirmation levels (AUTH-1/AUTH-2) require development-split evidence"
+ ],
+ "reproduction_evidence": "evidence/IJEVAL/COMPAT/auth_semantics_mismatch_9c73bbf.json",
+ "wire_format": "unchanged (authorization schema 1.1.0)",
+ "consumer_action": "re-pin to the EAE_CONTRACT_REVISION=1.1.1 commit; pass confirmation_execution=True only for AUTH-3 runs",
+ "controls": "test_control_15_confirmation_scope_gated (corrected), test_control_17_roster_split_enforcement (new)"
+}

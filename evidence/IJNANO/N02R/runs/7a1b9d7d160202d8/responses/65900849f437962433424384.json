@@ -1,0 +1,148 @@
+{
+ "trial_id": "65900849f437962433424384",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "Action: inventory.adjust_stock  \nParameters: sku=\"SKU-5519\", quantity=40",
+       "reasoning_content": "We need to produce a \"full action: tool and all arguments.\" The user gave an item SKU-5519: quantity change 40 pcs. They want to generate a complete action using the tools. The tools listed are inventory.check_stock, inventory.adjust_stock, inventory.reserve_stock, warehouse.locate_bin, receiving.log_arrival, picking.create_task, reports.export_snapshot, alerts.raise_low_stock. The user says \"Item SKU-5519: quantity change 40 pcs.\" So we need to decide which tool to use. The quantity change 40 pcs could be an adjustment to stock. inventory.adjust_stock is for adjusting stock (params: sku, quantity). So likely we need to call inventory.adjust_stock with sku \"SKU-5519\" and quantity 40. But maybe we need to check current stock first? The prompt says \"生成完整动作：工具与全部参数。\" which means \"Produce the full action: tool and all arguments.\" So we need to output the tool name and arguments. Possibly we need to produce a sequence of actions? The user gave a single item with quantity change 40 pcs. The tools include adjust_stock, reserve_stock, check_stock, etc. The most direct is inventory.adjust_stock. But maybe we need to ensure stock is available? The prompt is ambiguous. It might be a test of following instructions: given the item and quantity change, produce the full action (tool and arguments). So we should output something like:\n\ntool: inventory.adjust_stock\narguments: {\"sku\": \"SKU-5519\", \"quantity\": 40}\n\nBut the user might expect a more detailed action, like checking stock first? The phrase \"生成完整动作\" could mean \"generate the complete action\" i.e., the action to perform. Since the quantity change is 40 pcs, we need to adjust stock by 40. So inventory.adjust_stock is appropriate. However, we might also need to consider if we need to raise low stock alert? Not mentioned. So just adjust stock.\n\nBut the user might be expecting a JSON or a specific format. The prompt says \"Produce the full action: tool and all arguments.\" So we should output the tool name and the arguments. Possibly we need to include the parameters in a structured way. I'll output:\n\nAction: inventory.adjust_stock\nParameters: sku=\"SKU-5519\", quantity=40\n\nOr maybe they want a list of steps? The tools are separate. The user might be simulating a workflow. The instruction: \"生成完整动作：工具与全部参数。\" So I'll provide the tool and arguments.\n\nI'll respond with the tool and arguments.\n"
+      }
+     }
+    ],
+    "created": 1795794374,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 602,
+     "prompt_tokens": 214,
+     "total_tokens": 816,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-VZp13avJFxaEPLpGxyWFeSaGnBg9tuBk",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to produce a \"full action: tool and all arguments.\" The user gave an item SKU-5519: quantity change 40 pcs. They want to generate a complete action using the tools. The tools listed are inventory.check_stock, inventory.adjust_stock, inventory.reserve_stock, warehouse.locate_bin, receiving.log_arrival, picking.create_task, reports.export_snapshot, alerts.raise_low_stock. The user says \"Item SKU-5519: quantity change 40 pcs.\" So we need to decide which tool to use. The quantity change 40 pcs could be an adjustment to stock. inventory.adjust_stock is for adjusting stock (params: sku, quantity). So likely we need to call inventory.adjust_stock with sku \"SKU-5519\" and quantity 40. But maybe we need to check current stock first? The prompt says \"生成完整动作：工具与全部参数。\" which means \"Produce the full action: tool and all arguments.\" So we need to output the tool name and arguments. Possibly we need to produce a sequence of actions? The user gave a single item with quantity change 40 pcs. The tools include adjust_stock, reserve_stock, check_stock, etc. The most direct is inventory.adjust_stock. But maybe we need to ensure stock is available? The prompt is ambiguous. It might be a test of following instructions: given the item and quantity change, produce the full action (tool and arguments). So we should output something like:\n\ntool: inventory.adjust_stock\narguments: {\"sku\": \"SKU-5519\", \"quantity\": 40}\n\nBut the user might expect a more detailed action, like checking stock first? The phrase \"生成完整动作\" could mean \"generate the complete action\" i.e., the action to perform. Since the quantity change is 40 pcs, we need to adjust stock by 40. So inventory.adjust_stock is appropriate. However, we might also need to consider if we need to raise low stock alert? Not mentioned. So just adjust stock.\n\nBut the user might be expecting a JSON or a specific format. The prompt says \"Produce the full action: tool and all arguments.\" So we should output the tool name and the arguments. Possibly we need to include the parameters in a structured way. I'll output:\n\nAction: inventory.adjust_stock\nParameters: sku=\"SKU-5519\", quantity=40\n\nOr maybe they want a list of steps? The tools are separate. The user might be simulating a workflow. The instruction: \"生成完整动作：工具与全部参数。\" So I'll provide the tool and arguments.\n\nI'll respond with the tool and arguments.\n</think>\n\nAction: inventory.adjust_stock  \nParameters: sku=\"SKU-5519\", quantity=40",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 602,
+     "tokens_evaluated": 214,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\nItem SKU-5519: quantity change 40 pcs.\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 815,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 214,
+      "prompt_ms": 45.316,
+      "prompt_per_token_ms": 0.21175700934579442,
+      "prompt_per_second": 4722.393856474534,
+      "predicted_n": 602,
+      "predicted_ms": 3317.245,
+      "predicted_per_token_ms": 5.519542429284526,
+      "predicted_per_second": 181.17443842706822
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 214,
+     "prompt_ms": 45.316,
+     "prompt_per_token_ms": 0.21175700934579442,
+     "prompt_per_second": 4722.393856474534,
+     "predicted_n": 602,
+     "predicted_ms": 3317.245,
+     "predicted_per_token_ms": 5.519542429284526,
+     "predicted_per_second": 181.17443842706822
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.359
+  }
+ ]
+}

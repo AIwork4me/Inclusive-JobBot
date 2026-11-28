@@ -1,0 +1,146 @@
+{
+ "trial_id": "2288e6ba88548a215e7161c1",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"tool\": \"customs.declare_value\"\n}",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A known order (ORD-2025), customer (C-77), SKU (SKU-8806), tracking number (TRK-65140).\n    *   Available Tools: `logistics.trace_shipment`, `logistics.reroute_shipment`, `logistics.estimate_delivery`, `addresses.validate`, `customs.declare_value`, `labels.generate`, `couriers.list_rates`, `escalations.open_case`.\n    *   Task: Declare customs value for tracking TRK-65140.\n    *   Constraint: Answer with the tool name only.\n\n2.  **Identify the Relevant Tool:**\n    *   The user wants to \"申报关税价值\" (declare customs value).\n    *   Looking at the available tools, `customs.declare_value` matches this action.\n    *   Parameters for `customs.declare_value` are `tracking_no` and `amount`.\n    *   The input provides `tracking_no` (TRK-65140).\n    *   The prompt asks to answer with the tool name only.\n\n3.  **Check Constraints:**\n    *   \"只回答要调用的工具名\" (Answer with the tool name only).\n    *   So I should not include explanations, parameters, or the full tool definition. Just the name.\n\n4.  **Formulate Output:**\n    *   Tool Name: `customs.declare_value`\n\n5.  **Final Verification:**\n    *   Does `customs.declare_value` fit the task \"申报关税价值\"? Yes.\n    *   Is it the only tool needed? Yes, based on the instruction to declare customs value.\n    *   Is the output format correct? Yes, just the name.\n\n6.  **Construct Final Response:**\n    *   `customs.declare_value`"
+      }
+     }
+    ],
+    "created": 1795797411,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 438,
+     "prompt_tokens": 245,
+     "total_tokens": 683,
+     "prompt_tokens_details": {
+      "cached_tokens": 241
+     }
+    },
+    "id": "chatcmpl-8vJUx7KGbykB0Azt0RYSmzJBiROV3rMM",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A known order (ORD-2025), customer (C-77), SKU (SKU-8806), tracking number (TRK-65140).\n    *   Available Tools: `logistics.trace_shipment`, `logistics.reroute_shipment`, `logistics.estimate_delivery`, `addresses.validate`, `customs.declare_value`, `labels.generate`, `couriers.list_rates`, `escalations.open_case`.\n    *   Task: Declare customs value for tracking TRK-65140.\n    *   Constraint: Answer with the tool name only.\n\n2.  **Identify the Relevant Tool:**\n    *   The user wants to \"申报关税价值\" (declare customs value).\n    *   Looking at the available tools, `customs.declare_value` matches this action.\n    *   Parameters for `customs.declare_value` are `tracking_no` and `amount`.\n    *   The input provides `tracking_no` (TRK-65140).\n    *   The prompt asks to answer with the tool name only.\n\n3.  **Check Constraints:**\n    *   \"只回答要调用的工具名\" (Answer with the tool name only).\n    *   So I should not include explanations, parameters, or the full tool definition. Just the name.\n\n4.  **Formulate Output:**\n    *   Tool Name: `customs.declare_value`\n\n5.  **Final Verification:**\n    *   Does `customs.declare_value` fit the task \"申报关税价值\"? Yes.\n    *   Is it the only tool needed? Yes, based on the instruction to declare customs value.\n    *   Is the output format correct? Yes, just the name.\n\n6.  **Construct Final Response:**\n    *   `customs.declare_value`\n</think>\n\n{\n  \"tool\": \"customs.declare_value\"\n}",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 438,
+     "tokens_evaluated": 245,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-tool-kv space \"}\"\nresponse-format-tool ::= (\"\\\"logistics.trace_shipment\\\"\" | \"\\\"logistics.reroute_shipment\\\"\" | \"\\\"logistics.estimate_delivery\\\"\" | \"\\\"addresses.validate\\\"\" | \"\\\"customs.declare_value\\\"\" | \"\\\"labels.generate\\\"\" | \"\\\"couriers.list_rates\\\"\" | \"\\\"escalations.open_case\\\"\")\nresponse-format-tool-kv ::= \"\\\"tool\\\"\" space \":\" space response-format-tool\nroot ::= \"<|im_start|>assistant\\n\" (\"<think>\" space until-1 (\"\\n</think>\" | \"</think>\" | ))? space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-1 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<] until-1\nuntil-1-01 ::= | [\\n] until-1-01 | [<] until-1-02 | [^\\n<] until-1\nuntil-1-02 ::= | [\\n] until-1-01 | [/] until-1-03 | [<] until-1-10 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-03 ::= | [\\n] until-1-01 | [t] until-1-04 | [<] until-1-10 | [^\\n<t] until-1\nuntil-1-04 ::= | [\\n] until-1-01 | [h] until-1-05 | [<] until-1-10 | [^\\n<h] until-1\nuntil-1-05 ::= | [\\n] until-1-01 | [i] until-1-06 | [<] until-1-10 | [^\\n<i] until-1\nuntil-1-06 ::= | [\\n] until-1-01 | [n] until-1-07 | [<] until-1-10 | [^\\n<n] until-1\nuntil-1-07 ::= | [\\n] until-1-01 | [k] until-1-08 | [<] until-1-10 | [^\\n<k] until-1\nuntil-1-08 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-10 ::= | [\\n] until-1-01 | [<] until-1-10 | [/] until-1-11 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-11 ::= | [\\n] until-1-01 | [<] until-1-10 | [t] until-1-12 | [^\\n<t] until-1\nuntil-1-12 ::= | [\\n] until-1-01 | [<] until-1-10 | [h] until-1-13 | [^\\n<h] until-1\nuntil-1-13 ::= | [\\n] until-1-01 | [<] until-1-10 | [i] until-1-14 | [^\\n<i] until-1\nuntil-1-14 ::= | [\\n] until-1-01 | [<] until-1-10 | [n] until-1-15 | [^\\n<n] until-1\nuntil-1-15 ::= | [\\n] until-1-01 | [<] until-1-10 | [k] until-1-16 | [^\\n<k] until-1\nuntil-1-16 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-18 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-19 | [^\\n<o] until-1\nuntil-1-19 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-20 | [^\\n<o] until-1\nuntil-1-20 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-21 | [^\\n<l] until-1\nuntil-1-21 ::= | [\\n] until-1-01 | [<] until-1-10 | [_] until-1-22 | [^\\n<_] until-1\nuntil-1-22 ::= | [\\n] until-1-01 | [<] until-1-10 | [c] until-1-23 | [^\\n<c] until-1\nuntil-1-23 ::= | [\\n] until-1-01 | [<] until-1-10 | [a] until-1-24 | [^\\n<a] until-1\nuntil-1-24 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-25 | [^\\n<l] until-1\nuntil-1-25 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-26 | [^\\n<l] until-1\nuntil-1-26 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n已知 / known: order ORD-2025, customer C-77, sku SKU-8806, tracking TRK-65140.\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n为 TRK-65140 申报关税价值。 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 682,
+     "timings": {
+      "cache_n": 241,
+      "prompt_n": 4,
+      "prompt_ms": 21.583,
+      "prompt_per_token_ms": 5.39575,
+      "prompt_per_second": 185.33104758374648,
+      "predicted_n": 438,
+      "predicted_ms": 2208.191,
+      "predicted_per_token_ms": 5.053068649885583,
+      "predicted_per_second": 197.89954763876858
+     }
+    },
+    "timings": {
+     "cache_n": 241,
+     "prompt_n": 4,
+     "prompt_ms": 21.583,
+     "prompt_per_token_ms": 5.39575,
+     "prompt_per_second": 185.33104758374648,
+     "predicted_n": 438,
+     "predicted_ms": 2208.191,
+     "predicted_per_token_ms": 5.053068649885583,
+     "predicted_per_second": 197.89954763876858
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.25
+  }
+ ]
+}

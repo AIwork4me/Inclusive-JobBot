@@ -1,0 +1,153 @@
+{
+ "trial_id": "4df183274f6afd313517d858",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{\"tool\": \"customs.declare_value\", \"tracking_no\": \"TRK-73002\", \"quantity\": {\"value\": 99.0, \"unit\": \"EUR\"}}"
+      }
+     }
+    ],
+    "created": 1795798348,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 40,
+     "prompt_tokens": 212,
+     "total_tokens": 252,
+     "prompt_tokens_details": {
+      "cached_tokens": 209
+     }
+    },
+    "id": "chatcmpl-uPKC4wHUBFyJTRJ7B05aTQAX1vULysn1",
+    "__verbose": {
+     "index": 0,
+     "content": "{\"tool\": \"customs.declare_value\", \"tracking_no\": \"TRK-73002\", \"quantity\": {\"value\": 99.0, \"unit\": \"EUR\"}}",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 40,
+     "tokens_evaluated": 212,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "char ::= [^\"\\\\\\x7F\\x00-\\x1F] | [\\\\] ([\"\\\\bfnrt] | \"u\" [0-9a-fA-F]{4})\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nresponse-format ::= \"{\" space response-format-tool-kv \",\" space response-format-tracking-no-kv \",\" space response-format-quantity-kv space \"}\"\nresponse-format-quantity ::= \"{\" space response-format-quantity-value-kv \",\" space response-format-quantity-unit-kv space \"}\"\nresponse-format-quantity-kv ::= \"\\\"quantity\\\"\" space \":\" space response-format-quantity\nresponse-format-quantity-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\nresponse-format-quantity-unit-kv ::= \"\\\"unit\\\"\" space \":\" space response-format-quantity-unit\nresponse-format-quantity-value-kv ::= \"\\\"value\\\"\" space \":\" space number\nresponse-format-tool ::= (\"\\\"logistics.trace_shipment\\\"\" | \"\\\"logistics.reroute_shipment\\\"\" | \"\\\"logistics.estimate_delivery\\\"\" | \"\\\"addresses.validate\\\"\" | \"\\\"customs.declare_value\\\"\" | \"\\\"labels.generate\\\"\" | \"\\\"couriers.list_rates\\\"\" | \"\\\"escalations.open_case\\\"\")\nresponse-format-tool-kv ::= \"\\\"tool\\\"\" space \":\" space response-format-tool\nresponse-format-tracking-no-kv ::= \"\\\"tracking_no\\\"\" space \":\" space string\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nstring ::= \"\\\"\" char* \"\\\"\"\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\nItem TRK-73002: quantity change 99.0 EUR.\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+     "has_new_line": false,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 251,
+     "timings": {
+      "cache_n": 209,
+      "prompt_n": 3,
+      "prompt_ms": 26.692,
+      "prompt_per_token_ms": 8.897333333333334,
+      "prompt_per_second": 112.39322643488686,
+      "predicted_n": 40,
+      "predicted_ms": 317.726,
+      "predicted_per_token_ms": 8.146820512820513,
+      "predicted_per_second": 122.7472728073875
+     }
+    },
+    "timings": {
+     "cache_n": 209,
+     "prompt_n": 3,
+     "prompt_ms": 26.692,
+     "prompt_per_token_ms": 8.897333333333334,
+     "prompt_per_second": 112.39322643488686,
+     "predicted_n": 40,
+     "predicted_ms": 317.726,
+     "predicted_per_token_ms": 8.146820512820513,
+     "predicted_per_second": 122.7472728073875
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.375
+  }
+ ]
+}

@@ -1,0 +1,145 @@
+{
+ "trial_id": "3b0d9fc04603c11f9be60fda",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "We need to generate a full action for item TRK-73002: quantity change 99.0 EUR. The user asks: \"生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\" Tools listed with numbers.\n\nWe must decide which tool corresponds to changing quantity of shipment? Possibly logistics.trace_shipment, reroute_shipment, estimate_delivery, validate address, declare_value, generate labels, list_rates, escalations.open_case. The item TRK-73002 suggests a tracking ID or shipment ID. Quantity change 99.0 EUR: maybe we need to update quantity and value? There's a tool \"customs.declare_value\" for declaring value. Also \"labels.generate\". Not sure.\n\nWe need to infer the appropriate action based on typical operations: Changing quantity of items in a shipment might involve updating shipment details, possibly using logistics.trace_shipment or reroute_shipment? Or maybe we need to declare the new value (99.0 EUR) for customs. The phrase \"quantity change 99.0 EUR\" is odd: quantity change and amount in EUR. Could be that quantity changed from something to 99 units,"
+      }
+     }
+    ],
+    "created": 1795798420,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 256,
+     "prompt_tokens": 125,
+     "total_tokens": 381,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-HPHG2zsKCdpczpIxwGx2iPoayaQeMH2E",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to generate a full action for item TRK-73002: quantity change 99.0 EUR. The user asks: \"生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\" Tools listed with numbers.\n\nWe must decide which tool corresponds to changing quantity of shipment? Possibly logistics.trace_shipment, reroute_shipment, estimate_delivery, validate address, declare_value, generate labels, list_rates, escalations.open_case. The item TRK-73002 suggests a tracking ID or shipment ID. Quantity change 99.0 EUR: maybe we need to update quantity and value? There's a tool \"customs.declare_value\" for declaring value. Also \"labels.generate\". Not sure.\n\nWe need to infer the appropriate action based on typical operations: Changing quantity of items in a shipment might involve updating shipment details, possibly using logistics.trace_shipment or reroute_shipment? Or maybe we need to declare the new value (99.0 EUR) for customs. The phrase \"quantity change 99.0 EUR\" is odd: quantity change and amount in EUR. Could be that quantity changed from something to 99 units,",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 256,
+     "tokens_evaluated": 125,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 256,
+      "n_predict": 256,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think></think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\nItem TRK-73002: quantity change 99.0 EUR.\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\nTools:\n1. logistics.trace_shipment\n2. logistics.reroute_shipment\n3. logistics.estimate_delivery\n4. addresses.validate\n5. customs.declare_value\n6. labels.generate\n7. couriers.list_rates\n8. escalations.open_case\nAnswer with the NUMBER of the tool to call only (1-8).<|im_end|>\n<|im_start|>assistant\n<think></think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 380,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 125,
+      "prompt_ms": 34.539,
+      "prompt_per_token_ms": 0.276312,
+      "prompt_per_second": 3619.097252381366,
+      "predicted_n": 256,
+      "predicted_ms": 1474.529,
+      "predicted_per_token_ms": 5.782466666666667,
+      "predicted_per_second": 172.93657839215098
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 125,
+     "prompt_ms": 34.539,
+     "prompt_per_token_ms": 0.276312,
+     "prompt_per_second": 3619.097252381366,
+     "predicted_n": 256,
+     "predicted_ms": 1474.529,
+     "predicted_per_token_ms": 5.782466666666667,
+     "predicted_per_second": 172.93657839215098
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.516
+  }
+ ]
+}

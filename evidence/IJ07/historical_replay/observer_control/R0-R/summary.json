@@ -1,0 +1,51 @@
+{
+  "run_id": "ij07-historical-2b802914d7be4b91bda4e34988eb70cb",
+  "cases": 3,
+  "planned_cases": 3,
+  "result_sha256": "5e5b5e1993a586900399e8fc246b74d21818a6316fa1ba78a6a3d4768199ca4a",
+  "updated_utc": "2026-11-24T12:36:56+00:00",
+  "v1": {
+    "PASS": 2,
+    "FAIL": 1
+  },
+  "v2": {
+    "cases": 3,
+    "v1_status": {
+      "PASS": 2,
+      "FAIL": 1
+    },
+    "trace_status": {
+      "FAIL": 2,
+      "PASS": 1
+    },
+    "strict_sop_status": {
+      "FAIL": 2,
+      "PASS": 1
+    },
+    "business_state_status": {
+      "BLOCKED": 1,
+      "NOT_RUN": 2
+    },
+    "status": {
+      "FAIL": 2,
+      "PASS": 1
+    },
+    "argument_correct": 6,
+    "argument_total": 7,
+    "comparison": {
+      "V1_PASS_V2_TRACE_FAIL": 1,
+      "V1_FAIL_V2_TRACE_FAIL": 1,
+      "V1_PASS_V2_TRACE_PASS": 1
+    },
+    "v1_false_failure_reasons": {},
+    "cases_by_finding": {
+      "F15_INSUFFICIENT_EVIDENCE": 1,
+      "F03_MODEL_ARGUMENT_ERROR": 1,
+      "F12_FINAL_ANSWER_ERROR": 1
+    }
+  },
+  "source_capture": {
+    "PASS": 8
+  },
+  "scope": "historical diagnostic; V1 synthetic receipts; persisted state and SDK gates not exercised"
+}

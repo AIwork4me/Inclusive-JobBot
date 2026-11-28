@@ -1,0 +1,154 @@
+{
+ "trial_id": "d55978876399a89db656135d",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{ \"branch\": \"reject_adjustment\" }",
+       "reasoning_content": "1.  **分析输入：**\n    *   **策略 / policy：** system-physical variance 9 pcs, tolerance 5. （系统物理偏差 9 件，允许偏差 5。）\n    *   **实况 / observation：** n = 9. （观察样本量 n = 9。）\n    *   **允许分支：** accept_adjustment, require_second_count, reject_adjustment. （允许分支：接受调整，要求第二次计数，拒绝调整。）\n    *   **任务：** 判断应走的分支。 / 判断应走的分支。\n\n2.  **理解规则：**\n    *   规则：系统物理偏差 9 件，允许偏差 5。\n    *   观察：n = 9。\n    *   解释：系统物理偏差为 9 件。允许偏差为 5 件。\n    *   比较：实际偏差（9）是否大于允许偏差（5）？\n    *   结果：9 > 5。因此，偏差超出了允许范围。\n\n3.  **评估允许分支：**\n    *   *accept_adjustment*：接受调整。这意味着即使偏差超出允许范围，我们也会接受它。规则说允许偏差是 5，实际是 9。所以我们不能接受。\n    *   *require_second_count*：要求第二次计数。这意味着我们需要再次测量/计数以确认偏差。规则说允许偏差是 5，实际是 9。9 已经超出了 5。要求第二次计数通常用于在初步结果存在不确定性时进行验证，但在这里，偏差已经明确超出了允许范围。\n    *   *reject_adjustment*：拒绝调整。这意味着我们拒绝偏差/调整，因为偏差超出了允许范围。实际偏差（9）> 允许偏差（5）。因此，我们必须拒绝。\n\n4.  **确定最佳分支：**\n    *   由于实际偏差（9）超出了允许偏差（5），正确的操作是拒绝调整。\n    *   因此，应选择 `reject_adjustment`。\n\n5.  **格式化输出：**\n    *   清晰地陈述所选分支。\n    *   提供简短的解释以证明选择。\n"
+      }
+     }
+    ],
+    "created": 1795797825,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 473,
+     "prompt_tokens": 69,
+     "total_tokens": 542,
+     "prompt_tokens_details": {
+      "cached_tokens": 68
+     }
+    },
+    "id": "chatcmpl-GHXRfcD1dOLIkYz5uMYaInm81f5JAbCv",
+    "__verbose": {
+     "index": 0,
+     "content": "1.  **分析输入：**\n    *   **策略 / policy：** system-physical variance 9 pcs, tolerance 5. （系统物理偏差 9 件，允许偏差 5。）\n    *   **实况 / observation：** n = 9. （观察样本量 n = 9。）\n    *   **允许分支：** accept_adjustment, require_second_count, reject_adjustment. （允许分支：接受调整，要求第二次计数，拒绝调整。）\n    *   **任务：** 判断应走的分支。 / 判断应走的分支。\n\n2.  **理解规则：**\n    *   规则：系统物理偏差 9 件，允许偏差 5。\n    *   观察：n = 9。\n    *   解释：系统物理偏差为 9 件。允许偏差为 5 件。\n    *   比较：实际偏差（9）是否大于允许偏差（5）？\n    *   结果：9 > 5。因此，偏差超出了允许范围。\n\n3.  **评估允许分支：**\n    *   *accept_adjustment*：接受调整。这意味着即使偏差超出允许范围，我们也会接受它。规则说允许偏差是 5，实际是 9。所以我们不能接受。\n    *   *require_second_count*：要求第二次计数。这意味着我们需要再次测量/计数以确认偏差。规则说允许偏差是 5，实际是 9。9 已经超出了 5。要求第二次计数通常用于在初步结果存在不确定性时进行验证，但在这里，偏差已经明确超出了允许范围。\n    *   *reject_adjustment*：拒绝调整。这意味着我们拒绝偏差/调整，因为偏差超出了允许范围。实际偏差（9）> 允许偏差（5）。因此，我们必须拒绝。\n\n4.  **确定最佳分支：**\n    *   由于实际偏差（9）超出了允许偏差（5），正确的操作是拒绝调整。\n    *   因此，应选择 `reject_adjustment`。\n\n5.  **格式化输出：**\n    *   清晰地陈述所选分支。\n    *   提供简短的解释以证明选择。\n</think>\n\n   \t\t{ \"branch\": \"reject_adjustment\" }",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 473,
+     "tokens_evaluated": 69,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-branch-kv space \"}\"\nresponse-format-branch ::= (\"\\\"accept_adjustment\\\"\" | \"\\\"require_second_count\\\"\" | \"\\\"reject_adjustment\\\"\")\nresponse-format-branch-kv ::= \"\\\"branch\\\"\" space \":\" space response-format-branch\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n策略 / policy: system-physical variance 9 pcs, tolerance 5. 实况 / observation: n = 9.\nAllowed branches: accept_adjustment, require_second_count, reject_adjustment.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 541,
+     "timings": {
+      "cache_n": 68,
+      "prompt_n": 1,
+      "prompt_ms": 10.464,
+      "prompt_per_token_ms": 10.464,
+      "prompt_per_second": 95.565749235474,
+      "predicted_n": 473,
+      "predicted_ms": 2677.57,
+      "predicted_per_token_ms": 5.67281779661017,
+      "predicted_per_second": 176.27923826454582
+     }
+    },
+    "timings": {
+     "cache_n": 68,
+     "prompt_n": 1,
+     "prompt_ms": 10.464,
+     "prompt_per_token_ms": 10.464,
+     "prompt_per_second": 95.565749235474,
+     "predicted_n": 473,
+     "predicted_ms": 2677.57,
+     "predicted_per_token_ms": 5.67281779661017,
+     "predicted_per_second": 176.27923826454582
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.687
+  }
+ ]
+}

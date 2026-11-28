@@ -1,0 +1,146 @@
+{
+ "trial_id": "fab0f44c7663cb2652334c50",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of allowed actions (A1-A6) for a customer service scenario.\n    *   Scenario: Customer {cust} ordered {order}, received damaged item, wants to get money back (refund).\n    *   Constraint: Answer with the action label only (e.g., A2).\n    *   Language: Chinese (implied by the prompt).\n\n2.  **Evaluate the Actions:**\n    *   A1. 换货：为客户 ORD-1042 创建换货单 / exchange the item on ORD-1042 (Exchange, not refund)\n    *   A2. 退款：为 ORD-1042 提交退款 / submit a refund for ORD-1042 (Refund)\n    *   A3. 仅道歉并关闭工单 / apologize and close the ticket (Apology, not refund)\n    *   A4. 升级人工客服 / escalate to a human agent (Escalation)\n    *   A5. 查询物流轨迹 / trace the shipment (Logistics)\n    *   A6. 发送"
+      }
+     }
+    ],
+    "created": 1795796246,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 256,
+     "prompt_tokens": 188,
+     "total_tokens": 444,
+     "prompt_tokens_details": {
+      "cached_tokens": 184
+     }
+    },
+    "id": "chatcmpl-mSslCZGe5pIZdvWAtjiJBCok4pSt1rk3",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of allowed actions (A1-A6) for a customer service scenario.\n    *   Scenario: Customer {cust} ordered {order}, received damaged item, wants to get money back (refund).\n    *   Constraint: Answer with the action label only (e.g., A2).\n    *   Language: Chinese (implied by the prompt).\n\n2.  **Evaluate the Actions:**\n    *   A1. 换货：为客户 ORD-1042 创建换货单 / exchange the item on ORD-1042 (Exchange, not refund)\n    *   A2. 退款：为 ORD-1042 提交退款 / submit a refund for ORD-1042 (Refund)\n    *   A3. 仅道歉并关闭工单 / apologize and close the ticket (Apology, not refund)\n    *   A4. 升级人工客服 / escalate to a human agent (Escalation)\n    *   A5. 查询物流轨迹 / trace the shipment (Logistics)\n    *   A6. 发送",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 256,
+     "tokens_evaluated": 188,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 256,
+      "n_predict": 256,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n可选动作 / available actions:\nA1. 换货：为客户 ORD-1042 创建换货单 / exchange the item on ORD-1042\nA2. 退款：为 ORD-1042 提交退款 / submit a refund for ORD-1042\nA3. 仅道歉并关闭工单 / apologize and close the ticket\nA4. 升级人工客服 / escalate to a human agent\nA5. 查询物流轨迹 / trace the shipment\nA6. 发送延迟通知 / send a delay notification\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户 {cust} 的订单 {order} 收到后有破损，要求退钱。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 443,
+     "timings": {
+      "cache_n": 184,
+      "prompt_n": 4,
+      "prompt_ms": 21.781,
+      "prompt_per_token_ms": 5.44525,
+      "prompt_per_second": 183.6462972315321,
+      "predicted_n": 256,
+      "predicted_ms": 1238.204,
+      "predicted_per_token_ms": 4.855701960784313,
+      "predicted_per_second": 205.94344712179898
+     }
+    },
+    "timings": {
+     "cache_n": 184,
+     "prompt_n": 4,
+     "prompt_ms": 21.781,
+     "prompt_per_token_ms": 5.44525,
+     "prompt_per_second": 183.6462972315321,
+     "predicted_n": 256,
+     "predicted_ms": 1238.204,
+     "predicted_per_token_ms": 4.855701960784313,
+     "predicted_per_second": 205.94344712179898
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.266
+  }
+ ]
+}

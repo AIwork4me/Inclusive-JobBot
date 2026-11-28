@@ -1,0 +1,23 @@
+{
+ "audited_head": "9c73bbf16d678d5ccfdcec7d79b3582dd6572473",
+ "finding": "CONFIRMATION_LEVEL = 'AUTH-2' in src/eval_assurance/compat/execution_authorization.py conflicts with the frozen IJ-NANO-1.3S authorization contract (docs/IJNANO_MISSION_ORDER_V1_3S.md: AUTH-2=SCOPED_DEVELOPMENT_BENCHMARK, AUTH-3=SCOPED_CONFIRMATION_BENCHMARK)",
+ "reproduction": {
+  "AUTH-1": {
+   "authorized": false,
+   "error": "protected confirmation execution requires AUTH-2; AUTH-1 refused",
+   "frozen_contract_allows": false,
+   "mismatch": false
+  },
+  "AUTH-2": {
+   "authorized": true,
+   "frozen_contract_allows": false,
+   "mismatch": true
+  },
+  "AUTH-3": {
+   "authorized": false,
+   "error": "protected confirmation execution requires AUTH-2; AUTH-3 refused",
+   "frozen_contract_allows": true,
+   "mismatch": true
+  }
+ }
+}

@@ -1,0 +1,146 @@
+{
+ "trial_id": "896f1181e4caa39871889cba",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "125.0 CNY",
+       "reasoning_content": "We need to parse the context. The user says: \"上下文 / context: stated amount = 125.0 CNY. 工具已选定: refunds.submit. / Tool already chosen: refunds.submit. The answer is the value of the slot 'amount' (type quantity; state value and unit). Refund the stated amount (state the currency unit). 只回答参数值。 / Answer with the argument value only.\"\n\nSo we need to output just the value for the parameter 'amount', which is given as \"stated amount = 125.0 CNY\". So answer: 125.0 CNY? Or maybe they want quantity and unit: \"125.0 CNY\". Usually type quantity; state value and unit. So I think we should output \"125.0 CNY\" or just \"125.0\"? The instruction says: \"只回答参数值。 / Answer with the argument value only.\" Means answer only the parameter value.\n\nThus final answer: 125.0 CNY.\n\nBut let's double-check: The context: \"stated amount = 125.0 CNY. 工具已选定: refunds.submit. / Tool already chosen: refunds.submit.\" So we need to refund the stated amount, which is 125.0 CNY. So answer: 125.0 CNY.\n\nThus output exactly that? Possibly \"125.0 CNY\". I'll do that."
+      }
+     }
+    ],
+    "created": 1795799051,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 308,
+     "prompt_tokens": 90,
+     "total_tokens": 398,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-ZXchPpi9MxtxknMkBnRGizWC3xaiKPJH",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the context. The user says: \"上下文 / context: stated amount = 125.0 CNY. 工具已选定: refunds.submit. / Tool already chosen: refunds.submit. The answer is the value of the slot 'amount' (type quantity; state value and unit). Refund the stated amount (state the currency unit). 只回答参数值。 / Answer with the argument value only.\"\n\nSo we need to output just the value for the parameter 'amount', which is given as \"stated amount = 125.0 CNY\". So answer: 125.0 CNY? Or maybe they want quantity and unit: \"125.0 CNY\". Usually type quantity; state value and unit. So I think we should output \"125.0 CNY\" or just \"125.0\"? The instruction says: \"只回答参数值。 / Answer with the argument value only.\" Means answer only the parameter value.\n\nThus final answer: 125.0 CNY.\n\nBut let's double-check: The context: \"stated amount = 125.0 CNY. 工具已选定: refunds.submit. / Tool already chosen: refunds.submit.\" So we need to refund the stated amount, which is 125.0 CNY. So answer: 125.0 CNY.\n\nThus output exactly that? Possibly \"125.0 CNY\". I'll do that.</think>125.0 CNY",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 308,
+     "tokens_evaluated": 90,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n上下文 / context: stated amount = 125.0 CNY. 工具已选定: refunds.submit. / Tool already chosen: refunds.submit.\nThe answer is the value of the slot 'amount' (type quantity; state value and unit).\nRefund the stated amount (state the currency unit). 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 397,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 90,
+      "prompt_ms": 36.467,
+      "prompt_per_token_ms": 0.4051888888888889,
+      "prompt_per_second": 2467.984753338635,
+      "predicted_n": 308,
+      "predicted_ms": 1789.258,
+      "predicted_per_token_ms": 5.828201954397394,
+      "predicted_per_second": 171.57950390608846
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 90,
+     "prompt_ms": 36.467,
+     "prompt_per_token_ms": 0.4051888888888889,
+     "prompt_per_second": 2467.984753338635,
+     "predicted_n": 308,
+     "predicted_ms": 1789.258,
+     "predicted_per_token_ms": 5.828201954397394,
+     "predicted_per_second": 171.57950390608846
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.828
+  }
+ ]
+}

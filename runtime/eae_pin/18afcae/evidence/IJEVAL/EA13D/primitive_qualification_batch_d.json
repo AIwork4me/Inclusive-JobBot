@@ -1,0 +1,232 @@
+{
+ "schema": "ijeval.ea13d.primitive_qualification.v1",
+ "generated_utc": "2026-11-28T05:13:44Z",
+ "scope": "N03 Batch D DEVELOPMENT (C25-C32), CPU qualification protocol; NOT protected confirmation; no Batch A/B carry-over; decision/robustness semantics (sufficiency, thresholds, ambiguity, citations, abstention)",
+ "primitives": [
+  {
+   "primitive": "C25",
+   "families": [
+    "checklist",
+    "workflow"
+   ],
+   "witnesses": {
+    "total": 14,
+    "passed": 14
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "D-P03_hedged_narration_accepted",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C26",
+   "families": [
+    "delivery",
+    "tour"
+   ],
+   "witnesses": {
+    "total": 18,
+    "passed": 18
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "D-P01_duplicate_keys_accepted",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "D-E01_validity_gap_tolerated",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C27",
+   "families": [
+    "access",
+    "refund"
+   ],
+   "witnesses": {
+    "total": 14,
+    "passed": 14
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "D-P01_duplicate_keys_accepted",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "D-E02_rules_ignored",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C28",
+   "families": [
+    "logs",
+    "notes"
+   ],
+   "witnesses": {
+    "total": 14,
+    "passed": 14
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "D-E03_substring_answer",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C29",
+   "families": [
+    "meetings",
+    "rooms"
+   ],
+   "witnesses": {
+    "total": 14,
+    "passed": 14
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "D-E04_first_id_resolution",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C30",
+   "families": [
+    "design",
+    "ops"
+   ],
+   "witnesses": {
+    "total": 14,
+    "passed": 14
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "D-E05_prefix_canonical",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C31",
+   "families": [
+    "policy",
+    "support"
+   ],
+   "witnesses": {
+    "total": 16,
+    "passed": 16
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "D-P04_citations_ignored",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "D-E06_one_citation_enough",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C32",
+   "families": [
+    "hours",
+    "specs"
+   ],
+   "witnesses": {
+    "total": 14,
+    "passed": 14
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "D-P03_hedged_narration_accepted",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "D-E07_guess_tolerated",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  }
+ ],
+ "protocol": {
+  "name": "chat-surface CPU qualification",
+  "qualified": true,
+  "note": "physical protocol parameters are the runner lane's (IJ-NANO)"
+ },
+ "summary": {
+  "qualified": 8,
+  "total": 8
+ }
+}

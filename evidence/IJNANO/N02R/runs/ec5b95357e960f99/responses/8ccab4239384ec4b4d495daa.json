@@ -1,0 +1,146 @@
+{
+ "trial_id": "8ccab4239384ec4b4d495daa",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Context: `stated quantity = 25 pcs.`\n    *   Tool: `inventory.adjust_stock`\n    *   Task: Adjust stock by the stated quantity (state the unit).\n    *   Output Format: \"只回答参数值。\" (Answer with the argument value only).\n    *   Specific Instruction: \"The answer is the value of the slot 'quantity' (type quantity; state value and unit).\"\n\n2.  **Interpret the Context:**\n    *   The user wants to adjust stock.\n    *   The stated quantity is 25 pcs.\n    *   The tool is `inventory.adjust_stock`.\n    *   The output needs to be the value of the slot 'quantity' along with the unit.\n\n3.  **Determine the Output:**\n    *   The \"stated quantity\" is 25.\n    *   The unit is \"pcs\" (pieces).\n    *   The instruction says \"Answer with the argument value only.\" (只回答参数值).\n    *   However, the instruction also says \"state the unit\" (state the unit) in the description of the task (\"Adjust stock by the stated quantity (state the unit)\"), but the final constraint says \"只回答参数值\" (Answer with the argument value only).\n    *   Wait, let's look closer at the prompt structure.\n    *   \"The answer is the value of the slot 'quantity' (type quantity; state value and unit).\" -> This suggests the answer should include the value and unit.\n    *   \"只回答参数值。\" -> This means \"Answer with the argument value only.\"\n    *   There is a slight contradiction between \"state value and unit\" and \"only answer argument value\". Usually, in these types of few-shot or instruction-following tasks, the explicit constraint \"只回答参数值\" (Answer with the argument value only) overrides the descriptive instruction about what the value represents, or it means \"Answer the value of the slot 'quantity'\".\n    *   Let's re-read carefully: \"The answer is the value of the slot 'quantity' (type quantity; state value and unit).\" This is part of the context definition.\n    *   Then: \"Adjust stock by the stated quantity (state the unit). 只回答参数值。\"\n    *   This looks like a specific format requirement for the output.\n    *   If I just output \"25\", does it satisfy \"state value and unit\"? No.\n    *   If I output \"25 pcs\", does it satisfy \"只回答参数值\"? \"pcs\" is a unit, not a parameter value in the strict sense of the slot value, but often \"argument value\" implies the full argument content.\n    *   However, looking at the instruction \"只回答参数值\" (Answer with the argument value only), it usually means *just* the number or the specific slot value.\n    *   Let's look at the example logic. The tool is `inventory.adjust_stock`. The input context says `stated quantity = 25 pcs.`\n    *   The instruction says \"Adjust stock by the stated quantity\".\n    *   The instruction says \"Answer with the argument value only.\"\n    *   The instruction also says \"The answer is the value of the slot 'quantity' (type quantity; state value and unit).\"\n    *   This is a bit ambiguous. \"state value and unit\" vs \"只回答参数值\" (Answer with argument value only).\n    *   Usually, \"argument value only\" means don't explain, don't add extra text.\n    *   If I write \"25 pcs\", is that the argument value? Yes.\n    *   If I write \"25\", is that the argument value? Yes.\n    *   Given \"state the unit\" in the task description, but \"只回答参数值\" in the constraint.\n    *   Let's consider the phrase \"只回答参数值\" (Answer with the argument value only). This is a strong constraint.\n    *   However, the instruction \"The answer is the value of the slot 'quantity' (type quantity; state value and unit)\" suggests the content should include the unit.\n    *   Let's look at similar tasks. Often, if it says \"state the unit\", the output should include the unit. If it says \"only answer the argument value\", it might mean just the number.\n    *   But wait, \"state the unit\" is part of the task description (\"Adjust stock by the stated quantity (state the unit)\"), while \"只回答参数值\" is the formatting constraint.\n    *   If I output \"25 pcs\", it answers the \"state the unit\" part.\n"
+      }
+     }
+    ],
+    "created": 1795798296,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 87,
+     "total_tokens": 1111,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-hq4zl1TFTgH3pL3chVBM56RsSSXlGuOC",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Context: `stated quantity = 25 pcs.`\n    *   Tool: `inventory.adjust_stock`\n    *   Task: Adjust stock by the stated quantity (state the unit).\n    *   Output Format: \"只回答参数值。\" (Answer with the argument value only).\n    *   Specific Instruction: \"The answer is the value of the slot 'quantity' (type quantity; state value and unit).\"\n\n2.  **Interpret the Context:**\n    *   The user wants to adjust stock.\n    *   The stated quantity is 25 pcs.\n    *   The tool is `inventory.adjust_stock`.\n    *   The output needs to be the value of the slot 'quantity' along with the unit.\n\n3.  **Determine the Output:**\n    *   The \"stated quantity\" is 25.\n    *   The unit is \"pcs\" (pieces).\n    *   The instruction says \"Answer with the argument value only.\" (只回答参数值).\n    *   However, the instruction also says \"state the unit\" (state the unit) in the description of the task (\"Adjust stock by the stated quantity (state the unit)\"), but the final constraint says \"只回答参数值\" (Answer with the argument value only).\n    *   Wait, let's look closer at the prompt structure.\n    *   \"The answer is the value of the slot 'quantity' (type quantity; state value and unit).\" -> This suggests the answer should include the value and unit.\n    *   \"只回答参数值。\" -> This means \"Answer with the argument value only.\"\n    *   There is a slight contradiction between \"state value and unit\" and \"only answer argument value\". Usually, in these types of few-shot or instruction-following tasks, the explicit constraint \"只回答参数值\" (Answer with the argument value only) overrides the descriptive instruction about what the value represents, or it means \"Answer the value of the slot 'quantity'\".\n    *   Let's re-read carefully: \"The answer is the value of the slot 'quantity' (type quantity; state value and unit).\" This is part of the context definition.\n    *   Then: \"Adjust stock by the stated quantity (state the unit). 只回答参数值。\"\n    *   This looks like a specific format requirement for the output.\n    *   If I just output \"25\", does it satisfy \"state value and unit\"? No.\n    *   If I output \"25 pcs\", does it satisfy \"只回答参数值\"? \"pcs\" is a unit, not a parameter value in the strict sense of the slot value, but often \"argument value\" implies the full argument content.\n    *   However, looking at the instruction \"只回答参数值\" (Answer with the argument value only), it usually means *just* the number or the specific slot value.\n    *   Let's look at the example logic. The tool is `inventory.adjust_stock`. The input context says `stated quantity = 25 pcs.`\n    *   The instruction says \"Adjust stock by the stated quantity\".\n    *   The instruction says \"Answer with the argument value only.\"\n    *   The instruction also says \"The answer is the value of the slot 'quantity' (type quantity; state value and unit).\"\n    *   This is a bit ambiguous. \"state value and unit\" vs \"只回答参数值\" (Answer with argument value only).\n    *   Usually, \"argument value only\" means don't explain, don't add extra text.\n    *   If I write \"25 pcs\", is that the argument value? Yes.\n    *   If I write \"25\", is that the argument value? Yes.\n    *   Given \"state the unit\" in the task description, but \"只回答参数值\" in the constraint.\n    *   Let's consider the phrase \"只回答参数值\" (Answer with the argument value only). This is a strong constraint.\n    *   However, the instruction \"The answer is the value of the slot 'quantity' (type quantity; state value and unit)\" suggests the content should include the unit.\n    *   Let's look at similar tasks. Often, if it says \"state the unit\", the output should include the unit. If it says \"only answer the argument value\", it might mean just the number.\n    *   But wait, \"state the unit\" is part of the task description (\"Adjust stock by the stated quantity (state the unit)\"), while \"只回答参数值\" is the formatting constraint.\n    *   If I output \"25 pcs\", it answers the \"state the unit\" part.\n",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 87,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n上下文 / context: stated quantity = 25 pcs. 工具已选定: inventory.adjust_stock. / Tool already chosen: inventory.adjust_stock.\nThe answer is the value of the slot 'quantity' (type quantity; state value and unit).\nAdjust stock by the stated quantity (state the unit). 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1110,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 87,
+      "prompt_ms": 37.153,
+      "prompt_per_token_ms": 0.4270459770114942,
+      "prompt_per_second": 2341.6682367507333,
+      "predicted_n": 1024,
+      "predicted_ms": 4987.763,
+      "predicted_per_token_ms": 4.875623655913978,
+      "predicted_per_second": 205.10196655294166
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 87,
+     "prompt_ms": 37.153,
+     "prompt_per_token_ms": 0.4270459770114942,
+     "prompt_per_second": 2341.6682367507333,
+     "predicted_n": 1024,
+     "predicted_ms": 4987.763,
+     "predicted_per_token_ms": 4.875623655913978,
+     "predicted_per_second": 205.10196655294166
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.031
+  }
+ ]
+}

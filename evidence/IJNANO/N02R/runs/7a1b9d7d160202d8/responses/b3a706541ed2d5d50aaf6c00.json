@@ -1,0 +1,146 @@
+{
+ "trial_id": "b3a706541ed2d5d50aaf6c00",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's query. It says:\n\n\"策略 / policy: order age 47 days, policy limit 30. 实况 / observation: n = 47.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.\"\n\nInterpretation: There's a policy about order age and policy limit. The policy says \"order age 47 days, policy limit 30\". So maybe there is an order that is being placed? Or we need to decide if it should be auto-approved, require manager approval, or reject out of policy.\n\nObservation: n = 47. Possibly \"n\" refers to the number of days? Or something else. Let's parse: \"策略 / policy: order age 47 days, policy limit 30.\" Means the policy for orders: maybe an order must be placed at least X days before? Or perhaps it's about how old an order is (age). The policy says order age = 47 days, meaning that the order should have been created at least 47 days ago? And policy limit = 30 means something else like maximum allowed age? Not sure.\n\nGiven \"实况 / observation: n = 47.\" So maybe we observed that n=47. That matches the order age of 47 days. The policy limit is 30, which is less than 47. So perhaps an order with age 47 days exceeds the policy limit (max allowed age). Therefore it's out of policy and should be rejected.\n\nThus branch: reject_out_of_policy? Or requires_manager_approval? Let's think.\n\nWe have three allowed branches:\n\n- auto_approve\n- requires_manager_approval\n- reject_out_of_policy\n\nGiven the observation n=47, which is greater than policy limit 30. So it's out of policy (order age exceeds limit). Therefore we should reject as out-of-policy. That seems straightforward.\n\nBut maybe there is nuance: \"order age 47 days\" might be a requirement that order must be at least 47 days old to be considered? Or perhaps the policy says orders older than 30 days are allowed, but this one is 47 days which is beyond limit of 30 days. So it's out-of-policy.\n\nThus branch: reject_out_of_policy.\n\nBut we need to double-check typical classification: \"order age\" could refer"
+      }
+     }
+    ],
+    "created": 1795796177,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 512,
+     "prompt_tokens": 70,
+     "total_tokens": 582,
+     "prompt_tokens_details": {
+      "cached_tokens": 1
+     }
+    },
+    "id": "chatcmpl-fNF7s7EXXx7SDd6ZXCTUu04inaC5A4Z6",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. It says:\n\n\"策略 / policy: order age 47 days, policy limit 30. 实况 / observation: n = 47.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.\"\n\nInterpretation: There's a policy about order age and policy limit. The policy says \"order age 47 days, policy limit 30\". So maybe there is an order that is being placed? Or we need to decide if it should be auto-approved, require manager approval, or reject out of policy.\n\nObservation: n = 47. Possibly \"n\" refers to the number of days? Or something else. Let's parse: \"策略 / policy: order age 47 days, policy limit 30.\" Means the policy for orders: maybe an order must be placed at least X days before? Or perhaps it's about how old an order is (age). The policy says order age = 47 days, meaning that the order should have been created at least 47 days ago? And policy limit = 30 means something else like maximum allowed age? Not sure.\n\nGiven \"实况 / observation: n = 47.\" So maybe we observed that n=47. That matches the order age of 47 days. The policy limit is 30, which is less than 47. So perhaps an order with age 47 days exceeds the policy limit (max allowed age). Therefore it's out of policy and should be rejected.\n\nThus branch: reject_out_of_policy? Or requires_manager_approval? Let's think.\n\nWe have three allowed branches:\n\n- auto_approve\n- requires_manager_approval\n- reject_out_of_policy\n\nGiven the observation n=47, which is greater than policy limit 30. So it's out of policy (order age exceeds limit). Therefore we should reject as out-of-policy. That seems straightforward.\n\nBut maybe there is nuance: \"order age 47 days\" might be a requirement that order must be at least 47 days old to be considered? Or perhaps the policy says orders older than 30 days are allowed, but this one is 47 days which is beyond limit of 30 days. So it's out-of-policy.\n\nThus branch: reject_out_of_policy.\n\nBut we need to double-check typical classification: \"order age\" could refer",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 512,
+     "tokens_evaluated": 70,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 512,
+      "n_predict": 512,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n策略 / policy: order age 47 days, policy limit 30. 实况 / observation: n = 47.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 581,
+     "timings": {
+      "cache_n": 1,
+      "prompt_n": 69,
+      "prompt_ms": 25.588,
+      "prompt_per_token_ms": 0.37084057971014495,
+      "prompt_per_second": 2696.5765202438643,
+      "predicted_n": 512,
+      "predicted_ms": 2963.683,
+      "predicted_per_token_ms": 5.799771037181996,
+      "predicted_per_second": 172.42059963903023
+     }
+    },
+    "timings": {
+     "cache_n": 1,
+     "prompt_n": 69,
+     "prompt_ms": 25.588,
+     "prompt_per_token_ms": 0.37084057971014495,
+     "prompt_per_second": 2696.5765202438643,
+     "predicted_n": 512,
+     "predicted_ms": 2963.683,
+     "predicted_per_token_ms": 5.799771037181996,
+     "predicted_per_second": 172.42059963903023
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.0
+  }
+ ]
+}

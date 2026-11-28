@@ -1,0 +1,28 @@
+{
+ "schema": "ijeval.auth2.acceptance.v1",
+ "verdict": "ACCEPTED",
+ "basis": {
+  "gate": "N03_SHARED_EVALUATION_ASSURANCE_CORE_GO",
+  "ea18_artifact": "evidence/IJEVAL/EA18/independent_acceptance.json",
+  "ea18_artifact_sha256": "7afb3cc848f6bcede0e56b914348a0a5664b66b18088c81de626688868ca8a25",
+  "dependencies": {
+   "waveB_witnesses": true,
+   "waveB_mutations": true,
+   "waveB_ea08": true,
+   "catastrophe_pilot": true,
+   "ea12": true,
+   "ea13": true,
+   "ea14": true
+  }
+ },
+ "requirements_map": {
+  "shared EAE core protection gates": "Wave B + Wave C",
+  "historical catastrophe regression": "pilot 13/13 + N02R reintroduction",
+  "EA12 historical revalidation": "PASS_WITH_FINDINGS",
+  "EA14 shared-core fault containment": "GO (0 genuine escapes, 0 false alarms)",
+  "EA13 cognitive qualification": "8/8 dev primitives",
+  "EA18 independent acceptance": "9/9 attempts refused"
+ },
+ "scope_limits": "development split only; protected confirmation NOT covered (roster_split=development); physical runtime identities must match the IJ-NANO model registry",
+ "verified_utc": "2026-11-28T04:03:46Z"
+}

@@ -1,0 +1,146 @@
+{
+ "trial_id": "2bc89b316e9b3df7eeafcb41",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "addresses.validate",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: Known order details (ORD-3319, C-303, SKU-7743, TRK-73002) and available tools.\n    *   Task: Check whether address ADR-449 is deliverable.\n    *   Constraint: Answer with the tool name only.\n\n2.  **Evaluate the Tools:**\n    *   `logistics.trace_shipment`: Trace shipment using tracking number. (Not directly checking address deliverability, though it might show status).\n    *   `logistics.reroute_shipment`: Reroute shipment. (Not checking address).\n    *   `logistics.estimate_delivery`: Estimate delivery. (Not checking address deliverability).\n    *   `addresses.validate`: Validate an address using an address ID. (This directly matches the task \"Check whether address ADR-449 is deliverable\" by validating the address).\n    *   `customs.declare_value`: Declare customs value. (Irrelevant).\n    *   `labels.generate`: Generate label. (Irrelevant).\n    *   `couriers.list_rates`: List courier rates. (Irrelevant).\n    *   `escalations.open_case`: Open escalation case. (Irrelevant).\n\n3.  **Determine the Best Tool:**\n    *   The goal is to check if address ADR-449 is deliverable.\n    *   The tool `addresses.validate` takes an `address_id` parameter.\n    *   The input address ID is \"ADR-449\".\n    *   This tool is the most appropriate for validating the address.\n\n4.  **Format the Output:**\n    *   Constraint: \"只回答要调用的工具名\" (Answer with the tool name only).\n    *   Output: `addresses.validate`\n\n5.  **Final Verification:**\n    *   Does `addresses.validate` check deliverability? It validates the address, which is a prerequisite for delivery. In the context of the available tools, this is the only one that takes an address ID.\n    *   Output format: Just the name.\n\n    Wait, is there a nuance? \"Check whether address ADR-449 is deliverable.\"\n    Usually, `addresses.validate` checks if the address exists and is valid. `logistics.estimate_delivery` might check if it's deliverable based on the address. However, `addresses.validate` is explicitly for validating an address ID. Given the tool list, `addresses.validate` is the direct match for \"address ADR-449\".\n\n    Let's re-read the available tools.\n    `addresses.validate`: 校验地址 / validate an address (params: address_id)\n    The task is to check if the address is deliverable. Validating the address is the first step. Often in these scenarios, validating the address is the intended action to proceed.\n    However, `logistics.estimate_delivery` might be more specific to \"deliverable\". But `estimate_delivery` usually needs a tracking number or zone, not just an address ID.\n    The prompt asks to check if the address is deliverable.\n    If I look at the tools:\n    `addresses.validate` takes `address_id`.\n    The input is `ADR-449`.\n    This is the most direct tool.\n\n    Decision: `addresses.validate`\n\n6.  **Final Output Generation:**\n    addresses.validate"
+      }
+     }
+    ],
+    "created": 1795798167,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 754,
+     "prompt_tokens": 243,
+     "total_tokens": 997,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-B8CIVhbH9J3gFzqy9pNhH7G09mvPySzg",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: Known order details (ORD-3319, C-303, SKU-7743, TRK-73002) and available tools.\n    *   Task: Check whether address ADR-449 is deliverable.\n    *   Constraint: Answer with the tool name only.\n\n2.  **Evaluate the Tools:**\n    *   `logistics.trace_shipment`: Trace shipment using tracking number. (Not directly checking address deliverability, though it might show status).\n    *   `logistics.reroute_shipment`: Reroute shipment. (Not checking address).\n    *   `logistics.estimate_delivery`: Estimate delivery. (Not checking address deliverability).\n    *   `addresses.validate`: Validate an address using an address ID. (This directly matches the task \"Check whether address ADR-449 is deliverable\" by validating the address).\n    *   `customs.declare_value`: Declare customs value. (Irrelevant).\n    *   `labels.generate`: Generate label. (Irrelevant).\n    *   `couriers.list_rates`: List courier rates. (Irrelevant).\n    *   `escalations.open_case`: Open escalation case. (Irrelevant).\n\n3.  **Determine the Best Tool:**\n    *   The goal is to check if address ADR-449 is deliverable.\n    *   The tool `addresses.validate` takes an `address_id` parameter.\n    *   The input address ID is \"ADR-449\".\n    *   This tool is the most appropriate for validating the address.\n\n4.  **Format the Output:**\n    *   Constraint: \"只回答要调用的工具名\" (Answer with the tool name only).\n    *   Output: `addresses.validate`\n\n5.  **Final Verification:**\n    *   Does `addresses.validate` check deliverability? It validates the address, which is a prerequisite for delivery. In the context of the available tools, this is the only one that takes an address ID.\n    *   Output format: Just the name.\n\n    Wait, is there a nuance? \"Check whether address ADR-449 is deliverable.\"\n    Usually, `addresses.validate` checks if the address exists and is valid. `logistics.estimate_delivery` might check if it's deliverable based on the address. However, `addresses.validate` is explicitly for validating an address ID. Given the tool list, `addresses.validate` is the direct match for \"address ADR-449\".\n\n    Let's re-read the available tools.\n    `addresses.validate`: 校验地址 / validate an address (params: address_id)\n    The task is to check if the address is deliverable. Validating the address is the first step. Often in these scenarios, validating the address is the intended action to proceed.\n    However, `logistics.estimate_delivery` might be more specific to \"deliverable\". But `estimate_delivery` usually needs a tracking number or zone, not just an address ID.\n    The prompt asks to check if the address is deliverable.\n    If I look at the tools:\n    `addresses.validate` takes `address_id`.\n    The input is `ADR-449`.\n    This is the most direct tool.\n\n    Decision: `addresses.validate`\n\n6.  **Final Output Generation:**\n    addresses.validate\n</think>\n\naddresses.validate",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 754,
+     "tokens_evaluated": 243,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\nKnown: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\nCheck whether address ADR-449 is deliverable. 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 996,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 243,
+      "prompt_ms": 51.646,
+      "prompt_per_token_ms": 0.21253497942386831,
+      "prompt_per_second": 4705.107849591449,
+      "predicted_n": 754,
+      "predicted_ms": 3664.904,
+      "predicted_per_token_ms": 4.867070385126162,
+      "predicted_per_second": 205.46240774656036
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 243,
+     "prompt_ms": 51.646,
+     "prompt_per_token_ms": 0.21253497942386831,
+     "prompt_per_second": 4705.107849591449,
+     "predicted_n": 754,
+     "predicted_ms": 3664.904,
+     "predicted_per_token_ms": 4.867070385126162,
+     "predicted_per_second": 205.46240774656036
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.735
+  }
+ ]
+}

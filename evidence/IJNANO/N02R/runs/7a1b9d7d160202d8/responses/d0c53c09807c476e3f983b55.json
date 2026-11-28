@@ -1,0 +1,164 @@
+{
+ "trial_id": "d0c53c09807c476e3f983b55",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，用户正在询问是否停止还是继续处理与订单 ORD-1042 相关的退款。让我检查一下提供的工具。\n\n可用的工具是 record_answer，它接受一个枚举值：stop 或 continue。用户需要决定并记录该决定。\n\n等等，用户的消息说“决定 stop 还是 continue。”所以我需要调用 record_answer 并传入相应的决定。但用户还没有指定是 stop 还是 continue。等等，不对——用户是在提示我做出决定？等等，不对。等等，用户的输入是目标、当前观测和决定。等等，工具用于记录答案。等等，也许用户是在告诉我他们需要决定并记录它。等等，工具的描述说“Record the chosen answer”。所以用户必须选择 stop 或 continue，然后调用该工具。\n\n等等，用户的消息是：“目标 / goal: refund submitted for ORD-1042. 当前观测 / observation: refund submitted and confirmation R-5521 issued. 决定 stop 还是 continue。 / Decide stop or continue.”\n\n所以用户是在要求我决定是 stop 还是 continue。但作为助手，我需要使用工具来记录决定。等等，但工具是用于记录答案的。所以也许用户是在模拟一个场景，他们需要做出决定并记录它。但助手应该调用工具来记录决定。然而，用户还没有指定是 stop 还是 continue。等等，不对——用户的消息是提示我决定。等等，也许这是一个测试案例，用户提供了上下文，我需要决定是停止还是继续。但工具是用来记录答案的。所以也许正确的步骤是调用 record_answer 并传入适当的决定。但用户没有给出决定。等等，不对——用户是在要求我决定。等等，也许这是一个陷阱问题。等等，工具的参数要求决定是 stop 或 continue。所以助手必须选择其中一个并调用工具。但如何选择？用户的消息说“决定 stop 还是 continue。”所以也许用户期望我根据上下文做出决定。让我再读一遍。\n\n目标：为 ORD-1042 提交退款。当前观测：退款已提交并确认 R-5521 已发出。所以退款已处理。决定是停止还是继续？由于退款已提交并确认，也许停止是合适的。但助手需要调用工具记录决定。然而，用户没有指定是哪个。等等，但工具是用来记录答案的，所以助手必须选择并调用工具。等等，但问题说“你可以调用一个或多个函数来协助用户查询。”所以在这种情况下，用户要求决定，助手应该调用 record_answer 并传入适当的决定。但助手如何知道是 stop 还是 continue？也许在问题的上下文中，正确的操作是调用工具并传入决定。但用户的消息是“决定 stop 还是 continue。”所以也许助手应该选择其中一个。等等，但工具是用来记录答案的，所以助手必须做出决定并记录它。然而，助手没有更多信息，所以也许这是一个测试案例，预期的决定是 stop，因为退款已处理。或者，也许继续是合理的。等等，但问题可能期望助手调用工具并传入决定，但用户没有指定。等等，不对——用户的消息是提示助手决定。等等，也许正确的步骤是调用 record_answer 并传入决定。但助手必须选择。等等，但工具的 strict 为 false，但参数要求决定是枚举值。所以助手必须选择 stop 或 continue。鉴于退款已提交并确认，也许停止是合适的。所以调用 record_answer 并传入 stop。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"decision\":\"stop\"}"
+         },
+         "id": "PGlUGUItdpPo1EpDQBJEbD1IixtEiDxG"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795792587,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 685,
+     "prompt_tokens": 272,
+     "total_tokens": 957,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-FGH46jYODWnnHCFw9AweZ4mWUrVNCAI5",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，用户正在询问是否停止还是继续处理与订单 ORD-1042 相关的退款。让我检查一下提供的工具。\n\n可用的工具是 record_answer，它接受一个枚举值：stop 或 continue。用户需要决定并记录该决定。\n\n等等，用户的消息说“决定 stop 还是 continue。”所以我需要调用 record_answer 并传入相应的决定。但用户还没有指定是 stop 还是 continue。等等，不对——用户是在提示我做出决定？等等，不对。等等，用户的输入是目标、当前观测和决定。等等，工具用于记录答案。等等，也许用户是在告诉我他们需要决定并记录它。等等，工具的描述说“Record the chosen answer”。所以用户必须选择 stop 或 continue，然后调用该工具。\n\n等等，用户的消息是：“目标 / goal: refund submitted for ORD-1042. 当前观测 / observation: refund submitted and confirmation R-5521 issued. 决定 stop 还是 continue。 / Decide stop or continue.”\n\n所以用户是在要求我决定是 stop 还是 continue。但作为助手，我需要使用工具来记录决定。等等，但工具是用于记录答案的。所以也许用户是在模拟一个场景，他们需要做出决定并记录它。但助手应该调用工具来记录决定。然而，用户还没有指定是 stop 还是 continue。等等，不对——用户的消息是提示我决定。等等，也许这是一个测试案例，用户提供了上下文，我需要决定是停止还是继续。但工具是用来记录答案的。所以也许正确的步骤是调用 record_answer 并传入适当的决定。但用户没有给出决定。等等，不对——用户是在要求我决定。等等，也许这是一个陷阱问题。等等，工具的参数要求决定是 stop 或 continue。所以助手必须选择其中一个并调用工具。但如何选择？用户的消息说“决定 stop 还是 continue。”所以也许用户期望我根据上下文做出决定。让我再读一遍。\n\n目标：为 ORD-1042 提交退款。当前观测：退款已提交并确认 R-5521 已发出。所以退款已处理。决定是停止还是继续？由于退款已提交并确认，也许停止是合适的。但助手需要调用工具记录决定。然而，用户没有指定是哪个。等等，但工具是用来记录答案的，所以助手必须选择并调用工具。等等，但问题说“你可以调用一个或多个函数来协助用户查询。”所以在这种情况下，用户要求决定，助手应该调用 record_answer 并传入适当的决定。但助手如何知道是 stop 还是 continue？也许在问题的上下文中，正确的操作是调用工具并传入决定。但用户的消息是“决定 stop 还是 continue。”所以也许助手应该选择其中一个。等等，但工具是用来记录答案的，所以助手必须做出决定并记录它。然而，助手没有更多信息，所以也许这是一个测试案例，预期的决定是 stop，因为退款已处理。或者，也许继续是合理的。等等，但问题可能期望助手调用工具并传入决定，但用户没有指定。等等，不对——用户的消息是提示助手决定。等等，也许正确的步骤是调用 record_answer 并传入决定。但助手必须选择。等等，但工具的 strict 为 false，但参数要求决定是枚举值。所以助手必须选择 stop 或 continue。鉴于退款已提交并确认，也许停止是合适的。所以调用 record_answer 并传入 stop。\n</think>\n\n<function name=\"record_answer\"><param name=\"decision\">stop</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 685,
+     "tokens_evaluated": 272,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"decision\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"decision\": {\"type\": \"string\", \"enum\": [\"stop\", \"continue\"]}}, \"required\": [\"decision\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n目标 / goal: goal: refund submitted for ORD-1042. 当前观测 / observation: refund submitted and confirmation R-5521 issued.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 956,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 272,
+      "prompt_ms": 53.215,
+      "prompt_per_token_ms": 0.19564338235294118,
+      "prompt_per_second": 5111.340787371981,
+      "predicted_n": 685,
+      "predicted_ms": 3753.595,
+      "predicted_per_token_ms": 5.487711988304094,
+      "predicted_per_second": 182.22530667266983
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 272,
+     "prompt_ms": 53.215,
+     "prompt_per_token_ms": 0.19564338235294118,
+     "prompt_per_second": 5111.340787371981,
+     "predicted_n": 685,
+     "predicted_ms": 3753.595,
+     "predicted_per_token_ms": 5.487711988304094,
+     "predicted_per_second": 182.22530667266983
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.829
+  }
+ ]
+}

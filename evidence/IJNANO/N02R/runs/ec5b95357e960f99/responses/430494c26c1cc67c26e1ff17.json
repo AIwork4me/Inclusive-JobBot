@@ -1,0 +1,146 @@
+{
+ "trial_id": "430494c26c1cc67c26e1ff17",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "escalations.open_case",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A known order (ORD-7781, C-41, SKU-5519, TRK-40219) and a description of the issue (\"包裹 TRK-40219 连续破损两次，开升级单\" - Package TRK-40219 has been damaged twice in a row, open an escalation case).\n    *   Available Tools:\n        *   `logistics.trace_shipment`: Trace shipment (params: tracking_no)\n        *   `logistics.reroute_shipment`: Reroute shipment (params: tracking_no)\n        *   `logistics.estimate_delivery`: Estimate delivery (params: tracking_no)\n        *   `addresses.validate`: Validate address (params: address_id)\n        *   `customs.declare_value`: Declare customs value (params: tracking_no, amount)\n        *   `labels.generate`: Generate label (params: order_id)\n        *   `couriers.list_rates`: List courier rates (params: zone)\n        *   `escalations.open_case`: Open escalation case (params: tracking_no)\n    *   Constraint: Answer with the tool name only.\n\n2.  **Evaluate the Situation:**\n    *   The user states that the package (TRK-40219) has been damaged twice in a row.\n    *   The action required is to \"开升级单\" (open an escalation case).\n    *   Looking at the available tools, `escalations.open_case` takes a `tracking_no` as a parameter.\n    *   The tracking number is provided in the input: TRK-40219.\n\n3.  **Select the Tool:**\n    *   The specific action is opening an escalation case due to damage.\n    *   The tool `escalations.open_case` matches this action perfectly.\n    *   The parameter `tracking_no` is available in the input.\n\n4.  **Format the Output:**\n    *   Constraint: \"只回答要调用的工具名\" (Answer with the tool name only).\n    *   Output: `escalations.open_case`\n\n5.  **Final Check:**\n    *   Does `escalations.open_case` fit the context? Yes, for handling repeated damage issues, escalation is the standard procedure.\n    *   Is the tool name exactly as specified? Yes.\n    *   Is there any other tool needed? The prompt asks to answer with the tool name only. While tracing might be useful to confirm the damage, the explicit instruction is \"开升级单\" (open escalation case). So the primary tool is `escalations.open_case`.\n\n6.  **Construct Final Response:**\n    *   `escalations.open_case`\n\nWait, let me double-check if I need to trace first. The prompt says \"包裹 TRK-40219 连续破损两次，开升级单\" (Package TRK-40219 damaged twice in a row, open escalation case). The direct action is opening the case. The tool `escalations.open_case` is the one that does exactly that.\n\nFinal decision: `escalations.open_case`"
+      }
+     }
+    ],
+    "created": 1795798975,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 703,
+     "prompt_tokens": 249,
+     "total_tokens": 952,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-5TNkkVXemd5iE1u8u1GXRDSoOhvnyFRV",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A known order (ORD-7781, C-41, SKU-5519, TRK-40219) and a description of the issue (\"包裹 TRK-40219 连续破损两次，开升级单\" - Package TRK-40219 has been damaged twice in a row, open an escalation case).\n    *   Available Tools:\n        *   `logistics.trace_shipment`: Trace shipment (params: tracking_no)\n        *   `logistics.reroute_shipment`: Reroute shipment (params: tracking_no)\n        *   `logistics.estimate_delivery`: Estimate delivery (params: tracking_no)\n        *   `addresses.validate`: Validate address (params: address_id)\n        *   `customs.declare_value`: Declare customs value (params: tracking_no, amount)\n        *   `labels.generate`: Generate label (params: order_id)\n        *   `couriers.list_rates`: List courier rates (params: zone)\n        *   `escalations.open_case`: Open escalation case (params: tracking_no)\n    *   Constraint: Answer with the tool name only.\n\n2.  **Evaluate the Situation:**\n    *   The user states that the package (TRK-40219) has been damaged twice in a row.\n    *   The action required is to \"开升级单\" (open an escalation case).\n    *   Looking at the available tools, `escalations.open_case` takes a `tracking_no` as a parameter.\n    *   The tracking number is provided in the input: TRK-40219.\n\n3.  **Select the Tool:**\n    *   The specific action is opening an escalation case due to damage.\n    *   The tool `escalations.open_case` matches this action perfectly.\n    *   The parameter `tracking_no` is available in the input.\n\n4.  **Format the Output:**\n    *   Constraint: \"只回答要调用的工具名\" (Answer with the tool name only).\n    *   Output: `escalations.open_case`\n\n5.  **Final Check:**\n    *   Does `escalations.open_case` fit the context? Yes, for handling repeated damage issues, escalation is the standard procedure.\n    *   Is the tool name exactly as specified? Yes.\n    *   Is there any other tool needed? The prompt asks to answer with the tool name only. While tracing might be useful to confirm the damage, the explicit instruction is \"开升级单\" (open escalation case). So the primary tool is `escalations.open_case`.\n\n6.  **Construct Final Response:**\n    *   `escalations.open_case`\n\nWait, let me double-check if I need to trace first. The prompt says \"包裹 TRK-40219 连续破损两次，开升级单\" (Package TRK-40219 damaged twice in a row, open escalation case). The direct action is opening the case. The tool `escalations.open_case` is the one that does exactly that.\n\nFinal decision: `escalations.open_case`\n</think>\n\nescalations.open_case",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 703,
+     "tokens_evaluated": 249,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n已知 / known: order ORD-7781, customer C-41, sku SKU-5519, tracking TRK-40219.\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n包裹 TRK-40219 连续破损两次，开升级单。 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 951,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 249,
+      "prompt_ms": 49.315,
+      "prompt_per_token_ms": 0.19805220883534136,
+      "prompt_per_second": 5049.173679407888,
+      "predicted_n": 703,
+      "predicted_ms": 3434.513,
+      "predicted_per_token_ms": 4.892468660968661,
+      "predicted_per_second": 204.3957906113618
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 249,
+     "prompt_ms": 49.315,
+     "prompt_per_token_ms": 0.19805220883534136,
+     "prompt_per_second": 5049.173679407888,
+     "predicted_n": 703,
+     "predicted_ms": 3434.513,
+     "predicted_per_token_ms": 4.892468660968661,
+     "predicted_per_second": 204.3957906113618
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.5
+  }
+ ]
+}

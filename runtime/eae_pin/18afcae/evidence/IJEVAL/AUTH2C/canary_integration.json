@@ -1,0 +1,50 @@
+{
+ "passed": true,
+ "sweep": "ALL Batch C families at one checkpoint (full sweep bounds family-local fault latency to one interval)",
+ "production_legs": {
+  "parser": "eval_assurance.production.parser_c@1",
+  "evaluator": "eval_assurance.production.evaluator_c@1"
+ },
+ "families": {
+  "C17": {
+   "passed": true,
+   "positive": 6,
+   "negative": 10
+  },
+  "C18": {
+   "passed": true,
+   "positive": 8,
+   "negative": 6
+  },
+  "C19": {
+   "passed": true,
+   "positive": 6,
+   "negative": 8
+  },
+  "C20": {
+   "passed": true,
+   "positive": 4,
+   "negative": 8
+  },
+  "C21": {
+   "passed": true,
+   "positive": 6,
+   "negative": 6
+  },
+  "C22": {
+   "passed": true,
+   "positive": 4,
+   "negative": 10
+  },
+  "C23": {
+   "passed": true,
+   "positive": 4,
+   "negative": 10
+  },
+  "C24": {
+   "passed": true,
+   "positive": 4,
+   "negative": 10
+  }
+ }
+}

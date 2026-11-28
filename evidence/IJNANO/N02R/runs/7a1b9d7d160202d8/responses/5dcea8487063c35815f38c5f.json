@@ -1,0 +1,146 @@
+{
+ "trial_id": "5dcea8487063c35815f38c5f",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's request: \"可选动作 / available actions: ... Allowed action labels: A1, A2, A3, A4, A5, A6. 客户 {cust} 威胁投诉监管部门，情绪激动。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The user says \"Customer {cust} threatens to complain to regulatory authorities, emotional. Only answer action number.\" So we need to choose an appropriate available action from A1-A6.\n\nWe have options:\n\nA1. Exchange item for customer ORD-2025.\nA2. Submit a refund for ORD-2025.\nA3. Apologize and close the ticket.\nA4. Escalate to human agent.\nA5. Trace shipment.\nA6. Send delay notification.\n\nThe scenario: Customer threatens to complain to regulatory authorities, emotional. This suggests we need to handle with empathy, possibly apologize and escalate? The best action might be A3 (apologize and close the ticket) or A4 (escalate to human agent). Since they threaten to go to regulators, maybe we should escalate to a human agent for proper handling. But also we could apologize first.\n\nLet's think: In typical support tickets, when a customer threatens to complain to authorities, you might want to apologize and close the ticket? Or perhaps you need to involve a supervisor/human agent to handle the threat appropriately. The options:\n\n- A3: \"仅道歉并关闭工单 / apologize and close the ticket\". That seems like a simple apology and closing. But if they threaten regulatory complaint, maybe we should not just close; we might need to escalate.\n\n- A4: \"升级人工客服 / escalate to a human agent\". This would be appropriate for handling a high-emotion threat.\n\nGiven typical support flow: When a customer is angry or threatening, you often want to de-escalate and possibly involve a human. So I'd choose A4 (escalate to human agent). However, we also might need to apologize first? The action label \"A3\" includes apologizing and closing the ticket. But if they threaten regulatory authorities, maybe we should not close immediately; we need to handle it properly.\n\nLet's examine each:\n\n- A1: exchange item - irrelevant.\n- A2: refund - maybe if they want money back due to threat? Not indicated.\n- A"
+      }
+     }
+    ],
+    "created": 1795796164,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 512,
+     "prompt_tokens": 189,
+     "total_tokens": 701,
+     "prompt_tokens_details": {
+      "cached_tokens": 1
+     }
+    },
+    "id": "chatcmpl-MTlCDIan6C4YDEN31wukdIpBtWeAagS5",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request: \"可选动作 / available actions: ... Allowed action labels: A1, A2, A3, A4, A5, A6. 客户 {cust} 威胁投诉监管部门，情绪激动。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The user says \"Customer {cust} threatens to complain to regulatory authorities, emotional. Only answer action number.\" So we need to choose an appropriate available action from A1-A6.\n\nWe have options:\n\nA1. Exchange item for customer ORD-2025.\nA2. Submit a refund for ORD-2025.\nA3. Apologize and close the ticket.\nA4. Escalate to human agent.\nA5. Trace shipment.\nA6. Send delay notification.\n\nThe scenario: Customer threatens to complain to regulatory authorities, emotional. This suggests we need to handle with empathy, possibly apologize and escalate? The best action might be A3 (apologize and close the ticket) or A4 (escalate to human agent). Since they threaten to go to regulators, maybe we should escalate to a human agent for proper handling. But also we could apologize first.\n\nLet's think: In typical support tickets, when a customer threatens to complain to authorities, you might want to apologize and close the ticket? Or perhaps you need to involve a supervisor/human agent to handle the threat appropriately. The options:\n\n- A3: \"仅道歉并关闭工单 / apologize and close the ticket\". That seems like a simple apology and closing. But if they threaten regulatory complaint, maybe we should not just close; we might need to escalate.\n\n- A4: \"升级人工客服 / escalate to a human agent\". This would be appropriate for handling a high-emotion threat.\n\nGiven typical support flow: When a customer is angry or threatening, you often want to de-escalate and possibly involve a human. So I'd choose A4 (escalate to human agent). However, we also might need to apologize first? The action label \"A3\" includes apologizing and closing the ticket. But if they threaten regulatory authorities, maybe we should not close immediately; we need to handle it properly.\n\nLet's examine each:\n\n- A1: exchange item - irrelevant.\n- A2: refund - maybe if they want money back due to threat? Not indicated.\n- A",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 512,
+     "tokens_evaluated": 189,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 512,
+      "n_predict": 512,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n可选动作 / available actions:\nA1. 换货：为客户 ORD-2025 创建换货单 / exchange the item on ORD-2025\nA2. 退款：为 ORD-2025 提交退款 / submit a refund for ORD-2025\nA3. 仅道歉并关闭工单 / apologize and close the ticket\nA4. 升级人工客服 / escalate to a human agent\nA5. 查询物流轨迹 / trace the shipment\nA6. 发送延迟通知 / send a delay notification\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户 {cust} 威胁投诉监管部门，情绪激动。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 700,
+     "timings": {
+      "cache_n": 1,
+      "prompt_n": 188,
+      "prompt_ms": 37.528,
+      "prompt_per_token_ms": 0.19961702127659572,
+      "prompt_per_second": 5009.592837348114,
+      "predicted_n": 512,
+      "predicted_ms": 2990.69,
+      "predicted_per_token_ms": 5.852622309197652,
+      "predicted_per_second": 170.86357997652715
+     }
+    },
+    "timings": {
+     "cache_n": 1,
+     "prompt_n": 188,
+     "prompt_ms": 37.528,
+     "prompt_per_token_ms": 0.19961702127659572,
+     "prompt_per_second": 5009.592837348114,
+     "predicted_n": 512,
+     "predicted_ms": 2990.69,
+     "predicted_per_token_ms": 5.852622309197652,
+     "predicted_per_second": 170.86357997652715
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.032
+  }
+ ]
+}

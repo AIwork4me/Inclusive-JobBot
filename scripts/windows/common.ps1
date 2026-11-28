@@ -142,3 +142,47 @@ function Expand-ArchiveTo([string]$ZipPath, [string]$Destination) {
   }
   finally { $archive.Dispose() }
 }
+
+# Parses `vulkaninfo --summary` into device records. vulkaninfo.exe ships with
+# the GPU driver on Windows; when it is missing the function returns $null so
+# callers can record the absence instead of failing the collection.
+# Added 2026-11-27: collect_environment.ps1 called this helper but no
+# definition existed on the branch (IJ-SDK-1.0 P1 repair).
+function Get-VulkanDevices {
+  $exe = Get-Command vulkaninfo.exe -ErrorAction SilentlyContinue
+  if (-not $exe) { return $null }
+  # vulkaninfo prints loader warnings on stderr; PowerShell 5.1 turns a
+  # redirected stderr line into an error record, so silence it locally.
+  $prevPreference = $ErrorActionPreference
+  $ErrorActionPreference = "SilentlyContinue"
+  try {
+    $output = & $exe.Path --summary 2>$null | Out-String
+    $code = $LASTEXITCODE
+  }
+  finally { $ErrorActionPreference = $prevPreference }
+  if ($code -ne 0) { return $null }
+  $devices = @()
+  $instanceVersion = [regex]::Match($output, "Vulkan Instance Version:\s*(.+)").Groups[1].Value.Trim()
+  $blocks = $output -split "(?m)^GPU\d+:" | Select-Object -Skip 1
+  foreach ($block in $blocks) {
+    # Select-String treats a multi-line string as one line; use [regex]::Match
+    # with (?m) so ^ and $ match at embedded line boundaries.
+    $field = { param($name)
+      [regex]::Match($block, "(?m)^\s*" + [regex]::Escape($name) + "\s*=\s*(.+?)\s*$").Groups[1].Value
+    }
+    $devices += [ordered]@{
+      api_version     = & $field "apiVersion"
+      driver_version  = & $field "driverVersion"
+      vendor_id       = & $field "vendorID"
+      device_id       = & $field "deviceID"
+      device_type     = & $field "deviceType"
+      device_name     = & $field "deviceName"
+      driver_id       = & $field "driverID"
+      driver_name     = & $field "driverName"
+      driver_info     = & $field "driverInfo"
+      instance_version = $instanceVersion
+    }
+  }
+  if ($devices.Count -eq 0) { return $null }
+  return $devices
+}

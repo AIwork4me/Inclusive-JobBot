@@ -1,0 +1,30 @@
+{
+ "schema": "ijeval.auth2.release.v1",
+ "status": "EAE-SIDE-RELEASED (physical execution by the IJ-NANO owner at the pinned revision)",
+ "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-A-v1",
+ "auth_level": "AUTH-2",
+ "scope": {
+  "slots": 480,
+  "models": [
+   "MiniCPM5-2B",
+   "LFM3-1.7B",
+   "Qwen3.5-2B"
+  ],
+  "dev_cases": 160,
+  "roster_digest": "ee1769b301ba94908b8312aa83ffaf8832b326f5ae8a8831749625ddfd04f5e3",
+  "dataset_digest": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+  "primitives_qualified": 8,
+  "progressive_note": "all 8 primitives qualified -> full 480-slot Batch A dev scope; narrower preregistered scopes remain permissible"
+ },
+ "eae_contract_revision": "1.1.1",
+ "authorization_checksum": "a22bcc68b8e199741227ce4360035292abd24103ecd1df7f0182413f1ee57ebc",
+ "certificate_ids": [
+  "512efb617a9cb4c8"
+ ],
+ "shared_core_gate": "N03_SHARED_EVALUATION_ASSURANCE_CORE_GO",
+ "dispatch_limits": {
+  "max_trials": 480
+ },
+ "confirmation_status": "BLOCKED (AUTH-3 requires frozen model identities/policies + confirmation roster + verified holdout separation; not registered)",
+ "generated_utc": "2026-11-28T04:03:46Z"
+}

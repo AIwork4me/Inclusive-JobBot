@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-SDK-1.0",
+  "protocol_id": "IJSDK-P2-ADMISSION-1.0",
+  "frozen_utc": "2026-11-27",
+  "frozen_before_results": true,
+  "purpose": "Preregistered runtime admission (not capability qualification) for model candidates. Functional weaknesses discovered here are research outcomes, not grounds to exclude a mandatory model (S1/S2). The competitive candidate S3 is selected by this development protocol only; holdout performance never informs selection.",
+  "subjects": {
+    "S1": "MiniCPM5-2B (project baseline; mandatory)",
+    "S2": "LFM3-1.7B or the verified current Liquid AI small instruct model (mandatory)",
+    "S3": "Best qualified contemporary 1-3B instruct model; selected by this protocol from >=3 verified ModelScope candidates",
+    "R1": "Reference ~7-8B instruct (prefer Qwen3-8B, already represented in project evidence)",
+    "R2": "Reference ~12-14B instruct (prefer Qwen3-14B, already represented in project evidence)"
+  },
+  "quantization_policy": {
+    "primary": "Q4_K_M",
+    "admission_runs": "Q8_0 for admission smoke (comparable across architectures); Q4_K_M repeated on finalists",
+    "rule": "Nominally identical quantization types are not assumed equivalent across architectures; quantization experiments are separated from SDK comparisons (A10)."
+  },
+  "smoke_suite": {
+    "runtime": "llama.cpp b12359 llama-server, loopback, managed start with D-010 GPU proof; Q8_0; context 8192; greedy decoding (temperature 0, seed 47)",
+    "cases": [
+      {"id": "basic_instruction", "description": "Follow a simple two-constraint instruction in English and in Chinese"},
+      {"id": "json_generation", "description": "Emit a valid JSON object matching a given flat schema, 30 dev cases, threshold >= 90% valid JSON"},
+      {"id": "zero_tool_response", "description": "With tools present, answer directly when no tool applies; no invented call"},
+      {"id": "single_tool_invocation", "description": "Select the correct tool of 4 and emit well-formed arguments; threshold >= 80% over 30 dev cases"},
+      {"id": "tool_result_continuation", "description": "Use a tool result as the argument of a second call and state the final fact; threshold >= 70%"},
+      {"id": "multiple_sequential_tools", "description": "Two to three dependent calls in order; threshold >= 50%"},
+      {"id": "structured_output", "description": "Grammar/schema-constrained output accepted by llama-server"},
+      {"id": "invalid_argument_recovery", "description": "Recover after one deliberately rejected call (bad argument) without repeating it verbatim"},
+      {"id": "context_handling", "description": "Answer a question whose evidence sits > 3000 tokens back in the prompt"},
+      {"id": "stop_conditions", "description": "Terminate within the token budget; no runaway loop; EOS honored"}
+    ],
+    "thresholds_are_dev_only": true,
+    "failure_is_research_outcome": true
+  },
+  "selection_rule_for_S3": "Rank verified candidates by a fixed development score: sum of the ten smoke-case pass rates (each equally weighted, 30 dev cases each, one frozen dev set per case family generated before any candidate runs). Highest total wins; ties broken by lower token cost per correct case; remaining ties by smaller parameter count. No holdout data is consulted.",
+  "reference_models": {
+    "role": "capability comparison anchors only; excluded from the 2B-class product ranking",
+    "data_policy": "R1/R2 results are reported separately and never mixed into small-model rankings."
+  },
+  "passports": "Every admitted model receives a full passport (weights source/revision/SHA256, tokenizer, chat template SHA256, native tool-calling spec, context, license and commercial terms, known limitations) in evidence/IJSDK/P2/model_passports/.",
+  "gate": "P2_MODEL_IDENTITIES_AND_ADMISSION_FROZEN"
+}

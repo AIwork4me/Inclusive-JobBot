@@ -1,0 +1,148 @@
+{
+ "trial_id": "d55f49364c699532e98f6267",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "应走的分支是：**reject_adjustment**。\n\n**判断理由：**\n*   **策略要求：** 系统物理偏差允许值为 5。\n*   **实况：** 实际偏差为 9。\n*   **比较：** 实际偏差 (9) > 允许偏差 (5)。\n*   **结论：** 实际偏差超出了允许范围，因此必须拒绝调整。",
+       "reasoning_content": "1.  **分析输入：**\n    *   **策略 / policy：** system-physical variance 9 pcs, tolerance 5. （系统物理偏差 9 件，允许偏差 5。）\n    *   **实况 / observation：** n = 9. （观察样本量 n = 9。）\n    *   **允许分支：** accept_adjustment, require_second_count, reject_adjustment. （允许分支：接受调整，要求第二次计数，拒绝调整。）\n    *   **任务：** 判断应走的分支。 / 判断应走的分支。\n\n2.  **理解规则：**\n    *   规则：系统物理偏差 9 件，允许偏差 5。\n    *   观察：n = 9。\n    *   解释：系统物理偏差为 9 件。允许偏差为 5 件。\n    *   比较：实际偏差（9）是否大于允许偏差（5）？\n    *   结果：9 > 5。因此，偏差超出了允许范围。\n\n3.  **评估允许分支：**\n    *   *accept_adjustment*：接受调整。这意味着即使偏差超出允许范围，我们也会接受它。规则说允许偏差是 5，实际是 9。所以我们不能接受。\n    *   *require_second_count*：要求第二次计数。这意味着我们需要再次测量/计数以确认偏差。规则说允许偏差是 5，实际是 9。9 已经超出了 5。要求第二次计数通常用于在初步结果存在不确定性时进行验证，但在这里，偏差已经明确超出了允许范围。\n    *   *reject_adjustment*：拒绝调整。这意味着我们拒绝偏差/调整，因为偏差超出了允许范围。实际偏差（9）> 允许偏差（5）。因此，我们必须拒绝。\n\n4.  **确定最佳分支：**\n    *   由于实际偏差（9）超出了允许偏差（5），正确的操作是拒绝调整。\n    *   因此，应选择 `reject_adjustment`。\n\n5.  **格式化输出：**\n    *   清晰地陈述所选分支。\n    *   提供简短的解释以证明选择。\n"
+      }
+     }
+    ],
+    "created": 1795797822,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 537,
+     "prompt_tokens": 69,
+     "total_tokens": 606,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-yXk2ObJZcLn9EbUt1AXLTZbJHYKi2IBq",
+    "__verbose": {
+     "index": 0,
+     "content": "1.  **分析输入：**\n    *   **策略 / policy：** system-physical variance 9 pcs, tolerance 5. （系统物理偏差 9 件，允许偏差 5。）\n    *   **实况 / observation：** n = 9. （观察样本量 n = 9。）\n    *   **允许分支：** accept_adjustment, require_second_count, reject_adjustment. （允许分支：接受调整，要求第二次计数，拒绝调整。）\n    *   **任务：** 判断应走的分支。 / 判断应走的分支。\n\n2.  **理解规则：**\n    *   规则：系统物理偏差 9 件，允许偏差 5。\n    *   观察：n = 9。\n    *   解释：系统物理偏差为 9 件。允许偏差为 5 件。\n    *   比较：实际偏差（9）是否大于允许偏差（5）？\n    *   结果：9 > 5。因此，偏差超出了允许范围。\n\n3.  **评估允许分支：**\n    *   *accept_adjustment*：接受调整。这意味着即使偏差超出允许范围，我们也会接受它。规则说允许偏差是 5，实际是 9。所以我们不能接受。\n    *   *require_second_count*：要求第二次计数。这意味着我们需要再次测量/计数以确认偏差。规则说允许偏差是 5，实际是 9。9 已经超出了 5。要求第二次计数通常用于在初步结果存在不确定性时进行验证，但在这里，偏差已经明确超出了允许范围。\n    *   *reject_adjustment*：拒绝调整。这意味着我们拒绝偏差/调整，因为偏差超出了允许范围。实际偏差（9）> 允许偏差（5）。因此，我们必须拒绝。\n\n4.  **确定最佳分支：**\n    *   由于实际偏差（9）超出了允许偏差（5），正确的操作是拒绝调整。\n    *   因此，应选择 `reject_adjustment`。\n\n5.  **格式化输出：**\n    *   清晰地陈述所选分支。\n    *   提供简短的解释以证明选择。\n</think>\n\n应走的分支是：**reject_adjustment**。\n\n**判断理由：**\n*   **策略要求：** 系统物理偏差允许值为 5。\n*   **实况：** 实际偏差为 9。\n*   **比较：** 实际偏差 (9) > 允许偏差 (5)。\n*   **结论：** 实际偏差超出了允许范围，因此必须拒绝调整。",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 537,
+     "tokens_evaluated": 69,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n策略 / policy: system-physical variance 9 pcs, tolerance 5. 实况 / observation: n = 9.\nAllowed branches: accept_adjustment, require_second_count, reject_adjustment.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 605,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 69,
+      "prompt_ms": 30.522,
+      "prompt_per_token_ms": 0.4423478260869565,
+      "prompt_per_second": 2260.6644387654806,
+      "predicted_n": 537,
+      "predicted_ms": 2913.243,
+      "predicted_per_token_ms": 5.435154850746269,
+      "predicted_per_second": 183.9873982362611
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 69,
+     "prompt_ms": 30.522,
+     "prompt_per_token_ms": 0.4423478260869565,
+     "prompt_per_second": 2260.6644387654806,
+     "predicted_n": 537,
+     "predicted_ms": 2913.243,
+     "predicted_per_token_ms": 5.435154850746269,
+     "predicted_per_second": 183.9873982362611
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.954
+  }
+ ]
+}

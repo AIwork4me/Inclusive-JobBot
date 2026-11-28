@@ -1,0 +1,11 @@
+{
+ "schema": "ijeval.auth2d.consumer_verification.v1",
+ "consumer": "REAL benchmarks.ij_nano.n03.authorization (EAEExecutionAuthorizationProvider + validate_against, imported from the IJNANO worktree, read-only, no doubles)",
+ "result": "physical authorization issued and validated for the exact AUTH-2 Batch D scope (N03-AUTH2-DEVELOPMENT-BATCH-D-v1, 480-slot roster digest, 3 models); qualifying_class=EAE; checksum valid",
+ "issue_ok": true,
+ "revocation_drill": "EAE-side authoritative revocation stops the real consumer at the next issuance (drill isolated in a subprocess against a registry copy; live registrations untouched)",
+ "revoked_refused": true,
+ "drill_stderr_tail": "",
+ "drill_detail": "drill refused-after-revocation: True",
+ "environment_note": "provider pinned to EAE_CONTRACT_REVISION (1.1.1); the IJ-NANO owner re-pins their runtime to the published commit"
+}

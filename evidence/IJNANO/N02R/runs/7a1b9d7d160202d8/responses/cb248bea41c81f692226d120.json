@@ -1,0 +1,146 @@
+{
+ "trial_id": "cb248bea41c81f692226d120",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A list of items (SKU-5519, quantity change 40 pcs) and a list of available tools (inventory.check_stock, inventory.adjust_stock, inventory.reserve_stock, warehouse.locate_bin, receiving.log_arrival, picking.create_task, reports.export_snapshot, alerts.raise_low_stock).\n    *   Task: Generate a \"complete action\" (完整动作) including tools and all arguments (参数) based on the provided context.\n    *   Context: \"Item SKU-5519: quantity change 40 pcs.\" This implies a need to update the inventory quantity for a specific SKU.\n    *   Goal: Determine which tool is appropriate for this action and construct the full action with parameters.\n\n2.  **Evaluate the Tools:**\n    *   `inventory.check_stock`: Used to query current stock. Not needed if we are changing it, unless we need to verify first.\n    *   `inventory.adjust_stock`: Used to adjust stock (add or remove). This fits \"quantity change 40 pcs\".\n    *   `inventory.reserve_stock`: Used to reserve stock (e.g., for future orders). Not for changing current stock quantity.\n    *   `warehouse.locate_bin`: Used to find a physical bin location. Not needed for a simple quantity change unless the system requires physical bin location first.\n    *   `receiving.log_arrival`: Used for incoming shipments. Not relevant for internal quantity change.\n    *   `picking.create_task`: Used for creating picking tasks for picking staff. Not relevant for stock adjustment.\n    *   `reports.export_snapshot`: Used for reporting. Not relevant for stock adjustment.\n    *   `alerts.raise_low_stock`: Used for notifications. Not relevant for stock adjustment.\n\n3.  **Determine the Action:**\n    *   The user wants to change the quantity of SKU-5519 by 40 pcs.\n    *   The most appropriate tool is `inventory.adjust_stock`.\n    *   Parameters needed: `sku` (SKU-5519) and `quantity` (40 pcs).\n\n4.  **Format the Output:**\n    *   The user asked for \"完整动作：工具与全部参数\" (Complete action: tool and all arguments).\n    *   I need to present this clearly.\n    *   Action: `inventory.adjust_stock`\n    *   Parameters: `sku=\"SKU-5519\"`, `quantity=40` (or similar format).\n\n5.  **Refine the Output:**\n    *   Make it look like a structured action plan.\n    *   Ensure the tool name and parameters are clearly listed.\n    *   Language: The prompt is in Chinese, so the response should be in Chinese.\n\n6.  **Drafting the Response:**\n    *   Action: 调整库存 (Adjust Stock)\n    *   Tool: inventory.adjust_stock\n    *   Parameters: sku=\"SKU-5519\", quantity=40\n\n    Wait, looking at the instruction \"生成完整动作：工具与全部参数\" (Generate complete action: tool and all arguments).\n    I should output the specific action details.\n\n    Let's check if there are any other constraints. The prompt provides a list of tools and a scenario. It asks to generate the full action based on the scenario.\n    Scenario: \"Item SKU-5519: quantity change 40 pcs.\"\n    This is a stock adjustment.\n    Tool: `inventory.adjust_stock`\n    Params: `sku`, `quantity`\n\n    So the output should be:\n    Action: inventory.adjust_stock\n    Arguments: sku=\"SKU-5519\", quantity=40\n\n    Or in a more structured way.\n    Let's write it clearly.\n\n    **Step-by-step:**\n    1. Identify the operation: Change quantity (increase/decrease).\n    2. Match tool: `inventory.adjust_stock`.\n    3. Extract params: sku = SKU-5519, quantity = 40.\n    4. Construct the final output.\n\n    **Final check:**\n    Does `inventory.adjust_stock` take `quantity`? Yes, the prompt says `params: sku, quantity`.\n    Does `inventory.check_stock` take `sku`? Yes.\n    Does `inventory.reserve_stock` take `sku, quantity`? Yes.\n    Since it's a \"change\" (quantity change), `adjust_stock` is the correct choice.\n\n    Output format:\n    Action: [Tool Name]\n    Parameters: [Key-Value pairs]\n\n    Let's write it in Chinese as requested.\n\n    **Action:** 调整库存 (Adjust Stock)\n    **"
+      }
+     }
+    ],
+    "created": 1795794453,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 208,
+     "total_tokens": 1232,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-eLoPO3c9lnqGtRnVRGkUqAth2Bu0f1So",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A list of items (SKU-5519, quantity change 40 pcs) and a list of available tools (inventory.check_stock, inventory.adjust_stock, inventory.reserve_stock, warehouse.locate_bin, receiving.log_arrival, picking.create_task, reports.export_snapshot, alerts.raise_low_stock).\n    *   Task: Generate a \"complete action\" (完整动作) including tools and all arguments (参数) based on the provided context.\n    *   Context: \"Item SKU-5519: quantity change 40 pcs.\" This implies a need to update the inventory quantity for a specific SKU.\n    *   Goal: Determine which tool is appropriate for this action and construct the full action with parameters.\n\n2.  **Evaluate the Tools:**\n    *   `inventory.check_stock`: Used to query current stock. Not needed if we are changing it, unless we need to verify first.\n    *   `inventory.adjust_stock`: Used to adjust stock (add or remove). This fits \"quantity change 40 pcs\".\n    *   `inventory.reserve_stock`: Used to reserve stock (e.g., for future orders). Not for changing current stock quantity.\n    *   `warehouse.locate_bin`: Used to find a physical bin location. Not needed for a simple quantity change unless the system requires physical bin location first.\n    *   `receiving.log_arrival`: Used for incoming shipments. Not relevant for internal quantity change.\n    *   `picking.create_task`: Used for creating picking tasks for picking staff. Not relevant for stock adjustment.\n    *   `reports.export_snapshot`: Used for reporting. Not relevant for stock adjustment.\n    *   `alerts.raise_low_stock`: Used for notifications. Not relevant for stock adjustment.\n\n3.  **Determine the Action:**\n    *   The user wants to change the quantity of SKU-5519 by 40 pcs.\n    *   The most appropriate tool is `inventory.adjust_stock`.\n    *   Parameters needed: `sku` (SKU-5519) and `quantity` (40 pcs).\n\n4.  **Format the Output:**\n    *   The user asked for \"完整动作：工具与全部参数\" (Complete action: tool and all arguments).\n    *   I need to present this clearly.\n    *   Action: `inventory.adjust_stock`\n    *   Parameters: `sku=\"SKU-5519\"`, `quantity=40` (or similar format).\n\n5.  **Refine the Output:**\n    *   Make it look like a structured action plan.\n    *   Ensure the tool name and parameters are clearly listed.\n    *   Language: The prompt is in Chinese, so the response should be in Chinese.\n\n6.  **Drafting the Response:**\n    *   Action: 调整库存 (Adjust Stock)\n    *   Tool: inventory.adjust_stock\n    *   Parameters: sku=\"SKU-5519\", quantity=40\n\n    Wait, looking at the instruction \"生成完整动作：工具与全部参数\" (Generate complete action: tool and all arguments).\n    I should output the specific action details.\n\n    Let's check if there are any other constraints. The prompt provides a list of tools and a scenario. It asks to generate the full action based on the scenario.\n    Scenario: \"Item SKU-5519: quantity change 40 pcs.\"\n    This is a stock adjustment.\n    Tool: `inventory.adjust_stock`\n    Params: `sku`, `quantity`\n\n    So the output should be:\n    Action: inventory.adjust_stock\n    Arguments: sku=\"SKU-5519\", quantity=40\n\n    Or in a more structured way.\n    Let's write it clearly.\n\n    **Step-by-step:**\n    1. Identify the operation: Change quantity (increase/decrease).\n    2. Match tool: `inventory.adjust_stock`.\n    3. Extract params: sku = SKU-5519, quantity = 40.\n    4. Construct the final output.\n\n    **Final check:**\n    Does `inventory.adjust_stock` take `quantity`? Yes, the prompt says `params: sku, quantity`.\n    Does `inventory.check_stock` take `sku`? Yes.\n    Does `inventory.reserve_stock` take `sku, quantity`? Yes.\n    Since it's a \"change\" (quantity change), `adjust_stock` is the correct choice.\n\n    Output format:\n    Action: [Tool Name]\n    Parameters: [Key-Value pairs]\n\n    Let's write it in Chinese as requested.\n\n    **Action:** 调整库存 (Adjust Stock)\n    **",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 208,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\nItem SKU-5519: quantity change 40 pcs.\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1231,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 208,
+      "prompt_ms": 48.574,
+      "prompt_per_token_ms": 0.23352884615384614,
+      "prompt_per_second": 4282.12624037551,
+      "predicted_n": 1024,
+      "predicted_ms": 4955.875,
+      "predicted_per_token_ms": 4.844452590420333,
+      "predicted_per_second": 206.4216712487704
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 208,
+     "prompt_ms": 48.574,
+     "prompt_per_token_ms": 0.23352884615384614,
+     "prompt_per_second": 4282.12624037551,
+     "predicted_n": 1024,
+     "predicted_ms": 4955.875,
+     "predicted_per_token_ms": 4.844452590420333,
+     "predicted_per_second": 206.4216712487704
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.0
+  }
+ ]
+}

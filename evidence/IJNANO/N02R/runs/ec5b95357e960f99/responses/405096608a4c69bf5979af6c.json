@@ -1,0 +1,162 @@
+{
+ "trial_id": "405096608a4c69bf5979af6c",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "用户需要我根据给定的场景选择正确的动作编号。\n\n场景：收件人打电话说搬家了，包裹 {trk} 还在途中。\n\n分析：\n- 包裹还在途中，收件人搬家了\n- 这种情况下，包裹可能无法送达，需要处理\n- 查看选项：\n  - A1. 改址：修改 TRK-73002 的收件地址 - 但包裹还在途中，改址可能无法解决\n  - A2. 加急：把 TRK-73002 升级为加急配送 - 加急可能无法解决搬家问题\n  - A3. 拦截：尝试拦截 TRK-73002 - 拦截通常用于包裹丢失或无法送达的情况\n  - A4. 重发：为 ORD-3319 重新发货 - 这是针对 ORD-3319 的，不是 TRK-73002\n  - A5. 仅备注，不操作 - 可能不需要立即操作\n  - A6. 开升级单 - 开升级单可能用于处理异常情况\n\n根据物流处理流程，当包裹还在途中但收件人搬家时，通常的处理方式是：\n1. 尝试拦截（A3）- 尝试拦截包裹，防止其继续运输\n2. 或者开升级单（A6）- 升级处理\n\n但根据常见的物流处理逻辑，拦截（A3）是更直接的处理方式，用于处理包裹无法送达的情况。\n\n不过，我需要仔细考虑：如果包裹还在途中，拦截可能无法立即解决问题。\n\n让我重新思考：\n- 包裹还在途中，收件人搬家了\n- 这种情况下，拦截（A3）是最直接的处理方式，可以阻止包裹继续运输\n- 或者开升级单（A6）- 升级处理，可能包括重新安排\n\n根据常见的物流处理流程，拦截（A3）是处理包裹无法送达或无法继续运输的首选方式。\n\n所以答案应该是 A3。",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"action\":\"A3\"}"
+         },
+         "id": "VFpIgbPXakeM9GAFXSik4CXOfsrxC3DP"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795798598,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 458,
+     "prompt_tokens": 498,
+     "total_tokens": 956,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-NkKYIhVoqzRuNO9PhMWtQaZvDNlGEBZ4",
+    "__verbose": {
+     "index": 0,
+     "content": "用户需要我根据给定的场景选择正确的动作编号。\n\n场景：收件人打电话说搬家了，包裹 {trk} 还在途中。\n\n分析：\n- 包裹还在途中，收件人搬家了\n- 这种情况下，包裹可能无法送达，需要处理\n- 查看选项：\n  - A1. 改址：修改 TRK-73002 的收件地址 - 但包裹还在途中，改址可能无法解决\n  - A2. 加急：把 TRK-73002 升级为加急配送 - 加急可能无法解决搬家问题\n  - A3. 拦截：尝试拦截 TRK-73002 - 拦截通常用于包裹丢失或无法送达的情况\n  - A4. 重发：为 ORD-3319 重新发货 - 这是针对 ORD-3319 的，不是 TRK-73002\n  - A5. 仅备注，不操作 - 可能不需要立即操作\n  - A6. 开升级单 - 开升级单可能用于处理异常情况\n\n根据物流处理流程，当包裹还在途中但收件人搬家时，通常的处理方式是：\n1. 尝试拦截（A3）- 尝试拦截包裹，防止其继续运输\n2. 或者开升级单（A6）- 升级处理\n\n但根据常见的物流处理逻辑，拦截（A3）是更直接的处理方式，用于处理包裹无法送达的情况。\n\n不过，我需要仔细考虑：如果包裹还在途中，拦截可能无法立即解决问题。\n\n让我重新思考：\n- 包裹还在途中，收件人搬家了\n- 这种情况下，拦截（A3）是最直接的处理方式，可以阻止包裹继续运输\n- 或者开升级单（A6）- 升级处理，可能包括重新安排\n\n根据常见的物流处理流程，拦截（A3）是处理包裹无法送达或无法继续运输的首选方式。\n\n所以答案应该是 A3。\n</think>\n\n<tool_call>\n<function=record_answer>\n<parameter=action>\nA3\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 458,
+     "tokens_evaluated": 498,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"action\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 248058
+       }
+      ],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>system\n# Tools\n\nYou have access to the following functions:\n\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"action\": {\"type\": \"string\", \"enum\": [\"A1\", \"A2\", \"A3\", \"A4\", \"A5\", \"A6\"]}}, \"required\": [\"action\"], \"additionalProperties\": false}}}\n</tools>\n\nIf you choose to call a function ONLY reply in the following format with NO suffix:\n\n<tool_call>\n<function=example_function_name>\n<parameter=example_parameter_1>\nvalue_1\n</parameter>\n<parameter=example_parameter_2>\nThis is the value for the second parameter\nthat can span\nmultiple lines\n</parameter>\n</function>\n</tool_call>\n\n<IMPORTANT>\nReminder:\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\n- Required parameters MUST be specified\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n可选动作 / available actions:\nA1. 改址：修改 TRK-73002 的收件地址 / change the address for TRK-73002\nA2. 加急：把 TRK-73002 升级为加急配送 / upgrade TRK-73002 to express\nA3. 拦截：尝试拦截 TRK-73002 / attempt to intercept TRK-73002\nA4. 重发：为 ORD-3319 重新发货 / reship ORD-3319\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\n收件人打电话说搬家了，包裹 {trk} 还在途中。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 955,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 498,
+      "prompt_ms": 84.292,
+      "prompt_per_token_ms": 0.16926104417670684,
+      "prompt_per_second": 5908.033977127129,
+      "predicted_n": 458,
+      "predicted_ms": 2201.514,
+      "predicted_per_token_ms": 4.817317286652079,
+      "predicted_per_second": 207.58441690582023
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 498,
+     "prompt_ms": 84.292,
+     "prompt_per_token_ms": 0.16926104417670684,
+     "prompt_per_second": 5908.033977127129,
+     "predicted_n": 458,
+     "predicted_ms": 2201.514,
+     "predicted_per_token_ms": 4.817317286652079,
+     "predicted_per_second": 207.58441690582023
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.296
+  }
+ ]
+}

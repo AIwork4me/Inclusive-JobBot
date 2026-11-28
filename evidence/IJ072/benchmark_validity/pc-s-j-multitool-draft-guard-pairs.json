@@ -1,0 +1,695 @@
+{
+  "counts": {
+    "legacy": {
+      "draft_calls": 4,
+      "drafted_after_prior_review": 4,
+      "drafted_without_prior_review": 0,
+      "persisted_draft_count": 4,
+      "prior_review_missing_denials": 0,
+      "state_consistent_cases": 37,
+      "strict": {
+        "FAIL": 33,
+        "PASS": 4
+      }
+    },
+    "observed": {
+      "draft_calls": 4,
+      "drafted_after_prior_review": 4,
+      "drafted_without_prior_review": 0,
+      "persisted_draft_count": 4,
+      "prior_review_missing_denials": 0,
+      "state_consistent_cases": 37,
+      "strict": {
+        "FAIL": 33,
+        "PASS": 4
+      }
+    }
+  },
+  "dataset_sha256": "f6e4f5000bd8c8949125f44b1900152797a40844f82347b0e2daaa360420bb0a",
+  "observed_draft_state_reconciliation": "PASS",
+  "observed_without_prior_review": "NOT_RUN",
+  "run_ids": {
+    "legacy": "ij07-multitool-eba4e19c2fee48d8bceabadda17f25ad",
+    "observed": "ij07-multitool-22bba87edd8b4cbbbb9c3f9a2a5b731e"
+  },
+  "scope": "37 paired physical Qwen3-14B MULTITOOL draft authorization diagnostics",
+  "source_commit": "230b51e611ef5ff0d2078db5f23b352c85ef4775",
+  "trials": [
+    {
+      "case_id": "MT-08-002",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-004",
+      "legacy": {
+        "calls": [
+          {
+            "drafted": true,
+            "error": null,
+            "prior_exact_review": true,
+            "record_id": "REV-85E6C3C4E",
+            "turn": 1
+          }
+        ],
+        "persisted_draft_count": 1,
+        "state_matches_reported_actions": true,
+        "strict": "PASS"
+      },
+      "observed": {
+        "calls": [
+          {
+            "drafted": true,
+            "error": null,
+            "prior_exact_review": true,
+            "record_id": "REV-85E6C3C4E",
+            "turn": 1
+          }
+        ],
+        "persisted_draft_count": 1,
+        "state_matches_reported_actions": true,
+        "strict": "PASS"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-006",
+      "legacy": {
+        "calls": [
+          {
+            "drafted": true,
+            "error": null,
+            "prior_exact_review": true,
+            "record_id": "REV-3C188B062",
+            "turn": 1
+          }
+        ],
+        "persisted_draft_count": 1,
+        "state_matches_reported_actions": true,
+        "strict": "PASS"
+      },
+      "observed": {
+        "calls": [
+          {
+            "drafted": true,
+            "error": null,
+            "prior_exact_review": true,
+            "record_id": "REV-3C188B062",
+            "turn": 1
+          }
+        ],
+        "persisted_draft_count": 1,
+        "state_matches_reported_actions": true,
+        "strict": "PASS"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-008",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-010",
+      "legacy": {
+        "calls": [
+          {
+            "drafted": true,
+            "error": null,
+            "prior_exact_review": true,
+            "record_id": "REV-5A545B5D0",
+            "turn": 1
+          }
+        ],
+        "persisted_draft_count": 1,
+        "state_matches_reported_actions": true,
+        "strict": "PASS"
+      },
+      "observed": {
+        "calls": [
+          {
+            "drafted": true,
+            "error": null,
+            "prior_exact_review": true,
+            "record_id": "REV-5A545B5D0",
+            "turn": 1
+          }
+        ],
+        "persisted_draft_count": 1,
+        "state_matches_reported_actions": true,
+        "strict": "PASS"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-012",
+      "legacy": {
+        "calls": [
+          {
+            "drafted": true,
+            "error": null,
+            "prior_exact_review": true,
+            "record_id": "REV-CC7600AA7",
+            "turn": 1
+          }
+        ],
+        "persisted_draft_count": 1,
+        "state_matches_reported_actions": true,
+        "strict": "PASS"
+      },
+      "observed": {
+        "calls": [
+          {
+            "drafted": true,
+            "error": null,
+            "prior_exact_review": true,
+            "record_id": "REV-CC7600AA7",
+            "turn": 1
+          }
+        ],
+        "persisted_draft_count": 1,
+        "state_matches_reported_actions": true,
+        "strict": "PASS"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-014",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-016",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-018",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-020",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-022",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-024",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-026",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-028",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-030",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-032",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-034",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-036",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-038",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-040",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-042",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-044",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-046",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-048",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-050",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-052",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-054",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-056",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-058",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-060",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-062",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-064",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-066",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-068",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-070",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-072",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    },
+    {
+      "case_id": "MT-08-074",
+      "legacy": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "observed": {
+        "calls": [],
+        "persisted_draft_count": 0,
+        "state_matches_reported_actions": true,
+        "strict": "FAIL"
+      },
+      "seed": 66007
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+name: Pinned upstream C++ parser tests
+on:
+  push:
+    paths:
+      - 'benchmarks/tool_calling_v2/parser/**'
+      - '.github/workflows/upstream-parser-tests.yml'
+  pull_request:
+    paths:
+      - 'benchmarks/tool_calling_v2/parser/**'
+      - '.github/workflows/upstream-parser-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  UPSTREAM_COMMIT: b1b770d90d94cad9e9ea5b993bdbc383a522fb28
+  PYTHONPATH: ${{ github.workspace }}/src
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: ggml-org/llama.cpp
+          ref: b1b770d90d94cad9e9ea5b993bdbc383a522fb28
+          path: upstream
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install jsonschema==4.26.0
+      - name: Configure pinned source and project probe
+        run: |
+          test "$(git -C upstream rev-parse HEAD)" = "$UPSTREAM_COMMIT"
+          cmake -S upstream -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF \
+            -DLLAMA_BUILD_TESTS=ON -DLLAMA_BUILD_TOOLS=ON -DLLAMA_BUILD_SERVER=ON \
+            -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_BUILD_APP=OFF \
+            -DLLAMA_OPENSSL=OFF -DGGML_NATIVE=OFF -DLLAMA_USE_PREBUILT_UI=OFF \
+            "-DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=$GITHUB_WORKSPACE/benchmarks/tool_calling_v2/parser/probe.cmake"
+          cmake --build build --target test-chat ij06-native-probe --parallel 2
+      - name: Record P0 model-free reference results
+        run: |
+          (cd upstream && ../build/bin/test-chat --template openbmb-MiniCPM5-1B)
+          python -m benchmarks.tool_calling_v2.parser.run_direct \
+            --probe build/bin/ij06-native-probe \
+            --chat-template upstream/models/templates/openbmb-MiniCPM5-1B.jinja \
+            --upstream-commit "$UPSTREAM_COMMIT" --output p0-native-linux.json --lexical
+      - name: Test P4 model-free candidate
+        run: |
+          patch_dir="$GITHUB_WORKSPACE/benchmarks/tool_calling_v2/parser"
+          patch_path="$patch_dir/minicpm5-terminal-integrity.patch"
+          lexical_patch="$patch_dir/minicpm5-native-json-lexical.patch"
+          git -C upstream apply --check "$patch_path"
+          git -C upstream apply "$patch_path"
+          git -C upstream apply --check "$lexical_patch"
+          git -C upstream apply "$lexical_patch"
+          cmake --build build --target test-chat ij06-native-probe --parallel 2
+          (cd upstream && ../build/bin/test-chat --template openbmb-MiniCPM5-1B)
+          python -m benchmarks.tool_calling_v2.parser.run_direct \
+            --probe build/bin/ij06-native-probe \
+            --chat-template upstream/models/templates/openbmb-MiniCPM5-1B.jinja \
+            --upstream-commit "$UPSTREAM_COMMIT" --patch "$patch_path" --patch "$lexical_patch" \
+            --output p4-native-linux.json --lexical --require-native-pass
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pinned-native-parser-linux-model-free
+          path: '*-native-linux.json'

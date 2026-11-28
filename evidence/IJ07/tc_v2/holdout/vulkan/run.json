@@ -1,0 +1,162 @@
+{
+  "run_id": "ij07-tcv2-b9cf4a498f064a728bc9bd66f9d47b36",
+  "started_utc": "2026-11-24T13:46:11+00:00",
+  "configuration": {
+    "git": {
+      "commit": "80870feb443f94a0390d5dbf3e60386a2d753c79",
+      "dirty": false
+    },
+    "engine": {
+      "exe_sha256": "f6281cbfcb9eaf154b6fe0a9667906957f2bf78d08e4c1a05b5dc32214a0f4d7",
+      "dll_sha256": {
+        "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+        "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+        "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+        "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+        "llama-common.dll": "e7573a81ba8fc85bfe77797e643e05e7f6895d94c29e8301861460337ebbb30a",
+        "llama-server-impl.dll": "e77e0e0ceb934727597cc66e9ac282520cd93bf0782dda7376d738c21f4eef96",
+        "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+        "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e"
+      },
+      "additional_rocm_wheel_sha256": {},
+      "archive_sha256": "a7b94f0c17a5cb900895a83c21037d3e8d9507ef84ce0e6488b76b3830c0db20"
+    },
+    "expected_template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+    "modelscope_model_id": "OpenBMB/MiniCPM5-2B-GGUF",
+    "modelscope_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+    "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "parser": {
+      "candidate": "P4b + generation observer",
+      "patch_sha256": {
+        "benchmarks/tool_calling_v2/parser/minicpm5-terminal-integrity.patch": "3cb17791d4305adfc51401af5289090bab1c6db4d4a0f05fff86eb0635a597b7",
+        "benchmarks/tool_calling_v2/parser/minicpm5-native-json-lexical.patch": "6d4f209bb5c4a3209d0616b8cb5e728fe4014a6f594979cdc9b622c95d951bc6",
+        "patches/ij07/llama-b12359-generation-observer.patch": "b09a4b23da7c26418547db258940091d2458be1fe03a97328f90c91684db8805"
+      }
+    },
+    "backend": "vulkan",
+    "port": 8096,
+    "split": "holdout",
+    "kit_sha256": {
+      "benchmarks/root_cause/generation_capture.py": "682ca9ab2743eb68f893f6c3889ce0bfff928375b01317f8a0b0e3671daed8ca",
+      "benchmarks/root_cause/historical_replay.py": "6168dc40bc75476980a330973494962837b97e696014aa7aaed05d91d2a4b0b2",
+      "benchmarks/tool_calling_v2/evaluator.py": "10f0b0e698ec26d1d3607c6b0ed2acd03ff8de8d31cd20ef0326ad505afc3c87",
+      "benchmarks/tool_calling_v2/holdout/dataset.py": "d6d850de4f9cdcf86f4e498ce636216a3b7f791b3405bf29b12f6aa71c445e34",
+      "benchmarks/tool_calling_v2/holdout/host.py": "28009f83d67455b7bc94fd4589cc6a3298354cfc1f6e1ebd5e3606977b449a4d",
+      "benchmarks/tool_calling_v2/holdout/oracle.py": "fff94227b68ea27d1cbb7a17f10fe2d0764d215d57da3d8581e3837a6eebe0ae",
+      "benchmarks/tool_calling_v2/holdout/qualify.py": "13a11d25f7ed67ccd89c47d62f7baafb2dd286fc7e88d4d3c373239b0409121c",
+      "benchmarks/tool_calling_v2/holdout/runner.py": "a77a950d6d9f59926e38b5391c7073819d66049c54c3c51a0d041fcfc52504ee",
+      "benchmarks/tool_calling_v2/holdout/templates.py": "1ae891701117692d16dbe961be3a203888527d4b737508ac35220c4c69f62b8c",
+      "benchmarks/tool_calling_v2/legacy_oracle.py": "6c5f780982456b6aebf597fbd12080dd363ea554689b1c9689999e31ad18a898",
+      "benchmarks/tool_calling_v2/oracle.py": "1968241f5b08d6151fc77ab28ff4982cca2b2e079eb4b7cb4bd9b503244cca3b",
+      "benchmarks/tool_calling_v2/parser/assessment.py": "0c0403f52a760286075c7832cc882d58d5deb7ad90e6bd33f1e80fbf2014d07a",
+      "benchmarks/tool_calling_v2/parser/fixtures.py": "07ccb07ac3ca08e895a31af68426fdbc21f70b4f23b776e1c011588a276dffa9",
+      "benchmarks/tool_calling_v2/parser/run_direct.py": "d7834b1990c6f0ff20907c92be3746152493d157fa34d62d8e5fe81535b5c6ab",
+      "benchmarks/tool_calling_v2/parser/run_wire.py": "0e269c3bf57c63485a9893972f76a5aae89ebb3e9175bee005cfeb9ea84554fc",
+      "benchmarks/tool_calling_v2/persisted.py": "d263bd07b7fe3f04f057048875130f10ed3f64fece6e636494351096437394a2",
+      "benchmarks/tool_calling_v2/rescore.py": "b84a056884364ea29840659aafe8448262a46abcd8cba46c0b249d9a01aa8897",
+      "scripts/windows/common.ps1": "7d1c4375c66dc257336ed3f21ec39cb3acae388a36e3373d5903689638402c52",
+      "scripts/windows/sample_gpu_counters.ps1": "f5611fb0c9f6a5e720d5d13ba77100a8854f128e22e4aa4825a8dfc6367001fe",
+      "src/business_tools/__init__.py": "039d5e0776678ab63ff4ab18ec671ad2833b236647fd4c34321339cd2fcbb2ee",
+      "src/business_tools/handlers.py": "8e88c32ac948844d7f540b1aabba4babd874706be5fb2f8c1dce16db9e3937c1",
+      "src/business_tools/store.py": "2df5b706d9ce63a476c46afd2c0819c3d53e0dedf31a19eba413207b99d7774c",
+      "src/model_gateway/__init__.py": "dfa984fc3da9c32754f0085f6dfb0543c0dc7c98285da6bf1c228c1050fead71",
+      "src/model_gateway/authorization.py": "8badc2ae17ad0221ca6d819c8427e6d1fc1ec3126ea287ea16c32471e9146710",
+      "src/model_gateway/base.py": "bdc018cb711a4a6be4cf1b765f0024345d2a046bfc6a799240c78c6ef9ab2c5f",
+      "src/model_gateway/capabilities.py": "82c8e76308f6f44831beaecdaa666e858d141e2c925317462d89c7962247db53",
+      "src/model_gateway/errors.py": "45bdfa84ad94d513c41f1913cc281cdc945cf75753bda9358b4c12aa925adc28",
+      "src/model_gateway/execution_policy.py": "3e3fdfed86797bc02959ec7e4b0dd0b566ef2841ebf5a60cf622199bb8b3093f",
+      "src/model_gateway/llama_cpp_backend.py": "c69871efdd629d88834e710879f2f445766e12658724f028c7068f6df4ad9bc0",
+      "src/model_gateway/metrics.py": "e413bd1c3bcb89db2be90d2fb707fb5662d1f4c2980adc3c10e167ab7b9ee6d2",
+      "src/model_gateway/openai_protocol.py": "a42e035c0cdf1ec743e7313696cffe5e4b7feb8558cdd152b2bcd0f4acab012a",
+      "src/model_gateway/streaming.py": "f2b2c5d2cbdea4adad4c2d83199e28915d6ef7c6fcc2c207f7865981563b5a58",
+      "src/model_gateway/strict_json.py": "1e819ea444a012442b69c99cab65ee91a1b5129c54fd1d96da908c60a1961190",
+      "src/model_gateway/tool_validation.py": "593dc1d75b8bce4e98ff293c32fc22581206f114f9b3ee8ba7ad9332bb032c33"
+    },
+    "dataset_sha256": "34fae92ce5fe0ea14d69c4dfd4d2852414f30e85a1576875caa47219b3b03e76",
+    "manifest_sha256": "7aaecb54c2ed916a02ff096cf1862d549cb20ebe5b1a62de186f43148c554b80",
+    "fixture_sha256": "3746e926a45bdb89ee2db737166cb9e0c74598eb29a489a537dece7c43414a1f",
+    "sdk_installed": "0.1.24",
+    "sdk_used": false
+  },
+  "sessions": {
+    "b01faac47e2d406ebdf6d16e7b7e1e89": {
+      "pid": 24288,
+      "owns_port": true,
+      "launched_utc": "2026-11-24T13:46:15+00:00",
+      "backend": "vulkan",
+      "gpu": {
+        "name": "AMD Radeon(TM) 8060S Graphics",
+        "device": "Vulkan0",
+        "architecture": "gfx1151"
+      },
+      "layers_offloaded": 43,
+      "layers_total": 43,
+      "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+      "args": [
+        "--ctx-size",
+        "8192",
+        "--parallel",
+        "1",
+        "--n-gpu-layers",
+        "99",
+        "--device",
+        "Vulkan0",
+        "--jinja",
+        "--offline",
+        "--no-webui",
+        "--verbosity",
+        "4"
+      ],
+      "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+      "counter_file": "b01faac47e2d406ebdf6d16e7b7e1e89-gpu.jsonl",
+      "trace_file": "b01faac47e2d406ebdf6d16e7b7e1e89-generation.jsonl",
+      "server_file": "b01faac47e2d406ebdf6d16e7b7e1e89-server.log",
+      "proof": {
+        "status": "PASS",
+        "positive_engine_samples": 1981,
+        "sha256": {
+          "counter": "34c62637dc9738915a1e7c64a196c757b2901e8c4f0dc53f4cd0ece3bdcb97a1",
+          "server": "c03625ff4424ac442cba5484a63d6c7f5335b1d6b92c88808058b78a5572be22",
+          "source": "c9aac2e40ae886df94f5edb9a4c9bc73ff4db1dccf8bbba7d70f0ff7c98f6fe3"
+        }
+      }
+    },
+    "a55b300d5d22400ab1d1875120b87c71": {
+      "pid": 25632,
+      "owns_port": true,
+      "launched_utc": "2026-11-24T14:16:38+00:00",
+      "backend": "vulkan",
+      "gpu": {
+        "name": "AMD Radeon(TM) 8060S Graphics",
+        "device": "Vulkan0",
+        "architecture": "gfx1151"
+      },
+      "layers_offloaded": 43,
+      "layers_total": 43,
+      "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+      "args": [
+        "--ctx-size",
+        "8192",
+        "--parallel",
+        "1",
+        "--n-gpu-layers",
+        "99",
+        "--device",
+        "Vulkan0",
+        "--jinja",
+        "--offline",
+        "--no-webui",
+        "--verbosity",
+        "4"
+      ],
+      "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+      "counter_file": "a55b300d5d22400ab1d1875120b87c71-gpu.jsonl",
+      "trace_file": "a55b300d5d22400ab1d1875120b87c71-generation.jsonl",
+      "server_file": "a55b300d5d22400ab1d1875120b87c71-server.log",
+      "proof": {
+        "status": "BLOCKED",
+        "reason": "GPU, boot or source capture missing"
+      }
+    }
+  }
+}

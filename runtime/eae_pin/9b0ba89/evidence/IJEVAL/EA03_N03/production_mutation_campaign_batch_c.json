@@ -1,0 +1,501 @@
+{
+ "schema": "ijeval.wavebc.production_mutation_campaign.v1",
+ "scope": "Batch C production-logic faults, detected via dual-path classification flip vs the clean suite",
+ "summary": {
+  "faults": 11,
+  "detected": 11,
+  "escapes": 0
+ },
+ "faults": [
+  {
+   "fault": "C-P01_duplicate_keys_accepted",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C22-bare-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C22-wrapped-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C23-entity-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C23-format-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C24-export-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C24-sync-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 6
+  },
+  {
+   "fault": "C-P02_fences_not_stripped",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C17-orderstate-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C17-svcstate-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C18-orderdeps-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C18-svcdeps-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C19-orderplan-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C19-svcplan-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C20-orderbranch-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C20-svcbranch-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C21-orderreplan-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C21-svcreplan-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 16
+  },
+  {
+   "fault": "C-P03_truth_tokens_loose",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C17-orderstate-b2-yes/no token",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C17-svcstate-b2-yes/no token",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "C-P04_edges_lineform_rejected",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C18-orderdeps-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C18-orderdeps-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C18-orderdeps-b0-a-before-b l",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C18-svcdeps-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C18-svcdeps-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C18-svcdeps-b0-a-before-b l",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 6
+  },
+  {
+   "fault": "C-P05_plan_lines_rejected",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C19-orderplan-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C19-orderplan-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C19-svcplan-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C19-svcplan-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C21-orderreplan-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C21-orderreplan-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C21-svcreplan-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C21-svcreplan-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 8
+  },
+  {
+   "fault": "C-E01_truth_prefix_match",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C17-orderstate-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C17-orderstate-b2-yes/no token",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C17-svcstate-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C17-svcstate-b2-yes/no token",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "C-E02_edges_order_strict",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C18-orderdeps-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C18-orderdeps-b1-edge order r",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C18-svcdeps-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C18-svcdeps-b1-edge order r",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "C-E03_plan_string_match",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C19-orderplan-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C19-orderplan-b0-ALTERNATIVE ",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C19-svcplan-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C19-svcplan-b0-ALTERNATIVE ",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C21-orderreplan-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C21-orderreplan-b0-ALTERNATIVE ",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C21-svcreplan-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C21-svcreplan-b0-ALTERNATIVE ",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 8
+  },
+  {
+   "fault": "C-E04_holding_superset",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C20-orderbranch-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C20-orderbranch-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C20-orderbranch-b0-failed-condi",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C20-svcbranch-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C20-svcbranch-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C20-svcbranch-b0-failed-condi",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 6
+  },
+  {
+   "fault": "C-E05_status_clears_error",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C22-wrapped-pos",
+     "kind": "positive",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C22-wrapped-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C22-wrapped-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "EVALUATOR_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C22-wrapped-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "EVALUATOR_SOFTWARE_ERROR"
+    },
+    {
+     "witness_id": "C22-wrapped-empty",
+     "kind": "empty",
+     "clean": "EMPTY_OUTPUT",
+     "faulty": "EVALUATOR_SOFTWARE_ERROR"
+    }
+   ],
+   "detection_count": 5
+  },
+  {
+   "fault": "C-E06_args_subset_match",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C23-entity-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C23-entity-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C23-entity-b0-argument dro",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C23-format-mal",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C23-format-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C23-format-b0-argument dro",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 6
+  }
+ ],
+ "generated_utc": "2026-11-28T04:59:51Z"
+}

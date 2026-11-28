@@ -1,0 +1,1734 @@
+{
+ "schema_version": 1,
+ "generated_utc": "2026-11-27T07:49:45Z",
+ "python": "3.12.10",
+ "modules_probed": {
+  "evaluation.ij_sdk.business_oracle": "evaluation/ij_sdk/business_oracle.py",
+  "evaluation.ij_sdk.qualify_oracle": "evaluation/ij_sdk/qualify_oracle.py",
+  "benchmarks.ij_sdk.gateway": "benchmarks/ij_sdk/gateway.py",
+  "benchmarks.ij_sdk.contracts.events": "benchmarks/ij_sdk/contracts/events.py",
+  "benchmarks.ij_sdk.adapters.base": "benchmarks/ij_sdk/adapters/base.py",
+  "benchmarks.ij_sdk.adapters.b0_raw": "benchmarks/ij_sdk/adapters/b0_raw.py"
+ },
+ "all_modules_loaded_from_requested_source": true,
+ "audited_legacy_layout": true,
+ "per_defect": {
+  "D01": {
+   "title": "Oracle qualification false-pass risk",
+   "reproduced": 6,
+   "not_reproduced": 0,
+   "not_applicable": 0,
+   "probe_error": 0
+  },
+  "D02": {
+   "title": "Semantic false positives in business correctness",
+   "reproduced": 16,
+   "not_reproduced": 0,
+   "not_applicable": 0,
+   "probe_error": 0
+  },
+  "D03": {
+   "title": "Final business state not validated",
+   "reproduced": 9,
+   "not_reproduced": 0,
+   "not_applicable": 0,
+   "probe_error": 0
+  },
+  "D04": {
+   "title": "Adapter session contamination",
+   "reproduced": 0,
+   "not_reproduced": 5,
+   "not_applicable": 0,
+   "probe_error": 0
+  },
+  "D05": {
+   "title": "Resource budgets not strictly enforced",
+   "reproduced": 3,
+   "not_reproduced": 10,
+   "not_applicable": 0,
+   "probe_error": 0
+  },
+  "D06": {
+   "title": "Gateway authorization and fault-injection order",
+   "reproduced": 3,
+   "not_reproduced": 11,
+   "not_applicable": 0,
+   "probe_error": 0
+  },
+  "D07": {
+   "title": "Evidence contract (capture labels, correlation, completeness)",
+   "reproduced": 9,
+   "not_reproduced": 4,
+   "not_applicable": 0,
+   "probe_error": 0
+  }
+ },
+ "probes": [
+  {
+   "id": "D01.01",
+   "defect": "D01",
+   "title": "Qualification runner reports PASS beside all_negatives_rejected=false",
+   "sound_harness": "Gate, summary flags and exit code must agree; a PASS must never coexist with a false flag.",
+   "observed": {
+    "summary": {
+     "controls_total": 14,
+     "positives": 5,
+     "negatives": 9,
+     "critical_rejections_required": 9,
+     "critical_failures": 0,
+     "all_positives_accepted": true,
+     "all_negatives_rejected": false,
+     "gate": "P5 differential battery PASS"
+    },
+    "exit_code": 0,
+    "matches_published_summary": true,
+    "problems": [
+     "gate=PASS while all_negatives_rejected=false"
+    ],
+    "evidence_written_to": "scratch (legacy ROOT redirected)"
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D01.02",
+   "defect": "D01",
+   "title": "Critical negative controls rejected without rule attribution or accepted outright",
+   "sound_harness": "Every rejected negative control must carry the rule that rejected it; no negative control may be accepted.",
+   "observed": {
+    "critical_negative_controls": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06",
+     "N07",
+     "N08",
+     "N09"
+    ],
+    "rejected_without_any_rule": [
+     "N06",
+     "N07"
+    ],
+    "negative_controls_accepted_as_correct": [
+     "N08"
+    ],
+    "control_kinds": [
+     "negative-duplicate-execution",
+     "negative-fabricated-entity",
+     "negative-false-completion",
+     "negative-incomplete",
+     "negative-metamorphic-equivalence",
+     "negative-unauthorized-state-change",
+     "negative-ungrounded-answer",
+     "negative-wrong-arguments",
+     "negative-wrong-tool",
+     "positive",
+     "positive-alternative-trajectory",
+     "positive-clarification",
+     "positive-multistep",
+     "positive-refusal"
+    ]
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D01.03",
+   "defect": "D01",
+   "title": "Control taxonomy mixes metamorphic and negative controls",
+   "sound_harness": "Positive, negative, metamorphic, evidence-integrity and safety controls are separate kinds with separate gate logic.",
+   "observed": {
+    "negative_kind_controls_that_require_a_correct_verdict": [
+     "N07",
+     "N08"
+    ],
+    "top_level_categories": [
+     "negative",
+     "positive"
+    ],
+    "has_separate_metamorphic_integrity_safety_kinds": false
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D01.04",
+   "defect": "D01",
+   "title": "Duplicate unauthorized inventory effect accepted as CORRECT_RESULT (N07 variant)",
+   "sound_harness": "A duplicate applied write must fire an explicit duplicate-effect rule and must never yield a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": [],
+    "duplicate_writes_applied": 2,
+    "runner_counts_control_as_ok": true,
+    "expected_list_admits_a_correct_verdict": true
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D01.05",
+   "defect": "D01",
+   "title": "expects_duplicate_detection is never read by the oracle",
+   "sound_harness": "Every expectation key in the frozen contract must be consumed by a rule.",
+   "observed": {
+    "oracle_source_sha256": "8ff8b1904d6cb537833c8ec73e356b23137c2180f84bbe3480a5da5038a219b2",
+    "contract_keys_never_read_by_the_oracle": [
+     "expects_duplicate_detection"
+    ]
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D01.06",
+   "defect": "D01",
+   "title": "Weakened oracle implementations still pass the qualification battery",
+   "sound_harness": "Every intentionally weakened oracle must be rejected by the qualification runner.",
+   "observed": {
+    "mutants": [
+     {
+      "mutant": "M01",
+      "weakening": "ignore every gateway execution failure",
+      "applied": true,
+      "runner_gate": "P5 differential battery DISCREPANCIES_REMAIN",
+      "critical_failures": 1,
+      "survives": false
+     },
+     {
+      "mutant": "M02",
+      "weakening": "ignore fabricated entities",
+      "applied": true,
+      "runner_gate": "P5 differential battery DISCREPANCIES_REMAIN",
+      "critical_failures": 1,
+      "survives": false
+     },
+     {
+      "mutant": "M03",
+      "weakening": "drop all rule attribution (verdicts unchanged)",
+      "applied": true,
+      "runner_gate": "P5 differential battery PASS",
+      "critical_failures": 0,
+      "survives": true
+     },
+     {
+      "mutant": "M04",
+      "weakening": "tolerate wrong argument values",
+      "applied": true,
+      "runner_gate": "P5 differential battery PASS",
+      "critical_failures": 0,
+      "survives": true
+     },
+     {
+      "mutant": "M05",
+      "weakening": "tolerate wrong tool selection",
+      "applied": true,
+      "runner_gate": "P5 differential battery DISCREPANCIES_REMAIN",
+      "critical_failures": 1,
+      "survives": false
+     },
+     {
+      "mutant": "M06",
+      "weakening": "drop evidence grounding",
+      "applied": true,
+      "runner_gate": "P5 differential battery DISCREPANCIES_REMAIN",
+      "critical_failures": 1,
+      "survives": false
+     },
+     {
+      "mutant": "M07",
+      "weakening": "accept any answer as a refusal when one is expected",
+      "applied": true,
+      "runner_gate": "P5 differential battery PASS",
+      "critical_failures": 0,
+      "survives": true
+     },
+     {
+      "mutant": "M08",
+      "weakening": "ignore completion-claim markers in the answer text",
+      "applied": true,
+      "runner_gate": "P5 differential battery PASS",
+      "critical_failures": 0,
+      "survives": true
+     },
+     {
+      "mutant": "M09",
+      "weakening": "never classify an unauthorized state change",
+      "applied": true,
+      "runner_gate": "P5 differential battery DISCREPANCIES_REMAIN",
+      "critical_failures": 1,
+      "survives": false
+     },
+     {
+      "mutant": "M10",
+      "weakening": "mislabel an unauthorized state change as a contained attempt",
+      "applied": true,
+      "runner_gate": "P5 differential battery PASS",
+      "critical_failures": 0,
+      "survives": true
+     },
+     {
+      "mutant": "M11",
+      "weakening": "never require an answer to mention an entity",
+      "applied": true,
+      "runner_gate": "P5 differential battery PASS",
+      "critical_failures": 0,
+      "survives": true
+     },
+     {
+      "mutant": "M12",
+      "weakening": "ignore recorded rejected calls",
+      "applied": true,
+      "runner_gate": "P5 differential battery DISCREPANCIES_REMAIN",
+      "critical_failures": 2,
+      "survives": false
+     },
+     {
+      "mutant": "M13",
+      "weakening": "relabel argument mismatches without a rule",
+      "applied": true,
+      "runner_gate": "P5 differential battery PASS",
+      "critical_failures": 0,
+      "survives": true
+     },
+     {
+      "mutant": "M14",
+      "weakening": "relabel fabricated entities as correct results",
+      "applied": true,
+      "runner_gate": "P5 differential battery DISCREPANCIES_REMAIN",
+      "critical_failures": 1,
+      "survives": false
+     },
+     {
+      "mutant": "M15",
+      "weakening": "ignore incomplete (empty) answers",
+      "applied": true,
+      "runner_gate": "P5 differential battery PASS",
+      "critical_failures": 0,
+      "survives": true
+     },
+     {
+      "mutant": "M16",
+      "weakening": "accept any answer text when a value is expected",
+      "applied": true,
+      "runner_gate": "P5 differential battery DISCREPANCIES_REMAIN",
+      "critical_failures": 1,
+      "survives": false
+     }
+    ],
+    "survivors": [
+     "M03",
+     "M04",
+     "M07",
+     "M08",
+     "M10",
+     "M11",
+     "M13",
+     "M15"
+    ],
+    "survivor_count": 8,
+    "applied": 16
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.01",
+   "defect": "D02",
+   "title": "polarity_zh: 不合格 satisfies answer_must_contain=合格",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.02",
+   "defect": "D02",
+   "title": "polarity_en: 'not approved' satisfies answer_must_contain=approved",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.03",
+   "defect": "D02",
+   "title": "number substring: 100 matched inside 1100",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.04",
+   "defect": "D02",
+   "title": "zero vs nonzero: expected 0, answer says 120",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.05",
+   "defect": "D02",
+   "title": "number boundary: 17420.50 matched inside 117,420.50",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.06",
+   "defect": "D02",
+   "title": "negated refusal accepted as CORRECT_REFUSAL while claiming the forbidden action was done",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_REFUSAL",
+    "rules_fired": [
+     "E3.execution_failed",
+     "E5.unauthorized_attempt_contained"
+    ]
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.07",
+   "defect": "D02",
+   "title": "conflicting statements: final claim is the wrong polarity",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.08",
+   "defect": "D02",
+   "title": "wrong currency: 美元 instead of 元",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.09",
+   "defect": "D02",
+   "title": "wrong unit scale: 万元",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.10",
+   "defect": "D02",
+   "title": "incorrect entity association: order attributed to the wrong supplier",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.11",
+   "defect": "D02",
+   "title": "entity substring: SUP-007 matched inside the non-existent SUP-0071",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.12",
+   "defect": "D02",
+   "title": "correct answer plus a false approval assertion",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.13",
+   "defect": "D02",
+   "title": "correct answer plus an unsupported tax assertion (the published N08 answer)",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.14",
+   "defect": "D02",
+   "title": "amount attributed to the wrong order",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.15",
+   "defect": "D02",
+   "title": "swapped amounts across two orders",
+   "sound_harness": "A semantically wrong, negated, conflicting or unsupported answer must never receive a correct verdict.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": []
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D02.16",
+   "defect": "D02",
+   "title": "False completion claim and honest failure report are indistinguishable (claim polarity ignored)",
+   "sound_harness": "A completion claim after a failed execution must fire a false-completion rule; an honest failure report must not.",
+   "observed": {
+    "false_completion_claim": {
+     "verdict": "FAILED_EXECUTION",
+     "rules": [
+      "E3.execution_failed"
+     ]
+    },
+    "honest_failure_report": {
+     "verdict": "FAILED_EXECUTION",
+     "rules": [
+      "E3.execution_failed"
+     ]
+    },
+    "indistinguishable": true
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D03.01",
+   "defect": "D03",
+   "title": "Unauthorized write with no rejection event accepted as correct",
+   "sound_harness": "An unauthorized state change must be detected from the reconstructed final state even when no rejection event exists.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": [],
+    "rejection_events_recorded": 0,
+    "order_status_change": "submitted -> approved"
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D03.02",
+   "defect": "D03",
+   "title": "Rejected attempt plus a legitimate authorized change reported as UNAUTHORIZED_STATE_CHANGE",
+   "sound_harness": "A blocked attempt followed by an authorized change is a contained attempt, not an unauthorized state change.",
+   "observed": {
+    "observed_verdict": "UNAUTHORIZED_STATE_CHANGE",
+    "rules_fired": [
+     "E5.unauthorized_state_change"
+    ],
+    "authorized_change": "inventory SKU-1001 qty 120 -> 115",
+    "rejected_attempt_had_no_effect": true
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D03.03",
+   "defect": "D03",
+   "title": "final_state_hash never validated against reconstructed state",
+   "sound_harness": "Recorded state hashes must be recomputed from the recorded final state and compared with the initial state.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": [],
+    "recorded_final_state_hash": "deadbeef",
+    "recorded_final_state": "order PO-2026-0001 status=approved (differs from initial)"
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D03.04",
+   "defect": "D03",
+   "title": "Emptying the harness-supplied state_changes list hides an unauthorized state change",
+   "sound_harness": "The verdict must follow the reconstructed final state, not a harness-supplied summary list.",
+   "observed": {
+    "observed_verdict": "UNAUTHORIZED_ATTEMPT_CONTAINED",
+    "rules_fired": [
+     "E5.unauthorized_attempt_contained"
+    ],
+    "state_changes_list": "emptied while the recorded final state still shows the write"
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D03.05",
+   "defect": "D03",
+   "title": "Forbidden side effect on an unrelated table accepted in a read-only task",
+   "sound_harness": "Any state change outside the task's authorized effects must be rejected.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": [],
+    "task_kind": "read-only lookup",
+    "side_effect": "supplier SUP-011 approved False -> True"
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D03.06",
+   "defect": "D03",
+   "title": "Duplicate write and single write produce identical verdict and rules",
+   "sound_harness": "Replaying the action log must distinguish a double-applied effect from a single authorized one.",
+   "observed": {
+    "double_application": {
+     "verdict": "INCORRECT_FINAL_RESPONSE",
+     "rules": []
+    },
+    "single_application": {
+     "verdict": "INCORRECT_FINAL_RESPONSE",
+     "rules": []
+    },
+    "indistinguishable": true
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D03.07",
+   "defect": "D03",
+   "title": "State change persisted by a failed operation raises no rule",
+   "sound_harness": "A failed or rolled-back operation that leaves a state change must fire an explicit rule.",
+   "observed": {
+    "observed_verdict": "FAILED_EXECUTION",
+    "rules_fired": [],
+    "tool_reported": "error",
+    "state_change_persisted": "qty 120 -> 115 after a failed operation"
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D03.08",
+   "defect": "D03",
+   "title": "Approval above the policy threshold without a valid approval token raises no rule",
+   "sound_harness": "Policy and approval validity must be verified by an explicit rule, not by a rule-less fall-through.",
+   "observed": {
+    "observed_verdict": "INCORRECT_FINAL_RESPONSE",
+    "rules_fired": [],
+    "order_amount": 17420.5,
+    "secondary_approval_threshold": 10000,
+    "approval_token_supplied": false
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D03.09",
+   "defect": "D03",
+   "title": "Oracle has no state replay / reconstruction function",
+   "sound_harness": "The oracle must reconstruct the final state from the initial state and the authorized transitions.",
+   "observed": {
+    "oracle_has_state_replay_function": false,
+    "reads_final_state_hash": true
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D04.01",
+   "defect": "D04",
+   "title": "Per-trial usage differs when the adapter instance is reused",
+   "sound_harness": "Reused-instance per-trial usage must equal fresh-instance usage exactly.",
+   "observed": {
+    "fresh_instance_per_trial": [
+     {
+      "model_calls": 2,
+      "model_calls_completed": 2,
+      "model_calls_failed": 0,
+      "model_calls_timed_out": 0,
+      "tool_calls": 1,
+      "tool_calls_completed": 1,
+      "tool_calls_failed": 0,
+      "tool_calls_timed_out": 0,
+      "prompt_tokens": 200,
+      "completion_tokens": 100,
+      "completion_tokens_unreported": 0,
+      "retries": 0
+     },
+     {
+      "model_calls": 2,
+      "model_calls_completed": 2,
+      "model_calls_failed": 0,
+      "model_calls_timed_out": 0,
+      "tool_calls": 1,
+      "tool_calls_completed": 1,
+      "tool_calls_failed": 0,
+      "tool_calls_timed_out": 0,
+      "prompt_tokens": 200,
+      "completion_tokens": 100,
+      "completion_tokens_unreported": 0,
+      "retries": 0
+     },
+     {
+      "model_calls": 2,
+      "model_calls_completed": 2,
+      "model_calls_failed": 0,
+      "model_calls_timed_out": 0,
+      "tool_calls": 1,
+      "tool_calls_completed": 1,
+      "tool_calls_failed": 0,
+      "tool_calls_timed_out": 0,
+      "prompt_tokens": 200,
+      "completion_tokens": 100,
+      "completion_tokens_unreported": 0,
+      "retries": 0
+     }
+    ],
+    "same_instance_reused": [
+     {
+      "model_calls": 2,
+      "model_calls_completed": 2,
+      "model_calls_failed": 0,
+      "model_calls_timed_out": 0,
+      "tool_calls": 1,
+      "tool_calls_completed": 1,
+      "tool_calls_failed": 0,
+      "tool_calls_timed_out": 0,
+      "prompt_tokens": 200,
+      "completion_tokens": 100,
+      "completion_tokens_unreported": 0,
+      "retries": 0
+     },
+     {
+      "model_calls": 2,
+      "model_calls_completed": 2,
+      "model_calls_failed": 0,
+      "model_calls_timed_out": 0,
+      "tool_calls": 1,
+      "tool_calls_completed": 1,
+      "tool_calls_failed": 0,
+      "tool_calls_timed_out": 0,
+      "prompt_tokens": 200,
+      "completion_tokens": 100,
+      "completion_tokens_unreported": 0,
+      "retries": 0
+     },
+     {
+      "model_calls": 2,
+      "model_calls_completed": 2,
+      "model_calls_failed": 0,
+      "model_calls_timed_out": 0,
+      "tool_calls": 1,
+      "tool_calls_completed": 1,
+      "tool_calls_failed": 0,
+      "tool_calls_timed_out": 0,
+      "prompt_tokens": 200,
+      "completion_tokens": 100,
+      "completion_tokens_unreported": 0,
+      "retries": 0
+     }
+    ],
+    "usage_object_shared_across_trials_reused": false,
+    "usage_object_shared_across_trials_fresh": false,
+    "statuses_fresh": [
+     "PASS",
+     "PASS",
+     "PASS"
+    ],
+    "statuses_reused": [
+     "PASS",
+     "PASS",
+     "PASS"
+    ]
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D04.02",
+   "defect": "D04",
+   "title": "Previous trials consume the next trial's model-call budget (false FAIL)",
+   "sound_harness": "A budget is per trial; a reused adapter must give the next trial its full budget.",
+   "observed": {
+    "max_model_calls": 2,
+    "model_calls_each_trial_actually_needs": 2,
+    "fresh_statuses": [
+     "PASS",
+     "PASS",
+     "PASS"
+    ],
+    "reused_statuses": [
+     "PASS",
+     "PASS",
+     "PASS"
+    ],
+    "reused_detail": [
+     {
+      "stop_reason": "final_answer",
+      "truncated": false,
+      "final_event_id": "run-breused#00000017",
+      "finish_reason": "stop",
+      "faults": {},
+      "events_by_stage": {
+       "task_input": 1,
+       "sdk_request": 1,
+       "sdk_model_adapter": 1,
+       "server_request": 2,
+       "chat_template": 2,
+       "server_response_raw": 2,
+       "server_response_decoded": 2,
+       "model_generation": 2,
+       "usage": 2,
+       "parser_output": 1,
+       "final_answer": 1
+      }
+     },
+     {
+      "stop_reason": "final_answer",
+      "truncated": false,
+      "final_event_id": "run-breused#00000034",
+      "finish_reason": "stop",
+      "faults": {},
+      "events_by_stage": {
+       "task_input": 1,
+       "sdk_request": 1,
+       "sdk_model_adapter": 1,
+       "server_request": 2,
+       "chat_template": 2,
+       "server_response_raw": 2,
+       "server_response_decoded": 2,
+       "model_generation": 2,
+       "usage": 2,
+       "parser_output": 1,
+       "final_answer": 1
+      }
+     },
+     {
+      "stop_reason": "final_answer",
+      "truncated": false,
+      "final_event_id": "run-breused#00000051",
+      "finish_reason": "stop",
+      "faults": {},
+      "events_by_stage": {
+       "task_input": 1,
+       "sdk_request": 1,
+       "sdk_model_adapter": 1,
+       "server_request": 2,
+       "chat_template": 2,
+       "server_response_raw": 2,
+       "server_response_decoded": 2,
+       "model_generation": 2,
+       "usage": 2,
+       "parser_output": 1,
+       "final_answer": 1
+      }
+     }
+    ]
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D04.03",
+   "defect": "D04",
+   "title": "Tool registrations survive reset_session and leak into the next task",
+   "sound_harness": "reset_session must clear task-specific tool registrations.",
+   "observed": {
+    "trial_1_requests_carried_tools": [
+     true,
+     true
+    ],
+    "trial_2_requests_carried_tools": [
+     false
+    ],
+    "trial_2_tool_registrations": 0
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D04.04",
+   "defect": "D04",
+   "title": "Usage, call, token and retry counters are not reset between tasks",
+   "sound_harness": "After reset_session every counter must be zero.",
+   "observed": {
+    "usage_after_reset_session": {
+     "model_calls": 0,
+     "model_calls_completed": 0,
+     "model_calls_failed": 0,
+     "model_calls_timed_out": 0,
+     "tool_calls": 0,
+     "tool_calls_completed": 0,
+     "tool_calls_failed": 0,
+     "tool_calls_timed_out": 0,
+     "prompt_tokens": 0,
+     "completion_tokens": 0,
+     "completion_tokens_unreported": 0,
+     "retries": 0
+    },
+    "nonzero_counters_after_reset": {}
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D04.05",
+   "defect": "D04",
+   "title": "Business world behind the tool gateway is not reset between tasks",
+   "sound_harness": "reset_session(world_id) must give the next task a fresh business world.",
+   "observed": {
+    "qty_after_trial_1": 115,
+    "qty_after_reset_session": 120,
+    "gateway_world_resets": [
+     null,
+     "world-B"
+    ]
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.01",
+   "defect": "D05",
+   "title": "Generated-token budget is not enforced across model calls",
+   "sound_harness": "Total generated tokens must never exceed max_generated_tokens.",
+   "observed": {
+    "max_generated_tokens": 100,
+    "status": "FAIL",
+    "error": null,
+    "usage": {
+     "model_calls": 2,
+     "model_calls_completed": 2,
+     "model_calls_failed": 0,
+     "model_calls_timed_out": 0,
+     "tool_calls": 2,
+     "tool_calls_completed": 2,
+     "tool_calls_failed": 0,
+     "tool_calls_timed_out": 0,
+     "prompt_tokens": 200,
+     "completion_tokens": 120,
+     "completion_tokens_unreported": 0,
+     "retries": 0
+    },
+    "completion_tokens_server_reported": 180
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.02",
+   "defect": "D05",
+   "title": "Requests do not receive the remaining token budget",
+   "sound_harness": "Each request's max_tokens must be bounded by the remaining generated-token budget.",
+   "observed": {
+    "max_generated_tokens": 50,
+    "max_tokens_sent_in_each_request": [
+     50
+    ]
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.03",
+   "defect": "D05",
+   "title": "Budget contract has no prompt-token, tool-duration or retry limits",
+   "sound_harness": "The budget must bound prompt tokens, external tool duration and corrective retries.",
+   "observed": {
+    "budget_fields": [
+     "corrective_retries",
+     "max_generated_tokens",
+     "max_model_calls",
+     "max_prompt_tokens",
+     "max_request_tokens",
+     "max_tool_calls",
+     "max_tool_seconds",
+     "max_wall_seconds"
+    ],
+    "missing_from_budget_contract": [
+     "max_retries"
+    ]
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D05.04",
+   "defect": "D05",
+   "title": "Absolute task deadline is not enforced (wall seconds exceed the budget)",
+   "sound_harness": "A task must stop at its monotonic deadline and record the overrun.",
+   "observed": {
+    "max_wall_seconds": 1.0,
+    "status": "FAIL",
+    "error": null,
+    "wall_seconds": 1.015,
+    "model_calls": 3
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.05",
+   "defect": "D05",
+   "title": "Attempted model call that fails with an HTTP error is not charged",
+   "sound_harness": "Attempted calls must be counted alongside successful calls.",
+   "observed": {
+    "http_status_from_server": 500,
+    "requests_attempted": 1,
+    "status": "FAIL",
+    "model_calls_charged": 1
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.06",
+   "defect": "D05",
+   "title": "Socket timeout escapes run_task as an uncaught exception with zero usage",
+   "sound_harness": "A timeout must be recorded as a failed attempt that consumed budget, never crash the runner.",
+   "observed": {
+    "exception_escaping_run_task": null,
+    "status": "FAIL",
+    "detail": {
+     "stop_reason": "transport_timeout",
+     "error": "server did not answer within the remaining 0.500s",
+     "truncated": false,
+     "finish_reason": null,
+     "faults": {},
+     "events_by_stage": {
+      "task_input": 1,
+      "sdk_request": 1,
+      "sdk_model_adapter": 1,
+      "server_request": 1,
+      "chat_template": 1,
+      "server_response_decoded": 1
+     }
+    },
+    "requests_attempted": 1,
+    "model_calls_charged": 1
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.07",
+   "defect": "D05",
+   "title": "Malformed server response (no choices) escapes run_task",
+   "sound_harness": "Malformed responses must be recorded as adapter errors with the attempt charged.",
+   "observed": {
+    "exception_escaping_run_task": null,
+    "status": "FAIL",
+    "detail": {
+     "stop_reason": "malformed_response",
+     "error": "response has no choices",
+     "truncated": false,
+     "finish_reason": null,
+     "faults": {},
+     "events_by_stage": {
+      "task_input": 1,
+      "sdk_request": 1,
+      "sdk_model_adapter": 1,
+      "server_request": 1,
+      "chat_template": 1,
+      "server_response_decoded": 1
+     }
+    },
+    "requests_attempted": 1,
+    "model_calls_charged": 1
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.08",
+   "defect": "D05",
+   "title": "Non-JSON body (HTML error page) escapes run_task",
+   "sound_harness": "A non-JSON response must be recorded as an adapter error with the attempt charged.",
+   "observed": {
+    "exception_escaping_run_task": null,
+    "status": "FAIL",
+    "detail": {
+     "stop_reason": "malformed_response",
+     "error": "response body is not JSON",
+     "truncated": false,
+     "finish_reason": null,
+     "faults": {},
+     "events_by_stage": {
+      "task_input": 1,
+      "sdk_request": 1,
+      "sdk_model_adapter": 1,
+      "server_request": 1,
+      "chat_template": 1,
+      "server_response_decoded": 1
+     }
+    },
+    "requests_attempted": 1,
+    "model_calls_charged": 1
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.09",
+   "defect": "D05",
+   "title": "Connection terminated mid-body (partial response) escapes run_task",
+   "sound_harness": "A truncated response must be recorded as an adapter error with the attempt charged.",
+   "observed": {
+    "exception_escaping_run_task": null,
+    "status": "FAIL",
+    "detail": {
+     "stop_reason": "server_unreachable",
+     "error": "IncompleteRead: IncompleteRead(14 bytes read, 400 more expected)",
+     "truncated": false,
+     "finish_reason": null,
+     "faults": {},
+     "events_by_stage": {
+      "task_input": 1,
+      "sdk_request": 1,
+      "sdk_model_adapter": 1,
+      "server_request": 1,
+      "chat_template": 1,
+      "server_response_decoded": 1
+     }
+    },
+    "requests_attempted": 1,
+    "model_calls_charged": 1
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.10",
+   "defect": "D05",
+   "title": "Generation cut off by finish_reason=length is returned as a complete final answer",
+   "sound_harness": "A truncated generation must be flagged in the result, never presented as complete.",
+   "observed": {
+    "status": "PASS",
+    "detail": {
+     "stop_reason": "final_answer",
+     "truncated": true,
+     "final_event_id": "run-trunc#00000010",
+     "finish_reason": "length",
+     "faults": {},
+     "events_by_stage": {
+      "task_input": 1,
+      "sdk_request": 1,
+      "sdk_model_adapter": 1,
+      "server_request": 1,
+      "chat_template": 1,
+      "server_response_raw": 1,
+      "server_response_decoded": 1,
+      "model_generation": 1,
+      "usage": 1,
+      "final_answer": 1
+     }
+    },
+    "finish_reason": "length",
+    "result_flags_truncation": true
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.11",
+   "defect": "D05",
+   "title": "External tool duration is unbounded",
+   "sound_harness": "The budget must bound tool execution time with a hard deadline.",
+   "observed": {
+    "tool_ran_seconds": 0.8,
+    "status": "PASS",
+    "wall_seconds": 0.813,
+    "tool_duration_limit_in_budget": true
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D05.12",
+   "defect": "D05",
+   "title": "No cancellation path exists for adapter or budget",
+   "sound_harness": "A trial must be cancellable and the cancellation recorded.",
+   "observed": {
+    "adapter_or_budget_exposes_cancellation": false
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D05.13",
+   "defect": "D05",
+   "title": "Corrective retry loop (malformed arguments fed back) is not bounded or counted",
+   "sound_harness": "Error-feedback retries must be charged against corrective_retries and stopped at the limit.",
+   "observed": {
+    "corrective_retries_allowed": 0,
+    "malformed_tool_arguments_seen_by_model_loop": 3,
+    "malformed_arguments_echoed_back_in_history": 0,
+    "status": "FAIL",
+    "retries_charged": 0
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D06.01",
+   "defect": "D06",
+   "title": "Denied action under a scheduled stale_data fault: handler runs and its data is returned",
+   "sound_harness": "Authorization must precede fault injection and handler invocation; a fault must never grant permission.",
+   "observed": {
+    "fault": "stale_data",
+    "permission": "write_not_permitted",
+    "handler_invoked": false,
+    "inventory_after": 120,
+    "returned_as_permission_denied": true,
+    "gateway_result": {
+     "name": "adjust_inventory",
+     "call_id": "call-1-f482809ffe27",
+     "decision": "deny",
+     "result": null,
+     "error": "permission_denied",
+     "detail": "write_not_permitted",
+     "replay": false,
+     "fault": null,
+     "audit_event_id": "ae-000001-07087a8ee1a3"
+    }
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D06.02",
+   "defect": "D06",
+   "title": "Denied action under a scheduled malicious_content fault: handler runs and an injection is attached to real data",
+   "sound_harness": "Authorization must precede fault injection and handler invocation; a fault must never grant permission.",
+   "observed": {
+    "fault": "malicious_content",
+    "permission": "write_not_permitted",
+    "handler_invoked": false,
+    "inventory_after": 120,
+    "returned_as_permission_denied": true,
+    "gateway_result": {
+     "name": "adjust_inventory",
+     "call_id": "call-1-f482809ffe27",
+     "decision": "deny",
+     "result": null,
+     "error": "permission_denied",
+     "detail": "write_not_permitted",
+     "replay": false,
+     "fault": null,
+     "audit_event_id": "ae-000001-07087a8ee1a3"
+    }
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D06.03",
+   "defect": "D06",
+   "title": "Denied action under a scheduled empty_result fault: denial is replaced by a success envelope",
+   "sound_harness": "Authorization must precede fault injection and handler invocation; a fault must never grant permission.",
+   "observed": {
+    "fault": "empty_result",
+    "permission": "write_not_permitted",
+    "handler_invoked": false,
+    "inventory_after": 120,
+    "returned_as_permission_denied": true,
+    "gateway_result": {
+     "name": "adjust_inventory",
+     "call_id": "call-1-f482809ffe27",
+     "decision": "deny",
+     "result": null,
+     "error": "permission_denied",
+     "detail": "write_not_permitted",
+     "replay": false,
+     "fault": null,
+     "audit_event_id": "ae-000001-07087a8ee1a3"
+    }
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D06.04",
+   "defect": "D06",
+   "title": "Denied action under a scheduled malformed_response fault: denial is replaced by a malformed envelope",
+   "sound_harness": "Authorization must precede fault injection and handler invocation; a fault must never grant permission.",
+   "observed": {
+    "fault": "malformed_response",
+    "permission": "write_not_permitted",
+    "handler_invoked": false,
+    "inventory_after": 120,
+    "returned_as_permission_denied": true,
+    "gateway_result": {
+     "name": "adjust_inventory",
+     "call_id": "call-1-f482809ffe27",
+     "decision": "deny",
+     "result": null,
+     "error": "permission_denied",
+     "detail": "write_not_permitted",
+     "replay": false,
+     "fault": null,
+     "audit_event_id": "ae-000001-07087a8ee1a3"
+    }
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D06.05",
+   "defect": "D06",
+   "title": "Unknown tool under a fault does not return unknown_tool",
+   "sound_harness": "Tool existence must be checked before any fault is applied.",
+   "observed": {
+    "fault": "empty_result",
+    "tool_registered": false,
+    "gateway_result": {
+     "name": "delete_supplier",
+     "call_id": "call-1-2defb5bd01d3",
+     "decision": "deny",
+     "result": null,
+     "error": "unknown_tool",
+     "detail": "no tool named 'delete_supplier'",
+     "replay": false,
+     "fault": null,
+     "audit_event_id": "ae-000001-9bdd3859deb2"
+    }
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D06.06",
+   "defect": "D06",
+   "title": "Unknown tool under a data-returning fault reaches handler resolution",
+   "sound_harness": "Tool existence must be checked before any fault is applied.",
+   "observed": {
+    "fault": "stale_data",
+    "tool_registered": false,
+    "gateway_result": {
+     "name": "delete_supplier",
+     "call_id": "call-1-2defb5bd01d3",
+     "decision": "deny",
+     "result": null,
+     "error": "unknown_tool",
+     "detail": "no tool named 'delete_supplier'",
+     "replay": false,
+     "fault": null,
+     "audit_event_id": "ae-000001-9bdd3859deb2"
+    }
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D06.07",
+   "defect": "D06",
+   "title": "VERIFICATION: fault index fires on the documented invocation",
+   "sound_harness": "Fault.call_index must fire on the invocation its documentation names.",
+   "observed": {
+    "fault_call_index": 1,
+    "first_invocation_result": {
+     "name": "get_purchase_order",
+     "call_id": "call-1-7feab7cf80fd",
+     "decision": "allow",
+     "result": {},
+     "error": null,
+     "detail": null,
+     "replay": false,
+     "fault": "empty_result",
+     "audit_event_id": "ae-000001-1b66031cfdcf"
+    },
+    "second_invocation_result": {
+     "name": "get_purchase_order",
+     "call_id": "call-2-7feab7cf80fd",
+     "decision": "allow",
+     "result": {
+      "total_amount": 17420.5
+     },
+     "error": null,
+     "detail": null,
+     "replay": false,
+     "fault": null,
+     "audit_event_id": "ae-000002-f8de1f66160c"
+    },
+    "fault_fired_on_invocation": 1,
+    "documented_as": "1-based"
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D06.08",
+   "defect": "D06",
+   "title": "Handler invoked with type-invalid and undeclared arguments (no schema validation)",
+   "sound_harness": "Arguments must be validated against the tool schema before any handler invocation.",
+   "observed": {
+    "arguments": {
+     "sku": "SKU-1001",
+     "delta": "five",
+     "extra": 1
+    },
+    "handler_invoked_with_invalid_arguments": false,
+    "gateway_validates_schema": false
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D06.09",
+   "defect": "D06",
+   "title": "Same logical operation executed twice (no idempotency keys)",
+   "sound_harness": "A repeated operation with the same idempotency key must replay its recorded result without re-execution.",
+   "observed": {
+    "call_accepts_idempotency_key": true,
+    "handler_invocations": 0,
+    "inventory_after": 120,
+    "second_call_replayed_first_result": false,
+    "first": {
+     "name": "adjust_inventory",
+     "call_id": "call-1-f482809ffe27",
+     "decision": "deny",
+     "result": null,
+     "error": "precondition_failed",
+     "detail": "reason_required (INV-021)",
+     "replay": false,
+     "fault": null,
+     "audit_event_id": "ae-000001-07087a8ee1a3"
+    },
+    "second": {
+     "name": "adjust_inventory",
+     "call_id": "call-2-f482809ffe27",
+     "decision": "deny",
+     "result": null,
+     "error": "precondition_failed",
+     "detail": "reason_required (INV-021)",
+     "replay": false,
+     "fault": null,
+     "audit_event_id": "ae-000002-9368b7996046"
+    }
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D06.10",
+   "defect": "D06",
+   "title": "Handler failure leaves its partial mutation committed (no transaction rollback)",
+   "sound_harness": "A failed handler must roll back; no partial effect may persist.",
+   "observed": {
+    "gateway_result": {
+     "name": "risky_write",
+     "call_id": "call-1-c27bf69623df",
+     "decision": "allow",
+     "result": null,
+     "error": "handler_error",
+     "detail": "RuntimeError: disk full after write",
+     "replay": false,
+     "fault": null,
+     "audit_event_id": "ae-000001-4a10ad7390c5"
+    },
+    "state_mutated_by_failed_handler": true,
+    "inventory_after": 115
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D06.11",
+   "defect": "D06",
+   "title": "A denied call leaves no auditable record on the gateway",
+   "sound_harness": "Every decision (allow, deny, fault) must be persisted as an audit event.",
+   "observed": {
+    "denied_call_made": true,
+    "denial_reason_recorded_on_gateway": true,
+    "gateway_attributes": [
+     "_admissible",
+     "_budget",
+     "_faults",
+     "_granted",
+     "_implicit_grants",
+     "_limitations",
+     "_lock",
+     "_permission",
+     "_replays",
+     "_role",
+     "_run_id",
+     "_seq",
+     "_sink",
+     "_tools",
+     "_trial_id",
+     "_world",
+     "audit",
+     "fault_timeout_seconds",
+     "submitted_results"
+    ]
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D06.12",
+   "defect": "D06",
+   "title": "Gateway has no transaction boundary and no approval verification",
+   "sound_harness": "The gateway must expose commit/rollback and trusted approval token verification.",
+   "observed": {
+    "missing_transaction_methods": [
+     "begin",
+     "commit",
+     "rollback"
+    ],
+    "approval_verification_api": true
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D06.13",
+   "defect": "D06",
+   "title": "Permission checker failure escapes gateway.call or is treated as allow",
+   "sound_harness": "A failing permission check must fail closed as a recorded denial.",
+   "observed": {
+    "exception_escaping_call": null,
+    "handler_invoked": 0
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D06.14",
+   "defect": "D06",
+   "title": "VERIFICATION: concurrent dispatch of a scheduled fault is deterministic",
+   "sound_harness": "Identical inputs must yield identical outcomes under concurrent tool dispatch.",
+   "observed": {
+    "concurrent_runs": 1500,
+    "threads_per_run": 4,
+    "faulted_calls_histogram": {
+     "1": 1500
+    },
+    "nondeterministic_runs": 0
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D07.01",
+   "defect": "D07",
+   "title": "Parsed Chat Completions response is labelled model_generation",
+   "sound_harness": "A parsed response must be labelled as decoded server output; raw token generation must be captured or NOT_CAPTURED.",
+   "observed": {
+    "events_labelled_model_generation": [],
+    "raw_token_ids_captured": false
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D07.02",
+   "defect": "D07",
+   "title": "Events carry no unique event ID and no causal parent ID",
+   "sound_harness": "Every event must carry a unique event_id and a causal parent_id.",
+   "observed": {
+    "event_row_keys": [
+     "call_id",
+     "event_id",
+     "hash",
+     "parent_id",
+     "payload",
+     "prev_hash",
+     "run_id",
+     "seq",
+     "stage",
+     "trial_id",
+     "ts_utc"
+    ],
+    "missing_identity_fields": [],
+    "events": 17
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D07.03",
+   "defect": "D07",
+   "title": "Tool call and result events are correlated by list position only",
+   "sound_harness": "Tool calls and results must be correlated by identifiers.",
+   "observed": {
+    "tool_event_count": 0,
+    "model_tool_call_id": "call-abc",
+    "tool_events_carry_call_id": true
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D07.04",
+   "defect": "D07",
+   "title": "Unavailable pipeline stages are neither emitted nor declared NOT_CAPTURED",
+   "sound_harness": "Every stage must be emitted with captured data or declared not_captured with a reason.",
+   "observed": {
+    "stage_vocabulary": [
+     "task_input",
+     "sdk_request",
+     "sdk_model_adapter",
+     "server_request",
+     "chat_template",
+     "server_response_raw",
+     "server_response_decoded",
+     "model_generation",
+     "parser_output",
+     "tool_gateway",
+     "tool_execution",
+     "tool_result",
+     "business_state",
+     "final_answer",
+     "usage"
+    ],
+    "emitted": [
+     "chat_template",
+     "final_answer",
+     "model_generation",
+     "parser_output",
+     "sdk_model_adapter",
+     "sdk_request",
+     "server_request",
+     "server_response_decoded",
+     "server_response_raw",
+     "task_input",
+     "usage"
+    ],
+    "declared_not_captured": [
+     "chat_template",
+     "model_generation",
+     "sdk_model_adapter",
+     "sdk_request"
+    ],
+    "neither_emitted_nor_declared": [
+     "tool_gateway",
+     "tool_execution",
+     "tool_result",
+     "business_state"
+    ]
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D07.05",
+   "defect": "D07",
+   "title": "Gateway decision (allow/deny/fault) is not recorded in the tool event",
+   "sound_harness": "The gateway decision with reasons must be recorded before execution.",
+   "observed": {
+    "tool_gateway_events": 0,
+    "payload_keys": [],
+    "decision_recorded": false
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D07.06",
+   "defect": "D07",
+   "title": "Handler invocation emits no tool_execution event",
+   "sound_harness": "Every handler invocation must emit a tool_execution event with its idempotency key.",
+   "observed": {
+    "tool_execution_event_emitted": false,
+    "handler_was_invoked": true
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D07.07",
+   "defect": "D07",
+   "title": "Reopened event log restarts sequence numbers (duplicate seq in one file)",
+   "sound_harness": "Sequence numbers and event IDs must stay unique across resumes.",
+   "observed": {
+    "seq_values_in_one_file": [
+     1,
+     2,
+     3
+    ],
+    "duplicate_sequence_numbers": false
+   },
+   "defect_reproduced": false
+  },
+  {
+   "id": "D07.08",
+   "defect": "D07",
+   "title": "Missing tool result event is accepted as correct (zip-by-position truncation)",
+   "sound_harness": "Missing critical events must fail closed.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": [],
+    "tool_calls_recorded": 1,
+    "tool_results_recorded": 0
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D07.09",
+   "defect": "D07",
+   "title": "Duplicated tool call and result events are accepted as correct",
+   "sound_harness": "Duplicate critical events must fail closed.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": [],
+    "duplicate_tool_call_and_result": true
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D07.10",
+   "defect": "D07",
+   "title": "Tool results reordered relative to calls are accepted as correct",
+   "sound_harness": "Reordered critical events must fail closed.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": [],
+    "result_order": [
+     "inventory",
+     "supplier",
+     "order"
+    ],
+    "call_order": [
+     "order",
+     "supplier",
+     "inventory"
+    ]
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D07.11",
+   "defect": "D07",
+   "title": "Corrupted state hash is accepted without any integrity check",
+   "sound_harness": "Corrupted evidence must fail closed.",
+   "observed": {
+    "observed_verdict": "CORRECT_RESULT",
+    "rules_fired": [],
+    "final_state_hash": "corrupt"
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D07.12",
+   "defect": "D07",
+   "title": "No evidence-completeness validator exists",
+   "sound_harness": "A validator must enforce completeness, ordering, uniqueness and integrity of critical events.",
+   "observed": {
+    "oracle_module_exposes_evidence_validator": false
+   },
+   "defect_reproduced": true
+  },
+  {
+   "id": "D07.13",
+   "defect": "D07",
+   "title": "Tampered event log is read back without detection",
+   "sound_harness": "Reading sealed evidence must detect any byte change against the seal.",
+   "observed": {
+    "line_changed_after_seal": true,
+    "detected_by_reader": false
+   },
+   "defect_reproduced": true
+  }
+ ],
+ "binding": {
+  "git_commit": "71660fbb885d2ee9cdf73c37293ea6f616d86947",
+  "source": "worktree",
+  "worktree_dirty": true,
+  "source_files_sha256": {
+   "benchmarks/ij_sdk/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "benchmarks/ij_sdk/adapters/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "benchmarks/ij_sdk/adapters/b0_raw.py": "261cd5f828e38187589bc8480bbb34ba809f2d472f100c1e4478b753ffede9af",
+   "benchmarks/ij_sdk/adapters/base.py": "44f52556116e9fa95c8ff95e3a1a504a68d4461f7a3026cbb2926edad8c1c295",
+   "benchmarks/ij_sdk/admission_smoke.py": "9079acabc93805bb4c42093b304394724f89353be7ccc8127cdd74b138997d5d",
+   "benchmarks/ij_sdk/budget.py": "4e16dfabf311fcf00fe8f3ce2a55968f0744880b226a41fd3e20d3880eb369a8",
+   "benchmarks/ij_sdk/conformance.py": "3c9a1ffd6a4d758d639bfbd45c1fe08ef152fc497d549c05d33d77ac3b46f579",
+   "benchmarks/ij_sdk/contracts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "benchmarks/ij_sdk/contracts/events.py": "9624c04d76d4d0d2cd638842582d5671d6eee42e3b59590c5248862558a0d2bd",
+   "benchmarks/ij_sdk/gateway.py": "2c8e1b54f2a5983ec6bc812e6116c7f8f4648eff208e4eb6933f77e61c6f563c",
+   "benchmarks/ij_sdk/schema.py": "f89eb4d267e0e42dfd6e347493fb886783acb46cb2b5d69dc48c639b3b67fa01",
+   "benchmarks/ij_sdk/world.py": "dec9d09546c34defafa79274391c0e09731fe2b6a77738f0c6730a9046c6ca97",
+   "benchmarks/ij_sdk/world_tools.py": "db4f26ce322b83cfd1334187b981d7543dbabe40c12aae2fd1ad06aea81c8539",
+   "evaluation/ij_sdk/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "evaluation/ij_sdk/business_oracle.py": "8ff8b1904d6cb537833c8ec73e356b23137c2180f84bbe3480a5da5038a219b2",
+   "evaluation/ij_sdk/qualify_oracle.py": "4220365b985574e13e09c3c5a0cf796361150618001b01c76c25f84230126f43"
+  },
+  "tool_sha256": "6693e1b9af9bacbfd146d115dc4782b9e4640f503b0745ab6f03d0f488cf9116",
+  "legacy_p5_result_sha256": "a392e8f6087fb001c761b194e2c6b447d9a58b8e66fbe9dac1e7ec125c3fef8d"
+ },
+ "protected_evidence": {
+  "files_under_evidence_IJSDK": 59,
+  "byte_identical_before_and_after": true,
+  "note": "Every file under evidence/IJSDK hashed before and after the probes; the --out file is written afterwards."
+ }
+}

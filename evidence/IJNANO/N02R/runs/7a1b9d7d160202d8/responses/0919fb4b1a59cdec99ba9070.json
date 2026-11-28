@@ -1,0 +1,146 @@
+{
+ "trial_id": "0919fb4b1a59cdec99ba9070",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user input.\n\nContext: \"context: order_id = ORD-1042. 工具已选定: orders.lookup_order.\"\n\nThe user says: \"查询订单，单号在上下文里。 只回答参数值。 / Answer with the argument value only.\"\n\nInterpretation: They want to query an order, given the order ID in context (order_id = ORD-1042). The tool already chosen is orders.lookup_order. So we need to return the value of slot 'order_id' (type entity). But they ask \"只回答参数值\" meaning answer with argument"
+      }
+     }
+    ],
+    "created": 1795796049,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 128,
+     "prompt_tokens": 82,
+     "total_tokens": 210,
+     "prompt_tokens_details": {
+      "cached_tokens": 1
+     }
+    },
+    "id": "chatcmpl-micApx6gcpB6eEoR52imdKUgV4O5pGna",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user input.\n\nContext: \"context: order_id = ORD-1042. 工具已选定: orders.lookup_order.\"\n\nThe user says: \"查询订单，单号在上下文里。 只回答参数值。 / Answer with the argument value only.\"\n\nInterpretation: They want to query an order, given the order ID in context (order_id = ORD-1042). The tool already chosen is orders.lookup_order. So we need to return the value of slot 'order_id' (type entity). But they ask \"只回答参数值\" meaning answer with argument",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 128,
+     "tokens_evaluated": 82,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 128,
+      "n_predict": 128,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n上下文 / context: order_id = ORD-1042. 工具已选定: orders.lookup_order. / Tool already chosen: orders.lookup_order.\nThe answer is the value of the slot 'order_id' (type entity).\n查询订单，单号在上下文里。 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 209,
+     "timings": {
+      "cache_n": 1,
+      "prompt_n": 81,
+      "prompt_ms": 30.683,
+      "prompt_per_token_ms": 0.37880246913580246,
+      "prompt_per_second": 2639.8983150278655,
+      "predicted_n": 128,
+      "predicted_ms": 749.927,
+      "predicted_per_token_ms": 5.9049370078740155,
+      "predicted_per_second": 169.34981671549363
+     }
+    },
+    "timings": {
+     "cache_n": 1,
+     "prompt_n": 81,
+     "prompt_ms": 30.683,
+     "prompt_per_token_ms": 0.37880246913580246,
+     "prompt_per_second": 2639.8983150278655,
+     "predicted_n": 128,
+     "predicted_ms": 749.927,
+     "predicted_per_token_ms": 5.9049370078740155,
+     "predicted_per_second": 169.34981671549363
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.797
+  }
+ ]
+}

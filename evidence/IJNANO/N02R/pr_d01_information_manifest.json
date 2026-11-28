@@ -1,0 +1,810 @@
+{
+ "schema": "ij_nano.n02r.pr_d01_information_manifest",
+ "families": {
+  "tool_selection": {
+   "representative_task": "TS01",
+   "arms": {
+    "P0": {
+     "arm": "P0",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 143,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P1": {
+     "arm": "P1",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 143,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "orders.lookup_order",
+       "orders.cancel_order",
+       "orders.get_refund_eligibility",
+       "refunds.submit",
+       "customers.get_profile",
+       "logistics.trace_shipment",
+       "inventory.check_stock",
+       "notify.send_update"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P2": {
+     "arm": "P2",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 143,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "orders.lookup_order",
+       "orders.cancel_order",
+       "orders.get_refund_eligibility",
+       "refunds.submit",
+       "customers.get_profile",
+       "logistics.trace_shipment",
+       "inventory.check_stock",
+       "notify.send_update"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P3": {
+     "arm": "P3",
+     "path": "/completion",
+     "prompt_chars": 189,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "orders.lookup_order",
+       "orders.cancel_order",
+       "orders.get_refund_eligibility",
+       "refunds.submit",
+       "customers.get_profile",
+       "logistics.trace_shipment",
+       "inventory.check_stock",
+       "notify.send_update"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P4": {
+     "arm": "P4",
+     "path": "/completion",
+     "prompt_chars": 189,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "tool",
+       "orders.lookup_order",
+       "orders.cancel_order",
+       "orders.get_refund_eligibility",
+       "refunds.submit",
+       "customers.get_profile",
+       "logistics.trace_shipment",
+       "inventory.check_stock",
+       "notify.send_update"
+      ]
+     ],
+     "constraint_kind": "gbnf"
+    },
+    "P5": {
+     "arm": "P5",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 143,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [
+      "customers.get_profile",
+      "inventory.check_stock",
+      "logistics.trace_shipment",
+      "notify.send_update",
+      "orders.cancel_order",
+      "orders.get_refund_eligibility",
+      "orders.lookup_order",
+      "refunds.submit"
+     ],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P6": {
+     "arm": "P6",
+     "path": "/completion",
+     "prompt_chars": 428,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P7": {
+     "arm": "P7",
+     "path": "/completion",
+     "prompt_chars": 394,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    }
+   },
+   "verdict_note": "prompt-visible information differs by arm; see prompt_lists_* and tools_in_request columns"
+  },
+  "slot_extraction": {
+   "representative_task": "SX01",
+   "arms": {
+    "P0": {
+     "arm": "P0",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 168,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P1": {
+     "arm": "P1",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 168,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "json_schema"
+    },
+    "P2": {
+     "arm": "P2",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 168,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "json_schema"
+    },
+    "P3": {
+     "arm": "P3",
+     "path": "/completion",
+     "prompt_chars": 214,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "json_schema"
+    },
+    "P4": {
+     "arm": "P4",
+     "path": "/completion",
+     "prompt_chars": 214,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "value"
+      ]
+     ],
+     "constraint_kind": "gbnf"
+    },
+    "P5": {
+     "arm": "P5",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 168,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [
+      "record_answer"
+     ],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P6": {
+     "arm": "P6",
+     "path": "/completion",
+     "prompt_chars": 282,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P7": {
+     "arm": "P7",
+     "path": "/completion",
+     "prompt_chars": 223,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    }
+   },
+   "verdict_note": "prompt-visible information differs by arm; see prompt_lists_* and tools_in_request columns"
+  },
+  "structured_action": {
+   "representative_task": "SA01",
+   "arms": {
+    "P0": {
+     "arm": "P0",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 108,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P1": {
+     "arm": "P1",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 108,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "orders.lookup_order",
+       "orders.cancel_order",
+       "orders.get_refund_eligibility",
+       "refunds.submit",
+       "customers.get_profile",
+       "logistics.trace_shipment",
+       "inventory.check_stock",
+       "notify.send_update"
+      ],
+      [
+       "CNY",
+       "USD",
+       "EUR",
+       "pcs",
+       "kg"
+      ],
+      [
+       "damaged_item",
+       "late_delivery",
+       "wrong_item",
+       "duplicate_charge",
+       "price_mismatch"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P2": {
+     "arm": "P2",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 108,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "orders.lookup_order",
+       "orders.cancel_order",
+       "orders.get_refund_eligibility",
+       "refunds.submit",
+       "customers.get_profile",
+       "logistics.trace_shipment",
+       "inventory.check_stock",
+       "notify.send_update"
+      ],
+      [
+       "CNY",
+       "USD",
+       "EUR",
+       "pcs",
+       "kg"
+      ],
+      [
+       "damaged_item",
+       "late_delivery",
+       "wrong_item",
+       "duplicate_charge",
+       "price_mismatch"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P3": {
+     "arm": "P3",
+     "path": "/completion",
+     "prompt_chars": 154,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "orders.lookup_order",
+       "orders.cancel_order",
+       "orders.get_refund_eligibility",
+       "refunds.submit",
+       "customers.get_profile",
+       "logistics.trace_shipment",
+       "inventory.check_stock",
+       "notify.send_update"
+      ],
+      [
+       "CNY",
+       "USD",
+       "EUR",
+       "pcs",
+       "kg"
+      ],
+      [
+       "damaged_item",
+       "late_delivery",
+       "wrong_item",
+       "duplicate_charge",
+       "price_mismatch"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P4": {
+     "arm": "P4",
+     "path": "/completion",
+     "prompt_chars": 154,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "tool",
+       "order_id",
+       "amount",
+       "value",
+       "unit",
+       "reason",
+       "orders.lookup_order",
+       "orders.cancel_order",
+       "orders.get_refund_eligibility",
+       "refunds.submit",
+       "customers.get_profile",
+       "logistics.trace_shipment"
+      ]
+     ],
+     "constraint_kind": "gbnf"
+    },
+    "P5": {
+     "arm": "P5",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 108,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [
+      "record_answer"
+     ],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P6": {
+     "arm": "P6",
+     "path": "/completion",
+     "prompt_chars": 467,
+     "prompt_lists_tool_names": true,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P7": {
+     "arm": "P7",
+     "path": "/completion",
+     "prompt_chars": 163,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    }
+   },
+   "verdict_note": "prompt-visible information differs by arm; see prompt_lists_* and tools_in_request columns"
+  },
+  "enumerated_action": {
+   "representative_task": "EA01",
+   "arms": {
+    "P0": {
+     "arm": "P0",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 374,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P1": {
+     "arm": "P1",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 374,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "A1",
+       "A2",
+       "A3",
+       "A4",
+       "A5",
+       "A6"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P2": {
+     "arm": "P2",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 374,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "A1",
+       "A2",
+       "A3",
+       "A4",
+       "A5",
+       "A6"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P3": {
+     "arm": "P3",
+     "path": "/completion",
+     "prompt_chars": 420,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "A1",
+       "A2",
+       "A3",
+       "A4",
+       "A5",
+       "A6"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P4": {
+     "arm": "P4",
+     "path": "/completion",
+     "prompt_chars": 420,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "action",
+       "A1",
+       "A2",
+       "A3",
+       "A4",
+       "A5",
+       "A6"
+      ]
+     ],
+     "constraint_kind": "gbnf"
+    },
+    "P5": {
+     "arm": "P5",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 374,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [
+      "record_answer"
+     ],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P6": {
+     "arm": "P6",
+     "path": "/completion",
+     "prompt_chars": 508,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P7": {
+     "arm": "P7",
+     "path": "/completion",
+     "prompt_chars": 413,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": true,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    }
+   },
+   "verdict_note": "prompt-visible information differs by arm; see prompt_lists_* and tools_in_request columns"
+  },
+  "conditional_branch": {
+   "representative_task": "CB01",
+   "arms": {
+    "P0": {
+     "arm": "P0",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 114,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P1": {
+     "arm": "P1",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 114,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "auto_approve",
+       "requires_manager_approval",
+       "reject_out_of_policy"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P2": {
+     "arm": "P2",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 114,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "auto_approve",
+       "requires_manager_approval",
+       "reject_out_of_policy"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P3": {
+     "arm": "P3",
+     "path": "/completion",
+     "prompt_chars": 160,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "auto_approve",
+       "requires_manager_approval",
+       "reject_out_of_policy"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P4": {
+     "arm": "P4",
+     "path": "/completion",
+     "prompt_chars": 160,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "branch",
+       "auto_approve",
+       "requires_manager_approval",
+       "reject_out_of_policy"
+      ]
+     ],
+     "constraint_kind": "gbnf"
+    },
+    "P5": {
+     "arm": "P5",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 114,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [
+      "record_answer"
+     ],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P6": {
+     "arm": "P6",
+     "path": "/completion",
+     "prompt_chars": 287,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P7": {
+     "arm": "P7",
+     "path": "/completion",
+     "prompt_chars": 237,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    }
+   },
+   "verdict_note": "prompt-visible information differs by arm; see prompt_lists_* and tools_in_request columns"
+  },
+  "stop_continue": {
+   "representative_task": "SC01",
+   "arms": {
+    "P0": {
+     "arm": "P0",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 164,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P1": {
+     "arm": "P1",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 164,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "stop",
+       "continue"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P2": {
+     "arm": "P2",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 164,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "stop",
+       "continue"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P3": {
+     "arm": "P3",
+     "path": "/completion",
+     "prompt_chars": 210,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "stop",
+       "continue"
+      ]
+     ],
+     "constraint_kind": "json_schema"
+    },
+    "P4": {
+     "arm": "P4",
+     "path": "/completion",
+     "prompt_chars": 210,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [
+      [
+       "decision",
+       "stop",
+       "continue"
+      ]
+     ],
+     "constraint_kind": "gbnf"
+    },
+    "P5": {
+     "arm": "P5",
+     "path": "/v1/chat/completions",
+     "prompt_chars": 164,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": false,
+     "tools_in_request": [
+      "record_answer"
+     ],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P6": {
+     "arm": "P6",
+     "path": "/completion",
+     "prompt_chars": 290,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    },
+    "P7": {
+     "arm": "P7",
+     "path": "/completion",
+     "prompt_chars": 238,
+     "prompt_lists_tool_names": false,
+     "prompt_lists_tool_descriptions": false,
+     "prompt_lists_candidates": true,
+     "tools_in_request": [],
+     "constraint_enums_not_in_prompt": [],
+     "constraint_kind": "none"
+    }
+   },
+   "verdict_note": "prompt-visible information differs by arm; see prompt_lists_* and tools_in_request columns"
+  }
+ }
+}

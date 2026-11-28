@@ -1,0 +1,1442 @@
+{
+ "schema": "ijeval.ea03_n03.ground_truth_qualification",
+ "schema_version": 1,
+ "generated_by": "src/eval_assurance/reference/oracle.py (validate_ground_truth)",
+ "pinned_ij_nano_revision": "d23de5abe596e43743a5a2c7437ccd1b5e7de7f9",
+ "scope": "160 development cases, primitives C01-C08 (obligation A: stored ground truth)",
+ "independence": "no IJ-NANO production or builder code imported; C03-formatting/C04/C05/C06 recomputed from public payloads; C08 recomputed algebraically from the committed construction record; C01/C02/C07 independently rule-table/structurally validated from public catalog descriptions and language-invariant surfaces",
+ "confirmation_cases": "80 protected confirmation cases NOT ground-truth-qualified here (protected construction inaccessible; public recomputability not claimed)",
+ "summary": {
+  "total": 160,
+  "VALID": 133,
+  "NOT_ESTABLISHED": 27
+ },
+ "by_primitive": {
+  "C01": {
+   "VALID": 15,
+   "NOT_ESTABLISHED": 5
+  },
+  "C02": {
+   "VALID": 20
+  },
+  "C03": {
+   "VALID": 6,
+   "NOT_ESTABLISHED": 14
+  },
+  "C04": {
+   "VALID": 20
+  },
+  "C05": {
+   "VALID": 20
+  },
+  "C06": {
+   "VALID": 20
+  },
+  "C07": {
+   "VALID": 12,
+   "NOT_ESTABLISHED": 8
+  },
+  "C08": {
+   "VALID": 20
+  }
+ },
+ "per_case": [
+  {
+   "case_id": "n03-C01-helpdesk-d00",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "incident_report",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d01",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "escalation_demand",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d02",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "account_lock",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d03",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "escalation_demand",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d04",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "feature_request",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d05",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "feature_request",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d06",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "exchange_request",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d07",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "feature_request",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d08",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "escalation_demand",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d09",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "feature_request",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-smarthome-d00",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "group_control",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-smarthome-d01",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "cancel_schedule",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-smarthome-d02",
+   "primitive": "C01",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C01-smarthome-d03",
+   "primitive": "C01",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C01-smarthome-d04",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "group_control",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-smarthome-d05",
+   "primitive": "C01",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C01-smarthome-d06",
+   "primitive": "C01",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C01-smarthome-d07",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "energy_report",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-smarthome-d08",
+   "primitive": "C01",
+   "verdict": "VALID",
+   "recomputed": "schedule_action",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C01-smarthome-d09",
+   "primitive": "C01",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C02-project-d00",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": "2026-12-11"
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-project-d01",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": null
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-project-d02",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": "2026-12-11"
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-project-d03",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": null
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-project-d04",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": "2026-12-04"
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-project-d05",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": null
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-project-d06",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": "2027-01-08"
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-project-d07",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": null
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-project-d08",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": "2026-12-11"
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-project-d09",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": null
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-personal-d00",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": "2027-01-08"
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-personal-d01",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": null
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-personal-d02",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": "2026-12-04"
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-personal-d03",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": null
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-personal-d04",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": "2026-12-04"
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-personal-d05",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": null
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-personal-d06",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": "2027-01-08"
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-personal-d07",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": null
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-personal-d08",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": "2027-01-08"
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C02-personal-d09",
+   "primitive": "C02",
+   "verdict": "VALID",
+   "recomputed": {
+    "deadline": null
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C03-formatting-d00",
+   "primitive": "C03",
+   "verdict": "VALID",
+   "recomputed": [
+    "headlamp",
+    "map case",
+    "trail jacket"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C03-formatting-d01",
+   "primitive": "C03",
+   "verdict": "VALID",
+   "recomputed": [
+    "露营凳",
+    "地图包",
+    "冲锋衣"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C03-formatting-d02",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "rule 'not_in_stock_upper' not recomputable"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formatting-d03",
+   "primitive": "C03",
+   "verdict": "VALID",
+   "recomputed": [
+    "露营凳",
+    "头灯",
+    "冲锋衣"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C03-formatting-d04",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "rule 'in_stock_upper' not recomputable"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formatting-d05",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "rule 'not_in_stock' not recomputable"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formatting-d06",
+   "primitive": "C03",
+   "verdict": "VALID",
+   "recomputed": [
+    "headlamp",
+    "map case",
+    "trail jacket"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C03-formatting-d07",
+   "primitive": "C03",
+   "verdict": "VALID",
+   "recomputed": [
+    "露营凳",
+    "地图包",
+    "冲锋衣"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C03-formatting-d08",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "rule 'not_in_stock_upper' not recomputable"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formatting-d09",
+   "primitive": "C03",
+   "verdict": "VALID",
+   "recomputed": [
+    "露营凳",
+    "头灯",
+    "冲锋衣"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C03-formfill-d00",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "formfill single-field truth is construction-authored"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formfill-d01",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "formfill single-field truth is construction-authored"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formfill-d02",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "formfill single-field truth is construction-authored"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formfill-d03",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "formfill single-field truth is construction-authored"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formfill-d04",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "formfill single-field truth is construction-authored"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formfill-d05",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "formfill single-field truth is construction-authored"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formfill-d06",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "formfill single-field truth is construction-authored"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formfill-d07",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "formfill single-field truth is construction-authored"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formfill-d08",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "formfill single-field truth is construction-authored"
+   ]
+  },
+  {
+   "case_id": "n03-C03-formfill-d09",
+   "primitive": "C03",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "formfill single-field truth is construction-authored"
+   ]
+  },
+  {
+   "case_id": "n03-C04-retail-d00",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "SKU-001"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-retail-d01",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "SKU-001"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-retail-d02",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "SKU-002",
+    "SKU-005",
+    "SKU-006",
+    "SKU-007"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-retail-d03",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "SKU-001"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-retail-d04",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "SKU-001"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-retail-d05",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "SKU-002",
+    "SKU-005",
+    "SKU-006",
+    "SKU-007"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-retail-d06",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "SKU-001"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-retail-d07",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "SKU-001"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-retail-d08",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "SKU-002",
+    "SKU-005",
+    "SKU-006",
+    "SKU-007"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-retail-d09",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "SKU-001"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-docs-d00",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "DOC-001",
+    "DOC-002"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-docs-d01",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "DOC-002",
+    "DOC-005"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-docs-d02",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "DOC-002",
+    "DOC-005"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-docs-d03",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "DOC-001",
+    "DOC-002"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-docs-d04",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "DOC-002",
+    "DOC-005"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-docs-d05",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "DOC-002",
+    "DOC-005"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-docs-d06",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "DOC-001",
+    "DOC-002"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-docs-d07",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "DOC-002",
+    "DOC-005"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-docs-d08",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "DOC-002",
+    "DOC-005"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C04-docs-d09",
+   "primitive": "C04",
+   "verdict": "VALID",
+   "recomputed": [
+    "DOC-001",
+    "DOC-002"
+   ],
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-returns-d00",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true,
+    "days": 3,
+    "limit": 30
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-returns-d01",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true,
+    "days": 12,
+    "limit": 45
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-returns-d02",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true,
+    "days": 29,
+    "limit": 30
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-returns-d03",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true,
+    "days": 30,
+    "limit": 45
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-returns-d04",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": false,
+    "days": 31,
+    "limit": 30
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-returns-d05",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true,
+    "days": 45,
+    "limit": 45
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-returns-d06",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true,
+    "days": 3,
+    "limit": 30
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-returns-d07",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true,
+    "days": 12,
+    "limit": 45
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-returns-d08",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true,
+    "days": 29,
+    "limit": 30
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-returns-d09",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true,
+    "days": 30,
+    "limit": 45
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-fulfill-d00",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-fulfill-d01",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-fulfill-d02",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-fulfill-d03",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-fulfill-d04",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-fulfill-d05",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": false
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-fulfill-d06",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-fulfill-d07",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-fulfill-d08",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C05-fulfill-d09",
+   "primitive": "C05",
+   "verdict": "VALID",
+   "recomputed": {
+    "decision": true
+   },
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-plan-d00",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "PLN-TEAM",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-plan-d01",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "PLN-PLUS",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-plan-d02",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "PLN-PLUS",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-plan-d03",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "PLN-ENTERPRISE",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-plan-d04",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "PLN-ENTERPRISE",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-plan-d05",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "PLN-TEAM",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-plan-d06",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "PLN-PLUS",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-plan-d07",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "PLN-PLUS",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-plan-d08",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "PLN-ENTERPRISE",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-plan-d09",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "PLN-ENTERPRISE",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-supplier-d00",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "SUP-ALPHA",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-supplier-d01",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "SUP-ALPHA",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-supplier-d02",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "SUP-ALPHA",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-supplier-d03",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "SUP-ALPHA",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-supplier-d04",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "SUP-ALPHA",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-supplier-d05",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "SUP-ALPHA",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-supplier-d06",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "SUP-ALPHA",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-supplier-d07",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "SUP-ALPHA",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-supplier-d08",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "SUP-ALPHA",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C06-supplier-d09",
+   "primitive": "C06",
+   "verdict": "VALID",
+   "recomputed": "SUP-ALPHA",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-service-d00",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "escalate_fraud",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-service-d01",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "issue_refund",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-service-d02",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "reset_password",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-service-d03",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "schedule_callback",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-service-d04",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "update_record",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-service-d05",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "verify_identity",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-service-d06",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "escalate_fraud",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-service-d07",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "issue_refund",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-service-d08",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "reset_password",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-service-d09",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "schedule_callback",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-itops-d00",
+   "primitive": "C07",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C07-itops-d01",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "page_oncall",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-itops-d02",
+   "primitive": "C07",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C07-itops-d03",
+   "primitive": "C07",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C07-itops-d04",
+   "primitive": "C07",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C07-itops-d05",
+   "primitive": "C07",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C07-itops-d06",
+   "primitive": "C07",
+   "verdict": "VALID",
+   "recomputed": "page_oncall",
+   "reasons": []
+  },
+  {
+   "case_id": "n03-C07-itops-d07",
+   "primitive": "C07",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C07-itops-d08",
+   "primitive": "C07",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C07-itops-d09",
+   "primitive": "C07",
+   "verdict": "NOT_ESTABLISHED",
+   "recomputed": null,
+   "reasons": [
+    "no rule-table evidence in text"
+   ]
+  },
+  {
+   "case_id": "n03-C08-biztools-d00",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "email_sender",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-biztools-d01",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "email_drafter",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-biztools-d02",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "invoice_generator",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-biztools-d03",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "invoice_mailer",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-biztools-d04",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "crm_lookup",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-biztools-d05",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "ticket_closer",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-biztools-d06",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "calendar_booker",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-biztools-d07",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "report_scheduler",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-biztools-d08",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "dataset_exporter",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-biztools-d09",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "dataset_validator",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d00",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "email_sender",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d01",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "email_drafter",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d02",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "invoice_generator",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d03",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "invoice_mailer",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d04",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "crm_lookup",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d05",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "ticket_closer",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d06",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "calendar_booker",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d07",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "report_scheduler",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d08",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "dataset_exporter",
+   "reasons": [
+    "unique capability superset"
+   ]
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d09",
+   "primitive": "C08",
+   "verdict": "VALID",
+   "recomputed": "dataset_validator",
+   "reasons": [
+    "unique capability superset"
+   ]
+  }
+ ]
+}

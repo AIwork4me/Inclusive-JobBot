@@ -1,0 +1,31 @@
+{
+ "package_id": "n03-batch-a-qualification-package",
+ "version": "v1",
+ "scope": "C01-C08 (Batch A): 160 development + 80 confirmation cases, 160 dev expectations exposed; confirmation expectations protected (hash-only manifest)",
+ "producer": "IJ-NANO lane (PR #11), IJ-NANO-1.3S continuation order",
+ "consumer": "IJ-EVAL-ASSURANCE lane (PR #13), for EA03-EA08 qualification inputs. This package grants NO EA gate and makes no EA03-EA08 claim on the consumer's behalf.",
+ "consumption_contract": {
+  "pinned_revision_required": "consume ONLY via the exact git commit reported on Issue #10 for this package version; never via a mutable local worktree path",
+  "verify_first": "recompute each sha256 below against the pinned revision before use; any mismatch invalidates the package",
+  "protected_material": "confirmation EXPECTATIONS are not in git; the hash-only manifest lets the IJNANO-side runner prove expectation identity at trial time without publishing answers"
+ },
+ "components_sha256": {
+  "task_contracts_taxonomy": "cb800bce6efc01723e1e34ad10e159d3a95c44ed8592a3c0112c17e74f23861c",
+  "taxonomy_schema": "374b397d1fc336a9f5efcb5aaa5198c5ce3b58b8b01b0edead0d3217c7d0b6c3",
+  "public_case_roster": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+  "dev_expectations": "b088a56e3d7dbf753a10c7b328c2996d72621cb4c5ce49f05c2b99cf724dc541",
+  "confirmation_protected_manifest_hashonly": "d0d6851f400b7c5597c390d88b32aba032113288c9098daef4fc1b54cda83041",
+  "model_registry": "387f22e0ab6de64e7c1bb69c5f2daf77844ad24ef116f6c91082b3efa132e384",
+  "slot_manifest": "a88520787812cd4395891399a87890b8da8f46c22b1209447f1549d86ad536dd",
+  "dataset_verification_report": "e5febff993db57d648e1d19367692c8481d487e69cda50f0d78c66aef8d019bb",
+  "dataset_build_manifest": "1a05ce1d61cecae3ce4cba5931e88bcf38bdf7e5d653cc9f86e10dbac6b4c3bd",
+  "schema_conformance_report": "6ee8385ca2c6d9d4980a65ca13994fed708899ff10431b1585de624f80bc745c",
+  "parser_semantics": "427f0cb770028e4e411f87ecc0bcaa6a26f4b52572872fd45dee2c885e640497",
+  "oracle_requirements": "b765e65c2d84000c15182031329f6b4322030a6dff444dfd344ffe38e139f1db",
+  "mutation_targets": "37f435f6ebf10c58f96fb16b87ddb44f0dd38d105268bd87fc2bddb94ef9e4b0",
+  "limitations": "87aaab909bd4098bf175f69af1520f27eb2b90f528e7d9cc860aaa697b2d165c"
+ },
+ "witnesses_note": "positive/negative raw-response witnesses are embedded per family in the dataset build (family_witnesses) and per-primitive in the frozen taxonomy (correct_witnesses/incorrect_witnesses)",
+ "slot_accounting": "evidence/IJNANO/N03/dataset/slot_manifest.json (Batch A: 720 primary slots across S1/S2/S3; roster-derived)",
+ "protocols": "see taxonomy.json protocol_vocabulary; applicable ids are listed per case in the public roster"
+}

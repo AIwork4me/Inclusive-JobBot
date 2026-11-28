@@ -1,0 +1,146 @@
+{
+ "trial_id": "7de493148339bcb7ddcd384f",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's query. It says:\n\n\"策略 / policy: delay 30 hours, threshold 24; customer unreachable. 实况 / observation: n = 30.\nAllowed branches: reroute, hold_at_hub, continue_as_planned.\n判断应走的分支。 / Decide which branch applies.\"\n\nInterpretation: There's a policy about delaying something for 30 hours, threshold is 24. Customer unreachable. Observation n = 30. Allowed branches are reroute, hold_at_hub, continue_as_planned.\n\nWe need to decide which branch (i.e., action) applies given the policy and observation.\n\nLet's break down:\n\n- Policy: \"delay 30 hours, threshold 24\". Possibly means that if something is delayed beyond a certain threshold? Or maybe it's about delaying an operation for 30 hours after some condition. The phrase \"threshold 24\" might refer to a time limit before taking action.\n\n- Customer unreachable: indicates the customer cannot be contacted, perhaps causing a need to hold or reroute.\n\n- Observation n = 30: maybe number of observations? Or sample size? Could be that we have observed something for 30 instances.\n\nWe need to map these into one of three allowed branches:\n\n1. reroute\n2. hold_at_hub\n3. continue_as_planned\n\nGiven the policy says \"delay 30 hours, threshold 24\". If delay > threshold (i.e., 30 > 24), then maybe we should take action: perhaps \"reroute\" or \"hold_at_hub\"? Not sure.\n\nLet's think typical decision trees in such contexts: There is a hub and spoke network. \"Hold at hub\" might mean keep the request at the hub until something else happens. \"Reroute\" means change the path to another node. \"Continue as planned\" means proceed with original plan.\n\nGiven customer unreachable, maybe we need to hold at hub because we can't contact them; or reroute to a different branch? The policy says delay 30 hours, threshold 24. If after 24 hours we haven't reached the customer (unreachable), then we might decide to delay further until 30 hours? Or perhaps if the delay exceeds threshold, we need to take corrective action.\n\nObservation n = 30: maybe number of attempts or observations is 30, which is greater than threshold 24. So after 24 hours of no contact (or something), we have observed 30 times? Not sure.\n\nLet's parse more literally:\n\n- \"策略 / policy: delay 30 hours, threshold 24; customer unreachable.\" Means the policy states to delay for 30 hours, but there is a threshold of 24. Possibly meaning that if you need to delay beyond 24 hours, then do something else? Or maybe it's about a \"delay\" operation: we should schedule a delay of 30 hours, but only after reaching threshold of 24 days? Hard.\n\n- \"实况 / observation: n = 30.\" Means observed count is 30. Could be number of observations or attempts.\n\nGiven allowed branches: reroute, hold_at_hub, continue_as_planned.\n\nWe need to decide which branch applies based on these inputs.\n\nLet's hypothesize typical scenario: There's a customer request that needs to be fulfilled at a hub. If the customer is unreachable after some time, we might either \"hold at hub\" (i.e., keep waiting for them) or \"reroute\" to another location. The policy says delay 30 hours; threshold 24. So maybe if the delay exceeds 24 hours, we must reroute? Or hold?\n\nAlternatively, perhaps it's about a \"policy: delay 30 hours\" meaning that you should schedule a delay of 30 hours for some process (like a hold). The threshold is 24, which might be the minimum time before you can consider something else. If current time is less than threshold? Not sure.\n\nGiven we have n=30 observations, maybe it's about number of attempts to contact the customer; after 30 attempts, if still unreachable, then we need to decide: either continue as planned (maybe keep trying), hold at hub (stop and wait?), or reroute (change path). The threshold is 24, but we have 30 > 24. So maybe we exceed threshold, so we should take action beyond just waiting.\n\nThus likely branch = \"reroute\" because after exceeding the delay threshold, you need to reroute to another hub.\n\nBut let's reason more concretely: In many routing policies, if a customer is unreachable for longer than a certain time (threshold), you might decide to hold at hub until further notice or reroute. The policy says \"delay 30 hours\"."
+      }
+     }
+    ],
+    "created": 1795800241,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 71,
+     "total_tokens": 1095,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-FW1HQxzVJOybB1gnJL3Ax4nZmsogu2ir",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. It says:\n\n\"策略 / policy: delay 30 hours, threshold 24; customer unreachable. 实况 / observation: n = 30.\nAllowed branches: reroute, hold_at_hub, continue_as_planned.\n判断应走的分支。 / Decide which branch applies.\"\n\nInterpretation: There's a policy about delaying something for 30 hours, threshold is 24. Customer unreachable. Observation n = 30. Allowed branches are reroute, hold_at_hub, continue_as_planned.\n\nWe need to decide which branch (i.e., action) applies given the policy and observation.\n\nLet's break down:\n\n- Policy: \"delay 30 hours, threshold 24\". Possibly means that if something is delayed beyond a certain threshold? Or maybe it's about delaying an operation for 30 hours after some condition. The phrase \"threshold 24\" might refer to a time limit before taking action.\n\n- Customer unreachable: indicates the customer cannot be contacted, perhaps causing a need to hold or reroute.\n\n- Observation n = 30: maybe number of observations? Or sample size? Could be that we have observed something for 30 instances.\n\nWe need to map these into one of three allowed branches:\n\n1. reroute\n2. hold_at_hub\n3. continue_as_planned\n\nGiven the policy says \"delay 30 hours, threshold 24\". If delay > threshold (i.e., 30 > 24), then maybe we should take action: perhaps \"reroute\" or \"hold_at_hub\"? Not sure.\n\nLet's think typical decision trees in such contexts: There is a hub and spoke network. \"Hold at hub\" might mean keep the request at the hub until something else happens. \"Reroute\" means change the path to another node. \"Continue as planned\" means proceed with original plan.\n\nGiven customer unreachable, maybe we need to hold at hub because we can't contact them; or reroute to a different branch? The policy says delay 30 hours, threshold 24. If after 24 hours we haven't reached the customer (unreachable), then we might decide to delay further until 30 hours? Or perhaps if the delay exceeds threshold, we need to take corrective action.\n\nObservation n = 30: maybe number of attempts or observations is 30, which is greater than threshold 24. So after 24 hours of no contact (or something), we have observed 30 times? Not sure.\n\nLet's parse more literally:\n\n- \"策略 / policy: delay 30 hours, threshold 24; customer unreachable.\" Means the policy states to delay for 30 hours, but there is a threshold of 24. Possibly meaning that if you need to delay beyond 24 hours, then do something else? Or maybe it's about a \"delay\" operation: we should schedule a delay of 30 hours, but only after reaching threshold of 24 days? Hard.\n\n- \"实况 / observation: n = 30.\" Means observed count is 30. Could be number of observations or attempts.\n\nGiven allowed branches: reroute, hold_at_hub, continue_as_planned.\n\nWe need to decide which branch applies based on these inputs.\n\nLet's hypothesize typical scenario: There's a customer request that needs to be fulfilled at a hub. If the customer is unreachable after some time, we might either \"hold at hub\" (i.e., keep waiting for them) or \"reroute\" to another location. The policy says delay 30 hours; threshold 24. So maybe if the delay exceeds 24 hours, we must reroute? Or hold?\n\nAlternatively, perhaps it's about a \"policy: delay 30 hours\" meaning that you should schedule a delay of 30 hours for some process (like a hold). The threshold is 24, which might be the minimum time before you can consider something else. If current time is less than threshold? Not sure.\n\nGiven we have n=30 observations, maybe it's about number of attempts to contact the customer; after 30 attempts, if still unreachable, then we need to decide: either continue as planned (maybe keep trying), hold at hub (stop and wait?), or reroute (change path). The threshold is 24, but we have 30 > 24. So maybe we exceed threshold, so we should take action beyond just waiting.\n\nThus likely branch = \"reroute\" because after exceeding the delay threshold, you need to reroute to another hub.\n\nBut let's reason more concretely: In many routing policies, if a customer is unreachable for longer than a certain time (threshold), you might decide to hold at hub until further notice or reroute. The policy says \"delay 30 hours\".",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 71,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n策略 / policy: delay 30 hours, threshold 24; customer unreachable. 实况 / observation: n = 30.\nAllowed branches: reroute, hold_at_hub, continue_as_planned.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1094,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 71,
+      "prompt_ms": 35.104,
+      "prompt_per_token_ms": 0.4944225352112676,
+      "prompt_per_second": 2022.5615314494075,
+      "predicted_n": 1024,
+      "predicted_ms": 5956.621,
+      "predicted_per_token_ms": 5.822698924731183,
+      "predicted_per_second": 171.74166360424812
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 71,
+     "prompt_ms": 35.104,
+     "prompt_per_token_ms": 0.4944225352112676,
+     "prompt_per_second": 2022.5615314494075,
+     "predicted_n": 1024,
+     "predicted_ms": 5956.621,
+     "predicted_per_token_ms": 5.822698924731183,
+     "predicted_per_second": 171.74166360424812
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.985
+  }
+ ]
+}

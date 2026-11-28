@@ -1,0 +1,334 @@
+{
+ "schema": "ijeval.ea13b.primitive_qualification.v1",
+ "generated_utc": "2026-11-28T04:44:41Z",
+ "scope": "N03 Batch B DEVELOPMENT (C09-C16), CPU qualification protocol; NOT protected confirmation (hash-only manifest; development evidence never qualifies it); NOT Batch A (no cross-batch certificate carry-over)",
+ "primitives": [
+  {
+   "primitive": "C09",
+   "families": [
+    "order",
+    "profile"
+   ],
+   "witnesses": {
+    "total": 18,
+    "passed": 18
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "B-P01_duplicate_keys_accepted",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-P02_fences_not_stripped",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-P05_extra_fields_tolerated",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-E01_subset_field_match",
+     "verdict": "EQUIVALENT",
+     "detected": false,
+     "equivalent_justified": true
+    },
+    {
+     "fault": "B-E04_type_loose_compare",
+     "verdict": "EQUIVALENT",
+     "detected": false,
+     "equivalent_justified": true
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C10",
+   "families": [
+    "orgchart",
+    "shipment"
+   ],
+   "witnesses": {
+    "total": 16,
+    "passed": 16
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "B-P01_duplicate_keys_accepted",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-P02_fences_not_stripped",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-E02_document_scalars_only",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C11",
+   "families": [
+    "batchops",
+    "robot"
+   ],
+   "witnesses": {
+    "total": 18,
+    "passed": 18
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "B-P02_fences_not_stripped",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-P03_case_insensitive_dsl",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-P06_arity_not_checked",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-E09_program_order_ignored",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C12",
+   "families": [
+    "booking",
+    "shipping"
+   ],
+   "witnesses": {
+    "total": 18,
+    "passed": 18
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "B-P01_duplicate_keys_accepted",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-P02_fences_not_stripped",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-P05_extra_fields_tolerated",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-E01_subset_field_match",
+     "verdict": "EQUIVALENT",
+     "detected": false,
+     "equivalent_justified": true
+    },
+    {
+     "fault": "B-E04_type_loose_compare",
+     "verdict": "EQUIVALENT",
+     "detected": false,
+     "equivalent_justified": true
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C13",
+   "families": [
+    "contacts",
+    "devices"
+   ],
+   "witnesses": {
+    "total": 16,
+    "passed": 16
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "B-P02_fences_not_stripped",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-E05_any_candidate_ok",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C14",
+   "families": [
+    "finance",
+    "metrics"
+   ],
+   "witnesses": {
+    "total": 16,
+    "passed": 16
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "B-P02_fences_not_stripped",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-P04_string_numbers_coerced",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-E06_value_tolerance_1",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-E04_type_loose_compare",
+     "verdict": "EQUIVALENT",
+     "detected": false,
+     "equivalent_justified": true
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C15",
+   "families": [
+    "currency",
+    "units"
+   ],
+   "witnesses": {
+    "total": 18,
+    "passed": 18
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "B-P02_fences_not_stripped",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-P04_string_numbers_coerced",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-E06_value_tolerance_1",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-E07_unit_ignored",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  },
+  {
+   "primitive": "C16",
+   "families": [
+    "ledger",
+    "orderstatus"
+   ],
+   "witnesses": {
+    "total": 14,
+    "passed": 14
+   },
+   "ground_truth": {
+    "VALID": 20
+   },
+   "ground_truth_all_valid": true,
+   "fault_controls": [
+    {
+     "fault": "B-P02_fences_not_stripped",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    },
+    {
+     "fault": "B-E08_substring_answer",
+     "verdict": "DETECTED",
+     "detected": true,
+     "equivalent_justified": false
+    }
+   ],
+   "verdict": "QUALIFIED"
+  }
+ ],
+ "protocol": {
+  "name": "chat-surface CPU qualification",
+  "qualified": true,
+  "note": "physical protocol parameters are the runner lane's (IJ-NANO)"
+ },
+ "summary": {
+  "qualified": 8,
+  "total": 8
+ }
+}

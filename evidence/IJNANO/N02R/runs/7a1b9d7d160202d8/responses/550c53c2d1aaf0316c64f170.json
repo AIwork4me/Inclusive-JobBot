@@ -1,0 +1,154 @@
+{
+ "trial_id": "550c53c2d1aaf0316c64f170",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{\"tool\": \"refunds.submit\", \"order_id\": \"ORD-2025\", \"amount\": {\"value\": 89.5, \"unit\": \"CNY\"}, \"reason\": \"late_delivery\"}",
+       "reasoning_content": "我们需要生成完整动作：工具与全部参数。用户说“Order ORD-2025: amount 89.5 CNY, reason late_delivery.” 可能他们想提交退款？或者查询订单？指令是“生成完整动作：工具与全部参数。” 可能他们想执行某个操作？上下文：用户提供了一个订单和原因。可能他们想检查退款资格？或者提交退款？让我们看看可用的工具。用户没有明确说做什么。他们只是给出了订单信息和原因。可能他们想提交退款？但指令是“生成完整动作：工具与全部参数。” 可能他们想生成一个动作来处理这个退款？或者他们想查询订单？让我们再读一遍：“Order ORD-2025: amount 89.5 CNY, reason late_delivery. Available tools: ... 生成完整动作：工具与全部参数。” 可能他们想提交退款？但我们需要确定要使用哪个工具。可能他们想检查退款资格？或者他们想取消订单？没有明确说明。可能这是一个测试，要求我们根据给定的信息生成一个动作。信息是订单和原因。可能他们想提交退款？但我们需要更多信息。让我们看看工具：orders.lookup_order, orders.cancel_order, orders.get_refund_eligibility, refunds.submit, customers.get_profile, logistics.trace_shipment, inventory.check_stock, notify.send_update。可能他们想检查退款资格？或者提交退款？用户说“Order ORD-2025: amount 89.5 CNY, reason late_delivery.” 可能他们想提交退款？但我们需要知道是否退款资格。可能他们想查询订单详情？指令是“生成完整动作：工具与全部参数。” 可能他们想生成一个动作来提交退款？但我们需要参数：order_id, amount, reason。refunds.submit 需要 order_id, amount, reason。所以我们可以生成那个动作。但用户没有明确说“提交退款”。可能他们想检查退款资格？orders.get_refund_eligibility 只需要 order_id。或者他们想查询订单？orders.lookup_order 只需要 order_id。可能他们想追踪物流？但没有 tracking_no。可能他们想取消订单？没有明确。可能这是一个多步骤任务？用户只给了这一条信息。可能他们想根据给定的信息生成一个动作，但需要选择正确的工具。让我们看看上下文：用户可能想处理这个订单的退款。因为有 reason late_delivery，可能他们想退款。所以可能他们想提交退款。但我们需要确认退款资格？指令是“生成完整动作：工具与全部参数。” 可能他们想生成一个动作来提交退款，使用给定的参数。所以动作将是 refunds.submit，参数：order_id: \"ORD-2025\", amount: 89.5, reason: \"late_delivery\"。但 amount 是 89.5 CNY，所以参数 amount: 89.5。reason: late_delivery。可能他们想先检查退款资格？但指令没有说。可能他们想生成一个动作来查询订单？但那样太简单了。可能这是一个测试，要求我们根据给定的信息输出工具和参数。可能他们想提交退款，因为这是常见操作。我会假设他们想提交退款。但让我们看看是否有任何隐含信息。用户说“Order ORD-2025: amount 89.5 CNY, reason late_delivery.” 可能他们想提交退款。所以我会生成 refunds.submit 动作。但为了安全起见，我可以生成多个动作？指令说“生成完整动作”，单数。可能他们想执行一个操作。可能他们想检查退款资格，因为那是常见步骤。但用户没有说“check refund eligibility”。他们给出了 amount 和 reason，可能想提交退款。我会选择 refunds.submit。但让我们看看工具描述：refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)。所以参数是 order_id, amount, reason。全部匹配。所以完整动作是：工具：refunds.submit，参数：order_id: \"ORD-2025\", amount: 89.5, reason: \"late_delivery\"。但 amount 单位是 CNY，参数可能期望数字。所以 89.5。reason 是字符串 \"late_delivery\"。所以我会输出那个。\n"
+      }
+     }
+    ],
+    "created": 1795792914,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 954,
+     "prompt_tokens": 215,
+     "total_tokens": 1169,
+     "prompt_tokens_details": {
+      "cached_tokens": 214
+     }
+    },
+    "id": "chatcmpl-rX3WxIZY9yabMACZ8LeXPZ8svlvebpTc",
+    "__verbose": {
+     "index": 0,
+     "content": "我们需要生成完整动作：工具与全部参数。用户说“Order ORD-2025: amount 89.5 CNY, reason late_delivery.” 可能他们想提交退款？或者查询订单？指令是“生成完整动作：工具与全部参数。” 可能他们想执行某个操作？上下文：用户提供了一个订单和原因。可能他们想检查退款资格？或者提交退款？让我们看看可用的工具。用户没有明确说做什么。他们只是给出了订单信息和原因。可能他们想提交退款？但指令是“生成完整动作：工具与全部参数。” 可能他们想生成一个动作来处理这个退款？或者他们想查询订单？让我们再读一遍：“Order ORD-2025: amount 89.5 CNY, reason late_delivery. Available tools: ... 生成完整动作：工具与全部参数。” 可能他们想提交退款？但我们需要确定要使用哪个工具。可能他们想检查退款资格？或者他们想取消订单？没有明确说明。可能这是一个测试，要求我们根据给定的信息生成一个动作。信息是订单和原因。可能他们想提交退款？但我们需要更多信息。让我们看看工具：orders.lookup_order, orders.cancel_order, orders.get_refund_eligibility, refunds.submit, customers.get_profile, logistics.trace_shipment, inventory.check_stock, notify.send_update。可能他们想检查退款资格？或者提交退款？用户说“Order ORD-2025: amount 89.5 CNY, reason late_delivery.” 可能他们想提交退款？但我们需要知道是否退款资格。可能他们想查询订单详情？指令是“生成完整动作：工具与全部参数。” 可能他们想生成一个动作来提交退款？但我们需要参数：order_id, amount, reason。refunds.submit 需要 order_id, amount, reason。所以我们可以生成那个动作。但用户没有明确说“提交退款”。可能他们想检查退款资格？orders.get_refund_eligibility 只需要 order_id。或者他们想查询订单？orders.lookup_order 只需要 order_id。可能他们想追踪物流？但没有 tracking_no。可能他们想取消订单？没有明确。可能这是一个多步骤任务？用户只给了这一条信息。可能他们想根据给定的信息生成一个动作，但需要选择正确的工具。让我们看看上下文：用户可能想处理这个订单的退款。因为有 reason late_delivery，可能他们想退款。所以可能他们想提交退款。但我们需要确认退款资格？指令是“生成完整动作：工具与全部参数。” 可能他们想生成一个动作来提交退款，使用给定的参数。所以动作将是 refunds.submit，参数：order_id: \"ORD-2025\", amount: 89.5, reason: \"late_delivery\"。但 amount 是 89.5 CNY，所以参数 amount: 89.5。reason: late_delivery。可能他们想先检查退款资格？但指令没有说。可能他们想生成一个动作来查询订单？但那样太简单了。可能这是一个测试，要求我们根据给定的信息输出工具和参数。可能他们想提交退款，因为这是常见操作。我会假设他们想提交退款。但让我们看看是否有任何隐含信息。用户说“Order ORD-2025: amount 89.5 CNY, reason late_delivery.” 可能他们想提交退款。所以我会生成 refunds.submit 动作。但为了安全起见，我可以生成多个动作？指令说“生成完整动作”，单数。可能他们想执行一个操作。可能他们想检查退款资格，因为那是常见步骤。但用户没有说“check refund eligibility”。他们给出了 amount 和 reason，可能想提交退款。我会选择 refunds.submit。但让我们看看工具描述：refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)。所以参数是 order_id, amount, reason。全部匹配。所以完整动作是：工具：refunds.submit，参数：order_id: \"ORD-2025\", amount: 89.5, reason: \"late_delivery\"。但 amount 单位是 CNY，参数可能期望数字。所以 89.5。reason 是字符串 \"late_delivery\"。所以我会输出那个。\n</think>\n\n{\"tool\": \"refunds.submit\", \"order_id\": \"ORD-2025\", \"amount\": {\"value\": 89.5, \"unit\": \"CNY\"}, \"reason\": \"late_delivery\"}",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 954,
+     "tokens_evaluated": 215,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "char ::= [^\"\\\\\\x7F\\x00-\\x1F] | [\\\\] ([\"\\\\bfnrt] | \"u\" [0-9a-fA-F]{4})\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nresponse-format ::= \"{\" space response-format-tool-kv \",\" space response-format-order-id-kv \",\" space response-format-amount-kv \",\" space response-format-reason-kv space \"}\"\nresponse-format-amount ::= \"{\" space response-format-amount-value-kv \",\" space response-format-amount-unit-kv space \"}\"\nresponse-format-amount-kv ::= \"\\\"amount\\\"\" space \":\" space response-format-amount\nresponse-format-amount-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\nresponse-format-amount-unit-kv ::= \"\\\"unit\\\"\" space \":\" space response-format-amount-unit\nresponse-format-amount-value-kv ::= \"\\\"value\\\"\" space \":\" space number\nresponse-format-order-id-kv ::= \"\\\"order_id\\\"\" space \":\" space string\nresponse-format-reason ::= (\"\\\"damaged_item\\\"\" | \"\\\"late_delivery\\\"\" | \"\\\"wrong_item\\\"\" | \"\\\"duplicate_charge\\\"\" | \"\\\"price_mismatch\\\"\")\nresponse-format-reason-kv ::= \"\\\"reason\\\"\" space \":\" space response-format-reason\nresponse-format-tool ::= (\"\\\"orders.lookup_order\\\"\" | \"\\\"orders.cancel_order\\\"\" | \"\\\"orders.get_refund_eligibility\\\"\" | \"\\\"refunds.submit\\\"\" | \"\\\"customers.get_profile\\\"\" | \"\\\"logistics.trace_shipment\\\"\" | \"\\\"inventory.check_stock\\\"\" | \"\\\"notify.send_update\\\"\")\nresponse-format-tool-kv ::= \"\\\"tool\\\"\" space \":\" space response-format-tool\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nstring ::= \"\\\"\" char* \"\\\"\"\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\nOrder ORD-2025: amount 89.5 CNY, reason late_delivery.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 1168,
+     "timings": {
+      "cache_n": 214,
+      "prompt_n": 1,
+      "prompt_ms": 10.469,
+      "prompt_per_token_ms": 10.469,
+      "prompt_per_second": 95.52010698251982,
+      "predicted_n": 954,
+      "predicted_ms": 5365.288,
+      "predicted_per_token_ms": 5.629892969569779,
+      "predicted_per_second": 177.6232701767361
+     }
+    },
+    "timings": {
+     "cache_n": 214,
+     "prompt_n": 1,
+     "prompt_ms": 10.469,
+     "prompt_per_token_ms": 10.469,
+     "prompt_per_second": 95.52010698251982,
+     "predicted_n": 954,
+     "predicted_ms": 5365.288,
+     "predicted_per_token_ms": 5.629892969569779,
+     "predicted_per_second": 177.6232701767361
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.407
+  }
+ ]
+}

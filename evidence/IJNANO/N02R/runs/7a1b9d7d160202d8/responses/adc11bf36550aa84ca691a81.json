@@ -1,0 +1,152 @@
+{
+ "trial_id": "adc11bf36550aa84ca691a81",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "receiving.log_arrival",
+       "reasoning_content": "We need to process the user's input. The user says: \"已知 / known: order ORD-9014, customer C-128, sku SKU-2210, tracking TRK-11298. 到货了， shipment TRK-11298，登记入库。 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nInterpretation: The user is informing that a shipment (tracking TRK-11298) has arrived and needs to be logged as received/arrived in inventory. They mention order ORD-9014, customer C-128, sku SKU-2210, tracking TRK-11298.\n\nThe relevant tool for logging arrival of a shipment is `receiving.log_arrival`. Looking at the available tools:\n\n- record_answer has parameters: tool (enum includes \"receiving.log_arrival\", etc.)\n\nSo we need to call `receiving.log_arrival` with appropriate arguments? The function signature for `record_answer` requires parameter `tool`, but does it also require arguments? Let's check the definition:\n\n```\n{\n  \"name\": \"record_answer\",\n  \"parameters\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"tool\": { \"type\": \"string\", \"enum\": [...], \"required\": [\"tool\"] }\n    }\n  }\n}\n```\n\nIt seems `record_answer` is a generic tool to record an answer, but the description says: \"Record the chosen answer (structured answer recording, not business tool execution).\" However, we need to see if there are other tools like `inventory.check_stock`, etc. The user asks: \"只回答要调用的工具名。\" meaning \"Only answer with the tool name.\" So they just want the name of the tool to call.\n\nThus, for logging arrival (receiving), the tool is `receiving.log_arrival`. But we might need to provide arguments? The function signature only lists `tool` as required. It doesn't have parameters for order ID, customer, etc. Possibly those are not needed or maybe they are part of the tool's internal logic based on context? Since the user gave details but the tool call may just require specifying which tool.\n\nGiven the instruction: \"Answer with the tool name only.\" So we should output exactly the tool name string.\n\nThus, for \"到货了， shipment TRK-11298，登记入库。\" (arrived, shipment TRK-11298, register arrival), the appropriate tool is `receiving.log_arrival`.\n\nLet's double-check: There is also `warehouse.locate_bin`, `inventory.check_stock`, etc. But \"登记入库\" means record arrival/registration of incoming stock. That matches `receiving.log_arrival`. So answer: `receiving.log_arrival`.\n\nThus final output: just the tool name."
+      }
+     }
+    ],
+    "created": 1795794950,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 609,
+     "prompt_tokens": 200,
+     "total_tokens": 809,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-uuH6bvApoXO1Ctz2VkdUdYYV9g4YapJX",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to process the user's input. The user says: \"已知 / known: order ORD-9014, customer C-128, sku SKU-2210, tracking TRK-11298. 到货了， shipment TRK-11298，登记入库。 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nInterpretation: The user is informing that a shipment (tracking TRK-11298) has arrived and needs to be logged as received/arrived in inventory. They mention order ORD-9014, customer C-128, sku SKU-2210, tracking TRK-11298.\n\nThe relevant tool for logging arrival of a shipment is `receiving.log_arrival`. Looking at the available tools:\n\n- record_answer has parameters: tool (enum includes \"receiving.log_arrival\", etc.)\n\nSo we need to call `receiving.log_arrival` with appropriate arguments? The function signature for `record_answer` requires parameter `tool`, but does it also require arguments? Let's check the definition:\n\n```\n{\n  \"name\": \"record_answer\",\n  \"parameters\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"tool\": { \"type\": \"string\", \"enum\": [...], \"required\": [\"tool\"] }\n    }\n  }\n}\n```\n\nIt seems `record_answer` is a generic tool to record an answer, but the description says: \"Record the chosen answer (structured answer recording, not business tool execution).\" However, we need to see if there are other tools like `inventory.check_stock`, etc. The user asks: \"只回答要调用的工具名。\" meaning \"Only answer with the tool name.\" So they just want the name of the tool to call.\n\nThus, for logging arrival (receiving), the tool is `receiving.log_arrival`. But we might need to provide arguments? The function signature only lists `tool` as required. It doesn't have parameters for order ID, customer, etc. Possibly those are not needed or maybe they are part of the tool's internal logic based on context? Since the user gave details but the tool call may just require specifying which tool.\n\nGiven the instruction: \"Answer with the tool name only.\" So we should output exactly the tool name string.\n\nThus, for \"到货了， shipment TRK-11298，登记入库。\" (arrived, shipment TRK-11298, register arrival), the appropriate tool is `receiving.log_arrival`.\n\nLet's double-check: There is also `warehouse.locate_bin`, `inventory.check_stock`, etc. But \"登记入库\" means record arrival/registration of incoming stock. That matches `receiving.log_arrival`. So answer: `receiving.log_arrival`.\n\nThus final output: just the tool name.</think>receiving.log_arrival",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 609,
+     "tokens_evaluated": 200,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"tool\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tool\": {\"type\": \"string\", \"enum\": [\"inventory.check_stock\", \"inventory.adjust_stock\", \"inventory.reserve_stock\", \"warehouse.locate_bin\", \"receiving.log_arrival\", \"picking.create_task\", \"reports.export_snapshot\", \"alerts.raise_low_stock\"]}}, \"required\": [\"tool\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\n已知 / known: order ORD-9014, customer C-128, sku SKU-2210, tracking TRK-11298.\n到货了， shipment TRK-11298，登记入库。 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 808,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 200,
+      "prompt_ms": 42.556,
+      "prompt_per_token_ms": 0.21278,
+      "prompt_per_second": 4699.689820471849,
+      "predicted_n": 609,
+      "predicted_ms": 3544.919,
+      "predicted_per_token_ms": 5.830458881578947,
+      "predicted_per_second": 171.513086758823
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 200,
+     "prompt_ms": 42.556,
+     "prompt_per_token_ms": 0.21278,
+     "prompt_per_second": 4699.689820471849,
+     "predicted_n": 609,
+     "predicted_ms": 3544.919,
+     "predicted_per_token_ms": 5.830458881578947,
+     "predicted_per_second": 171.513086758823
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.594
+  }
+ ]
+}

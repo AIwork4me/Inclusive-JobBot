@@ -1,0 +1,162 @@
+{
+ "trial_id": "4d946719a2d643c837d10a4e",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "用户询问应该选择\"stop\"还是\"continue\"来决定。\n\n让我分析一下这个场景：\n- 目标：客户C-303被通知延迟\n- 当前观测：通知已排队但未送达\n\n这是一个典型的客户通知延迟问题。我需要判断当前状态是否已经满足目标条件。\n\n当前状态：\n- 通知已排队但未送达\n- 目标：客户C-303被通知延迟\n\n问题在于：通知是否已经成功送达？还是只是排队中？\n\n从\"notification queued but not yet delivered\"来看，通知还没有实际送达客户，所以目标尚未达成。\n\n但是，我需要思考：\n1. 如果通知只是排队中，是否应该继续等待？\n2. 如果通知已经到达但客户没有收到，是否应该继续？\n\n从业务逻辑来看，如果通知只是排队中，可能还需要等待。但如果已经到达但客户没有收到，可能需要继续处理。\n\n不过，从当前观测来看，通知只是\"queued but not yet delivered\"，这意味着通知还没有实际送达。\n\n在这种情况下，我认为应该选择\"continue\"，因为：\n1. 通知尚未送达，目标尚未达成\n2. 可能需要继续等待或尝试送达\n\n但我也需要考虑：如果通知已经到达但客户没有收到，是否应该继续？\n\n从业务逻辑来看，如果通知已经到达但客户没有收到，可能需要继续处理。\n\n但当前观测明确说\"notification queued but not yet delivered\"，这意味着通知还没有实际送达。\n\n我认为应该选择\"continue\"，因为：\n1. 通知尚未送达，目标尚未达成\n2. 可能需要继续等待或尝试送达\n\n让我选择\"continue\"。",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"decision\":\"continue\"}"
+         },
+         "id": "N8IoYk40fpizaeRyL8KkUMOzbliKwasK"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795794124,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 375,
+     "prompt_tokens": 332,
+     "total_tokens": 707,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-1mD9ovIzRMOYXVVGJ2OXdLd0oLnATDQM",
+    "__verbose": {
+     "index": 0,
+     "content": "用户询问应该选择\"stop\"还是\"continue\"来决定。\n\n让我分析一下这个场景：\n- 目标：客户C-303被通知延迟\n- 当前观测：通知已排队但未送达\n\n这是一个典型的客户通知延迟问题。我需要判断当前状态是否已经满足目标条件。\n\n当前状态：\n- 通知已排队但未送达\n- 目标：客户C-303被通知延迟\n\n问题在于：通知是否已经成功送达？还是只是排队中？\n\n从\"notification queued but not yet delivered\"来看，通知还没有实际送达客户，所以目标尚未达成。\n\n但是，我需要思考：\n1. 如果通知只是排队中，是否应该继续等待？\n2. 如果通知已经到达但客户没有收到，是否应该继续？\n\n从业务逻辑来看，如果通知只是排队中，可能还需要等待。但如果已经到达但客户没有收到，可能需要继续处理。\n\n不过，从当前观测来看，通知只是\"queued but not yet delivered\"，这意味着通知还没有实际送达。\n\n在这种情况下，我认为应该选择\"continue\"，因为：\n1. 通知尚未送达，目标尚未达成\n2. 可能需要继续等待或尝试送达\n\n但我也需要考虑：如果通知已经到达但客户没有收到，是否应该继续？\n\n从业务逻辑来看，如果通知已经到达但客户没有收到，可能需要继续处理。\n\n但当前观测明确说\"notification queued but not yet delivered\"，这意味着通知还没有实际送达。\n\n我认为应该选择\"continue\"，因为：\n1. 通知尚未送达，目标尚未达成\n2. 可能需要继续等待或尝试送达\n\n让我选择\"continue\"。\n</think>\n\n<tool_call>\n<function=record_answer>\n<parameter=decision>\ncontinue\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 375,
+     "tokens_evaluated": 332,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"decision\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 248058
+       }
+      ],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>system\n# Tools\n\nYou have access to the following functions:\n\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"decision\": {\"type\": \"string\", \"enum\": [\"stop\", \"continue\"]}}, \"required\": [\"decision\"], \"additionalProperties\": false}}}\n</tools>\n\nIf you choose to call a function ONLY reply in the following format with NO suffix:\n\n<tool_call>\n<function=example_function_name>\n<parameter=example_parameter_1>\nvalue_1\n</parameter>\n<parameter=example_parameter_2>\nThis is the value for the second parameter\nthat can span\nmultiple lines\n</parameter>\n</function>\n</tool_call>\n\n<IMPORTANT>\nReminder:\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\n- Required parameters MUST be specified\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n目标 / goal: goal: customer C-303 notified of delay. 当前观测 / observation: notification queued but not yet delivered.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 706,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 332,
+      "prompt_ms": 72.746,
+      "prompt_per_token_ms": 0.2191144578313253,
+      "prompt_per_second": 4563.82481511011,
+      "predicted_n": 375,
+      "predicted_ms": 1817.009,
+      "predicted_per_token_ms": 4.858312834224599,
+      "predicted_per_second": 205.83277242985585
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 332,
+     "prompt_ms": 72.746,
+     "prompt_per_token_ms": 0.2191144578313253,
+     "prompt_per_second": 4563.82481511011,
+     "predicted_n": 375,
+     "predicted_ms": 1817.009,
+     "predicted_per_token_ms": 4.858312834224599,
+     "predicted_per_second": 205.83277242985585
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.907
+  }
+ ]
+}

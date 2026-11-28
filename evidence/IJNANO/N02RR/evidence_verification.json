@@ -1,0 +1,169 @@
+{
+ "mission": "IJ-NANO-1.2R RS03",
+ "gate": "N02R_QUANTITATIVE_EVIDENCE_RECONCILED",
+ "slot_accounting": {
+  "planned_roster_slots": 2184,
+  "destination_rows": 2184,
+  "unique_slots_executed": 2184,
+  "missing_slots": [],
+  "extra_slots": [],
+  "roster_ok": true
+ },
+ "evidence_levels": {
+  "hash_field_present": 2184,
+  "artifact_exists": 2184,
+  "hash_verified": 2184,
+  "contents_valid": 2184,
+  "physical_provenance_verified": 2184,
+  "replay_semantics_valid": 2184
+ },
+ "findings": [],
+ "manifest_comparison": {
+  "identity_equal_except_implementation": true,
+  "implementation_diffs": {
+   "controller_v2": [
+    "e55b8c58395dc23b7ae35987ba068bd35ca8125f8762e076cb63655b20fe2cca",
+    "2018a29080dd6b0a961f6e2362f1a3ec7d665c1f6413381edf0debdb4d6c76e8"
+   ],
+   "arms_v2": [
+    "8d2039d6a7c3ebd85e1d092dc5d56b45690995065102af38c5eeba74e975d9a7",
+    "78d33b9c5f04c79987ee7c603ff0b0c9bb9346021aea0711f4130826c957e125"
+   ]
+  },
+  "equal_fields_cover": [
+   "models (sha256+quant)",
+   "engine exe+dlls",
+   "backend",
+   "gpu",
+   "suite_hash",
+   "arms_registry",
+   "applicability",
+   "budgets",
+   "decoding",
+   "cache_policy",
+   "server profiles",
+   "phase_plan"
+  ]
+ },
+ "renderer_equivalence": {
+  "blob_hashes": {
+   "source_run_arms_v2_sha256": "8d2039d6a7c3ebd85e1d092dc5d56b45690995065102af38c5eeba74e975d9a7",
+   "destination_arms_v2_sha256": "78d33b9c5f04c79987ee7c603ff0b0c9bb9346021aea0711f4130826c957e125"
+  },
+  "blob_hashes_match_manifests": true,
+  "request_surface_ast_comparison": {
+   "functions_compared": 12,
+   "constants_compared": 9,
+   "missing_in_destination": [],
+   "differing_functions": [],
+   "differing_constants": [],
+   "request_surface_identical": true
+  },
+  "behavioral_request_identity": {
+   "chat_template_fingerprints_by_model_profile": {
+    "S1|default": {
+     "source_fps": [
+      "c6d9cc994933"
+     ],
+     "destination_fps": [
+      "c6d9cc994933"
+     ],
+     "identical": true
+    },
+    "S1|reasoning-budget": {
+     "source_fps": [
+      "c6d9cc994933"
+     ],
+     "destination_fps": [
+      "c6d9cc994933"
+     ],
+     "identical": true
+    },
+    "S2|default": {
+     "source_fps": [
+      "193ba47f4abc"
+     ],
+     "destination_fps": [
+      "193ba47f4abc"
+     ],
+     "identical": true
+    },
+    "S2|reasoning-budget": {
+     "source_fps": [
+      "193ba47f4abc"
+     ],
+     "destination_fps": [
+      "193ba47f4abc"
+     ],
+     "identical": true
+    },
+    "S3|default": {
+     "source_fps": [
+      "1927cc83ade2"
+     ],
+     "destination_fps": [
+      "1927cc83ade2"
+     ],
+     "identical": true
+    },
+    "S3|reasoning-budget": {
+     "source_fps": [
+      "1927cc83ade2"
+     ],
+     "destination_fps": [
+      "1927cc83ade2"
+     ],
+     "identical": true
+    }
+   },
+   "all_identical": true
+  }
+ },
+ "controller_blob_diffs": {
+  "controller_v2_sha256": [
+   "e55b8c58395dc23b7ae35987ba068bd35ca8125f8762e076cb63655b20fe2cca",
+   "2018a29080dd6b0a961f6e2362f1a3ec7d665c1f6413381edf0debdb4d6c76e8"
+  ]
+ },
+ "session_coverage": {
+  "S1|default": {
+   "present": true,
+   "pid_verified": true,
+   "template_fp": true
+  },
+  "S1|reasoning-budget": {
+   "present": true,
+   "pid_verified": true,
+   "template_fp": true
+  },
+  "S2|default": {
+   "present": true,
+   "pid_verified": true,
+   "template_fp": true
+  },
+  "S2|reasoning-budget": {
+   "present": true,
+   "pid_verified": true,
+   "template_fp": true
+  },
+  "S3|default": {
+   "present": true,
+   "pid_verified": true,
+   "template_fp": true
+  },
+  "S3|reasoning-budget": {
+   "present": true,
+   "pid_verified": true,
+   "template_fp": true
+  }
+ },
+ "diagnostic_experiment_36bfed1d": {
+  "seal_intact": true,
+  "sealed_results_sha256": "f897179247de2060a64b27c3b4651d6309c5925cff8bb832973546cb1558b76b"
+ },
+ "reused_trials": {
+  "count": 1397,
+  "provenance_levels": "source row + artifact hash + renderer surface + template fingerprint all verified above"
+ },
+ "gate_granted": true
+}

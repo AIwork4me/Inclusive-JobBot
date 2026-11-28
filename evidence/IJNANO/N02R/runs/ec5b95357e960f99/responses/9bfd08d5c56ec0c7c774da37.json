@@ -1,0 +1,154 @@
+{
+ "trial_id": "9bfd08d5c56ec0c7c774da37",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{ \"decision\": \"continue\" }",
+       "reasoning_content": "1.  **分析请求：**\n    *   **目标：** 确定是否停止（stop）还是继续（continue）当前操作。\n    *   **当前观测：** 针对 TRK-40219 的申报已获接受，参考编号为 CD-887。\n    *   **允许决策：** stop, continue。\n\n2.  **理解背景：**\n    *   这看起来像是海关或边境管理系统的交互。\n    *   “TRK-40219”很可能是一个特定的追踪/申报编号。\n    *   “declaration accepted with reference CD-887”意味着申报已成功接受/批准。\n    *   在海关/边境场景中，一旦申报被接受，操作通常会继续进行（例如，货物放行、进一步检查、放行）。停止操作通常发生在申报被拒绝、申报被取消、货物被扣留，或者系统需要其他处理时。\n\n3.  **评估决策：**\n    *   *停止？* 没有理由停止。申报已获接受。\n    *   *继续？* 是的。系统通常会继续处理已接受的申报（例如，货物放行、后续步骤）。\n\n4.  **构思输出：**\n    *   用户要求决定“stop”还是“"
+      }
+     }
+    ],
+    "created": 1795799597,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 269,
+     "prompt_tokens": 61,
+     "total_tokens": 330,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-EOgSaM1FN0lpViJQQgc5bRiXUdmWQoIb",
+    "__verbose": {
+     "index": 0,
+     "content": "1.  **分析请求：**\n    *   **目标：** 确定是否停止（stop）还是继续（continue）当前操作。\n    *   **当前观测：** 针对 TRK-40219 的申报已获接受，参考编号为 CD-887。\n    *   **允许决策：** stop, continue。\n\n2.  **理解背景：**\n    *   这看起来像是海关或边境管理系统的交互。\n    *   “TRK-40219”很可能是一个特定的追踪/申报编号。\n    *   “declaration accepted with reference CD-887”意味着申报已成功接受/批准。\n    *   在海关/边境场景中，一旦申报被接受，操作通常会继续进行（例如，货物放行、进一步检查、放行）。停止操作通常发生在申报被拒绝、申报被取消、货物被扣留，或者系统需要其他处理时。\n\n3.  **评估决策：**\n    *   *停止？* 没有理由停止。申报已获接受。\n    *   *继续？* 是的。系统通常会继续处理已接受的申报（例如，货物放行、后续步骤）。\n\n4.  **构思输出：**\n    *   用户要求决定“stop”还是“</think>\n     { \"decision\": \"continue\" }",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 269,
+     "tokens_evaluated": 61,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-decision-kv space \"}\"\nresponse-format-decision ::= (\"\\\"stop\\\"\" | \"\\\"continue\\\"\")\nresponse-format-decision-kv ::= \"\\\"decision\\\"\" space \":\" space response-format-decision\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n目标 / goal: goal: customs value declared for TRK-40219. 当前观测 / observation: declaration accepted with reference CD-887.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 329,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 61,
+      "prompt_ms": 28.417,
+      "prompt_per_token_ms": 0.4658524590163935,
+      "prompt_per_second": 2146.6023858957665,
+      "predicted_n": 269,
+      "predicted_ms": 1549.558,
+      "predicted_per_token_ms": 5.7819328358208955,
+      "predicted_per_second": 172.95254517739897
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 61,
+     "prompt_ms": 28.417,
+     "prompt_per_token_ms": 0.4658524590163935,
+     "prompt_per_second": 2146.6023858957665,
+     "predicted_n": 269,
+     "predicted_ms": 1549.558,
+     "predicted_per_token_ms": 5.7819328358208955,
+     "predicted_per_second": 172.95254517739897
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.594
+  }
+ ]
+}

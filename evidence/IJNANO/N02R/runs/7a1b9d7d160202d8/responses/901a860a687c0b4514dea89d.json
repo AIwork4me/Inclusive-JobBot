@@ -1,0 +1,148 @@
+{
+ "trial_id": "901a860a687c0b4514dea89d",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "refunds.submit(order_id=\"ORD-2025\", amount=89.5, reason=\"late_delivery\")",
+       "reasoning_content": "We need to produce a \"full action: tool and all arguments\". The user says: \"Order ORD-2025: amount 89.5 CNY, reason late_delivery.\" They want to generate a complete action: tool and all parameters. Likely they want to use the appropriate tool to handle this scenario. The scenario: Order ORD-2025, amount 89.5 CNY, reason late_delivery. What action? Possibly they want to check refund eligibility? Or submit a refund? The reason is late_delivery, so maybe they want to submit a refund for that order. The user says \"Order ORD-2025: amount 89.5 CNY, reason late_delivery.\" They might want to process a refund for a late delivery. The available tools include orders.lookup_order, orders.cancel_order, orders.get_refund_eligibility, refunds.submit, customers.get_profile, logistics.trace_shipment, inventory.check_stock, notify.send_update. The most relevant is orders.get_refund_eligibility to check if refund is eligible, then refunds.submit to submit a refund. But the user didn't explicitly ask to check eligibility or submit. They just gave the order and reason. The instruction: \"生成完整动作：工具与全部参数。\" Means \"Generate the full action: tool and all arguments.\" So they want to produce the action (tool call) with all parameters. Possibly they want to submit a refund for that order. The reason is late_delivery, so they want to refund the amount 89.5 CNY. So the tool would be refunds.submit with order_id \"ORD-2025\", amount 89.5, reason \"late_delivery\". But we need to ensure the parameters are correct. The tool refunds.submit expects params: order_id, amount, reason. So we can call refunds.submit(order_id=\"ORD-2025\", amount=89.5, reason=\"late_delivery\"). However, we might need to first check refund eligibility? The user didn't ask to check, just to generate the action. The phrase \"生成完整动作\" might mean they want to produce the tool call that would be executed. So I'll output the tool and arguments. I'll provide the action as a JSON-like structure? The instruction says \"生成完整动作：工具与全部参数。\" So I should output something like: \"refunds.submit(order_id='ORD-2025', amount=89.5, reason='late_delivery')\". Or maybe they want the full action in a specific format. Since the system is a tool-use environment, I need to output the tool name and arguments. I'll output the tool call. I'll also consider if there's any need to first look up the order to verify details. But the user gave the order ID and amount and reason. So I think the direct action is to submit a refund. I'll provide that.\n"
+      }
+     }
+    ],
+    "created": 1795792909,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 636,
+     "prompt_tokens": 215,
+     "total_tokens": 851,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-Fc3SSkxR5Jm4ewREiFEzAUg5rQLqJXff",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to produce a \"full action: tool and all arguments\". The user says: \"Order ORD-2025: amount 89.5 CNY, reason late_delivery.\" They want to generate a complete action: tool and all parameters. Likely they want to use the appropriate tool to handle this scenario. The scenario: Order ORD-2025, amount 89.5 CNY, reason late_delivery. What action? Possibly they want to check refund eligibility? Or submit a refund? The reason is late_delivery, so maybe they want to submit a refund for that order. The user says \"Order ORD-2025: amount 89.5 CNY, reason late_delivery.\" They might want to process a refund for a late delivery. The available tools include orders.lookup_order, orders.cancel_order, orders.get_refund_eligibility, refunds.submit, customers.get_profile, logistics.trace_shipment, inventory.check_stock, notify.send_update. The most relevant is orders.get_refund_eligibility to check if refund is eligible, then refunds.submit to submit a refund. But the user didn't explicitly ask to check eligibility or submit. They just gave the order and reason. The instruction: \"生成完整动作：工具与全部参数。\" Means \"Generate the full action: tool and all arguments.\" So they want to produce the action (tool call) with all parameters. Possibly they want to submit a refund for that order. The reason is late_delivery, so they want to refund the amount 89.5 CNY. So the tool would be refunds.submit with order_id \"ORD-2025\", amount 89.5, reason \"late_delivery\". But we need to ensure the parameters are correct. The tool refunds.submit expects params: order_id, amount, reason. So we can call refunds.submit(order_id=\"ORD-2025\", amount=89.5, reason=\"late_delivery\"). However, we might need to first check refund eligibility? The user didn't ask to check, just to generate the action. The phrase \"生成完整动作\" might mean they want to produce the tool call that would be executed. So I'll output the tool and arguments. I'll provide the action as a JSON-like structure? The instruction says \"生成完整动作：工具与全部参数。\" So I should output something like: \"refunds.submit(order_id='ORD-2025', amount=89.5, reason='late_delivery')\". Or maybe they want the full action in a specific format. Since the system is a tool-use environment, I need to output the tool name and arguments. I'll output the tool call. I'll also consider if there's any need to first look up the order to verify details. But the user gave the order ID and amount and reason. So I think the direct action is to submit a refund. I'll provide that.\n</think>\n\nrefunds.submit(order_id=\"ORD-2025\", amount=89.5, reason=\"late_delivery\")",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 636,
+     "tokens_evaluated": 215,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\nOrder ORD-2025: amount 89.5 CNY, reason late_delivery.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 850,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 215,
+      "prompt_ms": 45.85,
+      "prompt_per_token_ms": 0.2132558139534884,
+      "prompt_per_second": 4689.203925845147,
+      "predicted_n": 636,
+      "predicted_ms": 3497.008,
+      "predicted_per_token_ms": 5.507099212598425,
+      "predicted_per_second": 181.58379963671803
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 215,
+     "prompt_ms": 45.85,
+     "prompt_per_token_ms": 0.2132558139534884,
+     "prompt_per_second": 4689.203925845147,
+     "predicted_n": 636,
+     "predicted_ms": 3497.008,
+     "predicted_per_token_ms": 5.507099212598425,
+     "predicted_per_second": 181.58379963671803
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.547
+  }
+ ]
+}

@@ -1,0 +1,146 @@
+{
+ "trial_id": "1696e672ef3205d80eaadd6b",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "**Decision: continue**\n\n**Reasoning:**  \n- A cancellation request for order **ORD‑9014** has already been submitted.  \n- It is currently **awaiting confirmation** from the customer or relevant party.  \n- Since we cannot yet confirm the cancellation, it’s safest to hold off on finalizing any changes and keep processing other items while waiting for that confirmation.  \n\nTherefore, proceed with the current workflow (continue) rather than stopping prematurely.",
+       "reasoning_content": "We need to parse the user's query. The goal is \"order ORD-9014 cancelled.\" Current observation: \"cancellation request submitted, awaiting confirmation.\" Allowed decisions: stop, continue. Need to decide whether to stop or continue.\n\nInterpretation: There's an order ORD-9014 that needs to be cancelled. A cancellation request has been submitted and is awaiting confirmation. The question: Should we stop (presumably the process of handling this order) or continue? Since it's awaiting confirmation, maybe we need to wait for confirmation before proceeding with cancellation. So perhaps we should \"continue\" because we are still in the process of waiting for confirmation; but if we have already submitted request and now it's pending, do we stop further actions? The allowed decisions: stop or continue. Usually, if a cancellation is requested and awaiting confirmation, you might want to proceed with other steps (like notifying customers) while waiting for confirmation. But the decision likely relates to whether to cancel the order or not. Since it's \"awaiting confirmation\", we cannot confirm yet; maybe we should hold off on finalizing cancellation until confirmation arrives. So perhaps continue processing but not commit? The phrase \"stop\" might mean stop handling the order, i.e., abort everything. But given that it's just awaiting confirmation, I'd lean to \"continue\" because you can still proceed with other tasks or wait for confirmation.\n\nBut let's reason: Goal: order ORD-9014 cancelled. Observation: cancellation request submitted, awaiting confirmation. So we have a pending cancellation request. The decision is whether to stop (i.e., maybe cancel now) or continue (maybe keep it active until confirmation). Usually in such scenarios, you would not finalize the cancellation until you get confirmation that the customer wants it cancelled; otherwise you might accidentally cancel an order they haven't confirmed. So \"continue\" means proceed with other steps while waiting for confirmation? Or \"stop\" meaning stop processing further actions on this order? The allowed decisions are just two: stop or continue.\n\nGiven typical decision-making in such contexts (like a workflow), if the request is submitted and awaiting confirmation, you might want to hold off on finalizing cancellation until confirmation. So I'd choose \"continue\" as we still need to wait for confirmation before taking action. But maybe they intend that since it's just submitted and not yet confirmed, we should stop further processing (i.e., do nothing else) because the order is not officially cancelled yet. However, the goal is to cancel the order; you might want to proceed with cancellation steps now? Let's parse: \"order ORD-9014 cancelled.\" That's a goal. Current observation: \"cancellation request submitted, awaiting confirmation.\" So we have a request for cancellation but it hasn't been confirmed yet. The decision: stop or continue? If we decide to stop, that would mean we abort the process of cancelling and maybe revert? But if we haven't gotten confirmation, stopping might be premature. Usually you'd want to wait for confirmation before finalizing. So I think \"continue\" is appropriate.\n\nThus answer: continue.\n\nBut let's double-check typical phrasing: In many decision frameworks like \"stop or continue\", stop means halt the current operation and maybe revert; continue means proceed with next steps. Since we are awaiting confirmation, we might want to keep processing other orders but not finalize cancellation? The question is ambiguous. However, given that it's a simple binary choice, I'll go with \"continue\" because you can't confirm yet.\n\nThus: Decide to continue.\n\nI will output the decision and maybe brief reasoning."
+      }
+     }
+    ],
+    "created": 1795800391,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 845,
+     "prompt_tokens": 59,
+     "total_tokens": 904,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-SQbCIFHCb05V4KbsUmlQZugp87L0BDm9",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. The goal is \"order ORD-9014 cancelled.\" Current observation: \"cancellation request submitted, awaiting confirmation.\" Allowed decisions: stop, continue. Need to decide whether to stop or continue.\n\nInterpretation: There's an order ORD-9014 that needs to be cancelled. A cancellation request has been submitted and is awaiting confirmation. The question: Should we stop (presumably the process of handling this order) or continue? Since it's awaiting confirmation, maybe we need to wait for confirmation before proceeding with cancellation. So perhaps we should \"continue\" because we are still in the process of waiting for confirmation; but if we have already submitted request and now it's pending, do we stop further actions? The allowed decisions: stop or continue. Usually, if a cancellation is requested and awaiting confirmation, you might want to proceed with other steps (like notifying customers) while waiting for confirmation. But the decision likely relates to whether to cancel the order or not. Since it's \"awaiting confirmation\", we cannot confirm yet; maybe we should hold off on finalizing cancellation until confirmation arrives. So perhaps continue processing but not commit? The phrase \"stop\" might mean stop handling the order, i.e., abort everything. But given that it's just awaiting confirmation, I'd lean to \"continue\" because you can still proceed with other tasks or wait for confirmation.\n\nBut let's reason: Goal: order ORD-9014 cancelled. Observation: cancellation request submitted, awaiting confirmation. So we have a pending cancellation request. The decision is whether to stop (i.e., maybe cancel now) or continue (maybe keep it active until confirmation). Usually in such scenarios, you would not finalize the cancellation until you get confirmation that the customer wants it cancelled; otherwise you might accidentally cancel an order they haven't confirmed. So \"continue\" means proceed with other steps while waiting for confirmation? Or \"stop\" meaning stop processing further actions on this order? The allowed decisions are just two: stop or continue.\n\nGiven typical decision-making in such contexts (like a workflow), if the request is submitted and awaiting confirmation, you might want to hold off on finalizing cancellation until confirmation. So I'd choose \"continue\" as we still need to wait for confirmation before taking action. But maybe they intend that since it's just submitted and not yet confirmed, we should stop further processing (i.e., do nothing else) because the order is not officially cancelled yet. However, the goal is to cancel the order; you might want to proceed with cancellation steps now? Let's parse: \"order ORD-9014 cancelled.\" That's a goal. Current observation: \"cancellation request submitted, awaiting confirmation.\" So we have a request for cancellation but it hasn't been confirmed yet. The decision: stop or continue? If we decide to stop, that would mean we abort the process of cancelling and maybe revert? But if we haven't gotten confirmation, stopping might be premature. Usually you'd want to wait for confirmation before finalizing. So I think \"continue\" is appropriate.\n\nThus answer: continue.\n\nBut let's double-check typical phrasing: In many decision frameworks like \"stop or continue\", stop means halt the current operation and maybe revert; continue means proceed with next steps. Since we are awaiting confirmation, we might want to keep processing other orders but not finalize cancellation? The question is ambiguous. However, given that it's a simple binary choice, I'll go with \"continue\" because you can't confirm yet.\n\nThus: Decide to continue.\n\nI will output the decision and maybe brief reasoning.</think>**Decision: continue**\n\n**Reasoning:**  \n- A cancellation request for order **ORD‑9014** has already been submitted.  \n- It is currently **awaiting confirmation** from the customer or relevant party.  \n- Since we cannot yet confirm the cancellation, it’s safest to hold off on finalizing any changes and keep processing other items while waiting for that confirmation.  \n\nTherefore, proceed with the current workflow (continue) rather than stopping prematurely.",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 845,
+     "tokens_evaluated": 59,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n目标 / goal: goal: order ORD-9014 cancelled. 当前观测 / observation: cancellation request submitted, awaiting confirmation.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 903,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 59,
+      "prompt_ms": 34.535,
+      "prompt_per_token_ms": 0.5853389830508474,
+      "prompt_per_second": 1708.4117561893734,
+      "predicted_n": 845,
+      "predicted_ms": 4918.607,
+      "predicted_per_token_ms": 5.827733412322275,
+      "predicted_per_second": 171.5932986717581
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 59,
+     "prompt_ms": 34.535,
+     "prompt_per_token_ms": 0.5853389830508474,
+     "prompt_per_second": 1708.4117561893734,
+     "predicted_n": 845,
+     "predicted_ms": 4918.607,
+     "predicted_per_token_ms": 5.827733412322275,
+     "predicted_per_second": 171.5932986717581
+    }
+   },
+   "http_error": null,
+   "latency_s": 4.984
+  }
+ ]
+}

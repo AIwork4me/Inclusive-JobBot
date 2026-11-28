@@ -1,0 +1,164 @@
+{
+ "trial_id": "a38f3fff3dc31a9ed15472f9",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，用户提到包裹延误超过一周且承运商无响应。他们希望只回答动作编号。让我检查可用的动作。\n\n查看提供的工具，有 A1 到 A6 选项。用户需要选择一个动作。问题在于当前情况是延误且无响应。让我看看每个动作：\n\nA1：改址 - 修改地址\nA2：加急 - 升级配送\nA3：拦截 - 尝试拦截\nA4：重发 - 为 ORD-9014 重新发货\nA5：仅备注，不操作\nA6：开升级单\n\n由于包裹延误且承运商无响应，最合适的可能是 A6 开升级单或 A5 仅备注。但用户说“只回答动作编号”。等等，用户指令说“Answer with the action label only.”所以我需要选择正确的编号。\n\n但问题在于用户没有指定具体哪个动作。等等，用户消息说“包裹 {trk} 已经延误超过一周且承运商无响应。 只回答动作编号。”所以助手应该选择最合适的动作。让我想想：延误且无响应，通常需要升级。所以 A6 开升级单。但也许 A5 是仅备注。等等，用户可能期望系统根据情况选择正确的动作。但工具允许记录答案。等等，函数是 record_answer，它接受一个动作编号。所以用户应该选择正确的编号并调用该函数。\n\n等等，用户说“只回答动作编号”，所以助手应该输出正确的编号。但如何决定？问题陈述可能期望根据上下文选择最合适的动作。由于延误且无响应，升级是合理的。所以 A6。但让我检查选项：\n\nA6 是“开升级单”，这很合适。所以答案应该是 A6。但用户可能期望助手调用 record_answer 并传入 A6。等等，指令说“您可以调用一个或多个函数来协助用户查询。”所以助手应该调用 record_answer 并传入正确的动作。\n\n等等，用户消息说“只回答动作编号。”所以助手应该输出动作编号，但根据工具，函数是 record_answer。所以正确的步骤是调用 record_answer 并传入适当的编号。让我确认：用户说“Answer with the action label only.”所以助手应该调用函数记录答案。因此，工具调用是 record_answer，参数 action 为 A6。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"action\":\"A6\"}"
+         },
+         "id": "lJuqoM7mvMzeqXRt07eaIGdwJEReDg1p"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795800081,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 486,
+     "prompt_tokens": 415,
+     "total_tokens": 901,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-qbG0sZLlBDnOvEtOzSWloD0xXrAN7mdF",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，用户提到包裹延误超过一周且承运商无响应。他们希望只回答动作编号。让我检查可用的动作。\n\n查看提供的工具，有 A1 到 A6 选项。用户需要选择一个动作。问题在于当前情况是延误且无响应。让我看看每个动作：\n\nA1：改址 - 修改地址\nA2：加急 - 升级配送\nA3：拦截 - 尝试拦截\nA4：重发 - 为 ORD-9014 重新发货\nA5：仅备注，不操作\nA6：开升级单\n\n由于包裹延误且承运商无响应，最合适的可能是 A6 开升级单或 A5 仅备注。但用户说“只回答动作编号”。等等，用户指令说“Answer with the action label only.”所以我需要选择正确的编号。\n\n但问题在于用户没有指定具体哪个动作。等等，用户消息说“包裹 {trk} 已经延误超过一周且承运商无响应。 只回答动作编号。”所以助手应该选择最合适的动作。让我想想：延误且无响应，通常需要升级。所以 A6 开升级单。但也许 A5 是仅备注。等等，用户可能期望系统根据情况选择正确的动作。但工具允许记录答案。等等，函数是 record_answer，它接受一个动作编号。所以用户应该选择正确的编号并调用该函数。\n\n等等，用户说“只回答动作编号”，所以助手应该输出正确的编号。但如何决定？问题陈述可能期望根据上下文选择最合适的动作。由于延误且无响应，升级是合理的。所以 A6。但让我检查选项：\n\nA6 是“开升级单”，这很合适。所以答案应该是 A6。但用户可能期望助手调用 record_answer 并传入 A6。等等，指令说“您可以调用一个或多个函数来协助用户查询。”所以助手应该调用 record_answer 并传入正确的动作。\n\n等等，用户消息说“只回答动作编号。”所以助手应该输出动作编号，但根据工具，函数是 record_answer。所以正确的步骤是调用 record_answer 并传入适当的编号。让我确认：用户说“Answer with the action label only.”所以助手应该调用函数记录答案。因此，工具调用是 record_answer，参数 action 为 A6。\n</think>\n\n<function name=\"record_answer\"><param name=\"action\">A6</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 486,
+     "tokens_evaluated": 415,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"action\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"action\": {\"type\": \"string\", \"enum\": [\"A1\", \"A2\", \"A3\", \"A4\", \"A5\", \"A6\"]}}, \"required\": [\"action\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n可选动作 / available actions:\nA1. 改址：修改 TRK-11298 的收件地址 / change the address for TRK-11298\nA2. 加急：把 TRK-11298 升级为加急配送 / upgrade TRK-11298 to express\nA3. 拦截：尝试拦截 TRK-11298 / attempt to intercept TRK-11298\nA4. 重发：为 ORD-9014 重新发货 / reship ORD-9014\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\n包裹 {trk} 已经延误超过一周且承运商无响应。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 900,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 415,
+      "prompt_ms": 66.938,
+      "prompt_per_token_ms": 0.16129638554216869,
+      "prompt_per_second": 6199.766948519526,
+      "predicted_n": 486,
+      "predicted_ms": 2674.842,
+      "predicted_per_token_ms": 5.515138144329897,
+      "predicted_per_second": 181.31912090508524
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 415,
+     "prompt_ms": 66.938,
+     "prompt_per_token_ms": 0.16129638554216869,
+     "prompt_per_second": 6199.766948519526,
+     "predicted_n": 486,
+     "predicted_ms": 2674.842,
+     "predicted_per_token_ms": 5.515138144329897,
+     "predicted_per_second": 181.31912090508524
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.766
+  }
+ ]
+}

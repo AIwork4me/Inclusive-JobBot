@@ -1,0 +1,152 @@
+{
+ "trial_id": "62b75e70d71c86b70cac967f",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to understand the user's request. The user says: \"商品 TRK-11298：数量变动 350.0 USD。生成完整动作：工具与全部参数。\" This translates from Chinese: \"Product TRK-11298: Quantity change 350.0 USD. Generate full action: tool and all parameters.\"\n\nWe need to figure out which tool to use. The available tools are listed in the `functions` namespace. There's a function `record_answer` with parameter `tool`, `tracking_no`, and `quantity`. But we need to see what each tool does.\n\nLooking at the `record_answer` tool description: \"Record the chosen answer (structured answer recording, not business tool execution).\" The parameters include:\n- `tool`: enum of strings like \"logistics.trace_shipment\", etc.\n- `tracking_no`: string\n- `quantity`: object with properties `value` and `unit`.\n\nBut we need to map the user's request to a specific tool. The user mentions product TRK-11298, quantity change 350.0 USD. This seems like a shipment or order update? Possibly \"logistics.trace_shipment\" or something else.\n\nLet's examine other tools in the enum: \n- logistics.trace_shipment\n- logistics.reroute_shipment\n- logistics.estimate_delivery\n- addresses.validate\n- customs.declare_value\n- labels.generate\n- couriers.list_rates\n- escalations.open_case\n\nNone of these directly mention \"quantity change\" or \"product\". However, `record_answer` seems to be a generic tool for recording answers with structured data. But the user asks: \"生成完整动作：工具与全部参数。\" meaning \"Generate full action: tool and all parameters.\" So we need to invoke the appropriate function.\n\nMaybe there is an implicit mapping: For quantity change of a product, perhaps it's related to shipment tracking? The tracking number TRK-11298 might be a shipment tracking number. Changing quantity could mean updating the quantity in a shipment. Which tool would handle that? Possibly `logistics.trace_shipment` or `logistics.reroute_shipment`? Not sure.\n\nLet's look at the parameters for `record_answer`. It requires:\n- `tool`: one of the enum values.\n- `tracking_no`: string (required)\n- `quantity`: object with value and unit (required). Actually, looking at the schema: \n```\n{\n  \"parameters\": {\n    \"properties\": {\n      \"tool\": {...},\n      \"tracking_no\": {...},\n      \"quantity\": { ... }\n    },\n    \"required\": [\"tool\", \"tracking_no\", \"quantity\"]\n  }\n}\n```\nSo all three are required.\n\nThus we need to decide which `tool` corresponds to updating quantity. The description says \"Record the chosen answer (structured answer recording, not business tool execution).\" That suggests it's for logging an answer, not necessarily executing a business operation. But maybe in this context, we just need to call `record_answer` with appropriate parameters.\n\nGiven the user mentions product TRK-11298 and quantity change 350.0 USD. The unit is USD, value 350.0. So quantity: {value: 350.0, unit: \"USD\"}.\n\nBut what tool? Possibly \"logistics.trace_shipment\"? Or maybe there's a specific tool for updating shipment quantity. Since not listed explicitly, we might need to infer from the enum.\n\nLet's think about typical logistics tools:\n- trace_shipment: track where it is.\n- reroute_shipment: change route.\n- estimate_delivery: estimate delivery time.\n- addresses.validate: validate address.\n- declare_value: maybe for customs value declaration.\n- generate_labels: create labels.\n- list_rates: get courier rates.\n- open_case: escalate.\n\nNone seem to directly update quantity. However, `record_answer` might be a generic tool that can record any action. But the parameter `tool` is required and must be one of those enums. So we need to pick one.\n\nMaybe \"customs.declare_value\" could be related to declaring value? Not exactly quantity change.\n\nAlternatively, perhaps the user expects us to use `record_answer` with tool \"logistics.trace_shipment\" or something else. Without more context, I'll have to make a reasonable guess.\n\nGiven that it's about product TRK-11298 and quantity change in USD, maybe it's an order update for a shipment. Could be \"logistics.estimate_delivery\"? No.\n\nLet's re-read the user message: \"商品 TRK-11298：数量变动 350.0 USD。\" This is Chinese: \"Product TRK-11298: Quantity change 350.0 USD.\" So it's a"
+      }
+     }
+    ],
+    "created": 1795795204,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 260,
+     "total_tokens": 1284,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-fRIYcoOMeVpljmL22e6dDmELnSFe1X2r",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to understand the user's request. The user says: \"商品 TRK-11298：数量变动 350.0 USD。生成完整动作：工具与全部参数。\" This translates from Chinese: \"Product TRK-11298: Quantity change 350.0 USD. Generate full action: tool and all parameters.\"\n\nWe need to figure out which tool to use. The available tools are listed in the `functions` namespace. There's a function `record_answer` with parameter `tool`, `tracking_no`, and `quantity`. But we need to see what each tool does.\n\nLooking at the `record_answer` tool description: \"Record the chosen answer (structured answer recording, not business tool execution).\" The parameters include:\n- `tool`: enum of strings like \"logistics.trace_shipment\", etc.\n- `tracking_no`: string\n- `quantity`: object with properties `value` and `unit`.\n\nBut we need to map the user's request to a specific tool. The user mentions product TRK-11298, quantity change 350.0 USD. This seems like a shipment or order update? Possibly \"logistics.trace_shipment\" or something else.\n\nLet's examine other tools in the enum: \n- logistics.trace_shipment\n- logistics.reroute_shipment\n- logistics.estimate_delivery\n- addresses.validate\n- customs.declare_value\n- labels.generate\n- couriers.list_rates\n- escalations.open_case\n\nNone of these directly mention \"quantity change\" or \"product\". However, `record_answer` seems to be a generic tool for recording answers with structured data. But the user asks: \"生成完整动作：工具与全部参数。\" meaning \"Generate full action: tool and all parameters.\" So we need to invoke the appropriate function.\n\nMaybe there is an implicit mapping: For quantity change of a product, perhaps it's related to shipment tracking? The tracking number TRK-11298 might be a shipment tracking number. Changing quantity could mean updating the quantity in a shipment. Which tool would handle that? Possibly `logistics.trace_shipment` or `logistics.reroute_shipment`? Not sure.\n\nLet's look at the parameters for `record_answer`. It requires:\n- `tool`: one of the enum values.\n- `tracking_no`: string (required)\n- `quantity`: object with value and unit (required). Actually, looking at the schema: \n```\n{\n  \"parameters\": {\n    \"properties\": {\n      \"tool\": {...},\n      \"tracking_no\": {...},\n      \"quantity\": { ... }\n    },\n    \"required\": [\"tool\", \"tracking_no\", \"quantity\"]\n  }\n}\n```\nSo all three are required.\n\nThus we need to decide which `tool` corresponds to updating quantity. The description says \"Record the chosen answer (structured answer recording, not business tool execution).\" That suggests it's for logging an answer, not necessarily executing a business operation. But maybe in this context, we just need to call `record_answer` with appropriate parameters.\n\nGiven the user mentions product TRK-11298 and quantity change 350.0 USD. The unit is USD, value 350.0. So quantity: {value: 350.0, unit: \"USD\"}.\n\nBut what tool? Possibly \"logistics.trace_shipment\"? Or maybe there's a specific tool for updating shipment quantity. Since not listed explicitly, we might need to infer from the enum.\n\nLet's think about typical logistics tools:\n- trace_shipment: track where it is.\n- reroute_shipment: change route.\n- estimate_delivery: estimate delivery time.\n- addresses.validate: validate address.\n- declare_value: maybe for customs value declaration.\n- generate_labels: create labels.\n- list_rates: get courier rates.\n- open_case: escalate.\n\nNone seem to directly update quantity. However, `record_answer` might be a generic tool that can record any action. But the parameter `tool` is required and must be one of those enums. So we need to pick one.\n\nMaybe \"customs.declare_value\" could be related to declaring value? Not exactly quantity change.\n\nAlternatively, perhaps the user expects us to use `record_answer` with tool \"logistics.trace_shipment\" or something else. Without more context, I'll have to make a reasonable guess.\n\nGiven that it's about product TRK-11298 and quantity change in USD, maybe it's an order update for a shipment. Could be \"logistics.estimate_delivery\"? No.\n\nLet's re-read the user message: \"商品 TRK-11298：数量变动 350.0 USD。\" This is Chinese: \"Product TRK-11298: Quantity change 350.0 USD.\" So it's a",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 260,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") tool-0-args-7 \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"tool\" \">\\n\") xml-arg-string\ntool-0-arg-1 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-0-arg-2 ::= (\"<parameter=\" \"quantity\" \">\\n\") tool-0-arg-2-schema \"\\n</parameter>\\n\"\ntool-0-arg-2-schema ::= \"{\" space tool-0-arg-2-schema-value-kv \",\" space tool-0-arg-2-schema-unit-kv space \"}\"\ntool-0-arg-2-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-0-arg-2-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-0-arg-2-schema-unit\ntool-0-arg-2-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-0-args-1 ::= tool-0-arg-0\ntool-0-args-2 ::= tool-0-arg-1\ntool-0-args-3 ::= tool-0-arg-0 tool-0-args-2 | tool-0-arg-1 tool-0-args-1\ntool-0-args-4 ::= tool-0-arg-2\ntool-0-args-5 ::= tool-0-arg-0 tool-0-args-4 | tool-0-arg-2 tool-0-args-1\ntool-0-args-6 ::= tool-0-arg-1 tool-0-args-4 | tool-0-arg-2 tool-0-args-2\ntool-0-args-7 ::= tool-0-arg-0 tool-0-args-6 | tool-0-arg-1 tool-0-args-5 | tool-0-arg-2 tool-0-args-3\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tool\": {\"type\": \"string\", \"enum\": [\"logistics.trace_shipment\", \"logistics.reroute_shipment\", \"logistics.estimate_delivery\", \"addresses.validate\", \"customs.declare_value\", \"labels.generate\", \"couriers.list_rates\", \"escalations.open_case\"]}, \"tracking_no\": {\"type\": \"string\"}, \"quantity\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}}, \"required\": [\"tool\", \"tracking_no\", \"quantity\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\n商品 TRK-11298：数量变动 350.0 USD。\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1283,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 260,
+      "prompt_ms": 53.053,
+      "prompt_per_token_ms": 0.20404999999999998,
+      "prompt_per_second": 4900.75961774075,
+      "predicted_n": 1024,
+      "predicted_ms": 5954.99,
+      "predicted_per_token_ms": 5.821104594330401,
+      "predicted_per_second": 171.78870157632508
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 260,
+     "prompt_ms": 53.053,
+     "prompt_per_token_ms": 0.20404999999999998,
+     "prompt_per_second": 4900.75961774075,
+     "predicted_n": 1024,
+     "predicted_ms": 5954.99,
+     "predicted_per_token_ms": 5.821104594330401,
+     "predicted_per_second": 171.78870157632508
+    }
+   },
+   "http_error": null,
+   "latency_s": 6.047
+  }
+ ]
+}

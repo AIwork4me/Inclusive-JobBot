@@ -1,0 +1,162 @@
+{
+ "trial_id": "d83ce59c07c1bcfe2e7dac40",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to understand the user's request. The user says: \"Item SKU-2210: quantity change 12 pcs. 生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nInterpretation: They want to perform an action for item SKU-2210, changing quantity by 12 pieces (pcs). The phrase \"quantity change\" suggests adjusting stock. In inventory tools, there is `inventory.adjust_stock` or maybe `inventory.check_stock`, etc. Looking at the available tool functions in the provided list:\n\nThe `record_answer` function has a parameter `tool` which can be one of several enum values including:\n- \"inventory.check_stock\"\n- \"inventory.adjust_stock\"\n- \"inventory.reserve_stock\"\n- \"warehouse.locate_bin\"\n- \"receiving.log_arrival\"\n- \"picking.create_task\"\n- \"reports.export_snapshot\"\n- \"alerts.raise_low_stock\"\n\nSo for adjusting quantity, likely `inventory.adjust_stock` is the appropriate tool.\n\nThe parameters for `record_answer`:\n- It requires: `tool`, `sku`, `quantity`.\n- `quantity` is an object with properties `value` (number) and `unit` (enum: \"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\").\n\nGiven the user says \"quantity change 12 pcs.\" So SKU = \"SKU-2210\", quantity value = 12, unit = \"pcs\". The direction of change? It just says \"change 12 pcs\". Usually adjusting stock could be increase or decrease. But we don't have explicit sign. Possibly positive means add to inventory? Or maybe it's a simple increment. We'll assume adding 12 pieces.\n\nThus the tool call: `inventory.adjust_stock` with sku=\"SKU-2210\", quantity={value:12, unit:\"pcs\"}.\n\nLet's construct the full action using the function `record_answer`. The parameter name is \"tool\". So:\n\n{\n \"tool\": \"inventory.adjust_stock\",\n \"sku\": \"SKU-2210\",\n \"quantity\": { \"value\": 12, \"unit\": \"pcs\" }\n}\n\nWe need to ensure correct JSON formatting.\n\nThus final answer: call record_answer with those arguments.",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"tool\":\"inventory.adjust_stock\",\"sku\":\"SKU-2210\",\"quantity\":{\"value\": 12, \"unit\": \"pcs\"}}"
+         },
+         "id": "R1H9XEbCNz5G5ajAfWLBkq7sGYNs7GAz"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795799992,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 549,
+     "prompt_tokens": 252,
+     "total_tokens": 801,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-pAhaoPVQJSf9GXj518IxsmQeaTwN4kK6",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to understand the user's request. The user says: \"Item SKU-2210: quantity change 12 pcs. 生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nInterpretation: They want to perform an action for item SKU-2210, changing quantity by 12 pieces (pcs). The phrase \"quantity change\" suggests adjusting stock. In inventory tools, there is `inventory.adjust_stock` or maybe `inventory.check_stock`, etc. Looking at the available tool functions in the provided list:\n\nThe `record_answer` function has a parameter `tool` which can be one of several enum values including:\n- \"inventory.check_stock\"\n- \"inventory.adjust_stock\"\n- \"inventory.reserve_stock\"\n- \"warehouse.locate_bin\"\n- \"receiving.log_arrival\"\n- \"picking.create_task\"\n- \"reports.export_snapshot\"\n- \"alerts.raise_low_stock\"\n\nSo for adjusting quantity, likely `inventory.adjust_stock` is the appropriate tool.\n\nThe parameters for `record_answer`:\n- It requires: `tool`, `sku`, `quantity`.\n- `quantity` is an object with properties `value` (number) and `unit` (enum: \"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\").\n\nGiven the user says \"quantity change 12 pcs.\" So SKU = \"SKU-2210\", quantity value = 12, unit = \"pcs\". The direction of change? It just says \"change 12 pcs\". Usually adjusting stock could be increase or decrease. But we don't have explicit sign. Possibly positive means add to inventory? Or maybe it's a simple increment. We'll assume adding 12 pieces.\n\nThus the tool call: `inventory.adjust_stock` with sku=\"SKU-2210\", quantity={value:12, unit:\"pcs\"}.\n\nLet's construct the full action using the function `record_answer`. The parameter name is \"tool\". So:\n\n{\n \"tool\": \"inventory.adjust_stock\",\n \"sku\": \"SKU-2210\",\n \"quantity\": { \"value\": 12, \"unit\": \"pcs\" }\n}\n\nWe need to ensure correct JSON formatting.\n\nThus final answer: call record_answer with those arguments.</think><tool_call>\n<function=record_answer>\n<parameter=tool>\ninventory.adjust_stock\n</parameter>\n<parameter=sku>\nSKU-2210\n</parameter>\n<parameter=quantity>\n{\"value\": 12, \"unit\": \"pcs\"}\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 549,
+     "tokens_evaluated": 252,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") tool-0-args-7 \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"tool\" \">\\n\") xml-arg-string\ntool-0-arg-1 ::= (\"<parameter=\" \"sku\" \">\\n\") xml-arg-string\ntool-0-arg-2 ::= (\"<parameter=\" \"quantity\" \">\\n\") tool-0-arg-2-schema \"\\n</parameter>\\n\"\ntool-0-arg-2-schema ::= \"{\" space tool-0-arg-2-schema-value-kv \",\" space tool-0-arg-2-schema-unit-kv space \"}\"\ntool-0-arg-2-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-0-arg-2-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-0-arg-2-schema-unit\ntool-0-arg-2-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-0-args-1 ::= tool-0-arg-0\ntool-0-args-2 ::= tool-0-arg-1\ntool-0-args-3 ::= tool-0-arg-0 tool-0-args-2 | tool-0-arg-1 tool-0-args-1\ntool-0-args-4 ::= tool-0-arg-2\ntool-0-args-5 ::= tool-0-arg-0 tool-0-args-4 | tool-0-arg-2 tool-0-args-1\ntool-0-args-6 ::= tool-0-arg-1 tool-0-args-4 | tool-0-arg-2 tool-0-args-2\ntool-0-args-7 ::= tool-0-arg-0 tool-0-args-6 | tool-0-arg-1 tool-0-args-5 | tool-0-arg-2 tool-0-args-3\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tool\": {\"type\": \"string\", \"enum\": [\"inventory.check_stock\", \"inventory.adjust_stock\", \"inventory.reserve_stock\", \"warehouse.locate_bin\", \"receiving.log_arrival\", \"picking.create_task\", \"reports.export_snapshot\", \"alerts.raise_low_stock\"]}, \"sku\": {\"type\": \"string\"}, \"quantity\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}}, \"required\": [\"tool\", \"sku\", \"quantity\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\nItem SKU-2210: quantity change 12 pcs.\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 800,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 252,
+      "prompt_ms": 46.792,
+      "prompt_per_token_ms": 0.1856825396825397,
+      "prompt_per_second": 5385.535989057958,
+      "predicted_n": 549,
+      "predicted_ms": 3187.301,
+      "predicted_per_token_ms": 5.816242700729926,
+      "predicted_per_second": 171.93230259708764
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 252,
+     "prompt_ms": 46.792,
+     "prompt_per_token_ms": 0.1856825396825397,
+     "prompt_per_second": 5385.535989057958,
+     "predicted_n": 549,
+     "predicted_ms": 3187.301,
+     "predicted_per_token_ms": 5.816242700729926,
+     "predicted_per_second": 171.93230259708764
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.234
+  }
+ ]
+}

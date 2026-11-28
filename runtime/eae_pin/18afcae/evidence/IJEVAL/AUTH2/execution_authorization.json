@@ -1,0 +1,72 @@
+{
+ "note": "issued for the full Batch A development scope; consumer must verify checksum and recheck before every dispatch",
+ "authorization": {
+  "auth_level": "AUTH-2",
+  "certificate_ref": "512efb617a9cb4c8",
+  "checksum": "a22bcc68b8e199741227ce4360035292abd24103ecd1df7f0182413f1ee57ebc",
+  "dataset_digest": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+  "eae_revision": "1.1.1",
+  "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-A-v1",
+  "issued_by": "eval_assurance.compat.execution_authorization",
+  "payload": {
+   "auth_purpose": "AUTH-2",
+   "canary_ready": true,
+   "certificate_digests": [
+    [
+     "512efb617a9cb4c8",
+     {
+      "dataset_sha256": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+      "evaluator_sha256": "f2d20832f66c8e34d8880e216ffd6473dfc8ab9dda1ae3ba3077a8c9c85470ed",
+      "interpreter_sha256": "2411b89474f917d226eea733b01247cfd8c5d2526ed3320e8c7b0d23cfb8e33f",
+      "mutation_sha256": "d35fe12b2e1961d8c41f33c06de7609c214a2aa740aa68b31d094d5d0a649008",
+      "parser_sha256": "85e7312b983c2a3666e8b166e1b366c6de29e8919538f972ca91b0ed9b20d158",
+      "reference_oracle_sha256": "7cf463ce27c56e569c6bd836f9dcc42278ca119bc1607150773d7e0b281f76c0",
+      "task_contract_sha256": "427f0cb770028e4e411f87ecc0bcaa6a26f4b52572872fd45dee2c885e640497",
+      "witness_suite_sha256": "0a1dd0fbcccc02251b21bc0c0b07e4329fdf1cdb2d4f8051ed29e403c10d044e"
+     }
+    ]
+   ],
+   "certificates": [
+    "512efb617a9cb4c8"
+   ],
+   "circuit_breaker_ready": true,
+   "confirmation_execution": false,
+   "dispatch_limits": {
+    "max_trials": 480
+   },
+   "ea13_scope_evidence": "3f60156f22f2956193d51a12953c6a229d7203dfcd772ea301be19149acdd080",
+   "ea18_scope_evidence": "7afb3cc848f6bcede0e56b914348a0a5664b66b18088c81de626688868ca8a25",
+   "evaluator_identity": "oracle@7cf463ce27c56e56",
+   "evidence_identity": "6ca0e6551e95c2d5db6da207c3cd83b3b90276938436ff405dc05ca4b3fe74dd",
+   "experiment_binding": "N03-AUTH2-DEVELOPMENT-BATCH-A-v1",
+   "results_dependency": "none",
+   "roster_split": "development",
+   "shared_core_acceptance": "ACCEPTED",
+   "shared_core_evidence_digest": "062754434d05d03f097b6da999c0f3e730834d1d612dd2d1c44c15b41e2c0665"
+  },
+  "qualifying_class": "EAE",
+  "roster_digest": "ee1769b301ba94908b8312aa83ffaf8832b326f5ae8a8831749625ddfd04f5e3",
+  "schema": "1.1.0",
+  "scope": {
+   "models": [
+    "LFM3-1.7B",
+    "MiniCPM5-2B",
+    "Qwen3.5-2B"
+   ],
+   "primitives": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08"
+   ],
+   "protocols": [
+    "chat"
+   ]
+  }
+ },
+ "issued_utc": "2026-11-28T04:03:46Z"
+}

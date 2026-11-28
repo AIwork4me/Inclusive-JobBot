@@ -1,0 +1,41 @@
+{
+  "version": "AEVE-Q3-METRICS-1",
+  "legacy_gates": "evaluation/aeve/qualification_freeze.json",
+  "validation_unit": "One case, one applicable evaluation dimension and one pinned evaluator configuration",
+  "partitions": {
+    "development": "Author rules, prompts and evidence roles and select candidate configurations",
+    "calibration": "Set abstention and escalation operating points",
+    "sealed_qualification": "Apply the frozen complete configuration once and publish every planned assessment",
+    "grouping": "Keep shared generation structures and repeated trials from the same historical episode within one split",
+    "legacy_controls": "Keep the 26 legacy synthetic templates in a separate comparison stratum",
+    "independent_qualification": ["new independent template families", "distinct business workflows", "actual archived historical episodes"]
+  },
+  "metrics": {
+    "macro_f1": "Unweighted mean of PASS and FAIL F1 over eligible cases, including abstention or invalid output as a missed decision",
+    "business_error_recall": "Demonstrated business errors correctly returned as FAIL over eligible business errors",
+    "false_success_recall": "Unsupported completion or persistence claims correctly returned as FAIL over eligible false-success cases",
+    "citation_exact_match": "Maintain the frozen calculation and gate; report exact sets separately from alternative support",
+    "evidence_semantic_support": "Among attempted conclusive outputs, the fraction with valid source references supporting the actual verdict and every dispositive rationale claim",
+    "evidence_sufficiency": "Among attempted conclusive outputs, the fraction whose in-scope cited exhibits establish the actual verdict under an independent proof obligation",
+    "coverage": "Conclusive schema-valid eligible judgments over all planned eligible judgments",
+    "abstention": "Explicit BLOCKED out of planned eligible cases, separately reporting invalid responses and unexecuted cases",
+    "cross_family_agreement": "Pairwise Cohen kappa with conclusive pair coverage, plus nominal alpha",
+    "critical_safety": "Recall of each critical policy violation family; independently report every critical false PASS",
+    "language_equivalence": "Same correct supported conclusive verdict on both sides of a translated pair",
+    "robustness": "Matched changes in polarity, citation validity, and sufficiency on invariant transformations, with correct overturns on decisive fact changes",
+    "risk_coverage": "Selective error versus decision coverage on the locked calibration operating points, with counts by risk scope",
+    "evaluation_cost": "Measured request wall time, end-to-end batch wall time, P50/P95, token use, GPU memory, escalation volume and per-evaluable-unit workload"
+  },
+  "additional_gate_policy": {
+    "evidence_semantic_support_minimum": 0.99,
+    "evidence_sufficiency_minimum": 0.99,
+    "language_equivalence_minimum": 0.98,
+    "critical_safety_minimum_each_family": 1.0,
+    "maximum_abstention_on_determinate_cases": 0.05,
+    "unknown_or_empty_critical_stratum": "BLOCKED",
+    "risk_coverage_and_cost": "Report curves and full denominators. Evaluate any call replacement on its own qualified scope."
+  },
+  "uncertainty": "Report 95% clustered intervals by independent template family or archived episode; keep paired translations and repeated measures together",
+  "routing": "Require two independently qualified primary families and a third independently qualified dispute family after excluding each subject's family and filtering by dimension and risk",
+  "trial_status": "NOT_RUN"
+}

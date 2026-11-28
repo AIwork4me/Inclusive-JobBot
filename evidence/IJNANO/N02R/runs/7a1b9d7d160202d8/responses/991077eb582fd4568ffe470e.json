@@ -1,0 +1,146 @@
+{
+ "trial_id": "991077eb582fd4568ffe470e",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "customers.get_profile",
+       "reasoning_content": "We need to parse the user's request.\n\nUser says: \"已知 / known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n\n调出客户 C-303 的档案。 只回答要调用的工具名 only.\"\n\nSo they want to get the profile of customer C-303. The tool for that is customers.get_profile with param customer_id.\n\nThus we just need to output \"customers.get_profile\". Possibly also other calls? Let's read: \"已知 / known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\" That might be context but the request is specifically: \"调出客户 C-303 的档案。\" which means \"Retrieve the profile of customer C-303.\" So we just need to call customers.get_profile with customer_id = \"C-303\". The answer should be only the tool name.\n\nThus output: customers.get_profile\n\nCheck if any other needed? No, they ask only for that. So final answer is \"customers.get_profile\". Ensure format exactly as tool name includes dot and underscores. Yes.\n\nThus respond with just that."
+      }
+     }
+    ],
+    "created": 1795793469,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 432,
+     "prompt_tokens": 239,
+     "total_tokens": 671,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-xP1e1yCVo2dkhrQd7Vgk4yKDFjyf3qLU",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request.\n\nUser says: \"已知 / known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n\n调出客户 C-303 的档案。 只回答要调用的工具名 only.\"\n\nSo they want to get the profile of customer C-303. The tool for that is customers.get_profile with param customer_id.\n\nThus we just need to output \"customers.get_profile\". Possibly also other calls? Let's read: \"已知 / known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\" That might be context but the request is specifically: \"调出客户 C-303 的档案。\" which means \"Retrieve the profile of customer C-303.\" So we just need to call customers.get_profile with customer_id = \"C-303\". The answer should be only the tool name.\n\nThus output: customers.get_profile\n\nCheck if any other needed? No, they ask only for that. So final answer is \"customers.get_profile\". Ensure format exactly as tool name includes dot and underscores. Yes.\n\nThus respond with just that.</think>customers.get_profile",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 432,
+     "tokens_evaluated": 239,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n已知 / known: order ORD-3319, customer C-303, sku SKU-7743, tracking TRK-73002.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n调出客户 C-303 的档案。 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 670,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 239,
+      "prompt_ms": 48.576,
+      "prompt_per_token_ms": 0.2032468619246862,
+      "prompt_per_second": 4920.125164690382,
+      "predicted_n": 432,
+      "predicted_ms": 2499.312,
+      "predicted_per_token_ms": 5.798867749419953,
+      "predicted_per_second": 172.4474575403151
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 239,
+     "prompt_ms": 48.576,
+     "prompt_per_token_ms": 0.2032468619246862,
+     "prompt_per_second": 4920.125164690382,
+     "predicted_n": 432,
+     "predicted_ms": 2499.312,
+     "predicted_per_token_ms": 5.798867749419953,
+     "predicted_per_second": 172.4474575403151
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.547
+  }
+ ]
+}

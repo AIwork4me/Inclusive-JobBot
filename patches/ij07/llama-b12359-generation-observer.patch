@@ -1,0 +1,82 @@
+diff --git a/tools/server/server-context.cpp b/tools/server/server-context.cpp
+index a6059ab..71e6461 100644
+--- a/tools/server/server-context.cpp
++++ b/tools/server/server-context.cpp
+@@ -323,6 +323,7 @@ struct server_slot {
+     common_chat_input generated;
+     std::string  debug_generated_text;
+     llama_tokens generated_tokens;
++    std::string ij07_sampled_bytes;
+     size_t n_sent_text = 0; // number of sent text character (i.e. handle partial UTF-8 on streaming)
+ 
+     std::vector<completion_token_output> generated_token_probs;
+@@ -441,6 +442,7 @@ struct server_slot {
+             spec_ckpt.clear();
+         }
+         generated_tokens.clear();
++        ij07_sampled_bytes.clear();
+         generated_token_probs.clear();
+         json_schema = json();
+ 
+@@ -1108,6 +1110,7 @@ private:
+ 
+     int trace = 0;        // env: LLAMA_TRACE
+     int slots_debug = 0;  // env: LLAMA_SERVER_SLOTS_DEBUG
++    std::string ij07_trace_path;
+     int slots_n_diff = 0; // env: LLAMA_SERVER_SLOTS_N_DIFF
+ 
+     int n_empty_consecutive = 0;
+@@ -1564,6 +1567,9 @@ private:
+         {
+             const char * LLAMA_SERVER_SLOTS_DEBUG = getenv("LLAMA_SERVER_SLOTS_DEBUG");
+             slots_debug = LLAMA_SERVER_SLOTS_DEBUG ? atoi(LLAMA_SERVER_SLOTS_DEBUG) : 0;
++            if (const char * path = getenv("LLAMA_IJ07_TRACE_PATH")) {
++                ij07_trace_path = path;
++            }
+ 
+             if (slots_debug) {
+                 SRV_WRN("LLAMA_SERVER_SLOTS_DEBUG = %d\n", slots_debug);
+@@ -2144,6 +2150,9 @@ private:
+         slot.sampled = result.tok;
+ 
+         slot.generated.append(token_str, result.tok);
++        if (!ij07_trace_path.empty() && slot.task->params.return_tokens) {
++            slot.ij07_sampled_bytes += token_str;
++        }
+         if (slot.task->params.return_tokens) {
+             slot.generated_tokens.push_back(result.tok);
+         }
+@@ -2405,6 +2414,33 @@ private:
+     }
+ 
+     void send_final_response(server_slot & slot) {
++        // Loopback diagnostic only. Observe the generation before JSON/SSE formatting.
++        if (!ij07_trace_path.empty() && slot.task->params.return_tokens) {
++            const auto exact_bytes = [](const std::string & bytes) {
++                static constexpr char hex[] = "0123456789abcdef";
++                std::string encoded;
++                encoded.reserve(bytes.size() * 2);
++                for (const unsigned char c : bytes) {
++                    encoded.push_back(hex[c >> 4]);
++                    encoded.push_back(hex[c & 15]);
++                }
++                return encoded;
++            };
++            const json trace = {
++                {"completion_id", slot.task->params.oaicompat_cmpl_id},
++                {"prompt_token_ids", slot.task->tokens.get_tokens()},
++                {"sampled_token_ids", slot.generated_tokens},
++                {"sampled_bytes_hex", exact_bytes(slot.ij07_sampled_bytes)},
++                {"pre_parser_bytes_hex", exact_bytes(slot.generated.text)},
++                {"generation_settings", slot.task->params.to_json()},
++                {"stream", slot.task->params.stream},
++                {"truncated", slot.truncated},
++            };
++            std::ofstream file(ij07_trace_path, std::ios::binary | std::ios::app);
++            if (!(file << trace.dump_safe() << '\n' << std::flush)) {
++                SRV_ERR("%s", "cannot write IJ-0.7 generation trace\n");
++            }
++        }
+         auto res = std::make_unique<server_task_result_cmpl_final>();
+ 
+         res->id      = slot.task->id;

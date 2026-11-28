@@ -1,0 +1,3845 @@
+{
+ "identity": {
+  "suite_hash": "a4ad5a09cbc833fda533fa76f15ba7a485d56d6cc5af19c8e49544eb79d154fd",
+  "arms_registry": {
+   "M-P0": "info-matched: native chat, default behavior",
+   "M-P1": "info-matched: chat + json_schema",
+   "M-P2": "info-matched: chat + verified thinking-disabled + json_schema",
+   "M-P3": "info-matched: completion + json_schema",
+   "M-P4": "info-matched: completion + GBNF",
+   "M-P6": "info-matched: completion + compact action DSL",
+   "M-P7": "info-matched: completion + enumerated action",
+   "P0": "native chat completions, default behavior",
+   "P1": "chat completions + json_schema",
+   "P2": "chat completions + verified thinking-disabled + json_schema",
+   "P3": "completion + json_schema",
+   "P4": "completion + GBNF",
+   "P5A": "native function calling - business tools with typed schemas",
+   "P5B": "function calling - declared record_answer structured answer (NOT business tool execution)",
+   "P6": "completion + compact action DSL",
+   "P7": "completion + enumerated action",
+   "P7S": "two-stage: enumerated tool selection then slot filling",
+   "T2": "info-matched chat + json_schema under a --reasoning-budget server profile (T0/T1/T3 are analysis aliases of M-P1/M-P2/M-P3)"
+  },
+  "applicability": {
+   "P7": {
+    "tool_selection": true,
+    "slot_extraction": false,
+    "structured_action": false,
+    "enumerated_action": true,
+    "conditional_branch": true,
+    "stop_continue": true
+   },
+   "P5A": {
+    "tool_selection": true,
+    "slot_extraction": true,
+    "structured_action": true,
+    "enumerated_action": false,
+    "conditional_branch": false,
+    "stop_continue": false
+   },
+   "P5B": {
+    "tool_selection": true,
+    "slot_extraction": true,
+    "structured_action": true,
+    "enumerated_action": true,
+    "conditional_branch": true,
+    "stop_continue": true
+   },
+   "P7S": {
+    "structured_action": true
+   }
+  },
+  "primary_budget": 1024,
+  "budgets": [
+   64,
+   128,
+   256,
+   512,
+   1024
+  ],
+  "budget_panel_arms": [
+   "M-P0",
+   "M-P1",
+   "M-P2",
+   "P5A"
+  ],
+  "t2_reasoning_budget": 256,
+  "decoding": {
+   "temperature": 0,
+   "seed": 42
+  },
+  "cache_policy": {
+   "cache_prompt": true
+  },
+  "engine": {
+   "exe_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+   "dll_sha256": {
+    "ggml-base.dll": "20e4986ec6fd88eb61630433ff172e08885f8fecfbd0c1960a5d55c8854019e3",
+    "ggml-cpu-alderlake.dll": "f4bd2a5bd4c99669a5efcbc0edf5326c6f51cf556c3301ae5c8fc2994b913440",
+    "ggml-cpu-cannonlake.dll": "b6a69981682c6e9dfb5fefcfc3677b9e17c112c3c33fc9d59405daa618e63304",
+    "ggml-cpu-cascadelake.dll": "488337fb896ac54ec8a74a5e8163b48d8ec4c8e082da4bbb62ebe52139d3b3d8",
+    "ggml-cpu-cooperlake.dll": "7d30660f15d288d6da7c1d99ae8418c46f61d1d5036e0082aad6fbf4e461d2bb",
+    "ggml-cpu-haswell.dll": "26dbcf80225fe3c56aa750501247cebdc99b791f323c33d0d8fcd2ed7c4bafcb",
+    "ggml-cpu-icelake.dll": "0a35f7a655bb74ce2d64cbb64e6817b17f62964b060c6a503d3267b2133199bc",
+    "ggml-cpu-ivybridge.dll": "2e83b2aa5ad108445a599fcdd46fafcb227a3d2d66743994434b0bcaacb5a714",
+    "ggml-cpu-piledriver.dll": "851474816a574847b264e018de02410f5905359934c2fa2411f7ff3d7706620c",
+    "ggml-cpu-sandybridge.dll": "86b1c9114249492b8d39a1a3d9f9717c8969334a4bd12c279b91248a553cb254",
+    "ggml-cpu-sapphirerapids.dll": "b049b5672c3c246bb320ec011c735981628a9369687cfd64a4628c5bad238b3b",
+    "ggml-cpu-skylakex.dll": "183413744426f596c67fb206daf2cab17d666e22076e4a6b9a25d301de871d85",
+    "ggml-cpu-sse42.dll": "5b2f04b3ab1e76b09d887c496eb61b09a0ee4fc77b28c0602e45411906946ccd",
+    "ggml-cpu-x64.dll": "375434294cb7d22de0bf5da68fe67569fb5f8ca2c11e925850c8be3f52d052fe",
+    "ggml-cpu-zen4.dll": "dae5d12772f0213b6d70a3c4db032146b504dea32b1b35bbcc9dff769edf57f7",
+    "ggml-rpc.dll": "2e23f2c0782f5e61428dcc98b905d80fd28c3b9b70304b75c53490c13e1b76d4",
+    "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+    "ggml.dll": "92b081cfb031e2efe5cd2a8c71c872e8a92cb1d4a43619ad6614dc30ad357b80",
+    "libomp.dll": "a12116ba72d1d6820407cf30be23da04ce79d6bb8a71a5ee71759c5a1faa6f1c",
+    "llama-batched-bench-impl.dll": "85d22b25ca93b0cb313d69a05b945bf7775940d1074adff45bd0103cc4e070d7",
+    "llama-bench-impl.dll": "a95e01d0445dfeea1ecc64633adeba15189b02a6a1b6f04e003a654d4b7c6a31",
+    "llama-cli-impl.dll": "67ede23b0e9abd29bbfdd5440df5085c55727344f77d1b8959bcec26fa67f813",
+    "llama-common.dll": "a0e0b993dede7c95eb1ca79cdcc2a003f2f79ff59fc129cb46ec5daac80fd057",
+    "llama-completion-impl.dll": "f81f830e1e862a955cccbcc64bb24239794251a548b8d0a6147d33db16f25463",
+    "llama-fit-params-impl.dll": "b2f8f12f59f7176adc0269a94dde0bc42209ad8d8ea853917695a304dfbf99f1",
+    "llama-perplexity-impl.dll": "14862a589913098cb341c7588783cba38053f774f2ec9933374f5609a542dd07",
+    "llama-quantize-impl.dll": "4007bb641487b7baa431ba120eefb6240d0c7c1930c3908aa4587c8f4fdb6fa3",
+    "llama-server-impl.dll": "c81c23738405831cacda737e64ce8f08870d4f44beb63e3aa9515b3ad2e4286e",
+    "llama.dll": "17b0063b06c4561f46929a809a60bf60c857783bb22f593528145cc1e1108d7d",
+    "mtmd.dll": "558d7c41475cc6f54d6da41eea23876cd35cfd2e9d8f2b3e637b8c49c9928ed5"
+   }
+  },
+  "backend": "vulkan",
+  "gpu": {
+   "name": "AMD Radeon RX 7900 XTX",
+   "driver": "32.0.21030.2001",
+   "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+  },
+  "models": {
+   "S1": {
+    "path": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf",
+    "alias": "minicpm5-2b",
+    "sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "size": 2679710688,
+    "quantization": "Q8_0"
+   },
+   "S2": {
+    "path": "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf",
+    "alias": "lfm3-1.7b",
+    "sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+    "size": 1846238496,
+    "quantization": "Q8_0"
+   },
+   "S3": {
+    "path": "models/ij_sdk/Qwen3.5-2B-GGUF/Qwen3.5-2B-Q8_0.gguf",
+    "alias": "qwen3.5-2b",
+    "sha256": "1b04acba824817554f4ce23639bc8495ff70453b8fcb047900c731521021f2c1",
+    "size": 2012012800,
+    "quantization": "Q8_0"
+   }
+  },
+  "implementation": {
+   "controller_v2": "e55b8c58395dc23b7ae35987ba068bd35ca8125f8762e076cb63655b20fe2cca",
+   "arms_v2": "8d2039d6a7c3ebd85e1d092dc5d56b45690995065102af38c5eeba74e975d9a7",
+   "tasks": "b4c8289a888a5967116bdf93253fc2cb0fed70174834bea0609b12c9f248d9b2",
+   "scorer": "cda3fbf0865d8a9f778a6fb64b158dffcb03dadbc6d469a0b82247cc6a86c5fa",
+   "evaluator_contracts": "19f17ead9263db5ba029896bfda7969cbe6820190c29b69b0c05739291cd1033",
+   "evaluator_comparators": "5403e4a0cd8446cc626c005b65b60025526155165593584dc6b29c68cf604b8d",
+   "evaluator_units": "13add5cd0250d16da99922fd9db7df6c9eab4852a6b394b0fbacd23bfbf4c1d3"
+  },
+  "phase_plan": {
+   "main": "per model: M-P0..M-P6 all families; M-P7 applicable families; P5A applicable; P5B all; P7S structured; T2 (M-P1 under reasoning-budget server)",
+   "panel": "budget panel arms x 12 tasks x budgets<1024"
+  },
+  "experiment_id": "7a1b9d7d160202d8"
+ },
+ "created_utc": "2026-11-27T14:58:42Z",
+ "lease": "benchmarks/root_cause/gpu_lease.py physical_gpu() (host-wide named mutex)",
+ "template_fingerprints": {},
+ "sessions": [
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 12888,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T14:58:46Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 18692,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T14:59:07Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 3888,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T14:59:18Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 22984,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T14:59:51Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 10632,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:00:03Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 3956,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:00:29Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 22040,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:00:42Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 6212,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:00:57Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 9816,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:01:09Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 23436,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:01:36Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 6480,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:01:48Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 4376,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:02:05Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 5476,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:09:34Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 18488,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:10:11Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 15628,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:10:24Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 7448,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:11:00Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 8948,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:11:13Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 23540,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:11:44Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 13824,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:11:57Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 13940,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:12:20Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 10568,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:12:32Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 20408,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:12:58Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 5052,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:13:10Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 20624,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:13:33Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 7816,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:13:46Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 3420,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:14:12Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 2692,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:14:24Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 16360,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:15:07Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 12712,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:15:20Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 10620,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:15:48Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 16084,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:16:01Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 14472,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:16:34Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 17140,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:16:46Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 3836,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:17:18Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 8364,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:17:30Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 15396,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:17:58Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 9788,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:18:10Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 17560,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:18:30Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 15464,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:18:41Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 15172,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:19:07Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 5476,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:19:19Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 11664,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:19:47Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 1428,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:19:59Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 3568,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:20:15Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 9088,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:20:27Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 8040,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:21:00Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 14808,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:21:12Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 20624,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:21:28Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 12060,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:21:41Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 9184,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:22:20Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 2000,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:22:32Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 7456,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:23:13Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 3420,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:23:26Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 16092,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:23:56Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 17916,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:24:09Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 2908,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:24:36Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 20464,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:24:49Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 6472,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:25:25Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 11644,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:25:37Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 11108,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:26:10Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 13692,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:26:23Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 23408,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:26:43Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 508,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:26:56Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 1992,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:27:32Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 17204,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:27:45Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 12912,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:28:13Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 16188,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:28:25Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 18692,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:28:55Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 14916,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:29:07Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 21012,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:29:38Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 15712,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:29:51Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 15744,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:30:19Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 20144,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:30:31Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 22744,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:30:51Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 8444,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:31:02Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 5208,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:31:33Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 22660,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:31:46Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 17416,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:32:11Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 17348,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:32:23Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 19756,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:32:38Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 22868,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:32:50Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 16148,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:33:26Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 19328,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:33:38Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 15180,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:33:55Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 19024,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:34:07Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 20408,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:34:36Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 17392,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:34:49Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 23432,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:35:26Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 16764,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:35:39Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 15968,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:36:09Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 16112,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:36:22Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 12944,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:36:43Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 14808,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:36:55Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 21340,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:37:24Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 23320,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:37:36Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 17192,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:37:56Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 3620,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:38:08Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 23156,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:38:38Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 3972,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:38:51Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 23456,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:39:24Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 18324,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:39:37Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 22148,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:40:05Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 20540,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:40:18Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 21388,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:40:47Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 18616,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:40:59Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 13232,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:41:29Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 11480,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:41:41Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 10084,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:42:10Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 23432,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:42:22Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 22936,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:42:42Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 20956,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:42:54Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 17944,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:43:27Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 17448,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:43:39Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 12992,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:44:08Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 6788,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:44:21Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 1432,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:44:36Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 23240,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:44:47Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 5544,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:45:14Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 15276,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:45:26Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 12048,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:45:53Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 15116,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:46:06Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 5944,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:46:30Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 14344,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:46:42Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 21052,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:47:11Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 19912,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:47:23Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 15352,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:47:53Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 21884,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:48:06Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 8256,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:48:33Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 21636,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:48:46Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 9500,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:49:11Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 17604,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:49:24Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 20956,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:49:59Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 12132,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:50:12Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 19628,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:50:41Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 11480,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:50:53Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 8416,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:51:34Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 3688,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:51:47Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 19360,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:52:21Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 8448,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:52:33Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 7576,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:53:05Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 19920,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:53:18Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 17848,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:53:56Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 23172,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:54:08Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 22952,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:54:35Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 18232,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:54:48Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 21316,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:55:07Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 1324,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:55:19Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 9904,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:55:57Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 3972,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:56:09Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 10816,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:56:38Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 15288,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:56:51Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 22324,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:57:06Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 12452,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:57:18Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 16800,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:57:45Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 18800,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:57:58Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 16180,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T15:58:21Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 11680,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:58:33Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 6560,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T15:59:14Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 23264,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T15:59:27Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 11644,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:00:11Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 15904,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:00:24Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 9708,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:00:56Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 13640,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:01:09Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 13824,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:01:36Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 1816,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:01:48Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 14200,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:02:22Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 9088,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:02:35Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 11908,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:03:01Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 18768,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:03:13Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 16756,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:03:39Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 6136,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:03:51Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 1464,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:04:30Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 22580,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:04:43Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 5584,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:05:11Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 23448,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:05:23Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 10632,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:05:51Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 17136,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:06:03Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 13372,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:06:36Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 9868,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:06:49Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 21012,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:07:17Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 17032,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:07:29Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 14828,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:07:55Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 23332,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:08:06Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 6200,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:08:40Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 18216,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:08:53Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 22368,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:09:19Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 10476,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:09:32Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 20244,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:09:53Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 6896,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:10:05Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "reasoning-budget",
+   "socket_owner_pid_verified": 14048,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:10:41Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 3568,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:10:53Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S1",
+   "profile": "default",
+   "socket_owner_pid_verified": 2464,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "started_utc": "2026-11-27T16:11:30Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S2",
+   "profile": "default",
+   "socket_owner_pid_verified": 4608,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "started_utc": "2026-11-27T16:13:50Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  },
+  {
+   "model": "S3",
+   "profile": "default",
+   "socket_owner_pid_verified": 3700,
+   "health": {
+    "status": "ok"
+   },
+   "offload_line": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "started_utc": "2026-11-27T16:16:40Z",
+   "gpu": {
+    "name": "AMD Radeon RX 7900 XTX",
+    "driver": "32.0.21030.2001",
+    "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+   }
+  }
+ ]
+}

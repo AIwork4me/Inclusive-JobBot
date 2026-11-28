@@ -1,0 +1,154 @@
+{
+ "trial_id": "cf2ec5a3c867be8b73724e1d",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{ \"action\": \"A5\" }",
+       "reasoning_content": "1.  **分析请求：**\n    *   用户提供了一个可选动作列表（A1 到 A6）。\n    *   用户说明客户只问包裹到哪了，没有别的要求。\n    *   用户要求只回答动作编号。\n    *   用户要求只回答动作标签。\n\n2.  **分析动作：**\n    *   A1. 换货：为客户 ORD-3319 创建换货单\n    *   A2. 退款：为 ORD-3319 提交退款\n    *   A3. 仅道歉并关闭工单\n    *   A4. 升级人工客服\n    *   A5. 查询物流轨迹\n    *   A6. 发送延迟通知\n\n3.  **匹配用户意图：**\n    *   用户问：“客户只问包裹到哪了，没有别的要求。”（客户只问包裹到哪了，没有别的要求。）\n    *   匹配动作：A5. 查询物流轨迹（查询物流轨迹）。\n\n4.  **格式化输出：**\n    *   用户明确要求：“只回答动作编号。 / Answer with the action label only.”（只回答动作编号。 / 只回答动作标签。）\n    *   因此，输出必须严格为“A5”。\n\n5.  **最终输出生成：**\n    *   A5\n"
+      }
+     }
+    ],
+    "created": 1795793790,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 303,
+     "prompt_tokens": 174,
+     "total_tokens": 477,
+     "prompt_tokens_details": {
+      "cached_tokens": 173
+     }
+    },
+    "id": "chatcmpl-ZFxptVFI4kRYIawC1gMpl14L8HhYFgmI",
+    "__verbose": {
+     "index": 0,
+     "content": "1.  **分析请求：**\n    *   用户提供了一个可选动作列表（A1 到 A6）。\n    *   用户说明客户只问包裹到哪了，没有别的要求。\n    *   用户要求只回答动作编号。\n    *   用户要求只回答动作标签。\n\n2.  **分析动作：**\n    *   A1. 换货：为客户 ORD-3319 创建换货单\n    *   A2. 退款：为 ORD-3319 提交退款\n    *   A3. 仅道歉并关闭工单\n    *   A4. 升级人工客服\n    *   A5. 查询物流轨迹\n    *   A6. 发送延迟通知\n\n3.  **匹配用户意图：**\n    *   用户问：“客户只问包裹到哪了，没有别的要求。”（客户只问包裹到哪了，没有别的要求。）\n    *   匹配动作：A5. 查询物流轨迹（查询物流轨迹）。\n\n4.  **格式化输出：**\n    *   用户明确要求：“只回答动作编号。 / Answer with the action label only.”（只回答动作编号。 / 只回答动作标签。）\n    *   因此，输出必须严格为“A5”。\n\n5.  **最终输出生成：**\n    *   A5\n</think>\n\n{ \"action\": \"A5\" }",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 303,
+     "tokens_evaluated": 174,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-action-kv space \"}\"\nresponse-format-action ::= (\"\\\"A1\\\"\" | \"\\\"A2\\\"\" | \"\\\"A3\\\"\" | \"\\\"A4\\\"\" | \"\\\"A5\\\"\" | \"\\\"A6\\\"\")\nresponse-format-action-kv ::= \"\\\"action\\\"\" space \":\" space response-format-action\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n可选动作 / available actions:\nA1. 换货：为客户 ORD-3319 创建换货单 / exchange the item on ORD-3319\nA2. 退款：为 ORD-3319 提交退款 / submit a refund for ORD-3319\nA3. 仅道歉并关闭工单 / apologize and close the ticket\nA4. 升级人工客服 / escalate to a human agent\nA5. 查询物流轨迹 / trace the shipment\nA6. 发送延迟通知 / send a delay notification\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户只问包裹到哪了，没有别的要求。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 476,
+     "timings": {
+      "cache_n": 173,
+      "prompt_n": 1,
+      "prompt_ms": 10.164,
+      "prompt_per_token_ms": 10.164,
+      "prompt_per_second": 98.38646202282567,
+      "predicted_n": 303,
+      "predicted_ms": 1678.19,
+      "predicted_per_token_ms": 5.5569205298013244,
+      "predicted_per_second": 179.9557856976862
+     }
+    },
+    "timings": {
+     "cache_n": 173,
+     "prompt_n": 1,
+     "prompt_ms": 10.164,
+     "prompt_per_token_ms": 10.164,
+     "prompt_per_second": 98.38646202282567,
+     "predicted_n": 303,
+     "predicted_ms": 1678.19,
+     "predicted_per_token_ms": 5.5569205298013244,
+     "predicted_per_second": 179.9557856976862
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.703
+  }
+ ]
+}

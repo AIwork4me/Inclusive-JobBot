@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "run_time_utc": "2026-11-27T04:13:03+00:00",
+  "tool": "scripts/tools/llama_server_api_check.py",
+  "base_url": "http://127.0.0.1:8080",
+  "checks": [
+    {
+      "name": "health",
+      "status": "PASS",
+      "http_status": 200,
+      "body": {
+        "status": "ok"
+      },
+      "elapsed_ms": 11
+    },
+    {
+      "name": "props",
+      "status": "PASS",
+      "http_status": 200,
+      "build_info": "b12359-b1b770d90",
+      "model_ftype": "Q4_K - Medium",
+      "chat_template_caps": {
+        "supports_object_arguments": true,
+        "supports_parallel_tool_calls": true,
+        "supports_preserve_reasoning": true,
+        "supports_reasoning_effort": false,
+        "supports_string_content": true,
+        "supports_system_role": true,
+        "supports_tool_calls": true,
+        "supports_tools": true,
+        "supports_typed_content": false,
+        "reasoning_effort_levels": []
+      },
+      "chat_template_length": 9059,
+      "total_slots": 1,
+      "elapsed_ms": 0
+    },
+    {
+      "name": "v1/models",
+      "status": "PASS",
+      "http_status": 200,
+      "models": [
+        "minicpm5-2b"
+      ],
+      "elapsed_ms": 0
+    },
+    {
+      "name": "tokenize_detokenize_round_trip",
+      "status": "PASS",
+      "token_count": 19,
+      "http_status": 200,
+      "elapsed_ms": 0
+    },
+    {
+      "name": "apply_template_with_tools",
+      "status": "PASS",
+      "http_status": 200,
+      "rendered_prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"get_purchase_order\", \"description\": \"按订单号查询采购订单。\", \"parameters\": {\"type\": \"object\", \"properties\": {\"order_id\": {\"type\": \"string\", \"description\": \"采购订单号\"}}, \"required\": [\"order_id\"]}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n请查询订单号 PO-2026-0001 的采购订单。<|im_end|>\n<|im_start|>assistant\n<think>\n",
+      "elapsed_ms": 1
+    },
+    {
+      "name": "chat_completions_non_stream",
+      "status": "PASS",
+      "http_status": 200,
+      "content": "采购订单是向供应商发出的、用于购买所需商品或服务的正式请求。",
+      "usage": {
+        "completion_tokens": 17,
+        "prompt_tokens": 20,
+        "total_tokens": 37,
+        "prompt_tokens_details": {
+          "cached_tokens": 4
+        }
+      },
+      "prompt_ms": 25.655,
+      "predicted_ms": 73.85,
+      "elapsed_ms": 102
+    },
+    {
+      "name": "chat_completions_stream",
+      "status": "PASS",
+      "chunk_count": 18,
+      "finish_reason": "stop",
+      "content": "采购订单是向供应商发出的、用于购买所需商品或服务的正式请求。",
+      "elapsed_ms": 77
+    },
+    {
+      "name": "stream_matches_non_stream_under_greedy_decoding",
+      "status": "PASS",
+      "non_stream": "采购订单是向供应商发出的、用于购买所需商品或服务的正式请求。",
+      "stream": "采购订单是向供应商发出的、用于购买所需商品或服务的正式请求。"
+    },
+    {
+      "name": "metrics",
+      "status": "PASS",
+      "http_status": 200,
+      "metric_count": 15,
+      "elapsed_ms": 0
+    }
+  ],
+  "status": "PASS"
+}

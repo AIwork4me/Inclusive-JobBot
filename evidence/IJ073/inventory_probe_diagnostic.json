@@ -1,0 +1,36 @@
+{
+  "scope": "first enumeration probe before correcting the probe process PATH",
+  "utc": "2026-11-25T22:42:36Z",
+  "backends": [
+    {
+      "backend": "cpu",
+      "sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "expected_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "devices": [],
+      "command": "--list-devices",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "backend": "vulkan",
+      "sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "expected_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "devices": [
+        "Vulkan0: AMD Radeon(TM) 8060S Graphics (111227 MiB, 105666 MiB free)"
+      ],
+      "command": "--list-devices",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "backend": "rocm",
+      "sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "expected_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "devices": [],
+      "command": "--list-devices",
+      "exit_code": 0,
+      "status": "FAIL"
+    }
+  ],
+  "cause": "Get-RocmLibraryDirectories returned two named properties. The probe stringified the object instead of adding both directories."
+}

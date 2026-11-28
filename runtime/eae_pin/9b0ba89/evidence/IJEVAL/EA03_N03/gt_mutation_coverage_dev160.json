@@ -1,0 +1,7040 @@
+{
+ "schema": "ijeval.ea03_n03.gt_mutation_coverage_dev160",
+ "schema_version": 1,
+ "generated_by": "scripts/ij_eval_assurance/ea03_n03_qualify.py",
+ "pinned_ij_nano_revision": "d23de5abe596e43743a5a2c7437ccd1b5e7de7f9",
+ "classes": {
+  "A": "corrupted final expected answer (semantic)",
+  "B": "corrupted construction metadata (answer unchanged)",
+  "C": "coupled corruption of metadata and answer (internally consistent)",
+  "D": "public task changed, expected answer unchanged",
+  "E": "valid alternative answer (must NOT be INVALID)",
+  "F": "ambiguous or insufficient public information"
+ },
+ "applicable_counts": {
+  "A": 160,
+  "D": 145,
+  "F": 158,
+  "C": 70,
+  "E": 4,
+  "B": 60
+ },
+ "total_mutations": 597,
+ "escapes": [],
+ "gt_d_probes": [
+  {
+   "probe": "GT-D01/action",
+   "description": "mutated action must not be VALID",
+   "case_id": "n03-C02-project-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "action: expected 'submit', independently derived 'migrate'"
+   ]
+  },
+  {
+   "probe": "GT-D01/object",
+   "description": "mutated object must not be VALID",
+   "case_id": "n03-C02-project-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "object: expected 'audit_trail', independently derived 'quarterly_report'"
+   ]
+  },
+  {
+   "probe": "GT-D01/completion_criterion",
+   "description": "mutated completion_criterion must not be VALID",
+   "case_id": "n03-C02-project-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "completion_criterion: expected 'visible_in_system', independently derived None"
+   ]
+  },
+  {
+   "probe": "GT-D01/flag-flip",
+   "description": "deadline flag flipped with a stated date",
+   "case_id": "n03-C02-project-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "unknown_flags.deadline: expected True, derived False (field is stated)"
+   ]
+  },
+  {
+   "probe": "GT-D01/missing-field",
+   "description": "required field removed",
+   "case_id": "n03-C02-project-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "required field missing: action",
+    "action: expected None, independently derived 'migrate'"
+   ]
+  },
+  {
+   "probe": "GT-D01/extra-field",
+   "description": "unexpected additional field",
+   "case_id": "n03-C02-project-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "unexpected additional field: priority"
+   ]
+  },
+  {
+   "probe": "GT-D01/deadline",
+   "description": "deadline mutated",
+   "case_id": "n03-C02-project-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "deadline: expected '2030-01-01', independently derived '2026-12-11'"
+   ]
+  },
+  {
+   "probe": "GT-D01/partial",
+   "description": "object surface removed, action/deadline match -> NOT_ESTABLISHED (partial, never VALID)",
+   "case_id": "n03-C02-project-d00",
+   "verdict": "NOT_ESTABLISHED",
+   "expected": "NOT_ESTABLISHED",
+   "passed": true,
+   "reasons": [
+    "field-level partial validation only; not independently derivable: ['object']"
+   ]
+  },
+  {
+   "probe": "GT-D02/coupled",
+   "description": "coupled constraints+ids corruption (public instruction unchanged)",
+   "case_id": "n03-C04-retail-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "stored constraints [('price<=', 200)] contradict the instruction-derived constraints [('price<=', 60), ('stock>', 0)]",
+    "constraint filter yields ['SKU-001'] != expected ['SKU-001', 'SKU-002']"
+   ]
+  },
+  {
+   "probe": "GT-D02/sequence",
+   "description": "sort-declared sequence reversed",
+   "case_id": "n03-C04-retail-d02",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "sorted filter yields ['SKU-007', 'SKU-006', 'SKU-002', 'SKU-005'] != expected sequence ['SKU-005', 'SKU-002', 'SKU-006', 'SKU-007'] (sort rating descending)"
+   ]
+  },
+  {
+   "probe": "GT-D02/metadata-only",
+   "description": "stored constraints corrupt, ids same",
+   "case_id": "n03-C04-retail-d02",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "stored constraints [('price<=', 60), ('stock>', 5)] contradict the instruction-derived constraints [('price<=', 100), ('rating>=', 3.5)]"
+   ]
+  },
+  {
+   "probe": "GT-D02/coupled-zh",
+   "description": "zh coupled corruption",
+   "case_id": "n03-C04-retail-d01",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "stored constraints [('stock>', 0)] contradict the instruction-derived constraints [('rating>=', 3.0), ('stock>', 0), ('vendor!=', 'north-depot')]",
+    "stored order None contradicts the instruction-derived sort ('rating', 'descending')"
+   ]
+  },
+  {
+   "probe": "GT-D03/cheapest-lacks-recording-en",
+   "description": "cheapest-lacks-recording-en",
+   "case_id": "probe-C06",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "c",
+    "h"
+   ]
+  },
+  {
+   "probe": "GT-D03/correct-costly-recording-en",
+   "description": "correct-costly-recording-en",
+   "case_id": "probe-C06",
+   "verdict": "VALID",
+   "expected": "VALID",
+   "passed": true,
+   "reasons": []
+  },
+  {
+   "probe": "GT-D03/recording-excluded-en",
+   "description": "recording-excluded-en",
+   "case_id": "probe-C06",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "c",
+    "h"
+   ]
+  },
+  {
+   "probe": "GT-D03/recording-excluded-correct-en",
+   "description": "recording-excluded-correct-en",
+   "case_id": "probe-C06",
+   "verdict": "VALID",
+   "expected": "VALID",
+   "passed": true,
+   "reasons": []
+  },
+  {
+   "probe": "GT-D03/recording-unmentioned-en",
+   "description": "recording-unmentioned-en",
+   "case_id": "probe-C06",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "c",
+    "h"
+   ]
+  },
+  {
+   "probe": "GT-D03/tie-undeclared",
+   "description": "tie-undeclared",
+   "case_id": "probe-C06",
+   "verdict": "AMBIGUOUS",
+   "expected": "AMBIGUOUS",
+   "passed": true,
+   "reasons": [
+    "r",
+    "e"
+   ]
+  },
+  {
+   "probe": "GT-D03/tie-declared",
+   "description": "tie-declared",
+   "case_id": "probe-C06",
+   "verdict": "VALID",
+   "expected": "VALID",
+   "passed": true,
+   "reasons": [
+    "declared tie set"
+   ]
+  },
+  {
+   "probe": "GT-D03/zh-含录制",
+   "description": "zh-含录制",
+   "case_id": "probe-C06",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "c",
+    "h"
+   ]
+  },
+  {
+   "probe": "GT-D03/zh-不含录制",
+   "description": "zh-不含录制",
+   "case_id": "probe-C06",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "stored construction.need {'seats': 5, 'recording': False} contradicts the instruction-derived need {'seats': 5, 'recording': True}"
+   ]
+  },
+  {
+   "probe": "GT-D03/iso-absent-from-instruction",
+   "description": "iso-absent-from-instruction",
+   "case_id": "probe-C06",
+   "verdict": "INVALID",
+   "expected": "INVALID",
+   "passed": true,
+   "reasons": [
+    "c",
+    "h"
+   ]
+  },
+  {
+   "probe": "GT-D03/iso-negated",
+   "description": "iso-negated",
+   "case_id": "probe-C06",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "c",
+    "h"
+   ]
+  },
+  {
+   "probe": "GT-D03/audit-negated",
+   "description": "audit-negated",
+   "case_id": "probe-C06",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "stored construction.need {'iso': True, 'audit': False} contradicts the instruction-derived need {'iso': True}"
+   ]
+  },
+  {
+   "probe": "GT-D03/zh-supplier",
+   "description": "zh-supplier",
+   "case_id": "probe-C06",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "c",
+    "h"
+   ]
+  },
+  {
+   "probe": "GT-D04/coupled-registry+answer",
+   "description": "registry tags and tool id mutated together (public inventory unchanged)",
+   "case_id": "n03-C08-biztools-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "registry tags for meeting_notifier: stored ['email', 'send'] != description-derived ['calendar', 'message', 'post']"
+   ]
+  },
+  {
+   "probe": "GT-D04/required-tags",
+   "description": "required tags contradict the public objective",
+   "case_id": "n03-C08-biztools-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "stored required_tags ['calendar', 'post'] contradict the objective-derived tags ['email', 'send']"
+   ]
+  },
+  {
+   "probe": "GT-D04/registry-thinning",
+   "description": "registry tag removed contradicts the public description",
+   "case_id": "n03-C08-biztools-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "registry tags for email_sender: stored ['email'] != description-derived ['email', 'send']"
+   ]
+  },
+  {
+   "probe": "GT-D04/registry-ghost",
+   "description": "registry references a tool absent from the public inventory",
+   "case_id": "n03-C08-biztools-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "registry does not correspond to the public inventory (registry-only: ['ghost_tool'], public-only: [])"
+   ]
+  },
+  {
+   "probe": "GT-D04/registry-missing-public",
+   "description": "public tool missing from the registry",
+   "case_id": "n03-C08-biztools-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "registry does not correspond to the public inventory (registry-only: ['ghost_tool'], public-only: ['email_sender'])"
+   ]
+  },
+  {
+   "probe": "GT-D05/formfill-valid",
+   "description": "formfill independently established",
+   "case_id": "n03-C03-formfill-d00",
+   "verdict": "VALID",
+   "expected": "VALID",
+   "passed": true,
+   "reasons": []
+  },
+  {
+   "probe": "GT-D05/formfill-value",
+   "description": "formfill value mutated",
+   "case_id": "n03-C03-formfill-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "value: expected '+31-10-555999', message-derived '+31-10-555000'"
+   ]
+  },
+  {
+   "probe": "GT-D05/formfill-field",
+   "description": "formfill field mutated",
+   "case_id": "n03-C03-formfill-d00",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "field: expected 'delivery_city', instruction-derived 'contact_phone'"
+   ]
+  },
+  {
+   "probe": "GT-D05/formatting-upper-valid",
+   "description": "not_in_stock_upper independently established",
+   "case_id": "n03-C03-formatting-d02",
+   "verdict": "VALID",
+   "expected": "VALID",
+   "passed": true,
+   "reasons": []
+  },
+  {
+   "probe": "GT-D05/formatting-case",
+   "description": "uppercase requirement violated",
+   "case_id": "n03-C03-formatting-d04",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "recomputed lines ['CAMP STOOL', 'HEADLAMP', 'MAP CASE'] != expected ['camp stool', 'headlamp', 'map case']"
+   ]
+  },
+  {
+   "probe": "GT-D05/formatting-sequence",
+   "description": "line order swapped is not silently VALID (sequence != set)",
+   "case_id": "n03-C03-formatting-d00",
+   "verdict": "AMBIGUOUS",
+   "expected": "AMBIGUOUS",
+   "passed": true,
+   "reasons": [
+    "line set matches but sequence differs; ordering freedom not declared by the expectation contract"
+   ]
+  },
+  {
+   "probe": "GT-D05/formatting-extra",
+   "description": "extra line added",
+   "case_id": "n03-C03-formatting-d02",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "recomputed lines [] != expected ['extra']"
+   ]
+  },
+  {
+   "probe": "GT-D05/formatting-rule",
+   "description": "stored rule contradicts instruction",
+   "case_id": "n03-C03-formatting-d02",
+   "verdict": "INVALID",
+   "expected": "not VALID",
+   "passed": true,
+   "reasons": [
+    "stored rule 'in_stock' contradicts instruction-derived rule 'not_in_stock_upper'"
+   ]
+  }
+ ],
+ "per_case": [
+  {
+   "case_id": "n03-C01-helpdesk-d00",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d00",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d00",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d00",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d00",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d01",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d01",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d01",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d01",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d01",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d02",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d02",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d02",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d02",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d02",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d03",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d03",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d03",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d03",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d03",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d04",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d04",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d04",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d04",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d04",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d05",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d05",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d05",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d05",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d05",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d06",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d06",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d06",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d06",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d06",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d07",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d07",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d07",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d07",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d07",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d08",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d08",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d08",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d08",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d08",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d09",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d09",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d09",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d09",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-helpdesk-d09",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d00",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d00",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d00",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d00",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d00",
+   "class": "F",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d01",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d01",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d01",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d01",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d01",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d02",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d02",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d02",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d02",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d02",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d03",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d03",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d03",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d03",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d03",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d04",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d04",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d04",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d04",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d04",
+   "class": "F",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d05",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d05",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d05",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d05",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d05",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d06",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d06",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d06",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d06",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d06",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d07",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d07",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d07",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d07",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d07",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d08",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d08",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d08",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d08",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d08",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d09",
+   "primitive": "C01",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d09",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d09",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d09",
+   "primitive": "C01",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C01-smarthome-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C01-smarthome-d09",
+   "primitive": "C01",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d00",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d00",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d00",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d00",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d00",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d01",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d01",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d01",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d01",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d01",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d02",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d02",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d02",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d02",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d02",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d03",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d03",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d03",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d03",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d03",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d04",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d04",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d04",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d04",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d04",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d05",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d05",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d05",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d05",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d05",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d06",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d06",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d06",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d06",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d06",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d07",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d07",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d07",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d07",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d07",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d08",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d08",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d08",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d08",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d08",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d09",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d09",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d09",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d09",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-project-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-project-d09",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d00",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d00",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d00",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d00",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d00",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d01",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d01",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d01",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d01",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d01",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d02",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d02",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d02",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d02",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d02",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d03",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d03",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d03",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d03",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d03",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d04",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d04",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d04",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d04",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d04",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d05",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d05",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d05",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d05",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d05",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d06",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d06",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d06",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d06",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d06",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d07",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d07",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d07",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d07",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d07",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d08",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d08",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d08",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d08",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d08",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d09",
+   "primitive": "C02",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d09",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d09",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d09",
+   "primitive": "C02",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C02-personal-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C02-personal-d09",
+   "primitive": "C02",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d00",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d00",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d00",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d00",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d00",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d01",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d01",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d01",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d01",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d01",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d02",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d02",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d02",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d02",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d02",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d03",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d03",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d03",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d03",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d03",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d04",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d04",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d04",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d04",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d04",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d05",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d05",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d05",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d05",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d05",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d06",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d06",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d06",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d06",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d06",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d07",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d07",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d07",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d07",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d07",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d08",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d08",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d08",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d08",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d08",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d09",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d09",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d09",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d09",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formatting-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formatting-d09",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d00",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d00",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d00",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d00",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d00",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d01",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d01",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d01",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d01",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d01",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d02",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d02",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d02",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d02",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d02",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d03",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d03",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d03",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d03",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d03",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d04",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d04",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d04",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d04",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d04",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d05",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d05",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d05",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d05",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d05",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d06",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d06",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d06",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d06",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d06",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d07",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d07",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d07",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d07",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d07",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d08",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d08",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d08",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d08",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d08",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d09",
+   "primitive": "C03",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d09",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d09",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d09",
+   "primitive": "C03",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C03-formfill-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C03-formfill-d09",
+   "primitive": "C03",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d00",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d00",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d00",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d00",
+   "primitive": "C04",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d00",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d01",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d01",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d01",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d01",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d01",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d02",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d02",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d02",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d02",
+   "primitive": "C04",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d02",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d03",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d03",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d03",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d03",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d03",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d04",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d04",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d04",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d04",
+   "primitive": "C04",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d04",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d05",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d05",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d05",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d05",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d05",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d06",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d06",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d06",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d06",
+   "primitive": "C04",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d06",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d07",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d07",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d07",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d07",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d07",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d08",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d08",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d08",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d08",
+   "primitive": "C04",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d08",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d09",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d09",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d09",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-retail-d09",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-retail-d09",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d00",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d00",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d00",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d00",
+   "primitive": "C04",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d00",
+   "primitive": "C04",
+   "class": "E",
+   "applicable": true,
+   "verdict": "VALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d00",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d01",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d01",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d01",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d01",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d01",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d02",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d02",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d02",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d02",
+   "primitive": "C04",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d02",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d03",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d03",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d03",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d03",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d03",
+   "primitive": "C04",
+   "class": "E",
+   "applicable": true,
+   "verdict": "VALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d03",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d04",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d04",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d04",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d04",
+   "primitive": "C04",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d04",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d05",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d05",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d05",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d05",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d05",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d06",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d06",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d06",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d06",
+   "primitive": "C04",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d06",
+   "primitive": "C04",
+   "class": "E",
+   "applicable": true,
+   "verdict": "VALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d06",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d07",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d07",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d07",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d07",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d07",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d08",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d08",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d08",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d08",
+   "primitive": "C04",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d08",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d09",
+   "primitive": "C04",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d09",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d09",
+   "primitive": "C04",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d09",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C04-docs-d09",
+   "primitive": "C04",
+   "class": "E",
+   "applicable": true,
+   "verdict": "VALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C04-docs-d09",
+   "primitive": "C04",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d00",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d00",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d00",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d00",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-returns-d00",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d01",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d01",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d01",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d01",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-returns-d01",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d02",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d02",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d02",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d02",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-returns-d02",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d03",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d03",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d03",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d03",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-returns-d03",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d04",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d04",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d04",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d04",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-returns-d04",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d05",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d05",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d05",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d05",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-returns-d05",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d06",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d06",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d06",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d06",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-returns-d06",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d07",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d07",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d07",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d07",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-returns-d07",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d08",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d08",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d08",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d08",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-returns-d08",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d09",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d09",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d09",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d09",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-returns-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-returns-d09",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d00",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d00",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d00",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d00",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d00",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d01",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d01",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d01",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d01",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d01",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d02",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d02",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d02",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d02",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d02",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d03",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d03",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d03",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d03",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d03",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d04",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d04",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d04",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d04",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d04",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d05",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d05",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d05",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d05",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d05",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d06",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d06",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d06",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d06",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d06",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d07",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d07",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d07",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d07",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d07",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d08",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d08",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d08",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d08",
+   "primitive": "C05",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d08",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d09",
+   "primitive": "C05",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d09",
+   "primitive": "C05",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d09",
+   "primitive": "C05",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C05-fulfill-d09",
+   "class": "D",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C05-fulfill-d09",
+   "primitive": "C05",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d00",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d00",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d00",
+   "primitive": "C06",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d00",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-plan-d00",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d01",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d01",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d01",
+   "primitive": "C06",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d01",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-plan-d01",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d02",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d02",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d02",
+   "primitive": "C06",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d02",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-plan-d02",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d03",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d03",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d03",
+   "primitive": "C06",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d03",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-plan-d03",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d04",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d04",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d04",
+   "primitive": "C06",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d04",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-plan-d04",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d05",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d05",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d05",
+   "primitive": "C06",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d05",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-plan-d05",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d06",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d06",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d06",
+   "primitive": "C06",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d06",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-plan-d06",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d07",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d07",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d07",
+   "primitive": "C06",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d07",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-plan-d07",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d08",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d08",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d08",
+   "primitive": "C06",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d08",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-plan-d08",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d09",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d09",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d09",
+   "primitive": "C06",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d09",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-plan-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-plan-d09",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d00",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d00",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d00",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d00",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d00",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d01",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d01",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d01",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d01",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d01",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d02",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d02",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d02",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d02",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d02",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d03",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d03",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d03",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d03",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d03",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d04",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d04",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d04",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d04",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d04",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d05",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d05",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d05",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d05",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d05",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d06",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d06",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d06",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d06",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d06",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d07",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d07",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d07",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d07",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d07",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d08",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d08",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d08",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d08",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d08",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d09",
+   "primitive": "C06",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d09",
+   "primitive": "C06",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d09",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d09",
+   "primitive": "C06",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C06-supplier-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C06-supplier-d09",
+   "primitive": "C06",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d00",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d00",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d00",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d00",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d00",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d01",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d01",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d01",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d01",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d01",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d02",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d02",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d02",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d02",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d02",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d03",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d03",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d03",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d03",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d03",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d04",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d04",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d04",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d04",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d04",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d05",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d05",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d05",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d05",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d05",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d06",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d06",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d06",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d06",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d06",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d07",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d07",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d07",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d07",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d07",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d08",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d08",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d08",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d08",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d08",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d09",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d09",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d09",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d09",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-service-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-service-d09",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d00",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d00",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d00",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d00",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d00",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d01",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d01",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d01",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d01",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d01",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d02",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d02",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d02",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d02",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d02",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d03",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d03",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d03",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d03",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d03",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d04",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d04",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d04",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d04",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d04",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d05",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d05",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d05",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d05",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d05",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d06",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d06",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d06",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d06",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d06",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d07",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d07",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d07",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d07",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d07",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d08",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d08",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d08",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d08",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d08",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d09",
+   "primitive": "C07",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d09",
+   "class": "B",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d09",
+   "class": "C",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d09",
+   "primitive": "C07",
+   "class": "D",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C07-itops-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C07-itops-d09",
+   "primitive": "C07",
+   "class": "F",
+   "applicable": true,
+   "verdict": "AMBIGUOUS",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d00",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d00",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d00",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d00",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-biztools-d00",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d01",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d01",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d01",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d01",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-biztools-d01",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d02",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d02",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d02",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d02",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-biztools-d02",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d03",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d03",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d03",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d03",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-biztools-d03",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d04",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d04",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d04",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d04",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-biztools-d04",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d05",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d05",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d05",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d05",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-biztools-d05",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d06",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d06",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d06",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d06",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-biztools-d06",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d07",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d07",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d07",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d07",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-biztools-d07",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d08",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d08",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d08",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d08",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-biztools-d08",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d09",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d09",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d09",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d09",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-biztools-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-biztools-d09",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d00",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d00",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d00",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d00",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d00",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d00",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d01",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d01",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d01",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d01",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d01",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d01",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d02",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d02",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d02",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d02",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d02",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d02",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d03",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d03",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d03",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d03",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d03",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d03",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d04",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d04",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d04",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d04",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d04",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d04",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d05",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d05",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d05",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d05",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d05",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d05",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d06",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d06",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d06",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d06",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d06",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d06",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d07",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d07",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d07",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d07",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d07",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d07",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d08",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d08",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d08",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d08",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d08",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d08",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d09",
+   "primitive": "C08",
+   "class": "A",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d09",
+   "primitive": "C08",
+   "class": "B",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d09",
+   "primitive": "C08",
+   "class": "C",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d09",
+   "primitive": "C08",
+   "class": "D",
+   "applicable": true,
+   "verdict": "INVALID",
+   "detected": true
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d09",
+   "class": "E",
+   "applicable": false
+  },
+  {
+   "case_id": "n03-C08-dataplatform-d09",
+   "primitive": "C08",
+   "class": "F",
+   "applicable": true,
+   "verdict": "NOT_ESTABLISHED",
+   "detected": true
+  }
+ ]
+}

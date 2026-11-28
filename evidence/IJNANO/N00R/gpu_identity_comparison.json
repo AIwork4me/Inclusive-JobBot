@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-NANO-1.0",
+  "phase": "N00R",
+  "generated_utc": "2026-11-27T11:20:07Z",
+  "purpose": "Physical resource identity comparison between the IJ-SLM-1.0 GPU lease (PR #9 @ 364c7cafb21376038e1278c67d0b3da2d068ff3d, live-verified 2026-11-27T10:23:34Z update) and this IJ-NANO workstation. A repository, vendor, model name or mission ID is not a physical identity; every row below is a device-level or host-level identity.",
+  "ij_slm_published_identity": {
+    "sources": [
+      "atlas/slm/v1.0/environment.json @ 364c7ca",
+      "evidence/IJ073/aeve/gpu_handoff.json @ 364c7ca",
+      "evidence/IJSLM/tc-v3/ijslm-tcv3-0040656689af4b04ae738887fd999e2d/manifest.json @ 364c7ca (sealed tc-v3 formal run)"
+    ],
+    "gpu_name": "AMD Radeon(TM) 8060S Graphics",
+    "gpu_architecture": "gfx1151",
+    "gpu_device_report": "Vulkan0",
+    "gpu_driver": "32.0.22018.5",
+    "layers_offloaded": "25/25",
+    "cpu": "AMD RYZEN AI MAX+ PRO 395 w/ Radeon 8060S (Strix Halo integrated platform)",
+    "host_sha256": "8c12b292451116a4a0094a06f98d1288ddb8904cb9037a668686e4abecf0c90e",
+    "gpu_physical_sha256": "3d040bf5c8db2aab70bde885424691185233cb7fbfbc93d8d492375854c93046",
+    "lease_owner": "tc-v3-formal",
+    "lease_mission": "IJ-SLM-1.0",
+    "lease_process_id": 13632,
+    "gpu_execution": "PASS"
+  },
+  "local_workstation_identity": {
+    "collected_live_utc": "2026-11-27T11:14-11:20Z",
+    "gpu_name": "AMD Radeon RX 7900 XTX",
+    "gpu_architecture": "gfx1100",
+    "pci_identity": "VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8",
+    "gpu_driver": "32.0.21030.2001",
+    "vulkan_device_report": "Vulkan0: AMD Radeon RX 7900 XTX (24560 MiB, 23737 MiB free) per IJ-SDK P1 qualification on this host",
+    "cpu": "13th Gen Intel(R) Core(TM) i7-13700K",
+    "motherboard": "B760M AORUS ELITE (Gigabyte)",
+    "host_uuid_sha256_16prefix": "14db2819838e5e7a (IJ-NANO privacy-preserving formula: SHA256 of SMBIOS UUID)",
+    "gpu_canonical_identity_sha256": "3e71f1db7d8031f93cd725ac37142cec8388e0d8dd3c0ab0887fcc4a50f48853 (IJ-NANO formula: SHA256 over 'name|pci|driver|architecture|vulkan_device')",
+    "cross_check": "IJ-SDK P1 environment.json (evidence/IJSDK/P1/) records the same motherboard, CPU, GPU and driver - this workstation is the machine where the gfx1100 engine/backends were qualified"
+  },
+  "comparison": {
+    "distinct_gpu_model": true,
+    "distinct_architecture_gfx1151_vs_gfx1100": true,
+    "distinct_driver_lineage_32.0.22018_vs_32.0.21030": true,
+    "distinct_platform_amd_apu_vs_intel_desktop": true,
+    "distinct_host_identity_hashes": "not directly comparable across formulas; component-wise identity (CPU, motherboard, GPU PCI ID) establishes distinct hosts without relying on hash equality",
+    "conclusion": "IJ-SLM-1.0's lease binds to a different physical GPU on a different host. Its 8060S/gfx1151 execution and any future IJ-NANO execution on this RX 7900 XTX/gfx1100 host cannot contend for the same device."
+  },
+  "verdict": "CROSS_HOST_GPU_LEASE_CONFLICT_RESOLVED",
+  "verdict_scope": "Cross-host conflict only. IJ-SLM's existing lease on its own host is untouched - never released, overridden or modified by IJ-NANO.",
+  "rules_observed": [
+    "No gfx1151 evidence is treated as gfx1100 physical performance evidence.",
+    "Only sealed, identity-bound published IJ-SLM evidence may be consumed as prior research.",
+    "Another mission's protected formal holdout results are never used for optimization."
+  ]
+}

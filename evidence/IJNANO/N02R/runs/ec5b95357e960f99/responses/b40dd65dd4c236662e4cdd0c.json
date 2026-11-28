@@ -1,0 +1,146 @@
+{
+ "trial_id": "b40dd65dd4c236662e4cdd0c",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "**Decision: continue**\n\n- **Goal:** TRK‑65140 已被交付。  \n- **Observation:** Carrier reports “out‑for‑delivery,” meaning the package is already in transit and scheduled for delivery soon.  \n\nSince the carrier has confirmed it is out for delivery, there’s no need to halt or stop tracking; we should continue monitoring until the final delivery is completed.",
+       "reasoning_content": "We need to understand the task. The user gives:\n\n目标 / goal: goal: TRK-65140 delivered. 当前观测 / observation: carrier reports out-for-delivery.\n\nAllowed decisions: stop, continue.\n\nDecide stop or continue.\n\nInterpretation: There's a shipment/order ID \"TRK-65140\" with goal that it is delivered. Current observation: carrier reports out-for-delivery. So the carrier says it's out for delivery, meaning it's on its way to the destination and should be delivered soon. The decision options are stop or continue. Usually, if the carrier says out-for-delivery, we might want to continue (i.e., proceed with delivery) rather than stop? Or maybe \"stop\" means halt further actions? Let's parse.\n\nGoal: TRK-65140 delivered. Observation: carrier reports out-for-delivery. So it is already in transit and being delivered. The decision: Should we stop or continue? If the carrier says out for delivery, that indicates it's on schedule to be delivered soon; maybe we should \"continue\" (i.e., proceed with delivery) rather than stopping prematurely. However, sometimes if a shipment is out for delivery but hasn't been delivered yet, you might want to wait until it arrives? But the decision likely refers to whether to stop tracking or continue monitoring? The allowed decisions: stop, continue.\n\nGiven typical operations: If carrier says \"out for delivery\", we can expect it will be delivered soon. So we should not stop; we should continue (i.e., keep moving forward). Or maybe \"stop\" means stop the process because it's already out for delivery and no further action needed? Let's think about context.\n\nThe user wrote: \"目标 / goal: goal: TRK-65140 delivered. 当前观测 / observation: carrier reports out-for-delivery. Allowed decisions: stop, continue. 决定 stop 还是 continue.\"\n\nThus we need to decide whether to \"stop\" or \"continue\". Usually in such tasks (like monitoring shipments), if the status is \"out for delivery\", you might want to continue tracking until it's delivered. So I'd choose \"continue\".\n\nBut let's reason: The goal is that TRK-65140 be delivered. Observation says carrier reports out-for-delivery, which means it's on its way and should be delivered soon. If we stop now, we might miss the delivery window or cause unnecessary delay? Usually you would continue to monitor until delivery. So \"continue\" seems appropriate.\n\nThus answer: continue.\n\nWe can also provide reasoning: Since carrier indicates out for delivery, the shipment is en route; there's no need to stop tracking; proceed with expected delivery.\n\nHence final: Continue.\n\nI'll output in Chinese as user wrote Chinese. Possibly they want a short decision.\n\nThus:\n\n决定继续（continue）。\n\nLet's produce answer."
+      }
+     }
+    ],
+    "created": 1795798000,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 686,
+     "prompt_tokens": 58,
+     "total_tokens": 744,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-rdP3WNyiBRivkCtq71rim1O5z0zOONwE",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to understand the task. The user gives:\n\n目标 / goal: goal: TRK-65140 delivered. 当前观测 / observation: carrier reports out-for-delivery.\n\nAllowed decisions: stop, continue.\n\nDecide stop or continue.\n\nInterpretation: There's a shipment/order ID \"TRK-65140\" with goal that it is delivered. Current observation: carrier reports out-for-delivery. So the carrier says it's out for delivery, meaning it's on its way to the destination and should be delivered soon. The decision options are stop or continue. Usually, if the carrier says out-for-delivery, we might want to continue (i.e., proceed with delivery) rather than stop? Or maybe \"stop\" means halt further actions? Let's parse.\n\nGoal: TRK-65140 delivered. Observation: carrier reports out-for-delivery. So it is already in transit and being delivered. The decision: Should we stop or continue? If the carrier says out for delivery, that indicates it's on schedule to be delivered soon; maybe we should \"continue\" (i.e., proceed with delivery) rather than stopping prematurely. However, sometimes if a shipment is out for delivery but hasn't been delivered yet, you might want to wait until it arrives? But the decision likely refers to whether to stop tracking or continue monitoring? The allowed decisions: stop, continue.\n\nGiven typical operations: If carrier says \"out for delivery\", we can expect it will be delivered soon. So we should not stop; we should continue (i.e., keep moving forward). Or maybe \"stop\" means stop the process because it's already out for delivery and no further action needed? Let's think about context.\n\nThe user wrote: \"目标 / goal: goal: TRK-65140 delivered. 当前观测 / observation: carrier reports out-for-delivery. Allowed decisions: stop, continue. 决定 stop 还是 continue.\"\n\nThus we need to decide whether to \"stop\" or \"continue\". Usually in such tasks (like monitoring shipments), if the status is \"out for delivery\", you might want to continue tracking until it's delivered. So I'd choose \"continue\".\n\nBut let's reason: The goal is that TRK-65140 be delivered. Observation says carrier reports out-for-delivery, which means it's on its way and should be delivered soon. If we stop now, we might miss the delivery window or cause unnecessary delay? Usually you would continue to monitor until delivery. So \"continue\" seems appropriate.\n\nThus answer: continue.\n\nWe can also provide reasoning: Since carrier indicates out for delivery, the shipment is en route; there's no need to stop tracking; proceed with expected delivery.\n\nHence final: Continue.\n\nI'll output in Chinese as user wrote Chinese. Possibly they want a short decision.\n\nThus:\n\n决定继续（continue）。\n\nLet's produce answer.</think>**Decision: continue**\n\n- **Goal:** TRK‑65140 已被交付。  \n- **Observation:** Carrier reports “out‑for‑delivery,” meaning the package is already in transit and scheduled for delivery soon.  \n\nSince the carrier has confirmed it is out for delivery, there’s no need to halt or stop tracking; we should continue monitoring until the final delivery is completed.",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 686,
+     "tokens_evaluated": 58,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n目标 / goal: goal: TRK-65140 delivered. 当前观测 / observation: carrier reports out-for-delivery.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 743,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 58,
+      "prompt_ms": 34.151,
+      "prompt_per_token_ms": 0.5888103448275863,
+      "prompt_per_second": 1698.3397265087403,
+      "predicted_n": 686,
+      "predicted_ms": 3986.141,
+      "predicted_per_token_ms": 5.819183941605839,
+      "predicted_per_second": 171.84540135434247
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 58,
+     "prompt_ms": 34.151,
+     "prompt_per_token_ms": 0.5888103448275863,
+     "prompt_per_second": 1698.3397265087403,
+     "predicted_n": 686,
+     "predicted_ms": 3986.141,
+     "predicted_per_token_ms": 5.819183941605839,
+     "predicted_per_second": 171.84540135434247
+    }
+   },
+   "http_error": null,
+   "latency_s": 4.031
+  }
+ ]
+}

@@ -1,0 +1,550 @@
+{
+  "run_id": "ij07-admission-b53194b1780a4c7eb3455bf237e68fea",
+  "candidate": "A",
+  "git": {
+    "commit": "617b87104640ff6871c4b9914bf4d6a21244537a",
+    "dirty": false
+  },
+  "started_utc": "2026-11-24T12:32:25+00:00",
+  "model_id": "openbmb/MiniCPM5-2B",
+  "asset": {
+    "expected_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "filename": "MiniCPM5-2B-Q8_0.gguf",
+    "observed_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "repo": "OpenBMB/MiniCPM5-2B-GGUF",
+    "revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+    "status": "PASS"
+  },
+  "gates": {
+    "artifact_identity": "PASS",
+    "load": "PASS",
+    "cpu_reference": "PASS",
+    "gpu_execution": "PASS",
+    "ordinary_chat": "PASS",
+    "native_call": "PASS",
+    "result_roundtrip": "PASS",
+    "dependent_call": "PASS",
+    "stream_parity": "PASS",
+    "schema_and_invalid_choice": "FAIL"
+  },
+  "wire": [
+    {
+      "request": {
+        "model": "ij07-candidate-a",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Reply with exactly this text: RAD-7107"
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 128
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"RAD-7107\",\"reasoning_content\":\"First, I need to make sure that I only respond with the text \\\"RAD-7107\\\".\\nNext, I have to ensure that I don't add any other words or characters.\\n\"}}],\"created\":1795523551,\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":44,\"prompt_tokens\":21,\"total_tokens\":65,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"id\":\"chatcmpl-HlbvdcTmQnYKNauk01ColKN8j98QK6Wy\",\"timings\":{\"cache_n\":0,\"prompt_n\":21,\"prompt_ms\":115.436,\"prompt_per_token_ms\":5.496952380952381,\"prompt_per_second\":181.9189854118299,\"predicted_n\":44,\"predicted_ms\":1658.496,\"predicted_per_token_ms\":38.569674418604656,\"predicted_per_second\":25.927105039746856}}",
+      "wall_ms": 1787
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-a",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Reply with exactly this text: RAD-7107"
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 128
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"RAD-7107\",\"reasoning_content\":\"First, I need to make sure that I only respond with the text \\\"RAD-7107\\\".\\nNext, I have to ensure that I don't add any other words or characters.\\n\"}}],\"created\":1795523556,\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":44,\"prompt_tokens\":21,\"total_tokens\":65,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"id\":\"chatcmpl-iNGNdVy6eIrtI2YC08SuR7ZybzyxyUBf\",\"timings\":{\"cache_n\":0,\"prompt_n\":21,\"prompt_ms\":242.359,\"prompt_per_token_ms\":11.540904761904763,\"prompt_per_second\":86.64831922891248,\"predicted_n\":44,\"predicted_ms\":562.956,\"predicted_per_token_ms\":13.092,\"predicted_per_second\":76.38252367858234}}",
+      "wall_ms": 834
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-a",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_account",
+              "description": "Find the internal account ID for a company name.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "company"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_balance",
+              "description": "Return the balance in CNY for an internal account ID.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "account_id"
+                ],
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"reasoning_content\":\"Okay, let's see. The user wants to find the balance for Orchid Works. They need the account ID and the CNY balance.\\n\\nFirst, I need to get the account ID for Orchid Works. So I should use the lookup_account function with company name \\\"Orchid Works\\\". Then, once I have the account ID, use lookup_balance to get the balance in CNY.\\n\\nWait, the tools provided are lookup_account and lookup_balance. So first call lookup_account with company \\\"Orchid Works\\\". Then take the returned account_id and call lookup_balance with that ID.\\n\\nLet me check the function parameters. lookup_account requires \\\"company\\\" as a string. So first tool call. Then use the result to call the second function.\\n\\nSo I need to make two tool calls. But the user might expect both steps. Let me structure the first tool call.\\n\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"vsa9izEX20qRrz7Sy8kuCy57bYq4u5o3\"}]}}],\"created\":1795523559,\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":209,\"prompt_tokens\":305,\"total_tokens\":514,\"prompt_tokens_details\":{\"cached_tokens\":2}},\"id\":\"chatcmpl-q6B1aJRGTv16kDKnBI9DKL2KIXALi0cu\",\"timings\":{\"cache_n\":2,\"prompt_n\":303,\"prompt_ms\":275.768,\"prompt_per_token_ms\":0.910125412541254,\"prompt_per_second\":1098.7496736387109,\"predicted_n\":209,\"predicted_ms\":2715.927,\"predicted_per_token_ms\":13.057341346153846,\"predicted_per_second\":76.58526904441835}}",
+      "wall_ms": 3009
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-a",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "reasoning_content": "Okay, let's see. The user wants to find the balance for Orchid Works. They need the account ID and the CNY balance.\n\nFirst, I need to get the account ID for Orchid Works. So I should use the lookup_account function with company name \"Orchid Works\". Then, once I have the account ID, use lookup_balance to get the balance in CNY.\n\nWait, the tools provided are lookup_account and lookup_balance. So first call lookup_account with company \"Orchid Works\". Then take the returned account_id and call lookup_balance with that ID.\n\nLet me check the function parameters. lookup_account requires \"company\" as a string. So first tool call. Then use the result to call the second function.\n\nSo I need to make two tool calls. But the user might expect both steps. Let me structure the first tool call.\n",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "lookup_account",
+                  "arguments": "{\"company\":\"Orchid Works\"}"
+                },
+                "id": "vsa9izEX20qRrz7Sy8kuCy57bYq4u5o3"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "vsa9izEX20qRrz7Sy8kuCy57bYq4u5o3",
+            "content": "{\"account_id\": \"AC-18405\"}"
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_account",
+              "description": "Find the internal account ID for a company name.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "company"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_balance",
+              "description": "Return the balance in CNY for an internal account ID.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "account_id"
+                ],
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"reasoning_content\":\"Okay, the first tool call gave the account ID \\\"AC-18405\\\". Now I need to use lookup_balance with that account ID to get the CNY balance.\\n\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_balance\",\"arguments\":\"{\\\"account_id\\\":\\\"AC-18405\\\"}\"},\"id\":\"eWVM3FMWWwllGfERudIKe8EWH2951nFO\"}]}}],\"created\":1795523560,\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":58,\"prompt_tokens\":538,\"total_tokens\":596,\"prompt_tokens_details\":{\"cached_tokens\":513}},\"id\":\"chatcmpl-ZPIlu4la4iUkZSZ73yGflUn9l9qlDdUq\",\"timings\":{\"cache_n\":513,\"prompt_n\":25,\"prompt_ms\":39.396,\"prompt_per_token_ms\":1.5758400000000001,\"prompt_per_second\":634.5821910853894,\"predicted_n\":58,\"predicted_ms\":750.385,\"predicted_per_token_ms\":13.164649122807017,\"predicted_per_second\":75.96100668323594}}",
+      "wall_ms": 806
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-a",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "reasoning_content": "Okay, let's see. The user wants to find the balance for Orchid Works. They need the account ID and the CNY balance.\n\nFirst, I need to get the account ID for Orchid Works. So I should use the lookup_account function with company name \"Orchid Works\". Then, once I have the account ID, use lookup_balance to get the balance in CNY.\n\nWait, the tools provided are lookup_account and lookup_balance. So first call lookup_account with company \"Orchid Works\". Then take the returned account_id and call lookup_balance with that ID.\n\nLet me check the function parameters. lookup_account requires \"company\" as a string. So first tool call. Then use the result to call the second function.\n\nSo I need to make two tool calls. But the user might expect both steps. Let me structure the first tool call.\n",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "lookup_account",
+                  "arguments": "{\"company\":\"Orchid Works\"}"
+                },
+                "id": "vsa9izEX20qRrz7Sy8kuCy57bYq4u5o3"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "vsa9izEX20qRrz7Sy8kuCy57bYq4u5o3",
+            "content": "{\"account_id\": \"AC-18405\"}"
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "reasoning_content": "Okay, the first tool call gave the account ID \"AC-18405\". Now I need to use lookup_balance with that account ID to get the CNY balance.\n",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "lookup_balance",
+                  "arguments": "{\"account_id\":\"AC-18405\"}"
+                },
+                "id": "eWVM3FMWWwllGfERudIKe8EWH2951nFO"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "eWVM3FMWWwllGfERudIKe8EWH2951nFO",
+            "content": "{\"currency\": \"CNY\", \"balance\": 1742}"
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_account",
+              "description": "Find the internal account ID for a company name.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "company"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_balance",
+              "description": "Return the balance in CNY for an internal account ID.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "account_id"
+                ],
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"The account ID for Orchid Works is AC-18405, and the current CNY balance is 1742.\",\"reasoning_content\":\"Okay, so the first step was to find the account ID for Orchid Works, which gave AC-18405. Then looked up the balance for that account, which is 1742 CNY. Now I need to present both the account ID and the balance to the user.\\n\"}}],\"created\":1795523561,\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":84,\"prompt_tokens\":624,\"total_tokens\":708,\"prompt_tokens_details\":{\"cached_tokens\":595}},\"id\":\"chatcmpl-GhrcZvWFtjhFqY43SCOxj4O1MAlm76Fy\",\"timings\":{\"cache_n\":595,\"prompt_n\":29,\"prompt_ms\":39.939,\"prompt_per_token_ms\":1.3772068965517241,\"prompt_per_second\":726.1073136533214,\"predicted_n\":84,\"predicted_ms\":1097.223,\"predicted_per_token_ms\":13.21955421686747,\"predicted_per_second\":75.64551599811524}}",
+      "wall_ms": 1159
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-a",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_account",
+              "description": "Find the internal account ID for a company name.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "company"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_balance",
+              "description": "Return the balance in CNY for an internal account ID.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "account_id"
+                ],
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto",
+        "parallel_tool_calls": false,
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        }
+      },
+      "status": 200,
+      "response_type": "text/event-stream",
+      "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"Okay\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\",\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" let\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"'s\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" see\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" The\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" user\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" wants\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" to\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" find\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" balance\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" for\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" Orch\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"id\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" Works\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" They\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" need\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" account\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" ID\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" and\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" C\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"NY\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" balance\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\\n\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"\\n\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"First\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\",\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" I\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" need\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" to\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" get\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" account\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" ID\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" for\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" Orch\"}}],\"created\":1795523561,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"id\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" Works\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" So\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" I\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" should\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" use\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" lookup\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"_acc\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"ount\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" function\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" with\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" company\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" name\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" \\\"\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"Or\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"ch\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"id\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" Works\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"\\\".\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" Then\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\",\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" once\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" I\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" have\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" account\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" ID\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\",\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" use\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" lookup\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"_b\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"alance\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" to\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" get\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" balance\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" in\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" C\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"NY\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\\n\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"\\n\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"Wait\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\",\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" tools\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" provided\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" are\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" lookup\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"_acc\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"ount\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" and\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" lookup\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"_b\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"alance\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" So\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" first\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" call\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" lookup\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"_acc\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"ount\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" with\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" company\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" \\\"\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"Or\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"ch\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"id\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" Works\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"\\\".\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" Then\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" take\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523562,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" returned\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" account\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"_id\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" and\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" call\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" lookup\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"_b\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"alance\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" with\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" that\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" ID\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\\n\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"\\n\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"Let\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" me\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" check\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" function\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" parameters\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" lookup\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"_acc\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"ount\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" requires\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" \\\"\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"company\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"\\\"\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" as\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" a\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" string\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" So\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" first\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" tool\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" call\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" Then\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" use\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" result\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" to\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" call\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" second\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" function\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\\n\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"\\n\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\"So\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" I\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" need\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" to\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" make\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" two\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" tool\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" calls\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" But\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" user\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" might\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" expect\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" both\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" steps\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" Let\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" me\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" structure\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" the\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" first\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" tool\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\" call\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"reasoning_content\":\".\\n\"}}],\"created\":1795523563,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"Z9Zhb0m8jntP0JlnNpsaRWSoz32KmMLT\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795523564,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795523564,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795523564,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795523564,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795523564,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795523564,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795523564,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795523564,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795523564,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[],\"created\":1795523564,\"id\":\"chatcmpl-UgEaO7AOzuk5ApuCEjKLwlw3TY2txG6j\",\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion.chunk\",\"usage\":{\"completion_tokens\":209,\"prompt_tokens\":305,\"total_tokens\":514,\"prompt_tokens_details\":{\"cached_tokens\":304}},\"timings\":{\"cache_n\":304,\"prompt_n\":1,\"prompt_ms\":15.968,\"prompt_per_token_ms\":15.968,\"prompt_per_second\":62.62525050100201,\"predicted_n\":209,\"predicted_ms\":2816.332,\"predicted_per_token_ms\":13.540057692307691,\"predicted_per_second\":73.85492903535521}}\n\ndata: [DONE]\n\n",
+      "wall_ms": 2866
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-a",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return a status object with status ready."
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "readiness",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "const": "ready"
+                }
+              },
+              "required": [
+                "status"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"length\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"reasoning_content\":\"We need to respond with a status object with status ready. The user says: \\\"Return a status object with status ready.\\\" This is a simple instruction. The user wants a status object with status ready. Likely they want a JSON object like {\\\"status\\\": \\\"ready\\\"} or something similar. The user didn't specify any language, but the system says \\\"Return a status object with status ready.\\\" So we need to output a status object. The user might be expecting a JSON object. The system says \\\"You are ChatGPT, a large language model trained by OpenAI.\\\" The user says \\\"Return a status object with status ready.\\\" So we need to output something like {\\\"status\\\": \\\"ready\\\"} or maybe a more detailed object. The user didn't specify any other constraints. So we can just output a JSON object with status ready. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user didn't specify any additional fields. So we can output {\\\"status\\\": \\\"ready\\\"}. Or maybe they want a status object like {\\\"status\\\": \\\"ready\\\", \\\"message\\\": \\\"...\\\"}. But the instruction is simple: \\\"Return a status object with status ready.\\\" So we can output a JSON object with status ready. The user might be expecting a simple answer. So we can output something like:\\n\\n```json\\n{\\n  \\\"status\\\": \\\"ready\\\"\\n}\\n```\\n\\nThat's a valid JSON object. The user didn't specify any other constraints. So we can just output that. The user might be expecting a plain text answer. But the instruction says \\\"Return a status object\\\". So we should output a JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be expecting a plain text answer. But the instruction says \\\"Return a status object\\\". So we should output a JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the JSON object. The user might be testing the model's ability to follow instructions. So we should output a JSON object. The user might be expecting a simple answer. So we can just output the\"}}],\"created\":1795523578,\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":1024,\"prompt_tokens\":19,\"total_tokens\":1043,\"prompt_tokens_details\":{\"cached_tokens\":2}},\"id\":\"chatcmpl-dJDcUwZu19LOJQjj52XfYfRchzhexPa8\",\"timings\":{\"cache_n\":2,\"prompt_n\":17,\"prompt_ms\":31.768,\"prompt_per_token_ms\":1.8687058823529412,\"prompt_per_second\":535.1296902543439,\"predicted_n\":1024,\"predicted_ms\":14142.229,\"predicted_per_token_ms\":13.824270772238513,\"predicted_per_second\":72.33654609892118}}",
+      "wall_ms": 14201
+    },
+    {
+      "request": {
+        "model": "ij07-candidate-a",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Find the balance for Orchid Works. Report the account ID and the CNY balance."
+          }
+        ],
+        "temperature": 0,
+        "seed": 7107,
+        "max_tokens": 1024,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_account",
+              "description": "Find the internal account ID for a company name.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "company"
+                ],
+                "properties": {
+                  "company": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_balance",
+              "description": "Return the balance in CNY for an internal account ID.",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "account_id"
+                ],
+                "properties": {
+                  "account_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": {
+          "type": "function",
+          "function": {
+            "name": "undefined_lookup"
+          }
+        }
+      },
+      "status": 200,
+      "response_type": "application/json",
+      "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"reasoning_content\":\"Okay, let's see. The user wants to find the balance for Orchid Works. They need the account ID and the CNY balance.\\n\\nFirst, I need to get the account ID for Orchid Works. So I should use the lookup_account function with company name \\\"Orchid Works\\\". Then, once I have the account ID, use lookup_balance to get the balance in CNY.\\n\\nWait, the tools provided are lookup_account and lookup_balance. So first call lookup_account with company \\\"Orchid Works\\\". Then take the returned account_id and call lookup_balance with that ID.\\n\\nLet me check the function parameters. lookup_account requires \\\"company\\\" as a string. So first tool call. Then use the result to call the second function.\\n\\nSo I need to make two tool calls. But the user might expect both steps. Let me structure the first tool call.\\n\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"BX4cgjqbJpJe8xC3OTcOLr8rCuULb6sN\"}]}}],\"created\":1795523581,\"model\":\"ij07-candidate-a\",\"system_fingerprint\":\"b12359-b1b770d90\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":209,\"prompt_tokens\":305,\"total_tokens\":514,\"prompt_tokens_details\":{\"cached_tokens\":304}},\"id\":\"chatcmpl-aJhKWE6fYDjQmVqqzW9xiWafXCx5ZhT5\",\"timings\":{\"cache_n\":304,\"prompt_n\":1,\"prompt_ms\":15.384,\"prompt_per_token_ms\":15.384,\"prompt_per_second\":65.00260010400416,\"predicted_n\":209,\"predicted_ms\":2857.156,\"predicted_per_token_ms\":13.736326923076923,\"predicted_per_second\":72.79966512154044}}",
+      "wall_ms": 2922
+    }
+  ],
+  "cpu": {
+    "engine_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+    "build": "b12359-b1b770d90"
+  },
+  "gpu_engine": {
+    "exe_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+    "dll_sha256": {
+      "ggml-base.dll": "20e4986ec6fd88eb61630433ff172e08885f8fecfbd0c1960a5d55c8854019e3",
+      "ggml-cpu-alderlake.dll": "f4bd2a5bd4c99669a5efcbc0edf5326c6f51cf556c3301ae5c8fc2994b913440",
+      "ggml-cpu-cannonlake.dll": "b6a69981682c6e9dfb5fefcfc3677b9e17c112c3c33fc9d59405daa618e63304",
+      "ggml-cpu-cascadelake.dll": "488337fb896ac54ec8a74a5e8163b48d8ec4c8e082da4bbb62ebe52139d3b3d8",
+      "ggml-cpu-cooperlake.dll": "7d30660f15d288d6da7c1d99ae8418c46f61d1d5036e0082aad6fbf4e461d2bb",
+      "ggml-cpu-haswell.dll": "26dbcf80225fe3c56aa750501247cebdc99b791f323c33d0d8fcd2ed7c4bafcb",
+      "ggml-cpu-icelake.dll": "0a35f7a655bb74ce2d64cbb64e6817b17f62964b060c6a503d3267b2133199bc",
+      "ggml-cpu-ivybridge.dll": "2e83b2aa5ad108445a599fcdd46fafcb227a3d2d66743994434b0bcaacb5a714",
+      "ggml-cpu-piledriver.dll": "851474816a574847b264e018de02410f5905359934c2fa2411f7ff3d7706620c",
+      "ggml-cpu-sandybridge.dll": "86b1c9114249492b8d39a1a3d9f9717c8969334a4bd12c279b91248a553cb254",
+      "ggml-cpu-sapphirerapids.dll": "b049b5672c3c246bb320ec011c735981628a9369687cfd64a4628c5bad238b3b",
+      "ggml-cpu-skylakex.dll": "183413744426f596c67fb206daf2cab17d666e22076e4a6b9a25d301de871d85",
+      "ggml-cpu-sse42.dll": "5b2f04b3ab1e76b09d887c496eb61b09a0ee4fc77b28c0602e45411906946ccd",
+      "ggml-cpu-x64.dll": "375434294cb7d22de0bf5da68fe67569fb5f8ca2c11e925850c8be3f52d052fe",
+      "ggml-cpu-zen4.dll": "dae5d12772f0213b6d70a3c4db032146b504dea32b1b35bbcc9dff769edf57f7",
+      "ggml-rpc.dll": "2e23f2c0782f5e61428dcc98b905d80fd28c3b9b70304b75c53490c13e1b76d4",
+      "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+      "ggml.dll": "92b081cfb031e2efe5cd2a8c71c872e8a92cb1d4a43619ad6614dc30ad357b80",
+      "libomp.dll": "a12116ba72d1d6820407cf30be23da04ce79d6bb8a71a5ee71759c5a1faa6f1c",
+      "llama-batched-bench-impl.dll": "85d22b25ca93b0cb313d69a05b945bf7775940d1074adff45bd0103cc4e070d7",
+      "llama-bench-impl.dll": "a95e01d0445dfeea1ecc64633adeba15189b02a6a1b6f04e003a654d4b7c6a31",
+      "llama-cli-impl.dll": "67ede23b0e9abd29bbfdd5440df5085c55727344f77d1b8959bcec26fa67f813",
+      "llama-common.dll": "a0e0b993dede7c95eb1ca79cdcc2a003f2f79ff59fc129cb46ec5daac80fd057",
+      "llama-completion-impl.dll": "f81f830e1e862a955cccbcc64bb24239794251a548b8d0a6147d33db16f25463",
+      "llama-fit-params-impl.dll": "b2f8f12f59f7176adc0269a94dde0bc42209ad8d8ea853917695a304dfbf99f1",
+      "llama-perplexity-impl.dll": "14862a589913098cb341c7588783cba38053f774f2ec9933374f5609a542dd07",
+      "llama-quantize-impl.dll": "4007bb641487b7baa431ba120eefb6240d0c7c1930c3908aa4587c8f4fdb6fa3",
+      "llama-server-impl.dll": "c81c23738405831cacda737e64ce8f08870d4f44beb63e3aa9515b3ad2e4286e",
+      "llama.dll": "17b0063b06c4561f46929a809a60bf60c857783bb22f593528145cc1e1108d7d",
+      "mtmd.dll": "558d7c41475cc6f54d6da41eea23876cd35cfd2e9d8f2b3e637b8c49c9928ed5"
+    }
+  },
+  "gpu": {
+    "pid": 15692,
+    "owns_port": true,
+    "launched_utc": "2026-11-24T12:32:35+00:00",
+    "backend": "vulkan",
+    "gpu": {
+      "name": "AMD Radeon(TM) 8060S Graphics",
+      "device": "Vulkan0",
+      "architecture": "gfx1151"
+    },
+    "layers_offloaded": 43,
+    "layers_total": 43,
+    "build": "b12359-b1b770d90",
+    "args": [
+      "--ctx-size",
+      "8192",
+      "--parallel",
+      "1",
+      "--n-gpu-layers",
+      "99",
+      "--device",
+      "Vulkan0",
+      "--jinja",
+      "--offline",
+      "--no-webui",
+      "--verbosity",
+      "4"
+    ],
+    "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+    "counter_file": "vulkan-gpu.jsonl",
+    "trace_file": null
+  },
+  "executed_read_only_tools": [
+    "lookup_account",
+    "lookup_balance"
+  ],
+  "finished_utc": "2026-11-24T12:33:01+00:00",
+  "status": "FAIL"
+}

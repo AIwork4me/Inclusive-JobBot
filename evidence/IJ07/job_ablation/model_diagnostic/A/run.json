@@ -1,0 +1,162 @@
+{
+  "run_id": "ij07-job-a-59034d6d96c04b17b8de6f08f4e32f54",
+  "configuration": {
+    "engine": {
+      "exe_sha256": "f6281cbfcb9eaf154b6fe0a9667906957f2bf78d08e4c1a05b5dc32214a0f4d7",
+      "dll_sha256": {
+        "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+        "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+        "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+        "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+        "llama-common.dll": "e7573a81ba8fc85bfe77797e643e05e7f6895d94c29e8301861460337ebbb30a",
+        "llama-server-impl.dll": "e77e0e0ceb934727597cc66e9ac282520cd93bf0782dda7376d738c21f4eef96",
+        "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+        "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e"
+      },
+      "additional_rocm_wheel_sha256": {},
+      "archive_sha256": "a7b94f0c17a5cb900895a83c21037d3e8d9507ef84ce0e6488b76b3830c0db20"
+    },
+    "expected_template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+    "modelscope_model_id": "OpenBMB/MiniCPM5-2B-GGUF",
+    "modelscope_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+    "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "parser": {
+      "candidate": "P4b + generation observer",
+      "patch_sha256": {
+        "benchmarks/tool_calling_v2/parser/minicpm5-terminal-integrity.patch": "3cb17791d4305adfc51401af5289090bab1c6db4d4a0f05fff86eb0635a597b7",
+        "benchmarks/tool_calling_v2/parser/minicpm5-native-json-lexical.patch": "6d4f209bb5c4a3209d0616b8cb5e728fe4014a6f594979cdc9b622c95d951bc6",
+        "patches/ij07/llama-b12359-generation-observer.patch": "b09a4b23da7c26418547db258940091d2458be1fe03a97328f90c91684db8805"
+      }
+    },
+    "arm": "A",
+    "treatment": "general_agent",
+    "model_alias": "minicpm5-2b",
+    "backend": "vulkan",
+    "scope": "diagnostic",
+    "panel": "primary",
+    "port": 18719,
+    "freeze_sha256": "7a04ed91976c8145704dec69b0ae9b76410c635866e6407b841c198dea9aacf8",
+    "roster": {
+      "JOB-CUS-001": {
+        "case_id": "JOB-CUS-001",
+        "trial_seed": null
+      },
+      "JOB-DOC-001": {
+        "case_id": "JOB-DOC-001",
+        "trial_seed": null
+      },
+      "JOB-PRD-001": {
+        "case_id": "JOB-PRD-001",
+        "trial_seed": null
+      }
+    },
+    "first_seed": 23001,
+    "limits": {
+      "model_requests": 12,
+      "output_tokens": 8192,
+      "tool_proposals": 32,
+      "user_followups": 2,
+      "machine_ms": 300000
+    },
+    "git": {
+      "commit": "e39f7cb2cbff12165f4e06a21f43c1c96bee3125",
+      "dirty": true
+    },
+    "sdk_installed": "0.1.24",
+    "sdk_used": false,
+    "runtime_environment_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "source_sha256": {
+      "benchmarks/job_productivity_v1/holdout/arm_f.py": "7d9574dd67aa04f4c4035329d4c134b56b22a512f9c98c8dea5bccae24d61b5e",
+      "benchmarks/job_productivity_v1/holdout/dataset.py": "0d95498ae782ce6d61b5b5f65a7f9672b4f2e03699f4ee64a3dc35389f91ad05",
+      "benchmarks/job_productivity_v1/holdout/generate.py": "9e08f6f58c119faf1bf8442a05e928822cc84d57c27eefc1e4b5a9e5809cb606",
+      "benchmarks/job_productivity_v1/holdout/model_arms.py": "2a68122728a5c0c7a667c7b6935da13a7b1ea010385b1dc0a5bbaf3e95c55fb1",
+      "benchmarks/job_productivity_v1/holdout/oracle.py": "1dad5ff879cc25bc0c780cd80020d62d101bfc2d3cf8fc86d9a84188f533b53b",
+      "benchmarks/job_productivity_v1/holdout/run_f.py": "2bd34efad20785f188ebc00e310c358bb3e1aed7380d20db80e5410aa4b412d7",
+      "benchmarks/job_productivity_v1/holdout/run_models.py": "703885addab4d59fad2181cc75a92d3e5d0fd297cca3b47ac31de685aabda7b5",
+      "benchmarks/job_productivity_v1/holdout/verify.py": "13c51671024e0147469efd01f9224bc4391497f14ec6e5b553ee802aa9673c02",
+      "benchmarks/root_cause/generation_capture.py": "f6a14efe3869603cf39414fb1659f55fa3d6aa059900c5c7d08cbb0f63f5b63a",
+      "benchmarks/root_cause/historical_replay.py": "454a9bf96523d2128f4c844ae8c4647f259e9b91ac619411c04b3c7677b03fe6",
+      "benchmarks/tool_calling/runner/run_benchmark.py": "44c3a76ca9372800910205f323693378dbaa8649b434845dcbd20ee6cf43b446",
+      "benchmarks/tool_calling_v2/holdout/qualify.py": "44e156376415fbfc3525190697d742d6b730049ddd5a39139fc1e461ee09ec04",
+      "benchmarks/tool_calling_v2/oracle.py": "1968241f5b08d6151fc77ab28ff4982cca2b2e079eb4b7cb4bd9b503244cca3b",
+      "scripts/windows/sample_gpu_counters.ps1": "f5611fb0c9f6a5e720d5d13ba77100a8854f128e22e4aa4825a8dfc6367001fe",
+      "skills/customer-service/job_manifest.yaml": "9f6831246771261156e2a9a09854261e5bce7b48bad8c69c36ee9e58c2b8e82a",
+      "skills/customer-service/SKILL.md": "5a907e35c018b9be795611d4c20f942ff6279cc375b66daad37ba862d997afc1",
+      "skills/customer-service/sop.yaml": "1e81a2c95934674aea80dc60c0e93cc1f12070955bfc70978dacf07d601a73b7",
+      "skills/document-review/job_manifest.yaml": "c039fbc821f808fe0e61ece3e3bca19bbb3c0104e71b1da6494efc79d65c70a1",
+      "skills/document-review/SKILL.md": "37bdfdbf16dbd76b63442dd6663c4362a1b3893d5f069989cbd592e0f5aa15b5",
+      "skills/document-review/sop.yaml": "82b8e677901a34fbdea3e87b4a61150f0317f3bb8be5882f38d38ab1d8f7e46e",
+      "skills/product-information/job_manifest.yaml": "72c18d378db02d1841873658f23684d55ea2b8b261e03eb3a8bee4f8a70c7f13",
+      "skills/product-information/SKILL.md": "f956495624b177b8422f0414f901168ddb91eb987ffce534f3c6ee7bdbc79f9e",
+      "skills/product-information/sop.yaml": "b4d7de4d1c1195904a7d0e894e6583603d4bcf7c9ce36aeca64169b335663406",
+      "src/audit/__init__.py": "a3bb320690c68bfdd36270dbbebc4828c546949c97044b50b7f162bdb372bd9f",
+      "src/business_tools/__init__.py": "039d5e0776678ab63ff4ab18ec671ad2833b236647fd4c34321339cd2fcbb2ee",
+      "src/business_tools/handlers.py": "8e88c32ac948844d7f540b1aabba4babd874706be5fb2f8c1dce16db9e3937c1",
+      "src/business_tools/store.py": "2df5b706d9ce63a476c46afd2c0819c3d53e0dedf31a19eba413207b99d7774c",
+      "src/model_gateway/__init__.py": "dfa984fc3da9c32754f0085f6dfb0543c0dc7c98285da6bf1c228c1050fead71",
+      "src/model_gateway/authorization.py": "8badc2ae17ad0221ca6d819c8427e6d1fc1ec3126ea287ea16c32471e9146710",
+      "src/model_gateway/base.py": "bdc018cb711a4a6be4cf1b765f0024345d2a046bfc6a799240c78c6ef9ab2c5f",
+      "src/model_gateway/capabilities.py": "82c8e76308f6f44831beaecdaa666e858d141e2c925317462d89c7962247db53",
+      "src/model_gateway/errors.py": "45bdfa84ad94d513c41f1913cc281cdc945cf75753bda9358b4c12aa925adc28",
+      "src/model_gateway/execution_policy.py": "3e3fdfed86797bc02959ec7e4b0dd0b566ef2841ebf5a60cf622199bb8b3093f",
+      "src/model_gateway/llama_cpp_backend.py": "c69871efdd629d88834e710879f2f445766e12658724f028c7068f6df4ad9bc0",
+      "src/model_gateway/metrics.py": "e413bd1c3bcb89db2be90d2fb707fb5662d1f4c2980adc3c10e167ab7b9ee6d2",
+      "src/model_gateway/openai_protocol.py": "a42e035c0cdf1ec743e7313696cffe5e4b7feb8558cdd152b2bcd0f4acab012a",
+      "src/model_gateway/streaming.py": "f2b2c5d2cbdea4adad4c2d83199e28915d6ef7c6fcc2c207f7865981563b5a58",
+      "src/model_gateway/strict_json.py": "1e819ea444a012442b69c99cab65ee91a1b5129c54fd1d96da908c60a1961190",
+      "src/model_gateway/tool_validation.py": "593dc1d75b8bce4e98ff293c32fc22581206f114f9b3ee8ba7ad9332bb032c33",
+      "src/skill_engine/__init__.py": "50f509f3807f8f501d381425f0588a741022dc1e54bd77d39306b2aa3190828a",
+      "src/skill_engine/document_review.py": "87316e1eed3a2965aa7b807189877523436667a926740927c131be6adaa58f7e",
+      "src/skill_engine/representative.py": "7b235e29a2e8743c0287f281c017dfcbaf232d90b75225d4ecd04612b2f33540",
+      "src/sop_engine/__init__.py": "d95aaefe0cda962a11539a025a5608df32ddb7caeb7514609444cda0df59698d"
+    }
+  },
+  "fingerprint": "5e18927fb83f1b64465fdb8ed85c12311d239433a8297699b7b3e564333bffb5",
+  "sessions": {
+    "bbdc2cda4aa7449c901da2dbd6338790": {
+      "pid": 28236,
+      "owns_port": true,
+      "launched_utc": "2026-11-24T16:56:31+00:00",
+      "backend": "vulkan",
+      "gpu": {
+        "name": "AMD Radeon(TM) 8060S Graphics",
+        "device": "Vulkan0",
+        "architecture": "gfx1151"
+      },
+      "layers_offloaded": 43,
+      "layers_total": 43,
+      "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+      "args": [
+        "--ctx-size",
+        "8192",
+        "--parallel",
+        "1",
+        "--n-gpu-layers",
+        "99",
+        "--device",
+        "Vulkan0",
+        "--jinja",
+        "--offline",
+        "--no-webui",
+        "--verbosity",
+        "4"
+      ],
+      "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+      "counter_file": "bbdc2cda4aa7449c901da2dbd6338790-gpu.jsonl",
+      "trace_file": "bbdc2cda4aa7449c901da2dbd6338790-generation.jsonl",
+      "server_file": "bbdc2cda4aa7449c901da2dbd6338790-server.log",
+      "proof": {
+        "status": "PASS",
+        "positive_engine_samples": 48,
+        "process_memory_observed": true,
+        "source_capture": "PASS",
+        "sha256": {
+          "counter": "04b308f8a2207c4c1f9be91a6a80fa238c3c8581ff301e1ef0a670cce1c05b18",
+          "server": "b54e26e4c7f44ec9979a74ec7d74abfd75ff911c3e8a1e3faca4b88d7b8d8847",
+          "source": "1dac94f0586ff2e44dd731c9d775e6004495baf4ed43ea89cbda8ce8ef2a2a7e"
+        }
+      }
+    }
+  },
+  "started_utc": "2026-11-24T16:56:27+00:00"
+}

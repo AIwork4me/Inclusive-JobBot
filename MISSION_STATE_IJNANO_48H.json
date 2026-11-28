@@ -1,0 +1,392 @@
+{
+ "schema_version": 1,
+ "mission": "IJ-NANO-48H",
+ "mission_title": "Full Cognitive Benchmark & Harness Adapter Co-design Evaluation",
+ "mission_order": "docs/IJNANO_48H_MISSION_ORDER.md",
+ "order_sha256": "e9e52fc7f2ac380c5f139d9aa6e19a9786974d399c9a5870cbe126fe98542130",
+ "tracking_issue": 10,
+ "draft_pr": 11,
+ "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
+ "parent_mission_state": "MISSION_STATE_IJNANO_N03_PROGRESSIVE.json",
+ "updated_utc": "2026-11-28T20:25:14Z",
+ "clock": {
+  "budget_hours": 48,
+  "started_utc": "2026-11-28T04:34:00Z",
+  "deadline_utc": "2026-11-30T04:34:00Z",
+  "h44_utc": "2026-11-30T00:34:00Z",
+  "rules": [
+   "wall-clock budget starts at campaign initialization and is NEVER restarted after interruption or process restart",
+   "final four hours reserved for bounded finish, evidence sealing, independent replay, statistics, report generation and publication",
+   "at approximately H+44 stop starting new long-duration episodes",
+   "at H+48 produce the final available evidence-backed report; never declare completion from time-budget expiration alone"
+  ]
+ },
+ "reconciliation": {
+  "verified_utc": "2026-11-28T04:20:00Z",
+  "ij_nano_local_head": "58aa7908e5d1868af1385a4d0cea549e6b1d58a4",
+  "ij_nano_remote_head": "58aa7908e5d1868af1385a4d0cea549e6b1d58a4",
+  "ijeval_local_head": "3cdd066d685d5d9a824af60f2189d7ded612d735",
+  "ijeval_remote_head": "a50c3c5ceb8d1ca4979d00a8e8faa310ea24842e",
+  "ijslm_remote_head": "79a805e1c450fc358d92b83a79c37dadd5cc5762",
+  "eae_compat_contract": "v1.1.1",
+  "eae_releases_consumed": {
+   "AUTH-1": {
+    "experiment_id": "N03-AUTH1-DIAGNOSTIC-PANEL-v1",
+    "authorization_checksum": "4a09f5253a3aaa164720be30643aecf7a39aa7dbbd7a635066a7adc886135da6",
+    "roster_digest": "0a62c334e83b7c561e1959246251af77a8dc784dc513f8eaef4832f385c3b0bf",
+    "max_trials": 48,
+    "released_utc": "2026-11-28T03:45:21Z"
+   },
+   "AUTH-2": {
+    "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-A-v1",
+    "authorization_checksum": "a22bcc68b8e199741227ce4360035292abd24103ecd1df7f0182413f1ee57ebc",
+    "roster_digest": "ee1769b301ba94908b8312aa83ffaf8832b326f5ae8a8831749625ddfd04f5e3",
+    "max_trials": 480,
+    "released_utc": "2026-11-28T04:03:46Z"
+   },
+   "certificate_ref": "512efb617a9cb4c8",
+   "scope": "models [MiniCPM5-2B, LFM3-1.7B, Qwen3.5-2B] x primitives C01-C08 x protocol chat; development split only",
+   "confirmation": "AUTH-3 BLOCKED by design (not registered)",
+   "AUTH-2B": {
+    "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-B-v1",
+    "authorization_checksum": "fc4cdb2c0d36f189dd9f0249edbba2310a5b957f3ecd40b99af8a1c8d2a9133d",
+    "roster_digest": "e9a5a352996e594b79fb4820b6f647712d6a31574635e3c5a4d95fba34164ec3",
+    "dataset_digest": "eb5a34ee8cbfb47a9ff295494abdd47900cf48a6dd5327ef99864437a1be8c3f",
+    "certificate": "bd41edfb6fd7c004 (Batch B, scope=semantic)",
+    "max_trials": 480,
+    "released_utc": "2026-11-28 (bffce5a)"
+   },
+   "AUTH-2C": {
+    "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-C-v1",
+    "authorization_checksum": "c90f234af01db24a2c73796db505e25c7ae68c1afd66f0fd4a21954088b9d29f",
+    "roster_digest": "961810d20e784ac5ba23db1a6b63016c8051b56a7f5b94d49a03ccc4b85ca4ba",
+    "certificate": "fb019eacee3f35d4 (Batch C; release cites bd41edfb+fb019eac)",
+    "max_trials": 480,
+    "released_utc": "2026-11-28 (2094238)"
+   },
+   "AUTH-2D": {
+    "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-D-v1",
+    "authorization_checksum": "b71ab0d0ee3d307b8fdb0c71d6bdd55d45e82a946170040a0d957675c3f9926d",
+    "pin": "9b0ba89",
+    "max_trials": 480
+   },
+   "AUTH-2A-RQ": {
+    "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-A-v2-RQ",
+    "authorization_checksum": "cf627b26a5f47706639d5df77c20cd7913d7081f59ff05338d2e03e2f6e4d2c7",
+    "pin": "18afcae",
+    "max_trials": 480,
+    "note": "requalification-only recovery; 48H-B-006 CLOSED"
+   },
+   "AUTH-2W": {
+    "experiment_id": "N03-AUTH2-ADAPTER-ATLAS-v1",
+    "authorization_checksum": "a6b17c34cbe8eb9fef57811b0b648e609c77eadd7090b3b4a13df798d5b14725",
+    "pin": "18afcae",
+    "max_trials": 1920,
+    "note": "gated on the campaign's physical adapter admission battery"
+   }
+  },
+  "dataset_reconciliation": {
+   "pinned_batch_a_public_sha256": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+   "local_full_roster": "960 cases (640 dev + 320 confirmation)",
+   "content_equivalence": "240/240 Batch A records content-identical between local roster and EAE pinned dataset (verified by case_id set equality + canonical JSON comparison 2026-11-28); authorization binds the PINNED file bytes"
+  },
+  "physical_identity": {
+   "gpu": "AMD Radeon RX 7900 XTX (gfx1100), driver 32.0.21030.2001",
+   "engine_exe_sha256_observed": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995 (matches sealed N02R run 7a1b9d7d160202d8)",
+   "llama_cpp_pin": "b12359 (pinned engine; any change is a separate experimental identity)",
+   "weights_present": [
+    "S1 MiniCPM5-2B Q8_0",
+    "S2 LFM3-1.7B Q8_0",
+    "S3 Qwen3.5-2B Q8_0"
+   ],
+   "no_llama_server_running_at_init": true
+  },
+  "eae_current_pin": "runtime/eae_pin/7a3e8dc (125 files, digest manifest; runtime-mutable EAE state copied to runs/n03h/_eae_state/ on first use so the pin stays pristine)"
+ },
+ "lfm3_ha_evidence_reconciliation": {
+  "source_revision": "79a805e (PR #9 codex/ij-slm-1.0)",
+  "manifest": "evidence/IJSLM/lfm3-ha-1.1/manifest.json",
+  "facts": {
+   "transfer_sealed": "720/720",
+   "tc_compatibility": "1704/6600 sealed at observed revision",
+   "original_core_denominator": "36550 planned / 8250 sealed (separate denominator)",
+   "selection": "NO_QUALIFIED_CONFIGURATION",
+   "pi_phase_aware_paired_gain": "+15.5pp on 58 adjudicated pairs (other host)",
+   "pi_direct_weight_contrast": "-1.7pp vs Original (direct Pi benefit NOT established)",
+   "pi_weight_by_runtime_interaction": "+12.1pp on 58 four-arm comparisons",
+   "budget_hazard": "SDK 65,535 vs Direct 768 model-visible token limit mismatch (permanent regression control)"
+  },
+  "reuse_decision": "IJ-SLM hardware is Radeon 8060S gfx1151 on a different host and a different qualification scope: the 720-panel is a SEPARATE COMPARATIVE COHORT, never pooled or paired with this campaign's evidence; reusable as preregistered priors/hypotheses only; the 720-slot panel is NOT duplicated"
+ },
+ "research_questions": [
+  "RQ1 cognitive capability",
+  "RQ2 protocol sensitivity",
+  "RQ3 harness adapter effects",
+  "RQ4 HF native reproduction",
+  "RQ5 cross-harness transfer",
+  "RQ6 runtime+adapter co-design",
+  "RQ7 learnability / post-training candidates",
+  "RQ8 commercial trade-off configuration"
+ ],
+ "preregistered_hypotheses": {
+  "H1": "Per-primitive capability profiles of S1/S2/S3 are materially heterogeneous (primitive x model interaction != additive); no model dominates all 32 primitives.",
+  "H2": "A nontrivial fraction of chat-protocol failures is structural/protocol-induced (EMPTY_OUTPUT, INVALID_OUTPUT, format mismatch) rather than semantic INCORRECT; these are separable at trial level.",
+  "H3": "Harness adapters shift primitive-level accuracy non-uniformly across cognitive families (positive transfer on some, negative on others); a uniform all-family gain is NOT expected.",
+  "H4": "Local llama.cpp GGUF paired adapter contrasts directionally reproduce published native-harness improvements for at least the Pi adapter; magnitudes differ with quantization/runtime.",
+  "H5": "Adapter gains show partial cross-harness retention strictly below 1 on average (harness-specific interaction patterns learned).",
+  "H6": "Runtime intervention x adapter interaction (S3-S2-S1+S0) is nonzero for tool-mediated primitives; co-design adds benefit beyond additive effects only if CIs exclude zero.",
+  "H7": "Learnability classes (0/8, 1-7/8, 8/8 success) partition dev tasks; a material subset of 0/8 failures is protocol/runtime-addressable rather than capability absence.",
+  "H8": "The accuracy-vs-latency/tokens Pareto frontier admits no single dominant configuration across all axes; the best trade-off depends on workload family."
+ },
+ "experiment_register": {
+  "E0_physical_smoke": {
+   "priority": "P0",
+   "authorization": "AUTH-1 (released)",
+   "nominal_slots": 48,
+   "status": "AUTHORIZED_PENDING_PHYSICAL_ADMISSION",
+   "experiment_id": "N03-AUTH1-DIAGNOSTIC-PANEL-v1",
+   "gate_before_formal": "N03_PHYSICAL_EVALUATION_INTEGRATION_GO"
+  },
+  "E1_batch_a": {
+   "priority": "P0",
+   "authorization": "AUTH-2 (released)",
+   "nominal_slots": 480,
+   "status": "AUTHORIZED_PENDING_SMOKE_COMPLETION",
+   "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-A-v1"
+  },
+  "E1_batches_bcd": {
+   "priority": "P0",
+   "authorization": "pending IJEVAL EA13 extension releases",
+   "nominal_slots": 1440,
+   "status": "SPLIT: Batch B AUTHORIZED (E1_batch_b); Batches C/D BLOCKED pending IJEVAL releases"
+  },
+  "E1_confirmation": {
+   "priority": "-",
+   "authorization": "AUTH-3 (BLOCKED by design)",
+   "nominal_slots": 960,
+   "status": "BLOCKED"
+  },
+  "E2_adapter_cognitive_atlas": {
+   "priority": "P0 after E1",
+   "authorization": "pending IJEVAL adapter-scope release",
+   "nominal_slots": 2560,
+   "incremental_after_W0_reuse": 1920,
+   "status": "BLOCKED_PENDING_SCOPE_AND_ASSETS"
+  },
+  "E3_native_harness_reproduction": {
+   "priority": "P0 (parallel CPU prep)",
+   "authorization": "pending task acquisition + sandbox + verifier qualification",
+   "nominal_episodes": 1140,
+   "status": "BLOCKED_PENDING_ASSETS; CPU-side study/acquisition starts immediately"
+  },
+  "E4_cross_harness_transfer": {
+   "priority": "P1",
+   "nominal_episodes": 720,
+   "status": "BLOCKED_PENDING_E3_AND_SCOPE"
+  },
+  "E5_runtime_adapter_factorial": {
+   "priority": "P1",
+   "nominal_episodes": 480,
+   "status": "BLOCKED_PENDING_SCOPE_AND_RUNTIME"
+  },
+  "E6_reasoning_budget_and_reference": {
+   "priority": "P1",
+   "nominal_slots": {
+    "reasoning_budget": 1080,
+    "larger_model_reference": 320
+   },
+   "status": "BLOCKED_PENDING_SCOPE"
+  },
+  "E7_learnability": {
+   "priority": "P1",
+   "nominal_slots": 1440,
+   "status": "BLOCKED_PENDING_SCOPE"
+  },
+  "E8_multiadapter_crossjob_stability": {
+   "priority": "P2",
+   "status": "NOT_RUN"
+  },
+  "E1_batch_b": {
+   "priority": "P0",
+   "authorization": "AUTH-2B (released, checksum reproduced by real consumer)",
+   "nominal_slots": 480,
+   "status": "AUTHORIZED_FIRST_BLOCK_VERIFICATION"
+  },
+  "E1_batch_c": {
+   "priority": "P0",
+   "authorization": "AUTH-2C (released, checksum reproduced in subprocess)",
+   "nominal_slots": 480,
+   "status": "AUTHORIZED_QUEUED_AFTER_BATCH_B"
+  }
+ },
+ "weight_configurations": {
+  "W0": "LFM3-1.7B original Q8_0",
+  "W1": "W0 + official Pi F16 GGUF LoRA",
+  "W2": "W0 + official OpenCode F16 GGUF LoRA",
+  "W3": "W0 + official Hermes F16 GGUF LoRA",
+  "admission_requirements": "scale-0 numerical equivalence with W0; scale-1 genuine repeatable change; correct adapter selection per request; no silent fallback; unknown adapter ID rejected at gateway; no state leakage across trials; identical cache policy across compared configurations; fixed-adapter isolated server processes preferred (prior cache/repeatability limitations)"
+ },
+ "balanced_execution_policy": [
+  "rotate weight/harness order where practical for matched experiments",
+  "start long episodes with balanced matched task blocks of ~10-20 tasks per applicable arm before expanding to full roster",
+  "never finish one arm in full while leaving matched arms entirely unexecuted",
+  "scheduler consumes real authorization+qualification state; blocked scopes are never dispatched"
+ ],
+ "metrics": {
+  "quality": [
+   "first-pass semantic correctness",
+   "end-to-end task completion",
+   "structural validity",
+   "recovery success",
+   "goal predicate success",
+   "false completion",
+   "unsafe/unauthorized action rate"
+  ],
+  "efficiency": [
+   "model calls",
+   "tool proposals/executions/redundant",
+   "agent turns",
+   "human interaction turns (kept separate)",
+   "generated tokens",
+   "reasoning tokens",
+   "tool-result context length"
+  ],
+  "performance": [
+   "TTFT where available",
+   "decode tokens/s",
+   "end-to-end latency",
+   "P50/P95/P99 where sample size supports",
+   "memory",
+   "GPU utilization",
+   "resource cost per successful task"
+  ],
+  "integrity": [
+   "planned logical slots",
+   "applicable slots",
+   "actual physical attempts",
+   "reused qualified evidence",
+   "qualified evaluable outcomes",
+   "NOT_EVALUABLE",
+   "quarantined",
+   "BLOCKED",
+   "NOT_RUN",
+   "missing telemetry",
+   "canary counts"
+  ],
+  "rules": [
+   "unavailable telemetry never reported as zero",
+   "decode throughput never conflated with business task completion speed"
+  ]
+ },
+ "analysis_methods": [
+  "paired task-level comparisons (McNemar exact) with Newcombe confidence intervals",
+  "effect sizes and paired wins/losses with exact comparison denominators",
+  "evaluation coverage and verified-success coverage reported per contrast",
+  "multiple comparisons acknowledged (family counts reported alongside per-primitive results)",
+  "exploratory vs confirmation kept separate; equivalence never claimed from overlapping marginal CIs",
+  "software-bucket outcomes (parser/evaluator errors, evidence, duplicates, canaries, NOT_EVALUABLE) never enter model statistics"
+ ],
+ "resume_semantics": {
+  "clock": "read started_utc from this file; NEVER re-derive or restart",
+  "runner": "resume from runner_state.json in the campaign workdir; completed trial identities are exact-resume keys",
+  "authorization": "re-fetch EAE remote, re-verify pinned snapshot digests, re-register evidence, re-authorize before any resumed physical dispatch (authoritative revocation recheck)",
+  "clean_slate": "campaign workdirs are fresh at campaign start (stale breaker state from crashed prior runs must never silently suppress re-runs)",
+  "unique_identities": "experiment ids bind experiment+roster+identity; physical attempts carry content-addressed artifacts"
+ },
+ "confirmation_protection": "inherited unchanged from MISSION_STATE_IJNANO_N03_PROGRESSIVE.json; AUTH-3 conditions not met within this campaign so far -> confirmation scope reported BLOCKED, protection never weakened to complete the roster",
+ "publication_checkpoints": {
+  "gate": "scripts/tools/publish_check.py --staged (fail-closed, finding-count) before every commit; absolute local paths redacted from evidence",
+  "cadence": "after meaningful milestones and at bounded periodic checkpoints; verify remote HEAD after push; no merge, no force-push",
+  "live_status": "reports/IJNANO_48H_LIVE_STATUS.md continuously updated"
+ },
+ "gates": {
+  "IJNANO_48H_PREREGISTERED": "GRANTED (this file + verbatim order + ledgers committed)",
+  "N03_PHYSICAL_EVALUATION_INTEGRATION_GO": "GRANTED (AUTH-2B blocks 0-1, 120/480 trials: complete raw evidence content-addressed, 120/120 offline dual-path replays match, 0 integrity problems, sealed f1990515; per-dispatch revocation recheck; canary preflight/sweeps green; honest fault-recovery drill recorded: controller canary-leg defect caught at preflight with 0 trials affected, requalification-only recovery exercised)",
+  "E0_SMOKE_COMPLETE": "SUPERSEDED by AUTH-2B first-block verification (48H-B-006 decision record); integration purpose fully served",
+  "E1_BATCH_A_COMPLETE": "PENDING",
+  "E2_ADAPTER_ATLAS_GO": "PENDING",
+  "E3_REPRODUCTION_GO": "PENDING",
+  "CAMPAIGN_FINALIZED": "PENDING",
+  "IJNANO_48H_PHYSICAL_ADMISSION_VERIFIED": "GRANTED (probe: 3/3 servers full GPU offload, netstat PID ownership, template fingerprints, /metrics OK; identities match sealed N02R)",
+  "E3_OFFICIAL_SOURCES_STUDY_FROZEN": "GRANTED (docs/IJNANO_48H_E3_OFFICIAL_SOURCES_STUDY.md)",
+  "E1_BATCH_B_AUTHORIZED": "GRANTED (checksum-verified AUTH-2B consumption)",
+  "E1_BATCH_B_COMPLETE": "PASS (480/480 sealed cb4303b4; evidence/IJNANO/N03H/AUTH2B/)",
+  "E1_BATCH_C_COMPLETE": "PASS (480/480 sealed 25ffffa9; evidence/IJNANO/N03H/AUTH2C/)",
+  "E1_PRIMARY_DEVELOPMENT_COMPLETE": "PASS (1,920/1,920 slots across A-RQ/B/C/D, all sealed, 0 integrity problems: seals 2cd631fa/cb4303b4/25ffffa9/b4028e38)",
+  "E1_BATCH_D_COMPLETE": "PASS (480/480 sealed b4028e38)",
+  "E1_BATCH_A_RQ_COMPLETE": "PASS (480/480 sealed 2cd631fa)",
+  "ADAPTER_PHYSICAL_ADMISSION": "PASS (identity byte-verified; scale-0 output-equivalent; scale-1 genuine distribution-level change reproduced across fresh processes — max logprob delta 10.68 W1 / 3.64 W2 on harness-shaped probes; no silent fallback; identical cache/context flags; 306 lora tensors loaded on Vulkan0; evidence/IJNANO/N03H/ADAPTER_ADMISSION/)",
+  "E2_ATLAS_DISPATCH": "IN_PROGRESS (AUTH-2W 1920 slots executing)",
+  "E2_ADAPTER_ATLAS_COMPLETE": "PASS (1920/1920 sealed cb5e8b8a, 0 integrity problems)",
+  "E1_AND_E2_PHYSICAL_PROGRAM_COMPLETE": "GRANTED (3,840/3,840 executed trials; every released scope fully consumed)"
+ },
+ "blockers": {
+  "48H-B-006": "CLOSED (EAE requalification 84cbfa3c9f2f0fc2 released as AUTH-2A-RQ)",
+  "see": "BLOCKERS_IJNANO_48H.md",
+  "48H-B-001": "CLOSED (Batches A-RQ/B/C/D + adapter scope all released)"
+ },
+ "decisions": {
+  "integration_verification": "AUTH-1 48-slot smoke is unavailable (48H-B-006). The AUTH-2B release explicitly permits narrower preregistered scopes: the campaign executes AUTH-2B block 0 (60 trials: 20 cases x 3 models, per-case model rotation) as the PHYSICAL INTEGRATION VERIFICATION checkpoint - run, stop, verify (seal + canaries + dual-path replay + evidence completeness + telemetry capture), and only then grant N03_PHYSICAL_EVALUATION_INTEGRATION_GO and continue the remaining 420 slots. A defect found at verification quarantines affected scope per order section 14. Recorded 2026-11-28T06:10Z."
+ },
+ "first_physical_findings": {
+  "recorded_utc": "2026-11-28T07:20:00Z",
+  "trials": 120,
+  "per_model": {
+   "MiniCPM5-2B": "34 CORRECT / 4 EMPTY (all finish=length, budget exhaustion) / 2 INVALID; mean 569 completion tokens",
+   "LFM3-1.7B": "40/40 CORRECT; mean 357 tokens",
+   "Qwen3.5-2B": "7 CORRECT / 32 EMPTY (finish=length, mean 983 tokens - thinking mode consumes the frozen 1024-token chat budget) / 1 INVALID"
+  },
+  "hypothesis_signal": "H2 (protocol-induced failure) strongly supported for S3 under the chat protocol; consistent with N02RR corrected finding 'S3 thinking-control requirement'; E6 budget cohorts and thinking_disabled_chat protocol cohort are the designed follow-ups"
+ },
+ "pins": {
+  "note": "one EAE revision per process; each scope's pin is where its released checksum reproduces",
+  "3cdd066": "historical Batch A releases (cert revoked by drill)",
+  "7a3e8dc": "AUTH-2B (Batch B)",
+  "a50c3c5": "AUTH-2C (Batch C)"
+ },
+ "timestamp_note": "all updated_utc values from here on are real clock reads; three earlier hand-written values (07:20/08:10/10:55Z) were written ahead of the actual clock (~05:4xZ) and are superseded by this note",
+ "findings": {
+  "batch_c_budget_exhaustion": {
+   "recorded_utc": "2026-11-28T06:26:13Z",
+   "fact": "Batch C (C17-C24, typed-world plan/replan/error-envelope primitives): accuracy LFM3 .025 / MiniCPM .0375 / Qwen .0; EMPTY_OUTPUT 51.9%/48.1%/94.4%",
+   "root_cause": "EVERY EMPTY trial carries finish_reason=length at exactly 1024 completion tokens with empty final content - the frozen 1024-token generation budget is exhausted by reasoning before any answer is emitted; hits ALL THREE models on plan-structured tasks (vs only S3 on classification-style tasks in Batch B)",
+   "classification": "genuine protocol/budget-sensitivity measurement (RQ2/H2), NOT an evaluation defect; dual-path EMPTY_OUTPUT discipline worked as designed",
+   "follow_up": "E6 reasoning-budget cohorts (blocked on scope release); T2 bounded-reasoning protocol variants are separate cohorts per the preregistration"
+  },
+  "e1_batch_summaries": {
+   "A-RQ (C01-C08)": "MiniCPM .6125 / LFM3 .5375 / Qwen .4313 (Qwen's best batch - short classification-style answers)",
+   "B (C09-C16)": "LFM3 .625 / MiniCPM .5875 / Qwen .0875",
+   "C (C17-C24)": "MiniCPM .0375 / LFM3 .025 / Qwen .0 (budget exhaustion, see batch_c_budget_exhaustion)",
+   "D (C25-C32)": "MiniCPM .6125 / LFM3 .5687 / Qwen .1812",
+   "pattern": "no single model dominates; per-primitive heterogeneity (H1) and protocol budget sensitivity (H2) both strongly present"
+  },
+  "adapter_admission_methodology": {
+   "note": "constrained single-answer probes CANNOT detect adapter distribution shifts (greedy paths coincide); change detection uses greedy streams + top-5 logprob deltas via /completion; Vulkan temp-0 logprobs are not bitwise repeatable within a server - repeatability asserted on delta magnitude across fresh processes (recorded honestly)",
+   "recorded_utc": "2026-11-28T10:37:51Z"
+  },
+  "e2_interim_paired": {
+   "recorded_utc": "2026-11-28T12:25:41Z",
+   "status": "EXPLORATORY INTERIM (412/640 matched cases per config; NOT final)",
+   "w1_pi": "delta +2.91pp, 16/4 discordant, McNemar p=.0118",
+   "w2_opencode": "delta +1.46pp, 17/11, p=.345 (ns)",
+   "w3_hermes": "delta +4.85pp, 24/4, p=.00018",
+   "e1_overall_32_primitives": "MiniCPM .4625 / LFM3 .4391 / Qwen .1750",
+   "note": "all three adapters directionally positive on the cognitive atlas under the local GGUF configuration; paired analyses finalize at atlas seal"
+  },
+  "e2_final_paired": {
+   "recorded_utc": "2026-11-28T13:24:55Z",
+   "status": "FINAL (640 matched cases per config)",
+   "w1_pi": "delta -0.94pp, CI[-6.35,+4.48], 21/27, p=.471 (ns)",
+   "w2_opencode": "delta -1.09pp, CI[-6.50,+4.32], 22/29, p=.401 (ns)",
+   "w3_hermes": "delta +3.12pp, CI[-2.33,+8.55], 32/12 discordant, McNemar p=.0037 (marginal CI crosses zero - both reported)",
+   "conclusion": "published harness-adapter gains do NOT transfer to bare cognitive tasks under local Q8_0+F16-LoRA chat inference; adapters' measured value remains harness-scoped; consistent with the separate-host 720-panel direct Pi contrast (-1.7pp)"
+  },
+  "e1_final": {
+   "recorded_utc": "2026-11-28T13:24:55Z",
+   "overall": "MiniCPM .4625 / LFM3 .4391 / Qwen .1750",
+   "heterogeneity": "leadership flips by batch (LFM3 leads B .625; MiniCPM leads A/D .6125; all collapse on C <=.0375)",
+   "language_interaction": "LFM3 +9.1pp ZH; MiniCPM +3.1pp EN (post-hoc descriptive)"
+  }
+ },
+ "idle_status": "physical program complete at H+9; campaign live-but-idle awaiting late EAE scope releases (E5/E6/E7) via 2h checkpoints + poller until H+44"
+}

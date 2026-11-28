@@ -1,0 +1,21 @@
+{
+ "schema": "ijeval.auth1.acceptance.v1",
+ "verdict": "ACCEPTED",
+ "scope": "AUTH-1 DIAGNOSTIC_SMOKE (frozen IJ-NANO-1.3S contract): the APPLICABLE Wave B/C gates, certificate and early-pilot requirements for diagnostic execution",
+ "requirements_map": {
+  "dataset qualification": "intake_verification.json + GT 160/160 VALID @ d23de5a",
+  "production and reference evaluator qualification": "dual-path closure certificate 512efb617a9cb4c8; 116/116 witnesses; 20 production faults 0 escapes",
+  "parser qualification": "pinned parser_semantics.md @ 58aa790; production parser P-series controls",
+  "evidence qualification": "EA08 6/6 controls",
+  "continuous canary": "EA09 full-family sweep cadence; canary_integration.json PASS",
+  "circuit-breaker integration": "EA10; breaker_drill.json PASS",
+  "early catastrophe pilot": "13/13 contained, 0 escapes"
+ },
+ "explicitly_remaining_for_AUTH-2": [
+  "EA12 historical N02RR revalidation",
+  "EA14 shared-core stress campaign (10,000 trials / 1,000 faults)",
+  "EA13 cognitive primitive qualification",
+  "EA18 independent adversarial acceptance"
+ ],
+ "verified_utc": "2026-11-28T03:45:21Z"
+}

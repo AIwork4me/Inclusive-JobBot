@@ -1,0 +1,148 @@
+{
+ "trial_id": "8901c5e6812d189c7c9f3eec",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "reject_out_of_policy",
+       "reasoning_content": "We need to understand the problem. The user says:\n\n\"策略 / policy: item category restricted from refunds. 实况 / observation: n = 5.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.\"\n\nWe need to decide which branch applies based on the policy and observation. The policy says \"item category restricted from refunds.\" The observation says \"n = 5.\" That likely means there are 5 items observed, and they are in a category that is restricted from refunds. So the policy says that items in that category cannot be refunded. The allowed branches are auto_approve, requires_manager_approval, reject_out_of_policy. We need to decide which branch applies.\n\nInterpretation: The policy is that item category restricted from refunds. So if an item is in a restricted category, the refund is not allowed. The observation says n=5, meaning there are 5 items that are in that category? Or maybe the observation is that there are 5 items that are being processed for refund? The policy says \"item category restricted from refunds.\" So if an item is in a restricted category, the refund should be rejected. The allowed branches: auto_approve (maybe auto-approve the refund?), requires_manager_approval (needs manager approval), reject_out_of_policy (reject because out of policy). Since the policy says restricted from refunds, that means the refund is out of policy. So the branch that applies is reject_out_of_policy. But we need to be careful: The policy says \"item category restricted from refunds.\" That means the category is restricted from refunds. So if an item belongs to that category, a refund request would be out of policy. So the branch should be reject_out_of_policy. The observation n=5 might be irrelevant or just indicating that there are 5 items in that category. So the answer is reject_out_of_policy.\n\nBut let's think: The allowed branches are auto_approve, requires_manager_approval, reject_out_of_policy. The policy says item category restricted from refunds. So if an item is in that category, the refund is not allowed. So the branch that applies is reject_out_of_policy. So the answer is reject_out_of_policy.\n\nThus, we output the branch name.\n"
+      }
+     }
+    ],
+    "created": 1795793896,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 513,
+     "prompt_tokens": 66,
+     "total_tokens": 579,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-2fhE3DaQE6nvmQ9Tx4Jweno6HyGZFTyc",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to understand the problem. The user says:\n\n\"策略 / policy: item category restricted from refunds. 实况 / observation: n = 5.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.\"\n\nWe need to decide which branch applies based on the policy and observation. The policy says \"item category restricted from refunds.\" The observation says \"n = 5.\" That likely means there are 5 items observed, and they are in a category that is restricted from refunds. So the policy says that items in that category cannot be refunded. The allowed branches are auto_approve, requires_manager_approval, reject_out_of_policy. We need to decide which branch applies.\n\nInterpretation: The policy is that item category restricted from refunds. So if an item is in a restricted category, the refund is not allowed. The observation says n=5, meaning there are 5 items that are in that category? Or maybe the observation is that there are 5 items that are being processed for refund? The policy says \"item category restricted from refunds.\" So if an item is in a restricted category, the refund should be rejected. The allowed branches: auto_approve (maybe auto-approve the refund?), requires_manager_approval (needs manager approval), reject_out_of_policy (reject because out of policy). Since the policy says restricted from refunds, that means the refund is out of policy. So the branch that applies is reject_out_of_policy. But we need to be careful: The policy says \"item category restricted from refunds.\" That means the category is restricted from refunds. So if an item belongs to that category, a refund request would be out of policy. So the branch should be reject_out_of_policy. The observation n=5 might be irrelevant or just indicating that there are 5 items in that category. So the answer is reject_out_of_policy.\n\nBut let's think: The allowed branches are auto_approve, requires_manager_approval, reject_out_of_policy. The policy says item category restricted from refunds. So if an item is in that category, the refund is not allowed. So the branch that applies is reject_out_of_policy. So the answer is reject_out_of_policy.\n\nThus, we output the branch name.\n</think>\n\nreject_out_of_policy",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 513,
+     "tokens_evaluated": 66,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n策略 / policy: item category restricted from refunds. 实况 / observation: n = 5.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 578,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 66,
+      "prompt_ms": 30.328,
+      "prompt_per_token_ms": 0.4595151515151515,
+      "prompt_per_second": 2176.2068055921923,
+      "predicted_n": 513,
+      "predicted_ms": 2813.13,
+      "predicted_per_token_ms": 5.49439453125,
+      "predicted_per_second": 182.00367562110532
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 66,
+     "prompt_ms": 30.328,
+     "prompt_per_token_ms": 0.4595151515151515,
+     "prompt_per_second": 2176.2068055921923,
+     "predicted_n": 513,
+     "predicted_ms": 2813.13,
+     "predicted_per_token_ms": 5.49439453125,
+     "predicted_per_second": 182.00367562110532
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.859
+  }
+ ]
+}

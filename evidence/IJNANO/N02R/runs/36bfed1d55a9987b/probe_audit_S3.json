@@ -1,0 +1,74 @@
+{
+ "kind": "n02r_probe_audit",
+ "model": "S3",
+ "checks": {
+  "empty_content_gate": {
+   "status": "FAIL",
+   "content": "",
+   "note": "PASS requires non-empty final content (v1 probe accepted empty content with completion_tokens set)"
+  },
+  "tool_call_structural_semantic": {
+   "status": "PASS",
+   "structural": true,
+   "semantic": true,
+   "tool_calls": [
+    {
+     "name": "get_inventory",
+     "arguments": "{\"sku\":\"SKU-1001\"}"
+    }
+   ]
+  },
+  "sse_usage_reconciliation": {
+   "status": "PASS",
+   "streamed_content_chars": 0,
+   "streamed_reasoning_chars": 99,
+   "content_piece_count": 0,
+   "completion_tokens": 32,
+   "note": "observable stream channels (content + reasoning) reconciled with usage; exact reasoning-token attribution is UNAVAILABLE in b12359 usage (no breakdown field)"
+  },
+  "cancellation_scope": {
+   "status": "PASS",
+   "client_aborted": true,
+   "server_terminated": false,
+   "server_healthy_after": true,
+   "slot_released_followup_ok": true,
+   "note": "client-side cancellation distinguished from server-side termination; inference-slot release proven by a follow-up generation"
+  },
+  "rendered_prompt_endpoint": {
+   "status": "PASS",
+   "prompt_sha256": "88bde33a5224a16c",
+   "prompt_head": "<|im_start|>user\nping<|im_end|>\n<|im_start|>assistant\n<think>\n"
+  },
+  "gbnf_n02_escaped_quote_reconstruction": {
+   "status": "REJECTED",
+   "http": 400,
+   "error": "{\"error\":{\"code\":400,\"message\":\"Failed to initialize samplers: failed to parse grammar\",\"type\":\"invalid_request_error\"}}"
+  },
+  "gbnf_minimal_escaped_quote": {
+   "status": "ACCEPTED",
+   "sample": "say \"h"
+  },
+  "gbnf_charclass_quote": {
+   "status": "ACCEPTED",
+   "sample": "{\"sku"
+  },
+  "gbnf_only_escaped_quote_literal": {
+   "status": "REJECTED",
+   "http": 400,
+   "error": "{\"error\":{\"code\":400,\"message\":\"Failed to initialize samplers: failed to parse grammar\",\"type\":\"invalid_request_error\"}}"
+  },
+  "gbnf_literal_starts_with_escaped_quote": {
+   "status": "ACCEPTED",
+   "sample": "\"sku1"
+  },
+  "gbnf_escaped_quote_with_colon_inside": {
+   "status": "ACCEPTED",
+   "sample": "a\":\"b"
+  },
+  "gbnf_brace_then_escaped_quote_start": {
+   "status": "REJECTED",
+   "http": 400,
+   "error": "{\"error\":{\"code\":400,\"message\":\"Failed to initialize samplers: failed to parse grammar\",\"type\":\"invalid_request_error\"}}"
+  }
+ }
+}

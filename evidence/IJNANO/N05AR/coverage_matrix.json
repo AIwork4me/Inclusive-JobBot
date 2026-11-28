@@ -1,0 +1,286 @@
+{
+  "schema": "ij_nano.n05ar.coverage_matrix",
+  "generated_utc": "2026-11-27T12:59:40+00:00",
+  "contract_version": 2,
+  "gate": "N05AR_COGNITIVE_EVALUATOR_INTEGRITY_GO",
+  "battery": {
+    "cases": 60,
+    "positives": 20,
+    "negatives": 40,
+    "negatives_failing_for_exactly_their_reason": 40
+  },
+  "truth_controls": {
+    "controls": 12,
+    "agreeing": 12
+  },
+  "families": {
+    "intent": {
+      "positives": 2,
+      "negatives": 2,
+      "reason_codes": [
+        "INTENT_MISMATCH",
+        "PARSE_INVALID"
+      ]
+    },
+    "goal": {
+      "positives": 1,
+      "negatives": 1,
+      "reason_codes": [
+        "GOAL_MISMATCH"
+      ]
+    },
+    "tool_selection": {
+      "positives": 1,
+      "negatives": 2,
+      "reason_codes": [
+        "TOOL_MISMATCH"
+      ]
+    },
+    "action_representation": {
+      "positives": 3,
+      "negatives": 8,
+      "reason_codes": [
+        "ARGUMENT_UNDECLARED",
+        "ENTITY_MISMATCH",
+        "EXTRA_ASSERTION",
+        "MISSING_SLOT",
+        "PARSE_INVALID",
+        "TOOL_MISMATCH"
+      ]
+    },
+    "entity_reference": {
+      "positives": 1,
+      "negatives": 4,
+      "reason_codes": [
+        "ENTITY_MISMATCH",
+        "EXTRA_ASSERTION"
+      ]
+    },
+    "slot_value": {
+      "positives": 2,
+      "negatives": 5,
+      "reason_codes": [
+        "ARGUMENT_UNDECLARED",
+        "MISSING_SLOT",
+        "UNIT_MISSING",
+        "VALUE_MISMATCH"
+      ]
+    },
+    "numeric_value_unit": {
+      "positives": 2,
+      "negatives": 5,
+      "reason_codes": [
+        "PARSE_INVALID",
+        "TYPE_MISMATCH",
+        "UNIT_INVALID",
+        "UNIT_MISMATCH",
+        "VALUE_MISMATCH"
+      ]
+    },
+    "state_interpretation": {
+      "positives": 3,
+      "negatives": 8,
+      "reason_codes": [
+        "DUPLICATE_PREDICATE",
+        "ENTITY_MISMATCH",
+        "EXTRA_ASSERTION",
+        "MISSING_PREDICATE",
+        "TYPE_MISMATCH",
+        "VALUE_MISMATCH"
+      ]
+    },
+    "conditional_branch": {
+      "positives": 1,
+      "negatives": 1,
+      "reason_codes": [
+        "BRANCH_MISMATCH"
+      ]
+    },
+    "recovery_action": {
+      "positives": 1,
+      "negatives": 1,
+      "reason_codes": [
+        "RECOVERY_INVALID"
+      ]
+    },
+    "stop_continue": {
+      "positives": 1,
+      "negatives": 2,
+      "reason_codes": [
+        "DECISION_MISMATCH"
+      ]
+    },
+    "clarification": {
+      "positives": 2,
+      "negatives": 1,
+      "reason_codes": [
+        "CLARIFICATION_MISMATCH"
+      ]
+    }
+  },
+  "reason_reconciliation": {
+    "declared": [
+      "ARGUMENT_UNDECLARED",
+      "BRANCH_MISMATCH",
+      "CLARIFICATION_MISMATCH",
+      "DECISION_MISMATCH",
+      "DUPLICATE_PREDICATE",
+      "ENTITY_MISMATCH",
+      "EXTRA_ASSERTION",
+      "GOAL_MISMATCH",
+      "INTENT_MISMATCH",
+      "MISSING_PREDICATE",
+      "MISSING_SLOT",
+      "PARSE_INVALID",
+      "RECOVERY_INVALID",
+      "TOOL_MISMATCH",
+      "TYPE_MISMATCH",
+      "UNIT_INVALID",
+      "UNIT_MISMATCH",
+      "UNIT_MISSING",
+      "VALUE_MISMATCH"
+    ],
+    "tested": [
+      "ARGUMENT_UNDECLARED",
+      "BRANCH_MISMATCH",
+      "CLARIFICATION_MISMATCH",
+      "DECISION_MISMATCH",
+      "DUPLICATE_PREDICATE",
+      "ENTITY_MISMATCH",
+      "EXTRA_ASSERTION",
+      "GOAL_MISMATCH",
+      "INTENT_MISMATCH",
+      "MISSING_PREDICATE",
+      "MISSING_SLOT",
+      "PARSE_INVALID",
+      "RECOVERY_INVALID",
+      "TOOL_MISMATCH",
+      "TYPE_MISMATCH",
+      "UNIT_INVALID",
+      "UNIT_MISMATCH",
+      "UNIT_MISSING",
+      "VALUE_MISMATCH"
+    ],
+    "declared_but_untested": [],
+    "tested_but_undeclared": [],
+    "obsolete_with_disposition": [
+      "ARGUMENT_MISMATCH"
+    ],
+    "reconciled": true
+  },
+  "obsolete_codes": {
+    "ARGUMENT_MISMATCH": {
+      "status": "obsolete (removed in contract v2, N05A-R EV07)",
+      "reason": "single 'argument wrong' code conflated distinct defect classes that v2 reports precisely",
+      "subsumed_by": [
+        "MISSING_SLOT",
+        "ARGUMENT_UNDECLARED",
+        "VALUE_MISMATCH",
+        "ENTITY_MISMATCH",
+        "TYPE_MISMATCH",
+        "UNIT_MISMATCH",
+        "UNIT_MISSING"
+      ]
+    }
+  },
+  "comparator_mutants": {
+    "classes": [
+      "accept_incorrect_units",
+      "accept_malformed_raw",
+      "entity_substring",
+      "flip_inequality_ops",
+      "ignore_extra_arguments",
+      "ignore_numeric_thresholds",
+      "invalid_types_as_valid",
+      "normalize_identifiers_incorrectly",
+      "skip_missing_predicate"
+    ],
+    "detected": {
+      "skip_missing_predicate": true,
+      "ignore_extra_arguments": true,
+      "entity_substring": true,
+      "normalize_identifiers_incorrectly": true,
+      "accept_incorrect_units": true,
+      "flip_inequality_ops": true,
+      "ignore_numeric_thresholds": true,
+      "invalid_types_as_valid": true,
+      "accept_malformed_raw": true
+    },
+    "witnesses": {
+      "skip_missing_predicate": "state.neg.missing_final",
+      "ignore_extra_arguments": "action.neg.undeclared_arg",
+      "entity_substring": "action.neg.entity_substring_trap",
+      "normalize_identifiers_incorrectly": "tool.neg.underscore_space",
+      "accept_incorrect_units": "num.neg.unit_mismatch",
+      "flip_inequality_ops": "truth.gt_boundary_false",
+      "ignore_numeric_thresholds": "num.neg.wrong_value",
+      "invalid_types_as_valid": "num.neg.unit_invalid",
+      "accept_malformed_raw": "action.neg.duplicate_raw_key"
+    },
+    "channels": {
+      "skip_missing_predicate": "battery",
+      "ignore_extra_arguments": "battery",
+      "entity_substring": "battery",
+      "normalize_identifiers_incorrectly": "battery",
+      "accept_incorrect_units": "battery",
+      "flip_inequality_ops": "predicate_truth",
+      "ignore_numeric_thresholds": "battery",
+      "invalid_types_as_valid": "battery",
+      "accept_malformed_raw": "battery"
+    },
+    "undetected": []
+  },
+  "retained_rule_drop_mutants": {
+    "rules": [
+      "ARGUMENT_UNDECLARED",
+      "BRANCH_MISMATCH",
+      "CLARIFICATION_MISMATCH",
+      "DECISION_MISMATCH",
+      "DUPLICATE_PREDICATE",
+      "ENTITY_MISMATCH",
+      "EXTRA_ASSERTION",
+      "GOAL_MISMATCH",
+      "INTENT_MISMATCH",
+      "MISSING_PREDICATE",
+      "MISSING_SLOT",
+      "PARSE_INVALID",
+      "RECOVERY_INVALID",
+      "TOOL_MISMATCH",
+      "TYPE_MISMATCH",
+      "UNIT_INVALID",
+      "UNIT_MISMATCH",
+      "UNIT_MISSING",
+      "VALUE_MISMATCH"
+    ],
+    "witnesses": {
+      "ARGUMENT_UNDECLARED": "action.neg.undeclared_arg",
+      "BRANCH_MISMATCH": "branch.neg.wrong",
+      "CLARIFICATION_MISMATCH": "clar.neg.wrong_topics",
+      "DECISION_MISMATCH": "stop.neg.premature",
+      "DUPLICATE_PREDICATE": "state.neg.duplicate",
+      "ENTITY_MISMATCH": "action.neg.wrong_entity",
+      "EXTRA_ASSERTION": "action.neg.extra_assertion",
+      "GOAL_MISMATCH": "goal.neg.wrong_params",
+      "INTENT_MISMATCH": "intent.neg.wrong",
+      "MISSING_PREDICATE": "state.neg.missing_final",
+      "MISSING_SLOT": "action.neg.missing_slot",
+      "PARSE_INVALID": "intent.neg.parse_invalid",
+      "RECOVERY_INVALID": "recovery.neg.invalid",
+      "TOOL_MISMATCH": "tool.neg.wrong_tool",
+      "TYPE_MISMATCH": "num.neg.type",
+      "UNIT_INVALID": "num.neg.unit_invalid",
+      "UNIT_MISMATCH": "num.neg.unit_mismatch",
+      "UNIT_MISSING": "slot.neg.unit_missing",
+      "VALUE_MISMATCH": "slot.neg.polarity"
+    },
+    "undetected": []
+  },
+  "verdict": {
+    "battery_green": true,
+    "truth_controls_green": true,
+    "comparator_mutants_all_detected": true,
+    "rule_drop_mutants_all_detected": true,
+    "reason_codes_reconciled": true,
+    "N05AR_COGNITIVE_EVALUATOR_INTEGRITY_GO": "PASS"
+  }
+}

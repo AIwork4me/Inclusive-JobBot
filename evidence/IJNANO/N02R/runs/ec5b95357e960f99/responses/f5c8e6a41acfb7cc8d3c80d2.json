@@ -1,0 +1,146 @@
+{
+ "trial_id": "f5c8e6a41acfb7cc8d3c80d2",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of allowed actions (A1-A6) and a specific situation description.\n    *   Situation: \"包裹 {trk} 已经延误超过一周且承运商无响应。\" (Package {trk} has been delayed for more than a week and the carrier has no response.)\n    *   Constraint: \"只回答动作编号。\" (Answer only with the action label number.)\n    *   Goal: Select the appropriate action label based on the situation.\n\n2.  **Analyze the Situation:**\n    *   Package ID: {trk}\n    *   Issue: Delayed > 1 week, Carrier no response.\n    *   Context: This sounds like a critical issue requiring escalation or intervention.\n\n3.  **Evaluate the Actions:**\n    *   A1. 改址：修改 TRK-11298 的收件地址 / change the address for TRK-11298 (Irrelevant, address change doesn't fix delay/no response).\n    *   A2. 加急：把 TRK-11298 升级为加急配送 / upgrade TRK-11298 to express (This might help, but the core issue is the delay and lack of response, which suggests a need for escalation or tracking intervention).\n    *   A3. 拦截：尝试拦截 TRK-11298 / attempt to intercept TRK-11298 (Intercepting usually means stopping the shipment, not necessarily fixing the delay).\n    *   A4. 重发：为 ORD-9014 重新发货 / reship ORD-9014 (This is for a different order ORD-9014, not the one mentioned in the prompt context, though the prompt says \"包裹 {trk}\" which might be associated with ORD-9014 or just a generic package. However, the prompt specifically mentions \"包裹 {trk}\" and the action A4 is for \"ORD-9014\". Wait, looking closely at the prompt structure: \"包裹 {trk} 已经延误超过一周且承运商无响应。\" This implies the package ID is {trk}. Action A4 says \"为 ORD-9014 重新发货\". There is a mismatch between the package ID {trk} and the action A4's specific order ID ORD-9014. However, usually in these tasks, if the package is delayed, the priority is to escalate or take action to resolve the delay. Let's look at A6.)\n    *   A5. 仅备注，不操作 / note only, no action (Not appropriate for a delayed package with no carrier response).\n    *   A6. 开升级单 / open an escalation case (This is the most appropriate action for a package that is delayed for over a week and the carrier has no response. Escalation is needed to get a solution).\n\n4.  **Re-evaluating based on typical logistics workflow:**\n    *   Delay > 1 week + No response = Critical issue.\n    *   A1 (Change address): Irrelevant.\n    *   A2 (Express): Might be a solution, but \"escalation\" (A6) is often the formal step for carrier unresponsiveness.\n    *   A3 (Intercept): Usually for security or theft, not necessarily for delay.\n    *   A4 (Reship): Specific to ORD-9014. The prompt says \"包裹 {trk}\". Unless {trk} is associated with ORD-9014, this is risky. But wait, usually in these few-shot or few-line prompts, the context implies the package ID is the focus.\n    *   A6 (Escalation): This is the standard action for \"Carrier no response\" and \"Delayed\". It triggers a higher level of support.\n\n    *Wait, let's look at the specific text again.*\n    \"包裹 {trk} 已经延误超过一周且承运商无响应。\"\n    The prompt asks to answer with the action label only.\n    Usually, when a package is delayed and the carrier is unresponsive, the system needs to escalate the case to get a resolution.\n    However, sometimes \"加急\" (A2) is the direct action to speed up. But \"承运商无响应\" (Carrier no response) suggests the system needs to intervene on the carrier's side or escalate the ticket.\n    Let's check the action labels again.\n    A6: 开升级单 (Open an escalation case).\n    This fits \"承运商无响应\" (Carrier no response) best.\n\n    *Wait, is there a"
+      }
+     }
+    ],
+    "created": 1795800159,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 223,
+     "total_tokens": 1247,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-VMCnk1hvRS6rPYEaJnU4nV91Zx9Cqnfm",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of allowed actions (A1-A6) and a specific situation description.\n    *   Situation: \"包裹 {trk} 已经延误超过一周且承运商无响应。\" (Package {trk} has been delayed for more than a week and the carrier has no response.)\n    *   Constraint: \"只回答动作编号。\" (Answer only with the action label number.)\n    *   Goal: Select the appropriate action label based on the situation.\n\n2.  **Analyze the Situation:**\n    *   Package ID: {trk}\n    *   Issue: Delayed > 1 week, Carrier no response.\n    *   Context: This sounds like a critical issue requiring escalation or intervention.\n\n3.  **Evaluate the Actions:**\n    *   A1. 改址：修改 TRK-11298 的收件地址 / change the address for TRK-11298 (Irrelevant, address change doesn't fix delay/no response).\n    *   A2. 加急：把 TRK-11298 升级为加急配送 / upgrade TRK-11298 to express (This might help, but the core issue is the delay and lack of response, which suggests a need for escalation or tracking intervention).\n    *   A3. 拦截：尝试拦截 TRK-11298 / attempt to intercept TRK-11298 (Intercepting usually means stopping the shipment, not necessarily fixing the delay).\n    *   A4. 重发：为 ORD-9014 重新发货 / reship ORD-9014 (This is for a different order ORD-9014, not the one mentioned in the prompt context, though the prompt says \"包裹 {trk}\" which might be associated with ORD-9014 or just a generic package. However, the prompt specifically mentions \"包裹 {trk}\" and the action A4 is for \"ORD-9014\". Wait, looking closely at the prompt structure: \"包裹 {trk} 已经延误超过一周且承运商无响应。\" This implies the package ID is {trk}. Action A4 says \"为 ORD-9014 重新发货\". There is a mismatch between the package ID {trk} and the action A4's specific order ID ORD-9014. However, usually in these tasks, if the package is delayed, the priority is to escalate or take action to resolve the delay. Let's look at A6.)\n    *   A5. 仅备注，不操作 / note only, no action (Not appropriate for a delayed package with no carrier response).\n    *   A6. 开升级单 / open an escalation case (This is the most appropriate action for a package that is delayed for over a week and the carrier has no response. Escalation is needed to get a solution).\n\n4.  **Re-evaluating based on typical logistics workflow:**\n    *   Delay > 1 week + No response = Critical issue.\n    *   A1 (Change address): Irrelevant.\n    *   A2 (Express): Might be a solution, but \"escalation\" (A6) is often the formal step for carrier unresponsiveness.\n    *   A3 (Intercept): Usually for security or theft, not necessarily for delay.\n    *   A4 (Reship): Specific to ORD-9014. The prompt says \"包裹 {trk}\". Unless {trk} is associated with ORD-9014, this is risky. But wait, usually in these few-shot or few-line prompts, the context implies the package ID is the focus.\n    *   A6 (Escalation): This is the standard action for \"Carrier no response\" and \"Delayed\". It triggers a higher level of support.\n\n    *Wait, let's look at the specific text again.*\n    \"包裹 {trk} 已经延误超过一周且承运商无响应。\"\n    The prompt asks to answer with the action label only.\n    Usually, when a package is delayed and the carrier is unresponsive, the system needs to escalate the case to get a resolution.\n    However, sometimes \"加急\" (A2) is the direct action to speed up. But \"承运商无响应\" (Carrier no response) suggests the system needs to intervene on the carrier's side or escalate the ticket.\n    Let's check the action labels again.\n    A6: 开升级单 (Open an escalation case).\n    This fits \"承运商无响应\" (Carrier no response) best.\n\n    *Wait, is there a",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 223,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n可选动作 / available actions:\nA1. 改址：修改 TRK-11298 的收件地址 / change the address for TRK-11298\nA2. 加急：把 TRK-11298 升级为加急配送 / upgrade TRK-11298 to express\nA3. 拦截：尝试拦截 TRK-11298 / attempt to intercept TRK-11298\nA4. 重发：为 ORD-9014 重新发货 / reship ORD-9014\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n包裹 {trk} 已经延误超过一周且承运商无响应。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1246,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 223,
+      "prompt_ms": 49.736,
+      "prompt_per_token_ms": 0.22303139013452913,
+      "prompt_per_second": 4483.673797651601,
+      "predicted_n": 1024,
+      "predicted_ms": 4960.52,
+      "predicted_per_token_ms": 4.848993157380255,
+      "predicted_per_second": 206.2283792828171
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 223,
+     "prompt_ms": 49.736,
+     "prompt_per_token_ms": 0.22303139013452913,
+     "prompt_per_second": 4483.673797651601,
+     "predicted_n": 1024,
+     "predicted_ms": 4960.52,
+     "predicted_per_token_ms": 4.848993157380255,
+     "predicted_per_second": 206.2283792828171
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.047
+  }
+ ]
+}

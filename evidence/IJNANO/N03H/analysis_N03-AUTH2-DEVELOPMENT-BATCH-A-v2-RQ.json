@@ -1,0 +1,416 @@
+{
+ "workdir": "runs/n03h/N03-AUTH2-DEVELOPMENT-BATCH-A-v2-RQ (local)",
+ "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-A-v2-RQ",
+ "sealed": true,
+ "seal": {
+  "schema": "ijnano.n03h.seal.v1",
+  "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-A-v2-RQ",
+  "results_sha256": "2cd631fa7440f4047a47894171bfa441408a727a929333172b0754d4ca3521fb",
+  "trials": 480,
+  "physical_attempts": 480,
+  "integrity_problems": [],
+  "sealed_utc": "2026-11-28T07:13:46Z"
+ },
+ "physical_attempts": 480,
+ "trials_recorded": 480,
+ "overall": {
+  "LFM3-1.7B": {
+   "trials": 160,
+   "counts": {
+    "CORRECT": 86,
+    "EMPTY_OUTPUT": 51,
+    "INVALID_OUTPUT": 23
+   },
+   "semantic_accuracy": 0.5375,
+   "empty_output_rate": 0.3187,
+   "invalid_output_rate": 0.1437
+  },
+  "MiniCPM5-2B": {
+   "trials": 160,
+   "counts": {
+    "CORRECT": 98,
+    "INVALID_OUTPUT": 34,
+    "EMPTY_OUTPUT": 19,
+    "INCORRECT": 9
+   },
+   "semantic_accuracy": 0.6125,
+   "empty_output_rate": 0.1187,
+   "invalid_output_rate": 0.2125
+  },
+  "Qwen3.5-2B": {
+   "trials": 160,
+   "counts": {
+    "CORRECT": 69,
+    "EMPTY_OUTPUT": 90,
+    "INCORRECT": 1
+   },
+   "semantic_accuracy": 0.4313,
+   "empty_output_rate": 0.5625,
+   "invalid_output_rate": 0.0
+  }
+ },
+ "matrix": {
+  "LFM3-1.7B": {
+   "C01": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 1.363,
+    "mean_completion_tokens": 230.5,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C02": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 19,
+     "INVALID_OUTPUT": 1
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 5.942,
+    "mean_completion_tokens": 1023.4,
+    "finish_reasons": {
+     "length": 19,
+     "stop": 1
+    }
+   },
+   "C03": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 10,
+     "EMPTY_OUTPUT": 3,
+     "INVALID_OUTPUT": 7
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.5,
+    "mean_latency_s": 3.062,
+    "mean_completion_tokens": 524.9,
+    "finish_reasons": {
+     "stop": 17,
+     "length": 3
+    }
+   },
+   "C04": {
+    "trials": 20,
+    "counts": {
+     "INVALID_OUTPUT": 15,
+     "EMPTY_OUTPUT": 5
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 4.813,
+    "mean_completion_tokens": 823.7,
+    "finish_reasons": {
+     "stop": 12,
+     "length": 8
+    }
+   },
+   "C05": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 1.601,
+    "mean_completion_tokens": 271.1,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C06": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 2.57,
+    "mean_completion_tokens": 438.4,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C07": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 13,
+     "EMPTY_OUTPUT": 7
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.65,
+    "mean_latency_s": 3.486,
+    "mean_completion_tokens": 595.0,
+    "finish_reasons": {
+     "stop": 13,
+     "length": 7
+    }
+   },
+   "C08": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 17,
+     "CORRECT": 3
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.15,
+    "mean_latency_s": 5.682,
+    "mean_completion_tokens": 961.6,
+    "finish_reasons": {
+     "length": 17,
+     "stop": 3
+    }
+   }
+  },
+  "MiniCPM5-2B": {
+   "C01": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 1.049,
+    "mean_completion_tokens": 187.1,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C02": {
+    "trials": 20,
+    "counts": {
+     "INVALID_OUTPUT": 11,
+     "EMPTY_OUTPUT": 8,
+     "INCORRECT": 1
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 4.691,
+    "mean_completion_tokens": 849.1,
+    "finish_reasons": {
+     "stop": 11,
+     "length": 9
+    }
+   },
+   "C03": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 8,
+     "INCORRECT": 4,
+     "INVALID_OUTPUT": 8
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.4,
+    "mean_latency_s": 1.52,
+    "mean_completion_tokens": 273.6,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C04": {
+    "trials": 20,
+    "counts": {
+     "INVALID_OUTPUT": 15,
+     "INCORRECT": 4,
+     "EMPTY_OUTPUT": 1
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 3.306,
+    "mean_completion_tokens": 590.5,
+    "finish_reasons": {
+     "stop": 19,
+     "length": 1
+    }
+   },
+   "C05": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 1.166,
+    "mean_completion_tokens": 210.2,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C06": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 1.096,
+    "mean_completion_tokens": 195.8,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C07": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 1.352,
+    "mean_completion_tokens": 242.7,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C08": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 10,
+     "EMPTY_OUTPUT": 10
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.5,
+    "mean_latency_s": 4.314,
+    "mean_completion_tokens": 748.7,
+    "finish_reasons": {
+     "stop": 10,
+     "length": 10
+    }
+   }
+  },
+  "Qwen3.5-2B": {
+   "C01": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 12,
+     "EMPTY_OUTPUT": 8
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.6,
+    "mean_latency_s": 3.734,
+    "mean_completion_tokens": 768.2,
+    "finish_reasons": {
+     "stop": 12,
+     "length": 8
+    }
+   },
+   "C02": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 4.976,
+    "mean_completion_tokens": 1024.0,
+    "finish_reasons": {
+     "length": 20
+    }
+   },
+   "C03": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 8,
+     "EMPTY_OUTPUT": 12
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.4,
+    "mean_latency_s": 3.767,
+    "mean_completion_tokens": 774.4,
+    "finish_reasons": {
+     "stop": 8,
+     "length": 12
+    }
+   },
+   "C04": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 2,
+     "EMPTY_OUTPUT": 18
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.1,
+    "mean_latency_s": 4.848,
+    "mean_completion_tokens": 993.0,
+    "finish_reasons": {
+     "stop": 2,
+     "length": 18
+    }
+   },
+   "C05": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 12,
+     "EMPTY_OUTPUT": 8
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.6,
+    "mean_latency_s": 3.589,
+    "mean_completion_tokens": 735.5,
+    "finish_reasons": {
+     "stop": 12,
+     "length": 8
+    }
+   },
+   "C06": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 19,
+     "EMPTY_OUTPUT": 1
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.95,
+    "mean_latency_s": 3.308,
+    "mean_completion_tokens": 674.7,
+    "finish_reasons": {
+     "stop": 19,
+     "length": 1
+    }
+   },
+   "C07": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 13,
+     "EMPTY_OUTPUT": 6,
+     "INCORRECT": 1
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.65,
+    "mean_latency_s": 3.847,
+    "mean_completion_tokens": 786.0,
+    "finish_reasons": {
+     "stop": 14,
+     "length": 6
+    }
+   },
+   "C08": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 17,
+     "CORRECT": 3
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.15,
+    "mean_latency_s": 4.782,
+    "mean_completion_tokens": 959.8,
+    "finish_reasons": {
+     "length": 17,
+     "stop": 3
+    }
+   }
+  }
+ },
+ "language_split": {
+  "LFM3-1.7B|en": 80,
+  "LFM3-1.7B|zh": 80,
+  "MiniCPM5-2B|en": 80,
+  "MiniCPM5-2B|zh": 80,
+  "Qwen3.5-2B|en": 80,
+  "Qwen3.5-2B|zh": 80
+ }
+}

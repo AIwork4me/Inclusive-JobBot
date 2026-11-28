@@ -1,0 +1,102 @@
+{
+ "schema": "ijnano.n03h.coverage.v1",
+ "campaign": {
+  "started_utc": "2026-11-28T04:34:00Z",
+  "reported_utc": "2026-11-28T13:24:55Z",
+  "deadline_utc": "2026-11-30T04:34:00Z"
+ },
+ "scopes": [
+  {
+   "scope": "E1 Batch A dev (AUTH-2A-RQ)",
+   "planned": 480,
+   "executed": 480,
+   "physical_attempts": 480,
+   "sealed": true,
+   "results_sha256": "2cd631fa7440f4047a47894171bfa441408a727a929333172b0754d4ca3521fb",
+   "status": "COMPLETE"
+  },
+  {
+   "scope": "E1 Batch B dev (AUTH-2B)",
+   "planned": 480,
+   "executed": 480,
+   "physical_attempts": 480,
+   "sealed": true,
+   "results_sha256": "cb4303b408e4dc80479685cb1b6f0b25eee50f87487a3b0e0d59fb5cdd03d57d",
+   "status": "COMPLETE"
+  },
+  {
+   "scope": "E1 Batch C dev (AUTH-2C)",
+   "planned": 480,
+   "executed": 480,
+   "physical_attempts": 480,
+   "sealed": true,
+   "results_sha256": "25ffffa9edb745c8b03d2a4859386865198215f741202d772bc9dfca305fc96d",
+   "status": "COMPLETE"
+  },
+  {
+   "scope": "E1 Batch D dev (AUTH-2D)",
+   "planned": 480,
+   "executed": 480,
+   "physical_attempts": 480,
+   "sealed": true,
+   "results_sha256": "b4028e3895a5725c6e5eef801e16a7bc3c695866c888b93486712cb09f73343f",
+   "status": "COMPLETE"
+  },
+  {
+   "scope": "E1 confirmation (AUTH-3)",
+   "planned": 960,
+   "executed": 0,
+   "status": "BLOCKED (AUTH-3 not registered; by design)"
+  },
+  {
+   "scope": "E2 adapter atlas (AUTH-2W)",
+   "planned": 1920,
+   "executed": 1920,
+   "physical_attempts": 1920,
+   "sealed": true,
+   "results_sha256": "cb5e8b8af5a04e6307080e63034128ade705f06e98640112ba8f9bf1d18e3a45",
+   "status": "COMPLETE"
+  },
+  {
+   "scope": "E3 native reproduction",
+   "planned": 1140,
+   "executed": 0,
+   "status": "BLOCKED (task acquisition + sandbox; sources study frozen)"
+  },
+  {
+   "scope": "E4 cross-harness",
+   "planned": 720,
+   "executed": 0,
+   "status": "BLOCKED (E3 + scope)"
+  },
+  {
+   "scope": "E5 runtime x adapter factorial",
+   "planned": 480,
+   "executed": 0,
+   "status": "BLOCKED (scope not released)"
+  },
+  {
+   "scope": "E6 reasoning budget",
+   "planned": 1080,
+   "executed": 0,
+   "status": "BLOCKED (scope not released)"
+  },
+  {
+   "scope": "E6 larger-model reference",
+   "planned": 320,
+   "executed": 0,
+   "status": "BLOCKED (scope not released)"
+  },
+  {
+   "scope": "E7 learnability",
+   "planned": 1440,
+   "executed": 0,
+   "status": "BLOCKED (scope not released)"
+  }
+ ],
+ "totals": {
+  "planned_slots_all_scopes": 9980,
+  "executed_trials_sealed_or_running": 3840,
+  "note": "planned totals include BLOCKED scopes for accountability; executed counts are per-scope physical records"
+ }
+}

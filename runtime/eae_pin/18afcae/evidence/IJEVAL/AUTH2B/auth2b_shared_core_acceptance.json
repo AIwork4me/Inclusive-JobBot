@@ -1,0 +1,29 @@
+{
+ "schema": "ijeval.auth2b.acceptance.v1",
+ "verdict": "ACCEPTED",
+ "basis": {
+  "gate": "N03_SHARED_EVALUATION_ASSURANCE_CORE_GO",
+  "ea18_artifact": "evidence/IJEVAL/EA18/independent_acceptance.json",
+  "ea18_artifact_sha256": "7afb3cc848f6bcede0e56b914348a0a5664b66b18088c81de626688868ca8a25",
+  "core_modules_unchanged": "Batch B legs are NEW modules; the Batch A qualified sources (parser/evaluator/interpreter/oracle) are byte-identical — their registered digests stay current",
+  "dependencies": {
+   "waveB_witnesses": true,
+   "waveB_mutations": true,
+   "waveB_ea08": true,
+   "catastrophe_pilot": true,
+   "ea12": true,
+   "ea13": true,
+   "ea14": true
+  }
+ },
+ "requirements_map": {
+  "shared EAE core protection gates": "Wave B + Wave C (unchanged, EA18)",
+  "Batch B semantic qualification": "EA03-B GT 160/160 + 470/0 mutation controls",
+  "Batch B dual-path closure": "Wave B-B 134/134 witnesses; 12 detected + 2 EQUIVALENT justified, 0 escapes",
+  "EA13-B cognitive qualification": "8/8 Batch B dev primitives",
+  "canary integration": "full-family sweep through the real Batch B legs (passed)",
+  "breaker containment": "restart-safe, requalification-only recovery (passed)"
+ },
+ "scope_limits": "development split only; protected confirmation NOT covered (roster_split=development); physical runtime identities must match the IJ-NANO model registry; Batch B scope only (C09-C16) — no cross-batch carry-over",
+ "verified_utc": "2026-11-28T04:51:56Z"
+}
