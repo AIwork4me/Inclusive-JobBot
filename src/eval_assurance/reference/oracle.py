@@ -1200,8 +1200,21 @@ def _compare_typed(prim: str, payload: dict, parsed, truth,
         return (not why), tuple(why)
     if prim == "C03":
         if isinstance(truth, dict) and "field" in truth:      # formfill
-            return (parsed == truth), (
-                f"formfill {parsed!r} != {truth!r}",)
+            # the pinned contract's formfill surface is a single-field
+            # JSON object {field: value}; the typed semantics are that
+            # (field, value) pair compared EXACTLY (no silent
+            # normalization). Reconciled 2026-11-28: the previous
+            # ``parsed == truth`` compared the raw single-field dict
+            # against the derived {field, value} record shape and
+            # scored every correct formfill answer INCORRECT (defect
+            # surfaced by the dual-path formfill witnesses; see
+            # evidence/IJEVAL/EA03_N03/dualpath_reconciliation.json).
+            ok = (isinstance(parsed, dict) and len(parsed) == 1
+                  and next(iter(parsed)) == truth.get("field")
+                  and next(iter(parsed.values())) == truth.get("value"))
+            return ok, (f"formfill pair {parsed!r} != "
+                        f"({truth.get('field')!r}, "
+                        f"{truth.get('value')!r})",)
         if isinstance(truth, dict) and "need" in truth:
             return (parsed == truth), (f"{parsed!r} != {truth!r}",)
         # formatting / oneedit: line sequence equality

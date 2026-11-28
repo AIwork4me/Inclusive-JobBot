@@ -28,3 +28,18 @@
 | Obligation B witnesses | 40/40 (positive/negative/empty/software-error) |
 | Authorization bypass controls | 16/16 incl. real consumer integration |
 | Tests | ij_eval_assurance 150/150; repo 306/307 (1 pre-existing env failure) |
+
+## 2026-11-28 — Wave B closure (EA03–EA08) + auth-semantics correction
+
+| item | result |
+| --- | --- |
+| AUTH semantics correction (order §3.1) | CONFIRMATION_LEVEL AUTH-2→AUTH-3 per frozen IJ-NANO-1.3S contract; mismatch reproduced red at 9c73bbf; symmetric enforcement + roster_split binding; controls 15-corrected + 17; contract artifact v1.1.1 |
+| Production leg (EA04) | production/parser.py + production/evaluator.py implementing pinned parser_semantics.md (blob-verified @ 58aa790); tokenizer/rule-table structure, stored-expectation typed comparison |
+| Dual-path integration (EA05) | src/eval_assurance/dualpath.py; disagreement→NOT_EVALUABLE+quarantine; EMPTY/INVALID/software/MISSING_EVIDENCE all distinct; content-addressed artifacts + offline replay; duplicate rejection preserves originals; crash-safe exact resume |
+| Dual-path witnesses (EA07) | 116/116 passed through the actual integrated path (every dev family; kinds incl. extra-field, missing-field, flags-flip, multiline, dup-key, fenced) |
+| Production-logic mutations (EA07) | 20 faults: 18 detected, 2 EQUIVALENT with dataset-specific justifications, 0 escapes |
+| EA08 evidence controls | 6/6 (duplicate, resume, replay, tamper, missing-vs-empty, receipts) |
+| GT battery re-run after IJE-WB-D01 fix | 160/160 VALID, 38/38 probes, 597/597 mutations, 40/40 obligation-B — zero regression |
+| Coverage matrix | 25 rule rows; 817 total controls vs original 500-proposal, categories reconciled (GT reuse ≠ substitution) |
+| Certificate | 148b435df466190b (N03_BATCH_A_DEV_CPU_DUALPATH) via real QualificationAuthority, persisted registry |
+| Tests | ij_eval_assurance 168+18 new = full suite green at commit time (see pubgate receipt) |

@@ -1,0 +1,244 @@
+{
+ "schema": "ijeval.ea03_n03.rule_coverage_matrix.v1",
+ "generated_utc": "2026-11-28T03:27:59Z",
+ "matrix": [
+  {
+   "rule": "C01 bare label or single-field intent/label JSON",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:C01-*-pos",
+    "witness:C01-*-posf",
+    "witness:C01-*-wrong",
+    "fault:P10_multiline_label_first",
+    "obligb:C01-*"
+   ]
+  },
+  {
+   "rule": "C02 JSON object with exactly the five schema fields",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:C02-*-pos",
+    "witness:C02-*-extra",
+    "witness:C02-*-missing",
+    "fault:P03_drop_extra_fields",
+    "fault:P04_default_missing_fields"
+   ]
+  },
+  {
+   "rule": "C02 unknown_flags object of booleans",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:C02-*-flags",
+    "fault:P13_predicate_dropped",
+    "fault:E03_flags_ignored"
+   ]
+  },
+  {
+   "rule": "C03 formatting: plain lines, no markers, blanks ignored",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:C03-formatting-pos",
+    "witness:C03-formatting-mal",
+    "fault:P09_markers_tolerated",
+    "fault:E07_c03_order_insensitive"
+   ]
+  },
+  {
+   "rule": "C03 formfill: single-field JSON {field: value}",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:C03-formfill-pos",
+    "witness:C03-formfill-posf",
+    "witness:C03-formfill-wrong",
+    "reconciliation:formfill-pair-compare"
+   ]
+  },
+  {
+   "rule": "C03 oneedit: exactly one line",
+   "source": "parser_semantics.md",
+   "controls": [
+    "interpreter-rule (no dev case; contract-complete implementation; confirmation-scope only)"
+   ]
+  },
+  {
+   "rule": "C04 id list / JSON list; explicit empty result",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:C04-*-pos",
+    "witness:C04-*-alt",
+    "witness:C04-*-wrong",
+    "fault:P14_empty_list_not_explicit (EQUIVALENT on current dataset, justified)"
+   ]
+  },
+  {
+   "rule": "C04 ordering matters only when a sort is declared",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:C04-*-alt",
+    "fault:E02_c04_subset_match",
+    "gt:class-D"
+   ]
+  },
+  {
+   "rule": "C05 TRUE/FALSE or {\"decision\": bool}; hedges are model failures",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:C05-*-pos",
+    "witness:C05-*-posf",
+    "witness:C05-*-mal",
+    "fault:P08_hedge_unparseable",
+    "fault:E06_inverted_decision"
+   ]
+  },
+  {
+   "rule": "C06/C07/C08 bare id or single-field JSON",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:C06-*-pos",
+    "witness:C07-*-pos",
+    "witness:C08-*-pos",
+    "witness:C0[6-8]-*-posf",
+    "fault:E01_any_catalog_member"
+   ]
+  },
+  {
+   "rule": "no positional unpacking of persisted stages (N02R root cause)",
+   "source": "parser_semantics.md",
+   "controls": [
+    "structural: key-based access only in production/parser.py + interpreter.py (import- and code-audit controls)",
+    "gtd:GT-D01..GT-D05"
+   ]
+  },
+  {
+   "rule": "markdown fence tolerance",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:*-posf",
+    "fault:P12_fences_not_stripped"
+   ]
+  },
+  {
+   "rule": "duplicate JSON keys are a structural defect",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:*-dup",
+    "fault:P02_duplicate_keys_accepted"
+   ]
+  },
+  {
+   "rule": "empty model output is its own class",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:*-empty",
+    "fault:P05_empty_as_incorrect",
+    "fault:P06_empty_as_software",
+    "ea08:X07_missing_vs_empty_distinction"
+   ]
+  },
+  {
+   "rule": "substring matching never sufficient; exact token equality",
+   "source": "parser_semantics.md",
+   "controls": [
+    "fault:E01_any_catalog_member",
+    "witness:*-wrong",
+    "code-audit: single normalization point in production/parser.py"
+   ]
+  },
+  {
+   "rule": "parse failures are PARSER_SOFTWARE_ERROR, never model failures",
+   "source": "parser_semantics.md",
+   "controls": [
+    "witness:*-swerr",
+    "fault:P08_hedge_unparseable",
+    "fault:P06_empty_as_software"
+   ]
+  },
+  {
+   "rule": "typed comparison per primitive against stored truth",
+   "source": "dual-path contract",
+   "controls": [
+    "witness:*-pos",
+    "witness:*-wrong",
+    "fault:E08_c02_action_only",
+    "fault:E06_inverted_decision"
+   ]
+  },
+  {
+   "rule": "valid alternative solutions accepted (ties/order freedom)",
+   "source": "order section 2",
+   "controls": [
+    "witness:C04-*-alt",
+    "fault:E05_alternatives_ignored (EQUIVALENT on current dataset, justified)",
+    "gt:class-E"
+   ]
+  },
+  {
+   "rule": "structural vs semantic model failures stay distinct",
+   "source": "order section 2",
+   "controls": [
+    "witness:*-mal",
+    "fault:E04_structural_conflation"
+   ]
+  },
+  {
+   "rule": "unresolved disagreement -> NOT_EVALUABLE + quarantine",
+   "source": "order section 2",
+   "controls": [
+    "class-discipline test (test_dualpath_waveb): every detected fault surfaces as NOT_EVALUABLE or a software class"
+   ]
+  },
+  {
+   "rule": "ground truth independently derivable from public payload",
+   "source": "EA03 obligation A",
+   "controls": [
+    "gt:597 controls classes A-F (0 escapes)",
+    "gtd:38 probes"
+   ]
+  },
+  {
+   "rule": "stored answers cross-checked, never authoritative",
+   "source": "EA03 obligation A",
+   "controls": [
+    "gt:class-C coupled corruption (70 controls)"
+   ]
+  },
+  {
+   "rule": "trusted raw artifact capture and replay",
+   "source": "order section 2",
+   "controls": [
+    "ea08:X06_offline_replay_agreement",
+    "ea08:X03_artifact_tamper"
+   ]
+  },
+  {
+   "rule": "verification receipts bind trial+execution identity",
+   "source": "EA-R02",
+   "controls": [
+    "ea08:X01X02_verification_receipts"
+   ]
+  },
+  {
+   "rule": "duplicate trial rejection; exact resume",
+   "source": "order section 2",
+   "controls": [
+    "ea08:X04_duplicate_trial_rejection",
+    "ea08:X05_resume_exactness"
+   ]
+  }
+ ],
+ "realized_controls": {
+  "dualpath_witnesses": 116,
+  "production_faults": 20,
+  "production_faults_detected": 18,
+  "production_faults_equivalent_justified": 2,
+  "gt_controls_reused": 597,
+  "gtd_probes_reused": 38,
+  "obligation_b_witnesses_reused": 40,
+  "ea08_evidence_controls": 6
+ },
+ "original_proposal_reconciliation": {
+  "original_minimum": 500,
+  "delivered_total": 817,
+  "reconciliation_statement": "The 597 GT controls are reused unchanged (they cover truth-derivation rules). They are NOT counted as substitutes for the new parser/evaluator/evidence controls: those categories are covered by the 116 dual-path witnesses, 20 production-logic faults and 6 EA08 evidence controls added here. No redundant witness inflation: two production faults are declared EQUIVALENT on the current dataset with recorded justifications rather than fake detections."
+ }
+}
