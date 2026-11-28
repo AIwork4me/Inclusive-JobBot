@@ -1,6 +1,7 @@
 """Write or check portable LFM3-HA-1.1 evidence identities and coverage."""
 
 import argparse
+import gzip
 from hashlib import file_digest
 import json
 from pathlib import Path
@@ -20,6 +21,20 @@ def read(name):
     return json.loads((EVIDENCE / name).read_bytes())
 
 
+def verify_paired_archive(report):
+    archive = report.get("paired_archive")
+    if archive is None:
+        return
+    name = archive["filename"]
+    if Path(name).name != name or digest(EVIDENCE / name) != archive["sha256"]:
+        raise ValueError("Portable paired archive digest differs")
+    with gzip.open(EVIDENCE / name, "rt", encoding="utf-8") as handle:
+        rows = [json.loads(line) for line in handle]
+    if (len(rows) != report["executed"] or len(rows) != archive["rows"]
+            or len({row["slot_id"] for row in rows}) != len(rows)):
+        raise ValueError("Portable matched archive coverage differs")
+
+
 def build():
     state = json.loads((ROOT / "MISSION_STATE.json").read_bytes())["lfm3_ha_1_1"]
     action = read("action-phase-retest.json")
@@ -29,6 +44,9 @@ def build():
     merge = read("high-precision-merge-artifacts.json")
     transfer = json.loads((ROOT / state["m4_evidence"]).read_bytes())
     compatibility = json.loads((ROOT / state["m5_evidence"]).read_bytes()) if state.get("m5_evidence") else None
+    verify_paired_archive(transfer)
+    if compatibility is not None:
+        verify_paired_archive(compatibility)
     if (len(action["results"]) != state["m1_physical_retest_trials"]
             or len(extension["results"]) != 5 or len(cache["cells"]) != state["m3_cache_cells"]
             or len(transport["results"]) != state["m5_transport_diagnostic_trials"]

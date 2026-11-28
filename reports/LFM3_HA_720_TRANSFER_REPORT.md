@@ -16,7 +16,7 @@ An initial diagnostic run sealed 270 trajectories before the effective budget au
 
 ## Full matched result
 
-All 720 trajectories sealed and replayed across 16 Radeon batches. Each table cell lists PASS / FAIL / BLOCKED for exact scoped completion out of 60. All NOT_RUN counts are zero. The earlier balanced checkpoint remains available. [Full paired replay](../evidence/IJSLM/lfm3-ha-1.1/transfer-panel.json) · [180-trial checkpoint](../evidence/IJSLM/lfm3-ha-1.1/transfer-checkpoint-180.json)
+All 720 trajectories sealed and replayed across 16 Radeon batches. Each table cell lists PASS / FAIL / BLOCKED for exact scoped completion out of 60. All NOT_RUN counts are zero. The earlier balanced checkpoint remains available. [Full paired replay](../evidence/IJSLM/lfm3-ha-1.1/transfer-panel.json) · [720 matched trial records](../evidence/IJSLM/lfm3-ha-1.1/transfer-matched-trials.jsonl.gz) · [180-trial checkpoint](../evidence/IJSLM/lfm3-ha-1.1/transfer-checkpoint-180.json)
 
 | Weight | Direct | Original SDK | Phase-aware SDK | Phase-aware paired weight gain |
 |---|---:|---:|---:|---:|

@@ -2,6 +2,7 @@
 
 import argparse
 from collections import Counter, defaultdict
+import gzip
 from itertools import product
 import json
 from pathlib import Path
@@ -173,13 +174,15 @@ def atlas_views(cells, slots, cases):
                                                         for key, rows in pairs.items()}}
 
 
-def replay(suite, folder):
+def replay(suite, folder, *, paired_rows=None, through_batches=None):
     cases, input_sha = load_inputs(suite)
     batches, freeze = build_plan(suite, cases, input_sha)
+    if through_batches is not None and not 1 <= through_batches <= len(batches):
+        raise ValueError("Requested checkpoint is outside the frozen batch roster")
     cells = defaultdict(dict)
     seals = []
     done = 0
-    for number, batch in enumerate(batches):
+    for number, batch in enumerate(batches[:through_batches]):
         path = folder / f"batch-{number:03d}"
         if not (path / "seal.json").exists():
             continue
@@ -201,7 +204,15 @@ def replay(suite, folder):
             if assessment != row["assessment"] or row["trial_id"] != trial["trial_id"]:
                 raise ValueError("Trial assessment differs from its sealed trace")
             factor = row["profile"] if suite == "transfer" else row["track"]
-            cells[row["weight"], factor][row["case_id"], row["seed"]] = trial_detail(trial, oracle, assessment)
+            detail = trial_detail(trial, oracle, assessment)
+            cells[row["weight"], factor][row["case_id"], row["seed"]] = detail
+            if paired_rows is not None:
+                paired_rows.append({key: row[key] for key in
+                                    ("slot_id", "trial_id", "case_id", "weight", "profile", "track", "seed",
+                                     "capture_sha256")}
+                                   | {"run_id": seal["run_id"], "git_sha": seal["git_sha"],
+                                      "seal_sha256": seals[-1]["seal_sha256"]}
+                                   | detail)
             done += 1
     factors = (DIRECT, ORIGINAL, CORRECTED) if suite == "transfer" else (
         "direct_first", "sdk_first", "sdk_streaming", "sdk_repeat")
@@ -233,8 +244,17 @@ def main():
     parser.add_argument("suite", choices=("transfer", "tc-extension"))
     parser.add_argument("--captures", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--paired-output", type=Path, help="Write a privacy-safe matched JSONL gzip archive")
+    parser.add_argument("--through-batches", type=int, help="Replay the frozen roster prefix at a checkpoint")
     args = parser.parse_args()
-    report = replay(args.suite, args.captures)
+    paired = [] if args.paired_output else None
+    report = replay(args.suite, args.captures, paired_rows=paired, through_batches=args.through_batches)
+    if args.paired_output:
+        raw = b"".join(canonical(row) + b"\n" for row in paired)
+        check_text(raw)
+        args.paired_output.write_bytes(gzip.compress(raw, mtime=0))
+        report["paired_archive"] = {"filename": args.paired_output.name, "rows": len(paired),
+                                    "sha256": digest(args.paired_output)}
     check_text(canonical(report))
     write_json(args.output, report)
     print(report["coverage"], report["executed"], report["planned"])

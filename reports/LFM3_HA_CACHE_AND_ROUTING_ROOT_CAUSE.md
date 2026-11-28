@@ -13,6 +13,17 @@ The denominator is four weight configurations. A passing cell needs all three pr
 
 Disabling checkpoints removed observed restores and increased warm Original prefill by about 180 ms with either cache RAM setting. Disabling cache RAM removed the cache update events and changed warm prefill by about 7 ms in these cells. The warm medians in the table aggregate the stage medians. Original's largest logged cached entry was 25.268 MiB with defaults and 19.043 MiB with checkpoints disabled. Peak process and GPU memory by cell are retained separately. These are single process launches per cell. The sampled tokens and latency do not explain the remaining log-probability drift by themselves.
 
+For each same-prefix pair, the mean absolute log-probability drift uses the token IDs present in both top-32 lists at each of the four generation positions. Cache RAM toggles produced the same drift at the displayed precision when the checkpoint setting was held fixed. The cache-by-checkpoint difference-in-differences rounded to zero at six decimal places for all four weights in both prefix modes.
+
+| Warm-prefix weight | Checkpoints enabled | Checkpoints disabled |
+|---|---:|---:|
+| Original | 0.013840 | 0.007845 |
+| OpenCode | 0.024301 | 0.000152 |
+| Pi | 0.024018 | 0.000012 |
+| Hermes | 0.021075 | 0.004225 |
+
+The short-prefix responses showed a different checkpoint effect by weight. Disabling checkpoints decreased drift for Original and Pi and increased it for OpenCode and Hermes. The ranked-vector repeatability disposition remains FAIL in every cell. These contrasts isolate effects of the two process flags in the captured configuration while leaving the residual state mechanism unresolved.
+
 `server-context.cpp` creates and restores context checkpoints independently from its RAM prompt-cache objects. `lfm-base.cpp` reads and stores the recurrent short-convolution state in the graph. The factorial measured checkpoint events and downstream numerical behavior. Direct short-convolution tensor-state capture remains NOT_RUN. The underlying source branch for numerical drift with both settings disabled remains BLOCKED on that deeper instrumentation. The existing narrow, one-token fixed-adapter admission remains PASS for its original scope. The four-token experiment establishes a separate FAIL and carries zero core attribution. [Pinned server source](https://github.com/ggml-org/llama.cpp/blob/b1b770d90d94cad9e9ea5b993bdbc383a522fb28/tools/server/server-context.cpp) · [Pinned short convolution](https://github.com/ggml-org/llama.cpp/blob/b1b770d90d94cad9e9ea5b993bdbc383a522fb28/src/models/lfm-base.cpp)
 
 ## Native routing
