@@ -1,5 +1,20 @@
 # Task Ledger
 
+## LFM3-HA-1.1
+
+| Stage | Status | Evidence |
+|---|---|---|
+| M0 resume audit | PASS | Local/remote review SHA matched. Portable admission and 8,250-trial seals replayed. Base, all adapter files, runtime and SDK were rehashed. The host lease and handoff matched with controllers idle. |
+| M1 SDK retry setting isolation | PASS | A real SDK with scripted loopback provider changed its initial choice from `none` to `auto` when only output retry changed from 0 to 1. The serializer branch in the native harness remains BLOCKED on its source. |
+| M1 phase policy and M2 typed binder software | PASS | 22 software controls in `test_phase_tool_policy.py` and `test_lossless_callback.py`. Historic Extension certificate replay passed. |
+| M1 four-profile Radeon preflight | NOT_RUN | New supplemental runner `benchmarks.slm10.ha11_preflight`. |
+| M2 five Extension Radeon replays | NOT_RUN | Original model-specific records preserved. |
+| M3 cache and routing factorial | NOT_RUN | Fixed guarded admission preserved. |
+| M4 and M5 capability panels | BLOCKED | Executor qualification remains pending. Zero of 720 and zero of 6,600 executed. |
+| M6 and M7 formal qualification | BLOCKED | Independent review, issuer and dispatcher dependencies remain open. |
+| M8 exact author reproduction | BLOCKED | Historical task roster, digests and isolation remain open. |
+| M9 DX-M2 physical qualification | NOT_RUN | Target hardware unavailable. |
+
 ## LFM3-HA-1.0 supplemental qualification
 
 | Task | Status | Evidence and scope |

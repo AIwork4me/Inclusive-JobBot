@@ -142,11 +142,12 @@ def owner_capture_active():
 
 
 @contextmanager
-def server(binary, model, lora, port, folder, pin, run_id, handoff, *, expected_error=None):
+def server(binary, model, lora, port, folder, pin, run_id, handoff, *, expected_error=None,
+           launch_flags=FLAGS, trace_path=None, sampler_seconds=90):
     require_idle_controller()
     if owner_capture_active():
         raise BlockingIOError("the owner capture or another controller is active")
-    flags = list(FLAGS)
+    flags = list(launch_flags)
     if lora is not None:
         flags.extend(["--lora", str(lora)])
     boot_path, samples, stop = (folder / name for name in ("server.log", "gpu.jsonl", "sample-stop"))
@@ -155,7 +156,10 @@ def server(binary, model, lora, port, folder, pin, run_id, handoff, *, expected_
     with physical_gpu(mission_id="LFM3-HA-1.0", runtime_session=run_id, lease_owner="lora-admission") as lease:
         if any(lease[key] != handoff["lease"][key] for key in ("host_sha256", "gpu_physical_sha256")):
             raise ValueError("Radeon differs from the frozen handoff")
-        with job_process(cmd, cwd=binary.parent, env=server_environment(),
+        env = server_environment()
+        if trace_path is not None:
+            env["LLAMA_IJ07_TRACE_PATH"] = str(trace_path)
+        with job_process(cmd, cwd=binary.parent, env=env,
                          creationflags=subprocess.CREATE_NO_WINDOW,
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) as process:
             client = CaptureClient(port)
@@ -199,7 +203,7 @@ def server(binary, model, lora, port, folder, pin, run_id, handoff, *, expected_
             with job_process(
                 ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File",
                  str(ROOT / "scripts/windows/sample_gpu_counters.ps1"), "-TargetProcessId", str(process.pid),
-                 "-OutputPath", str(samples), "-StopFile", str(stop), "-MaxSeconds", "90"],
+                 "-OutputPath", str(samples), "-StopFile", str(stop), "-MaxSeconds", str(sampler_seconds)],
                 creationflags=subprocess.CREATE_NO_WINDOW, stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             ) as sampler:

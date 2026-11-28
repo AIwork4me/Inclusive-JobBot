@@ -1,5 +1,10 @@
 # Blockers
 
+## LFM3-HA-1.1
+
+- **Native SDK source access.** Runtime engineering isolated the output-retry configuration trigger using the exact SDK and a scripted loopback provider. The public Python package serializes the retry config and launches the native harness. Review of the native OpenAI request-builder branch requires the corresponding `localharness` source.
+- **Physical and formal dispatch.** Runtime engineering owns the corrected executor retest and the cache and routing factorial. The shared GPU lease remains subject to the AG-11 owner window. Blind review, issuer credentials and registered dispatch remain prerequisites for formal complex work.
+
 ## LFM3-HA-1.0
 
 - **Exact author-run reproduction inputs.** Benchmark engineering needs a traceable 150 + 40 task roster, historical task and image digests, per-harness source/plugin identities and an isolated reproduction environment. The author cards establish aggregate results and the documented split rule. The frozen base's historical GGUF publisher revision no longer resolves through the live endpoint observed at startup. Local bytes match the archived identity.
