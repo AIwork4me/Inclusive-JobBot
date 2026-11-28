@@ -12,6 +12,7 @@
 | M2 five Extension Radeon replays | PASS | All five executed on Radeon and 21/21 callbacks bound. Scoped outcomes were four FAIL and one BLOCKED. [Physical replay](evidence/IJSLM/lfm3-ha-1.1/extension-radeon.json) |
 | M3 cache factorial physical coverage | PASS | All 16 cells carry Radeon proof. Four-token numerical repeatability and native unknown-ID rejection are FAIL. [Cache and routing](reports/LFM3_HA_CACHE_AND_ROUTING_ROOT_CAUSE.md) |
 | M3 native rejection candidate patch | PASS | The patch applies and compiled for CPU against pinned llama.cpp. Runtime controls and physical execution remain NOT_RUN. [Candidate build](evidence/IJSLM/lfm3-ha-1.1/native-routing-candidate-build.json) |
+| M3 guarded SDK request isolation | PASS | Software tests reject a cross-session route and an aborted route before either can reach the scripted provider. The fixed route rejects alias, scale and duplicate-key tampering. |
 | M4 transfer registration | PASS | Software replay preserves the 480 development slots and adds 240 corrected-runtime slots. No panel trajectories had executed at registration. |
 | M4 initial transfer diagnostic budget check | FAIL | The raw SDK emitted 65,535 tokens versus Direct's 768. The 270 sealed diagnostic observations remain available. The new matched panel checks every effective forwarded request. [Transfer report](reports/LFM3_HA_720_TRANSFER_REPORT.md) |
 | M4 first matched period | PASS | 180 of 720 trajectories sealed and replayed with matched provider controls. All four weights and three runtimes are represented. [Checkpoint](evidence/IJSLM/lfm3-ha-1.1/transfer-checkpoint-180.json) |
@@ -21,6 +22,7 @@
 | M5 full compatibility panel | BLOCKED | Latest published checkpoint verifies 540/6,600 physical trials. The single-lease queue remains active. [Checkpoint](evidence/IJSLM/lfm3-ha-1.1/tc-compatibility-checkpoint-540.json) |
 | M6 and M7 formal qualification | BLOCKED | Independent review, issuer and dispatcher dependencies remain open. |
 | M8 exact author reproduction | BLOCKED | Historical task roster, digests and isolation remain open. |
+| M8 public author dashboard metadata | PASS | The LFM3 snapshot contains 40 checkpoint aggregates per harness. The snapshot has no task-level evaluation records. [Dashboard receipt](evidence/IJSLM/lfm3-ha-1.1/author-dashboard-observation.json) |
 | M9 DX-M2 physical qualification | NOT_RUN | Target hardware unavailable. |
 | M9 NanoAgent handoff | PASS | Phase, binder, route, cache and profiler contracts and scoped acceptance evidence. [Consumer handoff](reports/LFM3_HA_NANOAGENT_HANDOFF.md) |
 | M9 CPU artifact packaging | PASS | Verified F16 merges and Q8_0 and Q4_K_M outputs for all three adapters. CPU tensor samples matched 4,131 values exactly. [Artifact identities](evidence/IJSLM/lfm3-ha-1.1/high-precision-merge-artifacts.json) |

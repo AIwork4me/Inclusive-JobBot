@@ -2,7 +2,9 @@
 
 ## LFM3-HA-1.1 runtime and capability panels
 
-Continue Draft PR #9 in the linked `codex/ij-slm-1.0` worktree. Use the existing repository-local assets and GPU lease. The 40-case supplemental action preflight, five-case Extension replay and 16-cell cache factorial have portable evidence. The active transfer panel uses `benchmarks.slm10.ha11_panel transfer` and the frozen 720-slot roster. Verify existing sealed batches and preserve interrupted reservations before resume. Its private freeze records the exact source commit. The new TC-V3 compatibility panel requires a separate physical transport receipt from `benchmarks.slm10.ha11_compatibility_admission`. [Runtime closure](reports/LFM3_HA_RUNTIME_CAUSAL_CLOSURE.md) · [Compatibility track](reports/LFM3_HA_6600_TC_CAPABILITY_REPORT.md)
+Continue Draft PR #9 in the linked `codex/ij-slm-1.0` worktree. Use the existing repository-local assets and GPU lease. The 40-case supplemental action preflight, five-case Extension replay, 16-cell cache factorial and full 720-case transfer panel have portable evidence. [Runtime closure](reports/LFM3_HA_RUNTIME_CAUSAL_CLOSURE.md) · [Transfer results](reports/LFM3_HA_720_TRANSFER_REPORT.md)
+
+The active 6,600-case compatibility queue stores its freeze, reservations and seals under `ASSET_ROOT/.runtime/lfm3-harness-adapters/ha11-tc-compatibility`. The private freeze pins the exact source commit and roster. Reuse the pinned source and supply `--extension-admission ASSET_ROOT/.runtime/lfm3-harness-adapters/ha11-tc-transport-f21e959` when resuming. Verify sealed batches and reconcile any interrupted reservation before dispatching more trials. The shared lease yields to the AG-11 owner procedure. [Compatibility track](reports/LFM3_HA_6600_TC_CAPABILITY_REPORT.md)
 
 Use `python -m benchmarks.slm10.ha11_panel_report` with the private capture folder to replay either panel. All supplemental evidence contributes zero to the original 36,550 core denominator. [Independent qualification](reports/LFM3_HA_INDEPENDENT_QUALIFICATION.md) · [NanoAgent handoff](reports/LFM3_HA_NANOAGENT_HANDOFF.md)
 
