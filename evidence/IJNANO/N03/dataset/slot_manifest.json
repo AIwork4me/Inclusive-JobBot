@@ -1,12 +1,12 @@
 {
  "schema": "ij_nano.n03.slot_manifest.v1",
- "complete": false,
+ "complete": true,
  "models": [
   "S1",
   "S2",
   "S3"
  ],
- "primitives_built": 8,
+ "primitives_built": 32,
  "per_primitive": {
   "C01": {
    "batch": "A",
@@ -63,6 +63,174 @@
    "conf_cases": 10,
    "dev_slots": 60,
    "conf_slots": 30
+  },
+  "C09": {
+   "batch": "B",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C10": {
+   "batch": "B",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C11": {
+   "batch": "B",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C12": {
+   "batch": "B",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C13": {
+   "batch": "B",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C14": {
+   "batch": "B",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C15": {
+   "batch": "B",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C16": {
+   "batch": "B",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C17": {
+   "batch": "C",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C18": {
+   "batch": "C",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C19": {
+   "batch": "C",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C20": {
+   "batch": "C",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C21": {
+   "batch": "C",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C22": {
+   "batch": "C",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C23": {
+   "batch": "C",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C24": {
+   "batch": "C",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C25": {
+   "batch": "D",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C26": {
+   "batch": "D",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C27": {
+   "batch": "D",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C28": {
+   "batch": "D",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C29": {
+   "batch": "D",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C30": {
+   "batch": "D",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C31": {
+   "batch": "D",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
+  },
+  "C32": {
+   "batch": "D",
+   "dev_cases": 20,
+   "conf_cases": 10,
+   "dev_slots": 60,
+   "conf_slots": 30
   }
  },
  "per_batch": {
@@ -72,14 +240,35 @@
    "conf_cases": 80,
    "dev_slots": 480,
    "conf_slots": 240
+  },
+  "B": {
+   "primitives": 8,
+   "dev_cases": 160,
+   "conf_cases": 80,
+   "dev_slots": 480,
+   "conf_slots": 240
+  },
+  "C": {
+   "primitives": 8,
+   "dev_cases": 160,
+   "conf_cases": 80,
+   "dev_slots": 480,
+   "conf_slots": 240
+  },
+  "D": {
+   "primitives": 8,
+   "dev_cases": 160,
+   "conf_cases": 80,
+   "dev_slots": 480,
+   "conf_slots": 240
   }
  },
  "totals": {
-  "dev_cases": 160,
-  "conf_cases": 80,
-  "dev_slots": 480,
-  "conf_slots": 240,
-  "primary_slots": 720
+  "dev_cases": 640,
+  "conf_cases": 320,
+  "dev_slots": 1920,
+  "conf_slots": 960,
+  "primary_slots": 2880
  },
  "target_when_complete": {
   "dev_cases": 640,

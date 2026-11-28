@@ -25,8 +25,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[4]
 BASE = ROOT / "evaluation" / "ij_nano" / "n03"
 sys.path.insert(0, str(ROOT))
 
-from evaluation.ij_nano.n03.dataset import (BATCH_A_FAMILIES, CONF_SEED_FILE_NAME,  # noqa: E402
-                                            DEV_SEED)
+from evaluation.ij_nano.n03.dataset import (CONF_SEED_FILE_NAME,  # noqa: E402
+                                            DEV_SEED, FAMILIES_BY_PRIMITIVE)
 from evaluation.ij_nano.n03.dataset.core import (digest_obj, expected_digest,  # noqa: E402
                                                  roster_digest,
                                                  split_lang_counts)
@@ -71,8 +71,8 @@ def main() -> int:
 
     dev_cases: list = []
     conf_cases: list = []
-    for prim in sorted(BATCH_A_FAMILIES):
-        for fam in BATCH_A_FAMILIES[prim]:
+    for prim in sorted(FAMILIES_BY_PRIMITIVE):
+        for fam in FAMILIES_BY_PRIMITIVE[prim]:
             target = dev_cases if fam.split == "development" else conf_cases
             seed = DEV_SEED if fam.split == "development" else \
                 prot_seed_file.read_text(encoding="utf-8")
@@ -84,9 +84,14 @@ def main() -> int:
                 [{"case_id": c.case_id, "expected": c.expected,
                   "alternatives": c.alternatives} for c in dev_cases])
 
+    prims_built = sorted(FAMILIES_BY_PRIMITIVE)
     manifest = {
         "schema": "ij_nano.n03.dataset.build_manifest.v1",
-        "batch": "A (C01-C08)",
+        "batches_built": sorted({("A" if p <= "C08" else
+                                  "B" if p <= "C16" else
+                                  "C" if p <= "C24" else "D")
+                                 for p in prims_built}),
+        "primitives": prims_built,
         "dev_seed_policy": "committed constant DEV_SEED (answers derivable "
                            "only from expectations artifacts; dev answers "
                            "are publishable by design)",

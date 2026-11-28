@@ -30,11 +30,12 @@ class TestBuildDeterminism(unittest.TestCase):
     def test_dev_roster_reproduces_committed_digest(self):
         """Regenerating the development roster from the committed seed must
         reproduce the committed public digest bit-for-bit."""
-        from evaluation.ij_nano.n03.dataset import BATCH_A_FAMILIES, DEV_SEED
+        from evaluation.ij_nano.n03.dataset import (DEV_SEED,
+                                                FAMILIES_BY_PRIMITIVE)
         from evaluation.ij_nano.n03.dataset.core import roster_digest
         cases = []
-        for prim in sorted(BATCH_A_FAMILIES):
-            for fam in BATCH_A_FAMILIES[prim]:
+        for prim in sorted(FAMILIES_BY_PRIMITIVE):
+            for fam in FAMILIES_BY_PRIMITIVE[prim]:
                 if fam.split != "development":
                     continue
                 for seq in range(10):
@@ -52,12 +53,11 @@ class TestBuildDeterminism(unittest.TestCase):
     def test_build_manifest_counts(self):
         m = json.loads((EVID / "build_manifest.json")
                        .read_text(encoding="utf-8"))
-        self.assertEqual(m["dev_cases"], 160)
-        self.assertEqual(m["confirmation_cases"], 80)
-        self.assertEqual(m["counts"].get("development:en"), 80)
-        self.assertEqual(m["counts"].get("development:zh"), 80)
-        self.assertEqual(m["counts"].get("confirmation:en"), 40)
-        self.assertEqual(m["counts"].get("confirmation:zh"), 40)
+        self.assertEqual(m["dev_cases"], 640)
+        self.assertEqual(m["confirmation_cases"], 320)
+        for k, want in (("development:en", 320), ("development:zh", 320),
+                        ("confirmation:en", 160), ("confirmation:zh", 160)):
+            self.assertEqual(m["counts"].get(k), want, k)
 
 
 class TestSlotAccounting(unittest.TestCase):
@@ -69,13 +69,15 @@ class TestSlotAccounting(unittest.TestCase):
                               .read_text(encoding="utf-8"))
         manifest, errors = sa.account(roster, registry)
         self.assertEqual(errors, [])
-        self.assertEqual(manifest["primitives_built"], 8)
-        self.assertFalse(manifest["complete"])     # Batch A only so far
+        self.assertEqual(manifest["primitives_built"], 32)
+        self.assertTrue(manifest["complete"])       # full 960-case roster
         t = manifest["totals"]
         self.assertEqual((t["dev_cases"], t["conf_cases"],
                           t["dev_slots"], t["conf_slots"],
-                          t["primary_slots"]), (160, 80, 480, 240, 720))
-        self.assertEqual(manifest["per_batch"]["A"]["primitives"], 8)
+                          t["primary_slots"]),
+                         (640, 320, 1920, 960, 2880))
+        for b in "ABCD":
+            self.assertEqual(manifest["per_batch"][b]["primitives"], 8, b)
         # committed manifest matches fresh accounting
         committed = json.loads((EVID / "slot_manifest.json")
                                .read_text(encoding="utf-8"))
@@ -120,10 +122,10 @@ class TestVerificationReport(unittest.TestCase):
 
     def test_pass_with_full_battery(self):
         self.assertEqual(self.rep["result"], "PASS")
-        self.assertEqual(self.rep["public_cases"], 240)
-        self.assertEqual(self.rep["truth_rederivations"], 240)
+        self.assertEqual(self.rep["public_cases"], 960)
+        self.assertEqual(self.rep["truth_rederivations"], 960)
         self.assertEqual(self.rep["mutation_battery"]["escaped"], 0)
-        self.assertEqual(self.rep["mutation_battery"]["detected"], 240)
+        self.assertEqual(self.rep["mutation_battery"]["detected"], 960)
         self.assertEqual(self.rep["problems"], [])
 
     def test_limitations_declared(self):
@@ -165,9 +167,18 @@ class TestProtectionAndLeakage(unittest.TestCase):
     def test_protected_manifest_is_hash_only(self):
         p = EVID / "confirmation_protected_manifest.json"
         m = json.loads(p.read_text(encoding="utf-8"))
-        self.assertEqual(m["case_count"], 80)
+        self.assertEqual(m["case_count"], 320)
         self.assertNotIn("expected", json.dumps(m))
         self.assertEqual(len(m["expectations_sha256"]), 64)
+
+
+class TestBatchAPreservation(unittest.TestCase):
+    def test_batch_a_records_preserved_bit_identical(self):
+        rep = json.loads((EVID / "batch_a_preservation.json")
+                         .read_text(encoding="utf-8"))
+        self.assertEqual(rep["batch_a_records_missing_from_full_roster"], 0)
+        self.assertEqual(rep["batch_a_dev_expectations_missing"], 0)
+        self.assertEqual(rep["batch_a_public_records"], 240)
 
 
 class TestSchemaConformanceEvidence(unittest.TestCase):
