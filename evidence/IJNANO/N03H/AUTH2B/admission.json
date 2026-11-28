@@ -1,0 +1,48 @@
+{
+ "schema": "ijnano.n03h.admission.v1",
+ "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-B-v1",
+ "gpu": {
+  "name": "AMD Radeon RX 7900 XTX",
+  "driver": "32.0.21030.2001",
+  "pnp_device_id": "PCI\\VEN_1002&DEV_744C&SUBSYS_0E3B1002&REV_C8\\6&13FD3BF3&0&00000008"
+ },
+ "engine": {
+  "exe_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+  "ggml_vulkan_dll_sha256": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c"
+ },
+ "weights": {
+  "MiniCPM5-2B": {
+   "path": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf",
+   "size": 2679710688,
+   "sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078"
+  },
+  "LFM3-1.7B": {
+   "path": "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf",
+   "size": 1846238496,
+   "sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6"
+  },
+  "Qwen3.5-2B": {
+   "path": "models/ij_sdk/Qwen3.5-2B-GGUF/Qwen3.5-2B-Q8_0.gguf",
+   "size": 2012012800,
+   "sha256": "1b04acba824817554f4ce23639bc8495ff70453b8fcb047900c731521021f2c1"
+  }
+ },
+ "chat_renderer_sha256": "67e2884f38cd60f15fafb7849ad3377f00aaf83ccd70a6297356b213994979e2",
+ "eae_pin": {
+  "files_verified": 125,
+  "pin": "EAE @ 7a3e8dc64dfb0a677fe4aa53c33f81b0d01e72d6 (mission/ij-eval-assurance-1.0-systemic-evaluation-integrity)",
+  "subtrees": [
+   "src/eval_assurance",
+   "evidence/IJEVAL/EA03_N03",
+   "evidence/IJEVAL/AUTH1",
+   "evidence/IJEVAL/AUTH2",
+   "evidence/IJEVAL/AUTH2B",
+   "evidence/IJEVAL/EA13",
+   "evidence/IJEVAL/EA13B",
+   "evidence/IJEVAL/EA18",
+   "evidence/IJEVAL/COMPAT",
+   "scripts/ij_eval_assurance"
+  ]
+ },
+ "verified_utc": "2026-11-28T05:13:09Z"
+}

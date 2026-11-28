@@ -40,7 +40,7 @@ Clock: started 2026-11-28T04:34:00Z, deadline 2026-11-30T04:34:00Z
 | Phase | Task | Progress | Status | Evidence |
 |---|---|---|---|---|
 | E1-A | Batch A development 480 slots (3 models x 160 dev cases, chat protocol) under AUTH-2 | not started | PENDING (authorized after integration gate) | planned `evidence/IJNANO/N03H/E1A/` |
-| E1-B | Batch B development 480 slots (C09-C16, chat, S1/S2/S3) under AUTH-2B | block 0 authorized | AUTHORIZED (checksum fc4cdb2c reproduced by real consumer; first-block integration verification per state decision) | `runs/n03h/N03-AUTH2-DEVELOPMENT-BATCH-B-v1/` |
+| E1-B | Batch B development 480 slots under AUTH-2B — blocks 0-1 EXECUTED (120 trials, C09+C10, sealed f19f0515→f1990515, 120/120 replays match); integration gate GRANTED; first findings recorded (S3 32/40 EMPTY via finish=length budget exhaustion — H2 signal) | blocks 2-7 pending | IN_PROGRESS | `runs/n03h/N03-AUTH2-DEVELOPMENT-BATCH-B-v1/`, `evidence/IJNANO/N03H/AUTH2B/` |
 | E1-CD | Batches C/D development 960 slots | not started | BLOCKED (pending IJEVAL EA13-C/D releases) | — |
 | E1-CONF | Protected confirmation 960 slots | not started | BLOCKED (AUTH-3 not registered; protection never weakened) | — |
 

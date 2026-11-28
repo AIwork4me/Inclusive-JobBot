@@ -8,7 +8,7 @@
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
  "parent_mission_state": "MISSION_STATE_IJNANO_N03_PROGRESSIVE.json",
- "updated_utc": "2026-11-28T06:10:00Z",
+ "updated_utc": "2026-11-28T07:20:00Z",
  "clock": {
   "budget_hours": 48,
   "started_utc": "2026-11-28T04:34:00Z",
@@ -267,8 +267,8 @@
  },
  "gates": {
   "IJNANO_48H_PREREGISTERED": "GRANTED (this file + verbatim order + ledgers committed)",
-  "N03_PHYSICAL_EVALUATION_INTEGRATION_GO": "PENDING (E0 evidence)",
-  "E0_SMOKE_COMPLETE": "PENDING",
+  "N03_PHYSICAL_EVALUATION_INTEGRATION_GO": "GRANTED (AUTH-2B blocks 0-1, 120/480 trials: complete raw evidence content-addressed, 120/120 offline dual-path replays match, 0 integrity problems, sealed f1990515; per-dispatch revocation recheck; canary preflight/sweeps green; honest fault-recovery drill recorded: controller canary-leg defect caught at preflight with 0 trials affected, requalification-only recovery exercised)",
+  "E0_SMOKE_COMPLETE": "SUPERSEDED by AUTH-2B first-block verification (48H-B-006 decision record); integration purpose fully served",
   "E1_BATCH_A_COMPLETE": "PENDING",
   "E2_ADAPTER_ATLAS_GO": "PENDING",
   "E3_REPRODUCTION_GO": "PENDING",
@@ -283,5 +283,15 @@
  },
  "decisions": {
   "integration_verification": "AUTH-1 48-slot smoke is unavailable (48H-B-006). The AUTH-2B release explicitly permits narrower preregistered scopes: the campaign executes AUTH-2B block 0 (60 trials: 20 cases x 3 models, per-case model rotation) as the PHYSICAL INTEGRATION VERIFICATION checkpoint - run, stop, verify (seal + canaries + dual-path replay + evidence completeness + telemetry capture), and only then grant N03_PHYSICAL_EVALUATION_INTEGRATION_GO and continue the remaining 420 slots. A defect found at verification quarantines affected scope per order section 14. Recorded 2026-11-28T06:10Z."
+ },
+ "first_physical_findings": {
+  "recorded_utc": "2026-11-28T07:20:00Z",
+  "trials": 120,
+  "per_model": {
+   "MiniCPM5-2B": "34 CORRECT / 4 EMPTY (all finish=length, budget exhaustion) / 2 INVALID; mean 569 completion tokens",
+   "LFM3-1.7B": "40/40 CORRECT; mean 357 tokens",
+   "Qwen3.5-2B": "7 CORRECT / 32 EMPTY (finish=length, mean 983 tokens - thinking mode consumes the frozen 1024-token chat budget) / 1 INVALID"
+  },
+  "hypothesis_signal": "H2 (protocol-induced failure) strongly supported for S3 under the chat protocol; consistent with N02RR corrected finding 'S3 thinking-control requirement'; E6 budget cohorts and thinking_disabled_chat protocol cohort are the designed follow-ups"
  }
 }

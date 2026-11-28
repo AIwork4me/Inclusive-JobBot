@@ -272,9 +272,18 @@ def bootstrap(scope: str):
                    dataset_file.read_text(encoding="utf-8")
                    .splitlines() if l.strip()}
 
+    # -- canary leg injection (same override the EAE release scripts use) -
+    canary_legs = None
+    if sc["legs"] == "b":
+        from eval_assurance.production import evaluator_b, parser_b
+        canary_legs = {"production_parser": parser_b.parse_response,
+                       "production_evaluator":
+                           evaluator_b.ProductionEvaluatorB()}
+
     return {
         "scope": scope,
         "pin_report": pin_report,
+        "canary_legs": canary_legs,
         "contract": execution_authorization,
         "evidence": evidence,
         "provider": provider,

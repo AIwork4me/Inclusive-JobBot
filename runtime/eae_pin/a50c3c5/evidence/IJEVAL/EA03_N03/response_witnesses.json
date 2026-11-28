@@ -1,0 +1,329 @@
+{
+ "schema": "ijeval.ea03_n03.response_witnesses",
+ "schema_version": 1,
+ "generated_by": "scripts/ij_eval_assurance/ea03_n03_qualify.py",
+ "path": "raw response -> independent interpreter -> reference oracle (obligation B reference leg)",
+ "rows": [
+  {
+   "primitive": "C01",
+   "witness": "positive",
+   "raw": "incident_report",
+   "verdict": "CORRECT",
+   "expected": "CORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C01",
+   "witness": "negative-malformed",
+   "raw": "free text answer about refunds please",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C01",
+   "witness": "negative-wrong",
+   "raw": "escalation_demand",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C01",
+   "witness": "empty",
+   "raw": "",
+   "verdict": "EMPTY_OUTPUT",
+   "expected": "EMPTY_OUTPUT",
+   "passed": true
+  },
+  {
+   "primitive": "C01",
+   "witness": "software-error",
+   "raw": "TRUE",
+   "verdict": "NOT_EVALUABLE",
+   "expected": "NOT_EVALUABLE",
+   "passed": true
+  },
+  {
+   "primitive": "C02",
+   "witness": "positive",
+   "raw": "{\"deadline\": \"2026-12-11\", \"action\": \"migrate\", \"object\": \"quarterly_report\", \"completion_criterion\": null, \"unknown_fla",
+   "verdict": "CORRECT",
+   "expected": "CORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C02",
+   "witness": "negative-malformed",
+   "raw": "sure, the goal is to finish it soon",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C02",
+   "witness": "negative-wrong",
+   "raw": "{\"deadline\": \"2026-12-11\", \"action\": \"submit\", \"object\": \"quarterly_report\", \"completion_criterion\": null, \"unknown_flag",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C02",
+   "witness": "empty",
+   "raw": "",
+   "verdict": "EMPTY_OUTPUT",
+   "expected": "EMPTY_OUTPUT",
+   "passed": true
+  },
+  {
+   "primitive": "C02",
+   "witness": "software-error",
+   "raw": "TRUE",
+   "verdict": "NOT_EVALUABLE",
+   "expected": "NOT_EVALUABLE",
+   "passed": true
+  },
+  {
+   "primitive": "C03",
+   "witness": "positive",
+   "raw": "headlamp\nmap case\ntrail jacket",
+   "verdict": "CORRECT",
+   "expected": "CORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C03",
+   "witness": "negative-malformed",
+   "raw": "- bullet one\n- bullet two",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C03",
+   "witness": "negative-wrong",
+   "raw": "trail jacket",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C03",
+   "witness": "empty",
+   "raw": "",
+   "verdict": "EMPTY_OUTPUT",
+   "expected": "EMPTY_OUTPUT",
+   "passed": true
+  },
+  {
+   "primitive": "C03",
+   "witness": "software-error",
+   "raw": "TRUE",
+   "verdict": "NOT_EVALUABLE",
+   "expected": "NOT_EVALUABLE",
+   "passed": true
+  },
+  {
+   "primitive": "C04",
+   "witness": "positive",
+   "raw": "SKU-001",
+   "verdict": "CORRECT",
+   "expected": "CORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C04",
+   "witness": "negative-malformed",
+   "raw": "SKU-000",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C04",
+   "witness": "negative-wrong",
+   "raw": "zzz",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C04",
+   "witness": "empty",
+   "raw": "",
+   "verdict": "EMPTY_OUTPUT",
+   "expected": "EMPTY_OUTPUT",
+   "passed": true
+  },
+  {
+   "primitive": "C04",
+   "witness": "software-error",
+   "raw": "TRUE",
+   "verdict": "NOT_EVALUABLE",
+   "expected": "NOT_EVALUABLE",
+   "passed": true
+  },
+  {
+   "primitive": "C05",
+   "witness": "positive",
+   "raw": "TRUE",
+   "verdict": "CORRECT",
+   "expected": "CORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C05",
+   "witness": "negative-malformed",
+   "raw": "probably yes I think",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C05",
+   "witness": "negative-wrong",
+   "raw": "FALSE",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C05",
+   "witness": "empty",
+   "raw": "",
+   "verdict": "EMPTY_OUTPUT",
+   "expected": "EMPTY_OUTPUT",
+   "passed": true
+  },
+  {
+   "primitive": "C05",
+   "witness": "software-error",
+   "raw": "TRUE",
+   "verdict": "NOT_EVALUABLE",
+   "expected": "NOT_EVALUABLE",
+   "passed": true
+  },
+  {
+   "primitive": "C06",
+   "witness": "positive",
+   "raw": "PLN-TEAM",
+   "verdict": "CORRECT",
+   "expected": "CORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C06",
+   "witness": "negative-malformed",
+   "raw": "PLN-BASIC",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C06",
+   "witness": "negative-wrong",
+   "raw": "PLN-BASIC",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C06",
+   "witness": "empty",
+   "raw": "",
+   "verdict": "EMPTY_OUTPUT",
+   "expected": "EMPTY_OUTPUT",
+   "passed": true
+  },
+  {
+   "primitive": "C06",
+   "witness": "software-error",
+   "raw": "TRUE",
+   "verdict": "NOT_EVALUABLE",
+   "expected": "NOT_EVALUABLE",
+   "passed": true
+  },
+  {
+   "primitive": "C07",
+   "witness": "positive",
+   "raw": "escalate_fraud",
+   "verdict": "CORRECT",
+   "expected": "CORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C07",
+   "witness": "negative-malformed",
+   "raw": "do the needful",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C07",
+   "witness": "negative-wrong",
+   "raw": "issue_refund",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C07",
+   "witness": "empty",
+   "raw": "",
+   "verdict": "EMPTY_OUTPUT",
+   "expected": "EMPTY_OUTPUT",
+   "passed": true
+  },
+  {
+   "primitive": "C07",
+   "witness": "software-error",
+   "raw": "TRUE",
+   "verdict": "NOT_EVALUABLE",
+   "expected": "NOT_EVALUABLE",
+   "passed": true
+  },
+  {
+   "primitive": "C08",
+   "witness": "positive",
+   "raw": "email_sender",
+   "verdict": "CORRECT",
+   "expected": "CORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C08",
+   "witness": "negative-malformed",
+   "raw": "ghost_tool_id",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C08",
+   "witness": "negative-wrong",
+   "raw": "dataset_validator",
+   "verdict": "INCORRECT",
+   "expected": "INCORRECT",
+   "passed": true
+  },
+  {
+   "primitive": "C08",
+   "witness": "empty",
+   "raw": "",
+   "verdict": "EMPTY_OUTPUT",
+   "expected": "EMPTY_OUTPUT",
+   "passed": true
+  },
+  {
+   "primitive": "C08",
+   "witness": "software-error",
+   "raw": "TRUE",
+   "verdict": "NOT_EVALUABLE",
+   "expected": "NOT_EVALUABLE",
+   "passed": true
+  }
+ ],
+ "failures": []
+}

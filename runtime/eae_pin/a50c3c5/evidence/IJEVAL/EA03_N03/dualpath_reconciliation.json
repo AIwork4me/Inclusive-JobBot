@@ -1,0 +1,15 @@
+{
+ "schema": "ijeval.ea03_n03.dualpath_reconciliation.v1",
+ "defect_id": "IJE-WB-D01",
+ "title": "reference oracle formfill comparator shape mismatch",
+ "discovered_by": "EA04 dual-path formfill witnesses (new family-level witness coverage; the prior 40 obligation-B witnesses covered C03 formatting only)",
+ "symptom": "every CORRECT formfill answer scored INCORRECT by the reference path (production CORRECT vs reference INCORRECT -> NOT_EVALUABLE) on all 20 dev formfill cases",
+ "root_cause": "oracle._compare_typed compared the interpreter's raw single-field dict {field: value} against the derived {'field': F, 'value': V} record shape",
+ "fix": "exact (field, value) pair comparison in oracle._compare_typed AND strict pair comparison in production _eval_c03 (both sides exact; no silent normalization)",
+ "verification": {
+  "positive_witnesses_after_fix": "158/160 CORRECT (all families)",
+  "empty_truth_formatting_cases": "2/160 EMPTY_OUTPUT (agreed by both paths; disclosed limitiation: a formatting case whose truth is an empty line list cannot be scored CORRECT under the pinned output contract)",
+  "gt_battery_rerun": "160/160 VALID, 38/38 probes, 597/597 mutations detected, 40/40 obligation-B witnesses (no regression)"
+ },
+ "prior_numbers_unchanged": true
+}

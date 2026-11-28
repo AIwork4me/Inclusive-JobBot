@@ -91,6 +91,10 @@ class Campaign:
                 self._eae["witnesses"], breaker=self.breaker,
                 expectations=self._eae["expectations"],
                 cases_by_id=self._eae["cases_by_id"])
+            legs = self._eae.get("canary_legs")
+            if legs:
+                self.canary.production_parser = legs["production_parser"]
+                self.canary.production_evaluator =                     legs["production_evaluator"]
         return self._eae
 
     # -- persistent controller state --------------------------------------
@@ -257,6 +261,7 @@ class Campaign:
 
     # -- core loop ------------------------------------------------------------
     def run(self, max_blocks: int | None = None) -> dict:
+        self.eae                      # fail-closed bootstrap FIRST
         plan = self.execution_plan()
         # preflight canaries (fail-closed)
         results = self.canary.preflight()
@@ -345,13 +350,14 @@ class Campaign:
                 self.state["completed_trial_ids"].append(tid)
                 self._append_result(results_path, {
                     "trial_id": tid, "model": model,
-                    "case_id": t["case_id"],
+                    "case_id": t["case_id"], "protocol": t["protocol"],
                     "primitive": case.get("primitive"),
                     "family": case.get("family"),
                     "language": case.get("language"),
                     "classification": result.classification,
-                    "production": result.production,
-                    "reference": result.reference,
+                    "production": result.production_verdict,
+                    "reference": result.reference_verdict,
+                    "typed_match": result.typed_match,
                     "telemetry": telemetry,
                     "block": block["block"],
                     "authorization": block_auth[
@@ -519,8 +525,9 @@ class Campaign:
                 continue
             case = self.eae["cases_by_id"].get(r["case_id"])
             expectation = self.eae["expectations"].get(r["case_id"])
+            protocol = r.get("protocol") or r["trial_id"].rsplit("|", 1)[1]
             rep = self.session.replay(case, expectation, r["model"],
-                                      r["protocol"])
+                                      protocol)
             if not rep["matches_recorded"]:
                 problems.append(f"{tid}: replay mismatch "
                                 f"{rep['replay_classification']} != "
@@ -535,7 +542,7 @@ def main() -> int:
                              "admission-probe", "run",
                              "analyze", "seal", "verify", "pause"])
     ap.add_argument("--scope", default="AUTH-1",
-                    choices=["AUTH-1", "AUTH-2"])
+                    choices=["AUTH-1", "AUTH-2", "AUTH-2B"])
     ap.add_argument("--workdir", default=None)
     ap.add_argument("--weights-root", default=None)
     ap.add_argument("--max-blocks", type=int, default=None)

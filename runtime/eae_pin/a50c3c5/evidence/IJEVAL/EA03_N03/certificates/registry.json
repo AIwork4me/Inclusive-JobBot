@@ -1,0 +1,100 @@
+{
+ "schema_version": "2.0.0",
+ "generation": 4,
+ "certificates": [
+  {
+   "scope": "semantic",
+   "dataset_id": "n03-batch-a-dev160@d23de5a",
+   "parser_version": "eval_assurance.production.parser@1",
+   "evaluator_version": "eval_assurance.production.evaluator@1",
+   "reference_evaluator_version": "eval_assurance.reference.oracle@v2+formfill-pair-fix",
+   "issued_utc": "2026-11-28T03:35:42Z",
+   "certificate_id": "512efb617a9cb4c8",
+   "dataset_sha256": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+   "task_contract_sha256": "427f0cb770028e4e411f87ecc0bcaa6a26f4b52572872fd45dee2c885e640497",
+   "parser_sha256": "85e7312b983c2a3666e8b166e1b366c6de29e8919538f972ca91b0ed9b20d158",
+   "interpreter_sha256": "2411b89474f917d226eea733b01247cfd8c5d2526ed3320e8c7b0d23cfb8e33f",
+   "evaluator_sha256": "f2d20832f66c8e34d8880e216ffd6473dfc8ab9dda1ae3ba3077a8c9c85470ed",
+   "reference_oracle_sha256": "7cf463ce27c56e569c6bd836f9dcc42278ca119bc1607150773d7e0b281f76c0",
+   "witness_suite_sha256": "0a1dd0fbcccc02251b21bc0c0b07e4329fdf1cdb2d4f8051ed29e403c10d044e",
+   "mutation_sha256": "d35fe12b2e1961d8c41f33c06de7609c214a2aa740aa68b31d094d5d0a649008",
+   "replay_contract": "content-addressed artifact replay (dualpath.DualPathSession.replay)",
+   "protocol": "cpu-dualpath-qualification:N03_BATCH_A_DEV_CPU_DUALPATH",
+   "evidence_refs": [
+    "evidence\\IJEVAL\\EA03_N03\\gt_mutation_coverage_dev160.json",
+    "evidence\\IJEVAL\\EA03_N03\\ground_truth_qualification_dev160_v2.json",
+    "evidence\\IJEVAL\\EA03_N03\\reconciliation_dev160.json",
+    "evidence\\IJEVAL\\EA03_N03\\response_witnesses.json",
+    "evidence\\IJEVAL\\EA03_N03\\ea08_end_to_end.json",
+    "evidence\\IJEVAL\\EA03_N03\\rule_coverage_matrix.json",
+    "evidence\\IJEVAL\\EA03_N03\\dualpath_reconciliation.json",
+    "evidence\\IJEVAL\\EA03_N03\\intake_verification.json"
+   ],
+   "limitations": "CPU software qualification of the dual-path evaluation stack on pinned Batch A dev inputs. NOT a physical-runner qualification, NOT confirmation-split coverage, and NOT all-32 cognitive qualification (Batch A C01-C08 dev scope only). Disclosed common-mode risks: shared pinned spec authorship for production+reference legs; two equivalent mutants on the current dataset (P14/E05, justified); formatting cases with empty-truth line lists cannot score CORRECT.",
+   "revoked_utc": "2026-11-28T04:04:08Z"
+  },
+  {
+   "scope": "semantic",
+   "dataset_id": "n03-batch-b-dev160@c772a9a",
+   "parser_version": "eval_assurance.production.parser_b@1",
+   "evaluator_version": "eval_assurance.production.evaluator_b@1",
+   "reference_evaluator_version": "eval_assurance.reference.oracle_b@1",
+   "issued_utc": "2026-11-28T04:51:56Z",
+   "certificate_id": "bd41edfb6fd7c004",
+   "dataset_sha256": "eb5a34ee8cbfb47a9ff295494abdd47900cf48a6dd5327ef99864437a1be8c3f",
+   "task_contract_sha256": "f4b27e17ae05d790a91b9017056e61fd7278f2247951ea6e3bf0de5d16186229",
+   "parser_sha256": "aa2f26086a84b04470aad86c8c68099cfd0aa514a802b28dc17e7a7e9470fb64",
+   "interpreter_sha256": "84bff20e4fc3e1ad5e1e5d54bbb961cc23ed82abe608462caf74f2e72afff000",
+   "evaluator_sha256": "006159c9bce394aa49c75dac16a7e85d0962dfb7a8e555e71bfc8de28f8d096d",
+   "reference_oracle_sha256": "31b4989d474db6ec27083536f3521d23f90359b87a39b8077e2c2a39aac31e82",
+   "witness_suite_sha256": "8b03113a28bb3cbbee4ea98613478da0bc119a74dcec99558238e23b10576fdc",
+   "mutation_sha256": "68478655327de594c18491f9615469461cbb339bd61066fbf89f5c6aa1e4c9e2",
+   "replay_contract": "witness rows re-executed via dualpath_b.evaluate_dual(case, expectation, raw) on the pinned full roster",
+   "protocol": "cpu-dualpath-qualification:N03_BATCH_B_DEV_CPU_DUALPATH",
+   "evidence_refs": [
+    "evidence\\IJEVAL\\EA03_N03\\intake_verification_batch_b.json",
+    "evidence\\IJEVAL\\EA03_N03\\ground_truth_qualification_dev160_batch_b.json",
+    "evidence\\IJEVAL\\EA03_N03\\gt_mutation_coverage_dev160_batch_b.json",
+    "evidence\\IJEVAL\\EA03_N03\\pinned_full\\pin_manifest.json"
+   ],
+   "limitations": "CPU software qualification of the Batch B dual-path stack on pinned Batch B dev inputs (C09-C16). NOT a physical-runner qualification, NOT confirmation-split coverage, NOT Batch A/C/D coverage (no cross-batch carry-over). Disclosed common-mode risks: shared pinned handoff authorship for production+reference legs; two equivalent faults on this stack (B-E01/B-E04, parser-enforcement justification recorded).",
+   "revoked_utc": null
+  },
+  {
+   "scope": "semantic",
+   "dataset_id": "n03-batch-c-dev160@c772a9a",
+   "parser_version": "eval_assurance.production.parser_c@1",
+   "evaluator_version": "eval_assurance.production.evaluator_c@1",
+   "reference_evaluator_version": "eval_assurance.reference.oracle_c@1",
+   "issued_utc": "2026-11-28T05:04:57Z",
+   "certificate_id": "fb019eacee3f35d4",
+   "dataset_sha256": "eb5a34ee8cbfb47a9ff295494abdd47900cf48a6dd5327ef99864437a1be8c3f",
+   "task_contract_sha256": "27b5d879878a0a286a15c796f6ea058def8c55d72f635942d26c14dff2c458f4",
+   "parser_sha256": "68f60cb41280ee32edb7bb3e6723990f707bf729c4bfccdc910c591ae5a7a729",
+   "interpreter_sha256": "6d1ab26b50aa799052b205d69e194bb6c7314a61f4fed7cd650afbedf286456d",
+   "evaluator_sha256": "c79936da180b849206e96f00a78742a31f5b133eaec526cd0b11ab58bfacd3f2",
+   "reference_oracle_sha256": "0a49f26ef2baec5a8abcd46e41c033e9e78bdbe7b4c44342c0ac205f6893f08a",
+   "witness_suite_sha256": "56e8da96b8af150b75085965650ad07ae12218c21a424c9c0c0638e4c8de75dd",
+   "mutation_sha256": "cba22636fd40e7414b6d2a92764c36224319da553a1dc8183b1c53decbd440d4",
+   "replay_contract": "witness rows re-executed via dualpath_c.evaluate_dual(case, expectation, raw) on the pinned full roster",
+   "protocol": "cpu-dualpath-qualification:N03_BATCH_C_DEV_CPU_DUALPATH",
+   "evidence_refs": [
+    "evidence\\IJEVAL\\EA03_N03\\intake_verification_batch_c.json",
+    "evidence\\IJEVAL\\EA03_N03\\ground_truth_qualification_dev160_batch_c.json",
+    "evidence\\IJEVAL\\EA03_N03\\gt_mutation_coverage_dev160_batch_c.json",
+    "evidence\\IJEVAL\\EA03_N03\\pinned_full\\pin_manifest.json"
+   ],
+   "limitations": "CPU software qualification of the Batch C dual-path stack on pinned Batch C dev inputs (C17-C24). NOT a physical-runner qualification, NOT confirmation-split coverage, NOT Batch A/C/D coverage (no cross-batch carry-over). Disclosed common-mode risks: shared pinned handoff authorship for production+reference legs.",
+   "revoked_utc": null
+  }
+ ],
+ "revocations": [
+  {
+   "certificate_id": "512efb617a9cb4c8",
+   "binding_key": "semantic|n03-batch-a-dev160@d23de5a|eval_assurance.production.parser@1|eval_assurance.production.evaluator@1",
+   "revoked_utc": "2026-11-28T04:04:08Z",
+   "reason": "drill"
+  }
+ ],
+ "checksum": "547829f394419ad0215ed5e2197235562b6601c34072585eb8b287a06bb21e7c"
+}
