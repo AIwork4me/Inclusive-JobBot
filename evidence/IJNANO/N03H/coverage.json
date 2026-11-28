@@ -2,18 +2,18 @@
  "schema": "ijnano.n03h.coverage.v1",
  "campaign": {
   "started_utc": "2026-11-28T04:34:00Z",
-  "reported_utc": "2026-11-28T06:26:13Z",
+  "reported_utc": "2026-11-28T10:26:35Z",
   "deadline_utc": "2026-11-30T04:34:00Z"
  },
  "scopes": [
   {
    "scope": "E1 Batch A dev (AUTH-2A-RQ)",
    "planned": 480,
-   "executed": 0,
-   "physical_attempts": null,
-   "sealed": false,
-   "results_sha256": null,
-   "status": "NOT_RUN"
+   "executed": 480,
+   "physical_attempts": 480,
+   "sealed": true,
+   "results_sha256": "2cd631fa7440f4047a47894171bfa441408a727a929333172b0754d4ca3521fb",
+   "status": "COMPLETE"
   },
   {
    "scope": "E1 Batch B dev (AUTH-2B)",
@@ -36,11 +36,11 @@
   {
    "scope": "E1 Batch D dev (AUTH-2D)",
    "planned": 480,
-   "executed": 129,
-   "physical_attempts": 120,
-   "sealed": false,
-   "results_sha256": null,
-   "status": "EXECUTING"
+   "executed": 480,
+   "physical_attempts": 480,
+   "sealed": true,
+   "results_sha256": "b4028e3895a5725c6e5eef801e16a7bc3c695866c888b93486712cb09f73343f",
+   "status": "COMPLETE"
   },
   {
    "scope": "E1 confirmation (AUTH-3)",
@@ -96,7 +96,7 @@
  ],
  "totals": {
   "planned_slots_all_scopes": 9980,
-  "executed_trials_sealed_or_running": 1089,
+  "executed_trials_sealed_or_running": 1920,
   "note": "planned totals include BLOCKED scopes for accountability; executed counts are per-scope physical records"
  }
 }

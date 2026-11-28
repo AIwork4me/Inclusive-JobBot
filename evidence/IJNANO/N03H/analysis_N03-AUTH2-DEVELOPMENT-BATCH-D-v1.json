@@ -1,0 +1,406 @@
+{
+ "workdir": "runs/n03h/N03-AUTH2-DEVELOPMENT-BATCH-D-v1 (local)",
+ "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-D-v1",
+ "sealed": true,
+ "seal": {
+  "schema": "ijnano.n03h.seal.v1",
+  "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-D-v1",
+  "results_sha256": "b4028e3895a5725c6e5eef801e16a7bc3c695866c888b93486712cb09f73343f",
+  "trials": 480,
+  "physical_attempts": 480,
+  "integrity_problems": [],
+  "sealed_utc": "2026-11-28T06:46:48Z"
+ },
+ "physical_attempts": 480,
+ "trials_recorded": 480,
+ "overall": {
+  "LFM3-1.7B": {
+   "trials": 160,
+   "counts": {
+    "CORRECT": 91,
+    "INCORRECT": 35,
+    "INVALID_OUTPUT": 12,
+    "EMPTY_OUTPUT": 22
+   },
+   "semantic_accuracy": 0.5687,
+   "empty_output_rate": 0.1375,
+   "invalid_output_rate": 0.075
+  },
+  "MiniCPM5-2B": {
+   "trials": 160,
+   "counts": {
+    "CORRECT": 98,
+    "INCORRECT": 42,
+    "INVALID_OUTPUT": 8,
+    "EMPTY_OUTPUT": 12
+   },
+   "semantic_accuracy": 0.6125,
+   "empty_output_rate": 0.075,
+   "invalid_output_rate": 0.05
+  },
+  "Qwen3.5-2B": {
+   "trials": 160,
+   "counts": {
+    "EMPTY_OUTPUT": 125,
+    "CORRECT": 29,
+    "INCORRECT": 4,
+    "INVALID_OUTPUT": 2
+   },
+   "semantic_accuracy": 0.1812,
+   "empty_output_rate": 0.7812,
+   "invalid_output_rate": 0.0125
+  }
+ },
+ "matrix": {
+  "LFM3-1.7B": {
+   "C25": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 1.929,
+    "mean_completion_tokens": 330.2,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C26": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 10,
+     "INCORRECT": 4,
+     "INVALID_OUTPUT": 6
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.5,
+    "mean_latency_s": 2.672,
+    "mean_completion_tokens": 457.5,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C27": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 11,
+     "INVALID_OUTPUT": 5,
+     "INCORRECT": 2,
+     "EMPTY_OUTPUT": 2
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.55,
+    "mean_latency_s": 3.342,
+    "mean_completion_tokens": 567.9,
+    "finish_reasons": {
+     "stop": 18,
+     "length": 2
+    }
+   },
+   "C28": {
+    "trials": 20,
+    "counts": {
+     "INCORRECT": 19,
+     "INVALID_OUTPUT": 1
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 1.841,
+    "mean_completion_tokens": 311.7,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C29": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 3.21,
+    "mean_completion_tokens": 550.1,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C30": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 5.981,
+    "mean_completion_tokens": 1024.0,
+    "finish_reasons": {
+     "length": 20
+    }
+   },
+   "C31": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 4.527,
+    "mean_completion_tokens": 771.5,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C32": {
+    "trials": 20,
+    "counts": {
+     "INCORRECT": 10,
+     "CORRECT": 10
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.5,
+    "mean_latency_s": 1.823,
+    "mean_completion_tokens": 309.5,
+    "finish_reasons": {
+     "stop": 20
+    }
+   }
+  },
+  "MiniCPM5-2B": {
+   "C25": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 0.498,
+    "mean_completion_tokens": 87.4,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C26": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 16,
+     "INCORRECT": 4
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.8,
+    "mean_latency_s": 0.917,
+    "mean_completion_tokens": 165.9,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C27": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 2.361,
+    "mean_completion_tokens": 425.4,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C28": {
+    "trials": 20,
+    "counts": {
+     "INCORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 1.417,
+    "mean_completion_tokens": 255.1,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C29": {
+    "trials": 20,
+    "counts": {
+     "INCORRECT": 8,
+     "CORRECT": 12
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.6,
+    "mean_latency_s": 2.548,
+    "mean_completion_tokens": 463.6,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C30": {
+    "trials": 20,
+    "counts": {
+     "INVALID_OUTPUT": 8,
+     "EMPTY_OUTPUT": 12
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 5.171,
+    "mean_completion_tokens": 936.6,
+    "finish_reasons": {
+     "stop": 8,
+     "length": 12
+    }
+   },
+   "C31": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 10,
+     "INCORRECT": 10
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.5,
+    "mean_latency_s": 1.948,
+    "mean_completion_tokens": 349.5,
+    "finish_reasons": {
+     "stop": 20
+    }
+   },
+   "C32": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 1.0,
+    "mean_latency_s": 0.971,
+    "mean_completion_tokens": 175.0,
+    "finish_reasons": {
+     "stop": 20
+    }
+   }
+  },
+  "Qwen3.5-2B": {
+   "C25": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 8,
+     "CORRECT": 12
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.6,
+    "mean_latency_s": 2.889,
+    "mean_completion_tokens": 597.5,
+    "finish_reasons": {
+     "length": 8,
+     "stop": 12
+    }
+   },
+   "C26": {
+    "trials": 20,
+    "counts": {
+     "INCORRECT": 4,
+     "EMPTY_OUTPUT": 16
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 4.867,
+    "mean_completion_tokens": 1000.2,
+    "finish_reasons": {
+     "stop": 4,
+     "length": 16
+    }
+   },
+   "C27": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 16,
+     "INVALID_OUTPUT": 2,
+     "CORRECT": 2
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.1,
+    "mean_latency_s": 4.947,
+    "mean_completion_tokens": 1009.1,
+    "finish_reasons": {
+     "length": 16,
+     "stop": 4
+    }
+   },
+   "C28": {
+    "trials": 20,
+    "counts": {
+     "CORRECT": 5,
+     "EMPTY_OUTPUT": 15
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.25,
+    "mean_latency_s": 4.443,
+    "mean_completion_tokens": 912.1,
+    "finish_reasons": {
+     "stop": 5,
+     "length": 15
+    }
+   },
+   "C29": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 4.978,
+    "mean_completion_tokens": 1024.0,
+    "finish_reasons": {
+     "length": 20
+    }
+   },
+   "C30": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 5.011,
+    "mean_completion_tokens": 1024.0,
+    "finish_reasons": {
+     "length": 20
+    }
+   },
+   "C31": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 20
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.0,
+    "mean_latency_s": 5.005,
+    "mean_completion_tokens": 1024.0,
+    "finish_reasons": {
+     "length": 20
+    }
+   },
+   "C32": {
+    "trials": 20,
+    "counts": {
+     "EMPTY_OUTPUT": 10,
+     "CORRECT": 10
+    },
+    "evaluable": 20,
+    "semantic_accuracy": 0.5,
+    "mean_latency_s": 3.397,
+    "mean_completion_tokens": 695.5,
+    "finish_reasons": {
+     "length": 10,
+     "stop": 10
+    }
+   }
+  }
+ },
+ "language_split": {
+  "LFM3-1.7B|en": 80,
+  "LFM3-1.7B|zh": 80,
+  "MiniCPM5-2B|en": 80,
+  "MiniCPM5-2B|zh": 80,
+  "Qwen3.5-2B|en": 80,
+  "Qwen3.5-2B|zh": 80
+ }
+}

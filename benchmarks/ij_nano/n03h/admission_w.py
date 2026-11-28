@@ -90,10 +90,19 @@ def start(model: str, port: int, lora=None, lora_scale=None,
     tr = ChatTransport(model, BASE, port, WORKDIR / model,
                        lora_file=lora)
     if lora_scale is not None:
-        # swap the plain --lora pair for --lora-scaled F:0
+        # swap the plain --lora pair for --lora-scaled F:SCALE.
+        # The FNAME:SCALE parser splits on ':' and cannot take an
+        # absolute Windows path (drive-letter colon), so the adapter
+        # is referenced RELATIVE to the server's working directory
+        # (the engine binary dir) with forward slashes.
+        import os
+        binary_dir = tr.session.binary_dir
+        rel = pathlib.Path(os.path.relpath(lora, binary_dir))
+        rel_posix = rel.as_posix()
         flags = [f for f in tr.session.profile_flags
                  if f not in ("--lora", str(lora))]
-        flags += ["--lora-scaled", f"{lora}:{lora_scale}"]
+        flags += ["--lora-scaled",
+                  f"{rel_posix}:{int(lora_scale)}"]
         tr.session.profile_flags = flags
     if extra:
         tr.session.profile_flags += extra

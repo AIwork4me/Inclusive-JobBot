@@ -8,7 +8,7 @@
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
  "parent_mission_state": "MISSION_STATE_IJNANO_N03_PROGRESSIVE.json",
- "updated_utc": "2026-11-28T06:26:13Z",
+ "updated_utc": "2026-11-28T10:26:35Z",
  "clock": {
   "budget_hours": 48,
   "started_utc": "2026-11-28T04:34:00Z",
@@ -311,7 +311,10 @@
   "E3_OFFICIAL_SOURCES_STUDY_FROZEN": "GRANTED (docs/IJNANO_48H_E3_OFFICIAL_SOURCES_STUDY.md)",
   "E1_BATCH_B_AUTHORIZED": "GRANTED (checksum-verified AUTH-2B consumption)",
   "E1_BATCH_B_COMPLETE": "PASS (480/480 sealed cb4303b4; evidence/IJNANO/N03H/AUTH2B/)",
-  "E1_BATCH_C_COMPLETE": "PASS (480/480 sealed 25ffffa9; evidence/IJNANO/N03H/AUTH2C/)"
+  "E1_BATCH_C_COMPLETE": "PASS (480/480 sealed 25ffffa9; evidence/IJNANO/N03H/AUTH2C/)",
+  "E1_PRIMARY_DEVELOPMENT_COMPLETE": "PASS (1,920/1,920 slots across A-RQ/B/C/D, all sealed, 0 integrity problems: seals 2cd631fa/cb4303b4/25ffffa9/b4028e38)",
+  "E1_BATCH_D_COMPLETE": "PASS (480/480 sealed b4028e38)",
+  "E1_BATCH_A_RQ_COMPLETE": "PASS (480/480 sealed 2cd631fa)"
  },
  "blockers": {
   "48H-B-006": "CLOSED (EAE requalification 84cbfa3c9f2f0fc2 released as AUTH-2A-RQ)",
@@ -345,6 +348,13 @@
    "root_cause": "EVERY EMPTY trial carries finish_reason=length at exactly 1024 completion tokens with empty final content - the frozen 1024-token generation budget is exhausted by reasoning before any answer is emitted; hits ALL THREE models on plan-structured tasks (vs only S3 on classification-style tasks in Batch B)",
    "classification": "genuine protocol/budget-sensitivity measurement (RQ2/H2), NOT an evaluation defect; dual-path EMPTY_OUTPUT discipline worked as designed",
    "follow_up": "E6 reasoning-budget cohorts (blocked on scope release); T2 bounded-reasoning protocol variants are separate cohorts per the preregistration"
+  },
+  "e1_batch_summaries": {
+   "A-RQ (C01-C08)": "MiniCPM .6125 / LFM3 .5375 / Qwen .4313 (Qwen's best batch - short classification-style answers)",
+   "B (C09-C16)": "LFM3 .625 / MiniCPM .5875 / Qwen .0875",
+   "C (C17-C24)": "MiniCPM .0375 / LFM3 .025 / Qwen .0 (budget exhaustion, see batch_c_budget_exhaustion)",
+   "D (C25-C32)": "MiniCPM .6125 / LFM3 .5687 / Qwen .1812",
+   "pattern": "no single model dominates; per-primitive heterogeneity (H1) and protocol budget sensitivity (H2) both strongly present"
   }
  }
 }
