@@ -405,48 +405,72 @@ class CanaryCadence(WaveCBase):
                             if l.strip()}
 
     def test_preflight_and_intervals(self):
+        cases_by_id = {json.loads(l)["case_id"]: json.loads(l)
+                       for l in
+                       (EVID / "pinned" / "n03_cases.public.jsonl")
+                       .read_text(encoding="utf-8").splitlines()
+                       if l.strip()}
         sched = canary_mod.CanaryScheduler(
             [w for w in self.witnesses if w["kind"] != "software-error"],
             breaker=CircuitBreaker(self.dir / "cb1.json"),
-            expectations=self.expectations)
-        first = sched.preflight()
-        self.assertTrue(first.passed)
+            expectations=self.expectations, cases_by_id=cases_by_id)
+        first = sched.preflight()           # full family sweep
+        self.assertTrue(all(r.passed for r in first))
+        self.assertEqual(len(first), 8)     # every family swept
         ran = None
         for i in range(24):
             ran = sched.on_trial(f"t{i}")
             self.assertIsNone(ran)          # 24 < 25: no canary yet
-        ran = sched.on_trial("t24")         # 25th trial triggers
+        ran = sched.on_trial("t24")         # 25th trial triggers sweep
         self.assertIsNotNone(ran)
-        self.assertTrue(ran.passed)
+        self.assertTrue(all(r.passed for r in ran))
 
     def test_time_interval_whichever_first(self):
         t = {"now": 0.0}
+        cases_by_id = {json.loads(l)["case_id"]: json.loads(l)
+                       for l in
+                       (EVID / "pinned" / "n03_cases.public.jsonl")
+                       .read_text(encoding="utf-8").splitlines()
+                       if l.strip()}
         sched = canary_mod.CanaryScheduler(
             self.witnesses, interval_trials=1000, interval_seconds=300,
-            clock=lambda: t["now"], expectations=self.expectations)
+            clock=lambda: t["now"], expectations=self.expectations,
+            cases_by_id=cases_by_id)
         sched.preflight()
         t["now"] = 200.0
         self.assertIsNone(sched.on_trial("t1"))    # < 5 min
         t["now"] = 301.0
         result = sched.on_trial("t2")              # 5 min elapsed first
         self.assertIsNotNone(result)
-        self.assertTrue(result.passed)
+        self.assertTrue(all(r.passed for r in result))
 
     def test_failing_canary_opens_breaker_and_quarantines_window(self):
         br = CircuitBreaker(self.dir / "cb2.json")
         witnesses = [dict(w) for w in self.witnesses
                      if w["kind"] != "software-error"]
-        # corrupt one positive witness in a NON-first family (preflight
-        # rotates from C01; corrupting C08 keeps preflight healthy so the
-        # contamination window accumulates before the failing canary)
+        cases_by_id = {json.loads(l)["case_id"]: json.loads(l)
+                       for l in
+                       (EVID / "pinned" / "n03_cases.public.jsonl")
+                       .read_text(encoding="utf-8").splitlines()
+                       if l.strip()}
+        # the fault develops MID-RUN (after a healthy preflight): the
+        # C08 production leg starts misclassifying. With full-family
+        # sweeps the next checkpoint catches it; the contamination
+        # window (trials dispatched since health) is quarantined.
+        healthy = [w for w in witnesses
+                   if not (w["kind"] == "positive"
+                           and w["primitive"] == "C08")]
+        sched = canary_mod.CanaryScheduler(
+            healthy, breaker=br, expectations=self.expectations,
+            cases_by_id=cases_by_id)
+        first = sched.preflight()
+        self.assertTrue(all(r.passed for r in first))
+        # runtime corruption of the C08 witnesses (emulates a
+        # production-leg behavior change for the same inputs)
         for w in witnesses:
             if w["kind"] == "positive" and w["primitive"] == "C08":
                 w["raw"] = "definitely-not-a-tool-id ... with spaces"
-                break
-        sched = canary_mod.CanaryScheduler(witnesses, breaker=br,
-                                           expectations=self.expectations)
-        first = sched.preflight()
-        self.assertTrue(first.passed)
+        sched.witnesses = witnesses
         sched.on_trial("t1")
         sched.on_trial("t2")
         result = sched.run_canary("C08")

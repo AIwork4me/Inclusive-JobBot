@@ -43,3 +43,15 @@
 | Coverage matrix | 25 rule rows; 817 total controls vs original 500-proposal, categories reconciled (GT reuse ≠ substitution) |
 | Certificate | 512efb617a9cb4c8 (scope=semantic aggregation category; capability identity in protocol field — corrected from a capability-named scope that could never match the eligibility lookup) (N03_BATCH_A_DEV_CPU_DUALPATH) via real QualificationAuthority, persisted registry |
 | Tests | ij_eval_assurance 168+18 new = full suite green at commit time (see pubgate receipt) |
+
+## 2026-11-28 — Wave C + catastrophe pilot
+
+| item | result |
+| --- | --- |
+| §3.2 authoritative qualification state | durable checksummed revocation+evidence-generation file; consult() pre-dispatch; restart-safe; tamper-fail-closed; 11/11 revocation scenarios as permanent controls |
+| §3.3 trusted ExecutionEvidence | register_trusted_execution_evidence derives every flag from digest-verified artifacts; caller ACCEPTED/booleans rejected; experiment-identity + auth-purpose binding; evidence identity → stale-authorization refusal |
+| §3.4 EA09 canary | full-family sweep per checkpoint (pilot-forced fix); cadence preflight/before-change/25-trials-or-5min/after-resume/before-seal/before-publication; CANARY_CONTROL never in denominators |
+| §3.5 EA10 breaker | durable, restart-safe, in-flight accounting, contamination quarantine, evidence preservation, requalification-only recovery |
+| §3.6 EA11 analyzer | dual-path session → typed records → formal boundary; verified envelopes; roster reconciliation; partial scopes; final-boundary revocation recheck; tamper blocking |
+| Catastrophe pilot (order §4) | 13/13 detected/contained, 0 escapes; latencies: N02R 11, exception masking 1, false-positive 15, GT corruption 1; 2 system fixes forced by the pilot (canary payload completeness, full-family sweep) |
+| Tests | 196/196 ij_eval_assurance at commit time |

@@ -208,7 +208,8 @@ class DualPathSession:
     def run_trial(self, case: dict, expectation: dict, response,
                   model: str = "synthetic-cpu", protocol: str = "chat",
                   artifact_bytes: bytes | None = None,
-                  receipt=None) -> DualPathResult:
+                  receipt=None, production_parser=None,
+                  production_evaluator=None) -> DualPathResult:
         """Capture (or adopt) the raw artifact, verify it through the
         trusted loader, evaluate both paths, record the trial.
 
@@ -258,7 +259,10 @@ class DualPathSession:
         if receipt is not None:
             receipt  # already validated by the caller (class-C transfer)
 
-        result = evaluate_dual(case, expectation, response)
+        result = evaluate_dual(case, expectation, response,
+                               production_parser=production_parser,
+                               production_evaluator=
+                               production_evaluator)
         self.trials[tid] = {
             "trial_id": tid, "case_id": case.get("case_id", ""),
             "model": model, "protocol": protocol,

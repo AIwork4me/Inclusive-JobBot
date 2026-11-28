@@ -58,6 +58,7 @@ class CanaryScheduler:
 
     def __init__(self, witnesses: list[dict], breaker=None,
                  expectations: dict | None = None,
+                 cases_by_id: dict | None = None,
                  interval_trials: int = DEFAULT_INTERVAL_TRIALS,
                  interval_seconds: float = DEFAULT_INTERVAL_SECONDS,
                  clock=time.monotonic):
@@ -65,7 +66,12 @@ class CanaryScheduler:
             raise ValueError("canary scheduler requires witnesses")
         self.witnesses = list(witnesses)
         self.expectations = expectations or {}
+        self.cases_by_id = cases_by_id or {}
         self.breaker = breaker
+        #: the production leg under test: canaries execute the ACTUAL
+        #: pipeline components (fault injection reaches them, order 3.4)
+        self.production_parser = None
+        self.production_evaluator = None
         self.interval_trials = interval_trials
         self.interval_seconds = interval_seconds
         self._clock = clock
@@ -96,7 +102,8 @@ class CanaryScheduler:
             return ProductionVerdict.INCORRECT
         return ProductionVerdict.CORRECT
 
-    def run_canary(self, family: str | None = None) -> CanaryResult:
+    def run_canary(self, family: str | None = None,
+                   _clear_window: bool = True) -> CanaryResult:
         fam = family or self._families[
             self._family_cursor % len(self._families)]
         if family is None:
@@ -111,11 +118,28 @@ class CanaryScheduler:
             if w["kind"] == "software-error":
                 continue     # canaries are model-path controls; the
                 #                  software-error class has its own suite
-            parsed = parse_response(w["primitive"], {}, w["raw"])
-            verdict = ProductionEvaluator().evaluate(
-                {"primitive": w["primitive"]},
-                self.expectations.get(w.get("case_id", ""), {}),
-                parsed).verdict
+            payload = (self.cases_by_id.get(w.get("case_id"), {})
+                       .get("public_payload")) or {}
+            pparse = self.production_parser or parse_response
+            peval = self.production_evaluator or ProductionEvaluator()
+            try:
+                parsed = pparse(w["primitive"], payload, w["raw"])
+                case_row = dict(self.cases_by_id.get(w.get("case_id"),
+                                                     {}))
+                case_row["primitive"] = w["primitive"]
+                verdict = peval.evaluate(
+                    case_row,
+                    self.expectations.get(w.get("case_id", ""), {}),
+                    parsed).verdict
+            except Exception as exc:        # production pipeline
+                # software fault = canary FAILURE (never "pass", never
+                # a model verdict)
+                result.passed = False
+                result.failures.append(
+                    {"witness": w["witness_id"], "kind": w["kind"],
+                     "expected": self._expected_verdict(w),
+                     "got": f"software exception: {type(exc).__name__}"})
+                continue
             expected = self._expected_verdict(w)
             if verdict == expected:
                 if expected == ProductionVerdict.CORRECT:
@@ -132,7 +156,8 @@ class CanaryScheduler:
         self._last_canary_at = self._clock()
         if result.passed:
             self._last_healthy_index = len(self.history) - 1
-            self.dispatched_since_healthy = []
+            if _clear_window:
+                self.dispatched_since_healthy = []
         elif self.breaker is not None:
             self.breaker.open(
                 reason=f"canary failure in family {fam}",
@@ -141,28 +166,42 @@ class CanaryScheduler:
         return result
 
     # -- cadence checkpoints --------------------------------------------------
-    def preflight(self) -> CanaryResult:
-        return self.run_canary()
+    def run_canary_sweep(self) -> list[CanaryResult]:
+        """Sweep EVERY family at one checkpoint. Rotating one family per
+        checkpoint would leave a family-specific fault undetected for up
+        to N_families x interval trials (pilot finding); a complete
+        sweep bounds detection latency to ONE interval for any
+        family-local fault. CPU cost is bounded (witness suite size).
+        The contamination window is cleared only after the WHOLE sweep
+        passes (an early passing family must not hide a later one)."""
+        results = [self.run_canary(f, _clear_window=False)
+                   for f in self._families]
+        if all(r.passed for r in results):
+            self.dispatched_since_healthy = []
+        return results
 
-    def before_change(self) -> CanaryResult:
-        return self.run_canary()
+    def preflight(self) -> list[CanaryResult]:
+        return self.run_canary_sweep()
 
-    def on_trial(self, trial_id: str) -> CanaryResult | None:
-        """Call after every dispatched trial. Runs a canary when the
-        trial OR time interval expires (whichever first)."""
+    def before_change(self) -> list[CanaryResult]:
+        return self.run_canary_sweep()
+
+    def on_trial(self, trial_id: str) -> list[CanaryResult] | None:
+        """Call after every dispatched trial. Runs a full family sweep
+        when the trial OR time interval expires (whichever first)."""
         self.dispatched_since_healthy.append(trial_id)
         self._trials_since_canary += 1
         if self._trials_since_canary >= self.interval_trials or \
                 (self._clock() - self._last_canary_at) >= \
                 self.interval_seconds:
-            return self.run_canary()
+            return self.run_canary_sweep()
         return None
 
-    def after_resume(self) -> CanaryResult:
-        return self.run_canary()
+    def after_resume(self) -> list[CanaryResult]:
+        return self.run_canary_sweep()
 
-    def before_seal(self) -> CanaryResult:
-        return self.run_canary()
+    def before_seal(self) -> list[CanaryResult]:
+        return self.run_canary_sweep()
 
-    def before_publication(self) -> CanaryResult:
-        return self.run_canary()
+    def before_publication(self) -> list[CanaryResult]:
+        return self.run_canary_sweep()
