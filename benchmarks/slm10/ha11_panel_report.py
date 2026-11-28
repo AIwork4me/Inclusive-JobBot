@@ -38,6 +38,36 @@ def scoped_completion(assessment):
     return next(status for status in ("FAIL", "BLOCKED", "NOT_RUN", "PASS") if status in gates)
 
 
+def failure_signature(trial, assessment):
+    metrics = assessment["metrics"]
+    for event in trial["wire"]:
+        body = json.loads(event.get("provider_request", "{}"))
+        limit = body.get("max_completion_tokens")
+        if (type(limit) is int and limit > 0 and event.get("native_evidence", {}).get("status") == "PASS"
+                and event.get("provider_stop_reason") == "length"
+                and (event.get("usage") or {}).get("completion_tokens") == limit):
+            return "MODEL_OUTPUT_LIMIT"
+        if (body.get("tool_choice") == "none" and body.get("tools")
+                and "<tool_call>" in json.dumps(event.get("parsed_response", []))):
+            return "RUNTIME_TOOL_CHOICE_NONE"
+    if any(callback["status"] == "FAIL" for callback in trial.get("callbacks", ())):
+        return "CALLBACK_BINDING"
+    if any(call["decision"] == "DENIED" for call in trial["calls"]):
+        return "EXECUTION_DENIAL"
+    if (trial.get("failure") or {}).get("type") == "BudgetExceeded":
+        return "MODEL_REQUEST_LIMIT"
+    if trial.get("failure") or any(event.get("status") == "FAIL" for event in trial["wire"]):
+        return "PARSER_OR_TRANSPORT_UNRESOLVED"
+    if assessment["call_counts"].get("duplicate_proposals"):
+        return "MODEL_REPEAT_PROPOSAL"
+    if metrics["EXACT_ACTION_SEQUENCE"] == "FAIL":
+        return "MODEL_ACTION_PATH"
+    if metrics["TERMINATION_CORRECTNESS"] == "FAIL" or metrics["OUTPUT_CONTRACT_COMPLIANCE"] == "FAIL":
+        return "TERMINAL_CONTRACT"
+    return {"PASS": "NO_CLASSIFIED_FAILURE", "FAIL": "SCOPED_CONTRACT",
+            "BLOCKED": "EVALUATION_UNCERTAINTY", "NOT_RUN": "EVALUATION_UNCERTAINTY"}[scoped_completion(assessment)]
+
+
 def trial_detail(trial, oracle, assessment):
     turns, proposals = read_wire(trial, False)
     observed = Counter((entry["tool"], encode_state(entry["arguments"])) for entry in proposals)
@@ -47,6 +77,12 @@ def trial_detail(trial, oracle, assessment):
     executed = sum(call["decision"] == "EXECUTED" for call in trial["calls"])
     counts = assessment["call_counts"]
     telemetry = assessment["telemetry"] | {"end_to_end_wall_ms": trial.get("elapsed_wall_ms")}
+    for field, key in (("input_tokens", "prompt_tokens"), ("output_tokens", "completion_tokens"),
+                       ("total_tokens", "total_tokens")):
+        native = [(event.get("usage") or {}).get(key) if event.get("native_evidence", {}).get("status") == "PASS"
+                  else None for event in trial["wire"]]
+        if native and all(type(value) is int and value >= 0 for value in native):
+            telemetry[field] = sum(native)
     return {
         "metrics": assessment["metrics"] | {"EXACT_TOOL_ARGUMENT_MULTISET": arg_status,
                                            "SCOPED_COMPLETION": scoped_completion(assessment)},
@@ -55,6 +91,7 @@ def trial_detail(trial, oracle, assessment):
         "call_counts": counts, "sealed_status": "BLOCKED", "physical_execution": "PASS",
         "business_fact_scope_eligible": assessment["business_fact_scope_eligible"],
         "sealed_component_assessment": component_verdicts(oracle, trace_evidence(trial)),
+        "failure_signature": failure_signature(trial, assessment),
         "cost": {field: executed if field == "executed_tools" else telemetry[field]
                  for field in COST_FIELDS},
     }
@@ -95,7 +132,8 @@ def summarize(rows):
     for field in (*VERDICTS, "EXACT_TOOL_ARGUMENT_MULTISET", "SCOPED_COMPLETION"):
         grouped = Counter(row["metrics"][field] for row in rows)
         totals[field] = {key: grouped[key] for key in OUTCOMES}
-    return report | {"event_rates": {key: event_rate(rows, *value) for key, value in RATE_COUNTS.items()}}
+    return report | {"event_rates": {key: event_rate(rows, *value) for key, value in RATE_COUNTS.items()},
+                     "failure_signatures": dict(Counter(row["failure_signature"] for row in rows))}
 
 
 def atlas_views(cells, slots, cases):

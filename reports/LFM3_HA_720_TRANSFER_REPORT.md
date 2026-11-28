@@ -14,13 +14,26 @@ The two SDK arms retain the real harness transcript and result wrapper. Phase-aw
 
 An initial diagnostic run sealed 270 trajectories before the effective budget audit showed that the SDK emitted a model-visible 65,535-token limit while Direct sent 768. Those sealed trials and the interrupted reservation are retained in the diagnostic archive. Their effective limits and cache controls do not satisfy the matched panel contract. The matched runner now checks the effective provider request before sealing and during replay. [Diagnostic seal manifest](../evidence/IJSLM/lfm3-ha-1.1/legacy-budget-diagnostic.json)
 
-## First matched checkpoint
+## Full matched result
 
-The first sealed period covers 15 of the 60 tasks across all 12 arms, with 180 verified trajectories. The table reports exact scoped completion at this interim checkpoint. Its paired effects are descriptive. [Checkpoint replay](../evidence/IJSLM/lfm3-ha-1.1/transfer-checkpoint-180.json)
+All 720 trajectories sealed and replayed across 16 Radeon batches. Each table cell lists PASS / FAIL / BLOCKED for exact scoped completion out of 60. All NOT_RUN counts are zero. The earlier balanced checkpoint remains available. [Full paired replay](../evidence/IJSLM/lfm3-ha-1.1/transfer-panel.json) · [180-trial checkpoint](../evidence/IJSLM/lfm3-ha-1.1/transfer-checkpoint-180.json)
 
-| Weight | Direct | Original SDK | Phase-aware SDK |
-|---|---:|---:|---:|
-| Original | 12/15 | 0/15 | 6/15 |
-| OpenCode | 13/15 | 0/15 | 4/15 |
-| Pi | 13/15 | 0/15 | 8/15 |
-| Hermes | 12/15 | 0/15 | 6/15 |
+| Weight | Direct | Original SDK | Phase-aware SDK | Phase-aware paired weight gain |
+|---|---:|---:|---:|---:|
+| Original | 53 / 6 / 1 | 2 / 58 / 0 | 26 / 33 / 1 | Reference |
+| OpenCode | 50 / 9 / 1 | 2 / 58 / 0 | 24 / 35 / 1 | −3.4 pp on 59 adjudicated pairs |
+| Pi | 52 / 7 / 1 | 4 / 56 / 0 | 35 / 23 / 2 | +15.5 pp on 58 adjudicated pairs |
+| Hermes | 51 / 8 / 1 | 4 / 56 / 0 | 28 / 30 / 2 | +3.4 pp on 58 adjudicated pairs |
+
+Pi gained 53.4 points from the phase-aware SDK treatment versus its Original SDK arm. The same runtime treatment gained 40.7 points on Original weights. Pi's weight-by-runtime interaction was +12.1 points on the 58 fully adjudicated four-arm comparisons. Pi's Direct weight contrast was −1.7 points against Original. All phase-aware arms trailed their own Direct arms. The public replay reports the pairing denominator for each contrast and retains separate tool selection, exact argument, exact execution, result delivery, comprehension and termination metrics.
+
+| Phase-aware weight | First tool choice PASS | Exact arguments and execution PASS | Exact termination PASS | Excess proposals and executions in observed trials | Requests / tools / tokens per scoped success |
+|---|---:|---:|---:|---:|---:|
+| Original | 56 | 32 | 29 | 27 / 118 proposal and execution opportunities | 6.31 / 4.62 / 7,057 |
+| OpenCode | 57 | 33 | 30 | 19 / 109 | 6.63 / 4.63 / 7,406 |
+| Pi | 57 | 42 | 40 | 14 / 96 | 4.34 / 2.86 / 4,835 |
+| Hermes | 57 | 33 | 31 | 26 / 113 | 5.79 / 4.18 / 6,497 |
+
+Pi reduced repeated calls and exact termination failures most clearly in the phase-aware scope. OpenCode reduced observed repeat events, with one additional exact termination pass and two fewer scoped completions than Original. Hermes had a similar repeat rate to Original, with two additional exact termination passes. Repeat opportunities exclude one or two unresolved cases per phase-aware arm. The report keeps the unresolved rate status and gives only the observed numerators and denominators.
+
+Six phase-aware and four Direct trajectories reached the native 768-token cap. The native proof distinguishes cap exhaustion from an SDK transport defect even where the SDK reported HTTP 502. The frozen scorer retains its original dispositions for incomplete terminal evidence. This panel supports a Pi phase-aware hypothesis for independent review. It leaves production role qualification and final model selection open.

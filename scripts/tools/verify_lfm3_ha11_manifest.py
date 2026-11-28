@@ -28,11 +28,15 @@ def build():
     transport = read("tc-transport-admission.json")
     merge = read("high-precision-merge-artifacts.json")
     transfer = json.loads((ROOT / state["m4_evidence"]).read_bytes())
+    compatibility = json.loads((ROOT / state["m5_evidence"]).read_bytes()) if state.get("m5_evidence") else None
     if (len(action["results"]) != state["m1_physical_retest_trials"]
             or len(extension["results"]) != 5 or len(cache["cells"]) != state["m3_cache_cells"]
             or len(transport["results"]) != state["m5_transport_diagnostic_trials"]
             or len(merge["arms"]) != 3 or merge["DX-M2"] != "NOT_RUN"
             or transfer["executed"] != state["m4_executed"] or transfer["planned"] != state["m4_planned"]
+            or (compatibility is not None and (compatibility["executed"] != state["m5_executed"]
+                                               or compatibility["planned"] != state["m5_planned"]
+                                               or compatibility["core_attribution"] != 0))
             or cache["portable_numeric_archive_sha256"] != digest(EVIDENCE / "cache-factorial.json.gz")):
         raise ValueError("Portable LFM3-HA evidence counts and state differ")
     core = ("formal_core_trials", "core_trial_attribution", "core_attribution")

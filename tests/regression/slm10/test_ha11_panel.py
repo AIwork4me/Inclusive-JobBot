@@ -3,6 +3,7 @@ import json
 import pytest
 
 from benchmarks.slm10.ha11_panel import plan, require_effective_controls
+from benchmarks.slm10 import ha11_panel_report
 
 
 def test_transfer_panel_preserves_480_and_adds_240_with_balanced_first_positions():
@@ -42,3 +43,12 @@ def test_capture_gate_reads_effective_ml_budget_and_seed_for_each_forwarded_requ
     with pytest.raises(ValueError):
         require_effective_controls({"wire": [{"provider_request": json.dumps(
             base | {"max_completion_tokens": 65535})}]}, slot)
+
+
+def test_native_token_exhaustion_has_distinct_diagnosis_from_sdk_transport_502():
+    event = {"provider_request": '{"max_completion_tokens":768}', "provider_stop_reason": "length",
+             "usage": {"completion_tokens": 768}, "native_evidence": {"status": "PASS"},
+             "status": "FAIL", "failure": {"type": "GatewayError", "function": "require"}}
+    trial = {"wire": [event], "calls": [], "failure": {"type": "AntigravityExecutionError"}}
+    metrics = {"metrics": {"TERMINATION_CORRECTNESS": "BLOCKED"}}
+    assert ha11_panel_report.failure_signature(trial, metrics) == "MODEL_OUTPUT_LIMIT"
