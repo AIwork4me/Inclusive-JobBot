@@ -1,0 +1,71 @@
+{
+ "schema": "ijeval.adapter_scope.release.v1",
+ "status": "EAE-SIDE-RELEASED (physical execution by the IJ-NANO owner at the pinned revision, AFTER their adapter admission battery passes)",
+ "closes_blocker": "48H-B-002 (EAE side; physical admission stays with the campaign lane)",
+ "experiment": "N03-AUTH2-ADAPTER-ATLAS-v1",
+ "auth_level": "AUTH-2",
+ "weight_configurations": {
+  "W0_original": "byte-verified on this host (Q8_0 sha256 8f6b2418…)",
+  "W1_pi": "manifest-anchored (file sha256 d6b6229d…; byte verification at physical admission)",
+  "W2_opencode": "manifest-anchored (file sha256 5bd0ad64…)",
+  "W3_hermes": "manifest-anchored (see identity_registry.json)"
+ },
+ "scope": {
+  "slots": 1920,
+  "models": [
+   "LFM3-1.7B+W1_pi",
+   "LFM3-1.7B+W2_opencode",
+   "LFM3-1.7B+W3_hermes"
+  ],
+  "dev_cases": 640,
+  "primitives": [
+   "C01",
+   "C02",
+   "C03",
+   "C04",
+   "C05",
+   "C06",
+   "C07",
+   "C08",
+   "C09",
+   "C10",
+   "C11",
+   "C12",
+   "C13",
+   "C14",
+   "C15",
+   "C16",
+   "C17",
+   "C18",
+   "C19",
+   "C20",
+   "C21",
+   "C22",
+   "C23",
+   "C24",
+   "C25",
+   "C26",
+   "C27",
+   "C28",
+   "C29",
+   "C30",
+   "C31",
+   "C32"
+  ],
+  "roster_digest": "527d6242e2f5ee610e7531ffef0abd9145a63b666afcea2ab7c91b8669137c4a",
+  "dataset_digest": "eb5a34ee8cbfb47a9ff295494abdd47900cf48a6dd5327ef99864437a1be8c3f"
+ },
+ "eae_contract_revision": "1.1.1",
+ "authorization_checksum": "a6b17c34cbe8eb9fef57811b0b648e609c77eadd7090b3b4a13df798d5b14725",
+ "certificate_ids": [
+  "bd41edfb6fd7c004",
+  "fb019eacee3f35d4",
+  "62faca682a25d6f0",
+  "84cbfa3c9f2f0fc2"
+ ],
+ "dispatch_limits": {
+  "max_trials": 1920
+ },
+ "confirmation_status": "BLOCKED (AUTH-3 not registered)",
+ "generated_utc": "2026-11-28T05:25:26Z"
+}
