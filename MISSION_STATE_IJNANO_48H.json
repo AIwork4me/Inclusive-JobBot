@@ -8,7 +8,7 @@
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
  "parent_mission_state": "MISSION_STATE_IJNANO_N03_PROGRESSIVE.json",
- "updated_utc": "2026-11-28T08:10:00Z",
+ "updated_utc": "2026-11-28T05:43:33Z",
  "clock": {
   "budget_hours": 48,
   "started_utc": "2026-11-28T04:34:00Z",
@@ -63,6 +63,26 @@
     "certificate": "fb019eacee3f35d4 (Batch C; release cites bd41edfb+fb019eac)",
     "max_trials": 480,
     "released_utc": "2026-11-28 (2094238)"
+   },
+   "AUTH-2D": {
+    "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-D-v1",
+    "authorization_checksum": "b71ab0d0ee3d307b8fdb0c71d6bdd55d45e82a946170040a0d957675c3f9926d",
+    "pin": "9b0ba89",
+    "max_trials": 480
+   },
+   "AUTH-2A-RQ": {
+    "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-A-v2-RQ",
+    "authorization_checksum": "cf627b26a5f47706639d5df77c20cd7913d7081f59ff05338d2e03e2f6e4d2c7",
+    "pin": "18afcae",
+    "max_trials": 480,
+    "note": "requalification-only recovery; 48H-B-006 CLOSED"
+   },
+   "AUTH-2W": {
+    "experiment_id": "N03-AUTH2-ADAPTER-ATLAS-v1",
+    "authorization_checksum": "a6b17c34cbe8eb9fef57811b0b648e609c77eadd7090b3b4a13df798d5b14725",
+    "pin": "18afcae",
+    "max_trials": 1920,
+    "note": "gated on the campaign's physical adapter admission battery"
    }
   },
   "dataset_reconciliation": {
@@ -289,11 +309,13 @@
   "CAMPAIGN_FINALIZED": "PENDING",
   "IJNANO_48H_PHYSICAL_ADMISSION_VERIFIED": "GRANTED (probe: 3/3 servers full GPU offload, netstat PID ownership, template fingerprints, /metrics OK; identities match sealed N02R)",
   "E3_OFFICIAL_SOURCES_STUDY_FROZEN": "GRANTED (docs/IJNANO_48H_E3_OFFICIAL_SOURCES_STUDY.md)",
-  "E1_BATCH_B_AUTHORIZED": "GRANTED (checksum-verified AUTH-2B consumption)"
+  "E1_BATCH_B_AUTHORIZED": "GRANTED (checksum-verified AUTH-2B consumption)",
+  "E1_BATCH_B_COMPLETE": "PASS (480/480 sealed cb4303b4; evidence/IJNANO/N03H/AUTH2B/)"
  },
  "blockers": {
-  "48H-B-006": "NARROWED to Batch A scopes (AUTH-1 diagnostic + AUTH-2 Batch A): certificate 512efb617a9cb4c8 remains revoked; fresh Batch A issuance cites the Batch B certificate and is REFUSED by the release-checksum gate (never cross-batch). Batch B unblocked via bd41edfb6fd7c004.",
-  "see": "BLOCKERS_IJNANO_48H.md"
+  "48H-B-006": "CLOSED (EAE requalification 84cbfa3c9f2f0fc2 released as AUTH-2A-RQ)",
+  "see": "BLOCKERS_IJNANO_48H.md",
+  "48H-B-001": "CLOSED (Batches A-RQ/B/C/D + adapter scope all released)"
  },
  "decisions": {
   "integration_verification": "AUTH-1 48-slot smoke is unavailable (48H-B-006). The AUTH-2B release explicitly permits narrower preregistered scopes: the campaign executes AUTH-2B block 0 (60 trials: 20 cases x 3 models, per-case model rotation) as the PHYSICAL INTEGRATION VERIFICATION checkpoint - run, stop, verify (seal + canaries + dual-path replay + evidence completeness + telemetry capture), and only then grant N03_PHYSICAL_EVALUATION_INTEGRATION_GO and continue the remaining 420 slots. A defect found at verification quarantines affected scope per order section 14. Recorded 2026-11-28T06:10Z."
@@ -313,5 +335,6 @@
   "3cdd066": "historical Batch A releases (cert revoked by drill)",
   "7a3e8dc": "AUTH-2B (Batch B)",
   "a50c3c5": "AUTH-2C (Batch C)"
- }
+ },
+ "timestamp_note": "all updated_utc values from here on are real clock reads; three earlier hand-written values (07:20/08:10/10:55Z) were written ahead of the actual clock (~05:4xZ) and are superseded by this note"
 }
