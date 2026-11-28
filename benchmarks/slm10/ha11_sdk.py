@@ -181,7 +181,11 @@ async def execute_sdk(client, alias, tools, grants, execute, prompt, system, tri
                  "GEMINI_API_KEY": "", "GOOGLE_API_KEY": "", "OPENAI_API_KEY": "", "GOOGLE_APPLICATION_CREDENTIALS": ""},
         )
         if corrected:
-            config._dispatch = batch.dispatch
+            # Agent deep-copies its config. A function retains the trial-local batch.
+            def dispatch(call):
+                return batch.dispatch(call)
+
+            config._dispatch = dispatch
         try:
             async with asyncio.timeout(120), Agent(config) as agent:
                 reply = await agent.chat(prompt)
