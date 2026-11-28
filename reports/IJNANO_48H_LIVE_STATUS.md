@@ -3,7 +3,7 @@
 Campaign clock: **2026-11-28T04:34:00Z → 2026-11-30T04:34:00Z** (48h,
 never restarted). Updated at publication checkpoints.
 
-## Current phase: PHYSICAL EXECUTION LIVE (checkpoint H+7.9)
+## Current phase: PHYSICAL EXECUTION LIVE (checkpoint H+9.1 — E1+E2 PHYSICAL PROGRAM COMPLETE)
 
 - **E1 Batch B COMPLETE** (480/480, seal cb4303b4): LFM3 .625 /
   MiniCPM .5875 / Qwen .0875 (S3 87.5% EMPTY, all finish=length).
@@ -17,9 +17,15 @@ never restarted). Updated at publication checkpoints.
 - **Adapter admission battery PASS** (two real defect fixes on the
   way: Windows path colon vs --lora-scaled; distribution-level scale-1
   evidence via logprob deltas 10.68/3.64 reproduced across processes).
-- **E2 adapter atlas EXECUTING: 1,235/1,920** (412/412/411 balanced).
-  Interim paired vs W0: W1 +2.9pp (p=.012), W2 +1.5pp (ns),
-  W3 +4.9pp (p=.0002) — exploratory, finalizes at seal.
+- **E2 adapter atlas COMPLETE: 1,920/1,920** (seal cb5e8b8a). FINAL
+  paired vs W0: W1 −0.9pp (p=.47), W2 −1.1pp (p=.40), W3 +3.1pp
+  (32/12, p=.004; marginal CI crosses zero). **Published adapter gains
+  do not transfer to bare cognitive tasks under local GGUF chat
+  inference.** (The interim positives washed out with full data —
+  exactly why interims were labeled exploratory.)
+- Full deliverable set rendered (executive, final, coverage,
+  stability, mapping, next-investment). Campaign remains live for
+  late-released scopes until H+44.
 - **`N03_PHYSICAL_EVALUATION_INTEGRATION_GO` GRANTED** on the verified
   first-block evidence, including a production fault-recovery drill
   (controller canary-leg defect caught at preflight with zero trials

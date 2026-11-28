@@ -8,7 +8,7 @@
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
  "parent_mission_state": "MISSION_STATE_IJNANO_N03_PROGRESSIVE.json",
- "updated_utc": "2026-11-28T12:25:41Z",
+ "updated_utc": "2026-11-28T13:24:55Z",
  "clock": {
   "budget_hours": 48,
   "started_utc": "2026-11-28T04:34:00Z",
@@ -316,7 +316,9 @@
   "E1_BATCH_D_COMPLETE": "PASS (480/480 sealed b4028e38)",
   "E1_BATCH_A_RQ_COMPLETE": "PASS (480/480 sealed 2cd631fa)",
   "ADAPTER_PHYSICAL_ADMISSION": "PASS (identity byte-verified; scale-0 output-equivalent; scale-1 genuine distribution-level change reproduced across fresh processes — max logprob delta 10.68 W1 / 3.64 W2 on harness-shaped probes; no silent fallback; identical cache/context flags; 306 lora tensors loaded on Vulkan0; evidence/IJNANO/N03H/ADAPTER_ADMISSION/)",
-  "E2_ATLAS_DISPATCH": "IN_PROGRESS (AUTH-2W 1920 slots executing)"
+  "E2_ATLAS_DISPATCH": "IN_PROGRESS (AUTH-2W 1920 slots executing)",
+  "E2_ADAPTER_ATLAS_COMPLETE": "PASS (1920/1920 sealed cb5e8b8a, 0 integrity problems)",
+  "E1_AND_E2_PHYSICAL_PROGRAM_COMPLETE": "GRANTED (3,840/3,840 executed trials; every released scope fully consumed)"
  },
  "blockers": {
   "48H-B-006": "CLOSED (EAE requalification 84cbfa3c9f2f0fc2 released as AUTH-2A-RQ)",
@@ -370,6 +372,20 @@
    "w3_hermes": "delta +4.85pp, 24/4, p=.00018",
    "e1_overall_32_primitives": "MiniCPM .4625 / LFM3 .4391 / Qwen .1750",
    "note": "all three adapters directionally positive on the cognitive atlas under the local GGUF configuration; paired analyses finalize at atlas seal"
+  },
+  "e2_final_paired": {
+   "recorded_utc": "2026-11-28T13:24:55Z",
+   "status": "FINAL (640 matched cases per config)",
+   "w1_pi": "delta -0.94pp, CI[-6.35,+4.48], 21/27, p=.471 (ns)",
+   "w2_opencode": "delta -1.09pp, CI[-6.50,+4.32], 22/29, p=.401 (ns)",
+   "w3_hermes": "delta +3.12pp, CI[-2.33,+8.55], 32/12 discordant, McNemar p=.0037 (marginal CI crosses zero - both reported)",
+   "conclusion": "published harness-adapter gains do NOT transfer to bare cognitive tasks under local Q8_0+F16-LoRA chat inference; adapters' measured value remains harness-scoped; consistent with the separate-host 720-panel direct Pi contrast (-1.7pp)"
+  },
+  "e1_final": {
+   "recorded_utc": "2026-11-28T13:24:55Z",
+   "overall": "MiniCPM .4625 / LFM3 .4391 / Qwen .1750",
+   "heterogeneity": "leadership flips by batch (LFM3 leads B .625; MiniCPM leads A/D .6125; all collapse on C <=.0375)",
+   "language_interaction": "LFM3 +9.1pp ZH; MiniCPM +3.1pp EN (post-hoc descriptive)"
   }
  }
 }
