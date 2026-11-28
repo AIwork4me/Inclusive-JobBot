@@ -1,6 +1,6 @@
 # LFM3 SDK action-phase causal diagnosis
 
-The pinned Antigravity SDK 0.1.24 emitted `tool_choice: "none"` for a tool-bearing opening request when `model_output_retry.max_retries` was zero. Changing only that setting to one produced `"auto"`. A real SDK loopback probe held the model alias, prompt, single integer tool, allowlist, tool budget and output budget constant. Its provider was scripted and generated no model or GPU evidence. Separate controls changed the tool budget from four to three and the output budget from 768 to 1,536 with retries still zero. Both retained `"none"`.
+The pinned Antigravity SDK 0.1.24 emitted `tool_choice: "none"` for a tool-bearing opening request when `model_output_retry.max_retries` was zero. Changing only that setting to one produced `"auto"`. The published real-SDK loopback probe held the model alias, prompt, single tool, allowlist, tool budget and output budget constant. Its provider was scripted and generated no model or GPU evidence. Separate controls changed the tool budget from four to three and the output budget from 768 to 1,536 with retries still zero. Both retained `"none"`. [Probe source](../benchmarks/slm10/ha11_retry_probe.py) · [Observed requests](../evidence/IJSLM/lfm3-ha-1.1/sdk-retry-probe.json)
 
 | Path | Agent and tool policy | Request boundary |
 |---|---|---|

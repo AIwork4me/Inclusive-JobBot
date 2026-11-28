@@ -5,7 +5,7 @@
 | Stage | Status | Evidence |
 |---|---|---|
 | M0 resume audit | PASS | Local/remote review SHA matched. Portable admission and 8,250-trial seals replayed. Base, all adapter files, runtime and SDK were rehashed. The host lease and handoff matched with controllers idle. |
-| M1 SDK retry setting isolation | PASS | A real SDK with scripted loopback provider changed its initial choice from `none` to `auto` when only output retry changed from 0 to 1. The serializer branch in the native harness remains BLOCKED on its source. |
+| M1 SDK retry setting isolation | PASS | A real SDK with scripted loopback provider changed its initial choice from `none` to `auto` when only output retry changed from 0 to 1. The serializer branch in the native harness remains BLOCKED on its source. [Probe evidence](evidence/IJSLM/lfm3-ha-1.1/sdk-retry-probe.json) |
 | M1 phase policy and M2 typed binder software | PASS | 22 software controls in `test_phase_tool_policy.py` and `test_lossless_callback.py`. Historic Extension certificate replay passed. |
 | M1 four-profile Radeon capture coverage | PASS | 40 new trajectories, all 81 requests linked to native generation, 18/18 phase-aware callbacks bound. The corrected arm scored 6/10 exact execution and 5/10 termination. [Replayed evidence](evidence/IJSLM/lfm3-ha-1.1/action-phase-retest.json) |
 | M2 same-byte archive replay | PASS | The five historic first responses were replayed against the real pinned SDK and scripted terminal provider. Every proposed integer tool call bound and reached its synthetic sandbox. |
