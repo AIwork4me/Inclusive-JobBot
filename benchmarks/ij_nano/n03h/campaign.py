@@ -542,7 +542,7 @@ def main() -> int:
                              "admission-probe", "run",
                              "analyze", "seal", "verify", "pause"])
     ap.add_argument("--scope", default="AUTH-1",
-                    choices=["AUTH-1", "AUTH-2", "AUTH-2B"])
+                    choices=["AUTH-1", "AUTH-2", "AUTH-2B", "AUTH-2C"])
     ap.add_argument("--workdir", default=None)
     ap.add_argument("--weights-root", default=None)
     ap.add_argument("--max-blocks", type=int, default=None)

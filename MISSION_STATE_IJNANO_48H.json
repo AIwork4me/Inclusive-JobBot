@@ -8,7 +8,7 @@
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
  "parent_mission_state": "MISSION_STATE_IJNANO_N03_PROGRESSIVE.json",
- "updated_utc": "2026-11-28T07:20:00Z",
+ "updated_utc": "2026-11-28T08:10:00Z",
  "clock": {
   "budget_hours": 48,
   "started_utc": "2026-11-28T04:34:00Z",
@@ -26,7 +26,7 @@
   "ij_nano_local_head": "58aa7908e5d1868af1385a4d0cea549e6b1d58a4",
   "ij_nano_remote_head": "58aa7908e5d1868af1385a4d0cea549e6b1d58a4",
   "ijeval_local_head": "3cdd066d685d5d9a824af60f2189d7ded612d735",
-  "ijeval_remote_head": "7a3e8dc64dfb0a677fe4aa53c33f81b0d01e72d6",
+  "ijeval_remote_head": "a50c3c5ceb8d1ca4979d00a8e8faa310ea24842e",
   "ijslm_remote_head": "79a805e1c450fc358d92b83a79c37dadd5cc5762",
   "eae_compat_contract": "v1.1.1",
   "eae_releases_consumed": {
@@ -55,6 +55,14 @@
     "certificate": "bd41edfb6fd7c004 (Batch B, scope=semantic)",
     "max_trials": 480,
     "released_utc": "2026-11-28 (bffce5a)"
+   },
+   "AUTH-2C": {
+    "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-C-v1",
+    "authorization_checksum": "c90f234af01db24a2c73796db505e25c7ae68c1afd66f0fd4a21954088b9d29f",
+    "roster_digest": "961810d20e784ac5ba23db1a6b63016c8051b56a7f5b94d49a03ccc4b85ca4ba",
+    "certificate": "fb019eacee3f35d4 (Batch C; release cites bd41edfb+fb019eac)",
+    "max_trials": 480,
+    "released_utc": "2026-11-28 (2094238)"
    }
   },
   "dataset_reconciliation": {
@@ -183,6 +191,12 @@
    "authorization": "AUTH-2B (released, checksum reproduced by real consumer)",
    "nominal_slots": 480,
    "status": "AUTHORIZED_FIRST_BLOCK_VERIFICATION"
+  },
+  "E1_batch_c": {
+   "priority": "P0",
+   "authorization": "AUTH-2C (released, checksum reproduced in subprocess)",
+   "nominal_slots": 480,
+   "status": "AUTHORIZED_QUEUED_AFTER_BATCH_B"
   }
  },
  "weight_configurations": {
@@ -293,5 +307,11 @@
    "Qwen3.5-2B": "7 CORRECT / 32 EMPTY (finish=length, mean 983 tokens - thinking mode consumes the frozen 1024-token chat budget) / 1 INVALID"
   },
   "hypothesis_signal": "H2 (protocol-induced failure) strongly supported for S3 under the chat protocol; consistent with N02RR corrected finding 'S3 thinking-control requirement'; E6 budget cohorts and thinking_disabled_chat protocol cohort are the designed follow-ups"
+ },
+ "pins": {
+  "note": "one EAE revision per process; each scope's pin is where its released checksum reproduces",
+  "3cdd066": "historical Batch A releases (cert revoked by drill)",
+  "7a3e8dc": "AUTH-2B (Batch B)",
+  "a50c3c5": "AUTH-2C (Batch C)"
  }
 }
