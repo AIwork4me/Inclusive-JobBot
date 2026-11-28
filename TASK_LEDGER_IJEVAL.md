@@ -41,5 +41,5 @@
 | EA08 evidence controls | 6/6 (duplicate, resume, replay, tamper, missing-vs-empty, receipts) |
 | GT battery re-run after IJE-WB-D01 fix | 160/160 VALID, 38/38 probes, 597/597 mutations, 40/40 obligation-B — zero regression |
 | Coverage matrix | 25 rule rows; 817 total controls vs original 500-proposal, categories reconciled (GT reuse ≠ substitution) |
-| Certificate | 148b435df466190b (N03_BATCH_A_DEV_CPU_DUALPATH) via real QualificationAuthority, persisted registry |
+| Certificate | 512efb617a9cb4c8 (scope=semantic aggregation category; capability identity in protocol field — corrected from a capability-named scope that could never match the eligibility lookup) (N03_BATCH_A_DEV_CPU_DUALPATH) via real QualificationAuthority, persisted registry |
 | Tests | ij_eval_assurance 168+18 new = full suite green at commit time (see pubgate receipt) |

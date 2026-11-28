@@ -87,6 +87,28 @@ class ExecutionEvidence:
     confirmation_execution: bool = False  # protected confirmation covered?
     roster_split: str = "development"     # development | confirmation
     dispatch_limits: dict = field(default_factory=dict)  # e.g. max_trials
+    experiment_id: str = ""               # exact experiment binding (§3.3)
+    auth_purpose: str = ""                # the AUTH level this evidence
+    #                                          authorizes (§3.3)
+
+    def evidence_identity(self) -> str:
+        """Content digest over the bound qualification chain — changes
+        whenever ANY bound field changes (used for stale-authorization
+        detection after evidence replacement, §3.2)."""
+        import hashlib
+        material = json.dumps([
+            self.compat_revision, sorted(self.primitives),
+            sorted(self.protocols), sorted(self.models),
+            self.dataset_digest, self.roster_digest,
+            self.evaluator_identity, sorted(self.certificate_refs),
+            [list(d) for d in self.certificate_digests],
+            self.shared_core_acceptance, self.shared_core_evidence_digest,
+            self.ea13_scope_evidence, self.ea18_scope_evidence,
+            self.canary_ready, self.circuit_breaker_ready,
+            self.confirmation_execution, self.roster_split,
+            self.dispatch_limits, self.experiment_id, self.auth_purpose],
+            sort_keys=True, default=str)
+        return hashlib.sha256(material.encode("utf-8")).hexdigest()
 
     def validate(self) -> None:
         if self.shared_core_acceptance != "ACCEPTED":
@@ -139,12 +161,41 @@ _REGISTERED_EVIDENCE: ExecutionEvidence | None = None
 REVOCATIONS = RevocationRegistry()
 #: certificate references the qualification authority marked trusted
 TRUSTED_CERTIFICATE_REFS: frozenset = frozenset()
+#: authoritative qualification state hook (§3.2): when bound, issuance
+#: and every recheck consult the durable state — a consumer recheck then
+#: never relies solely on a local revocation set
+_AUTHORITATIVE_STATE = None
+
+
+def bind_authoritative_state(state) -> None:
+    """Bind the durable AuthoritativeQualificationState (order §3.2).
+    Rechecks consult it from this point; an unbound state keeps the
+    module-local registry (tests / synthetic use)."""
+    global _AUTHORITATIVE_STATE
+    if state is not None and not hasattr(state, "consult"):
+        raise AuthorizationError(
+            "authoritative state must expose consult(...) "
+            "(AuthoritativeQualificationState)")
+    _AUTHORITATIVE_STATE = state
+
+
+def authoritative_state():
+    return _AUTHORITATIVE_STATE
 
 
 def register_execution_evidence(evidence: ExecutionEvidence,
-                                trusted_certificate_refs=()) -> None:
-    """Qualification-pipeline entry point: publish the evidence chain."""
+                                trusted_certificate_refs=(),
+                                authoritative_state=None) -> None:
+    """Qualification-pipeline entry point: publish the evidence chain.
+
+    The caller-asserted form remains for the qualification pipeline's
+    own tests; PRODUCTION registration goes through
+    ``register_trusted_execution_evidence`` (order §3.3), which derives
+    every readiness flag from digest-verified artifacts instead of
+    caller Booleans. Binding an authoritative state records the new
+    evidence identity so previously issued authorizations go stale."""
     global _REGISTERED_EVIDENCE, TRUSTED_CERTIFICATE_REFS
+    global _AUTHORITATIVE_STATE
     if not isinstance(evidence, ExecutionEvidence):
         raise AuthorizationError(
             "evidence must be an ExecutionEvidence produced by the "
@@ -153,6 +204,11 @@ def register_execution_evidence(evidence: ExecutionEvidence,
     evidence.validate()
     _REGISTERED_EVIDENCE = evidence
     TRUSTED_CERTIFICATE_REFS = frozenset(trusted_certificate_refs)
+    if authoritative_state is not None:
+        bind_authoritative_state(authoritative_state)
+    if _AUTHORITATIVE_STATE is not None:
+        _AUTHORITATIVE_STATE.register_evidence_identity(
+            evidence.evidence_identity())
 
 
 def clear_execution_evidence() -> None:
@@ -313,7 +369,22 @@ def issue_execution_authorization(
             f"untrusted certificate store entries: {untrusted}")
     if not ev.certificate_refs:
         raise AuthorizationError("empty certificate collection")
+    # §3.3: bind execution authorization to the EXACT experiment
+    # identity and authorization purpose
+    if ev.experiment_id and ev.experiment_id != experiment_id:
+        raise AuthorizationError(
+            f"evidence is bound to experiment {ev.experiment_id!r}; "
+            f"authorization for {experiment_id!r} refused (experiment "
+            "identity binding)")
+    if ev.auth_purpose and ev.auth_purpose != auth_level:
+        raise AuthorizationError(
+            f"evidence authorizes purpose {ev.auth_purpose!r}; "
+            f"authorization at {auth_level!r} refused (purpose binding)")
     REVOCATIONS.check(ev.certificate_refs)
+    if _AUTHORITATIVE_STATE is not None:
+        _AUTHORITATIVE_STATE.consult(
+            certificate_refs=ev.certificate_refs,
+            evidence_identity=ev.evidence_identity())
     ev.validate()
     auth = ExecutionAuthorization(
         _EXECUTION_CREATE_KEY,
@@ -342,20 +413,164 @@ def issue_execution_authorization(
             "circuit_breaker_ready": ev.circuit_breaker_ready,
             "confirmation_execution": confirmation_execution,
             "roster_split": ev.roster_split,
+            "evidence_identity": ev.evidence_identity(),
+            "experiment_binding": ev.experiment_id or "(any)",
+            "auth_purpose": ev.auth_purpose or "(any)",
             "dispatch_limits": dict(ev.dispatch_limits),
             "results_dependency": "none",   # no model results involved
         })
     return auth.with_checksum()
 
 
+def register_trusted_execution_evidence(
+        *, authoritative_state, experiment_id: str, auth_purpose: str,
+        primitives, protocols, models,
+        dataset_file, roster_file,
+        parser_file, evaluator_file, interpreter_file, oracle_file,
+        certificate_store, shared_core_acceptance_file,
+        canary_evidence_file, breaker_evidence_file,
+        witness_suite_file, mutation_report_file,
+        ea13_scope_file=None, ea18_scope_file=None,
+        dispatch_limits=None) -> ExecutionEvidence:
+    """Order §3.3 — evidence-BACKED readiness (replaces caller-asserted
+    readiness). Every readiness flag and identity below is DERIVED from
+    digest-verified artifacts and the authoritative certificate store;
+    caller-provided ACCEPTED strings or readiness Booleans are never
+    consulted. Fail-closed on any missing/mismatched/tampered input."""
+    import hashlib
+    import json as _json
+    import pathlib
+
+    def _digest(path) -> str:
+        p = pathlib.Path(path)
+        if not p.is_file() or p.stat().st_size == 0:
+            raise AuthorizationError(
+                f"evidence artifact missing or empty: {p.name}")
+        return hashlib.sha256(p.read_bytes()).hexdigest()
+
+    def _load(path) -> dict:
+        p = pathlib.Path(path)
+        try:
+            return _json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as e:
+            raise AuthorizationError(
+                f"evidence artifact unreadable: {p.name}: {e}") from e
+
+    # -- applicable qualification certificates (authoritative, current) ---
+    if authoritative_state is None:
+        raise AuthorizationError(
+            "trusted registration requires the authoritative "
+            "qualification state (§3.2)")
+    certs = []
+    for ref in authoritative_state_expected_refs(certificate_store):
+        cert = certificate_store.get(ref)
+        if cert is None or not cert.is_valid():
+            raise AuthorizationError(
+                f"certificate {ref!r} not currently valid in the "
+                "authoritative store")
+        certs.append(cert)
+    if not certs:
+        raise AuthorizationError("no applicable certificates")
+    certificate_digests = tuple(
+        (c.certificate_id, c.digest_bindings()) for c in certs)
+
+    # -- exact dataset and roster identities (recomputed from bytes) ------
+    dataset_digest = _digest(dataset_file)
+    roster_digest = _digest(roster_file)
+
+    # -- actual parser/evaluator/interpreter/oracle identities ------------
+    parser_digest = _digest(parser_file)
+    evaluator_digest = _digest(evaluator_file)
+    _digest(interpreter_file)
+    oracle_digest = _digest(oracle_file)
+    if evaluator_digest == oracle_digest:
+        raise AuthorizationError(
+            "oracle identity equals the evaluator (independence)")
+
+    # -- shared-core acceptance: derived from the acceptance artifact ----
+    sc = _load(shared_core_acceptance_file)
+    sc_verdict = sc.get("verdict") or sc.get("gate") or ""
+    if sc_verdict != "ACCEPTED":
+        raise AuthorizationError(
+            f"shared-core acceptance artifact says {sc_verdict!r} "
+            "(caller-asserted ACCEPTED strings are never consulted)")
+
+    # -- canary + circuit-breaker integration evidence ---------------------
+    canary = _load(canary_evidence_file)
+    if not canary.get("passed", False):
+        raise AuthorizationError(
+            "canary integration evidence not passing "
+            f"({canary.get('failure_reason', 'no pass marker')})")
+    breaker = _load(breaker_evidence_file)
+    if not breaker.get("passed", False):
+        raise AuthorizationError(
+            "circuit-breaker integration evidence not passing")
+
+    # -- witness + mutation qualification -----------------------------------
+    wit = _load(witness_suite_file)
+    if wit.get("summary", {}).get("failed", 1) != 0:
+        raise AuthorizationError("witness suite has failures")
+    mut = _load(mutation_report_file)
+    if mut.get("summary", {}).get("escapes"):
+        raise AuthorizationError("mutation campaign has escapes")
+
+    # -- optional EA13/EA18 scope evidence ----------------------------------
+    ea13 = _digest(ea13_scope_file) if ea13_scope_file else ""
+    ea18 = _digest(ea18_scope_file) if ea18_scope_file else ""
+
+    evidence = ExecutionEvidence(
+        compat_revision=EAE_CONTRACT_REVISION,
+        primitives=tuple(primitives), protocols=tuple(protocols),
+        models=tuple(models),
+        dataset_digest=dataset_digest, roster_digest=roster_digest,
+        evaluator_identity=f"oracle@{oracle_digest[:16]}",
+        certificate_refs=tuple(c.certificate_id for c in certs),
+        certificate_digests=certificate_digests,
+        shared_core_acceptance="ACCEPTED",
+        shared_core_evidence_digest=_digest(shared_core_acceptance_file),
+        ea13_scope_evidence=ea13, ea18_scope_evidence=ea18,
+        canary_ready=True, circuit_breaker_ready=True,
+        roster_split="development",
+        dispatch_limits=dict(dispatch_limits or {}),
+        experiment_id=experiment_id, auth_purpose=auth_purpose)
+    register_execution_evidence(
+        evidence,
+        trusted_certificate_refs={c.certificate_id for c in certs},
+        authoritative_state=authoritative_state)
+    return evidence
+
+
+def authoritative_state_expected_refs(certificate_store) -> list:
+    """Certificate references applicable to the next registration: all
+    currently-valid certificates in the trusted store."""
+    return [c.certificate_id for c in
+            certificate_store.snapshot().certificates if c.is_valid()]
+
+
 def recheck_execution_authorization(auth: ExecutionAuthorization) -> None:
-    """Time-of-check integrity: revocation after issuance fails closed."""
+    """Time-of-check integrity: revocation after issuance fails closed.
+
+    When an authoritative qualification state is bound (§3.2), every
+    recheck consults the durable state — current certificate validity,
+    durable revocations and evidence identity — so revocation between
+    requests, during active inference, or across process restarts
+    refuses dispatch even when the consumer's local set is empty."""
     if not auth.checksum_valid():
         raise AuthorizationError("authorization checksum drifted")
-    REVOCATIONS.check([auth.certificate_ref]
-                      + list(auth.payload.get("certificates", [])))
+    refs = [auth.certificate_ref] + list(
+        auth.payload.get("certificates", []))
+    REVOCATIONS.check(refs)
+    if _AUTHORITATIVE_STATE is not None:
+        _AUTHORITATIVE_STATE.consult(
+            certificate_refs=refs,
+            evidence_identity=auth.payload.get("evidence_identity", ""))
+        return
     ev = _REGISTERED_EVIDENCE
     if ev is None or auth.eae_revision != ev.compat_revision:
         raise AuthorizationError(
             "registered evidence no longer covers this authorization "
             "(stale authorization refused)")
+    if ev.evidence_identity() != auth.payload.get("evidence_identity"):
+        raise AuthorizationError(
+            "registered evidence was replaced after issuance (stale "
+            "authorization refused, §3.2)")

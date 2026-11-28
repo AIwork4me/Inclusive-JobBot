@@ -229,7 +229,7 @@ def main() -> int:
     authority = QualificationAuthority(persist_to=rel(reg_dir /
                                                       "registry.json"))
     store = authority.issue_qualification(
-        scope="N03_BATCH_A_DEV_CPU_DUALPATH",
+        scope="semantic",   # aggregation scope category (eligibility lookup key)
         dataset_id="n03-batch-a-dev160@d23de5a",
         parser_version="eval_assurance.production.parser@1",
         evaluator_version="eval_assurance.production.evaluator@1",
@@ -254,7 +254,7 @@ def main() -> int:
         ],
         replay_contract="content-addressed artifact replay "
                         "(dualpath.DualPathSession.replay)",
-        protocol="cpu-dualpath-qualification",
+        protocol="cpu-dualpath-qualification:N03_BATCH_A_DEV_CPU_DUALPATH",
         limitations="CPU software qualification of the dual-path "
                     "evaluation stack on pinned Batch A dev inputs. NOT a "
                     "physical-runner qualification, NOT confirmation-"

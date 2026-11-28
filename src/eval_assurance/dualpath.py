@@ -189,6 +189,15 @@ class DualPathSession:
         (self.workdir / "artifacts").mkdir(parents=True, exist_ok=True)
         self.trials: dict[str, dict] = {}
         self.quarantine: list[dict] = []
+        #: assurance controls executed alongside trials (EA09 canaries);
+        #: NEVER benchmark trials and never in denominators
+        self.canary_controls: list[dict] = []
+
+    def record_canary_control(self, control: dict) -> None:
+        """Record a canary/assurance control execution (excluded from
+        model statistics by construction — the analyzer maps these to
+        ExecutionStatus.CANARY_CONTROL)."""
+        self.canary_controls.append(dict(control))
 
     # -- trial identity ---------------------------------------------------
     @staticmethod
@@ -282,7 +291,8 @@ class DualPathSession:
 
     # -- crash-safe persistence with exact resume ---------------------------
     def save(self) -> None:
-        state = {"trials": self.trials, "quarantine": self.quarantine}
+        state = {"trials": self.trials, "quarantine": self.quarantine,
+                 "canary_controls": self.canary_controls}
         tmp = self.workdir / "session_state.json.tmp"
         tmp.write_text(json.dumps(state, indent=1, ensure_ascii=False),
                        encoding="utf-8")
@@ -295,6 +305,7 @@ class DualPathSession:
         state = json.loads(p.read_text(encoding="utf-8"))
         self.trials = state["trials"]
         self.quarantine = state["quarantine"]
+        self.canary_controls = state.get("canary_controls", [])
         return True
 
     # -- artifact integrity (EA08 X-series controls) ------------------------

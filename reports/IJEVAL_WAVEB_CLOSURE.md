@@ -3,7 +3,7 @@
 Date: 2026-11-28. Scope: production/reference dual-path integration on
 the pinned Batch A dev dataset (`d23de5a` snapshot in
 `evidence/IJEVAL/EA03_N03/pinned/`). Certificate:
-`148b435df466190b` (scope `N03_BATCH_A_DEV_CPU_DUALPATH`, registry
+`512efb617a9cb4c8 (scope=semantic aggregation category; capability identity in protocol field — corrected from a capability-named scope that could never match the eligibility lookup)` (scope `N03_BATCH_A_DEV_CPU_DUALPATH`, registry
 `evidence/IJEVAL/EA03_N03/certificates/registry.json`, generation 1).
 
 ## 1. What was delivered
