@@ -51,6 +51,7 @@ def full_evidence(**over):
         canary_ready=True,
         circuit_breaker_ready=True,
         confirmation_execution=False,
+        roster_split="development",
         dispatch_limits={"max_trials": 960},
     )
     kw.update(over)
@@ -223,20 +224,72 @@ class BypassControls(unittest.TestCase):
         with self.assertRaises(ea.AuthorizationError):
             issue(auth_level="AUTH-3-PLUS")
 
-    # 15. AUTH-2 used to access protected confirmation execution.
+    # 15. AUTH-1/AUTH-2 used to access protected confirmation execution.
+    # Frozen IJ-NANO-1.3S contract: AUTH-2 = SCOPED_DEVELOPMENT_BENCHMARK;
+    # only AUTH-3 = SCOPED_CONFIRMATION_BENCHMARK may touch protected
+    # confirmation execution. (Reproduced the audited mismatch red at
+    # 9c73bbf: CONFIRMATION_LEVEL was "AUTH-2", letting AUTH-2 authorize
+    # confirmation execution — evidence auth_semantics_mismatch_9c73bbf.json.)
     def test_control_15_confirmation_scope_gated(self):
-        # dev-only evidence cannot authorize confirmation execution
+        # dev-only evidence cannot authorize confirmation execution at ANY
+        # sub-AUTH-3 level
+        with self.assertRaises(ea.AuthorizationError):
+            issue(auth_level="AUTH-1", confirmation_execution=True)
         with self.assertRaises(ea.AuthorizationError):
             issue(auth_level="AUTH-2", confirmation_execution=True)
-        # even confirmation-covering evidence still needs AUTH-2:
+        # even confirmation-covering evidence still needs AUTH-3:
         ea.clear_execution_evidence()
         ea.register_execution_evidence(
-            full_evidence(confirmation_execution=True),
+            full_evidence(confirmation_execution=True,
+                          roster_split="confirmation"),
             trusted_certificate_refs={"EAE-CERT-BATCHA-1"})
         with self.assertRaises(ea.AuthorizationError):
             issue(auth_level="AUTH-1", confirmation_execution=True)
-        auth = issue(auth_level="AUTH-2", confirmation_execution=True)
+        with self.assertRaises(ea.AuthorizationError):
+            issue(auth_level="AUTH-2", confirmation_execution=True)
+        auth = issue(auth_level="AUTH-3", confirmation_execution=True)
         self.assertTrue(auth.payload["confirmation_execution"])
+
+    # 17. Roster split enforcement: development evidence and confirmation
+    # evidence are bound to their own rosters and authorization levels
+    # (order section 3.1 "test actual roster split enforcement").
+    def test_control_17_roster_split_enforcement(self):
+        # a) confirmation evidence must declare the confirmation split
+        ea.clear_execution_evidence()
+        with self.assertRaises(ea.AuthorizationError):
+            ea.register_execution_evidence(
+                full_evidence(confirmation_execution=True),
+                trusted_certificate_refs={"EAE-CERT-BATCHA-1"})
+        # b) dev evidence (roster_split=development) refuses AUTH-3 even
+        #    with confirmation_execution requested
+        ea.clear_execution_evidence()
+        ea.register_execution_evidence(
+            full_evidence(roster_split="development"),
+            trusted_certificate_refs={"EAE-CERT-BATCHA-1"})
+        with self.assertRaises(ea.AuthorizationError):
+            issue(auth_level="AUTH-3", confirmation_execution=True)
+        with self.assertRaises(ea.AuthorizationError):
+            issue(auth_level="AUTH-3")     # AUTH-3 is confirmation-only
+        # c) confirmation evidence cannot authorize a development-level
+        #    (AUTH-1/AUTH-2) dispatch: sub-confirmation levels require a
+        #    development-split roster
+        ea.clear_execution_evidence()
+        ea.register_execution_evidence(
+            full_evidence(confirmation_execution=True,
+                          roster_split="confirmation"),
+            trusted_certificate_refs={"EAE-CERT-BATCHA-1"})
+        with self.assertRaises(ea.AuthorizationError):
+            issue(auth_level="AUTH-2")
+        with self.assertRaises(ea.AuthorizationError):
+            issue(auth_level="AUTH-1")
+        # d) a confirmation roster digest is not bound to dev evidence:
+        #    digest mismatch refuses the modified roster independently
+        ea.clear_execution_evidence()
+        ea.register_execution_evidence(
+            full_evidence(roster_split="development"),
+            trusted_certificate_refs={"EAE-CERT-BATCHA-1"})
+        with self.assertRaises(ea.AuthorizationError):
+            issue(roster_digest="c" * 64)  # forged/confirmation roster
 
     # 16. Test-double authorization against the physical runner.
     def test_control_16_test_double_cannot_authorize_physical(self):

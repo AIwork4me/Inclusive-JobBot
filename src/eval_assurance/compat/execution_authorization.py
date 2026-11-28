@@ -37,12 +37,22 @@ import json
 from dataclasses import dataclass, field
 
 EXECUTION_AUTHORIZATION_SCHEMA = "1.1.0"
-EAE_CONTRACT_REVISION = "1.1.0"          # semantic revision of this module
+#: semantic revision of this module. 1.1.1 (2026-11-28) corrects the
+#: authorization-level semantics to the frozen IJ-NANO-1.3S contract
+#: (AUTH-0 CPU preparation / AUTH-1 diagnostic smoke / AUTH-2 scoped
+#: development benchmark / AUTH-3 scoped confirmation benchmark):
+#: CONFIRMATION_LEVEL was wrongly "AUTH-2" at <=9c73bbf, letting AUTH-2
+#: authorize protected confirmation execution (reproduction:
+#: evidence/IJEVAL/COMPAT/auth_semantics_mismatch_9c73bbf.json).
+EAE_CONTRACT_REVISION = "1.1.1"
 AUTH_LEVELS = ("AUTH-1", "AUTH-2", "AUTH-3")
-#: AUTH-2 is the only level that may touch protected confirmation
-#: execution; AUTH-1 covers development-scope dispatch, AUTH-3 covers
-#: scoped subordinate re-authorization (never wider than its parent).
-CONFIRMATION_LEVEL = "AUTH-2"
+#: Only AUTH-3 (SCOPED_CONFIRMATION_BENCHMARK) may touch protected
+#: confirmation execution. AUTH-1 and AUTH-2 are development-side levels
+#: and can NEVER access it (enforced symmetrically below: AUTH-3 also
+#: REQUIRES confirmation execution — it is the confirmation benchmark
+#: level, and sub-confirmation levels require a development-split roster).
+CONFIRMATION_LEVEL = "AUTH-3"
+ROSTER_SPLITS = ("development", "confirmation")
 
 
 class AuthorizationError(RuntimeError):
@@ -75,6 +85,7 @@ class ExecutionEvidence:
     canary_ready: bool
     circuit_breaker_ready: bool
     confirmation_execution: bool = False  # protected confirmation covered?
+    roster_split: str = "development"     # development | confirmation
     dispatch_limits: dict = field(default_factory=dict)  # e.g. max_trials
 
     def validate(self) -> None:
@@ -90,6 +101,17 @@ class ExecutionEvidence:
         if not self.certificate_refs:
             raise AuthorizationError(
                 "empty certificate collection; physical dispatch refused")
+        if self.roster_split not in ROSTER_SPLITS:
+            raise AuthorizationError(
+                f"unknown roster split {self.roster_split!r} "
+                f"(expected one of {ROSTER_SPLITS})")
+        if self.confirmation_execution != (
+                self.roster_split == "confirmation"):
+            raise AuthorizationError(
+                "roster-split mismatch: protected confirmation execution "
+                "is exactly the confirmation split (confirmation_execution="
+                f"{self.confirmation_execution!r}, roster_split="
+                f"{self.roster_split!r}); fail-closed")
 
 
 class RevocationRegistry:
@@ -260,11 +282,31 @@ def issue_execution_authorization(
         if auth_level != CONFIRMATION_LEVEL:
             raise AuthorizationError(
                 "protected confirmation execution requires "
-                f"{CONFIRMATION_LEVEL}; {auth_level} refused")
+                f"{CONFIRMATION_LEVEL} (SCOPED_CONFIRMATION_BENCHMARK); "
+                f"{auth_level} refused — AUTH-1/AUTH-2 can never access "
+                "protected confirmation execution")
         if not ev.confirmation_execution:
             raise AuthorizationError(
                 "protected confirmation execution is not covered by the "
                 "registered evidence")
+    elif auth_level == CONFIRMATION_LEVEL:
+        # symmetric: AUTH-3 IS the scoped confirmation benchmark level;
+        # issuing it for a development dispatch would be a contract
+        # mismatch (AUTH-3 requires the confirmation roster + evidence)
+        raise AuthorizationError(
+            f"{CONFIRMATION_LEVEL} is the scoped confirmation benchmark "
+            "level: it requires confirmation_execution coverage of a "
+            "confirmation-split roster (development dispatches use "
+            "AUTH-1/AUTH-2)")
+    elif ev.roster_split == "confirmation":
+        # sub-confirmation levels must sit on development-split evidence:
+        # confirmation-covering evidence cannot back a development-level
+        # dispatch either (roster split enforced at the authorization
+        # boundary, complementing the exact roster_digest binding)
+        raise AuthorizationError(
+            "confirmation-split evidence cannot authorize a "
+            f"development-level ({auth_level}) dispatch; roster split "
+            "enforcement refused")
     untrusted = sorted(set(ev.certificate_refs) - TRUSTED_CERTIFICATE_REFS)
     if untrusted:
         raise AuthorizationError(
@@ -299,6 +341,7 @@ def issue_execution_authorization(
             "canary_ready": ev.canary_ready,
             "circuit_breaker_ready": ev.circuit_breaker_ready,
             "confirmation_execution": confirmation_execution,
+            "roster_split": ev.roster_split,
             "dispatch_limits": dict(ev.dispatch_limits),
             "results_dependency": "none",   # no model results involved
         })
