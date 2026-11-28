@@ -72,3 +72,12 @@
 | --- | --- |
 | EA12 N02RR revalidation | PASS_WITH_FINDINGS: 2,184/2,184 slots accounted; independent semantic recount 870 passes (matches history without forcing); source-vs-corrected verdict consistency 0 mismatches; formal boundary keeps scope diagnostics-only; FINDING: 308 verdict-preserving parser-recovery corrections stored as TELEMETRY_CORRECTED (classification granularity, not corruption; statistics unaffected); unsupported scope honestly accounted (no EAE oracle for N02RR task families) |
 | EA13 primitive qualification | 8/8 QUALIFIED (C01-C08, Batch A dev scope, CPU protocol); development evidence does NOT qualify protected confirmation |
+
+## 2026-11-28 — EA14 + EA18 + AUTH-2 (critical path complete, EAE side)
+
+| item | result |
+| --- | --- |
+| EA14 stress campaign | GO: 10,000 fault-free trials (0 false alarms); 1,000 fault instances — 900 detected (latency 1–25, median 15), 100 undetected = exactly the two EA07-declared EQUIVALENT mutants, 0 GENUINE escapes into qualified publication; recovery via requalification-only works; operational hazard found+fixed: stale containment state from a crashed prior run silently suppresses a re-run (clean-slate campaign workdirs now enforced) |
+| EA18 independent acceptance | N03_SHARED_EVALUATION_ASSURANCE_CORE_GO: 9/9 fresh adversarial attempts refused (forged auth JSON, experiment reuse, post-revocation w/ restart, untrusted-store publication, certificate-less aggregation, hand-forged evidence dataclass, tampered breaker, MISSING-vs-empty, canary window hiding); all 7 common-core dependencies pass |
+| AUTH-2 release (order §7) | EAE-SIDE-RELEASED: full Batch A dev roster 160×3=480 slots (no case removed), experiment N03-AUTH2-DEVELOPMENT-BATCH-A-v1, purpose AUTH-2, dispatch limit 480, checksum a22bcc68b8e19974; shared-core acceptance derived from the EA18 gate; REAL IJ-NANO consumer verification + revocation drill recorded (evidence/IJEVAL/AUTH2/consumer_verification.json) |
+| AUTH-3 confirmation | BLOCKED by design (frozen identities/policies + confirmation roster + verified holdout separation not registered) |

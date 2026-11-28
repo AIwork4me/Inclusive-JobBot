@@ -22,7 +22,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 
 from eval_assurance import canary as canary_mod              # noqa: E402
-from eval_assurance import execution_authorization as ea     # noqa: E402
+from eval_assurance.compat import execution_authorization as ea     # noqa: E402
 from eval_assurance.analysis import QualifiedAnalyzer        # noqa: E402
 from eval_assurance.authoritative import (                   # noqa: E402
     AuthoritativeQualificationState)
@@ -48,6 +48,7 @@ def attempt(name):
 
 
 def _fixture(tmp: pathlib.Path):
+    tmp.mkdir(parents=True, exist_ok=True)
     for name, obj in (("sc.json", {"verdict": "ACCEPTED"}),
                       ("canary.json", {"passed": True}),
                       ("br.json", {"passed": True})):
@@ -240,6 +241,7 @@ def a06(tmp):
         certificate_digests=(("FAKE", {}),),
         shared_core_acceptance="ACCEPTED",
         shared_core_evidence_digest="s" * 64,
+        ea13_scope_evidence="a" * 42, ea18_scope_evidence="b" * 42,
         canary_ready=True, circuit_breaker_ready=True)
     ea.register_execution_evidence(ev,
                                    trusted_certificate_refs={"FAKE"})

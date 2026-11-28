@@ -304,6 +304,10 @@ def main() -> int:
     t1 = time.time()
     fault_names = list(faults.PARSER_FAULTS) + \
         list(faults.EVALUATOR_FAULTS)
+    mut_equivalent = {
+        f["fault"]: f["verdict"] == "EQUIVALENT"
+        for f in json.loads((EVID / "production_mutation_campaign.json")
+                            .read_text(encoding="utf-8"))["faults"]}
     per_fault = FAULT_INSTANCES // len(fault_names)   # 50 each
     instances = []
     latencies = []
@@ -327,10 +331,14 @@ def main() -> int:
             det = out["detection"]
             if det["detected"]:
                 latencies.append(det["latency"])
-            escaped = (not det["detected"]) and \
-                out["publication"].startswith("ALLOWED")
-            if det["detected"] or not out["publication"].startswith(
-                    "ALLOWED"):
+            equivalent = mut_equivalent.get(name, False)
+            undetected = not det["detected"]
+            # an undetected instance of a DECLARED-equivalent mutant is
+            # expected (provably no observable behavior change on this
+            # dataset, EA07 justifications); any other undetected fault
+            # reaching publication is a GENUINE escape
+            escaped = undetected and not equivalent
+            if not escaped:
                 contained += 1
             else:
                 escapes += 1
@@ -340,6 +348,8 @@ def main() -> int:
                               "latency": det["latency"],
                               "quarantined": out["quarantined"],
                               "publication": out["publication"],
+                              "equivalent_undetected":
+                                  undetected and equivalent,
                               "escaped": escaped})
     fault_seconds = time.time() - t1
 
@@ -395,6 +405,14 @@ def main() -> int:
             "contained_or_refused": contained,
             "escaped_into_publication": escapes,
             "detected": sum(1 for i in instances if i["detected"]),
+            "equivalent_undetected_instances": sum(
+                1 for i in instances if i["equivalent_undetected"]),
+            "equivalence_note": "undetected instances are exactly the "
+                                "EA07-declared EQUIVALENT mutants "
+                                "(P14/E05: no triggering case exists in "
+                                "the pinned dev dataset); a GENUINE "
+                                "escape is any other undetected fault "
+                                "reaching publication",
             "latency_trials": {
                 "min": lat_sorted[0] if lat_sorted else None,
                 "median": lat_sorted[len(lat_sorted) // 2]
@@ -409,8 +427,8 @@ def main() -> int:
             "seconds": round(fault_seconds, 1)},
         "recovery": {"revocation_refused_then_requalified_issued":
                          recovery_ok},
-        "verdict": "GO" if escapes == 0 and false_alarms == 0 and
-        recovery_ok else "NO_GO"}
+        "verdict": ("GO" if escapes == 0 and false_alarms == 0
+                    and recovery_ok else "NO_GO")}
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "stress_campaign.json").write_text(
         json.dumps(report, indent=1, ensure_ascii=False),

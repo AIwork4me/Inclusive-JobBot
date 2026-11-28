@@ -1,6 +1,6 @@
 {
  "schema_version": "2.0.0",
- "generation": 1,
+ "generation": 2,
  "certificates": [
   {
    "scope": "semantic",
@@ -31,9 +31,16 @@
     "evidence\\IJEVAL\\EA03_N03\\intake_verification.json"
    ],
    "limitations": "CPU software qualification of the dual-path evaluation stack on pinned Batch A dev inputs. NOT a physical-runner qualification, NOT confirmation-split coverage, and NOT all-32 cognitive qualification (Batch A C01-C08 dev scope only). Disclosed common-mode risks: shared pinned spec authorship for production+reference legs; two equivalent mutants on the current dataset (P14/E05, justified); formatting cases with empty-truth line lists cannot score CORRECT.",
-   "revoked_utc": null
+   "revoked_utc": "2026-11-28T04:04:08Z"
   }
  ],
- "revocations": [],
- "checksum": "f25320c6c271e73288831ef084180ba046e81d2560e051c9fe66114991021436"
+ "revocations": [
+  {
+   "certificate_id": "512efb617a9cb4c8",
+   "binding_key": "semantic|n03-batch-a-dev160@d23de5a|eval_assurance.production.parser@1|eval_assurance.production.evaluator@1",
+   "revoked_utc": "2026-11-28T04:04:08Z",
+   "reason": "drill"
+  }
+ ],
+ "checksum": "b1208ea9fda894c4b2696dda566db0418a96793112c2cf4d4429c29a413af986"
 }
