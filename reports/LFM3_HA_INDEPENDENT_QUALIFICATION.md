@@ -16,6 +16,8 @@
 
 Each family must define a distinct business scenario and state transition or readback contract. A renamed reference or relabeled translation of an existing template belongs to the same family. The intake must cover typed parameters, dependent and parallel work, revised scope, recovery, clarification, authorization and stop behavior. Author the public user prompt and tool definitions independently from business expected state. The registrar seals the business witness and scorer contract before revealing the matched tasks, and separately signs task, world and witness identities.
 
+The machine-readable prospective plan records the statistical assumptions and release gates for review before the final holdout opens. [Prospective plan](../atlas/slm/v1.0/lfm3-harness-adapters/HOLDOUT_PLAN_1_1.json)
+
 ## Release gates and model coverage
 
 | Work | Status | Prerequisite |

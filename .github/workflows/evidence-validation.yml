@@ -29,6 +29,7 @@ jobs:
       - run: python -m benchmarks.slm10.verify_lfm3_ha
         env:
           PYTHONPATH: src
+      - run: python -m scripts.tools.verify_lfm3_ha11_manifest
       - run: python -m scripts.tools.ij073_verify
       - run: python scripts/tools/atlas_progress.py --check
       - run: python scripts/tools/atlas_reference_panel.py --check

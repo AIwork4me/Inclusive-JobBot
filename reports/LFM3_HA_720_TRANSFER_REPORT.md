@@ -13,3 +13,14 @@ The two SDK arms retain the real harness transcript and result wrapper. Phase-aw
 ## Protocol reconciliation
 
 An initial diagnostic run sealed 270 trajectories before the effective budget audit showed that the SDK emitted a model-visible 65,535-token limit while Direct sent 768. Those sealed trials and the interrupted reservation are retained in the diagnostic archive. Their effective limits and cache controls do not satisfy the matched panel contract. The matched runner now checks the effective provider request before sealing and during replay. [Diagnostic seal manifest](../evidence/IJSLM/lfm3-ha-1.1/legacy-budget-diagnostic.json)
+
+## First matched checkpoint
+
+The first sealed period covers 15 of the 60 tasks across all 12 arms, with 180 verified trajectories. The table reports exact scoped completion at this interim checkpoint. Its paired effects are descriptive. [Checkpoint replay](../evidence/IJSLM/lfm3-ha-1.1/transfer-checkpoint-180.json)
+
+| Weight | Direct | Original SDK | Phase-aware SDK |
+|---|---:|---:|---:|
+| Original | 12/15 | 0/15 | 6/15 |
+| OpenCode | 13/15 | 0/15 | 4/15 |
+| Pi | 13/15 | 0/15 | 8/15 |
+| Hermes | 12/15 | 0/15 | 6/15 |

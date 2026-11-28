@@ -14,6 +14,7 @@
 | M3 native rejection candidate patch | PASS | The patch and source-level controls apply to pinned llama.cpp. Build and physical execution remain NOT_RUN. |
 | M4 transfer registration | PASS | Software replay preserves the 480 development slots and adds 240 corrected-runtime slots. No panel trajectories had executed at registration. |
 | M4 initial transfer diagnostic budget check | FAIL | The raw SDK emitted 65,535 tokens versus Direct's 768. The 270 sealed diagnostic observations remain available. The new matched panel checks every effective forwarded request. [Transfer report](reports/LFM3_HA_720_TRANSFER_REPORT.md) |
+| M4 first matched period | PASS | 180 of 720 trajectories sealed and replayed with matched provider controls. All four weights and three runtimes are represented. [Checkpoint](evidence/IJSLM/lfm3-ha-1.1/transfer-checkpoint-180.json) |
 | M5 TC-V3 compatibility registration | PASS | Each of four weights has 500 Direct, 500 SDK first, 500 SDK streaming and 150 repeats with a new Original arm. |
 | M5 SDK first and repeat transport admission | PASS | Twelve Radeon development captures and exact replay. [Transport receipt](evidence/IJSLM/lfm3-ha-1.1/tc-transport-admission.json) |
 | M6 and M7 formal qualification | BLOCKED | Independent review, issuer and dispatcher dependencies remain open. |
