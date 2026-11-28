@@ -28,12 +28,23 @@ def read_shortconv(data, *, state_layers, block_count, width, prefix):
     suffix_bytes = 20 + len(state_layers) * (12 + row_bytes + 12)
     if len(data) < 12 + suffix_bytes:
         raise ValueError("Truncated LFM3 slot state")
-    magic, version, token_count = unpack_from("<3I", data)
-    offset = len(data) - suffix_bytes
-    if ((magic, version) != (0x67677371, 4) or not prefix or token_count < len(prefix)
-            or 12 + token_count * 4 > offset
-            or list(unpack_from(f"<{len(prefix)}i", data, 12)) != prefix):
+    magic, version, packed_count = unpack_from("<3I", data)
+    token_offset, packed_end = 12, 12 + packed_count * 4
+    if (magic, version) != (0x67677371, 4) or not prefix or packed_end > len(data) - suffix_bytes:
+        raise ValueError("Invalid slot header")
+    token_count = packed_count
+    if packed_count and unpack_from("<i", data, 12)[0] == -1:
+        if packed_count < 4:
+            raise ValueError("Incomplete packed server token header")
+        token_version, token_count = unpack_from("<2I", data, 16)
+        token_offset = 24
+        if (token_version != 1 or packed_count != token_count + 4
+                or unpack_from("<I", data, packed_end - 4)[0] != 0):
+            raise ValueError("Expected version-1 text-only server tokens")
+    if token_count < len(prefix) or list(unpack_from(f"<{len(prefix)}i", data, token_offset)) != prefix:
         raise ValueError("Slot header or saved prompt differs from the LFM3 probe")
+    end, checkpoints = checkpoint_boundary(data, packed_end + suffix_bytes)
+    offset = end - suffix_bytes
     cells, position, seq_ids, transposed, layers = unpack_from("<5I", data, offset)
     if (cells, seq_ids, transposed, layers) != (1, 0, 0, block_count) or position >= token_count:
         raise ValueError("Expected one live non-transposed LFM3 recurrent cell")
@@ -52,7 +63,39 @@ def read_shortconv(data, *, state_layers, block_count, width, prefix):
         if unpack_from("<IQ", data, offset) != (0, 0):
             raise ValueError("Unexpected secondary state in the pinned LFM3 snapshot")
         offset += 12
-    return rows, {"token_count": token_count, "position": position}
+    token_bytes = data[token_offset:token_offset + token_count * 4]
+    return rows, {"token_count": token_count, "position": position, "checkpoint_count": checkpoints,
+                  "token_sha256": sha256(token_bytes).hexdigest()}
+
+
+def checkpoint_boundary(data, start):
+    """Find the optional, complete server checkpoint appendix after the live state."""
+    footer = data.find(b"SCKP", start)
+    if footer == -1:
+        return len(data), 0
+    if len(data) - footer < 12:
+        raise ValueError("Incomplete slot checkpoint header")
+    version, count = unpack_from("<2I", data, footer + 4)
+    if version != 1 or not 1 <= count <= 32:
+        raise ValueError("Invalid slot checkpoint version or count")
+    offset = footer + 12
+    for _ in range(count):
+        if offset + 16 > len(data):
+            raise ValueError("Incomplete slot checkpoint metadata")
+        tokens, first, last = unpack_from("<qii", data, offset)
+        if tokens <= 0 or not 0 <= first <= last:
+            raise ValueError("Invalid slot checkpoint token positions")
+        offset += 16
+        for index in range(3):
+            if offset + 8 > len(data):
+                raise ValueError("Missing slot checkpoint section")
+            size, = unpack_from("<Q", data, offset)
+            offset += 8 + size
+            if offset > len(data) or (index == 0 and size == 0) or (index != 0 and size != 0):
+                raise ValueError("Invalid target, draft or speculative checkpoint section")
+    if offset != len(data):
+        raise ValueError("Unexpected trailing slot state")
+    return footer, count
 
 
 def compare_states(left, right):
@@ -79,9 +122,7 @@ def snapshot(client, folder, name, probe, layout):
     if (receipt["id_slot"] != 0 or receipt["filename"] != filename
             or receipt["n_saved"] != state["token_count"] or receipt["n_written"] < len(data)):
         raise ValueError("Native save receipt differs from the snapshot")
-    token_bytes = data[12:12 + state["token_count"] * 4]
     return rows, state | {"snapshot_sha256": sha256(data).hexdigest(), "snapshot_size": len(data),
-                          "token_sha256": sha256(token_bytes).hexdigest(),
                           "sampled_tokens": probe["tokens"], "tokens_cached": probe["tokens_cached"],
                           "layer_sha256": {layer: sha256(row).hexdigest() for layer, row in rows.items()}}
 

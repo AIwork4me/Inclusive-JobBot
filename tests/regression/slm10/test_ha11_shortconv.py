@@ -18,6 +18,16 @@ def test_shortconv_extracts_only_the_native_recurrent_row():
     assert metadata["position"] == 1
 
 
+def test_shortconv_reads_packed_server_tokens_and_excludes_checkpoint_appendix():
+    packed = pack("<3I", 0x67677371, 4, 6) + pack("<i5I", -1, 1, 2, 17, 32, 0)
+    appendix = b"SCKP" + pack("<2IqiiQ", 1, 1, 1, 0, 0, 4) + b"fake" + pack("<2Q", 0, 0)
+    rows, metadata = read_shortconv(packed + slot_state()[20:] + appendix, state_layers=[1],
+                                    block_count=3, width=2, prefix=[17])
+    assert unpack("<2f", rows[1]) == (1.0, 2.0)
+    assert metadata["token_count"] == 2
+    assert metadata["checkpoint_count"] == 1
+
+
 @pytest.mark.parametrize("data,prefix", [
     (slot_state() + b"x", [17]),
     (slot_state(row_bytes=4), [17]),
