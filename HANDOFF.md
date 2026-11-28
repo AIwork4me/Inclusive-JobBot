@@ -1,5 +1,11 @@
 # Handoff
 
+## LFM3-HA-1.1 runtime and capability panels
+
+Continue Draft PR #9 in the linked `codex/ij-slm-1.0` worktree. Use the existing repository-local assets and GPU lease. The 40-case supplemental action preflight, five-case Extension replay and 16-cell cache factorial have portable evidence. The active transfer panel uses `benchmarks.slm10.ha11_panel transfer` and the frozen 720-slot roster. Verify existing sealed batches and preserve interrupted reservations before resume. Its private freeze records the exact source commit. The new TC-V3 compatibility panel requires a separate physical transport receipt from `benchmarks.slm10.ha11_compatibility_admission`. [Runtime closure](reports/LFM3_HA_RUNTIME_CAUSAL_CLOSURE.md) · [Compatibility track](reports/LFM3_HA_6600_TC_CAPABILITY_REPORT.md)
+
+Use `python -m benchmarks.slm10.ha11_panel_report` with the private capture folder to replay either panel. All supplemental evidence contributes zero to the original 36,550 core denominator. [Independent qualification](reports/LFM3_HA_INDEPENDENT_QUALIFICATION.md) · [NanoAgent handoff](reports/LFM3_HA_NANOAGENT_HANDOFF.md)
+
 ## IJ-SLM-1.1 physical closure and release intake
 
 All 8,250 TC-V3 trial slots have verified Radeon seals. Preserve the four frozen execution paths and original strict BLOCKED results. Replay the complete milestone with `python -m benchmarks.slm10.tc_five_model_milestone` and the consumer exchange with `python -m benchmarks.slm10.nanoagent_five_model_handoff`. The first three-model exchange remains in the parent handoff directory. [Five-model milestone](atlas/slm/v1.0/milestones/tc-five-model/README.md) · [Consumer exchange](atlas/slm/v1.0/nanoagent-handoff/v1.1.0/README.md)

@@ -3,7 +3,8 @@
 ## LFM3-HA-1.1
 
 - **Native SDK source access.** Runtime engineering isolated the output-retry configuration trigger using the exact SDK and a scripted loopback provider. The public Python package serializes the retry config and launches the native harness. Review of the native OpenAI request-builder branch requires the corresponding `localharness` source.
-- **Physical and formal dispatch.** Runtime engineering owns the corrected executor retest and the cache and routing factorial. The shared GPU lease remains subject to the AG-11 owner window. Blind review, issuer credentials and registered dispatch remain prerequisites for formal complex work.
+- **Extended cache and endpoint scope.** The 16-cell factorial failed the broader numerical repeatability test. Runtime engineering owns recurrent-state instrumentation and runtime qualification of the candidate adapter-ID patch. The native loopback endpoint still lacks end-to-end session-access isolation. [Cache and routing](reports/LFM3_HA_CACHE_AND_ROUTING_ROOT_CAUSE.md)
+- **Physical and formal dispatch.** The shared GPU lease remains subject to the AG-11 owner window. The new TC-V3 SDK JSON and repeat lanes require physical transport receipts. Blind review, issuer credentials and registered dispatch remain prerequisites for formal complex work.
 
 ## LFM3-HA-1.0
 

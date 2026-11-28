@@ -143,11 +143,11 @@ def owner_capture_active():
 
 @contextmanager
 def server(binary, model, lora, port, folder, pin, run_id, handoff, *, expected_error=None,
-           launch_flags=FLAGS, trace_path=None, sampler_seconds=90):
+           launch_flags=None, trace_path=None, sampler_seconds=90):
     require_idle_controller()
     if owner_capture_active():
         raise BlockingIOError("the owner capture or another controller is active")
-    flags = list(launch_flags)
+    flags = list(FLAGS if launch_flags is None else launch_flags)
     if lora is not None:
         flags.extend(["--lora", str(lora)])
     boot_path, samples, stop = (folder / name for name in ("server.log", "gpu.jsonl", "sample-stop"))

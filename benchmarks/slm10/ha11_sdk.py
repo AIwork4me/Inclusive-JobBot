@@ -29,6 +29,14 @@ CORRECTED = "SDK_MATCHED_CONTEXT_PhaseAware"
 TYPED = "SDK_MATCHED_CONTEXT_TypedExtension"
 
 
+def matched_provider_controls(raw, controls):
+    """Apply shared sampling/limit settings while retaining the SDK's raw tool choice."""
+    data = json.loads(raw) | {key: value for key, value in controls.items() if key != "tool_choice"}
+    if not data["stream"]:
+        data.pop("stream_options", None)
+    return data
+
+
 class _BoundToolRunner:
     """Retain the call identity before the SDK spreads its arguments into kwargs."""
 
@@ -139,14 +147,13 @@ async def execute_sdk(client, alias, tools, grants, execute, prompt, system, tri
                 or len(wire) > model_budget):
             raise ValueError("Request exceeds the fixed read-only SDK contract")
         if profile == ORIGINAL:
-            return raw
+            if provider_controls is None:
+                return raw
+            return canonical(matched_provider_controls(raw, provider_controls) | {"tools": tools})
         if profile == TOOL_CHOICE_ONLY:
             return canonical(json.loads(raw) | ({"tool_choice": "auto"} if tool_names else {}))
         if provider_controls:
-            data = json.loads(raw) | provider_controls
-            if not data["stream"]:
-                data.pop("stream_options", None)
-            raw = canonical(data)
+            raw = canonical(matched_provider_controls(raw, provider_controls))
         return batch.request(raw)
 
     def make_tool(definition):

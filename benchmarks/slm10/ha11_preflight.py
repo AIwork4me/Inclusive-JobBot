@@ -64,7 +64,7 @@ def trial(client, public, world, profile, trial_id, target, harness, *, seed=FIR
     else:
         controls = None
         if track is not None:
-            stream = track in {"sdk_streaming", "sdk_repeat"}
+            stream = track == "sdk_streaming"
             controls = tc.provider_profile(stream, seed)
             if stream:
                 controls["stream_options"] = {"include_usage": True}

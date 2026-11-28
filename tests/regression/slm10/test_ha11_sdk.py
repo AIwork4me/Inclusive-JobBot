@@ -10,7 +10,15 @@ import pytest
 sdk = pytest.importorskip("google.antigravity")
 from google.antigravity import bin as sdk_bin
 
-from benchmarks.slm10.ha11_sdk import TYPED, execute_sdk
+from benchmarks.slm10.ha11_sdk import TYPED, execute_sdk, matched_provider_controls
+
+
+def test_shared_provider_limit_keeps_original_sdk_tool_choice():
+    raw = '{"stream":true,"stream_options":{"include_usage":true},"tool_choice":"none","max_completion_tokens":65535}'
+    effective = matched_provider_controls(raw, {"stream": False, "tool_choice": "auto", "seed": 7107,
+                                                "max_completion_tokens": 768, "cache_prompt": False})
+    assert effective == {"stream": False, "tool_choice": "none", "seed": 7107,
+                         "max_completion_tokens": 768, "cache_prompt": False}
 
 
 @pytest.mark.skipif(not Path(sdk_bin.__file__).with_name("localharness.exe").is_file(),

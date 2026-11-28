@@ -1,6 +1,8 @@
 from collections import Counter
+import json
+import pytest
 
-from benchmarks.slm10.ha11_panel import plan
+from benchmarks.slm10.ha11_panel import plan, require_effective_controls
 
 
 def test_transfer_panel_preserves_480_and_adds_240_with_balanced_first_positions():
@@ -29,3 +31,14 @@ def test_full_panel_uses_new_matched_original_and_all_frozen_repeats():
             "direct_first": 500, "sdk_first": 500, "sdk_streaming": 500, "sdk_repeat": 150,
         }
         assert Counter(row["seed"] for row in actual if row["track"] == "sdk_repeat") == {101: 50, 211: 50, 307: 50}
+
+
+def test_capture_gate_reads_effective_ml_budget_and_seed_for_each_forwarded_request():
+    base = {"seed": 101, "stream": False, "temperature": 0, "cache_prompt": False,
+            "max_completion_tokens": 768, "parallel_tool_calls": True,
+            "chat_template_kwargs": {"enable_thinking": False}}
+    slot = {"seed": 101, "track": "sdk_repeat"}
+    require_effective_controls({"wire": [{"provider_request": json.dumps(base)}]}, slot)
+    with pytest.raises(ValueError):
+        require_effective_controls({"wire": [{"provider_request": json.dumps(
+            base | {"max_completion_tokens": 65535})}]}, slot)

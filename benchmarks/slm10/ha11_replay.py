@@ -3,8 +3,11 @@
 import argparse
 from collections import Counter
 from itertools import product
+import gzip
 import json
 from pathlib import Path
+import re
+from statistics import median
 
 from evaluation.aeve.archive import check_text, digest
 from evaluation.aeve.runtime import canonical, fingerprint, write_json
@@ -108,19 +111,74 @@ def verified_extension(folder, *, scripted):
     return report | {"replay": "PASS", "private_report_sha256": digest(source)}
 
 
+def verified_cache(folder):
+    from .ha11_cache import FACTORS, WEIGHTS, cache_flags, classify_unknown, equivalent
+
+    source = folder / "report.json"
+    report = json.loads(source.read_bytes())
+    expected = {f"{factor}-{weight}" for factor, weight in product(FACTORS, WEIGHTS)}
+    if set(report["cells"]) != expected or report["core_trial_attribution"] != 0:
+        raise ValueError("Cache factorial roster differs")
+    summary = {}
+    for name, cell in report["cells"].items():
+        path = folder / name
+        gpu = path / "gpu.jsonl"
+        launch = path / "launch.json"
+        log = path / "server.log"
+        if (cell["flags"] != list(cache_flags(*FACTORS[cell["factor"]])) or cell["gpu_execution"] != "PASS"
+                or digest(launch) != cell["launch_sha256"] or digest(gpu) != cell["gpu_counters_sha256"]
+                or digest(log) != cell["server_log_sha256"]
+                or not verify_gpu({"gpu_launch": launch, "gpu_counters": gpu}, "vulkan")):
+            raise ValueError(f"Cache factorial physical evidence differs in {name}")
+        info = {key: val for key, val in cell.items() if key != "profiles"}
+        text = log.read_text(encoding="utf-8", errors="replace")
+        info["prompt_cache_updates"] = text.count("updating prompt cache")
+        info["recorded_cache_entry_peak_mib"] = max(map(float, re.findall(
+            r"\d+ tokens, checkpoints:\s+\d+,\s+([\d.]+) MiB", text)), default=None)
+        info["profiles"] = {}
+        for mode, profile in cell["profiles"].items():
+            data = profile["probes"]
+            a, b = ("initial", "repeat") if cell["weight"] == "Original" else ("scale1", "scale1_repeat")
+            if (profile["checks"]["same_prefix_repeat"] == "PASS") != equivalent(data[a], data[b]):
+                raise ValueError("Cache recurrence verdict differs from raw numerics")
+            if "unknown_id" in data and all(entry["http_status"] == 200 for entry in data["unknown_id"]):
+                if profile["checks"]["native_unknown_id_effect"] != classify_unknown(
+                        data["unknown_id"], data["restore0"], data["scale1"]):
+                    raise ValueError("Unknown adapter fingerprint differs from raw numerics")
+            info["profiles"][mode] = {"checks": profile["checks"], "stages": {
+                stage: {"responses": len(rows), "token_counts": [len(row["tokens"]) for row in rows],
+                        "median_prefill_ms": median(row["timings"]["prompt_ms"] for row in rows),
+                        "median_decode_ms": median(row["timings"]["predicted_ms"] for row in rows),
+                        "median_tokens_cached": median(row["tokens_cached"] for row in rows)}
+                for stage, rows in data.items() if all(row["http_status"] == 200 for row in rows)
+            }, "token_sequence_repeat": sum(x["tokens"] == y["tokens"] for x, y in zip(data[a], data[b], strict=True))}
+        summary[name] = info
+    evidence = report | {"cells": summary, "replay": "PASS", "private_report_sha256": digest(source)}
+    return evidence, report
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     inputs = parser.add_mutually_exclusive_group(required=True)
     inputs.add_argument("--preflight", type=Path)
     inputs.add_argument("--extension", type=Path)
+    inputs.add_argument("--cache", type=Path)
     parser.add_argument("--scripted", action="store_true")
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
-    evidence = (verified_preflight(args.preflight) if args.preflight
-                else verified_extension(args.extension, scripted=args.scripted))
+    if args.cache:
+        evidence, raw = verified_cache(args.cache)
+        data = canonical(raw)
+        check_text(data)
+        target = args.output.with_suffix(".json.gz")
+        target.write_bytes(gzip.compress(data, mtime=0))
+        evidence["portable_numeric_archive_sha256"] = digest(target)
+    else:
+        evidence = (verified_preflight(args.preflight) if args.preflight
+                    else verified_extension(args.extension, scripted=args.scripted))
     check_text(canonical(evidence))
     write_json(args.output, evidence)
-    print(evidence["replay"], len(evidence["results"]))
+    print(evidence["replay"], len(evidence["cells"] if args.cache else evidence["results"]))
 
 
 if __name__ == "__main__":

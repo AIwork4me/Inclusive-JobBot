@@ -44,7 +44,7 @@ No model and adapter combination has role-level qualification. LFM3 with compact
 | Frozen TC-V3 | 8,250/8,250 published. D25 stays BLOCKED. |
 | A0–A5 causal panel | 513/540 physical observations published, plus 144 SDK and guard controls. Ten slots are BLOCKED and 17 are NOT_RUN. Independent holdout NOT_RUN. |
 | Adapter profiles | Six software-tested components. Real matched adapter qualification and factorial selection remain NOT_RUN. |
-| SDK Extension | Independent software qualification passed for typed workflows, legal repeats, and producer links. Radeon execution NOT_RUN. |
+| SDK Extension | Historic physical diagnostics executed. The versioned typed callback track reran the five historically BLOCKED cases on Radeon and bound all 21 callbacks. Scoped outcomes remain four FAIL and one BLOCKED. [Typed callback qualification](SDK_TYPED_CALLBACK_BINDER_QUALIFICATION.md) |
 | MULTITOOL-V2 | 7,500 planned across five models. The balanced 600-case revision passed software replay and follow-up defect probes. Formal dispatch remains BLOCKED. [Candidate manifest](../atlas/slm/v1.0/multitool-v2-candidate-0.3/manifest.json) |
 | AGENTIC-PLAN-V2 | 20,800 planned across Plan-first, Acting-first and the SDK repeat panel. The 800-case source candidate replayed 2,300 synthetic worlds. Formal freeze and dispatch remain pending. [Planning roster](../docs/SLM10_PLANNING_ROSTER.md) |
 | JOB-V2 and operational envelope | Physical job-role A/B, quantization, context, concurrency, hardware envelope and NPU deployment remain NOT_RUN. [NPU deployment requirements](SLM10_NPU_DEPLOYMENT_REQUIREMENTS.md) |

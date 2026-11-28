@@ -5,6 +5,7 @@ from collections import Counter
 from itertools import permutations
 import json
 from pathlib import Path
+from time import perf_counter
 
 from audit import write_evidence
 from evaluation.aeve.archive import digest
@@ -19,6 +20,7 @@ WEIGHTS = ("Original", "HA-O", "HA-P", "HA-H")
 DIRECT, ORIGINAL, CORRECTED = "DIRECT", "ORIGINAL_SDK", "SDK_MATCHED_CONTEXT_PhaseAware"
 TRANSFER = "LFM3-HA-TRANSFER-DEV/1.1"
 COMPATIBILITY = "LFM3-HA-TCV3-COMPAT/1.1"
+PROVIDER_CONTRACT = "shared-budget-cache-sampling/1.0"
 PREFLIGHT = ROOT / "evidence/IJSLM/lfm3-ha-1.1/action-phase-retest.json"
 
 
@@ -86,7 +88,8 @@ def build_plan(suite, cases, input_sha):
     if len(rows) != len({row["slot_id"] for row in rows}) or len(rows) != (720 if suite == "transfer" else 6600):
         raise ValueError("Capability roster differs from its allocation")
     return batches, {"scope": scope, "suite": suite, "input_manifest_sha256": input_sha,
-                     "planned": len(rows), "core_attribution": 0, "roster_sha256": fingerprint(batches)}
+                     "planned": len(rows), "core_attribution": 0, "roster_sha256": fingerprint(batches),
+                     "provider_contract": PROVIDER_CONTRACT}
 
 
 def plan(suite):
@@ -101,9 +104,11 @@ def enforce_admission(suite, extension_admission):
     if suite == "tc-extension":
         if extension_admission is None:
             raise BlockingIOError("TC compatibility dispatch requires physical qualification of first and repeat transport")
-        readiness = json.loads(extension_admission.read_bytes())
-        if readiness.get("scope") != COMPATIBILITY or readiness.get("physical_sdk_first") != "PASS" or (
-                readiness.get("physical_sdk_repeat") != "PASS"):
+        from .ha11_compatibility_admission import verify
+
+        readiness = verify(extension_admission)
+        if readiness["scope"] != COMPATIBILITY or any(readiness["transport"][track] != "PASS"
+                                                      for track in ("sdk_first", "sdk_repeat")):
             raise ValueError("Physical compatibility transport admission is incomplete")
 
 
@@ -111,7 +116,8 @@ def verify_batch(folder, batch, freeze):
     from scripts.tools.verify_ij06_evidence import verify_gpu
 
     seal = json.loads((folder / "seal.json").read_bytes())
-    if (seal["roster_sha256"] != freeze["roster_sha256"] or seal["batch_sha256"] != fingerprint(batch)
+    if (seal.get("provider_contract") != PROVIDER_CONTRACT
+            or seal["roster_sha256"] != freeze["roster_sha256"] or seal["batch_sha256"] != fingerprint(batch)
             or seal["gpu_execution"] != "PASS" or [row["slot_id"] for row in seal["results"]]
             != [row["slot_id"] for row in batch]
             or any(digest(folder / name) != expected for name, expected in seal["artifacts"].items())
@@ -123,7 +129,21 @@ def verify_batch(folder, batch, freeze):
     return seal
 
 
-def execute_batch(suite, folder, batch, freeze, cases, assets, port, checked, handoff, head):
+def require_effective_controls(trial, slot):
+    from .tc_v3 import CONFIG
+
+    common = {"stream": slot["track"] == "sdk_streaming", "seed": slot["seed"],
+              "temperature": CONFIG["temperature"], "max_completion_tokens": CONFIG["max_completion_tokens"],
+              "cache_prompt": CONFIG["cache_prompt"], "parallel_tool_calls": True,
+              "chat_template_kwargs": {"enable_thinking": CONFIG["thinking"]}}
+    for turn in trial["wire"]:
+        if "provider_request" in turn:
+            body = json.loads(turn["provider_request"])
+            if any(body.get(field) != expected for field, expected in common.items()):
+                raise ValueError("Effective capability request differs from the shared provider contract")
+
+
+def execute_batch(folder, batch, freeze, cases, assets, port, checked, handoff, head):
     from evaluation.aeve.gpu_handoff import HANDOFF
     from scripts.tools.verify_ij06_evidence import verify_gpu
     from . import lfm3_ha_admission as ha
@@ -150,8 +170,11 @@ def execute_batch(suite, folder, batch, freeze, cases, assets, port, checked, ha
                 public, world, oracle = cases[slot["case_id"]]
                 ident = fingerprint([run_id, slot["slot_id"]])
                 target = folder / (slot["slot_id"] + ".json")
+                started = perf_counter()
                 result = trial(client, public, world, slot["profile"], ident, folder / ident, harness,
-                               seed=slot["seed"], track=slot["track"] if suite == "tc-extension" else None)
+                               seed=slot["seed"], track=slot["track"])
+                require_effective_controls(result, slot)
+                result["elapsed_wall_ms"] = round((perf_counter() - started) * 1000, 3)
                 assessment = assess(result, oracle, "BLOCKED")
                 write_evidence(target, result)
                 rows.append(slot | {"trial_id": ident, "capture_sha256": digest(target), "assessment": assessment,
@@ -173,7 +196,7 @@ def execute_batch(suite, folder, batch, freeze, cases, assets, port, checked, ha
             "adapter": spec, "weights": weight, "backend": "vulkan", "launch_flags": FLAGS,
             "handoff_sha256": digest(ROOT / HANDOFF), "roster_sha256": freeze["roster_sha256"],
             "dataset_manifest_sha256": freeze["input_manifest_sha256"], "batch_sha256": fingerprint(batch),
-            "gpu_execution": "PASS", "artifacts": artifacts, "results": rows}
+            "provider_contract": PROVIDER_CONTRACT, "gpu_execution": "PASS", "artifacts": artifacts, "results": rows}
     write_evidence(folder / "seal.json", seal)
     return verify_batch(folder, batch, freeze)
 
@@ -203,7 +226,7 @@ def run(suite, assets, output, port, extension_admission):
                     raise BlockingIOError(f"Unsealed reservation requires reconciliation in batch {number}")
                 sealed = verify_batch(folder, batch, freeze)
             else:
-                sealed = execute_batch(suite, folder, batch, freeze, cases, assets, port, checked, handoff, head)
+                sealed = execute_batch(folder, batch, freeze, cases, assets, port, checked, handoff, head)
             count += len(sealed["results"])
             print(f"{suite} {count}/{freeze['planned']} sealed", flush=True)
 

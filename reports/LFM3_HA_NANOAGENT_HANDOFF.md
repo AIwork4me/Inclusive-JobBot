@@ -1,0 +1,20 @@
+# LFM3-HA NanoAgent and DX-M2 handoff
+
+This package supplies reusable components, qualification boundaries and evidence for PR #11 consumers. Each published trial artifact carries its execution SHA, engine build and binary hashes, base identity, SDK version and run identity. PR #11 remains a separate integration.
+
+| Component | Contract | Verified scope |
+|---|---|---|
+| Phase-aware Tool Policy | Host-owned PLAN, ACT, OBSERVE, REPLAN, FINAL, CLARIFY and STOP. Open only the current trusted tool set in ACT or REPLAN. Actual observations gate replan. | Synthetic software transitions and 10 real phase-aware Radeon trajectories. Exact execution 6/10 and termination 5/10. |
+| Schema-aware Lossless Argument Binder | Link the provider call ID plus tool and current trusted scope, revision, authorization and session to one SDK callback. Preserve raw, parsed, SDK and normalized arguments. | Positive and negative software controls. Five archived first-response replays and 21/21 bound callbacks in five physical reruns. |
+| Adapter Identity Guard | Restrict the model alias and forbid request-level adapter and scale overrides. Pin the file and digest at launch. Parse duplicate-free JSON. | Guarded fixed profiles passed original admission. The native raw endpoint remains a separate surface. |
+| Adapter Session Isolation | Single-adapter process, one Radeon lease and a new SDK session per trial. Hold scope and provider callback identities for that session only. | Fixed route and SDK session controls. Multi-adapter concurrency and host endpoint isolation remain unqualified. |
+| Cache-aware State Management | Keep cache and checkpoint settings explicit and use separate qualification for any change. Capture native logprobs and token IDs independently from timing. | Fixed admission preserved. Factorial evidence in the cache report. |
+| Weight and Runtime Capability Profiler | Exact case-by-case identity and original weight baseline in each runtime. Keep paired model quality and resource measures alongside model requests, repeated tools and termination. | Registered transfer and TC-V3 compatibility matrices, with formal selection gated by a new holdout. |
+
+The consumer integration should use the source identified in each replay and carry the public tool schemas alongside it. Phase admission depends on call linkage and the ability to observe failures. Binder admission also requires the schema and identity negative controls to pass before the execution callback can reach a stateful service. Authorization must be checked by deterministic execution policy at use time. [Phase controls](../tests/regression/slm10/test_phase_tool_policy.py) · [Binder controls](../tests/regression/slm10/test_lossless_callback.py) · [Real SDK scripted test](../tests/regression/slm10/test_ha11_sdk.py) · [Evidence directory](../evidence/IJSLM/lfm3-ha-1.1/)
+
+## DX-M2 and distribution
+
+Physical DX-M2 qualification is **NOT_RUN** pending target hardware, a supported compiler and a verified deployment runtime. The next weight lane merges each LoRA into the publisher-matched high-precision base, fingerprints merged tensors and generated artifact, then compares the merged high-precision and quantized paths to the dynamic scale-one artifact. Hold the prompt, tool schemas, parser, safety rules and task seeds fixed. Check unsupported operators, recurrent state, memory, temperature, latency, scope and task execution on the actual NPU before a portability claim. [Deployment requirements](../atlas/slm/v1.0/lfm3-harness-adapters/DXM2_DEPLOYMENT_REQUIREMENTS.md)
+
+The publisher identifies LFM3 as governed by the LFM Open License v1.0. Sections 4 and 5 cover redistribution notices and commercial conditions for both the model and derivative works. The full text defines a USD 10 million annual revenue threshold and counts the applicable legal entity. Deployment approval remains BLOCKED until the owner verifies entity, actual use case, adapter terms and any commercial agreement. [Publisher model card](https://huggingface.co/LiquidAI/LFM3-1.7B) · [License text](https://www.liquid.ai/lfm-license)

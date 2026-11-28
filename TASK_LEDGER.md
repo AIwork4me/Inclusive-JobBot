@@ -10,12 +10,15 @@
 | M1 four-profile Radeon capture coverage | PASS | 40 new trajectories, all 81 requests linked to native generation, 18/18 phase-aware callbacks bound. The corrected arm scored 6/10 exact execution and 5/10 termination. [Replayed evidence](evidence/IJSLM/lfm3-ha-1.1/action-phase-retest.json) |
 | M2 same-byte archive replay | PASS | The five historic first responses were replayed against the real pinned SDK and scripted terminal provider. Every proposed integer tool call bound and reached its synthetic sandbox. |
 | M2 five Extension Radeon replays | PASS | All five executed on Radeon and 21/21 callbacks bound. Scoped outcomes were four FAIL and one BLOCKED. [Physical replay](evidence/IJSLM/lfm3-ha-1.1/extension-radeon.json) |
-| M3 cache and routing factorial | BLOCKED | An interrupted, unsealed capture exposed that the sampled token can differ from the raw top-ranked token. The numerical recorder now retains both. Fixed guarded admission preserved. |
+| M3 cache factorial physical coverage | PASS | All 16 cells carry Radeon proof. Four-token numerical repeatability and native unknown-ID rejection are FAIL. [Cache and routing](reports/LFM3_HA_CACHE_AND_ROUTING_ROOT_CAUSE.md) |
+| M3 native rejection candidate patch | PASS | The patch and source-level controls apply to pinned llama.cpp. Build and physical execution remain NOT_RUN. |
 | M4 transfer registration | PASS | Software replay preserves the 480 development slots and adds 240 corrected-runtime slots. No panel trajectories had executed at registration. |
+| M4 initial transfer diagnostic budget check | FAIL | The raw SDK emitted 65,535 tokens versus Direct's 768. The 270 sealed diagnostic observations remain available. The new matched panel checks every effective forwarded request. [Transfer report](reports/LFM3_HA_720_TRANSFER_REPORT.md) |
 | M5 TC-V3 compatibility registration | PASS | Each of four weights has 500 Direct, 500 SDK first, 500 SDK streaming and 150 repeats with a new Original arm. Physical first/repeat compatibility admission remains pending. |
 | M6 and M7 formal qualification | BLOCKED | Independent review, issuer and dispatcher dependencies remain open. |
 | M8 exact author reproduction | BLOCKED | Historical task roster, digests and isolation remain open. |
 | M9 DX-M2 physical qualification | NOT_RUN | Target hardware unavailable. |
+| M9 NanoAgent handoff | PASS | Phase, binder, route, cache and profiler contracts and scoped acceptance evidence. [Consumer handoff](reports/LFM3_HA_NANOAGENT_HANDOFF.md) |
 
 ## LFM3-HA-1.0 supplemental qualification
 

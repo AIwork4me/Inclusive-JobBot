@@ -67,6 +67,7 @@ class PhaseToolPolicy:
         updates = {"tools": tools, "tool_choice": "auto" if tools else "none"}
         body = json.loads(raw) | updates
         encoded = json.dumps(body, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode()
-        if strict_object(encoded, max_bytes=MAX_WIRE_BYTES) != source | updates:
+        serialized_updates = strict_object(json.dumps(updates), max_bytes=MAX_WIRE_BYTES)
+        if strict_object(encoded, max_bytes=MAX_WIRE_BYTES) != source | serialized_updates:
             raise ValueError("Phase policy rewrite loses provider request precision")
         return encoded
