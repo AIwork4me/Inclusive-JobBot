@@ -1,0 +1,162 @@
+{
+ "trial_id": "f90a6dc9eba7897658cdda19",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "用户要求我提交一个退款请求，金额为125.0 CNY。我需要调用record_answer工具来记录这个答案。\n\n根据工具定义：\n- record_answer需要value（数值）和unit（货币单位）\n- value是数字类型\n- unit是字符串，可选值为[\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]\n\n用户要求只回答参数值，所以我应该只返回{\"value\": 125.0, \"unit\": \"CNY\"}这样的结构。\n\n让我调用record_answer工具。",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"value\":{\"value\": 125.0, \"unit\": \"CNY\"}}"
+         },
+         "id": "ZSLcs5n5rB9EP7I3sCHegaPgbFJTBVN4"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795799117,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 161,
+     "prompt_tokens": 394,
+     "total_tokens": 555,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-7Se5pwh4FdSarkYfZkG7bu1qjPvkXixT",
+    "__verbose": {
+     "index": 0,
+     "content": "用户要求我提交一个退款请求，金额为125.0 CNY。我需要调用record_answer工具来记录这个答案。\n\n根据工具定义：\n- record_answer需要value（数值）和unit（货币单位）\n- value是数字类型\n- unit是字符串，可选值为[\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]\n\n用户要求只回答参数值，所以我应该只返回{\"value\": 125.0, \"unit\": \"CNY\"}这样的结构。\n\n让我调用record_answer工具。\n</think>\n\n<tool_call>\n<function=record_answer>\n<parameter=value>\n{\"value\": 125.0, \"unit\": \"CNY\"}\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 161,
+     "tokens_evaluated": 394,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "decimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"value\" \">\\n\") tool-0-arg-0-schema \"\\n</parameter>\\n\"\ntool-0-arg-0-schema ::= \"{\" space tool-0-arg-0-schema-value-kv \",\" space tool-0-arg-0-schema-unit-kv space \"}\"\ntool-0-arg-0-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-0-arg-0-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-0-arg-0-schema-unit\ntool-0-arg-0-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 248058
+       }
+      ],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>system\n# Tools\n\nYou have access to the following functions:\n\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}}, \"required\": [\"value\"], \"additionalProperties\": false}}}\n</tools>\n\nIf you choose to call a function ONLY reply in the following format with NO suffix:\n\n<tool_call>\n<function=example_function_name>\n<parameter=example_parameter_1>\nvalue_1\n</parameter>\n<parameter=example_parameter_2>\nThis is the value for the second parameter\nthat can span\nmultiple lines\n</parameter>\n</function>\n</tool_call>\n\n<IMPORTANT>\nReminder:\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\n- Required parameters MUST be specified\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n上下文 / context: stated amount = 125.0 CNY. 工具已选定: refunds.submit. / Tool already chosen: refunds.submit.\nRefund the stated amount (state the currency unit). 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 554,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 394,
+      "prompt_ms": 73.927,
+      "prompt_per_token_ms": 0.1876319796954315,
+      "prompt_per_second": 5329.581884832334,
+      "predicted_n": 161,
+      "predicted_ms": 808.658,
+      "predicted_per_token_ms": 5.0541125000000005,
+      "predicted_per_second": 197.85867449527487
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 394,
+     "prompt_ms": 73.927,
+     "prompt_per_token_ms": 0.1876319796954315,
+     "prompt_per_second": 5329.581884832334,
+     "predicted_n": 161,
+     "predicted_ms": 808.658,
+     "predicted_per_token_ms": 5.0541125000000005,
+     "predicted_per_second": 197.85867449527487
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.906
+  }
+ ]
+}

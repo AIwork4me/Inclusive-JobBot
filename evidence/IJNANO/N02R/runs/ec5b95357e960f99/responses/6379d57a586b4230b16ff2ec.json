@@ -1,0 +1,153 @@
+{
+ "trial_id": "6379d57a586b4230b16ff2ec",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{\"action\": \"A5\"}"
+      }
+     }
+    ],
+    "created": 1795799288,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 8,
+     "prompt_tokens": 201,
+     "total_tokens": 209,
+     "prompt_tokens_details": {
+      "cached_tokens": 198
+     }
+    },
+    "id": "chatcmpl-E0ZueRPoQN9d4JY3J49jKi73oFVV4jq3",
+    "__verbose": {
+     "index": 0,
+     "content": "{\"action\": \"A5\"}",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 8,
+     "tokens_evaluated": 201,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-action-kv space \"}\"\nresponse-format-action ::= (\"\\\"A1\\\"\" | \"\\\"A2\\\"\" | \"\\\"A3\\\"\" | \"\\\"A4\\\"\" | \"\\\"A5\\\"\" | \"\\\"A6\\\"\")\nresponse-format-action-kv ::= \"\\\"action\\\"\" space \":\" space response-format-action\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n可选动作 / available actions:\nA1. 改址：修改 TRK-40219 的收件地址 / change the address for TRK-40219\nA2. 加急：把 TRK-40219 升级为加急配送 / upgrade TRK-40219 to express\nA3. 拦截：尝试拦截 TRK-40219 / attempt to intercept TRK-40219\nA4. 重发：为 ORD-7781 重新发货 / reship ORD-7781\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户拒收，要求把 {trk} 退回发件人。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+     "has_new_line": false,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 208,
+     "timings": {
+      "cache_n": 198,
+      "prompt_n": 3,
+      "prompt_ms": 27.966,
+      "prompt_per_token_ms": 9.322000000000001,
+      "prompt_per_second": 107.2731173567904,
+      "predicted_n": 8,
+      "predicted_ms": 45.81,
+      "predicted_per_token_ms": 6.5442857142857145,
+      "predicted_per_second": 152.80506439642
+     }
+    },
+    "timings": {
+     "cache_n": 198,
+     "prompt_n": 3,
+     "prompt_ms": 27.966,
+     "prompt_per_token_ms": 9.322000000000001,
+     "prompt_per_second": 107.2731173567904,
+     "predicted_n": 8,
+     "predicted_ms": 45.81,
+     "predicted_per_token_ms": 6.5442857142857145,
+     "predicted_per_second": 152.80506439642
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.094
+  }
+ ]
+}

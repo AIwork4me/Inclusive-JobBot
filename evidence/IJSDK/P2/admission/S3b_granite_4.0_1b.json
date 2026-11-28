@@ -1,0 +1,82 @@
+{
+ "schema_version": 1,
+ "candidate": "S3b-granite-4.0-1b",
+ "alias": "granite-4.0-1b",
+ "model_path": "models/ij_sdk/granite-4.0-1b-GGUF/granite-4.0-1b-Q8_0.gguf",
+ "model_sha256": "0660c20c3d3d3672b90f0468f62dc128a82a6e3ee2ec05d310d242969be06140",
+ "backend": "vulkan",
+ "started_utc": "2026-11-27T04:44:03Z",
+ "gpu": {
+  "layers_offloaded": 41,
+  "layers_total": 41
+ },
+ "cases": {
+  "basic_instruction": {
+   "pass": false,
+   "detail": [
+    false,
+    false
+   ],
+   "status": "FAIL"
+  },
+  "json_generation": {
+   "pass": false,
+   "valid": 1,
+   "schema_ok": 1,
+   "n": 12,
+   "status": "FAIL"
+  },
+  "zero_tool_response": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "single_tool_invocation": {
+   "pass": true,
+   "ok": 8,
+   "n": 8,
+   "status": "PASS"
+  },
+  "tool_result_continuation": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "multiple_sequential_tools": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "structured_output": {
+   "pass": true,
+   "status": "PASS"
+  },
+  "invalid_argument_recovery": {
+   "pass": false,
+   "second_call": {
+    "name": null,
+    "args": null
+   },
+   "status": "FAIL"
+  },
+  "context_handling": {
+   "pass": true,
+   "status": "PASS"
+  },
+  "stop_conditions": {
+   "pass": true,
+   "finish_reason": "stop",
+   "completion_tokens": 36,
+   "status": "PASS"
+  }
+ },
+ "finished_utc": "2026-11-27T04:44:19Z",
+ "dev_score": {
+  "passed_cases": 7.0,
+  "scored_cases": 10,
+  "rate": 0.7
+ }
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-NANO-1.0",
+  "generated_utc": "2026-11-27T09:46:53Z",
+  "purpose": "Qualification status of every dependency IJ-NANO-1.0 inherits, read against MISSION_STATE_IJSDK.json at base commit 56c6c74b, BLOCKERS.md, DECISIONS.md and the live remote on 2026-11-27. Rule: a component is reused only when its required scope is independently qualified and its exact implementation identity is recorded; invalid qualification results are never inherited.",
+  "dependencies": [
+    {
+      "id": "DEP-01",
+      "name": "Atlas datasets and benchmark tooling (PR #6 @ fe56f324, inherited through the PR #8 stack)",
+      "required_for": ["N08 dataset design reference", "development/diagnostic material"],
+      "scope_qualified": "Suite roster verified by IJ-SDK P0 (PASS): TC-V2 500(+120 dev), MULTITOOL-V1 600(+6), AGENTIC-PLAN-V1 800 worlds dual-track, JOB-V1 600.",
+      "identity": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+      "classification": "REUSE_DIRECTLY_AS_DEVELOPMENT_MATERIAL",
+      "limits": "Not unseen holdout. Benchmark-validity gates on the Atlas line itself (atlas_ij072.benchmark_validity=BLOCKED, release=BLOCKED) are not inherited as PASS."
+    },
+    {
+      "id": "DEP-02",
+      "name": "IJ-SDK P1 physical runtime qualification on gfx1100 (engine, backends, driver)",
+      "required_for": ["N02 runtime qualification starting point"],
+      "scope_qualified": "P1 PASS: llama.cpp b12359 (build commit b1b770d9) cpu/vulkan/rocm installed and SHA256-verified; Vulkan primary with streaming byte parity; ROCm repaired (rocm-sdk-device-gfx1100==10.0.0) with 52/52 matched outputs vs Vulkan.",
+      "identity": "56c6c74bf7216eb9cf65be4056c8db1964d23b05 + evidence/IJSDK/P1/*",
+      "classification": "REUSE_WITH_FRESH_VERIFICATION",
+      "limits": "IJ-NANO re-runs its own admission smoke and engine identity checks before its first physical trial and records fresh N02 evidence; P1 results anchor the configuration, they do not substitute for N02."
+    },
+    {
+      "id": "DEP-03",
+      "name": "Model identities and weights (S1, S2, S3, R1, R2)",
+      "required_for": ["N02 mandatory model arms"],
+      "scope_qualified": "IJ-SDK P2 PASS (admissions under dev-gen v1.0.1, preregistered selection rule) and P0R live SHA256 re-verification.",
+      "identity": "models/ij_sdk/model_manifest.json at 56c6c74b; weights on disk outside git",
+      "classification": "REUSE_AFTER_SHA256_REVERIFICATION",
+      "limits": "Full digests re-verified against disk before first IJ-NANO use. S2 (LFM3-1.7B) license is revenue-conditioned (commercial only below USD 10M annual revenue); research use permitted; commercial deployment eligibility is a separate owner decision recorded in IJN-B-003. [N00R 2026-11-27: reference corrected from IJN-B-005 to IJN-B-003.]"
+    },
+    {
+      "id": "DEP-04",
+      "name": "IJ-SDK SDK admission results (P3)",
+      "required_for": ["N08 benchmark arms B2-B4 candidate selection"],
+      "scope_qualified": "NONE - reopened FAIL by IJ-SDK-1.1 P0R (contradicted by its own evidence; conformance claims not reproducible from published artifacts).",
+      "classification": "NOT_INHERITED",
+      "action": "Blocked for any IJ-NANO formal arm selection until IJ-SDK P4B re-qualifies. Do not duplicate the repair."
+    },
+    {
+      "id": "DEP-05",
+      "name": "IJ-SDK harness core: contracts/events, adapters, gateway, budget controller",
+      "required_for": ["N05/N06 evaluator and gateway design reference"],
+      "scope_qualified": "NONE - P4 harness core reopened FAIL (D04-D07); P4A checkpoint 1 repaired the core in code with 93 unit tests passing locally, but the gate IJSDK_HARNESS_INTEGRITY_GO is NOT_RUN and the operator stopped the worker.",
+      "identity_of_reference_code": "3ee1f3d..56c6c74 (tests/ij_sdk/, harness core)",
+      "classification": "REFERENCE_ONLY",
+      "action": "Study as engineering reference for NanoAgent's own typed gateway/budget/event design; never execute for formal claims; never present as qualified. The audited defect list D01-D07 is directly reused as IJ-NANO design requirements (the same defect classes must be impossible by construction in NanoAgent components, with regression tests)."
+    },
+    {
+      "id": "DEP-06",
+      "name": "IJ-SDK business oracle and evaluator (P5/P5R)",
+      "required_for": ["N05 independent benchmark and Oracle qualification"],
+      "scope_qualified": "NONE - P5 reopened FAIL by P0R (weakened-oracle battery not discriminating; final state never reconstructed); P5R pending.",
+      "classification": "NOT_INHERITED",
+      "action": "N05 remains BLOCKED for formal business claims until either (a) IJ-SDK P5R delivers a qualified evaluator that IJ-NANO re-audits, or (b) IJ-NANO builds and independently qualifies its own evaluator under the mission order's E0-E6 architecture. Either way the original 14-control oracle is never relied on."
+    },
+    {
+      "id": "DEP-07",
+      "name": "IJ-SLM-1.0 capability atlas (PR #9)",
+      "required_for": ["N03 cognitive capability profiling prior art", "GPU lease coordination"],
+      "scope_qualified": "IN_FLIGHT - gpu_handoff PASS; semantic_qualification BLOCKED; formal trials 0/36,550 at 03:46Z with arm-A mechanical trials landing afterwards; capability atlas, model passports and specialization study open.",
+      "identity": "350fb5297b8d4b10c72679607f7aa7917cabeacf at audit",
+      "classification": "COORDINATION_DEPENDENCY",
+      "action": "Consume only published, sealed IJ-SLM evidence as prior art with exact identities. Do not read its in-flight state to tune IJ-NANO configurations. GPU priority belongs to IJ-SLM until the operator reassigns it."
+    },
+    {
+      "id": "DEP-08",
+      "name": "Formal GPU matrix authorization (repo-wide)",
+      "required_for": ["all physical IJ-NANO phases N02+"],
+      "scope_qualified": "NOT AUTHORIZED per MISSION_STATE_IJSDK.json: 'P3 and P5 are reopened as FAIL and the P4 harness core fails D04-D07; P4A, P4B, P5R, P6, P7 and P8A must each pass on their own evidence first.'",
+      "classification": "BLOCKED",
+      "action": "IJ-NANO physical model execution additionally requires its own preregistered N02 qualification protocol and an available GPU lease (see IJN-B-001)."
+    },
+    {
+      "id": "DEP-09",
+      "name": "Environment capabilities (toolchain, power, soak)",
+      "required_for": ["N12 resource/reliability measurements", "upstream debugging"],
+      "scope_qualified": "Constrained by open blockers B-004, B-005, B-006, B-007, B-008, B-009.",
+      "classification": "CONSTRAINED",
+      "action": "Energy measurements stay NOT_MEASURED unless the owner provides a power meter (never estimated from TDP). C++-dependent upstream tests run only in CI or stay blocked. Soak tests require owner-managed power settings."
+    }
+  ],
+  "permitted_now": [
+    "N00 baseline freeze and mission isolation (this deliverable).",
+    "N01 literature and open-source investigation (network via gh api / web).",
+    "Research protocol, hypothesis preregistration and statistical analysis design.",
+    "Pure-software development with unit tests that do not require model inference: NanoAgent SDK skeleton, typed state, action graphs, recovery policies, evidence contracts - each labelled software-only until physically qualified.",
+    "Dataset generators, evaluator design and Oracle challenge-test design (software qualification only; formal claims BLOCKED).",
+    "[N00R 2026-11-27] Physical runtime admission, cognitive microbenchmarks and protocol diagnostics on the local gfx1100 GPU under the host-wide lease (benchmarks/root_cause/gpu_lease.py) with IJ-NANO's own preregistered qualification - the IJ-SDK formal-matrix non-authorization is scoped to IJ-SDK's unqualified benchmark/evaluator scopes, not to all physical inference. See evidence/IJNANO/N00R/lease_scope_decision.json."
+  ],
+  "blocked_now": [
+    "[N00R 2026-11-27: narrowed] Formal end-to-end business performance evaluation (requires qualified business oracle - re-audited IJ-SDK P5R scope or minimum necessary independent evaluator).",
+    "Any modification of PR #6 / PR #8 / PR #9 branches or their state files."
+  ],
+  "superseded_by_n00r": {
+    "date": "2026-11-27",
+    "report": "reports/IJNANO_00R_RESOURCE_AND_DEPENDENCY_RECONCILIATION.md",
+    "changes": [
+      "DEP-07 (IJ-SLM-1.0): its GPU lease binds to a different physical device (gfx1151 Radeon 8060S host); it is a coordination dependency for evidence consumption only, not a local resource blocker.",
+      "DEP-08 (formal GPU matrix authorization): scope corrected to IJ-SDK's own benchmark/evaluator; it blocks formal business claims, not independently qualified physical runtime admission or cognitive microbenchmarks.",
+      "DEP-03: license blocker reference corrected to IJN-B-003."
+    ],
+    "original_wording": "preserved in git history at commit ee44482 (apart from the DEP-03 reference fix requested by the N00R order)"
+  },
+  "owner_input_needed": [
+    "GPU lease policy between IJ-SLM-1.0 and IJ-NANO-1.0 (sequential, shared windows, or reprioritized).",
+    "Confirmation that IJ-NANO should not wait for IJ-SDK P4B/P5R before building its own evaluator (mission order permits an independent evaluator with separately qualified scope)."
+  ]
+}

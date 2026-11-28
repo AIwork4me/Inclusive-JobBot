@@ -1,0 +1,337 @@
+{
+  "baseline_blob_count": 72,
+  "gateway_software_only": {
+    "counts": {
+      "PASS": 209
+    },
+    "run_id": "ij06-security-13a95e7b506e4feaa47254e5ba4406f9"
+  },
+  "ij06_artifact_count": 173,
+  "job_v1_development": {
+    "rocm": {
+      "PASS": 6
+    },
+    "vulkan": {
+      "PASS": 6
+    }
+  },
+  "new_model_inference": false,
+  "p4b_fixed_wire_cases": {
+    "rocm": {
+      "execution_safety": {
+        "NOT_RUN": 146
+      },
+      "finished_utc": "2026-11-24T10:02:48+00:00",
+      "fixture_count": 146,
+      "native": {
+        "NOT_RUN": 27,
+        "PASS": 119
+      },
+      "parser_stream_parity": {
+        "PASS": 146
+      },
+      "run_id": "ij06-wire-85ca532673fe41ceb07d83df6f22c80c",
+      "status": {
+        "FAIL": 5,
+        "PASS": 141
+      },
+      "strict_arguments": {
+        "PASS": 146
+      },
+      "wire": {
+        "FAIL": 5,
+        "PASS": 141
+      },
+      "wire_failure_ids": [
+        "duplicate-json-00",
+        "duplicate-json-01",
+        "duplicate-json-02",
+        "duplicate-json-03",
+        "duplicate-json-04"
+      ]
+    },
+    "vulkan": {
+      "execution_safety": {
+        "NOT_RUN": 146
+      },
+      "finished_utc": "2026-11-24T10:00:37+00:00",
+      "fixture_count": 146,
+      "native": {
+        "NOT_RUN": 27,
+        "PASS": 119
+      },
+      "parser_stream_parity": {
+        "PASS": 146
+      },
+      "run_id": "ij06-wire-3b43dc9913c1417fb0c330d32fdaa57f",
+      "status": {
+        "FAIL": 5,
+        "PASS": 141
+      },
+      "strict_arguments": {
+        "PASS": 146
+      },
+      "wire": {
+        "FAIL": 5,
+        "PASS": 141
+      },
+      "wire_failure_ids": [
+        "duplicate-json-00",
+        "duplicate-json-01",
+        "duplicate-json-02",
+        "duplicate-json-03",
+        "duplicate-json-04"
+      ]
+    }
+  },
+  "p4b_native": {
+    "counts": {
+      "native": {
+        "NOT_RUN": 27,
+        "PASS": 119
+      },
+      "parser_stream_parity": {
+        "PASS": 146
+      },
+      "strict_arguments": {
+        "PASS": 146
+      }
+    },
+    "run_id": "ij06-native-ff13d9f8956d4f3bb36f364c84c0ea86"
+  },
+  "recalculated": {
+    "rocm": {
+      "all": {
+        "arguments": {
+          "correct": 794,
+          "total": 821
+        },
+        "business_state": {
+          "BLOCKED": 63,
+          "NOT_RUN": 437
+        },
+        "cases": 500,
+        "diagnostic_verdict": {
+          "BLOCKED": 38,
+          "FAIL": 42,
+          "PASS": 420
+        },
+        "findings_by_case": {
+          "F02_MODEL_TOOL_SELECTION_ERROR": 7,
+          "F03_MODEL_ARGUMENT_ERROR": 27,
+          "F05_PROTOCOL_ERROR": 1,
+          "F08_AUTHORIZATION_DENIAL": 7,
+          "F12_FINAL_ANSWER_ERROR": 3,
+          "F15_INSUFFICIENT_EVIDENCE": 63
+        },
+        "semantic": {
+          "FAIL": 42,
+          "PASS": 458
+        },
+        "v1": {
+          "FAIL": 68,
+          "PASS": 432
+        }
+      },
+      "sequential": {
+        "arguments": {
+          "correct": 251,
+          "total": 266
+        },
+        "business_state": {
+          "BLOCKED": 22,
+          "NOT_RUN": 78
+        },
+        "cases": 100,
+        "diagnostic_verdict": {
+          "BLOCKED": 7,
+          "FAIL": 16,
+          "PASS": 77
+        },
+        "findings_by_case": {
+          "F03_MODEL_ARGUMENT_ERROR": 15,
+          "F12_FINAL_ANSWER_ERROR": 1,
+          "F15_INSUFFICIENT_EVIDENCE": 22
+        },
+        "semantic": {
+          "FAIL": 16,
+          "PASS": 84
+        },
+        "v1": {
+          "FAIL": 42,
+          "PASS": 58
+        }
+      },
+      "v1_and_semantic_fail_sequential": [
+        "tc-seq-0043"
+      ],
+      "v1_pass_with_empty_ticket_tags": [
+        "tc-seq-0001",
+        "tc-seq-0004",
+        "tc-seq-0012",
+        "tc-seq-0013",
+        "tc-seq-0017",
+        "tc-seq-0030",
+        "tc-seq-0031",
+        "tc-seq-0037",
+        "tc-seq-0041",
+        "tc-seq-0047",
+        "tc-seq-0073",
+        "tc-seq-0076",
+        "tc-seq-0082",
+        "tc-seq-0095",
+        "tc-seq-0100"
+      ]
+    },
+    "vulkan": {
+      "all": {
+        "arguments": {
+          "correct": 794,
+          "total": 821
+        },
+        "business_state": {
+          "BLOCKED": 63,
+          "NOT_RUN": 437
+        },
+        "cases": 500,
+        "diagnostic_verdict": {
+          "BLOCKED": 39,
+          "FAIL": 41,
+          "PASS": 420
+        },
+        "findings_by_case": {
+          "F02_MODEL_TOOL_SELECTION_ERROR": 6,
+          "F03_MODEL_ARGUMENT_ERROR": 27,
+          "F08_AUTHORIZATION_DENIAL": 7,
+          "F12_FINAL_ANSWER_ERROR": 2,
+          "F15_INSUFFICIENT_EVIDENCE": 63
+        },
+        "semantic": {
+          "FAIL": 41,
+          "PASS": 459
+        },
+        "v1": {
+          "FAIL": 67,
+          "PASS": 433
+        }
+      },
+      "sequential": {
+        "arguments": {
+          "correct": 251,
+          "total": 266
+        },
+        "business_state": {
+          "BLOCKED": 22,
+          "NOT_RUN": 78
+        },
+        "cases": 100,
+        "diagnostic_verdict": {
+          "BLOCKED": 7,
+          "FAIL": 16,
+          "PASS": 77
+        },
+        "findings_by_case": {
+          "F03_MODEL_ARGUMENT_ERROR": 15,
+          "F12_FINAL_ANSWER_ERROR": 1,
+          "F15_INSUFFICIENT_EVIDENCE": 22
+        },
+        "semantic": {
+          "FAIL": 16,
+          "PASS": 84
+        },
+        "v1": {
+          "FAIL": 42,
+          "PASS": 58
+        }
+      },
+      "v1_and_semantic_fail_sequential": [
+        "tc-seq-0043"
+      ],
+      "v1_pass_with_empty_ticket_tags": [
+        "tc-seq-0001",
+        "tc-seq-0004",
+        "tc-seq-0012",
+        "tc-seq-0013",
+        "tc-seq-0017",
+        "tc-seq-0030",
+        "tc-seq-0031",
+        "tc-seq-0037",
+        "tc-seq-0041",
+        "tc-seq-0047",
+        "tc-seq-0073",
+        "tc-seq-0076",
+        "tc-seq-0082",
+        "tc-seq-0095",
+        "tc-seq-0100"
+      ]
+    }
+  },
+  "scope": "archival audit",
+  "sdk": {
+    "b12359": {
+      "rocm": {
+        "AG-01": "FAIL",
+        "AG-02": "PASS",
+        "AG-03": "PASS",
+        "AG-04": "PASS",
+        "AG-05": "PASS",
+        "AG-06": "FAIL",
+        "AG-07": "PASS",
+        "AG-08": "PASS",
+        "AG-09": "PASS",
+        "AG-10": "PASS",
+        "AG-11": "BLOCKED",
+        "AG-12": "PASS"
+      },
+      "vulkan": {
+        "AG-01": "PASS",
+        "AG-02": "PASS",
+        "AG-03": "PASS",
+        "AG-04": "PASS",
+        "AG-05": "PASS",
+        "AG-06": "PASS",
+        "AG-07": "PASS",
+        "AG-08": "PASS",
+        "AG-09": "PASS",
+        "AG-10": "PASS",
+        "AG-11": "BLOCKED",
+        "AG-12": "PASS"
+      }
+    },
+    "p4b": {
+      "rocm": {
+        "AG-01": "PASS",
+        "AG-02": "PASS",
+        "AG-03": "PASS",
+        "AG-04": "PASS",
+        "AG-05": "PASS",
+        "AG-06": "PASS",
+        "AG-07": "PASS",
+        "AG-08": "PASS",
+        "AG-09": "PASS",
+        "AG-10": "PASS",
+        "AG-11": "BLOCKED",
+        "AG-12": "PASS"
+      },
+      "vulkan": {
+        "AG-01": "PASS",
+        "AG-02": "PASS",
+        "AG-03": "PASS",
+        "AG-04": "PASS",
+        "AG-05": "PASS",
+        "AG-06": "FAIL",
+        "AG-07": "PASS",
+        "AG-08": "PASS",
+        "AG-09": "PASS",
+        "AG-10": "PASS",
+        "AG-11": "BLOCKED",
+        "AG-12": "PASS"
+      }
+    }
+  },
+  "source_manifests": {
+    "evidence/IJ06/baseline_manifest.json": "74698a6d63b18953d0a884e165e14bd8eabb25c369dab9b4bae1701b411916bc",
+    "reports/IJ06_ARTIFACT_MANIFEST.json": "835434a088d923e6baae1293dba94d3c350f417af029555d88aee2ad21c07984"
+  },
+  "status": "PASS"
+}

@@ -1,0 +1,82 @@
+{
+ "schema_version": 1,
+ "candidate": "S3a-qwen3-1.7b",
+ "alias": "qwen3-1.7b",
+ "model_path": "models/ij_sdk/Qwen3-1.7B-GGUF/Qwen3-1.7B-Q8_0.gguf",
+ "model_sha256": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+ "backend": "vulkan",
+ "started_utc": "2026-11-27T04:34:56Z",
+ "gpu": {
+  "layers_offloaded": 29,
+  "layers_total": 29
+ },
+ "cases": {
+  "basic_instruction": {
+   "pass": true,
+   "detail": [
+    true,
+    true
+   ],
+   "status": "PASS"
+  },
+  "json_generation": {
+   "pass": true,
+   "valid": 12,
+   "schema_ok": 12,
+   "n": 12,
+   "status": "PASS"
+  },
+  "zero_tool_response": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "single_tool_invocation": {
+   "pass": true,
+   "ok": 8,
+   "n": 8,
+   "status": "PASS"
+  },
+  "tool_result_continuation": {
+   "pass": true,
+   "ok": 6,
+   "n": 6,
+   "status": "PASS"
+  },
+  "multiple_sequential_tools": {
+   "pass": false,
+   "ok": 0,
+   "n": 6,
+   "status": "FAIL"
+  },
+  "structured_output": {
+   "pass": false,
+   "status": "FAIL"
+  },
+  "invalid_argument_recovery": {
+   "pass": false,
+   "second_call": {
+    "name": null,
+    "args": null
+   },
+   "status": "FAIL"
+  },
+  "context_handling": {
+   "pass": true,
+   "status": "PASS"
+  },
+  "stop_conditions": {
+   "pass": true,
+   "finish_reason": "length",
+   "completion_tokens": 96,
+   "status": "PASS"
+  }
+ },
+ "finished_utc": "2026-11-27T04:35:09Z",
+ "dev_score": {
+  "passed_cases": 7.0,
+  "scored_cases": 10,
+  "rate": 0.7
+ }
+}

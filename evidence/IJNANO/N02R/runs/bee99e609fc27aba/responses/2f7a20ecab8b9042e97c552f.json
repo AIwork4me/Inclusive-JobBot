@@ -1,0 +1,164 @@
+{
+ "trial_id": "2f7a20ecab8b9042e97c552f",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，用户希望我查询订单ID为ORD-1042的订单。工具已选定为orders.lookup_order。指令要求只回答参数值。等等，但提供的工具中只有record_answer函数。让我再检查一下工具。\n\n回顾工具部分：只有一个名为record_answer的工具，它接受一个值参数。用户说“只回答参数值”，但这里的参数值可能指的是订单ID。等等，用户的指令说“Answer with the argument value only.”所以也许他们希望我将订单ID作为答案提供。但可用的工具是record_answer。等等，工具描述说“Record the chosen answer (structured answer recording, not business tool execution).”所以也许我需要调用record_answer并传入订单ID作为值。\n\n等等，用户说“查询订单，单号在上下文里。只回答参数值。”所以参数值是ORD-1042。但系统提供的工具是record_answer。因此我应该调用record_answer并传入值ORD-1042。让我确认一下。工具参数要求“value”为字符串。所以正确的工具调用是record_answer，参数为{\"value\": \"ORD-1042\"}。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"value\":\"ORD-1042\"}"
+         },
+         "id": "zAgIEI01uE0pHPQbr8mP9iMohPLt494b"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795790655,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 252,
+     "prompt_tokens": 273,
+     "total_tokens": 525,
+     "prompt_tokens_details": {
+      "cached_tokens": 35
+     }
+    },
+    "id": "chatcmpl-LtlvD0wDufW4H036UodcxI2VIaoV8Ovs",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，用户希望我查询订单ID为ORD-1042的订单。工具已选定为orders.lookup_order。指令要求只回答参数值。等等，但提供的工具中只有record_answer函数。让我再检查一下工具。\n\n回顾工具部分：只有一个名为record_answer的工具，它接受一个值参数。用户说“只回答参数值”，但这里的参数值可能指的是订单ID。等等，用户的指令说“Answer with the argument value only.”所以也许他们希望我将订单ID作为答案提供。但可用的工具是record_answer。等等，工具描述说“Record the chosen answer (structured answer recording, not business tool execution).”所以也许我需要调用record_answer并传入订单ID作为值。\n\n等等，用户说“查询订单，单号在上下文里。只回答参数值。”所以参数值是ORD-1042。但系统提供的工具是record_answer。因此我应该调用record_answer并传入值ORD-1042。让我确认一下。工具参数要求“value”为字符串。所以正确的工具调用是record_answer，参数为{\"value\": \"ORD-1042\"}。\n</think>\n\n<function name=\"record_answer\"><param name=\"value\">ORD-1042</param></function>",
+     "tokens": [],
+     "id_slot": 2,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 252,
+     "tokens_evaluated": 273,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"value\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"string\"}}, \"required\": [\"value\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n上下文 / context: order_id = ORD-1042. 工具已选定: orders.lookup_order. / Tool already chosen: orders.lookup_order.\n查询订单，单号在上下文里。 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 524,
+     "timings": {
+      "cache_n": 35,
+      "prompt_n": 238,
+      "prompt_ms": 48.766,
+      "prompt_per_token_ms": 0.20489915966386554,
+      "prompt_per_second": 4880.44949349957,
+      "predicted_n": 252,
+      "predicted_ms": 1370.672,
+      "predicted_per_token_ms": 5.460844621513944,
+      "predicted_per_second": 183.12185555698227
+     }
+    },
+    "timings": {
+     "cache_n": 35,
+     "prompt_n": 238,
+     "prompt_ms": 48.766,
+     "prompt_per_token_ms": 0.20489915966386554,
+     "prompt_per_second": 4880.44949349957,
+     "predicted_n": 252,
+     "predicted_ms": 1370.672,
+     "predicted_per_token_ms": 5.460844621513944,
+     "predicted_per_second": 183.12185555698227
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.437
+  }
+ ]
+}

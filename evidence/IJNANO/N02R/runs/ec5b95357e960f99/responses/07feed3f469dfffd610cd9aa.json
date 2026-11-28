@@ -1,0 +1,146 @@
+{
+ "trial_id": "07feed3f469dfffd610cd9aa",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "A1",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of allowed actions (A1-A6) for a logistics system.\n    *   Scenario: A customer called and said they moved. The package {trk} is still in transit.\n    *   Constraint: Answer with the action label only (e.g., A1, A2, etc.).\n\n2.  **Evaluate the Actions:**\n    *   A1. 改址：修改 TRK-73002 的收件地址 / change the address for TRK-73002\n    *   A2. 加急：把 TRK-73002 升级为加急配送 / upgrade TRK-73002 to express\n    *   A3. 拦截：尝试拦截 TRK-73002 / attempt to intercept TRK-73002\n    *   A4. 重发：为 ORD-3319 重新发货 / reship ORD-3319\n    *   A5. 仅备注，不操作 / note only, no action\n    *   A6. 开升级单 / open an escalation case\n\n3.  **Determine the Best Action:**\n    *   The customer says they moved. This means the address is incorrect or outdated.\n    *   The package is still in transit.\n    *   The most appropriate action to address a change in the recipient's address is to update the address.\n    *   Action A1 is \"改址：修改 TRK-73002 的收件地址\".\n    *   Action A2 is about speed (express), not address.\n    *   Action A3 is about interception (security), not address.\n    *   Action A4 is about reshipping a different order (ORD-3319), not the current package (TRK-73002).\n    *   Action A5 is for notes only, which is less helpful than updating the address.\n    *   Action A6 is for escalation, not the standard address update.\n\n4.  **Select the Label:**\n    *   The action is A1.\n\n5.  **Format the Output:**\n    *   The user requested \"只回答动作编号\" (Answer with the action label only).\n    *   Output: A1\n\n6.  **Final Check:**\n    *   Does A1 match the scenario? Yes, the customer moved, so the address needs to be changed.\n    *   Is it the only label? Yes.\n\n    Wait, I need to check if there's any ambiguity. The package is TRK-73002. The customer says they moved. This implies the address is wrong. A1 is the direct match.\n\n    Output: A1"
+      }
+     }
+    ],
+    "created": 1795798587,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 621,
+     "prompt_tokens": 223,
+     "total_tokens": 844,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-p7VtroK6ZpyYeAswHef2b8lspHvtRRkT",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of allowed actions (A1-A6) for a logistics system.\n    *   Scenario: A customer called and said they moved. The package {trk} is still in transit.\n    *   Constraint: Answer with the action label only (e.g., A1, A2, etc.).\n\n2.  **Evaluate the Actions:**\n    *   A1. 改址：修改 TRK-73002 的收件地址 / change the address for TRK-73002\n    *   A2. 加急：把 TRK-73002 升级为加急配送 / upgrade TRK-73002 to express\n    *   A3. 拦截：尝试拦截 TRK-73002 / attempt to intercept TRK-73002\n    *   A4. 重发：为 ORD-3319 重新发货 / reship ORD-3319\n    *   A5. 仅备注，不操作 / note only, no action\n    *   A6. 开升级单 / open an escalation case\n\n3.  **Determine the Best Action:**\n    *   The customer says they moved. This means the address is incorrect or outdated.\n    *   The package is still in transit.\n    *   The most appropriate action to address a change in the recipient's address is to update the address.\n    *   Action A1 is \"改址：修改 TRK-73002 的收件地址\".\n    *   Action A2 is about speed (express), not address.\n    *   Action A3 is about interception (security), not address.\n    *   Action A4 is about reshipping a different order (ORD-3319), not the current package (TRK-73002).\n    *   Action A5 is for notes only, which is less helpful than updating the address.\n    *   Action A6 is for escalation, not the standard address update.\n\n4.  **Select the Label:**\n    *   The action is A1.\n\n5.  **Format the Output:**\n    *   The user requested \"只回答动作编号\" (Answer with the action label only).\n    *   Output: A1\n\n6.  **Final Check:**\n    *   Does A1 match the scenario? Yes, the customer moved, so the address needs to be changed.\n    *   Is it the only label? Yes.\n\n    Wait, I need to check if there's any ambiguity. The package is TRK-73002. The customer says they moved. This implies the address is wrong. A1 is the direct match.\n\n    Output: A1\n</think>\n\nA1",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 621,
+     "tokens_evaluated": 223,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n可选动作 / available actions:\nA1. 改址：修改 TRK-73002 的收件地址 / change the address for TRK-73002\nA2. 加急：把 TRK-73002 升级为加急配送 / upgrade TRK-73002 to express\nA3. 拦截：尝试拦截 TRK-73002 / attempt to intercept TRK-73002\nA4. 重发：为 ORD-3319 重新发货 / reship ORD-3319\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n收件人打电话说搬家了，包裹 {trk} 还在途中。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 843,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 223,
+      "prompt_ms": 48.498,
+      "prompt_per_token_ms": 0.2174798206278027,
+      "prompt_per_second": 4598.127757845684,
+      "predicted_n": 621,
+      "predicted_ms": 3004.891,
+      "predicted_per_token_ms": 4.846598387096774,
+      "predicted_per_second": 206.33027953426597
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 223,
+     "prompt_ms": 48.498,
+     "prompt_per_token_ms": 0.2174798206278027,
+     "prompt_per_second": 4598.127757845684,
+     "predicted_n": 621,
+     "predicted_ms": 3004.891,
+     "predicted_per_token_ms": 4.846598387096774,
+     "predicted_per_second": 206.33027953426597
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.063
+  }
+ ]
+}

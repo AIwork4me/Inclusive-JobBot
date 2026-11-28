@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-NANO-1.0",
+  "phase": "N00R",
+  "generated_utc": "2026-11-27T11:20:07Z",
+  "local_lease_protocol": {
+    "implementation": "benchmarks/root_cause/gpu_lease.py (inherited from the Atlas lineage, present in every worktree on this host)",
+    "mechanism_windows": "named kernel mutex Global\\InclusiveJobBotPhysicalGPU - host-wide across all checkouts, ports and queues",
+    "properties": [
+      "atomic acquisition (WaitForSingleObject timeout 0; refusal raises BlockingIOError)",
+      "correct release (ReleaseMutex + CloseHandle in finally)",
+      "abandoned-owner recovery (WAIT_ABANDONED = owner process died; lease is acquirable again)",
+      "no forced termination of any other mission"
+    ],
+    "ij_nano_policy": "Every IJ-NANO physical run acquires this lease for the whole session (checkpoint-resumable); persistent trial checkpoints and immutable trial identities are maintained under it (mission order section 10).",
+    "decision": "REUSE_EXISTING_PROTOCOL - no mission-specific mutex is created"
+  },
+  "local_availability_probe": {
+    "probe_utc": "2026-11-27T11:20:07Z",
+    "result": "ACQUIRED_FREE",
+    "released_cleanly": true,
+    "probing_process_id": 17312,
+    "evidence_script": ".runtime/n00r/lease_probe.py (untracked, local only)"
+  },
+  "ij_sdk_1_1_reservation_check": {
+    "mission_state": "MISSION_STATE_IJSDK.json recovery.state = 'idle; nothing running; all work committed and pushed'; worker stopped by the operator at P4A checkpoint 1",
+    "processes": "no llama-server, python or ollama processes on this host at 2026-11-27T11:14Z",
+    "lease_artifacts": "no holder on the host-wide mutex (probe above); no lease files in any worktree .runtime",
+    "conclusion": "IJ-SDK-1.1 neither owns nor reserves the local gfx1100 GPU at this time. When it resumes physical work using benchmarks/root_cause/gpu_lease.py, both missions coordinate through the same mutex."
+  },
+  "verdicts": {
+    "cross_host": "CROSS_HOST_GPU_LEASE_CONFLICT_RESOLVED",
+    "local": "LOCAL_GPU_LEASE_AVAILABLE",
+    "gpu_identity": "GPU_IDENTITY_VERIFIED (both sides device-level verified; see gpu_identity_comparison.json)"
+  },
+  "dependency_scope_correction": {
+    "principle": "IJ-SDK's formal GPU matrix authorization is scoped to its own unqualified benchmark and evaluator scopes. It is not a repository-wide ban on physical model inference.",
+    "scope_table": [
+      {"scope": "Physical runtime admission (N02)", "status": "PROCEED_UNDER_OWN_QUALIFICATION_AND_LEASE", "note": "engine/model identity verification, load, offload, generation, tool-call protocol, grammar, streaming, cancellation, token accounting"},
+      {"scope": "Cognitive microbenchmarks (N03)", "status": "PROCEED_UNDER_OWN_QUALIFICATION_AND_LEASE", "note": "deterministic controls and mutation tests per capability family; development scope"},
+      {"scope": "Protocol and runtime diagnostics (N04 mechanism tiers, N07 software-adjacent probes)", "status": "PROCEED_UNDER_OWN_QUALIFICATION_AND_LEASE"},
+      {"scope": "Runtime mechanism development (N06/N07)", "status": "PROCEED (software) / PROCEED_UNDER_LEASE (physical validation)"},
+      {"scope": "Formal business performance evaluation (end-to-end business claims)", "status": "BLOCKED", "note": "requires qualified business oracle: re-audited IJ-SDK P5R scope, or an independently implemented evaluator satisfying the same business contract (minimum necessary functionality only)"},
+      {"scope": "Product qualification and reliability targets (>99%, soak, dialogue targets)", "status": "BLOCKED until its own prerequisites qualify"}
+    ],
+    "corrections_applied": [
+      "evidence/IJNANO/N00/dependency_qualification.json: DEP-03 license-blocker reference corrected from IJN-B-005 to IJN-B-003; superseded_by_n00r block added scoping DEP-07/DEP-08 and blocked_now to formal business claims.",
+      "BLOCKERS_IJNANO.md: IJN-B-001 CLOSED (cross-host resolved, local protocol available); IJN-B-002 narrowed to formal business evaluation.",
+      "The N00 report's 'IJ-SLM holds this workstation's GPU' interpretation is superseded by this reconciliation; the original N00 evidence is preserved unmodified in git history and its byte content apart from the DEP-03 reference fix."
+    ]
+  },
+  "next_physical_action": "N02 physical runtime admission under the host-wide lease: verify model/engine hashes fresh, then admission smokes per model arm."
+}

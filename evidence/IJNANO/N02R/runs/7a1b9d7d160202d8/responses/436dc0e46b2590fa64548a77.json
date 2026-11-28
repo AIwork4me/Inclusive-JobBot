@@ -1,0 +1,146 @@
+{
+ "trial_id": "436dc0e46b2590fa64548a77",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A specific order (ORD-2025) with amount 89.5 CNY and reason \"late_delivery\".\n    *   Available Tools: A list of functions for order management, refunds, customer info, logistics, inventory, notifications.\n    *   Task: Generate the \"full action\" (complete action) including tools and all arguments based on the provided information.\n    *   Language: Chinese (implied by the input).\n\n2.  **Identify the Goal:**\n    *   The user"
+      }
+     }
+    ],
+    "created": 1795796298,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 128,
+     "prompt_tokens": 218,
+     "total_tokens": 346,
+     "prompt_tokens_details": {
+      "cached_tokens": 214
+     }
+    },
+    "id": "chatcmpl-GvHfg1RUDWmHGemhjVdPdOMDX6mHcZdA",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A specific order (ORD-2025) with amount 89.5 CNY and reason \"late_delivery\".\n    *   Available Tools: A list of functions for order management, refunds, customer info, logistics, inventory, notifications.\n    *   Task: Generate the \"full action\" (complete action) including tools and all arguments based on the provided information.\n    *   Language: Chinese (implied by the input).\n\n2.  **Identify the Goal:**\n    *   The user",
+     "tokens": [],
+     "id_slot": 2,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 128,
+     "tokens_evaluated": 218,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 128,
+      "n_predict": 128,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\nOrder ORD-2025: amount 89.5 CNY, reason late_delivery.\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 345,
+     "timings": {
+      "cache_n": 214,
+      "prompt_n": 4,
+      "prompt_ms": 21.462,
+      "prompt_per_token_ms": 5.3655,
+      "prompt_per_second": 186.37592023110614,
+      "predicted_n": 128,
+      "predicted_ms": 625.21,
+      "predicted_per_token_ms": 4.922913385826772,
+      "predicted_per_second": 203.1317477327618
+     }
+    },
+    "timings": {
+     "cache_n": 214,
+     "prompt_n": 4,
+     "prompt_ms": 21.462,
+     "prompt_per_token_ms": 5.3655,
+     "prompt_per_second": 186.37592023110614,
+     "predicted_n": 128,
+     "predicted_ms": 625.21,
+     "predicted_per_token_ms": 4.922913385826772,
+     "predicted_per_second": 203.1317477327618
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.641
+  }
+ ]
+}

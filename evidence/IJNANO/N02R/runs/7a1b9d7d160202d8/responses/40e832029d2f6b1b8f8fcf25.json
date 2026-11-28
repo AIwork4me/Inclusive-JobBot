@@ -1,0 +1,154 @@
+{
+ "trial_id": "40e832029d2f6b1b8f8fcf25",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，用户想要记录订单 ORD-1042 的答案，金额为 120.0 CNY，原因 damaged_item。让我检查可用的工具。\n\n查看提供的工具，有一个 record_answer 函数。所需的参数包括 tool、order_id、amount 和 reason。\n\n工具枚举中包含 \"orders.lookup_order\" 等选项，但用户没有要求这些操作。等等，record_answer 工具用于记录答案。等等，描述说“Record the chosen answer (structured answer recording, not business tool execution)。”所以这里的工具是用于记录答案的。\n\n等等，参数要求 tool 来自枚举：[\"orders.lookup_order\", \"orders.cancel_order\", \"orders.get_refund_eligibility\", \"refunds.submit\", \"customers.get_profile\", \"logistics.trace_shipment\", \"inventory.check_stock\", \"notify.send_update\"]。\n\n但用户说“订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。”所以他们想记录这个答案。等等，record_answer 函数是用于记录答案的，但这里的参数包括 tool、order_id、amount、reason。等等，也许这个工具是用于记录与订单相关的答案。等等，工具名称是 record_answer，但参数包括 tool（来自枚举）。等等，也许这个工具是用于记录某个操作的答案，但用户正在记录一个答案。等等，用户说“生成完整动作：工具与全部参数。”所以他们需要调用 record_answer 函数，参数为 tool、order_id、amount、reason。\n\n等等，record_answer 的参数要求 tool 来自枚举。等等，用户没有指定工具名称。等等，工具枚举中的示例包括 \"orders.lookup_order\" 等。但用户的消息说“订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。”所以也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许这个工具是用于记录与订单相关的答案，但参数包括 tool。等等，这令人困惑。\n\n等等，record_answer 函数的参数包括 \"tool\" 作为枚举值。所以用户需要指定使用哪个工具。但用户没有指定工具名称。等等，用户说“生成完整动作：工具与全部参数。”所以也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许这个工具是用于记录答案的，但工具参数是用于记录什么操作的。等等，描述说“Record the chosen answer (structured answer recording, not business tool execution)。”所以也许这里的工具是记录答案的，但参数包括 tool、order_id、amount、reason。等等，也许工具参数是用于记录哪个操作的。等等，这不清楚。\n\n等等，查看 record_answer 的参数：必填字段是 tool、order_id、amount、reason。工具枚举包括 \"orders.lookup_order\" 等。所以用户需要选择正确的工具。但用户的消息说“订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。”所以也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许这个工具是用于记录答案的，但工具参数是用于记录哪个操作的。等等，也许用户正在记录一个答案，所以工具是 \"orders.lookup_order\"？不，这说不通。等等，也许工具参数是用于记录答案的上下文。等等，这令人困惑。\n\n等等，用户指示说“生成完整动作：工具与全部参数。”所以他们需要调用 record_answer 函数，参数为 tool、order_id、amount、reason。但工具枚举中的 \"tool\" 参数是必填的。等等，用户没有指定工具名称。等等，也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许工具参数是用于记录哪个操作的。等等，也许用户正在记录一个答案，所以工具是 \"orders.lookup_order\"？不，这不对。等等，也许工具参数是用于记录答案的来源。等等，这不清楚。\n\n等等，查看示例工具调用，也许工具是 \"orders.lookup_order\" 但用户没有指定。等等，用户的消息说“订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。”所以也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许工具参数是用于记录答案的上下文。等等，也许工具是 \"orders.lookup_order\"，但用户没有指定。等等，这令人困惑。\n\n等等，record_answer 函数的参数包括 \"tool\" 作为枚举值。所以用户必须选择其中一个枚举值。但用户没有指定。等等，也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许工具参数是用于记录哪个操作的。等等，也许用户正在记录一个答案，所以工具是 \"orders.lookup_order\"？不，这说不通。等等，也许"
+      }
+     }
+    ],
+    "created": 1795792204,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 437,
+     "total_tokens": 1461,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-n6PlWXudK14QWZe7CGXG4VYyITmHArSe",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，用户想要记录订单 ORD-1042 的答案，金额为 120.0 CNY，原因 damaged_item。让我检查可用的工具。\n\n查看提供的工具，有一个 record_answer 函数。所需的参数包括 tool、order_id、amount 和 reason。\n\n工具枚举中包含 \"orders.lookup_order\" 等选项，但用户没有要求这些操作。等等，record_answer 工具用于记录答案。等等，描述说“Record the chosen answer (structured answer recording, not business tool execution)。”所以这里的工具是用于记录答案的。\n\n等等，参数要求 tool 来自枚举：[\"orders.lookup_order\", \"orders.cancel_order\", \"orders.get_refund_eligibility\", \"refunds.submit\", \"customers.get_profile\", \"logistics.trace_shipment\", \"inventory.check_stock\", \"notify.send_update\"]。\n\n但用户说“订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。”所以他们想记录这个答案。等等，record_answer 函数是用于记录答案的，但这里的参数包括 tool、order_id、amount、reason。等等，也许这个工具是用于记录与订单相关的答案。等等，工具名称是 record_answer，但参数包括 tool（来自枚举）。等等，也许这个工具是用于记录某个操作的答案，但用户正在记录一个答案。等等，用户说“生成完整动作：工具与全部参数。”所以他们需要调用 record_answer 函数，参数为 tool、order_id、amount、reason。\n\n等等，record_answer 的参数要求 tool 来自枚举。等等，用户没有指定工具名称。等等，工具枚举中的示例包括 \"orders.lookup_order\" 等。但用户的消息说“订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。”所以也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许这个工具是用于记录与订单相关的答案，但参数包括 tool。等等，这令人困惑。\n\n等等，record_answer 函数的参数包括 \"tool\" 作为枚举值。所以用户需要指定使用哪个工具。但用户没有指定工具名称。等等，用户说“生成完整动作：工具与全部参数。”所以也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许这个工具是用于记录答案的，但工具参数是用于记录什么操作的。等等，描述说“Record the chosen answer (structured answer recording, not business tool execution)。”所以也许这里的工具是记录答案的，但参数包括 tool、order_id、amount、reason。等等，也许工具参数是用于记录哪个操作的。等等，这不清楚。\n\n等等，查看 record_answer 的参数：必填字段是 tool、order_id、amount、reason。工具枚举包括 \"orders.lookup_order\" 等。所以用户需要选择正确的工具。但用户的消息说“订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。”所以也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许这个工具是用于记录答案的，但工具参数是用于记录哪个操作的。等等，也许用户正在记录一个答案，所以工具是 \"orders.lookup_order\"？不，这说不通。等等，也许工具参数是用于记录答案的上下文。等等，这令人困惑。\n\n等等，用户指示说“生成完整动作：工具与全部参数。”所以他们需要调用 record_answer 函数，参数为 tool、order_id、amount、reason。但工具枚举中的 \"tool\" 参数是必填的。等等，用户没有指定工具名称。等等，也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许工具参数是用于记录哪个操作的。等等，也许用户正在记录一个答案，所以工具是 \"orders.lookup_order\"？不，这不对。等等，也许工具参数是用于记录答案的来源。等等，这不清楚。\n\n等等，查看示例工具调用，也许工具是 \"orders.lookup_order\" 但用户没有指定。等等，用户的消息说“订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。”所以也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许工具参数是用于记录答案的上下文。等等，也许工具是 \"orders.lookup_order\"，但用户没有指定。等等，这令人困惑。\n\n等等，record_answer 函数的参数包括 \"tool\" 作为枚举值。所以用户必须选择其中一个枚举值。但用户没有指定。等等，也许这里的工具是 \"orders.lookup_order\"？不，record_answer 函数是用于记录答案的。等等，也许工具参数是用于记录哪个操作的。等等，也许用户正在记录一个答案，所以工具是 \"orders.lookup_order\"？不，这说不通。等等，也许",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 437,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"tool\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31) | (\"<param name=\\\"\" \"order_id\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31) | (\"<param name=\\\"\" \"amount\" \"\\\">\") tool-0-arg-2-schema \"</param>\" | (\"<param name=\\\"\" \"reason\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-0-arg-2-schema ::= \"{\" space tool-0-arg-2-schema-value-kv \",\" space tool-0-arg-2-schema-unit-kv space \"}\"\ntool-0-arg-2-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-0-arg-2-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-0-arg-2-schema-unit\ntool-0-arg-2-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tool\": {\"type\": \"string\", \"enum\": [\"orders.lookup_order\", \"orders.cancel_order\", \"orders.get_refund_eligibility\", \"refunds.submit\", \"customers.get_profile\", \"logistics.trace_shipment\", \"inventory.check_stock\", \"notify.send_update\"]}, \"order_id\": {\"type\": \"string\"}, \"amount\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}, \"reason\": {\"type\": \"string\", \"enum\": [\"damaged_item\", \"late_delivery\", \"wrong_item\", \"duplicate_charge\", \"price_mismatch\"]}}, \"required\": [\"tool\", \"order_id\", \"amount\", \"reason\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1460,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 437,
+      "prompt_ms": 70.097,
+      "prompt_per_token_ms": 0.16040503432494277,
+      "prompt_per_second": 6234.218297502034,
+      "predicted_n": 1024,
+      "predicted_ms": 5696.969,
+      "predicted_per_token_ms": 5.568884652981427,
+      "predicted_per_second": 179.569170904739
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 437,
+     "prompt_ms": 70.097,
+     "prompt_per_token_ms": 0.16040503432494277,
+     "prompt_per_second": 6234.218297502034,
+     "predicted_n": 1024,
+     "predicted_ms": 5696.969,
+     "predicted_per_token_ms": 5.568884652981427,
+     "predicted_per_second": 179.569170904739
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.781
+  }
+ ]
+}

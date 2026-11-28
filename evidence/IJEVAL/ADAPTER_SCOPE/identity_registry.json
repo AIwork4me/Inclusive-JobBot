@@ -1,0 +1,36 @@
+{
+ "schema": "ijeval.adapter_scope.identity_registry.v1",
+ "base_model": {
+  "id": "LiquidAI/LFM3-1.7B",
+  "weights": "LFM3-1.7B-Q8_0.gguf",
+  "claimed_sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+  "byte_verified_on_this_host": true,
+  "verified_sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6"
+ },
+ "adapter_pairing": "adapter trained on BF16 weights; Q8_0 base + F16 LoRA is the officially published pairing; 'The GGUF version has not been re-evaluated' upstream",
+ "adapters": {
+  "W1_pi": {
+   "manifest_anchor_complete": true,
+   "missing_fields": [],
+   "pinned_sha256": "d6b6229d3a4ad59a34a4e54b631a030fa82bb3f79290793522f6690f4aa61593",
+   "local_file_present": true,
+   "byte_verified_on_this_host": false
+  },
+  "W2_opencode": {
+   "manifest_anchor_complete": true,
+   "missing_fields": [],
+   "pinned_sha256": "5bd0ad64448be4eb52b8bd328955af5ae000903a39284f36927d9a6fc89ab517",
+   "local_file_present": true,
+   "byte_verified_on_this_host": false
+  },
+  "W3_hermes": {
+   "manifest_anchor_complete": true,
+   "missing_fields": [],
+   "pinned_sha256": "66f03073ac573cb0e2660ccd49e29bd883a54d1657564d172ecc814334708794",
+   "local_file_present": true,
+   "byte_verified_on_this_host": false
+  }
+ },
+ "manifest_sha256": "cd39cef393d1e428d449aaf62ed4bc16dd54fd910317eb8af40b3c6e09407912",
+ "note": "W0 verified from local bytes (IJSDK worktree, read-only). W1-W3 identity anchors verified against the campaign-pinned manifest; adapter bytes are byte-verified at physical admission on the runner lane before any dispatch (never claimed here)."
+}

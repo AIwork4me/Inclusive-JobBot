@@ -1,0 +1,164 @@
+{
+ "trial_id": "a2faade738c2e658f5425ae1",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，用户要求决定是停止还是继续。让我检查一下提供的工具。有一个名为 record_answer 的函数，它接受 \"stop\" 或 \"continue\" 作为枚举值。用户的消息说目标是将 SKU-5519 的库存进行调整，当前观测显示调整已应用，系统显示新数量。他们需要决定停止还是继续。\n\n等等，工具用于记录答案，而不是执行操作。所以我需要根据用户的指示调用 record_answer。但用户是在要求决定，所以也许他们需要选择一个选项。等等，函数的描述说“记录所选择的答案（结构化答案记录，不是业务工具执行）”。所以用户必须决定，然后记录它。\n\n但用户的消息是“决定 stop 还是 continue。”所以他们需要做出决定。然而，作为助手，我应该调用工具来记录决定。但用户还没有指定他们是否应该停止或继续。等等，也许用户是在提示我决定。等等，不——用户是在要求我决定。等等，工具用于记录答案，所以也许正确的步骤是调用 record_answer 并传入适当的决定。但用户的消息有点模糊。等等，目标是将 SKU-5519 的库存进行调整，当前观测显示调整已应用，系统显示新数量。所以也许系统应该停止或继续。等等，但工具需要我记录决定。然而，用户没有给出更多信息。等等，也许这是一个测试场景，我需要根据上下文选择。等等，但问题说“你可以调用一个或多个函数来协助用户查询。”所以如果用户要求决定，我需要使用工具记录决定。但用户没有指定他们应该停止还是继续。等等，也许用户是在要求我决定，但工具是用来记录我做出的决定。等等，这令人困惑。\n\n等等，回顾工具：record_answer 函数接受 \"stop\" 或 \"continue\" 作为决定。所以用户（或者助手）必须选择一个并记录它。但用户的消息是“决定 stop 还是 continue。”所以也许用户是在要求我决定，然后我应该调用工具记录那个决定。但如何决定？问题可能期望我根据上下文选择。等等，目标是将 SKU-5519 的库存进行调整，当前观测显示调整已应用，系统显示新数量。所以也许调整已完成，因此停止？或者继续？嗯。等等，也许正确的决定是停止，因为调整已应用。但我不确定。等等，但工具是用来记录答案的，所以也许用户期望我选择一个并记录。然而，问题可能是一个模拟，我需要调用工具。等等，但用户没有提供足够的信息。等等，也许助手应该根据给定的信息决定。让我再读一遍用户的消息。\n\n目标：stock corrected for SKU-5519。当前观测：adjustment applied; system shows new quantity。决定 stop 还是 continue。\n\n所以调整已应用，系统显示新数量。因此，也许过程已完成，所以停止。但我不确定。然而，工具需要我调用 record_answer 并传入决定。由于用户要求决定，也许正确的步骤是调用工具并传入适当的决定。但助手必须选择。等等，但问题说“你可以调用一个或多个函数来协助用户查询。”所以如果用户要求决定，助手应该使用工具记录决定。但助手需要做出决定。然而，在问题的上下文中，也许正确的决定是停止，因为调整已应用。或者继续。等等，也许这是一个测试案例，预期的答案是调用 record_answer 并传入 \"stop\"。或者，也许用户期望助手询问更多信息，但工具只允许记录 stop 或 continue。等等，工具的 strict 为 false，但参数是必需的。所以助手必须选择其中一个。鉴于当前观测显示调整已应用，系统显示新数量，也许停止是合适的。所以调用 record_answer 并传入 \"stop\"。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"decision\":\"stop\"}"
+         },
+         "id": "Xp8NDDZe5c9EswRGjTDEouMyfOud26Zw"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795794779,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 719,
+     "prompt_tokens": 271,
+     "total_tokens": 990,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-61e2xsWAg96k8NYYG1GrJn6K2i85WWvx",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，用户要求决定是停止还是继续。让我检查一下提供的工具。有一个名为 record_answer 的函数，它接受 \"stop\" 或 \"continue\" 作为枚举值。用户的消息说目标是将 SKU-5519 的库存进行调整，当前观测显示调整已应用，系统显示新数量。他们需要决定停止还是继续。\n\n等等，工具用于记录答案，而不是执行操作。所以我需要根据用户的指示调用 record_answer。但用户是在要求决定，所以也许他们需要选择一个选项。等等，函数的描述说“记录所选择的答案（结构化答案记录，不是业务工具执行）”。所以用户必须决定，然后记录它。\n\n但用户的消息是“决定 stop 还是 continue。”所以他们需要做出决定。然而，作为助手，我应该调用工具来记录决定。但用户还没有指定他们是否应该停止或继续。等等，也许用户是在提示我决定。等等，不——用户是在要求我决定。等等，工具用于记录答案，所以也许正确的步骤是调用 record_answer 并传入适当的决定。但用户的消息有点模糊。等等，目标是将 SKU-5519 的库存进行调整，当前观测显示调整已应用，系统显示新数量。所以也许系统应该停止或继续。等等，但工具需要我记录决定。然而，用户没有给出更多信息。等等，也许这是一个测试场景，我需要根据上下文选择。等等，但问题说“你可以调用一个或多个函数来协助用户查询。”所以如果用户要求决定，我需要使用工具记录决定。但用户没有指定他们应该停止还是继续。等等，也许用户是在要求我决定，但工具是用来记录我做出的决定。等等，这令人困惑。\n\n等等，回顾工具：record_answer 函数接受 \"stop\" 或 \"continue\" 作为决定。所以用户（或者助手）必须选择一个并记录它。但用户的消息是“决定 stop 还是 continue。”所以也许用户是在要求我决定，然后我应该调用工具记录那个决定。但如何决定？问题可能期望我根据上下文选择。等等，目标是将 SKU-5519 的库存进行调整，当前观测显示调整已应用，系统显示新数量。所以也许调整已完成，因此停止？或者继续？嗯。等等，也许正确的决定是停止，因为调整已应用。但我不确定。等等，但工具是用来记录答案的，所以也许用户期望我选择一个并记录。然而，问题可能是一个模拟，我需要调用工具。等等，但用户没有提供足够的信息。等等，也许助手应该根据给定的信息决定。让我再读一遍用户的消息。\n\n目标：stock corrected for SKU-5519。当前观测：adjustment applied; system shows new quantity。决定 stop 还是 continue。\n\n所以调整已应用，系统显示新数量。因此，也许过程已完成，所以停止。但我不确定。然而，工具需要我调用 record_answer 并传入决定。由于用户要求决定，也许正确的步骤是调用工具并传入适当的决定。但助手必须选择。等等，但问题说“你可以调用一个或多个函数来协助用户查询。”所以如果用户要求决定，助手应该使用工具记录决定。但助手需要做出决定。然而，在问题的上下文中，也许正确的决定是停止，因为调整已应用。或者继续。等等，也许这是一个测试案例，预期的答案是调用 record_answer 并传入 \"stop\"。或者，也许用户期望助手询问更多信息，但工具只允许记录 stop 或 continue。等等，工具的 strict 为 false，但参数是必需的。所以助手必须选择其中一个。鉴于当前观测显示调整已应用，系统显示新数量，也许停止是合适的。所以调用 record_answer 并传入 \"stop\"。\n</think>\n\n<function name=\"record_answer\"><param name=\"decision\">stop</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 719,
+     "tokens_evaluated": 271,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"decision\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"decision\": {\"type\": \"string\", \"enum\": [\"stop\", \"continue\"]}}, \"required\": [\"decision\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n目标 / goal: goal: stock corrected for SKU-5519. 当前观测 / observation: adjustment applied; system shows new quantity.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 989,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 271,
+      "prompt_ms": 53.457,
+      "prompt_per_token_ms": 0.19725830258302585,
+      "prompt_per_second": 5069.4951082178195,
+      "predicted_n": 719,
+      "predicted_ms": 3955.634,
+      "predicted_per_token_ms": 5.509239554317549,
+      "predicted_per_second": 181.51325425962057
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 271,
+     "prompt_ms": 53.457,
+     "prompt_per_token_ms": 0.19725830258302585,
+     "prompt_per_second": 5069.4951082178195,
+     "predicted_n": 719,
+     "predicted_ms": 3955.634,
+     "predicted_per_token_ms": 5.509239554317549,
+     "predicted_per_second": 181.51325425962057
+    }
+   },
+   "http_error": null,
+   "latency_s": 4.031
+  }
+ ]
+}

@@ -1,0 +1,168 @@
+{
+ "contract_version": "1.0.0",
+ "sections": [
+  "canary_integration",
+  "certificate_lifecycle",
+  "evidence_envelopes",
+  "oracle_interfaces",
+  "parser_interfaces",
+  "qualification_issuance",
+  "qualified_aggregation",
+  "quarantine_recovery",
+  "runner_authorization",
+  "task_schemas"
+ ],
+ "interfaces": [
+  {
+   "section": "task_schemas",
+   "name": "n02rr_cognitive_families",
+   "module": "eval_assurance.adapters.n02rr",
+   "symbols": [
+    "n02rr_result_from_replay"
+   ],
+   "status": "IMPLEMENTED",
+   "notes": "six N02RR families via the legacy adapter; N03 C01-C08 intake declared in N03_BATCH_A (PLANNED until the pinned package lands)",
+   "implementation_sha256": "f6cd3787f544e81c954d8e73993d1941a5dd494beefdc06768dc2922b2bd3988"
+  },
+  {
+   "section": "parser_interfaces",
+   "name": "legacy_n02rr_adapter",
+   "module": "eval_assurance.adapters.n02rr",
+   "symbols": [
+    "n02rr_result_from_replay",
+    "n02rr_contract_error_result"
+   ],
+   "status": "IMPLEMENTED",
+   "notes": "production parsing stays in IJ-NANO arms_v2; EAE consumes typed results and receipts, never raw strings",
+   "implementation_sha256": "f6cd3787f544e81c954d8e73993d1941a5dd494beefdc06768dc2922b2bd3988"
+  },
+  {
+   "section": "oracle_interfaces",
+   "name": "reference_oracle",
+   "module": "eval_assurance.reference.oracle",
+   "symbols": [
+    "validate_ground_truth",
+    "GroundTruthVerdict",
+    "GroundTruthResult"
+   ],
+   "status": "PARTIAL",
+   "notes": "obligation A (ground-truth qualification) IMPLEMENTED and run over the 160 dev cases (133 VALID / 27 NOT_ESTABLISHED / 0 INVALID at pinned d23de5a; pinned by test_reference_oracle.py); obligation B (response evaluation) pending; imports no production comparators",
+   "implementation_sha256": "beceb9e40351335e0ecba7981af68aa2f280af167cdae326c5b2faadbb8f0875"
+  },
+  {
+   "section": "evidence_envelopes",
+   "name": "verified_evidence",
+   "module": "eval_assurance.contracts.core",
+   "symbols": [
+    "VerifiedEvidence",
+    "verify_evidence",
+    "validate_sha256_digest"
+   ],
+   "status": "IMPLEMENTED",
+   "notes": "schema 1.1.0; creation-keyed, immutable mappings",
+   "implementation_sha256": "84d8a7d585a0344bfc68596747d40ce96a448a8c16b9f5532d1b79ab53d908ac"
+  },
+  {
+   "section": "evidence_envelopes",
+   "name": "verification_receipts",
+   "module": "eval_assurance.evidence",
+   "symbols": [
+    "VerificationReceipt",
+    "issue_verification_receipt",
+    "validate_receipt_for",
+    "sha256_of_file"
+   ],
+   "status": "IMPLEMENTED",
+   "notes": "hash computed from actual artifact bytes; trial/experiment identity binding",
+   "implementation_sha256": "6a2181382189bc9fb1d0ec98276918f6f830f1c9709a90d62e2986a57e6e6414"
+  },
+  {
+   "section": "qualification_issuance",
+   "name": "qualification_authority",
+   "module": "eval_assurance.qualification.store",
+   "symbols": [
+    "QualificationAuthority",
+    "validate_certificate"
+   ],
+   "status": "IMPLEMENTED",
+   "notes": "sole trusted issuance; digest-bound; evidence mandatory",
+   "implementation_sha256": "097710cc0cfdb39da9fdebd2249b5e0c9c8efef289c7207e5190fbc528ffc51c"
+  },
+  {
+   "section": "certificate_lifecycle",
+   "name": "certificate_store",
+   "module": "eval_assurance.qualification.store",
+   "symbols": [
+    "CertificateStore",
+    "QualificationCertificate",
+    "QualificationSnapshot"
+   ],
+   "status": "IMPLEMENTED",
+   "notes": "trusted-flag + registry checksum; durable revocation; reissue requires requalified=True",
+   "implementation_sha256": "097710cc0cfdb39da9fdebd2249b5e0c9c8efef289c7207e5190fbc528ffc51c"
+  },
+  {
+   "section": "runner_authorization",
+   "name": "runner_authorization",
+   "module": "eval_assurance.compat.authorization",
+   "symbols": [
+    "RunnerAuthorization",
+    "authorize_runner"
+   ],
+   "status": "IMPLEMENTED",
+   "notes": "machine-readable, scope-bound authorization objects; a bare PASS string or certificate object authorizes nothing",
+   "implementation_sha256": "3b452e5b5a9f0672952aa3c4ce108adde05f2b50592925c3383caa69614a3afb"
+  },
+  {
+   "section": "canary_integration",
+   "name": "canary_scheduler",
+   "module": "eval_assurance.canary.scheduler",
+   "symbols": [
+    "CanaryScheduler"
+   ],
+   "status": "PLANNED",
+   "notes": "EA09: controls through the PRODUCTION evaluation path; cadence 25 trials / 5 min preregistered; canaries counted, never model observations",
+   "implementation_sha256": null
+  },
+  {
+   "section": "quarantine_recovery",
+   "name": "boundary_quarantine",
+   "module": "eval_assurance.statistics.boundary",
+   "symbols": [
+    "aggregate_semantic",
+    "AggregationReport"
+   ],
+   "status": "PARTIAL",
+   "notes": "quarantine classification + duplicate/critical blocking IMPLEMENTED; restart-safe recovery scope (EA10) PLANNED",
+   "implementation_sha256": "95fdad93c60a29a8b1565f4d4bb5221f963b6602292f12d4c0094249ac07e6bf"
+  },
+  {
+   "section": "qualified_aggregation",
+   "name": "aggregation_boundary",
+   "module": "eval_assurance.statistics.boundary",
+   "symbols": [
+    "aggregate_semantic",
+    "publish_report",
+    "AggregationReport"
+   ],
+   "status": "IMPLEMENTED",
+   "notes": "scope certification + roster reconciliation + publication-time snapshot recheck",
+   "implementation_sha256": "95fdad93c60a29a8b1565f4d4bb5221f963b6602292f12d4c0094249ac07e6bf"
+  }
+ ],
+ "by_status": {
+  "IMPLEMENTED": 8,
+  "PARTIAL": 2,
+  "PLANNED": 1
+ },
+ "n03_batch_a": {
+  "primitives": "C01-C08",
+  "development_cases": 160,
+  "protected_confirmation_cases": 80,
+  "taxonomy_digest_prefix": "cb800bce",
+  "taxonomy_owner": "IJ-NANO PR #11 (evaluation/ij_nano/n03/taxonomy.json)",
+  "intake_status": "PLANNED",
+  "confirmation_protection": "confirmation expectations are consumed only by the trusted qualification path (reference oracle + certificate issuance); they are never passed to parsers, model-facing prompts, runner configuration or optimizer-visible structures"
+ },
+ "authorization_rule": "N03 (and any runner scope) is authorized ONLY by eval_assurance.compat.authorization.authorize_runner(...) returning RunnerAuthorization.allowed=True bound to scope, coverage, certificate digests and snapshot checksum; a PASS string or bare certificate object authorizes nothing"
+}

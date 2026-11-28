@@ -1,0 +1,33 @@
+{
+ "kind": "n02r_probe_audit",
+ "model": "S1",
+ "checks": {
+  "empty_content_gate": {
+   "status": "ERROR",
+   "error": "post_json() missing 1 required positional argument: 'timeout'"
+  },
+  "tool_call_structural_semantic": {
+   "status": "ERROR",
+   "error": "post_json() missing 1 required positional argument: 'timeout'"
+  },
+  "sse_usage_reconciliation": {
+   "status": "FAIL",
+   "streamed_content_chars": 0,
+   "content_piece_count": 0,
+   "completion_tokens": 32,
+   "note": "content-channel presence reconciled with usage; exact reasoning-token attribution is UNAVAILABLE in b12359 usage (no reasoning breakdown field)"
+  },
+  "cancellation_scope": {
+   "status": "FAIL",
+   "client_aborted": true,
+   "server_terminated": false,
+   "server_healthy_after": true,
+   "slot_released_followup_ok": false,
+   "note": "client-side cancellation distinguished from server-side termination; inference-slot release proven by a follow-up generation"
+  },
+  "rendered_prompt_endpoint": {
+   "status": "UNAVAILABLE",
+   "error": "post_json() missing 1 required positional argument: 'timeout'"
+  }
+ }
+}

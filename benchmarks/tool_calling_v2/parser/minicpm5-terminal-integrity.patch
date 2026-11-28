@@ -1,0 +1,62 @@
+diff --git a/common/parsers/minicpm5.cpp b/common/parsers/minicpm5.cpp
+--- a/common/parsers/minicpm5.cpp
++++ b/common/parsers/minicpm5.cpp
+@@ -62,9 +62,10 @@
+         if (has_tools && inputs.tool_choice != COMMON_CHAT_TOOL_CHOICE_NONE) {
+             // CDATA lets a value carry characters that would otherwise close the tag (e.g.
+             // </param>); capture the inner text only, excluding the CDATA markers.
++            const std::vector<std::string> raw_end = {"</param>", "</function>", "<param", "<function"};
+             auto string_value = p.choice({
+                 p.literal("<![CDATA[") + p.ac(p.tool_arg_string_value(p.until("]]>")) + p.literal("]]>"), "]]>") + p.tool_arg_close(p.literal("</param>")),
+-                p.negate(p.literal("<![CDATA[")) + p.ac(p.tool_arg_string_value(p.until("</param>")) + p.tool_arg_close(p.literal("</param>")), "</param>")
++                p.negate(p.literal("<![CDATA[")) + p.ac(p.tool_arg_string_value(p.until_one_of(raw_end)) + p.tool_arg_close(p.literal("</param>")), raw_end)
+             });
+ 
+             auto tool_choice = p.choice();
+@@ -107,7 +108,8 @@
+ 
+             auto content = p.content(p.until("<function"));
+ 
+-            return generation_prompt + reasoning + content + tool_calls + p.end();
++            auto tail = inputs.tool_choice == COMMON_CHAT_TOOL_CHOICE_REQUIRED ? tool_calls : p.optional(tool_calls);
++            return p.rule("minicpm5-tool-message", generation_prompt + reasoning + content + tail + p.end());
+         }
+ 
+         return generation_prompt + reasoning + p.content(p.rest()) + p.end();
+diff --git a/common/chat.cpp b/common/chat.cpp
+--- a/common/chat.cpp
++++ b/common/chat.cpp
+@@ -1822,7 +1822,8 @@
+ 
+     //LOG_DBG("Parsing PEG input with format %s: %s\n", common_chat_format_name(params.format), effective_input.text.c_str());
+ 
+-    common_peg_parse_flags flags = COMMON_PEG_PARSE_FLAG_LENIENT;
++    const bool strict_terminal = !is_partial && parser.has_rule("minicpm5-tool-message");
++    common_peg_parse_flags flags = strict_terminal ? COMMON_PEG_PARSE_FLAG_NONE : COMMON_PEG_PARSE_FLAG_LENIENT;
+     if (!is_partial) {
+         flags |= COMMON_PEG_PARSE_FLAG_COMPLETE;
+     }
+@@ -1833,7 +1834,22 @@
+     common_peg_parse_context ctx(std::move(effective_input.text), std::move(effective_input.tokens), flags);
+     auto result = parser.parse(ctx);
+ 
+-    if (result.fail()) {
++    if (strict_terminal && result.success()) {
++        std::set<std::string_view> argument_names;
++        bool duplicate = false;
++        ctx.ast.visit(result, [&](const common_peg_ast_node & node) {
++            if (node.tag == common_chat_peg_builder::TOOL_OPEN) {
++                argument_names.clear();
++            } else if (node.tag == common_chat_peg_builder::TOOL_ARG_NAME) {
++                duplicate |= !argument_names.insert(node.text).second;
++            }
++        });
++        if (duplicate || !result.invalid_utf8.empty()) {
++            throw std::runtime_error("The model produced output that does not match the expected peg-native format");
++        }
++    }
++
++    if (result.fail() || (strict_terminal && !result.success())) {
+         // During partial parsing, return partial results if any AST nodes were captured
+         // This allows streaming to work correctly for formats like FUNC_MARKDOWN_CODE_BLOCK
+         if (is_partial && result.end > 0) {

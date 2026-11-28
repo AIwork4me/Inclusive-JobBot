@@ -1,0 +1,77 @@
+{
+ "schema_version": 1,
+ "mission": "IJ-NANO-1.0",
+ "phase": "N02",
+ "lease_protocol": "benchmarks/root_cause/gpu_lease.py physical_gpu() (host-wide named mutex)",
+ "backend": "vulkan",
+ "started_utc": "2026-11-27T11:39:02Z",
+ "candidates": {
+  "S1": {
+   "model_repo_relative_path": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf",
+   "alias": "minicpm5-2b",
+   "admission": {
+    "exit": 0,
+    "output": "evidence/IJNANO/N02/admission/S1.json"
+   },
+   "protocol_probe": {
+    "exit": 0,
+    "output": "evidence/IJNANO/N02/protocol/S1.json"
+   },
+   "status": "DONE"
+  },
+  "S2": {
+   "model_repo_relative_path": "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf",
+   "alias": "lfm3-1.7b",
+   "admission": {
+    "exit": 0,
+    "output": "evidence/IJNANO/N02/admission/S2.json"
+   },
+   "protocol_probe": {
+    "exit": 2,
+    "output": "evidence/IJNANO/N02/protocol/S2.json"
+   },
+   "status": "CHECK"
+  },
+  "S3d": {
+   "model_repo_relative_path": "models/ij_sdk/Qwen3.5-2B-GGUF/Qwen3.5-2B-Q8_0.gguf",
+   "alias": "qwen3.5-2b",
+   "admission": {
+    "exit": 0,
+    "output": "evidence/IJNANO/N02/admission/S3d.json"
+   },
+   "protocol_probe": {
+    "exit": 0,
+    "output": "evidence/IJNANO/N02/protocol/S3d.json"
+   },
+   "status": "DONE"
+  },
+  "R1": {
+   "model_repo_relative_path": "models/ij_sdk/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf",
+   "alias": "qwen3-8b",
+   "admission": {
+    "exit": 0,
+    "output": "evidence/IJNANO/N02/admission/R1.json"
+   },
+   "protocol_probe": {
+    "exit": 0,
+    "output": "evidence/IJNANO/N02/protocol/R1.json"
+   },
+   "status": "DONE"
+  },
+  "R2": {
+   "model_repo_relative_path": "models/ij_sdk/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf",
+   "alias": "qwen3-14b",
+   "admission": {
+    "exit": 0,
+    "output": "evidence/IJNANO/N02/admission/R2.json"
+   },
+   "protocol_probe": {
+    "exit": 0,
+    "output": "evidence/IJNANO/N02/protocol/R2.json"
+   },
+   "status": "DONE"
+  }
+ },
+ "lease_acquired_utc": "2026-11-27T11:39:02Z",
+ "lease_released_utc": "2026-11-27T11:40:38Z"
+}

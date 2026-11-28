@@ -1,0 +1,154 @@
+{
+ "trial_id": "48eda8fc2b65fa5ed25de25a",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，让我看看。用户提到商品 TRK-11298，数量变动 350.0 USD。他们希望生成完整动作：工具与全部参数。\n\n首先，我需要检查可用的工具。提供的工具包括 record_answer、logistics.trace_shipment、logistics.reroute_shipment、logistics.estimate_delivery、addresses.validate、customs.declare_value、labels.generate、couriers.list_rates、escalations.open_case。\n\n用户谈论的是数量变动，这可能与物流或海关相关。等等，record_answer 函数用于记录答案，但用户可能想记录这个变动。等等，问题是“生成完整动作：工具与全部参数。”所以他们需要使用哪个工具？\n\n等等，用户说“商品 TRK-11298：数量变动 350.0 USD。”所以这是一个数量变动。查看工具，record_answer 函数需要 tool、tracking_no、quantity。等等，但 quantity 参数有 value 和 unit。这里的单位是 USD，但 quantity 工具的 unit 枚举包括 CNY、USD、EUR、pcs、kg。等等，quantity 的 unit 枚举包含 USD？等等，quantity 的 unit 枚举是 [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]。所以 USD 是允许的单位。但 quantity 的 value 是数字。所以 350.0 USD 作为 quantity。\n\n但用户说“数量变动”，所以工具可能是 logistics.estimate_delivery 或其他？等等，record_answer 函数用于记录答案，但用户可能想记录这个变动。等等，问题说“生成完整动作：工具与全部参数。”所以助手需要确定使用哪个工具并调用它。\n\n等等，用户可能想记录这个变动，所以使用 record_answer。但 record_answer 需要 tool、tracking_no、quantity。等等，工具参数枚举包括 logistics.trace_shipment、logistics.reroute_shipment 等。等等，record_answer 的 tool 参数是枚举列表。所以工具名称是 record_answer 函数本身？不，等等，record_answer 是一个函数，用于记录答案。等等，工具名称是函数名。等等，工具列表中的函数名是 record_answer、logistics.trace_shipment 等。等等，record_answer 函数的参数包括 tool（枚举）、tracking_no、quantity。\n\n等等，用户说“商品 TRK-11298：数量变动 350.0 USD。”所以商品 ID 是 TRK-11298，但 record_answer 函数需要 tracking_no。等等，tracking_no 是字符串。用户没有提供 tracking_no，但也许商品 ID 是 tracking_no？或者可能不是。等等，问题说“生成完整动作：工具与全部参数。”所以助手需要选择正确的工具并提供参数。\n\n等等，也许正确的工具是 logistics.estimate_delivery？但用户谈论的是数量变动。或者，customs.declare_value？不确定。等等，record_answer 函数用于记录答案，所以也许用户想记录这个变动作为答案。但参数需要 tool（枚举）、tracking_no、quantity。\n\n等等，工具枚举包括 \"logistics.trace_shipment\" 等。等等，record_answer 函数的 tool 参数是枚举列表。所以当调用 record_answer 时，tool 参数必须是这些之一。但用户的消息是关于记录一个变动，所以工具应该是 record_answer。但参数：tracking_no 需要提供。用户说商品 TRK-11298。也许 tracking_no 是 TRK-11298？quantity 是 350.0 USD，所以 value 350.0，unit USD。\n\n等等，quantity 的 unit 枚举包括 USD，所以这是有效的。所以工具是 record_answer，tracking_no 是 TRK-11298，quantity value 350.0，unit USD。\n\n但问题说“生成完整动作：工具与全部参数。”所以助手应该调用 record_answer 并带上这些参数。让我检查必填字段：tool、tracking_no、quantity（value 和 unit）。所以是的。\n\n等等，但用户说“数量变动”，所以工具可能是 logistics.estimate_delivery？但 record_answer 用于记录答案。嗯。等等，工具描述说“Record the chosen answer (structured answer recording, not business tool execution).”所以这是一个用于记录答案的工具。因此，要记录这个变动，工具是 record_answer，参数如上。\n\n所以工具调用是 record_answer，tool 参数是 \"logistics.estimate_delivery\"？不，工具参数枚举包括 \"logistics.trace_shipment\" 等。等等，record_answer 函数的 tool 参数是枚举列表。所以当调用 record_answer 时，tool 参数必须是这些之一。等等，不——record_answer 函数是工具名称。等等，不。等等，工具列表中的函数名是 record_answer、logistics.trace_shipment 等。所以每个函数都有自己的名称。等等，record_answer 是一个函数，用于记录答案。参数包括 tool（枚举）、tracking_no、quantity。\n\n等等，用户需要调用哪个函数？"
+      }
+     }
+    ],
+    "created": 1795795148,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 397,
+     "total_tokens": 1421,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-iKg9Yr3FFjz4evSJj9silQ9NHqvF6XV6",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，让我看看。用户提到商品 TRK-11298，数量变动 350.0 USD。他们希望生成完整动作：工具与全部参数。\n\n首先，我需要检查可用的工具。提供的工具包括 record_answer、logistics.trace_shipment、logistics.reroute_shipment、logistics.estimate_delivery、addresses.validate、customs.declare_value、labels.generate、couriers.list_rates、escalations.open_case。\n\n用户谈论的是数量变动，这可能与物流或海关相关。等等，record_answer 函数用于记录答案，但用户可能想记录这个变动。等等，问题是“生成完整动作：工具与全部参数。”所以他们需要使用哪个工具？\n\n等等，用户说“商品 TRK-11298：数量变动 350.0 USD。”所以这是一个数量变动。查看工具，record_answer 函数需要 tool、tracking_no、quantity。等等，但 quantity 参数有 value 和 unit。这里的单位是 USD，但 quantity 工具的 unit 枚举包括 CNY、USD、EUR、pcs、kg。等等，quantity 的 unit 枚举包含 USD？等等，quantity 的 unit 枚举是 [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]。所以 USD 是允许的单位。但 quantity 的 value 是数字。所以 350.0 USD 作为 quantity。\n\n但用户说“数量变动”，所以工具可能是 logistics.estimate_delivery 或其他？等等，record_answer 函数用于记录答案，但用户可能想记录这个变动。等等，问题说“生成完整动作：工具与全部参数。”所以助手需要确定使用哪个工具并调用它。\n\n等等，用户可能想记录这个变动，所以使用 record_answer。但 record_answer 需要 tool、tracking_no、quantity。等等，工具参数枚举包括 logistics.trace_shipment、logistics.reroute_shipment 等。等等，record_answer 的 tool 参数是枚举列表。所以工具名称是 record_answer 函数本身？不，等等，record_answer 是一个函数，用于记录答案。等等，工具名称是函数名。等等，工具列表中的函数名是 record_answer、logistics.trace_shipment 等。等等，record_answer 函数的参数包括 tool（枚举）、tracking_no、quantity。\n\n等等，用户说“商品 TRK-11298：数量变动 350.0 USD。”所以商品 ID 是 TRK-11298，但 record_answer 函数需要 tracking_no。等等，tracking_no 是字符串。用户没有提供 tracking_no，但也许商品 ID 是 tracking_no？或者可能不是。等等，问题说“生成完整动作：工具与全部参数。”所以助手需要选择正确的工具并提供参数。\n\n等等，也许正确的工具是 logistics.estimate_delivery？但用户谈论的是数量变动。或者，customs.declare_value？不确定。等等，record_answer 函数用于记录答案，所以也许用户想记录这个变动作为答案。但参数需要 tool（枚举）、tracking_no、quantity。\n\n等等，工具枚举包括 \"logistics.trace_shipment\" 等。等等，record_answer 函数的 tool 参数是枚举列表。所以当调用 record_answer 时，tool 参数必须是这些之一。但用户的消息是关于记录一个变动，所以工具应该是 record_answer。但参数：tracking_no 需要提供。用户说商品 TRK-11298。也许 tracking_no 是 TRK-11298？quantity 是 350.0 USD，所以 value 350.0，unit USD。\n\n等等，quantity 的 unit 枚举包括 USD，所以这是有效的。所以工具是 record_answer，tracking_no 是 TRK-11298，quantity value 350.0，unit USD。\n\n但问题说“生成完整动作：工具与全部参数。”所以助手应该调用 record_answer 并带上这些参数。让我检查必填字段：tool、tracking_no、quantity（value 和 unit）。所以是的。\n\n等等，但用户说“数量变动”，所以工具可能是 logistics.estimate_delivery？但 record_answer 用于记录答案。嗯。等等，工具描述说“Record the chosen answer (structured answer recording, not business tool execution).”所以这是一个用于记录答案的工具。因此，要记录这个变动，工具是 record_answer，参数如上。\n\n所以工具调用是 record_answer，tool 参数是 \"logistics.estimate_delivery\"？不，工具参数枚举包括 \"logistics.trace_shipment\" 等。等等，record_answer 函数的 tool 参数是枚举列表。所以当调用 record_answer 时，tool 参数必须是这些之一。等等，不——record_answer 函数是工具名称。等等，不。等等，工具列表中的函数名是 record_answer、logistics.trace_shipment 等。所以每个函数都有自己的名称。等等，record_answer 是一个函数，用于记录答案。参数包括 tool（枚举）、tracking_no、quantity。\n\n等等，用户需要调用哪个函数？",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 397,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"tool\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31) | (\"<param name=\\\"\" \"tracking_no\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31) | (\"<param name=\\\"\" \"quantity\" \"\\\">\") tool-0-arg-2-schema \"</param>\") space)* space \"</function>\"\ntool-0-arg-2-schema ::= \"{\" space tool-0-arg-2-schema-value-kv \",\" space tool-0-arg-2-schema-unit-kv space \"}\"\ntool-0-arg-2-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-0-arg-2-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-0-arg-2-schema-unit\ntool-0-arg-2-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tool\": {\"type\": \"string\", \"enum\": [\"logistics.trace_shipment\", \"logistics.reroute_shipment\", \"logistics.estimate_delivery\", \"addresses.validate\", \"customs.declare_value\", \"labels.generate\", \"couriers.list_rates\", \"escalations.open_case\"]}, \"tracking_no\": {\"type\": \"string\"}, \"quantity\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}}, \"required\": [\"tool\", \"tracking_no\", \"quantity\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n商品 TRK-11298：数量变动 350.0 USD。\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1420,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 397,
+      "prompt_ms": 65.806,
+      "prompt_per_token_ms": 0.16575818639798487,
+      "prompt_per_second": 6032.884539403702,
+      "predicted_n": 1024,
+      "predicted_ms": 5718.082,
+      "predicted_per_token_ms": 5.589522971652004,
+      "predicted_per_second": 178.90614370343062
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 397,
+     "prompt_ms": 65.806,
+     "prompt_per_token_ms": 0.16575818639798487,
+     "prompt_per_second": 6032.884539403702,
+     "predicted_n": 1024,
+     "predicted_ms": 5718.082,
+     "predicted_per_token_ms": 5.589522971652004,
+     "predicted_per_second": 178.90614370343062
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.813
+  }
+ ]
+}

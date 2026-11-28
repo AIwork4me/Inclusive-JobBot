@@ -1,0 +1,146 @@
+{
+ "trial_id": "7fd16907611a3fe43afca993",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's query. It says:\n\n\"策略 / policy: delay 6 hours, threshold 24. 实况 / observation: n = 6.\nAllowed branches: reroute, hold_at_hub, continue_as_planned.\n判断应走的分支。 / Decide which branch applies.\"\n\nInterpretation: There's a policy about \"delay 6 hours\" and a threshold of 24. Observation: n = 6. Allowed branches: reroute, hold_at_hub, continue_as_planned.\n\nWe need to decide which branch should be taken based on these parameters.\n\nThis seems like some kind of decision-making problem from maybe a system that has policies about delays and thresholds. Possibly it's about whether to delay something for 6 hours if the threshold is 24? Or n=6 observations?\n\nLet me think: The policy says \"delay 6 hours, threshold 24\". That might mean: If some condition triggers after 6 hours of waiting, then we should consider a threshold of 24 (maybe total time allowed?). Real-time observation: n = 6. So maybe there are 6 observations? Or something like that.\n\nWe need to decide among branches: reroute, hold_at_hub, continue_as_planned.\n\nGiven typical decision trees: If delay > threshold or something, we might reroute or hold at hub.\n\nBut without more context, I'll try to infer. Possibly it's about a network routing scenario where you have a hub and you can either reroute traffic, hold at hub (i.e., wait), or continue as planned. The policy: delay 6 hours; threshold 24. Observation n=6.\n\nMaybe \"delay\" means we need to delay something for 6 hours before taking action? Or maybe it's about a time window: If the current time is less than threshold, do something else?\n\nGiven limited info, I'll assume typical logic: The policy says \"delay 6 hours\". That might be a rule that if you haven't observed enough data (n=6?), then you need to wait 6 hours before proceeding. But threshold is 24. So maybe we compare n to threshold? If n <= threshold? Or something like that.\n\nLet's parse Chinese: \"策略 / policy: delay 6 hours, threshold 24. 实况 / observation: n = 6.\" Means: Policy/strategy: delay 6 hours, threshold 24. Real-time/observation: n = 6.\n\nAllowed branches: reroute, hold_at_hub, continue_as_planned.\n\nThus we need to decide which branch applies given these inputs.\n\nMaybe it's about a scenario where you have an observation count n=6 and a threshold of 24 for something like \"if observations exceed threshold, then do X\". But here delay is 6 hours. Could be: If the number of observations (n) is less than threshold? Or maybe we need to decide whether to reroute or hold at hub based on if we have enough data.\n\nAlternatively, could be a simple rule: If n < threshold, then you should \"delay\" for some time before taking action. But here delay is 6 hours. So perhaps the policy says: Delay for 6 hours if current observation count (n) is less than threshold (24). Since n=6 which is less than 24, we need to delay 6 hours? That would be \"delay\" branch? But allowed branches are reroute, hold_at_hub, continue_as_planned. Not \"delay\". So maybe \"hold_at_hub\" corresponds to waiting/delaying.\n\nThus likely: If n < threshold (i.e., insufficient observations), then we should hold at hub for the delay period (6 hours). Or maybe we need to reroute after some time?\n\nLet's think about typical network routing policies: At a hub, you might have options: continue as planned (send traffic now), hold at hub (wait and possibly re-route later), or reroute (change path). The policy \"delay 6 hours\" suggests we should delay the action for 6 hours. So maybe we need to choose \"hold_at_hub\" for 6 hours? Or \"reroute\"? Not sure.\n\nGiven allowed branches: reroute, hold_at_hub, continue_as_planned. Usually \"hold_at_hub\" means stop and wait at hub until some condition met (like after delay). So I'd lean that we should choose \"hold_at_hub\".\n\nBut let's reason more concretely: The policy says \"delay 6 hours\". That is a specific action: delay for 6 hours. The threshold is 24. Possibly the threshold indicates how many observations needed before you can proceed? If n=6, which is less than threshold 24, then we haven't reached enough data, so we need"
+      }
+     }
+    ],
+    "created": 1795799476,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 66,
+     "total_tokens": 1090,
+     "prompt_tokens_details": {
+      "cached_tokens": 1
+     }
+    },
+    "id": "chatcmpl-QrMdNd501YupccllwScnc2fl7FjjlrsI",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. It says:\n\n\"策略 / policy: delay 6 hours, threshold 24. 实况 / observation: n = 6.\nAllowed branches: reroute, hold_at_hub, continue_as_planned.\n判断应走的分支。 / Decide which branch applies.\"\n\nInterpretation: There's a policy about \"delay 6 hours\" and a threshold of 24. Observation: n = 6. Allowed branches: reroute, hold_at_hub, continue_as_planned.\n\nWe need to decide which branch should be taken based on these parameters.\n\nThis seems like some kind of decision-making problem from maybe a system that has policies about delays and thresholds. Possibly it's about whether to delay something for 6 hours if the threshold is 24? Or n=6 observations?\n\nLet me think: The policy says \"delay 6 hours, threshold 24\". That might mean: If some condition triggers after 6 hours of waiting, then we should consider a threshold of 24 (maybe total time allowed?). Real-time observation: n = 6. So maybe there are 6 observations? Or something like that.\n\nWe need to decide among branches: reroute, hold_at_hub, continue_as_planned.\n\nGiven typical decision trees: If delay > threshold or something, we might reroute or hold at hub.\n\nBut without more context, I'll try to infer. Possibly it's about a network routing scenario where you have a hub and you can either reroute traffic, hold at hub (i.e., wait), or continue as planned. The policy: delay 6 hours; threshold 24. Observation n=6.\n\nMaybe \"delay\" means we need to delay something for 6 hours before taking action? Or maybe it's about a time window: If the current time is less than threshold, do something else?\n\nGiven limited info, I'll assume typical logic: The policy says \"delay 6 hours\". That might be a rule that if you haven't observed enough data (n=6?), then you need to wait 6 hours before proceeding. But threshold is 24. So maybe we compare n to threshold? If n <= threshold? Or something like that.\n\nLet's parse Chinese: \"策略 / policy: delay 6 hours, threshold 24. 实况 / observation: n = 6.\" Means: Policy/strategy: delay 6 hours, threshold 24. Real-time/observation: n = 6.\n\nAllowed branches: reroute, hold_at_hub, continue_as_planned.\n\nThus we need to decide which branch applies given these inputs.\n\nMaybe it's about a scenario where you have an observation count n=6 and a threshold of 24 for something like \"if observations exceed threshold, then do X\". But here delay is 6 hours. Could be: If the number of observations (n) is less than threshold? Or maybe we need to decide whether to reroute or hold at hub based on if we have enough data.\n\nAlternatively, could be a simple rule: If n < threshold, then you should \"delay\" for some time before taking action. But here delay is 6 hours. So perhaps the policy says: Delay for 6 hours if current observation count (n) is less than threshold (24). Since n=6 which is less than 24, we need to delay 6 hours? That would be \"delay\" branch? But allowed branches are reroute, hold_at_hub, continue_as_planned. Not \"delay\". So maybe \"hold_at_hub\" corresponds to waiting/delaying.\n\nThus likely: If n < threshold (i.e., insufficient observations), then we should hold at hub for the delay period (6 hours). Or maybe we need to reroute after some time?\n\nLet's think about typical network routing policies: At a hub, you might have options: continue as planned (send traffic now), hold at hub (wait and possibly re-route later), or reroute (change path). The policy \"delay 6 hours\" suggests we should delay the action for 6 hours. So maybe we need to choose \"hold_at_hub\" for 6 hours? Or \"reroute\"? Not sure.\n\nGiven allowed branches: reroute, hold_at_hub, continue_as_planned. Usually \"hold_at_hub\" means stop and wait at hub until some condition met (like after delay). So I'd lean that we should choose \"hold_at_hub\".\n\nBut let's reason more concretely: The policy says \"delay 6 hours\". That is a specific action: delay for 6 hours. The threshold is 24. Possibly the threshold indicates how many observations needed before you can proceed? If n=6, which is less than threshold 24, then we haven't reached enough data, so we need",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 66,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-branch-kv space \"}\"\nresponse-format-branch ::= (\"\\\"reroute\\\"\" | \"\\\"hold_at_hub\\\"\" | \"\\\"continue_as_planned\\\"\")\nresponse-format-branch-kv ::= \"\\\"branch\\\"\" space \":\" space response-format-branch\nroot ::= \"<|im_start|>assistant\\n\" (\"<think>\" space until-1 (\"\\n</think>\" | \"</think>\" | ))? space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-1 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<] until-1\nuntil-1-01 ::= | [\\n] until-1-01 | [<] until-1-02 | [^\\n<] until-1\nuntil-1-02 ::= | [\\n] until-1-01 | [/] until-1-03 | [<] until-1-10 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-03 ::= | [\\n] until-1-01 | [t] until-1-04 | [<] until-1-10 | [^\\n<t] until-1\nuntil-1-04 ::= | [\\n] until-1-01 | [h] until-1-05 | [<] until-1-10 | [^\\n<h] until-1\nuntil-1-05 ::= | [\\n] until-1-01 | [i] until-1-06 | [<] until-1-10 | [^\\n<i] until-1\nuntil-1-06 ::= | [\\n] until-1-01 | [n] until-1-07 | [<] until-1-10 | [^\\n<n] until-1\nuntil-1-07 ::= | [\\n] until-1-01 | [k] until-1-08 | [<] until-1-10 | [^\\n<k] until-1\nuntil-1-08 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-10 ::= | [\\n] until-1-01 | [<] until-1-10 | [/] until-1-11 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-11 ::= | [\\n] until-1-01 | [<] until-1-10 | [t] until-1-12 | [^\\n<t] until-1\nuntil-1-12 ::= | [\\n] until-1-01 | [<] until-1-10 | [h] until-1-13 | [^\\n<h] until-1\nuntil-1-13 ::= | [\\n] until-1-01 | [<] until-1-10 | [i] until-1-14 | [^\\n<i] until-1\nuntil-1-14 ::= | [\\n] until-1-01 | [<] until-1-10 | [n] until-1-15 | [^\\n<n] until-1\nuntil-1-15 ::= | [\\n] until-1-01 | [<] until-1-10 | [k] until-1-16 | [^\\n<k] until-1\nuntil-1-16 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-18 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-19 | [^\\n<o] until-1\nuntil-1-19 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-20 | [^\\n<o] until-1\nuntil-1-20 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-21 | [^\\n<l] until-1\nuntil-1-21 ::= | [\\n] until-1-01 | [<] until-1-10 | [_] until-1-22 | [^\\n<_] until-1\nuntil-1-22 ::= | [\\n] until-1-01 | [<] until-1-10 | [c] until-1-23 | [^\\n<c] until-1\nuntil-1-23 ::= | [\\n] until-1-01 | [<] until-1-10 | [a] until-1-24 | [^\\n<a] until-1\nuntil-1-24 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-25 | [^\\n<l] until-1\nuntil-1-25 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-26 | [^\\n<l] until-1\nuntil-1-26 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n策略 / policy: delay 6 hours, threshold 24. 实况 / observation: n = 6.\nAllowed branches: reroute, hold_at_hub, continue_as_planned.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1089,
+     "timings": {
+      "cache_n": 1,
+      "prompt_n": 65,
+      "prompt_ms": 25.638,
+      "prompt_per_token_ms": 0.39443076923076925,
+      "prompt_per_second": 2535.2991653015056,
+      "predicted_n": 1024,
+      "predicted_ms": 5964.294,
+      "predicted_per_token_ms": 5.830199413489736,
+      "predicted_per_second": 171.52071980355095
+     }
+    },
+    "timings": {
+     "cache_n": 1,
+     "prompt_n": 65,
+     "prompt_ms": 25.638,
+     "prompt_per_token_ms": 0.39443076923076925,
+     "prompt_per_second": 2535.2991653015056,
+     "predicted_n": 1024,
+     "predicted_ms": 5964.294,
+     "predicted_per_token_ms": 5.830199413489736,
+     "predicted_per_second": 171.52071980355095
+    }
+   },
+   "http_error": null,
+   "latency_s": 6.0
+  }
+ ]
+}

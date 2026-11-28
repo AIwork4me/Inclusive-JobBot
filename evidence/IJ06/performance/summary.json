@@ -1,0 +1,132 @@
+{
+  "vulkan": {
+    "sdk": {
+      "path": "evidence/IJ06/antigravity/vulkan.json",
+      "sha256": "546b3c66ab80ee542d9224b3db856cdccd0a2e7dfd83f74449ac3b3b18feb9dd",
+      "redacted": true
+    },
+    "sdk_gates": {
+      "AG-11": "BLOCKED",
+      "AG-01": "PASS",
+      "AG-02": "PASS",
+      "AG-03": "PASS",
+      "AG-04": "PASS",
+      "AG-05": "PASS",
+      "AG-06": "PASS",
+      "AG-07": "PASS",
+      "AG-08": "PASS",
+      "AG-09": "PASS",
+      "AG-10": "PASS",
+      "AG-12": "PASS"
+    },
+    "development": {
+      "path": "evidence/IJ06/performance/vulkan/development.json",
+      "sha256": "8078c928687b9b31a4eda7ef2290542b8b32f82913088993c00034edd57640f1",
+      "redacted": true
+    },
+    "gpu_counters": {
+      "path": "evidence/IJ06/performance/vulkan/gpu.jsonl",
+      "sha256": "f6e34889537cfe6cd04dd7566d6e5463d64fd753a3bb10cd350046e6f517247a",
+      "redacted": false
+    },
+    "process": 29164,
+    "max_gpu_committed_bytes": 3380117504,
+    "peak_engine_percent": {
+      "3D": 0,
+      "Compute": 99
+    },
+    "arms": {
+      "D": {
+        "passes": 3,
+        "cases": 3,
+        "calls": 6,
+        "prompt_tokens": 7023,
+        "completion_tokens": 4033,
+        "observed_ms": [
+          8956.09,
+          22480.72,
+          41813.99
+        ],
+        "nearest_rank_p95_ms": 41813.99
+      },
+      "F": {
+        "passes": 3,
+        "cases": 3,
+        "calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "observed_ms": [
+          28.14,
+          28.35,
+          29.96
+        ],
+        "nearest_rank_p95_ms": 29.96
+      }
+    }
+  },
+  "rocm": {
+    "sdk": {
+      "path": "evidence/IJ06/antigravity/rocm.json",
+      "sha256": "d5a5901788c270189da1f22fde34e6b1f3d9d798ddba8a30f8ecd39732546854",
+      "redacted": true
+    },
+    "sdk_gates": {
+      "AG-11": "BLOCKED",
+      "AG-01": "FAIL",
+      "AG-02": "PASS",
+      "AG-03": "PASS",
+      "AG-04": "PASS",
+      "AG-05": "PASS",
+      "AG-06": "FAIL",
+      "AG-07": "PASS",
+      "AG-08": "PASS",
+      "AG-09": "PASS",
+      "AG-10": "PASS",
+      "AG-12": "PASS"
+    },
+    "development": {
+      "path": "evidence/IJ06/performance/rocm/development.json",
+      "sha256": "cae9bdefe2f503e8279920489f490679b5046bceb58714cc5f82972ea189157d",
+      "redacted": true
+    },
+    "gpu_counters": {
+      "path": "evidence/IJ06/performance/rocm/gpu.jsonl",
+      "sha256": "4e9e24fdfed09b397f4565d1a0f4d9d1325aa558981a2d8bf5f55927d821487f",
+      "redacted": false
+    },
+    "process": 2884,
+    "max_gpu_committed_bytes": 3478999040,
+    "peak_engine_percent": {
+      "3D": 0,
+      "Compute": 94
+    },
+    "arms": {
+      "D": {
+        "passes": 3,
+        "cases": 3,
+        "calls": 6,
+        "prompt_tokens": 6937,
+        "completion_tokens": 4268,
+        "observed_ms": [
+          18538.62,
+          25448.24,
+          37262.35
+        ],
+        "nearest_rank_p95_ms": 37262.35
+      },
+      "F": {
+        "passes": 3,
+        "cases": 3,
+        "calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "observed_ms": [
+          28.59,
+          32.72,
+          33.81
+        ],
+        "nearest_rank_p95_ms": 33.81
+      }
+    }
+  }
+}

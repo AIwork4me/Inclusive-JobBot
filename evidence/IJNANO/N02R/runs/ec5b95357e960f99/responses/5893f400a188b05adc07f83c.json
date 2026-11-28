@@ -1,0 +1,146 @@
+{
+ "trial_id": "5893f400a188b05adc07f83c",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "根据当前观测，货运公司已报告 TRK-73002 已交付，并且有照片记录。因此目标已经实现，**建议停止**（stop）。",
+       "reasoning_content": "We need to understand the task. The user gives:\n\n目标 / goal: goal: TRK-73002 delivered. 当前观测 / observation: carrier reports delivered, photo on file.\n\nAllowed decisions: stop, continue.\n\nDecide stop or continue.\n\nSo we have a goal: \"TRK-73002 delivered.\" Observation: carrier reports delivered, photo on file. So presumably the tracking number TRK-73002 is supposed to be delivered. The observation says that carriers report it's delivered and there's a photo on file. That suggests that delivery has already occurred? Or at least reported as delivered.\n\nThus we need to decide whether to \"stop\" or \"continue\". Usually in such contexts, if the goal is achieved (delivered), then we should stop further actions. So likely \"stop\".\n\nBut let's parse: The allowed decisions are \"stop\" or \"continue\". If observation indicates that it's already delivered and photo on file, then there's no need to continue tracking; we can stop.\n\nThus answer: stop.\n\nWe'll respond accordingly in Chinese maybe? The user wrote Chinese. So I'll answer in Chinese: \"决定停止 (stop)\".\n\nBut let me think about nuance: Could be that the observation is from carrier reports delivered, photo on file - meaning they have evidence of delivery. So we can consider the goal achieved. Therefore decision: stop.\n\nThus final: 停止 / stop.\n\nI'll output: 决定 stop（停止）或 continue? I'd say \"stop\".\n\nHence answer: stop."
+      }
+     }
+    ],
+    "created": 1795798806,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 352,
+     "prompt_tokens": 59,
+     "total_tokens": 411,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-ZcNh3d3VWUuvOFEufi1LhLTjPN8nVpPw",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to understand the task. The user gives:\n\n目标 / goal: goal: TRK-73002 delivered. 当前观测 / observation: carrier reports delivered, photo on file.\n\nAllowed decisions: stop, continue.\n\nDecide stop or continue.\n\nSo we have a goal: \"TRK-73002 delivered.\" Observation: carrier reports delivered, photo on file. So presumably the tracking number TRK-73002 is supposed to be delivered. The observation says that carriers report it's delivered and there's a photo on file. That suggests that delivery has already occurred? Or at least reported as delivered.\n\nThus we need to decide whether to \"stop\" or \"continue\". Usually in such contexts, if the goal is achieved (delivered), then we should stop further actions. So likely \"stop\".\n\nBut let's parse: The allowed decisions are \"stop\" or \"continue\". If observation indicates that it's already delivered and photo on file, then there's no need to continue tracking; we can stop.\n\nThus answer: stop.\n\nWe'll respond accordingly in Chinese maybe? The user wrote Chinese. So I'll answer in Chinese: \"决定停止 (stop)\".\n\nBut let me think about nuance: Could be that the observation is from carrier reports delivered, photo on file - meaning they have evidence of delivery. So we can consider the goal achieved. Therefore decision: stop.\n\nThus final: 停止 / stop.\n\nI'll output: 决定 stop（停止）或 continue? I'd say \"stop\".\n\nHence answer: stop.</think>根据当前观测，货运公司已报告 TRK-73002 已交付，并且有照片记录。因此目标已经实现，**建议停止**（stop）。",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 352,
+     "tokens_evaluated": 59,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n目标 / goal: goal: TRK-73002 delivered. 当前观测 / observation: carrier reports delivered, photo on file.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 410,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 59,
+      "prompt_ms": 33.922,
+      "prompt_per_token_ms": 0.5749491525423728,
+      "prompt_per_second": 1739.2842403160193,
+      "predicted_n": 352,
+      "predicted_ms": 2039.222,
+      "predicted_per_token_ms": 5.809749287749288,
+      "predicted_per_second": 172.12446707616925
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 59,
+     "prompt_ms": 33.922,
+     "prompt_per_token_ms": 0.5749491525423728,
+     "prompt_per_second": 1739.2842403160193,
+     "predicted_n": 352,
+     "predicted_ms": 2039.222,
+     "predicted_per_token_ms": 5.809749287749288,
+     "predicted_per_second": 172.12446707616925
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.078
+  }
+ ]
+}

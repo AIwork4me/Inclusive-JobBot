@@ -1,0 +1,2250 @@
+{
+  "run_id": "ij07-tool-choice-6ffb5c5f8d014e54b6029f2508b03288",
+  "git": {
+    "commit": "f87d77757978caa4c16d9fb20b8925a219a93eda",
+    "dirty": false
+  },
+  "backend": "cpu",
+  "started_utc": "2026-11-24T13:15:14+00:00",
+  "finished_utc": "2026-11-24T13:16:02+00:00",
+  "original": {
+    "exe_sha256": "f6281cbfcb9eaf154b6fe0a9667906957f2bf78d08e4c1a05b5dc32214a0f4d7",
+    "runtime_dll_sha256": {
+      "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+      "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+      "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+      "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+      "llama-common.dll": "e7573a81ba8fc85bfe77797e643e05e7f6895d94c29e8301861460337ebbb30a",
+      "llama-server-impl.dll": "e77e0e0ceb934727597cc66e9ac282520cd93bf0782dda7376d738c21f4eef96",
+      "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+      "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e"
+    },
+    "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "cases": {
+      "omitted-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"2YBZqUbWIM5fwadIthSUm63adm1JnsXQ\"}]}}],\"created\":1795526125,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"id\":\"chatcmpl-IiGFFg66OdhCOT4D3ZUJtI2071ufWfxT\",\"timings\":{\"cache_n\":0,\"prompt_n\":298,\"prompt_ms\":2199.481,\"prompt_per_token_ms\":7.380808724832216,\"prompt_per_second\":135.4865079534672,\"predicted_n\":20,\"predicted_ms\":1092.102,\"predicted_per_token_ms\":57.47905263157895,\"predicted_per_second\":17.397642344762666}}",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "omitted-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526125,\"id\":\"chatcmpl-GRXEkF8umOQmOXf5RYfx1C8Cryig7l7i\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"OJdY1B5whAI4IwatNPH5OkkLe2nSJR6m\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795526125,\"id\":\"chatcmpl-GRXEkF8umOQmOXf5RYfx1C8Cryig7l7i\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795526125,\"id\":\"chatcmpl-GRXEkF8umOQmOXf5RYfx1C8Cryig7l7i\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795526126,\"id\":\"chatcmpl-GRXEkF8umOQmOXf5RYfx1C8Cryig7l7i\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795526126,\"id\":\"chatcmpl-GRXEkF8umOQmOXf5RYfx1C8Cryig7l7i\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795526126,\"id\":\"chatcmpl-GRXEkF8umOQmOXf5RYfx1C8Cryig7l7i\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795526126,\"id\":\"chatcmpl-GRXEkF8umOQmOXf5RYfx1C8Cryig7l7i\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795526126,\"id\":\"chatcmpl-GRXEkF8umOQmOXf5RYfx1C8Cryig7l7i\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795526126,\"id\":\"chatcmpl-GRXEkF8umOQmOXf5RYfx1C8Cryig7l7i\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795526126,\"id\":\"chatcmpl-GRXEkF8umOQmOXf5RYfx1C8Cryig7l7i\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":70.437,\"prompt_per_token_ms\":70.437,\"prompt_per_second\":14.197083918963045,\"predicted_n\":20,\"predicted_ms\":1139.246,\"predicted_per_token_ms\":59.96031578947369,\"predicted_per_second\":16.677697354214978}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "null-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": null
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"3VC2p37Mq2fpWiidWHPglkgUv0OvoHpQ\"}]}}],\"created\":1795526127,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":297}},\"id\":\"chatcmpl-xsdI23OmdtMIKXXX7t92FTqyUcmvBmc6\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":46.735,\"prompt_per_token_ms\":46.735,\"prompt_per_second\":21.397239756071468,\"predicted_n\":20,\"predicted_ms\":1052.63,\"predicted_per_token_ms\":55.40157894736843,\"predicted_per_second\":18.05002707504061}}",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "null-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": null
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526127,\"id\":\"chatcmpl-JTWmSp5f11phHxPAl2uvTYdLxuopxM00\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"t9BIW0worgVoolcsq4nPsccFwesZ3LRu\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795526128,\"id\":\"chatcmpl-JTWmSp5f11phHxPAl2uvTYdLxuopxM00\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795526128,\"id\":\"chatcmpl-JTWmSp5f11phHxPAl2uvTYdLxuopxM00\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795526128,\"id\":\"chatcmpl-JTWmSp5f11phHxPAl2uvTYdLxuopxM00\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795526128,\"id\":\"chatcmpl-JTWmSp5f11phHxPAl2uvTYdLxuopxM00\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795526128,\"id\":\"chatcmpl-JTWmSp5f11phHxPAl2uvTYdLxuopxM00\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795526128,\"id\":\"chatcmpl-JTWmSp5f11phHxPAl2uvTYdLxuopxM00\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795526128,\"id\":\"chatcmpl-JTWmSp5f11phHxPAl2uvTYdLxuopxM00\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795526128,\"id\":\"chatcmpl-JTWmSp5f11phHxPAl2uvTYdLxuopxM00\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795526128,\"id\":\"chatcmpl-JTWmSp5f11phHxPAl2uvTYdLxuopxM00\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":50.664,\"prompt_per_token_ms\":50.664,\"prompt_per_second\":19.737880941102162,\"predicted_n\":20,\"predicted_ms\":1099.609,\"predicted_per_token_ms\":57.87415789473684,\"predicted_per_second\":17.278869125298176}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "auto-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": "auto"
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"CygdlzXYEwPsOfdq8tyOvZdzulA7iyCm\"}]}}],\"created\":1795526129,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":297}},\"id\":\"chatcmpl-ZR2CUOQuZb57k40MGj4mbEtiooEUWxvo\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":69.448,\"prompt_per_token_ms\":69.448,\"prompt_per_second\":14.399262757746804,\"predicted_n\":20,\"predicted_ms\":931.761,\"predicted_per_token_ms\":49.040052631578945,\"predicted_per_second\":20.391495243952043}}",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "auto-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": "auto"
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526129,\"id\":\"chatcmpl-BsI8szhmRlVJwHOWK6KX0dC12gbLPPkM\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"BaMmWWNanGHAH25pbF0bbU4DtHuV38tI\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795526130,\"id\":\"chatcmpl-BsI8szhmRlVJwHOWK6KX0dC12gbLPPkM\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795526130,\"id\":\"chatcmpl-BsI8szhmRlVJwHOWK6KX0dC12gbLPPkM\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795526130,\"id\":\"chatcmpl-BsI8szhmRlVJwHOWK6KX0dC12gbLPPkM\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795526130,\"id\":\"chatcmpl-BsI8szhmRlVJwHOWK6KX0dC12gbLPPkM\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795526130,\"id\":\"chatcmpl-BsI8szhmRlVJwHOWK6KX0dC12gbLPPkM\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795526130,\"id\":\"chatcmpl-BsI8szhmRlVJwHOWK6KX0dC12gbLPPkM\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795526130,\"id\":\"chatcmpl-BsI8szhmRlVJwHOWK6KX0dC12gbLPPkM\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795526130,\"id\":\"chatcmpl-BsI8szhmRlVJwHOWK6KX0dC12gbLPPkM\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795526130,\"id\":\"chatcmpl-BsI8szhmRlVJwHOWK6KX0dC12gbLPPkM\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":52.67,\"prompt_per_token_ms\":52.67,\"prompt_per_second\":18.98614011771407,\"predicted_n\":20,\"predicted_ms\":1075.519,\"predicted_per_token_ms\":56.60626315789474,\"predicted_per_second\":17.66588967744875}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "none-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": "none"
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"<function name=\\\"lookup_account\\\"><param name=\\\"company\\\">Orchid Works</param></function>\"}}],\"created\":1795526131,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":297}},\"id\":\"chatcmpl-hEzBxHXswOqgSTStrXb4iFNqda0cWy73\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":41.611,\"prompt_per_token_ms\":41.611,\"prompt_per_second\":24.03210689481147,\"predicted_n\":20,\"predicted_ms\":976.011,\"predicted_per_token_ms\":51.369,\"predicted_per_second\":19.466993712161035}}",
+        "semantic_wire": {
+          "finish_reason": "stop",
+          "content": "<function name=\"lookup_account\"><param name=\"company\">Orchid Works</param></function>",
+          "calls": []
+        }
+      },
+      "none-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": "none"
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"<function\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\" name\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"=\\\"\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"look\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"up\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"_acc\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"ount\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"\\\">\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"<param\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\" name\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"=\\\"\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"company\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"\\\">\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"Or\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"ch\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"id\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\" Works\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"</param>\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"</function>\"}}],\"created\":1795526132,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{}}],\"created\":1795526133,\"id\":\"chatcmpl-I1MocRs6D4tQWJS9WjxDZL4fhfcrqRbt\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":58.099,\"prompt_per_token_ms\":58.099,\"prompt_per_second\":17.212000206544005,\"predicted_n\":20,\"predicted_ms\":1047.364,\"predicted_per_token_ms\":55.12442105263158,\"predicted_per_second\":18.14078009173506}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "stop",
+          "content": "<function name=\"lookup_account\"><param name=\"company\">Orchid Works</param></function>",
+          "calls": []
+        }
+      },
+      "required-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": "required"
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"m12ZvecF39e8oxaKhYtRvlbGZKAErry6\"}]}}],\"created\":1795526134,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":297}},\"id\":\"chatcmpl-TbgyqTc5ddtPE1HNZY7uAy6VWf6WSgin\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":68.017,\"prompt_per_token_ms\":68.017,\"prompt_per_second\":14.702206801240868,\"predicted_n\":20,\"predicted_ms\":964.403,\"predicted_per_token_ms\":50.75805263157895,\"predicted_per_second\":19.701307440976436}}",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "required-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": "required"
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526134,\"id\":\"chatcmpl-sNVZ8EO9GDs7KJlKo3IWqSPbORO4f52W\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"gEnmZQEHG74A9VP4nOsbAt6JPl9hskkj\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795526134,\"id\":\"chatcmpl-sNVZ8EO9GDs7KJlKo3IWqSPbORO4f52W\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795526134,\"id\":\"chatcmpl-sNVZ8EO9GDs7KJlKo3IWqSPbORO4f52W\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795526134,\"id\":\"chatcmpl-sNVZ8EO9GDs7KJlKo3IWqSPbORO4f52W\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795526134,\"id\":\"chatcmpl-sNVZ8EO9GDs7KJlKo3IWqSPbORO4f52W\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795526135,\"id\":\"chatcmpl-sNVZ8EO9GDs7KJlKo3IWqSPbORO4f52W\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795526135,\"id\":\"chatcmpl-sNVZ8EO9GDs7KJlKo3IWqSPbORO4f52W\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795526135,\"id\":\"chatcmpl-sNVZ8EO9GDs7KJlKo3IWqSPbORO4f52W\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795526135,\"id\":\"chatcmpl-sNVZ8EO9GDs7KJlKo3IWqSPbORO4f52W\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795526135,\"id\":\"chatcmpl-sNVZ8EO9GDs7KJlKo3IWqSPbORO4f52W\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":63.009,\"prompt_per_token_ms\":63.009,\"prompt_per_second\":15.870748623212556,\"predicted_n\":20,\"predicted_ms\":1025.548,\"predicted_per_token_ms\":53.97621052631579,\"predicted_per_second\":18.52668036990955}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "invalid-string-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": "undefined_lookup"
+        },
+        "status": 400,
+        "response": "{\"error\":{\"code\":400,\"message\":\"Invalid tool_choice: undefined_lookup\",\"type\":\"invalid_request_error\"}}"
+      },
+      "invalid-string-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": "undefined_lookup"
+        },
+        "status": 400,
+        "response": "{\"error\":{\"code\":400,\"message\":\"Invalid tool_choice: undefined_lookup\",\"type\":\"invalid_request_error\"}}"
+      },
+      "invalid-number-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": 44
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"MlqhUlBn9WpnD3SwFG8bV6LNm76WO7Jr\"}]}}],\"created\":1795526136,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":297}},\"id\":\"chatcmpl-JdG7qyOHBBKbmpcpOpqdsnN1D4ZYjGmX\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":42.051,\"prompt_per_token_ms\":42.051,\"prompt_per_second\":23.780647309219756,\"predicted_n\":20,\"predicted_ms\":1088.962,\"predicted_per_token_ms\":57.31378947368421,\"predicted_per_second\":17.44780809615028}}",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "invalid-number-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": 44
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526136,\"id\":\"chatcmpl-Xkw8SJnT28WVI3IdpIgSLqwhk72bsUDO\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"SLdl4Z1xbluBizrtYrRvbw4nMRbWeU2E\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795526136,\"id\":\"chatcmpl-Xkw8SJnT28WVI3IdpIgSLqwhk72bsUDO\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795526137,\"id\":\"chatcmpl-Xkw8SJnT28WVI3IdpIgSLqwhk72bsUDO\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795526137,\"id\":\"chatcmpl-Xkw8SJnT28WVI3IdpIgSLqwhk72bsUDO\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795526137,\"id\":\"chatcmpl-Xkw8SJnT28WVI3IdpIgSLqwhk72bsUDO\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795526137,\"id\":\"chatcmpl-Xkw8SJnT28WVI3IdpIgSLqwhk72bsUDO\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795526137,\"id\":\"chatcmpl-Xkw8SJnT28WVI3IdpIgSLqwhk72bsUDO\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795526137,\"id\":\"chatcmpl-Xkw8SJnT28WVI3IdpIgSLqwhk72bsUDO\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795526137,\"id\":\"chatcmpl-Xkw8SJnT28WVI3IdpIgSLqwhk72bsUDO\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795526137,\"id\":\"chatcmpl-Xkw8SJnT28WVI3IdpIgSLqwhk72bsUDO\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":37.995,\"prompt_per_token_ms\":37.995,\"prompt_per_second\":26.31925253322806,\"predicted_n\":20,\"predicted_ms\":941.103,\"predicted_per_token_ms\":49.53173684210526,\"predicted_per_second\":20.189076009746014}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "invalid-object-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": {
+            "type": "function",
+            "function": {
+              "name": "undefined_lookup"
+            }
+          }
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"WFNE0KUtY8gORNr2GxQlA0JbF53Uyk5D\"}]}}],\"created\":1795526138,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":297}},\"id\":\"chatcmpl-e0vUFrKatO3ubNMBBjjB35c1rqIvwCVB\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":66.154,\"prompt_per_token_ms\":66.154,\"prompt_per_second\":15.116243915711825,\"predicted_n\":20,\"predicted_ms\":1033.866,\"predicted_per_token_ms\":54.414,\"predicted_per_second\":18.377623405741172}}",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "invalid-object-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": {
+            "type": "function",
+            "function": {
+              "name": "undefined_lookup"
+            }
+          }
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526138,\"id\":\"chatcmpl-4uD1MaUG9LLjg2x8ifsbKuAA7dQJHKYE\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"tBgU1zad1AsiX1xi3izxiAhfSzArvjgy\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795526138,\"id\":\"chatcmpl-4uD1MaUG9LLjg2x8ifsbKuAA7dQJHKYE\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795526139,\"id\":\"chatcmpl-4uD1MaUG9LLjg2x8ifsbKuAA7dQJHKYE\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795526139,\"id\":\"chatcmpl-4uD1MaUG9LLjg2x8ifsbKuAA7dQJHKYE\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795526139,\"id\":\"chatcmpl-4uD1MaUG9LLjg2x8ifsbKuAA7dQJHKYE\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795526139,\"id\":\"chatcmpl-4uD1MaUG9LLjg2x8ifsbKuAA7dQJHKYE\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795526139,\"id\":\"chatcmpl-4uD1MaUG9LLjg2x8ifsbKuAA7dQJHKYE\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795526139,\"id\":\"chatcmpl-4uD1MaUG9LLjg2x8ifsbKuAA7dQJHKYE\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795526139,\"id\":\"chatcmpl-4uD1MaUG9LLjg2x8ifsbKuAA7dQJHKYE\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795526139,\"id\":\"chatcmpl-4uD1MaUG9LLjg2x8ifsbKuAA7dQJHKYE\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":69.589,\"prompt_per_token_ms\":69.589,\"prompt_per_second\":14.370087226429465,\"predicted_n\":20,\"predicted_ms\":905.736,\"predicted_per_token_ms\":47.67031578947368,\"predicted_per_second\":20.977415052509784}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      }
+    },
+    "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28"
+  },
+  "patched": {
+    "exe_sha256": "9ed4473e7c31d8ce225ee6ec8b33f88ea9a51e7381bb08e899bd71fc15cfb9a8",
+    "runtime_dll_sha256": {
+      "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+      "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+      "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+      "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+      "llama-common.dll": "e7573a81ba8fc85bfe77797e643e05e7f6895d94c29e8301861460337ebbb30a",
+      "llama-server-impl.dll": "f19ed08afaa34b40173b200df9b495d2ce5d916ea390ad74a7902edd9dcc9659",
+      "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+      "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e"
+    },
+    "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "cases": {
+      "omitted-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"lyXISWA4zyLHFzjTLteVUSdVSXxPGSdl\"}]}}],\"created\":1795526150,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"id\":\"chatcmpl-cZ1tVPtjo5MG0yBxwkoLyAxeyY3GcOf5\",\"timings\":{\"cache_n\":0,\"prompt_n\":298,\"prompt_ms\":2238.144,\"prompt_per_token_ms\":7.5105503355704695,\"prompt_per_second\":133.14603528638017,\"predicted_n\":20,\"predicted_ms\":1054.2,\"predicted_per_token_ms\":55.48421052631579,\"predicted_per_second\":18.02314551318535}}",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "omitted-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526150,\"id\":\"chatcmpl-FYBgY68wqgylEZ6p1QV31qEl55x3sNas\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"HShuut4CCjXZZIbbUdPxuQGqHlyy0mUD\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795526151,\"id\":\"chatcmpl-FYBgY68wqgylEZ6p1QV31qEl55x3sNas\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795526151,\"id\":\"chatcmpl-FYBgY68wqgylEZ6p1QV31qEl55x3sNas\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795526151,\"id\":\"chatcmpl-FYBgY68wqgylEZ6p1QV31qEl55x3sNas\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795526151,\"id\":\"chatcmpl-FYBgY68wqgylEZ6p1QV31qEl55x3sNas\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795526151,\"id\":\"chatcmpl-FYBgY68wqgylEZ6p1QV31qEl55x3sNas\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795526151,\"id\":\"chatcmpl-FYBgY68wqgylEZ6p1QV31qEl55x3sNas\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795526152,\"id\":\"chatcmpl-FYBgY68wqgylEZ6p1QV31qEl55x3sNas\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795526152,\"id\":\"chatcmpl-FYBgY68wqgylEZ6p1QV31qEl55x3sNas\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795526152,\"id\":\"chatcmpl-FYBgY68wqgylEZ6p1QV31qEl55x3sNas\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":63.497,\"prompt_per_token_ms\":63.497,\"prompt_per_second\":15.748775532702332,\"predicted_n\":20,\"predicted_ms\":1178.707,\"predicted_per_token_ms\":62.037210526315796,\"predicted_per_second\":16.11935790658747}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "null-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": null
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"ks9fRDEnYQ14CYqgyUzXoxvkREARnQyN\"}]}}],\"created\":1795526153,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":297}},\"id\":\"chatcmpl-Fgk5lBjurmzPBjFH9UMvwFwQHiZC9MU4\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":40.242,\"prompt_per_token_ms\":40.242,\"prompt_per_second\":24.849659559664033,\"predicted_n\":20,\"predicted_ms\":1072.697,\"predicted_per_token_ms\":56.457736842105255,\"predicted_per_second\":17.71236425570315}}",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "null-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": null
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526153,\"id\":\"chatcmpl-jNDfvhVURHVesdA3m9ojTVgMPHeQOOCy\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"Hghg2mJrVms1nA3ewSPszw1y5tuCv4Vs\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795526153,\"id\":\"chatcmpl-jNDfvhVURHVesdA3m9ojTVgMPHeQOOCy\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795526154,\"id\":\"chatcmpl-jNDfvhVURHVesdA3m9ojTVgMPHeQOOCy\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795526154,\"id\":\"chatcmpl-jNDfvhVURHVesdA3m9ojTVgMPHeQOOCy\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795526154,\"id\":\"chatcmpl-jNDfvhVURHVesdA3m9ojTVgMPHeQOOCy\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795526154,\"id\":\"chatcmpl-jNDfvhVURHVesdA3m9ojTVgMPHeQOOCy\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795526154,\"id\":\"chatcmpl-jNDfvhVURHVesdA3m9ojTVgMPHeQOOCy\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795526154,\"id\":\"chatcmpl-jNDfvhVURHVesdA3m9ojTVgMPHeQOOCy\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795526154,\"id\":\"chatcmpl-jNDfvhVURHVesdA3m9ojTVgMPHeQOOCy\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795526154,\"id\":\"chatcmpl-jNDfvhVURHVesdA3m9ojTVgMPHeQOOCy\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":56.535,\"prompt_per_token_ms\":56.535,\"prompt_per_second\":17.688157778367383,\"predicted_n\":20,\"predicted_ms\":1041.994,\"predicted_per_token_ms\":54.84178947368421,\"predicted_per_second\":18.234270062975412}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "auto-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": "auto"
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"M6e8xsUaLCRkFwjtrTfbPi6AbnOdkaR7\"}]}}],\"created\":1795526155,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":297}},\"id\":\"chatcmpl-xVhReRmrg666kdLpDv8yeacmmKZHtEzQ\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":39.937,\"prompt_per_token_ms\":39.937,\"prompt_per_second\":25.03943711345369,\"predicted_n\":20,\"predicted_ms\":1036.28,\"predicted_per_token_ms\":54.54105263157894,\"predicted_per_second\":18.334812984907554}}",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "auto-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": "auto"
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526155,\"id\":\"chatcmpl-RPjSbcNbUd3Q7WC9jD3cRgFlFQmohSS2\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"Zz4hTXuiwHcv9WKxxd09WrVFjOvfLaYd\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795526155,\"id\":\"chatcmpl-RPjSbcNbUd3Q7WC9jD3cRgFlFQmohSS2\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795526156,\"id\":\"chatcmpl-RPjSbcNbUd3Q7WC9jD3cRgFlFQmohSS2\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795526156,\"id\":\"chatcmpl-RPjSbcNbUd3Q7WC9jD3cRgFlFQmohSS2\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795526156,\"id\":\"chatcmpl-RPjSbcNbUd3Q7WC9jD3cRgFlFQmohSS2\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795526156,\"id\":\"chatcmpl-RPjSbcNbUd3Q7WC9jD3cRgFlFQmohSS2\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795526156,\"id\":\"chatcmpl-RPjSbcNbUd3Q7WC9jD3cRgFlFQmohSS2\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795526156,\"id\":\"chatcmpl-RPjSbcNbUd3Q7WC9jD3cRgFlFQmohSS2\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795526156,\"id\":\"chatcmpl-RPjSbcNbUd3Q7WC9jD3cRgFlFQmohSS2\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795526156,\"id\":\"chatcmpl-RPjSbcNbUd3Q7WC9jD3cRgFlFQmohSS2\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":57.437,\"prompt_per_token_ms\":57.437,\"prompt_per_second\":17.410380068596897,\"predicted_n\":20,\"predicted_ms\":1000.133,\"predicted_per_token_ms\":52.63857894736842,\"predicted_per_second\":18.997473336046305}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "none-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": "none"
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"<function name=\\\"lookup_account\\\"><param name=\\\"company\\\">Orchid Works</param></function>\"}}],\"created\":1795526157,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":297}},\"id\":\"chatcmpl-p7NvvedsZJ3guIR9STTgvpECi734RsRR\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":50.645,\"prompt_per_token_ms\":50.645,\"prompt_per_second\":19.745285813012142,\"predicted_n\":20,\"predicted_ms\":1121.476,\"predicted_per_token_ms\":59.02505263157895,\"predicted_per_second\":16.941958633087108}}",
+        "semantic_wire": {
+          "finish_reason": "stop",
+          "content": "<function name=\"lookup_account\"><param name=\"company\">Orchid Works</param></function>",
+          "calls": []
+        }
+      },
+      "none-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": "none"
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526157,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"<function\"}}],\"created\":1795526157,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\" name\"}}],\"created\":1795526157,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"=\\\"\"}}],\"created\":1795526157,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"look\"}}],\"created\":1795526157,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"up\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"_acc\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"ount\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"\\\">\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"<param\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\" name\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"=\\\"\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"company\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"\\\">\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"Or\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"ch\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"id\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\" Works\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"</param>\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"content\":\"</function>\"}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"delta\":{}}],\"created\":1795526158,\"id\":\"chatcmpl-yzIBp9D8jGNknaIAuBzj2BmTYtJaJ00P\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":67.231,\"prompt_per_token_ms\":67.231,\"prompt_per_second\":14.874090821198555,\"predicted_n\":20,\"predicted_ms\":1149.586,\"predicted_per_token_ms\":60.50452631578948,\"predicted_per_second\":16.527689098510248}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "stop",
+          "content": "<function name=\"lookup_account\"><param name=\"company\">Orchid Works</param></function>",
+          "calls": []
+        }
+      },
+      "required-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": "required"
+        },
+        "status": 200,
+        "response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\\\"company\\\":\\\"Orchid Works\\\"}\"},\"id\":\"6o8H33NiddIZHG41KRHluXAamWaxCyq6\"}]}}],\"created\":1795526160,\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion\",\"usage\":{\"completion_tokens\":20,\"prompt_tokens\":298,\"total_tokens\":318,\"prompt_tokens_details\":{\"cached_tokens\":297}},\"id\":\"chatcmpl-tBgO6MRymsduqPWIxHODhCnISd0deDWd\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":75.275,\"prompt_per_token_ms\":75.275,\"prompt_per_second\":13.284623048820988,\"predicted_n\":20,\"predicted_ms\":1349.171,\"predicted_per_token_ms\":71.009,\"predicted_per_second\":14.082721908490473}}",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "required-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": "required"
+        },
+        "status": 200,
+        "response": "data: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795526160,\"id\":\"chatcmpl-K4lt9MP13uT8hk7WFLDUJjE8fOnr9Rvp\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"id\":\"qFGJiGXqoXJqTKk84jYnCBZPZxgPct8F\",\"type\":\"function\",\"function\":{\"name\":\"lookup_account\",\"arguments\":\"{\"}}]}}],\"created\":1795526160,\"id\":\"chatcmpl-K4lt9MP13uT8hk7WFLDUJjE8fOnr9Rvp\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"company\\\":\"}}]}}],\"created\":1795526161,\"id\":\"chatcmpl-K4lt9MP13uT8hk7WFLDUJjE8fOnr9Rvp\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"Or\"}}]}}],\"created\":1795526161,\"id\":\"chatcmpl-K4lt9MP13uT8hk7WFLDUJjE8fOnr9Rvp\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"ch\"}}]}}],\"created\":1795526161,\"id\":\"chatcmpl-K4lt9MP13uT8hk7WFLDUJjE8fOnr9Rvp\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"id\"}}]}}],\"created\":1795526161,\"id\":\"chatcmpl-K4lt9MP13uT8hk7WFLDUJjE8fOnr9Rvp\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\" Works\"}}]}}],\"created\":1795526161,\"id\":\"chatcmpl-K4lt9MP13uT8hk7WFLDUJjE8fOnr9Rvp\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"\\\"\"}}]}}],\"created\":1795526161,\"id\":\"chatcmpl-K4lt9MP13uT8hk7WFLDUJjE8fOnr9Rvp\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"tool_calls\":[{\"index\":0,\"function\":{\"arguments\":\"}\"}}]}}],\"created\":1795526161,\"id\":\"chatcmpl-K4lt9MP13uT8hk7WFLDUJjE8fOnr9Rvp\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\"}\n\ndata: {\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"delta\":{}}],\"created\":1795526161,\"id\":\"chatcmpl-K4lt9MP13uT8hk7WFLDUJjE8fOnr9Rvp\",\"model\":\"minicpm5-2b\",\"system_fingerprint\":\"b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28\",\"object\":\"chat.completion.chunk\",\"timings\":{\"cache_n\":297,\"prompt_n\":1,\"prompt_ms\":66.199,\"prompt_per_token_ms\":66.199,\"prompt_per_second\":15.105968368102237,\"predicted_n\":20,\"predicted_ms\":979.507,\"predicted_per_token_ms\":51.553,\"predicted_per_second\":19.397513238802787}}\n\ndata: [DONE]\n\n",
+        "semantic_wire": {
+          "finish_reason": "tool_calls",
+          "content": "",
+          "calls": [
+            {
+              "name": "lookup_account",
+              "arguments": "{\"company\":\"Orchid Works\"}"
+            }
+          ]
+        }
+      },
+      "invalid-string-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": "undefined_lookup"
+        },
+        "status": 400,
+        "response": "{\"error\":{\"code\":400,\"message\":\"Invalid tool_choice: undefined_lookup\",\"type\":\"invalid_request_error\"}}"
+      },
+      "invalid-string-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": "undefined_lookup"
+        },
+        "status": 400,
+        "response": "{\"error\":{\"code\":400,\"message\":\"Invalid tool_choice: undefined_lookup\",\"type\":\"invalid_request_error\"}}"
+      },
+      "invalid-number-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": 44
+        },
+        "status": 400,
+        "response": "{\"error\":{\"code\":400,\"message\":\"tool_choice must be auto, none, or required\",\"type\":\"invalid_request_error\"}}"
+      },
+      "invalid-number-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": 44
+        },
+        "status": 400,
+        "response": "{\"error\":{\"code\":400,\"message\":\"tool_choice must be auto, none, or required\",\"type\":\"invalid_request_error\"}}"
+      },
+      "invalid-object-json": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": false,
+          "tool_choice": {
+            "type": "function",
+            "function": {
+              "name": "undefined_lookup"
+            }
+          }
+        },
+        "status": 400,
+        "response": "{\"error\":{\"code\":400,\"message\":\"tool_choice must be auto, none, or required\",\"type\":\"invalid_request_error\"}}"
+      },
+      "invalid-object-sse": {
+        "request": {
+          "model": "minicpm5-2b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Use lookup_account for Orchid Works."
+            }
+          ],
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_account",
+                "description": "Find the internal account ID for a company name.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "company"
+                  ],
+                  "properties": {
+                    "company": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup_balance",
+                "description": "Return the balance in CNY for an internal account ID.",
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "account_id"
+                  ],
+                  "properties": {
+                    "account_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "temperature": 0,
+          "seed": 7107,
+          "max_tokens": 64,
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "stream": true,
+          "tool_choice": {
+            "type": "function",
+            "function": {
+              "name": "undefined_lookup"
+            }
+          }
+        },
+        "status": 400,
+        "response": "{\"error\":{\"code\":400,\"message\":\"tool_choice must be auto, none, or required\",\"type\":\"invalid_request_error\"}}"
+      }
+    },
+    "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28"
+  },
+  "outcomes": {
+    "omitted-json": "PASS",
+    "omitted-sse": "PASS",
+    "null-json": "PASS",
+    "null-sse": "PASS",
+    "auto-json": "PASS",
+    "auto-sse": "PASS",
+    "none-json": "PASS",
+    "none-sse": "PASS",
+    "required-json": "PASS",
+    "required-sse": "PASS",
+    "invalid-string-json": "PASS",
+    "invalid-string-sse": "PASS",
+    "invalid-number-json": "PASS",
+    "invalid-number-sse": "PASS",
+    "invalid-object-json": "PASS",
+    "invalid-object-sse": "PASS"
+  }
+}

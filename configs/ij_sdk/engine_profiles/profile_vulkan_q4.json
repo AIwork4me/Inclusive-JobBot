@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "profile_id": "vulkan-q4-default",
+  "mission": "IJ-SDK-1.0",
+  "frozen_utc": "2026-11-27",
+  "engine": {
+    "build": "b12359",
+    "release": "v1.0.0",
+    "commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+    "binary_directory": "runtime/llama-cpp/vulkan",
+    "server_exe": "runtime/llama-cpp/vulkan/llama-server.exe"
+  },
+  "backend": {
+    "name": "vulkan",
+    "gpu_backend_libraries_present": true,
+    "device": "Vulkan0",
+    "device_name": "AMD Radeon RX 7900 XTX",
+    "architecture": "gfx1100"
+  },
+  "launch": {
+    "host": "127.0.0.1",
+    "port": 8080,
+    "context_length": 8192,
+    "gpu_layers": 99,
+    "parallel_slots": 1,
+    "log_verbosity": 4,
+    "extra_args": "--jinja --offline --no-webui"
+  },
+  "sampling_defaults": {
+    "note": "Benchmark cells freeze their own sampling; these are harness defaults for admission and smoke work.",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": 1,
+    "seed": 47,
+    "max_tokens_default": 512
+  },
+  "model": {
+    "alias": "minicpm5-2b",
+    "quantization": "Q4_K_M",
+    "sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+    "chat_template": "gguf-embedded (sha256 cc945752db555d60949b16989df4ccfeb52a313d6b4b5c5229dd786e2e9fcf1c)"
+  },
+  "gpu_proof_rule": "D-010: managed start + server offload line (N>0) + Windows GPU counters engine activity for the server process."
+}

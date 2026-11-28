@@ -1,0 +1,152 @@
+{
+ "trial_id": "060af01616c3fb5d2585c3b7",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to declare customs value for tracking number TRK-65140. The user mentions order ORD-2025, customer C-77, sku SKU-8806, but the relevant function is `customs.declare_value`. This function requires parameters: `tracking_no` and `amount` (which includes `value` and `unit`). However, the user didn't provide the amount/value. They only gave order ID, customer, sku, tracking number. We need to know the value to declare customs. Possibly missing info? Let's re-read.\n\nThe prompt: \"已知 / known: order ORD-2025, customer C-77, sku SKU-8806, tracking TRK-65140.\n为 TRK-65140 申报关税价值。 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nIt says \"为 TRK-65140 申报关税价值\" which means \"declare customs value for TRK-65140\". The function `customs.declare_value` requires both tracking_no and amount (value and unit). But we don't have the amount. Maybe there is another tool to get the value? Or maybe we need to infer from order? Not sure.\n\nLet's check available tools: There's `logistics.trace_shipment`, `logistics.reroute_shipment`, `logistics.estimate_delivery`, `addresses.validate`, `customs.declare_value`, `labels.generate`, `couriers.list_rates`, `escalations.open_case`. None directly fetch order details.\n\nPerhaps the user expects us to know that we need to call `customs.declare_value` with tracking_no and amount. But without amount, maybe it's optional? The schema says required: [\"tracking_no\", \"amount\"]. So both are required. We lack amount.\n\nMaybe there is a standard way: For customs declaration, you might need to provide the value. Could be that we need to get the value from somewhere else like order details. But no tool for that.\n\nWait, maybe the user expects us to just call `customs.declare_value` with placeholder? Or perhaps they omitted amount intentionally and we should ask? But instruction: \"只回答要调用的工具名。\" Means answer only the tool name(s). So likely there is enough info. Let's re-examine: The known data includes order ORD-2025, customer C-77, sku SKU-8806, tracking TRK-65140. Possibly the amount can be derived from SKU? Not likely.\n\nMaybe `customs.declare_value` expects an object with value and unit. Could we assume something like \"value\" is the price of the item? Without that info, maybe we need to use another tool first to get it. But none listed for order details.\n\nAlternatively, perhaps the function signature allows optional fields? Let's check: `customs.declare_value` parameters: properties: tracking_no (string), amount (object with value and unit). Required: [\"tracking_no\", \"amount\"]. So both required.\n\nGiven missing info, maybe we should still call it with what we have? But that would be incomplete. However, the user might expect us to just invoke the tool with available parameters, perhaps leaving amount unspecified? That would cause error.\n\nLet's see if there is any other function like `logistics.trace_shipment` that could give tracking info including value? Not sure.\n\nGiven the instruction \"只回答要调用的工具名。\" (Answer with the tool name only), maybe they just want us to state which tool we would call, not necessarily provide arguments. But typical pattern: When asked to do something, you output the tool calls in JSON format inside tool_call tags. The user says \"只回答要调用的工具名。\" meaning \"Only answer with the tool name(s) you need to call.\" So maybe just list the function name.\n\nThus we might need to decide which tool(s). For declaring customs value for TRK-65140, the relevant tool is `customs.declare_value`. But we also need amount. Could it be that the amount parameter is optional? The schema says required: [\"tracking_no\", \"amount\"]. So no.\n\nMaybe there's a default or previous context? Not given.\n\nLet's think: Perhaps the user expects us to use `logistics.trace_shipment` first to get tracking details including value? But not listed. Or maybe we can infer from order ID and SKU? Unlikely.\n\nGiven the limited info, I'll assume that the tool call should be made with available parameters; perhaps amount is optional in practice but schema says required. Could there be a mistake? Let's check other functions: `labels.generate` requires order_id. We have order ORD-2025. But not needed for customs declaration.\n\nMaybe we can combine: To declare customs value"
+      }
+     }
+    ],
+    "created": 1795797380,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 621,
+     "total_tokens": 1645,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-Ypj1dTN9dp3pzT7MGzpXuQaVxl8814jO",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to declare customs value for tracking number TRK-65140. The user mentions order ORD-2025, customer C-77, sku SKU-8806, but the relevant function is `customs.declare_value`. This function requires parameters: `tracking_no` and `amount` (which includes `value` and `unit`). However, the user didn't provide the amount/value. They only gave order ID, customer, sku, tracking number. We need to know the value to declare customs. Possibly missing info? Let's re-read.\n\nThe prompt: \"已知 / known: order ORD-2025, customer C-77, sku SKU-8806, tracking TRK-65140.\n为 TRK-65140 申报关税价值。 只回答要调用的工具名。 / Answer with the tool name only.\"\n\nIt says \"为 TRK-65140 申报关税价值\" which means \"declare customs value for TRK-65140\". The function `customs.declare_value` requires both tracking_no and amount (value and unit). But we don't have the amount. Maybe there is another tool to get the value? Or maybe we need to infer from order? Not sure.\n\nLet's check available tools: There's `logistics.trace_shipment`, `logistics.reroute_shipment`, `logistics.estimate_delivery`, `addresses.validate`, `customs.declare_value`, `labels.generate`, `couriers.list_rates`, `escalations.open_case`. None directly fetch order details.\n\nPerhaps the user expects us to know that we need to call `customs.declare_value` with tracking_no and amount. But without amount, maybe it's optional? The schema says required: [\"tracking_no\", \"amount\"]. So both are required. We lack amount.\n\nMaybe there is a standard way: For customs declaration, you might need to provide the value. Could be that we need to get the value from somewhere else like order details. But no tool for that.\n\nWait, maybe the user expects us to just call `customs.declare_value` with placeholder? Or perhaps they omitted amount intentionally and we should ask? But instruction: \"只回答要调用的工具名。\" Means answer only the tool name(s). So likely there is enough info. Let's re-examine: The known data includes order ORD-2025, customer C-77, sku SKU-8806, tracking TRK-65140. Possibly the amount can be derived from SKU? Not likely.\n\nMaybe `customs.declare_value` expects an object with value and unit. Could we assume something like \"value\" is the price of the item? Without that info, maybe we need to use another tool first to get it. But none listed for order details.\n\nAlternatively, perhaps the function signature allows optional fields? Let's check: `customs.declare_value` parameters: properties: tracking_no (string), amount (object with value and unit). Required: [\"tracking_no\", \"amount\"]. So both required.\n\nGiven missing info, maybe we should still call it with what we have? But that would be incomplete. However, the user might expect us to just invoke the tool with available parameters, perhaps leaving amount unspecified? That would cause error.\n\nLet's see if there is any other function like `logistics.trace_shipment` that could give tracking info including value? Not sure.\n\nGiven the instruction \"只回答要调用的工具名。\" (Answer with the tool name only), maybe they just want us to state which tool we would call, not necessarily provide arguments. But typical pattern: When asked to do something, you output the tool calls in JSON format inside tool_call tags. The user says \"只回答要调用的工具名。\" meaning \"Only answer with the tool name(s) you need to call.\" So maybe just list the function name.\n\nThus we might need to decide which tool(s). For declaring customs value for TRK-65140, the relevant tool is `customs.declare_value`. But we also need amount. Could it be that the amount parameter is optional? The schema says required: [\"tracking_no\", \"amount\"]. So no.\n\nMaybe there's a default or previous context? Not given.\n\nLet's think: Perhaps the user expects us to use `logistics.trace_shipment` first to get tracking details including value? But not listed. Or maybe we can infer from order ID and SKU? Unlikely.\n\nGiven the limited info, I'll assume that the tool call should be made with available parameters; perhaps amount is optional in practice but schema says required. Could there be a mistake? Let's check other functions: `labels.generate` requires order_id. We have order ORD-2025. But not needed for customs declaration.\n\nMaybe we can combine: To declare customs value",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 621,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"logistics.trace_shipment\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-1 ::= (\"<function=\" \"logistics.reroute_shipment\" \">\\n\") (tool-1-arg-0) \"</function>\\n\"\ntool-1-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-2 ::= (\"<function=\" \"logistics.estimate_delivery\" \">\\n\") (tool-2-arg-0) \"</function>\\n\"\ntool-2-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-3 ::= (\"<function=\" \"addresses.validate\" \">\\n\") (tool-3-arg-0) \"</function>\\n\"\ntool-3-arg-0 ::= (\"<parameter=\" \"address_id\" \">\\n\") xml-arg-string\ntool-4 ::= (\"<function=\" \"customs.declare_value\" \">\\n\") tool-4-args-3 \"</function>\\n\"\ntool-4-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-4-arg-1 ::= (\"<parameter=\" \"amount\" \">\\n\") tool-4-arg-1-schema \"\\n</parameter>\\n\"\ntool-4-arg-1-schema ::= \"{\" space tool-4-arg-1-schema-value-kv \",\" space tool-4-arg-1-schema-unit-kv space \"}\"\ntool-4-arg-1-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-4-arg-1-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-4-arg-1-schema-unit\ntool-4-arg-1-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-4-args-1 ::= tool-4-arg-0\ntool-4-args-2 ::= tool-4-arg-1\ntool-4-args-3 ::= tool-4-arg-0 tool-4-args-2 | tool-4-arg-1 tool-4-args-1\ntool-5 ::= (\"<function=\" \"labels.generate\" \">\\n\") (tool-5-arg-0) \"</function>\\n\"\ntool-5-arg-0 ::= (\"<parameter=\" \"order_id\" \">\\n\") xml-arg-string\ntool-6 ::= (\"<function=\" \"couriers.list_rates\" \">\\n\") (tool-6-arg-0) \"</function>\\n\"\ntool-6-arg-0 ::= (\"<parameter=\" \"zone\" \">\\n\") xml-arg-string\ntool-7 ::= (\"<function=\" \"escalations.open_case\" \">\\n\") (tool-7-arg-0) \"</function>\\n\"\ntool-7-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0 | tool-1 | tool-2 | tool-3 | tool-4 | tool-5 | tool-6 | tool-7) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"logistics.trace_shipment\", \"description\": \"追踪物流 / trace a shipment\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}\n{\"name\": \"logistics.reroute_shipment\", \"description\": \"改派物流 / reroute a shipment\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}\n{\"name\": \"logistics.estimate_delivery\", \"description\": \"预估送达 / estimate delivery\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}\n{\"name\": \"addresses.validate\", \"description\": \"校验地址 / validate an address\", \"parameters\": {\"type\": \"object\", \"properties\": {\"address_id\": {\"type\": \"string\"}}, \"required\": [\"address_id\"], \"additionalProperties\": false}}\n{\"name\": \"customs.declare_value\", \"description\": \"申报价值 / declare customs value\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}, \"amount\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}}, \"required\": [\"tracking_no\", \"amount\"], \"additionalProperties\": false}}\n{\"name\": \"labels.generate\", \"description\": \"生成面单 / generate a label\", \"parameters\": {\"type\": \"object\", \"properties\": {\"order_id\": {\"type\": \"string\"}}, \"required\": [\"order_id\"], \"additionalProperties\": false}}\n{\"name\": \"couriers.list_rates\", \"description\": \"查询运费 / list courier rates\", \"parameters\": {\"type\": \"object\", \"properties\": {\"zone\": {\"type\": \"string\"}}, \"required\": [\"zone\"], \"additionalProperties\": false}}\n{\"name\": \"escalations.open_case\", \"description\": \"开升级单 / open an escalation case\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\n已知 / known: order ORD-2025, customer C-77, sku SKU-8806, tracking TRK-65140.\n为 TRK-65140 申报关税价值。 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1644,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 621,
+      "prompt_ms": 81.607,
+      "prompt_per_token_ms": 0.13141223832528182,
+      "prompt_per_second": 7609.641329787886,
+      "predicted_n": 1024,
+      "predicted_ms": 5979.539,
+      "predicted_per_token_ms": 5.845101661779081,
+      "predicted_per_second": 171.08342298628708
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 621,
+     "prompt_ms": 81.607,
+     "prompt_per_token_ms": 0.13141223832528182,
+     "prompt_per_second": 7609.641329787886,
+     "predicted_n": 1024,
+     "predicted_ms": 5979.539,
+     "predicted_per_token_ms": 5.845101661779081,
+     "predicted_per_second": 171.08342298628708
+    }
+   },
+   "http_error": null,
+   "latency_s": 6.078
+  }
+ ]
+}

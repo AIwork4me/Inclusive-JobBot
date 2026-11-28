@@ -1,0 +1,145 @@
+{
+ "trial_id": "e6042fe81658d911490fe9ab",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "We need to generate a full action for order ORD-2025: amount 89.5 CNY, reason late_delivery.\n\nFirst, understand what actions are needed. The user says \"Order ORD-2025: amount 89.5 CNY, reason late_delivery.\" This likely means we need to handle the issue of late delivery. Possibly we need to check if it's eligible for refund? Or maybe trace shipment? Let's see available tools.\n\nTools:\n1. orders.lookup_order\n2. orders.cancel_order\n3. orders.get_refund_eligibility\n4. refunds.submit\n5. customers.get_profile\n6. logistics.trace_shipment\n7. inventory.check_stock\n8. notify.send_update\n\nWe need to decide the appropriate sequence.\n\nGiven reason \"late_delivery\", typical actions might be: check order details, maybe trace shipment to see delay, check refund eligibility if applicable, then possibly submit refund or cancel? But we don't have explicit instruction. The prompt says \"Generate complete action: tool and all arguments.\" So we need to pick the tool(s) that should be called with parameters.\n\nWe must infer from context. Usually in such tasks, you need to perform a series of"
+      }
+     }
+    ],
+    "created": 1795792987,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 256,
+     "prompt_tokens": 126,
+     "total_tokens": 382,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-ZnL43dW2vrXzlvFsSckntNOZKl39GW1k",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to generate a full action for order ORD-2025: amount 89.5 CNY, reason late_delivery.\n\nFirst, understand what actions are needed. The user says \"Order ORD-2025: amount 89.5 CNY, reason late_delivery.\" This likely means we need to handle the issue of late delivery. Possibly we need to check if it's eligible for refund? Or maybe trace shipment? Let's see available tools.\n\nTools:\n1. orders.lookup_order\n2. orders.cancel_order\n3. orders.get_refund_eligibility\n4. refunds.submit\n5. customers.get_profile\n6. logistics.trace_shipment\n7. inventory.check_stock\n8. notify.send_update\n\nWe need to decide the appropriate sequence.\n\nGiven reason \"late_delivery\", typical actions might be: check order details, maybe trace shipment to see delay, check refund eligibility if applicable, then possibly submit refund or cancel? But we don't have explicit instruction. The prompt says \"Generate complete action: tool and all arguments.\" So we need to pick the tool(s) that should be called with parameters.\n\nWe must infer from context. Usually in such tasks, you need to perform a series of",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 256,
+     "tokens_evaluated": 126,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 256,
+      "n_predict": 256,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think></think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\nOrder ORD-2025: amount 89.5 CNY, reason late_delivery.\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\nTools:\n1. orders.lookup_order\n2. orders.cancel_order\n3. orders.get_refund_eligibility\n4. refunds.submit\n5. customers.get_profile\n6. logistics.trace_shipment\n7. inventory.check_stock\n8. notify.send_update\nAnswer with the NUMBER of the tool to call only (1-8).<|im_end|>\n<|im_start|>assistant\n<think></think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 381,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 126,
+      "prompt_ms": 37.606,
+      "prompt_per_token_ms": 0.2984603174603175,
+      "prompt_per_second": 3350.5291708769873,
+      "predicted_n": 256,
+      "predicted_ms": 1480.74,
+      "predicted_per_token_ms": 5.806823529411765,
+      "predicted_per_second": 172.21119170144655
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 126,
+     "prompt_ms": 37.606,
+     "prompt_per_token_ms": 0.2984603174603175,
+     "prompt_per_second": 3350.5291708769873,
+     "predicted_n": 256,
+     "predicted_ms": 1480.74,
+     "predicted_per_token_ms": 5.806823529411765,
+     "predicted_per_second": 172.21119170144655
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.546
+  }
+ ]
+}

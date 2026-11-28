@@ -1,0 +1,154 @@
+{
+ "trial_id": "3ab3611a36a5d011505e00ca",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"tool\": \"inventory.adjust_stock\",\n  \"sku\": \"SKU-8806\",\n  \"quantity\": {\n    \"value\": 3,\n    \"unit\": \"pcs\"\n  }\n}",
+       "reasoning_content": "We need to produce a \"full action: tool and all arguments.\" The user says: \"商品 SKU-8806：数量变动 3 pcs。 Available tools: ... 生成完整动作：工具与全部参数。\" So they want to generate a full action: tool and all arguments. The context: There's a SKU-8806 with quantity change of 3 pcs. They have tools: inventory.check_stock, inventory.adjust_stock, inventory.reserve_stock, warehouse.locate_bin, receiving.log_arrival, picking.create_task, reports.export_snapshot, alerts.raise_low_stock. They want to produce a full action: tool and all arguments. Likely they want to call inventory.adjust_stock with sku=SKU-8806, quantity=3? Or maybe they want to adjust stock by 3 pcs. The phrase \"数量变动 3 pcs\" means quantity change of 3 pcs. So we need to adjust stock by 3. The tool inventory.adjust_stock takes params: sku, quantity. So the action would be inventory.adjust_stock(sku=\"SKU-8806\", quantity=3). But maybe they want to check stock"
+      }
+     }
+    ],
+    "created": 1795797580,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 307,
+     "prompt_tokens": 214,
+     "total_tokens": 521,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-Ov4zZSPwoOWP8trAIIipvLQuqK8aQjP6",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to produce a \"full action: tool and all arguments.\" The user says: \"商品 SKU-8806：数量变动 3 pcs。 Available tools: ... 生成完整动作：工具与全部参数。\" So they want to generate a full action: tool and all arguments. The context: There's a SKU-8806 with quantity change of 3 pcs. They have tools: inventory.check_stock, inventory.adjust_stock, inventory.reserve_stock, warehouse.locate_bin, receiving.log_arrival, picking.create_task, reports.export_snapshot, alerts.raise_low_stock. They want to produce a full action: tool and all arguments. Likely they want to call inventory.adjust_stock with sku=SKU-8806, quantity=3? Or maybe they want to adjust stock by 3 pcs. The phrase \"数量变动 3 pcs\" means quantity change of 3 pcs. So we need to adjust stock by 3. The tool inventory.adjust_stock takes params: sku, quantity. So the action would be inventory.adjust_stock(sku=\"SKU-8806\", quantity=3). But maybe they want to check stock</think>\n{\n  \"tool\": \"inventory.adjust_stock\",\n  \"sku\": \"SKU-8806\",\n  \"quantity\": {\n    \"value\": 3,\n    \"unit\": \"pcs\"\n  }\n}",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 307,
+     "tokens_evaluated": 214,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "char ::= [^\"\\\\\\x7F\\x00-\\x1F] | [\\\\] ([\"\\\\bfnrt] | \"u\" [0-9a-fA-F]{4})\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nresponse-format ::= \"{\" space response-format-tool-kv \",\" space response-format-sku-kv \",\" space response-format-quantity-kv space \"}\"\nresponse-format-quantity ::= \"{\" space response-format-quantity-value-kv \",\" space response-format-quantity-unit-kv space \"}\"\nresponse-format-quantity-kv ::= \"\\\"quantity\\\"\" space \":\" space response-format-quantity\nresponse-format-quantity-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\nresponse-format-quantity-unit-kv ::= \"\\\"unit\\\"\" space \":\" space response-format-quantity-unit\nresponse-format-quantity-value-kv ::= \"\\\"value\\\"\" space \":\" space number\nresponse-format-sku-kv ::= \"\\\"sku\\\"\" space \":\" space string\nresponse-format-tool ::= (\"\\\"inventory.check_stock\\\"\" | \"\\\"inventory.adjust_stock\\\"\" | \"\\\"inventory.reserve_stock\\\"\" | \"\\\"warehouse.locate_bin\\\"\" | \"\\\"receiving.log_arrival\\\"\" | \"\\\"picking.create_task\\\"\" | \"\\\"reports.export_snapshot\\\"\" | \"\\\"alerts.raise_low_stock\\\"\")\nresponse-format-tool-kv ::= \"\\\"tool\\\"\" space \":\" space response-format-tool\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nstring ::= \"\\\"\" char* \"\\\"\"\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n商品 SKU-8806：数量变动 3 pcs。\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 520,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 214,
+      "prompt_ms": 47.934,
+      "prompt_per_token_ms": 0.22399065420560746,
+      "prompt_per_second": 4464.471982309008,
+      "predicted_n": 307,
+      "predicted_ms": 1770.212,
+      "predicted_per_token_ms": 5.785006535947712,
+      "predicted_per_second": 172.86065171855122
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 214,
+     "prompt_ms": 47.934,
+     "prompt_per_token_ms": 0.22399065420560746,
+     "prompt_per_second": 4464.471982309008,
+     "predicted_n": 307,
+     "predicted_ms": 1770.212,
+     "predicted_per_token_ms": 5.785006535947712,
+     "predicted_per_second": 172.86065171855122
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.828
+  }
+ ]
+}

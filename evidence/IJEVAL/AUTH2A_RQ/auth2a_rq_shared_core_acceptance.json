@@ -1,0 +1,20 @@
+{
+ "schema": "ijeval.auth2a_rq.acceptance.v1",
+ "verdict": "ACCEPTED",
+ "basis": {
+  "gate": "N03_SHARED_EVALUATION_ASSURANCE_CORE_GO",
+  "ea18_artifact_sha256": "7afb3cc848f6bcede0e56b914348a0a5664b66b18088c81de626688868ca8a25",
+  "fresh_gates": "re-executed live at this revision (fresh_gates.json)",
+  "revoked_predecessor": "512efb617a9cb4c8 revoked 2026-11-28T04:04:08Z (reason: drill, 48H-B-006); recovery is REQUALIFICATION-ONLY — nothing un-revoked"
+ },
+ "requirements_map": {
+  "shared EAE core protection gates": "Wave B + Wave C (EA18, unchanged)",
+  "Batch A semantic qualification": "fresh live GT 160/160",
+  "Batch A dual-path closure": "fresh live witness sweep, 0 failures",
+  "EA13 cognitive qualification": "8/8 (evidence/IJEVAL/EA13)",
+  "canary integration": "fresh full-family sweep through the real Batch A legs (passed)",
+  "breaker containment": "restart-safe, requalification-only recovery (passed)"
+ },
+ "scope_limits": "development split only; protected confirmation NOT covered; physical runtime identities must match the IJ-NANO model registry",
+ "verified_utc": "2026-11-28T05:21:40Z"
+}

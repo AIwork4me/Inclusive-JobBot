@@ -1,0 +1,154 @@
+{
+ "trial_id": "fe25f67c0b2690f723b0305d",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "1.  **分析请求：**\n    *   上下文：`sku = SKU-8806. 工具已选定: inventory.check_stock. / Tool already chosen: inventory.check_stock.` 和 `The answer is the value of the slot 'sku' (type entity).`"
+      }
+     }
+    ],
+    "created": 1795795968,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 64,
+     "prompt_tokens": 82,
+     "total_tokens": 146,
+     "prompt_tokens_details": {
+      "cached_tokens": 81
+     }
+    },
+    "id": "chatcmpl-5ubJUEs4Td0UEdPWgxKGJQqTRzrjDnrC",
+    "__verbose": {
+     "index": 0,
+     "content": "1.  **分析请求：**\n    *   上下文：`sku = SKU-8806. 工具已选定: inventory.check_stock. / Tool already chosen: inventory.check_stock.` 和 `The answer is the value of the slot 'sku' (type entity).`",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 64,
+     "tokens_evaluated": 82,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 64,
+      "n_predict": 64,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "char ::= [^\"\\\\\\x7F\\x00-\\x1F] | [\\\\] ([\"\\\\bfnrt] | \"u\" [0-9a-fA-F]{4})\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-value-kv space \"}\"\nresponse-format-value-kv ::= \"\\\"value\\\"\" space \":\" space string\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nstring ::= \"\\\"\" char* \"\\\"\"\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n上下文 / context: sku = SKU-8806. 工具已选定: inventory.check_stock. / Tool already chosen: inventory.check_stock.\nThe answer is the value of the slot 'sku' (type entity).\n查库存，商品编号在上下文里。 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 145,
+     "timings": {
+      "cache_n": 81,
+      "prompt_n": 1,
+      "prompt_ms": 10.305,
+      "prompt_per_token_ms": 10.305,
+      "prompt_per_second": 97.0402717127608,
+      "predicted_n": 64,
+      "predicted_ms": 341.399,
+      "predicted_per_token_ms": 5.419031746031746,
+      "predicted_per_second": 184.5348111740222
+     }
+    },
+    "timings": {
+     "cache_n": 81,
+     "prompt_n": 1,
+     "prompt_ms": 10.305,
+     "prompt_per_token_ms": 10.305,
+     "prompt_per_second": 97.0402717127608,
+     "predicted_n": 64,
+     "predicted_ms": 341.399,
+     "predicted_per_token_ms": 5.419031746031746,
+     "predicted_per_second": 184.5348111740222
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.359
+  }
+ ]
+}

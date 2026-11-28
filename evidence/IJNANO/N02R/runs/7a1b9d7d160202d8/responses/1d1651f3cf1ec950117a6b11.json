@@ -1,0 +1,154 @@
+{
+ "trial_id": "1d1651f3cf1ec950117a6b11",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "1.  **分析输入：**\n    *   **策略 / policy：** order age 47 days, policy limit 30. (订单年龄 47 天，策略限制 30 天。)\n    *   **实况 / observation：** n = 47. (观察样本量 n = 47。)\n    *   **允许的分支：** auto_approve, requires_manager_approval, reject_out_of_policy. (允许的分支：auto_approve, requires_manager_approval, reject_out_of_policy。)\n    *   **任务：** 判断应走的分支。 (判断应走的分支。)\n\n2.  **分析策略与实况：**\n    *   *策略：* 订单年龄不能超过 30 天。\n    *   *实况：* 订单年龄为 47 天。\n    *   *比较：* 47 > 30。\n    *   *结论：* 订单超出了策略限制。\n\n3.  **评估允许的分支：**\n    *   *auto_approve：* 自动批准。这适用于符合策略的订单。由于订单超出了策略限制，这不适用。\n    *   *requires_manager_approval：* 需要经理批准。这适用于符合策略但需要人工干预的订单。由于订单超出了策略限制，这不适用。\n    *   *reject_out_of_policy：* 拒绝超出策略的订单。由于订单年龄为 47 天（> 30 天），它超出了策略限制，因此应拒绝。\n\n4.  **形成输出：**\n    *   确定正确的分支：`reject_out_of_policy`。\n    *   提供简短的解释以使其清晰明了。\n\n5.  **起草回复（内心独白/草稿）：**\n    *   正确的分支是 `reject_out_of_policy`。\n    *   解释：策略规定订单年龄不能超过 30 天。实况显示订单年龄为 47 天。由于 47 > 30，订单超出了策略限制，因此应拒绝。\n\n6.  **最终润色（中文）：**\n    判断应走的分支是：`reject_out_of_policy`。\n\n    **推理过程：**\n    *   **策略要求：** 订单年龄不能超过 30 天。\n    *   **实况：** 订单年龄为 47 天。\n    *   **判断：** 47 > 30，订单超出了策略限制。\n    *   **"
+      }
+     }
+    ],
+    "created": 1795796013,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 512,
+     "prompt_tokens": 70,
+     "total_tokens": 582,
+     "prompt_tokens_details": {
+      "cached_tokens": 69
+     }
+    },
+    "id": "chatcmpl-X9quwjylx7cXInjTbF2pLnqVFKr1KLYk",
+    "__verbose": {
+     "index": 0,
+     "content": "1.  **分析输入：**\n    *   **策略 / policy：** order age 47 days, policy limit 30. (订单年龄 47 天，策略限制 30 天。)\n    *   **实况 / observation：** n = 47. (观察样本量 n = 47。)\n    *   **允许的分支：** auto_approve, requires_manager_approval, reject_out_of_policy. (允许的分支：auto_approve, requires_manager_approval, reject_out_of_policy。)\n    *   **任务：** 判断应走的分支。 (判断应走的分支。)\n\n2.  **分析策略与实况：**\n    *   *策略：* 订单年龄不能超过 30 天。\n    *   *实况：* 订单年龄为 47 天。\n    *   *比较：* 47 > 30。\n    *   *结论：* 订单超出了策略限制。\n\n3.  **评估允许的分支：**\n    *   *auto_approve：* 自动批准。这适用于符合策略的订单。由于订单超出了策略限制，这不适用。\n    *   *requires_manager_approval：* 需要经理批准。这适用于符合策略但需要人工干预的订单。由于订单超出了策略限制，这不适用。\n    *   *reject_out_of_policy：* 拒绝超出策略的订单。由于订单年龄为 47 天（> 30 天），它超出了策略限制，因此应拒绝。\n\n4.  **形成输出：**\n    *   确定正确的分支：`reject_out_of_policy`。\n    *   提供简短的解释以使其清晰明了。\n\n5.  **起草回复（内心独白/草稿）：**\n    *   正确的分支是 `reject_out_of_policy`。\n    *   解释：策略规定订单年龄不能超过 30 天。实况显示订单年龄为 47 天。由于 47 > 30，订单超出了策略限制，因此应拒绝。\n\n6.  **最终润色（中文）：**\n    判断应走的分支是：`reject_out_of_policy`。\n\n    **推理过程：**\n    *   **策略要求：** 订单年龄不能超过 30 天。\n    *   **实况：** 订单年龄为 47 天。\n    *   **判断：** 47 > 30，订单超出了策略限制。\n    *   **",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 512,
+     "tokens_evaluated": 70,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 512,
+      "n_predict": 512,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-branch-kv space \"}\"\nresponse-format-branch ::= (\"\\\"auto_approve\\\"\" | \"\\\"requires_manager_approval\\\"\" | \"\\\"reject_out_of_policy\\\"\")\nresponse-format-branch-kv ::= \"\\\"branch\\\"\" space \":\" space response-format-branch\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n策略 / policy: order age 47 days, policy limit 30. 实况 / observation: n = 47.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 581,
+     "timings": {
+      "cache_n": 69,
+      "prompt_n": 1,
+      "prompt_ms": 10.063,
+      "prompt_per_token_ms": 10.063,
+      "prompt_per_second": 99.37394415184338,
+      "predicted_n": 512,
+      "predicted_ms": 2840.445,
+      "predicted_per_token_ms": 5.558600782778865,
+      "predicted_per_second": 179.90138869085652
+     }
+    },
+    "timings": {
+     "cache_n": 69,
+     "prompt_n": 1,
+     "prompt_ms": 10.063,
+     "prompt_per_token_ms": 10.063,
+     "prompt_per_second": 99.37394415184338,
+     "predicted_n": 512,
+     "predicted_ms": 2840.445,
+     "predicted_per_token_ms": 5.558600782778865,
+     "predicted_per_second": 179.90138869085652
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.875
+  }
+ ]
+}

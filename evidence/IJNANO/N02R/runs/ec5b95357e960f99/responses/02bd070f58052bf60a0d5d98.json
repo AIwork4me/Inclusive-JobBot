@@ -1,0 +1,164 @@
+{
+ "trial_id": "02bd070f58052bf60a0d5d98",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，让我看看。用户提到上下文中的 stated quantity 是 25 pcs。工具已选定为 inventory.adjust_stock。指令说调整库存数量（说明单位）。然后说只回答参数值。\n\n等等，提供的工具是 record_answer。函数参数要求 value 是一个包含 value 和 unit 的对象。单位必须是枚举值之一：CNY、USD、EUR、pcs、kg。这里的 stated quantity 是 25 pcs，所以单位是 pcs。因此我需要调用 record_answer，参数为 value 25 和 unit pcs。\n\n等等，工具描述说“Record the chosen answer (structured answer recording, not business tool execution)。”所以即使工具已选定为 inventory.adjust_stock，用户可能需要在记录答案时指定值和单位。指令说只回答参数值，所以工具调用应包含 value 25 和 unit pcs。\n\n检查参数：record_answer 需要 value（数字）和 unit（枚举）。所以参数应为 {\"value\": 25, \"unit\": \"pcs\"}。\n\n等等，工具的参数结构是：properties.value 是一个对象，包含 value（数字）和 unit（字符串）。所以参数应该是 {\"value\": {\"value\": 25, \"unit\": \"pcs\"}}？等等，不。让我再检查一下工具定义。\n\n工具的参数是：\n\n\"parameters\": {\n  \"type\": \"object\",\n  \"properties\": {\n    \"value\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"value\": {\"type\": \"number\"},\n        \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}\n      },\n      \"required\": [\"value\", \"unit\"],\n      \"additionalProperties\": false\n    }\n  },\n  \"required\": [\"value\"],\n  \"additionalProperties\": false\n}\n\n等等，这有点令人困惑。工具的参数是一个对象，其中有一个属性 \"value\"，它本身是一个对象，包含 \"value\" 和 \"unit\"。但 required 数组包含 \"value\"，所以 \"value\" 是必需的。等等，required 数组是 [\"value\"]，所以工具期望一个 \"value\" 属性，它是一个对象。但工具的参数结构有点混乱。\n\n等等，工具的参数是：\n\n\"parameters\": {\n  \"type\": \"object\",\n  \"properties\": {\n    \"value\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"value\": {\"type\": \"number\"},\n        \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}\n      },\n      \"required\": [\"value\", \"unit\"],\n      \"additionalProperties\": false\n    }\n  },\n  \"required\": [\"value\"],\n  \"additionalProperties\": false\n}\n\n等等，这意味着工具期望一个 \"value\" 属性，它是一个对象，该对象必须包含 \"value\" 和 \"unit\"。但 required 数组说 [\"value\"]，这可能是个错误。等等，required 数组是 [\"value\"]，但 properties.value 要求 \"value\" 和 \"unit\"。所以工具调用必须包含 \"value\" 作为对象，其中包含 \"value\" 和 \"unit\"。\n\n等等，用户指令说“只回答参数值。”所以对于 record_answer，参数应该是 {\"value\": {\"value\": 25, \"unit\": \"pcs\"}}？但工具的参数结构有点令人困惑。让我再检查一下。\n\n等等，工具的参数是一个对象，其中有一个属性 \"value\"，它是一个对象，包含 \"value\"（数字）和 \"unit\"（字符串）。所以工具调用的参数应该是 {\"value\": {\"value\": 25, \"unit\": \"pcs\"}}。\n\n但用户说“stated quantity = 25 pcs”，所以 value 是 25，unit 是 pcs。因此工具调用应为 record_answer，参数为 {\"value\": {\"value\": 25, \"unit\": \"pcs\"}}。\n\n等等，但工具的 required 数组是 [\"value\"]，所以 \"value\" 是必需的，而 \"value\" 本身是一个对象。所以是的，参数必须包含 \"value\" 作为对象。\n\n因此正确的工具调用是使用 record_answer，参数为 {\"value\": {\"value\": 25, \"unit\": \"pcs\"}}。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"value\":{\"value\": 25, \"unit\": \"pcs\"}}"
+         },
+         "id": "y23uLOGstmDpbizvB0AFPbCs08eVLwUk"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795798222,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 917,
+     "prompt_tokens": 335,
+     "total_tokens": 1252,
+     "prompt_tokens_details": {
+      "cached_tokens": 35
+     }
+    },
+    "id": "chatcmpl-fVCkazyUnd8wDQbnPjxWx61b68AFqyRx",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，让我看看。用户提到上下文中的 stated quantity 是 25 pcs。工具已选定为 inventory.adjust_stock。指令说调整库存数量（说明单位）。然后说只回答参数值。\n\n等等，提供的工具是 record_answer。函数参数要求 value 是一个包含 value 和 unit 的对象。单位必须是枚举值之一：CNY、USD、EUR、pcs、kg。这里的 stated quantity 是 25 pcs，所以单位是 pcs。因此我需要调用 record_answer，参数为 value 25 和 unit pcs。\n\n等等，工具描述说“Record the chosen answer (structured answer recording, not business tool execution)。”所以即使工具已选定为 inventory.adjust_stock，用户可能需要在记录答案时指定值和单位。指令说只回答参数值，所以工具调用应包含 value 25 和 unit pcs。\n\n检查参数：record_answer 需要 value（数字）和 unit（枚举）。所以参数应为 {\"value\": 25, \"unit\": \"pcs\"}。\n\n等等，工具的参数结构是：properties.value 是一个对象，包含 value（数字）和 unit（字符串）。所以参数应该是 {\"value\": {\"value\": 25, \"unit\": \"pcs\"}}？等等，不。让我再检查一下工具定义。\n\n工具的参数是：\n\n\"parameters\": {\n  \"type\": \"object\",\n  \"properties\": {\n    \"value\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"value\": {\"type\": \"number\"},\n        \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}\n      },\n      \"required\": [\"value\", \"unit\"],\n      \"additionalProperties\": false\n    }\n  },\n  \"required\": [\"value\"],\n  \"additionalProperties\": false\n}\n\n等等，这有点令人困惑。工具的参数是一个对象，其中有一个属性 \"value\"，它本身是一个对象，包含 \"value\" 和 \"unit\"。但 required 数组包含 \"value\"，所以 \"value\" 是必需的。等等，required 数组是 [\"value\"]，所以工具期望一个 \"value\" 属性，它是一个对象。但工具的参数结构有点混乱。\n\n等等，工具的参数是：\n\n\"parameters\": {\n  \"type\": \"object\",\n  \"properties\": {\n    \"value\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"value\": {\"type\": \"number\"},\n        \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}\n      },\n      \"required\": [\"value\", \"unit\"],\n      \"additionalProperties\": false\n    }\n  },\n  \"required\": [\"value\"],\n  \"additionalProperties\": false\n}\n\n等等，这意味着工具期望一个 \"value\" 属性，它是一个对象，该对象必须包含 \"value\" 和 \"unit\"。但 required 数组说 [\"value\"]，这可能是个错误。等等，required 数组是 [\"value\"]，但 properties.value 要求 \"value\" 和 \"unit\"。所以工具调用必须包含 \"value\" 作为对象，其中包含 \"value\" 和 \"unit\"。\n\n等等，用户指令说“只回答参数值。”所以对于 record_answer，参数应该是 {\"value\": {\"value\": 25, \"unit\": \"pcs\"}}？但工具的参数结构有点令人困惑。让我再检查一下。\n\n等等，工具的参数是一个对象，其中有一个属性 \"value\"，它是一个对象，包含 \"value\"（数字）和 \"unit\"（字符串）。所以工具调用的参数应该是 {\"value\": {\"value\": 25, \"unit\": \"pcs\"}}。\n\n但用户说“stated quantity = 25 pcs”，所以 value 是 25，unit 是 pcs。因此工具调用应为 record_answer，参数为 {\"value\": {\"value\": 25, \"unit\": \"pcs\"}}。\n\n等等，但工具的 required 数组是 [\"value\"]，所以 \"value\" 是必需的，而 \"value\" 本身是一个对象。所以是的，参数必须包含 \"value\" 作为对象。\n\n因此正确的工具调用是使用 record_answer，参数为 {\"value\": {\"value\": 25, \"unit\": \"pcs\"}}。\n</think>\n\n<function name=\"record_answer\"><param name=\"value\">{\"value\": 25, \"unit\": \"pcs\"}</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 917,
+     "tokens_evaluated": 335,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "decimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"value\" \"\\\">\") tool-0-arg-0-schema \"</param>\") space)* space \"</function>\"\ntool-0-arg-0-schema ::= \"{\" space tool-0-arg-0-schema-value-kv \",\" space tool-0-arg-0-schema-unit-kv space \"}\"\ntool-0-arg-0-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-0-arg-0-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-0-arg-0-schema-unit\ntool-0-arg-0-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}}, \"required\": [\"value\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n上下文 / context: stated quantity = 25 pcs. 工具已选定: inventory.adjust_stock. / Tool already chosen: inventory.adjust_stock.\nAdjust stock by the stated quantity (state the unit). 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 1251,
+     "timings": {
+      "cache_n": 35,
+      "prompt_n": 300,
+      "prompt_ms": 55.229,
+      "prompt_per_token_ms": 0.18409666666666666,
+      "prompt_per_second": 5431.928877944558,
+      "predicted_n": 917,
+      "predicted_ms": 5076.952,
+      "predicted_per_token_ms": 5.542524017467249,
+      "predicted_per_second": 180.42321455865644
+     }
+    },
+    "timings": {
+     "cache_n": 35,
+     "prompt_n": 300,
+     "prompt_ms": 55.229,
+     "prompt_per_token_ms": 0.18409666666666666,
+     "prompt_per_second": 5431.928877944558,
+     "predicted_n": 917,
+     "predicted_ms": 5076.952,
+     "predicted_per_token_ms": 5.542524017467249,
+     "predicted_per_second": 180.42321455865644
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.156
+  }
+ ]
+}

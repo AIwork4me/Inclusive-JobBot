@@ -1,0 +1,162 @@
+{
+ "trial_id": "3f81f7d74b7c2a4a1918bee1",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "用户需要我根据给定的策略和观察来判断应该走哪个分支。\n\n让我分析一下：\n- 策略/policy: order age 30 days, policy limit 30\n- 实况/observation: n = 30\n\n这里n=30表示当前订单年龄是30天。\n\n策略要求：order age 30 days\n观察：n = 30\n\n所以n=30正好等于策略要求的30天，应该走哪个分支呢？\n\n通常在这种决策树或分支逻辑中：\n- 如果n >= 30，可能走某个分支\n- 如果n < 30，可能走另一个分支\n\n但这里n=30，正好等于策略的limit。\n\n让我思考一下可能的分支：\n- 如果n >= 30，可能是\"requires_manager_approval\"（需要经理批准）\n- 如果n < 30，可能是\"reject_out_of_policy\"（不符合政策）\n\n由于n=30，正好等于policy limit，这通常意味着：\n1. 如果n >= policy limit，可能需要经理批准\n2. 如果n < policy limit，可能直接拒绝\n\n但这里n=30，正好等于limit。\n\n在常见的决策逻辑中，如果n等于或超过policy limit，通常会走\"requires_manager_approval\"分支。\n\n所以我认为应该选择\"requires_manager_approval\"分支。\n\n让我确认一下：\n- 策略要求：order age 30 days\n- 观察：n = 30\n- 30 >= 30，所以应该走requires_manager_approval分支\n\n我应该选择\"requires_manager_approval\"分支。",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"branch\":\"requires_manager_approval\"}"
+         },
+         "id": "Etz7ALXrOK799w7CML70UZlSKlmWawfo"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795794734,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 380,
+     "prompt_tokens": 340,
+     "total_tokens": 720,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-cETO6PLiVks4dKv75DFQoWU7InzJfWcu",
+    "__verbose": {
+     "index": 0,
+     "content": "用户需要我根据给定的策略和观察来判断应该走哪个分支。\n\n让我分析一下：\n- 策略/policy: order age 30 days, policy limit 30\n- 实况/observation: n = 30\n\n这里n=30表示当前订单年龄是30天。\n\n策略要求：order age 30 days\n观察：n = 30\n\n所以n=30正好等于策略要求的30天，应该走哪个分支呢？\n\n通常在这种决策树或分支逻辑中：\n- 如果n >= 30，可能走某个分支\n- 如果n < 30，可能走另一个分支\n\n但这里n=30，正好等于策略的limit。\n\n让我思考一下可能的分支：\n- 如果n >= 30，可能是\"requires_manager_approval\"（需要经理批准）\n- 如果n < 30，可能是\"reject_out_of_policy\"（不符合政策）\n\n由于n=30，正好等于policy limit，这通常意味着：\n1. 如果n >= policy limit，可能需要经理批准\n2. 如果n < policy limit，可能直接拒绝\n\n但这里n=30，正好等于limit。\n\n在常见的决策逻辑中，如果n等于或超过policy limit，通常会走\"requires_manager_approval\"分支。\n\n所以我认为应该选择\"requires_manager_approval\"分支。\n\n让我确认一下：\n- 策略要求：order age 30 days\n- 观察：n = 30\n- 30 >= 30，所以应该走requires_manager_approval分支\n\n我应该选择\"requires_manager_approval\"分支。\n</think>\n\n<tool_call>\n<function=record_answer>\n<parameter=branch>\nrequires_manager_approval\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 380,
+     "tokens_evaluated": 340,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"branch\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 248058
+       }
+      ],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>system\n# Tools\n\nYou have access to the following functions:\n\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"branch\": {\"type\": \"string\", \"enum\": [\"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\"]}}, \"required\": [\"branch\"], \"additionalProperties\": false}}}\n</tools>\n\nIf you choose to call a function ONLY reply in the following format with NO suffix:\n\n<tool_call>\n<function=example_function_name>\n<parameter=example_parameter_1>\nvalue_1\n</parameter>\n<parameter=example_parameter_2>\nThis is the value for the second parameter\nthat can span\nmultiple lines\n</parameter>\n</function>\n</tool_call>\n\n<IMPORTANT>\nReminder:\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\n- Required parameters MUST be specified\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n策略 / policy: order age 30 days, policy limit 30. 实况 / observation: n = 30.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 719,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 340,
+      "prompt_ms": 71.706,
+      "prompt_per_token_ms": 0.2109,
+      "prompt_per_second": 4741.58368895211,
+      "predicted_n": 380,
+      "predicted_ms": 1846.87,
+      "predicted_per_token_ms": 4.873007915567282,
+      "predicted_per_second": 205.2120614878145
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 340,
+     "prompt_ms": 71.706,
+     "prompt_per_token_ms": 0.2109,
+     "prompt_per_second": 4741.58368895211,
+     "predicted_n": 380,
+     "predicted_ms": 1846.87,
+     "predicted_per_token_ms": 4.873007915567282,
+     "predicted_per_second": 205.2120614878145
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.938
+  }
+ ]
+}

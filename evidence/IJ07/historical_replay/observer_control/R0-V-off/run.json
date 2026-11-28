@@ -1,0 +1,78 @@
+{
+  "run_id": "ij07-historical-6f36c5f27e534c16aac881b77b0ce186",
+  "started_utc": "2026-11-24T12:37:22+00:00",
+  "fingerprint": "706376f921af0fdb6d36e41ba12f685e3cefd49b4412907836f6d7ec1309417f",
+  "configuration": {
+    "arm": "R0-V",
+    "backend": "vulkan",
+    "engine": {
+      "exe_sha256": "2cbd97e2659f0578313fecb8cd7f311fb88c410fad3a4967c98be1aa697778a0",
+      "dll_sha256": {
+        "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+        "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+        "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+        "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+        "llama-common.dll": "aef88e8589e0eb4a7998bd50bdbd7eb294898fdd40b7a2a44435ae9666e08288",
+        "llama-server-impl.dll": "81f302e71ecd92a6cdee8265fa9d73706e6ec8bba8f3e4d9ded26e2b0847ea24",
+        "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+        "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e"
+      }
+    },
+    "dataset_sha256": "ce6bf6bf433baab69e511328faae42c34d6a245e44dfd432e2a30f94c84e6add",
+    "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "modelscope_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+    "case_ids": [
+      "tc-seq-0001",
+      "tc-seq-0043",
+      "tc-stream-0001"
+    ],
+    "sdk_installed": "0.1.24",
+    "sdk_used": false,
+    "git": {
+      "commit": "617b87104640ff6871c4b9914bf4d6a21244537a",
+      "dirty": false
+    },
+    "code_sha256": {
+      "historical_replay.py": "12e59fe722dea8b32e0297092e2f8f977d427d8aac630552beee5857b1defadb",
+      "generation_capture.py": "682ca9ab2743eb68f893f6c3889ce0bfff928375b01317f8a0b0e3671daed8ca",
+      "run_benchmark.py": "44c3a76ca9372800910205f323693378dbaa8649b434845dcbd20ee6cf43b446",
+      "llama-b12359-generation-observer.patch": "b09a4b23da7c26418547db258940091d2458be1fe03a97328f90c91684db8805"
+    },
+    "port": 8094,
+    "observe": false
+  },
+  "sessions": [
+    {
+      "pid": 6752,
+      "owns_port": true,
+      "launched_utc": "2026-11-24T12:37:26+00:00",
+      "backend": "vulkan",
+      "gpu": {
+        "name": "AMD Radeon(TM) 8060S Graphics",
+        "device": "Vulkan0",
+        "architecture": "gfx1151"
+      },
+      "layers_offloaded": 43,
+      "layers_total": 43,
+      "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+      "args": [
+        "--ctx-size",
+        "8192",
+        "--parallel",
+        "1",
+        "--n-gpu-layers",
+        "99",
+        "--device",
+        "Vulkan0",
+        "--jinja",
+        "--offline",
+        "--no-webui",
+        "--verbosity",
+        "4"
+      ],
+      "template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99",
+      "counter_file": "7d2e86f662df40b5a658eb9b895e6d18-gpu.jsonl",
+      "trace_file": null
+    }
+  ]
+}

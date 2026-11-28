@@ -1,0 +1,164 @@
+{
+ "trial_id": "cffb649c14d64eb6ea3a9b25",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，让我想想。用户提供了策略和观察数据。策略说订单年龄30天，政策限制30。观察显示n=30。用户需要判断应走哪个分支。\n\n首先，我需要检查记录_answer函数。分支选项是auto_approve、requires_manager_approval、reject_out_of_policy。\n\n策略限制是30天，n=30。所以订单年龄是30天，正好达到限制。等等，政策限制是30天，所以如果订单年龄在30天内，也许允许？但策略说“order age 30 days, policy limit 30”。嗯，也许政策限制是30天，所以如果订单年龄超过30天，则拒绝。但观察显示n=30，即样本量。等等，可能这里有点混淆。\n\n等等，用户说“策略 / policy: order age 30 days, policy limit 30. 实况 / observation: n = 30.”所以策略规定订单年龄最多30天，政策限制是30。观察显示n=30，即样本量。但如何决定分支？\n\n等等，也许如果订单年龄在限制内，则自动批准。如果超过，则需要经理批准。如果超出政策限制，则拒绝。但观察显示n=30，即样本量。等等，也许这里的n=30是订单数量？或者样本量。但问题说“判断应走的分支”。\n\n等等，策略说订单年龄30天，政策限制30。所以如果订单年龄<=30，则允许。但观察显示n=30。等等，也许n=30是订单数量，但如何与年龄相关？也许用户的意思是订单年龄为30天，正好达到限制。所以允许？但政策限制是30天，所以30天是允许的。因此自动批准。\n\n等等，但函数参数是分支：auto_approve、requires_manager_approval、reject_out_of_policy。所以如果订单年龄在限制内（30天），则auto_approve。如果超过，则需要经理批准。如果超过政策限制，则拒绝。但观察显示n=30。等等，也许n=30是样本量，但策略是关于单个订单的。可能这里存在误解。\n\n等等，用户可能提供了策略和观察数据。策略：订单年龄30天，政策限制30。观察：n=30。所以样本量是30，但如何决定分支？也许如果样本量达到限制，则自动批准。或者如果订单年龄在限制内。嗯，这不清楚。\n\n等等，也许策略规定订单必须在30天内处理，政策限制是30天。观察显示n=30，即30个订单都在30天内。所以自动批准。或者如果任何订单超过30天，则拒绝。但观察说n=30，可能意味着所有订单都在限制内。所以auto_approve。\n\n或者，政策限制是30天，所以如果订单年龄超过30天，则拒绝。但观察显示n=30，即样本量。也许用户的意思是订单年龄为30天，正好达到限制，所以允许。因此分支是auto_approve。\n\n所以调用record_answer，参数branch为auto_approve。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"branch\":\"auto_approve\"}"
+         },
+         "id": "PHXw6zM7uiYcMsAOJzCx3mphd11er1ru"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795794634,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 621,
+     "prompt_tokens": 283,
+     "total_tokens": 904,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-HQri32AwePgxCZHEA20ZQeQMxpJQm2nD",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，让我想想。用户提供了策略和观察数据。策略说订单年龄30天，政策限制30。观察显示n=30。用户需要判断应走哪个分支。\n\n首先，我需要检查记录_answer函数。分支选项是auto_approve、requires_manager_approval、reject_out_of_policy。\n\n策略限制是30天，n=30。所以订单年龄是30天，正好达到限制。等等，政策限制是30天，所以如果订单年龄在30天内，也许允许？但策略说“order age 30 days, policy limit 30”。嗯，也许政策限制是30天，所以如果订单年龄超过30天，则拒绝。但观察显示n=30，即样本量。等等，可能这里有点混淆。\n\n等等，用户说“策略 / policy: order age 30 days, policy limit 30. 实况 / observation: n = 30.”所以策略规定订单年龄最多30天，政策限制是30。观察显示n=30，即样本量。但如何决定分支？\n\n等等，也许如果订单年龄在限制内，则自动批准。如果超过，则需要经理批准。如果超出政策限制，则拒绝。但观察显示n=30，即样本量。等等，也许这里的n=30是订单数量？或者样本量。但问题说“判断应走的分支”。\n\n等等，策略说订单年龄30天，政策限制30。所以如果订单年龄<=30，则允许。但观察显示n=30。等等，也许n=30是订单数量，但如何与年龄相关？也许用户的意思是订单年龄为30天，正好达到限制。所以允许？但政策限制是30天，所以30天是允许的。因此自动批准。\n\n等等，但函数参数是分支：auto_approve、requires_manager_approval、reject_out_of_policy。所以如果订单年龄在限制内（30天），则auto_approve。如果超过，则需要经理批准。如果超过政策限制，则拒绝。但观察显示n=30。等等，也许n=30是样本量，但策略是关于单个订单的。可能这里存在误解。\n\n等等，用户可能提供了策略和观察数据。策略：订单年龄30天，政策限制30。观察：n=30。所以样本量是30，但如何决定分支？也许如果样本量达到限制，则自动批准。或者如果订单年龄在限制内。嗯，这不清楚。\n\n等等，也许策略规定订单必须在30天内处理，政策限制是30天。观察显示n=30，即30个订单都在30天内。所以自动批准。或者如果任何订单超过30天，则拒绝。但观察说n=30，可能意味着所有订单都在限制内。所以auto_approve。\n\n或者，政策限制是30天，所以如果订单年龄超过30天，则拒绝。但观察显示n=30，即样本量。也许用户的意思是订单年龄为30天，正好达到限制，所以允许。因此分支是auto_approve。\n\n所以调用record_answer，参数branch为auto_approve。\n</think>\n\n<function name=\"record_answer\"><param name=\"branch\">auto_approve</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 621,
+     "tokens_evaluated": 283,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"branch\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"branch\": {\"type\": \"string\", \"enum\": [\"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\"]}}, \"required\": [\"branch\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n策略 / policy: order age 30 days, policy limit 30. 实况 / observation: n = 30.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 903,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 283,
+      "prompt_ms": 50.288,
+      "prompt_per_token_ms": 0.17769611307420494,
+      "prompt_per_second": 5627.585109767739,
+      "predicted_n": 621,
+      "predicted_ms": 3403.69,
+      "predicted_per_token_ms": 5.4898225806451615,
+      "predicted_per_second": 182.15524915606298
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 283,
+     "prompt_ms": 50.288,
+     "prompt_per_token_ms": 0.17769611307420494,
+     "prompt_per_second": 5627.585109767739,
+     "predicted_n": 621,
+     "predicted_ms": 3403.69,
+     "predicted_per_token_ms": 5.4898225806451615,
+     "predicted_per_second": 182.15524915606298
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.469
+  }
+ ]
+}

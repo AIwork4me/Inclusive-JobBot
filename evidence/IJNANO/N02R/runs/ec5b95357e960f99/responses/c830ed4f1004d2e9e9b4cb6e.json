@@ -1,0 +1,146 @@
+{
+ "trial_id": "c830ed4f1004d2e9e9b4cb6e",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to generate the full action for SKU-8806: quantity change of 3 pcs. The user says \"商品 SKU-8806：数量变动 3 pcs。\" which means \"Product SKU-8806: Quantity change 3 pcs.\" So we need to adjust inventory? Typically, a quantity change could be an increase or decrease. It doesn't specify if it's adding or removing. Usually \"数量变动 3 pcs\" might mean the stock level changed by +3 or -3? In many contexts, \"数量变动\" means change in quantity, but we need to know direction. Possibly it's a decrement (like sold out) or increment? Without more context, maybe we assume it's an increase of 3 pcs? But typical inventory adjustment: if stock is being added, you'd use reserve_stock or adjust_stock with positive quantity? Let's examine available tools:\n\n- inventory.check_stock: query stock\n- inventory.adjust_stock: adjust stock (params: sku, quantity)\n- inventory.reserve_stock: pre-reserve stock (params: sku, quantity)\n- warehouse.locate_bin: locate bin\n- receiving.log_arrival: log arrival (shipment_no)\n- picking.create_task: create picking task (order_id)\n- reports.export_snapshot: export snapshot (zone)\n- alerts.raise_low_stock: raise low-stock alert (sku)\n\nWe need to produce the full action: tool and all arguments.\n\nGiven \"数量变动 3 pcs\" for SKU-8806, we likely need to adjust stock by -3 or +3? Usually when quantity changes, you might add or subtract. Without direction, maybe it's a decrease (like sold out) but not sure. Could be that the user wants to decrement inventory by 3 units. Let's think: In many inventory systems, \"数量变动\" could mean change in quantity on hand. If they say \"数量变动 3 pcs\", I'd interpret as the stock level changed by 3 pieces. But we need to decide sign.\n\nWe can also check if there is any prior context? Not given. So maybe we should ask for clarification? However, the instruction: \"生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\" They expect us to output a single line or something like \"inventory.adjust_stock(sku='SKU-8806', quantity=3)\" or similar.\n\nBut we need to decide whether it's adjust or reserve? Usually adjusting stock means updating current inventory count after change (like adding or removing). Reserve is for setting aside but not yet allocated. If a shipment arrives, you might reserve. But here just \"数量变动\" suggests the actual quantity on hand changed. So use inventory.adjust_stock.\n\nThus: tool = inventory.adjust_stock, params: sku='SKU-8806', quantity=3? Or maybe -3? Let's see typical usage: If we have a stock of 10 and we sell 3, then new stock is 7. That would be adjust by -3. But they didn't say sold or received. Could be an incoming shipment of +3? Hard to know.\n\nMaybe the phrase \"数量变动 3 pcs\" means \"quantity change: 3 pieces\". In Chinese, \"变动\" often indicates a delta. Usually you'd specify positive for increase and negative for decrease. But they didn't give sign. Could be that it's an addition of 3 units to inventory (like receiving). However, there is also \"receiving.log_arrival\" for shipment arrival.\n\nGiven the available tools include both adjust_stock and reserve_stock, we need to pick appropriate one. Usually adjusting stock updates current quantity; reserving sets aside but not yet counted as owned? Not sure.\n\nLet's assume it's an increase (adding 3 pcs) because they might want to add new inventory. But I'm leaning towards \"adjust\" with positive number for addition, negative for removal. Without direction, maybe we can just use absolute value and mention sign? The user didn't specify plus or minus.\n\nWe could also check if there is a standard pattern: In many similar tasks, they ask \"数量变动 5 pcs\" meaning increase by 5. But I'm not certain.\n\nGiven the ambiguity, perhaps we should produce both possibilities? But instruction says \"生成完整动作：工具与全部参数。\" So likely one action.\n\nLet's examine other tools: reserve_stock might be used when you want to hold stock for a future order without reducing current inventory. adjust_stock reduces or increases actual on-hand.\n\nIf it's just a change in quantity, I'd go with adjust_stock.\n\nThus final answer: \"inventory.adjust_stock(sku='SKU-8806', quantity=3)\"? Or maybe -3?\n\nBetter to include sign based"
+      }
+     }
+    ],
+    "created": 1795797597,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 215,
+     "total_tokens": 1239,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-N3BhyNm1ZctBCKFZdfz7LYbJ30nuyq7O",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to generate the full action for SKU-8806: quantity change of 3 pcs. The user says \"商品 SKU-8806：数量变动 3 pcs。\" which means \"Product SKU-8806: Quantity change 3 pcs.\" So we need to adjust inventory? Typically, a quantity change could be an increase or decrease. It doesn't specify if it's adding or removing. Usually \"数量变动 3 pcs\" might mean the stock level changed by +3 or -3? In many contexts, \"数量变动\" means change in quantity, but we need to know direction. Possibly it's a decrement (like sold out) or increment? Without more context, maybe we assume it's an increase of 3 pcs? But typical inventory adjustment: if stock is being added, you'd use reserve_stock or adjust_stock with positive quantity? Let's examine available tools:\n\n- inventory.check_stock: query stock\n- inventory.adjust_stock: adjust stock (params: sku, quantity)\n- inventory.reserve_stock: pre-reserve stock (params: sku, quantity)\n- warehouse.locate_bin: locate bin\n- receiving.log_arrival: log arrival (shipment_no)\n- picking.create_task: create picking task (order_id)\n- reports.export_snapshot: export snapshot (zone)\n- alerts.raise_low_stock: raise low-stock alert (sku)\n\nWe need to produce the full action: tool and all arguments.\n\nGiven \"数量变动 3 pcs\" for SKU-8806, we likely need to adjust stock by -3 or +3? Usually when quantity changes, you might add or subtract. Without direction, maybe it's a decrease (like sold out) but not sure. Could be that the user wants to decrement inventory by 3 units. Let's think: In many inventory systems, \"数量变动\" could mean change in quantity on hand. If they say \"数量变动 3 pcs\", I'd interpret as the stock level changed by 3 pieces. But we need to decide sign.\n\nWe can also check if there is any prior context? Not given. So maybe we should ask for clarification? However, the instruction: \"生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\" They expect us to output a single line or something like \"inventory.adjust_stock(sku='SKU-8806', quantity=3)\" or similar.\n\nBut we need to decide whether it's adjust or reserve? Usually adjusting stock means updating current inventory count after change (like adding or removing). Reserve is for setting aside but not yet allocated. If a shipment arrives, you might reserve. But here just \"数量变动\" suggests the actual quantity on hand changed. So use inventory.adjust_stock.\n\nThus: tool = inventory.adjust_stock, params: sku='SKU-8806', quantity=3? Or maybe -3? Let's see typical usage: If we have a stock of 10 and we sell 3, then new stock is 7. That would be adjust by -3. But they didn't say sold or received. Could be an incoming shipment of +3? Hard to know.\n\nMaybe the phrase \"数量变动 3 pcs\" means \"quantity change: 3 pieces\". In Chinese, \"变动\" often indicates a delta. Usually you'd specify positive for increase and negative for decrease. But they didn't give sign. Could be that it's an addition of 3 units to inventory (like receiving). However, there is also \"receiving.log_arrival\" for shipment arrival.\n\nGiven the available tools include both adjust_stock and reserve_stock, we need to pick appropriate one. Usually adjusting stock updates current quantity; reserving sets aside but not yet counted as owned? Not sure.\n\nLet's assume it's an increase (adding 3 pcs) because they might want to add new inventory. But I'm leaning towards \"adjust\" with positive number for addition, negative for removal. Without direction, maybe we can just use absolute value and mention sign? The user didn't specify plus or minus.\n\nWe could also check if there is a standard pattern: In many similar tasks, they ask \"数量变动 5 pcs\" meaning increase by 5. But I'm not certain.\n\nGiven the ambiguity, perhaps we should produce both possibilities? But instruction says \"生成完整动作：工具与全部参数。\" So likely one action.\n\nLet's examine other tools: reserve_stock might be used when you want to hold stock for a future order without reducing current inventory. adjust_stock reduces or increases actual on-hand.\n\nIf it's just a change in quantity, I'd go with adjust_stock.\n\nThus final answer: \"inventory.adjust_stock(sku='SKU-8806', quantity=3)\"? Or maybe -3?\n\nBetter to include sign based",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 215,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n商品 SKU-8806：数量变动 3 pcs。\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1238,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 215,
+      "prompt_ms": 47.458,
+      "prompt_per_token_ms": 0.22073488372093023,
+      "prompt_per_second": 4530.321547473556,
+      "predicted_n": 1024,
+      "predicted_ms": 5952.933,
+      "predicted_per_token_ms": 5.819093841642228,
+      "predicted_per_second": 171.84806212332643
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 215,
+     "prompt_ms": 47.458,
+     "prompt_per_token_ms": 0.22073488372093023,
+     "prompt_per_second": 4530.321547473556,
+     "predicted_n": 1024,
+     "predicted_ms": 5952.933,
+     "predicted_per_token_ms": 5.819093841642228,
+     "predicted_per_second": 171.84806212332643
+    }
+   },
+   "http_error": null,
+   "latency_s": 6.016
+  }
+ ]
+}

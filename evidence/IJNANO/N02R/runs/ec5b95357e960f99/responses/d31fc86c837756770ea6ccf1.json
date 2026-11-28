@@ -1,0 +1,164 @@
+{
+ "trial_id": "d31fc86c837756770ea6ccf1",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，用户说客户拒收，要求把 {trk} 退回发件人。他们只想要动作编号。让我检查可用的动作。\n\n查看提供的动作：A1 到 A6。问题涉及将包裹退回发件人。选项包括重发（A4）或仅备注（A5）。等等，A4 是为 ORD-7781 重新发货，但用户提到的是 {trk}，可能是一个跟踪号。但用户说“退回发件人”，这可能意味着不进行操作或仅备注。等等，A5 是“仅备注，不操作”。但客户拒收，所以他们可能想退回发件人，这可能涉及重发？等等，A4 是为 ORD-7781 重新发货，但跟踪号是 {trk}。嗯，但用户说“只回答动作编号”。等等，原始问题说“客户拒收，要求把 {trk} 退回发件人。”所以退回发件人可能意味着不进行操作或仅备注。等等，A5 是“仅备注，不操作”。但也许正确的动作是 A5。等等，但让我再检查一下动作描述。\n\nA4: 为 ORD-7781 重新发货。等等，跟踪号是 {trk}，但 A4 指定 ORD-7781。等等，用户消息中有 {trk} 作为占位符，但实际跟踪号未给出。等等，用户说“把 {trk} 退回发件人”。所以 {trk} 是跟踪号。但可用的动作包括 A4 为 ORD-7781 重新发货。等等，也许 {trk} 对应某个特定跟踪号，但用户没有指定。等等，问题说“客户拒收，要求把 {trk} 退回发件人。”所以退回发件人可能意味着不进行操作或仅备注。等等，A5 是“仅备注，不操作”。但也许正确的动作是 A5。等等，但让我再检查一下。等等，用户说“只回答动作编号。”所以我需要选择正确的编号。等等，选项是 A1 到 A6。客户拒收，所以他们不想继续配送。退回发件人可能意味着不进行操作，所以 A5。或者，如果他们想重新发货，但 A4 是针对 ORD-7781 的。等等，用户消息中的 {trk} 可能是一个占位符，但实际跟踪号未给出。等等，问题说“把 {trk} 退回发件人”，所以 {trk} 是跟踪号。但可用的动作包括 A4 为 ORD-7781 重新发货。等等，也许 {trk} 对应 ORD-7781？不确定。等等，用户指令说“只回答动作编号。”所以我需要选择正确的编号。等等，客户拒收，所以他们可能想退回发件人，这可能涉及仅备注（A5）或重新发货（A4）。但 A4 是针对特定跟踪号 ORD-7781 的。等等，用户说“{trk}”，但实际跟踪号未指定。嗯，这令人困惑。等等，也许正确的动作是 A5，因为客户拒收，所以不进行操作。或者，如果他们想退回发件人，可能需要重新发货。但 A4 是为 ORD-7781 重新发货。等等，问题说“把 {trk} 退回发件人”，所以 {trk} 是跟踪号。但可用的动作包括 A4 为 ORD-7781 重新发货。等等，也许 {trk} 是 ORD-7781？不确定。等等，用户消息是“客户拒收，要求把 {trk} 退回发件人。”所以退回发件人可能意味着不进行操作，所以 A5。或者，如果他们想重新发货，但 A4 是针对特定跟踪号。等等，但用户说“只回答动作编号。”所以我需要选择正确的编号。让我再检查一下动作描述。\n\nA1: 改址 TRK-40219\nA2: 加急 TRK-40219\nA3: 拦截 TRK-40219\nA4: 为 ORD-7781 重新发货\nA5: 仅备注，不操作\nA6: 开升级单\n\n客户拒收，所以他们不想继续配送。退回发件人可能意味着不进行操作，所以 A5。或者，如果他们想重新发货，但 A4 是针对 ORD-7781 的。等等，用户说“{trk}”，但 A4 是针对 ORD-7781 的。等等，也许 {trk} 是一个占位符，实际跟踪号未给出，所以正确的动作是 A5。是的，因为客户拒收，所以不进行操作。因此答案是 A5。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"action\":\"A5\"}"
+         },
+         "id": "kpCwHMRYDMZwHh86iRyyr3HpaTWFwRNb"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795799306,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 990,
+     "prompt_tokens": 413,
+     "total_tokens": 1403,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-VnDZINHiYt75aje7ie2tz6ettfhBOVye",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，用户说客户拒收，要求把 {trk} 退回发件人。他们只想要动作编号。让我检查可用的动作。\n\n查看提供的动作：A1 到 A6。问题涉及将包裹退回发件人。选项包括重发（A4）或仅备注（A5）。等等，A4 是为 ORD-7781 重新发货，但用户提到的是 {trk}，可能是一个跟踪号。但用户说“退回发件人”，这可能意味着不进行操作或仅备注。等等，A5 是“仅备注，不操作”。但客户拒收，所以他们可能想退回发件人，这可能涉及重发？等等，A4 是为 ORD-7781 重新发货，但跟踪号是 {trk}。嗯，但用户说“只回答动作编号”。等等，原始问题说“客户拒收，要求把 {trk} 退回发件人。”所以退回发件人可能意味着不进行操作或仅备注。等等，A5 是“仅备注，不操作”。但也许正确的动作是 A5。等等，但让我再检查一下动作描述。\n\nA4: 为 ORD-7781 重新发货。等等，跟踪号是 {trk}，但 A4 指定 ORD-7781。等等，用户消息中有 {trk} 作为占位符，但实际跟踪号未给出。等等，用户说“把 {trk} 退回发件人”。所以 {trk} 是跟踪号。但可用的动作包括 A4 为 ORD-7781 重新发货。等等，也许 {trk} 对应某个特定跟踪号，但用户没有指定。等等，问题说“客户拒收，要求把 {trk} 退回发件人。”所以退回发件人可能意味着不进行操作或仅备注。等等，A5 是“仅备注，不操作”。但也许正确的动作是 A5。等等，但让我再检查一下。等等，用户说“只回答动作编号。”所以我需要选择正确的编号。等等，选项是 A1 到 A6。客户拒收，所以他们不想继续配送。退回发件人可能意味着不进行操作，所以 A5。或者，如果他们想重新发货，但 A4 是针对 ORD-7781 的。等等，用户消息中的 {trk} 可能是一个占位符，但实际跟踪号未给出。等等，问题说“把 {trk} 退回发件人”，所以 {trk} 是跟踪号。但可用的动作包括 A4 为 ORD-7781 重新发货。等等，也许 {trk} 对应 ORD-7781？不确定。等等，用户指令说“只回答动作编号。”所以我需要选择正确的编号。等等，客户拒收，所以他们可能想退回发件人，这可能涉及仅备注（A5）或重新发货（A4）。但 A4 是针对特定跟踪号 ORD-7781 的。等等，用户说“{trk}”，但实际跟踪号未指定。嗯，这令人困惑。等等，也许正确的动作是 A5，因为客户拒收，所以不进行操作。或者，如果他们想退回发件人，可能需要重新发货。但 A4 是为 ORD-7781 重新发货。等等，问题说“把 {trk} 退回发件人”，所以 {trk} 是跟踪号。但可用的动作包括 A4 为 ORD-7781 重新发货。等等，也许 {trk} 是 ORD-7781？不确定。等等，用户消息是“客户拒收，要求把 {trk} 退回发件人。”所以退回发件人可能意味着不进行操作，所以 A5。或者，如果他们想重新发货，但 A4 是针对特定跟踪号。等等，但用户说“只回答动作编号。”所以我需要选择正确的编号。让我再检查一下动作描述。\n\nA1: 改址 TRK-40219\nA2: 加急 TRK-40219\nA3: 拦截 TRK-40219\nA4: 为 ORD-7781 重新发货\nA5: 仅备注，不操作\nA6: 开升级单\n\n客户拒收，所以他们不想继续配送。退回发件人可能意味着不进行操作，所以 A5。或者，如果他们想重新发货，但 A4 是针对 ORD-7781 的。等等，用户说“{trk}”，但 A4 是针对 ORD-7781 的。等等，也许 {trk} 是一个占位符，实际跟踪号未给出，所以正确的动作是 A5。是的，因为客户拒收，所以不进行操作。因此答案是 A5。\n</think>\n\n<function name=\"record_answer\"><param name=\"action\">A5</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 990,
+     "tokens_evaluated": 413,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"action\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"action\": {\"type\": \"string\", \"enum\": [\"A1\", \"A2\", \"A3\", \"A4\", \"A5\", \"A6\"]}}, \"required\": [\"action\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n可选动作 / available actions:\nA1. 改址：修改 TRK-40219 的收件地址 / change the address for TRK-40219\nA2. 加急：把 TRK-40219 升级为加急配送 / upgrade TRK-40219 to express\nA3. 拦截：尝试拦截 TRK-40219 / attempt to intercept TRK-40219\nA4. 重发：为 ORD-7781 重新发货 / reship ORD-7781\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\n客户拒收，要求把 {trk} 退回发件人。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 1402,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 413,
+      "prompt_ms": 67.604,
+      "prompt_per_token_ms": 0.1636900726392252,
+      "prompt_per_second": 6109.105970060943,
+      "predicted_n": 990,
+      "predicted_ms": 5515.945,
+      "predicted_per_token_ms": 5.577295247724974,
+      "predicted_per_second": 179.29837951611194
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 413,
+     "prompt_ms": 67.604,
+     "prompt_per_token_ms": 0.1636900726392252,
+     "prompt_per_second": 6109.105970060943,
+     "predicted_n": 990,
+     "predicted_ms": 5515.945,
+     "predicted_per_token_ms": 5.577295247724974,
+     "predicted_per_second": 179.29837951611194
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.625
+  }
+ ]
+}

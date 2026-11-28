@@ -1,0 +1,148 @@
+{
+ "trial_id": "c56214e570ad1c926587f923",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "125.0 CNY",
+       "reasoning_content": "We need to answer with the argument value only. The context says: \"stated amount = 125.0 CNY. 工具已选定: refunds.submit. / Tool already chosen: refunds.submit. The answer is the value of the slot 'amount' (type quantity; state value and unit). Refund the stated amount (state the currency unit). 只回答参数值。 / Answer with the argument value only.\"\n\nSo we need to output just the value of the amount slot. The stated amount is 125.0 CNY. So the answer should be \"125.0 CNY\"? Or just \"125.0\"? The instruction says \"The answer is the value of the slot 'amount' (type quantity; state value and unit).\" So it should include the unit. The context says \"stated amount = 125.0 CNY.\" So the value is 125.0 CNY. The answer should be just that. So output: 125.0 CNY.\n"
+      }
+     }
+    ],
+    "created": 1795799011,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 214,
+     "prompt_tokens": 89,
+     "total_tokens": 303,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-ld0yCcBHQfdBSJJrGlSZxxB9DctC75sQ",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to answer with the argument value only. The context says: \"stated amount = 125.0 CNY. 工具已选定: refunds.submit. / Tool already chosen: refunds.submit. The answer is the value of the slot 'amount' (type quantity; state value and unit). Refund the stated amount (state the currency unit). 只回答参数值。 / Answer with the argument value only.\"\n\nSo we need to output just the value of the amount slot. The stated amount is 125.0 CNY. So the answer should be \"125.0 CNY\"? Or just \"125.0\"? The instruction says \"The answer is the value of the slot 'amount' (type quantity; state value and unit).\" So it should include the unit. The context says \"stated amount = 125.0 CNY.\" So the value is 125.0 CNY. The answer should be just that. So output: 125.0 CNY.\n</think>\n\n125.0 CNY",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 214,
+     "tokens_evaluated": 89,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n上下文 / context: stated amount = 125.0 CNY. 工具已选定: refunds.submit. / Tool already chosen: refunds.submit.\nThe answer is the value of the slot 'amount' (type quantity; state value and unit).\nRefund the stated amount (state the currency unit). 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 302,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 89,
+      "prompt_ms": 28.771,
+      "prompt_per_token_ms": 0.32326966292134834,
+      "prompt_per_second": 3093.39265232352,
+      "predicted_n": 214,
+      "predicted_ms": 1158.238,
+      "predicted_per_token_ms": 5.437737089201878,
+      "predicted_per_second": 183.90002745549705
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 89,
+     "prompt_ms": 28.771,
+     "prompt_per_token_ms": 0.32326966292134834,
+     "prompt_per_second": 3093.39265232352,
+     "predicted_n": 214,
+     "predicted_ms": 1158.238,
+     "predicted_per_token_ms": 5.437737089201878,
+     "predicted_per_second": 183.90002745549705
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.188
+  }
+ ]
+}

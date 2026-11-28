@@ -46,7 +46,7 @@ TEXT_SUFFIXES = {
     ".ts", ".tsx", ".js", ".html", ".css", ".sh", ".ini",
 }
 SKIP_DIRECTORIES = {
-    ".git", ".venv", ".tools", ".runtime", ".scratch", "node_modules",
+    ".git", ".venv", ".venvs", ".tools", ".runtime", ".scratch", "node_modules",
     "__pycache__", ".pytest_cache", "models", "runtime",
 }
 

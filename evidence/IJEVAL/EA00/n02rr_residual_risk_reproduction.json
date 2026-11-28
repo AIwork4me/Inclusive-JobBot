@@ -1,0 +1,63 @@
+{
+ "mission": "IJ-EVAL-ASSURANCE-1.0",
+ "task": "EA00 section 2.2 N02RR residual-risk reproduction",
+ "inputs": {
+  "sealed_reconciliation": "evidence/IJNANO/N02RR/trial_reconciliation.jsonl",
+  "sealed_reconciliation_sha256": "2867d7405ca2b0680b2cb9f92aa677e6f57f45425ede33d399114c32b6126323"
+ },
+ "reproductions": {
+  "R1_replay_exception_coercion": {
+   "witness": "correct_chat_json (known-correct control)",
+   "baseline": {
+    "semantic_correct": true,
+    "failure_class": "SUCCESS"
+   },
+   "with_evaluator_crash": {
+    "semantic_correct": false,
+    "reasons": [
+     "REPLAY_ERROR"
+    ],
+    "replay_error": "RuntimeError: synthetic evaluator crash (EA00 R1)",
+    "failure_class": "REPLAY_ERROR",
+    "change_classification": "EVIDENCE_INSUFFICIENT"
+   },
+   "finding": "A software exception in the evaluator is coerced to semantic_correct=False (n02rr_replay_lib.py:326-330). The classification layers label it REPLAY_ERROR/EVIDENCE_INSUFFICIENT, but the boolean verdict field carries it into any verdict-reading consumer."
+  },
+  "R2_inconsistent_stage2_retains_true_verdict": {
+   "witness": "wrong_selection_hidden_by_final_response",
+   "semantic_correct": true,
+   "failure_class": "EVIDENCE_INCONSISTENT_STAGE2_TOOL",
+   "stage1_selection_wrong_tool": true,
+   "finding": "A causally impossible two-stage response retains semantic_correct=True; only failure_class signals the evidence inconsistency. classify_failure orders the check before the SUCCESS shortcut (RS02), but the verdict field is unchanged."
+  },
+  "R3_production_analyzer_no_eligibility_filter": {
+   "method": "sealed 2,184 rows + 2 clearly-marked synthetic rows; production load_rows()+agg(); main() NOT executed (it would rewrite the corrected protocol matrix)",
+   "baseline_sealed": {
+    "rows": 2184,
+    "semantic_PASS": 870
+   },
+   "contaminated": {
+    "rows": 2186,
+    "semantic_PASS_main_style": 871,
+    "EVIDENCE_INSUFFICIENT_label_count": 1
+   },
+   "cell_delta": {
+    "cell": "S1|M-P0|budget=1024",
+    "baseline_n": 60,
+    "baseline_semantic_k": 32,
+    "contaminated_n": 62,
+    "contaminated_semantic_k": 33,
+    "contaminated_rate": 0.5323
+   },
+   "finding": "n02rr_analyze.load_rows sets r['sem']=bool(verdict) with no filter on failure_class/change_classification: the REPLAY_ERROR row is counted as a model semantic FAIL and the EVIDENCE_INCONSISTENT_STAGE2_TOOL row as a semantic PASS in the same rates, paired tests (paired() lines 143-148 use the same r['sem']) and the headline semantic_PASS (main line 291). The EVIDENCE_INSUFFICIENT label is reported as a denominator annotation only and excludes nothing."
+  }
+ },
+ "corpus_status": {
+  "finding": "The sealed N02RR corpus contains ZERO REPLAY_ERROR / EVIDENCE_INSUFFICIENT / EVIDENCE_INCONSISTENT_STAGE2_TOOL rows, so the published corrected headline (870/2,184) is NOT contaminated; both risks are structural/latent.",
+  "sealed_counts": {
+   "REPLAY_ERROR": 0,
+   "EVIDENCE_INCONSISTENT_STAGE2_TOOL": 0,
+   "EVIDENCE_INSUFFICIENT": 0
+  }
+ }
+}

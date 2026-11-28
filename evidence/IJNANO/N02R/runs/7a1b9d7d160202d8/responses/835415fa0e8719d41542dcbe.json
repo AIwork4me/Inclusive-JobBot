@@ -1,0 +1,162 @@
+{
+ "trial_id": "835415fa0e8719d41542dcbe",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "用户询问关于库存调整的问题，需要决定是停止还是继续。\n\n从提供的信息来看：\n- 目标：stock corrected for SKU-5519\n- 当前观测：adjustment applied; system shows new quantity\n\n这是一个库存调整场景。用户需要决定是停止还是继续这个操作。\n\n根据业务逻辑：\n- 如果库存已经调整完成，系统显示新数量，那么应该停止操作\n- 如果还需要继续调整，则应该继续\n\n由于当前观测显示\"adjustment applied; system shows new quantity\"，这表明调整已经应用，系统已经显示了新的数量。这意味着调整已经完成，应该停止操作。\n\n因此，我应该选择\"stop\"。",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"decision\":\"stop\"}"
+         },
+         "id": "Hqx0WojstVlRX8c2FTp4RQlQTWNCegHm"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795794869,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 172,
+     "prompt_tokens": 333,
+     "total_tokens": 505,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-RpHjN2Qdr8wvNjA8a72UXY5J2uwqpVC1",
+    "__verbose": {
+     "index": 0,
+     "content": "用户询问关于库存调整的问题，需要决定是停止还是继续。\n\n从提供的信息来看：\n- 目标：stock corrected for SKU-5519\n- 当前观测：adjustment applied; system shows new quantity\n\n这是一个库存调整场景。用户需要决定是停止还是继续这个操作。\n\n根据业务逻辑：\n- 如果库存已经调整完成，系统显示新数量，那么应该停止操作\n- 如果还需要继续调整，则应该继续\n\n由于当前观测显示\"adjustment applied; system shows new quantity\"，这表明调整已经应用，系统已经显示了新的数量。这意味着调整已经完成，应该停止操作。\n\n因此，我应该选择\"stop\"。\n</think>\n\n<tool_call>\n<function=record_answer>\n<parameter=decision>\nstop\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 172,
+     "tokens_evaluated": 333,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"decision\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 248058
+       }
+      ],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>system\n# Tools\n\nYou have access to the following functions:\n\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"decision\": {\"type\": \"string\", \"enum\": [\"stop\", \"continue\"]}}, \"required\": [\"decision\"], \"additionalProperties\": false}}}\n</tools>\n\nIf you choose to call a function ONLY reply in the following format with NO suffix:\n\n<tool_call>\n<function=example_function_name>\n<parameter=example_parameter_1>\nvalue_1\n</parameter>\n<parameter=example_parameter_2>\nThis is the value for the second parameter\nthat can span\nmultiple lines\n</parameter>\n</function>\n</tool_call>\n\n<IMPORTANT>\nReminder:\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\n- Required parameters MUST be specified\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\n目标 / goal: goal: stock corrected for SKU-5519. 当前观测 / observation: adjustment applied; system shows new quantity.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 504,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 333,
+      "prompt_ms": 71.396,
+      "prompt_per_token_ms": 0.2144024024024024,
+      "prompt_per_second": 4664.126841839879,
+      "predicted_n": 172,
+      "predicted_ms": 828.698,
+      "predicted_per_token_ms": 4.846187134502924,
+      "predicted_per_second": 206.34778894120657
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 333,
+     "prompt_ms": 71.396,
+     "prompt_per_token_ms": 0.2144024024024024,
+     "prompt_per_second": 4664.126841839879,
+     "predicted_n": 172,
+     "predicted_ms": 828.698,
+     "predicted_per_token_ms": 4.846187134502924,
+     "predicted_per_second": 206.34778894120657
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.922
+  }
+ ]
+}

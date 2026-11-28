@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "arm": "F-vulkan",
+  "label": "llama.cpp GPU Vulkan, Q4_K_M",
+  "backend": "vulkan",
+  "model": "q4",
+  "context_length": 8192,
+  "gpu_arm": true,
+  "started_utc": "2026-11-27T04:21:16+00:00",
+  "finished_utc": "2026-11-27T04:21:36+00:00",
+  "workload_sha256": "9442652900c46a90eabfad55b4131f2f16256ba32670666bb7d0a0b5642f01cc",
+  "request_count": 52,
+  "request_errors": 0,
+  "execution_status": "PASS",
+  "cold_first_request": {
+    "wall_ms": 161,
+    "ttft_ms": 88,
+    "finish_reason": "stop",
+    "error": null
+  },
+  "sections": {
+    "chat": {
+      "count": 12,
+      "pass": 12,
+      "pass_rate": 1.0,
+      "failures": [],
+      "truncated_by_token_budget": [
+        "chat-07",
+        "chat-08",
+        "chat-09"
+      ]
+    },
+    "structured": {
+      "count": 10,
+      "pass": 10,
+      "pass_rate": 1.0,
+      "failures": [],
+      "truncated_by_token_budget": []
+    },
+    "tasks": {
+      "count": 30,
+      "pass": 27,
+      "pass_rate": 0.9,
+      "failures": [
+        {
+          "id": "task-03",
+          "reason": "got '125 + 375 = 500，500 × 2 = 1000。\\n1000'"
+        },
+        {
+          "id": "task-06",
+          "reason": "got '1.56'"
+        },
+        {
+          "id": "task-26",
+          "reason": "got '120.00 + 80.50 + 9.50 = 210.00'"
+        }
+      ],
+      "truncated_by_token_budget": []
+    }
+  },
+  "performance": {
+    "prompt_tokens": 1493,
+    "predicted_tokens": 3447,
+    "prompt_ms_total": 1133.1,
+    "predicted_ms_total": 15400.6,
+    "prompt_tokens_per_second": 1317.64,
+    "decode_tokens_per_second": 223.82,
+    "ttft_ms_mean": 33,
+    "ttft_ms_p95": 55,
+    "wall_ms_p50": 99,
+    "wall_ms_p95": 3652
+  },
+  "counters": {
+    "sample_timestamps": 29,
+    "duration_seconds": 17.26,
+    "counter_quality": "OK",
+    "invalid_utilization_samples": 0,
+    "engine_utilization": {
+      "3D": {
+        "samples": 29,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      },
+      "Compute": {
+        "samples": 29,
+        "median_percent": 84.0,
+        "p95_percent": 86.0,
+        "max_percent": 86.0,
+        "mean_percent": 77.79
+      },
+      "Copy": {
+        "samples": 29,
+        "median_percent": 3.0,
+        "p95_percent": 4.0,
+        "max_percent": 4.0,
+        "mean_percent": 2.97
+      },
+      "LegacyOverlay": {
+        "samples": 29,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      },
+      "Security": {
+        "samples": 29,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      },
+      "Timer": {
+        "samples": 29,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      },
+      "Video": {
+        "samples": 29,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      },
+      "VideoDecode": {
+        "samples": 29,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      },
+      "VideoProcessing": {
+        "samples": 29,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      },
+      "unknown": {
+        "samples": 29,
+        "median_percent": 0.0,
+        "p95_percent": 0.0,
+        "max_percent": 0.0,
+        "mean_percent": 0.0
+      }
+    },
+    "gpu_busy_fraction": 1.0,
+    "gpu_busy_threshold_percent": 5.0,
+    "timestamps_excluded_from_busy": 0,
+    "process_gpu_memory_max_mib": {
+      "dedicated": 1772.5,
+      "shared": 347.7
+    },
+    "adapter_gpu_memory_max_mib": {
+      "luid": [
+        "luid_0x00000000_0x00011BAF_",
+        "luid_0x00000000_0x00013A0A_"
+      ],
+      "max_dedicated_mib": 3086.4,
+      "max_shared_mib": 431.9
+    },
+    "process": {
+      "cpu_mean_percent_of_machine": 1.84,
+      "cpu_max_percent_of_machine": 2.67,
+      "working_set_private_max_mib": 535.9,
+      "private_bytes_max_mib": 2390.0,
+      "threads_max": 33
+    },
+    "sample_error_count": 0
+  }
+}

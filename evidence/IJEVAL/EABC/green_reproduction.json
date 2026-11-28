@@ -1,0 +1,100 @@
+{
+ "EA_R01": {
+  "issuance_without_evidence_authorizes_formal": {
+   "result": true,
+   "error": null
+  },
+  "empty_reference_identity_accepted": {
+   "result": "QualificationCertificate(scope='semantic', dataset_id='d1', parser_version='p1', evaluator_version='v1', reference_evaluator_version='', issued_utc='2026-11-27T23:30:56Z', certificate_id='b7787ebebb1ebacb', evidence_ref='', revoked_utc=None)",
+   "error": null
+  },
+  "reference_equals_production_accepted": {
+   "result": "QualificationCertificate(scope='semantic', dataset_id='d1', parser_version='p1', evaluator_version='v1', reference_evaluator_version='v1', issued_utc='2026-11-27T23:30:56Z', certificate_id='c57d10aa283355fe', evidence_ref='', revoked_utc=None)",
+   "error": null
+  },
+  "digest_binding_fields_exist": {
+   "result": [],
+   "error": null
+  }
+ },
+ "EA_R02": {
+  "non_hash_strings_accepted": {
+   "result": "VerifiedEvidence(schema_version='1.0.0', verified_keys=('experiment_id', 'trial_id', 'task_id', 'model', 'dataset_id', 'parser_version', 'evaluator_version'), identity={'experiment_id': 'e1', 'trial_id': 't1', 'task_id': 'k1', 'model': 'S1', 'dataset_id': 'd1', 'parser_version': 'p1', 'evaluator_version': 'v1'}, artifact_sha256='banana', verification_checks={'artifact_sha256_match': True, 'schema_validated': True, 'trial_identity_match': True, 'evaluator_identity_match': True, 'basis': 'direct'})",
+   "error": null
+  },
+  "wrong_length_digest_accepted": {
+   "result": "VerifiedEvidence(schema_version='1.0.0', verified_keys=('experiment_id', 'trial_id', 'task_id', 'model', 'dataset_id', 'parser_version', 'evaluator_version'), identity={'experiment_id': 'e1', 'trial_id': 't1', 'task_id': 'k1', 'model': 'S1', 'dataset_id': 'd1', 'parser_version': 'p1', 'evaluator_version': 'v1'}, artifact_sha256='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', verification_checks={'artifact_sha256_match': True, 'schema_validated': True, 'trial_identity_match': True, 'evaluator_identity_match': True, 'basis': 'direct'})",
+   "error": null
+  },
+  "identical_untrusted_pair_accepted": {
+   "result": "VerifiedEvidence(schema_version='1.0.0', verified_keys=('experiment_id', 'trial_id', 'task_id', 'model', 'dataset_id', 'parser_version', 'evaluator_version'), identity={'experiment_id': 'e1', 'trial_id': 't1', 'task_id': 'k1', 'model': 'S1', 'dataset_id': 'd1', 'parser_version': 'p1', 'evaluator_version': 'v1'}, artifact_sha256='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', verification_checks={'artifact_sha256_match': True, 'schema_validated': True, 'trial_identity_match': True, 'evaluator_identity_match': True, 'basis': 'no bytes were ever read'})",
+   "error": null
+  },
+  "direct_envelope_construction": {
+   "result": "VerifiedEvidence(schema_version='1.0.0', verified_keys=('experiment_id', 'trial_id', 'task_id', 'model', 'dataset_id', 'parser_version', 'evaluator_version'), identity={'experiment_id': 'e1', 'trial_id': 't1', 'task_id': 'k1', 'model': 'S1', 'dataset_id': 'd1', 'parser_version': 'p1', 'evaluator_version': 'v1'}, artifact_sha256='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', verification_checks={'forged': True})",
+   "error": null
+  },
+  "envelope_identity_dict_is_mutable": {
+   "result": "hacked",
+   "error": null
+  }
+ },
+ "EA_R03": {
+  "empty_store_permits_ALLOWED": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "unrelated_certs_permits_ALLOWED": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "revoked_only_permits_ALLOWED": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "zero_qualified_rows_still_ALLOWED": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "critical_not_evaluable_blocks": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "duplicate_trial_ids_both_counted": {
+   "result": [
+    0
+   ],
+   "error": null
+  },
+  "planned_roster_support": "ABSENT (no roster parameter exists)"
+ },
+ "EA_R04": {
+  "report_survives_post_aggregation_revocation": {
+   "result": "ALLOWED",
+   "error": null
+  },
+  "record_mutable_after_validation": {
+   "result": "INCORRECT",
+   "error": null
+  },
+  "revocation_history_retained": {
+   "result": 1,
+   "error": null
+  },
+  "reissue_equivalent_cert_immediately_valid": {
+   "result": true,
+   "error": null
+  },
+  "corrupted_registry_load": {
+   "result": null,
+   "error": "JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+  }
+ },
+ "phase": "green (post-hardening rerun of the same probes)",
+ "closures": {
+  "EA_R01": "arbitrary stores untrusted (eligibility refuses); authority issuance verifies gate evidence + actual digests; identical reference oracle rejected; incomplete certificates rejected",
+  "EA_R02": "digest syntax enforced (banana/63-char rejected); direct construction PermissionError; identity/checks immutable; receipts hash actual bytes with trial/experiment binding",
+  "EA_R03": "empty/unrelated/revoked stores -> BLOCKED_SCOPE_NOT_CERTIFIED; zero qualified rows blocked; critical NOT_EVALUABLE blocks; roster reconciliation + duplicate quarantine + explicit partial scope",
+  "EA_R04": "snapshot currency + publish_report publication-time recheck; durable revocation history; reissue requires requalified=True; corrupt/tampered registries fail closed"
+ }
+}

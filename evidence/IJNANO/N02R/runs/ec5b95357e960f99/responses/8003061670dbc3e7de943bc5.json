@@ -1,0 +1,154 @@
+{
+ "trial_id": "8003061670dbc3e7de943bc5",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "1.  **分析输入：**\n    *   **策略 / policy：** system-physical variance 2 pcs, tolerance 5. （系统物理方差 2 件，允许偏差 5。）\n    *   **实况 / observation：** n = 2. （观察到的样本量 n = 2。）\n    *   **允许分支：** accept_adjustment, require_second_count, reject_adjustment. （允许的分支：接受调整，要求第二次计数，拒绝调整。）\n    *   **任务：** 判断应走的分支。 / 判断应走的分支。\n\n2.  **理解规则与背景：**\n    *   这是一个统计/质量控制场景。系统物理方差（系统物理方差）被设定为 2 件，允许偏差为 5。\n    *   观察到的样本量（n）为 2。\n    *   规则要求根据样本量和方差/偏差进行决策。\n\n3.  **评估规则：**\n    *   *系统物理方差 2 pcs, tolerance 5.*：这意味着系统物理方差为 2，允许偏差为 5。\n    *   *实况 n = 2.*：我们有 2 个观测值。\n    *   *允许分支：* accept_adjustment, require_second_count, reject_adjustment。\n\n4.  **确定逻辑：**\n    *   通常，在统计质量控制（如控制图）中，如果样本量太小或方差/偏差未被满足，规则可能会要求收集更多数据（`require_second_count`）。\n    *   让我们检查一下方差与偏差的关系。方差 = 2，偏差 = 5。方差小于偏差（2 < 5）。因此，观测值落在允许偏差范围内的概率很高。\n    *   然而，样本量 $n=2$ 非常小。在统计学上，样本量 $n=2$ 不足以对系统物理方差进行稳健的估计或验证。\n    *   让我们看看标准的统计规则（例如，假设检验、控制图）。如果 $n$ 太小，我们通常需要更多的数据。\n    *   等等，让我们仔细重读一遍：“system-physical variance 2 pcs, tolerance 5.”（系统物理方差 2 件，允许偏差 5。）\n    *   如果方差是 2，偏差是 5。2 件与 5 的偏差。2 件与 5 的偏差。\n    *   实际上，让我们看看分支名称：`accept_adjustment`（接受调整），`require_second_count`（要求第二次计数），`reject_adjustment`（拒绝调整）。\n    *   如果 $n=2$，我们只有 2 个数据点。系统物理方差是 2。允许偏差是 5。\n    *   等等，如果方差是 2，偏差是 5，那么 2 个观测值落在 5 的偏差范围内的概率是多少？实际上，$n=2$ 太少了。\n    *   让我们考虑一下标准规则。如果 $n < \\text{阈值}$，则 `require_second_count`。\n    *   让我们考虑一下方差与偏差的对比。方差 = 2，偏差 = 5。方差 < 偏差。这意味着系统物理方差在允许偏差范围内。\n    *   等等，如果 $n=2$，我们能计算方差吗？是的，$n-1 = 1$。但样本量太小。\n    *   让我们重新思考。如果方差是 2，偏差是 5。2 件与 5 的偏差。\n    *   实际上，让我们看看“system-physical variance 2 pcs, tolerance 5.”（系统物理方差 2 件，允许偏差 5。）\n    *   也许规则是：如果 $n=2$，我们需要第二次计数来确认方差。\n    *   让我们考虑一下 `reject_adjustment`。如果方差 > 偏差，我们拒绝调整。这里方差 = 2，偏差 = 5。方差 < 偏差。所以我们不拒绝。\n    *   让我们考虑一下 `accept_adjustment`。如果方差 < 偏差，我们接受调整。\n    *   让我们考虑一下 `require_second_count`。如果 $n$ 太小，我们要求第二次计数。\n    *   样本量 $n=2$ 非常小。在许多统计规则中，$n=2$ 不足以得出结论。\n    *   让我们搜索一下“system-physical variance 2 pcs, tolerance 5.”（系统物理方差 2 件，允许偏差 5。）——这看起来像是一个特定的测试用例或来自特定框架（如 IEC 61131-2、ISO 9001 或特定的统计过程控制）的标准测试用例。\n    *   等等，如果方差是 2，偏差是 5。2 件与 5 的偏差。\n    *   让我们考虑一下方差与偏差"
+      }
+     }
+    ],
+    "created": 1795797047,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 69,
+     "total_tokens": 1093,
+     "prompt_tokens_details": {
+      "cached_tokens": 68
+     }
+    },
+    "id": "chatcmpl-plWyhO0nD5xa8bv25CwHEts23Cjfa3za",
+    "__verbose": {
+     "index": 0,
+     "content": "1.  **分析输入：**\n    *   **策略 / policy：** system-physical variance 2 pcs, tolerance 5. （系统物理方差 2 件，允许偏差 5。）\n    *   **实况 / observation：** n = 2. （观察到的样本量 n = 2。）\n    *   **允许分支：** accept_adjustment, require_second_count, reject_adjustment. （允许的分支：接受调整，要求第二次计数，拒绝调整。）\n    *   **任务：** 判断应走的分支。 / 判断应走的分支。\n\n2.  **理解规则与背景：**\n    *   这是一个统计/质量控制场景。系统物理方差（系统物理方差）被设定为 2 件，允许偏差为 5。\n    *   观察到的样本量（n）为 2。\n    *   规则要求根据样本量和方差/偏差进行决策。\n\n3.  **评估规则：**\n    *   *系统物理方差 2 pcs, tolerance 5.*：这意味着系统物理方差为 2，允许偏差为 5。\n    *   *实况 n = 2.*：我们有 2 个观测值。\n    *   *允许分支：* accept_adjustment, require_second_count, reject_adjustment。\n\n4.  **确定逻辑：**\n    *   通常，在统计质量控制（如控制图）中，如果样本量太小或方差/偏差未被满足，规则可能会要求收集更多数据（`require_second_count`）。\n    *   让我们检查一下方差与偏差的关系。方差 = 2，偏差 = 5。方差小于偏差（2 < 5）。因此，观测值落在允许偏差范围内的概率很高。\n    *   然而，样本量 $n=2$ 非常小。在统计学上，样本量 $n=2$ 不足以对系统物理方差进行稳健的估计或验证。\n    *   让我们看看标准的统计规则（例如，假设检验、控制图）。如果 $n$ 太小，我们通常需要更多的数据。\n    *   等等，让我们仔细重读一遍：“system-physical variance 2 pcs, tolerance 5.”（系统物理方差 2 件，允许偏差 5。）\n    *   如果方差是 2，偏差是 5。2 件与 5 的偏差。2 件与 5 的偏差。\n    *   实际上，让我们看看分支名称：`accept_adjustment`（接受调整），`require_second_count`（要求第二次计数），`reject_adjustment`（拒绝调整）。\n    *   如果 $n=2$，我们只有 2 个数据点。系统物理方差是 2。允许偏差是 5。\n    *   等等，如果方差是 2，偏差是 5，那么 2 个观测值落在 5 的偏差范围内的概率是多少？实际上，$n=2$ 太少了。\n    *   让我们考虑一下标准规则。如果 $n < \\text{阈值}$，则 `require_second_count`。\n    *   让我们考虑一下方差与偏差的对比。方差 = 2，偏差 = 5。方差 < 偏差。这意味着系统物理方差在允许偏差范围内。\n    *   等等，如果 $n=2$，我们能计算方差吗？是的，$n-1 = 1$。但样本量太小。\n    *   让我们重新思考。如果方差是 2，偏差是 5。2 件与 5 的偏差。\n    *   实际上，让我们看看“system-physical variance 2 pcs, tolerance 5.”（系统物理方差 2 件，允许偏差 5。）\n    *   也许规则是：如果 $n=2$，我们需要第二次计数来确认方差。\n    *   让我们考虑一下 `reject_adjustment`。如果方差 > 偏差，我们拒绝调整。这里方差 = 2，偏差 = 5。方差 < 偏差。所以我们不拒绝。\n    *   让我们考虑一下 `accept_adjustment`。如果方差 < 偏差，我们接受调整。\n    *   让我们考虑一下 `require_second_count`。如果 $n$ 太小，我们要求第二次计数。\n    *   样本量 $n=2$ 非常小。在许多统计规则中，$n=2$ 不足以得出结论。\n    *   让我们搜索一下“system-physical variance 2 pcs, tolerance 5.”（系统物理方差 2 件，允许偏差 5。）——这看起来像是一个特定的测试用例或来自特定框架（如 IEC 61131-2、ISO 9001 或特定的统计过程控制）的标准测试用例。\n    *   等等，如果方差是 2，偏差是 5。2 件与 5 的偏差。\n    *   让我们考虑一下方差与偏差",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 69,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-branch-kv space \"}\"\nresponse-format-branch ::= (\"\\\"accept_adjustment\\\"\" | \"\\\"require_second_count\\\"\" | \"\\\"reject_adjustment\\\"\")\nresponse-format-branch-kv ::= \"\\\"branch\\\"\" space \":\" space response-format-branch\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n策略 / policy: system-physical variance 2 pcs, tolerance 5. 实况 / observation: n = 2.\nAllowed branches: accept_adjustment, require_second_count, reject_adjustment.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1092,
+     "timings": {
+      "cache_n": 68,
+      "prompt_n": 1,
+      "prompt_ms": 10.929,
+      "prompt_per_token_ms": 10.929,
+      "prompt_per_second": 91.49967975112087,
+      "predicted_n": 1024,
+      "predicted_ms": 5625.633,
+      "predicted_per_token_ms": 5.499152492668622,
+      "predicted_per_second": 181.8462029072995
+     }
+    },
+    "timings": {
+     "cache_n": 68,
+     "prompt_n": 1,
+     "prompt_ms": 10.929,
+     "prompt_per_token_ms": 10.929,
+     "prompt_per_second": 91.49967975112087,
+     "predicted_n": 1024,
+     "predicted_ms": 5625.633,
+     "predicted_per_token_ms": 5.499152492668622,
+     "predicted_per_second": 181.8462029072995
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.671
+  }
+ ]
+}

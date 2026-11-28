@@ -1,0 +1,164 @@
+{
+ "trial_id": "7bd4786cb6623c1d5e05feeb",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，让我看看。用户提到“Item SKU-5519: quantity change 40 pcs.”并希望生成完整动作，包括工具和参数。\n\n首先，我需要检查可用的工具。提供的工具包括record_answer、inventory.check_stock、inventory.adjust_stock等。用户说“quantity change 40 pcs”，所以这可能涉及调整库存。工具中有一个inventory.adjust_stock。\n\n等等，record_answer函数用于记录答案，但用户可能想记录一个调整。让我再检查一下工具描述。\n\nrecord_answer工具用于记录所选答案（结构化记录，非业务工具执行）。参数包括tool、sku、quantity。工具枚举包括inventory.adjust_stock。所以如果用户想记录一个调整，他们应该使用record_answer并指定工具为inventory.adjust_stock。\n\n用户说“quantity change 40 pcs”，所以quantity是40 pcs。单位是pcs。因此参数应为tool: \"inventory.adjust_stock\", sku: \"SKU-5519\", quantity: {value:40, unit:\"pcs\"}。\n\n等等，工具枚举中包含inventory.adjust_stock。所以正确的函数调用是record_answer并带上这些参数。让我确认必填字段：tool、sku、quantity（value和unit）。是的，所有必填字段都存在。\n\n所以工具调用应为record_answer并带上这些参数。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"tool\":\"inventory.adjust_stock\",\"sku\":\"SKU-5519\",\"quantity\":{\"value\": 40, \"unit\": \"pcs\"}}"
+         },
+         "id": "XbOO4Wm3NhaDq7FJYg4AkvvDlPjTwYCN"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795794384,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 352,
+     "prompt_tokens": 401,
+     "total_tokens": 753,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-R6cGKyTdJQxQINAkX9OOYG2y0znKJkII",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，让我看看。用户提到“Item SKU-5519: quantity change 40 pcs.”并希望生成完整动作，包括工具和参数。\n\n首先，我需要检查可用的工具。提供的工具包括record_answer、inventory.check_stock、inventory.adjust_stock等。用户说“quantity change 40 pcs”，所以这可能涉及调整库存。工具中有一个inventory.adjust_stock。\n\n等等，record_answer函数用于记录答案，但用户可能想记录一个调整。让我再检查一下工具描述。\n\nrecord_answer工具用于记录所选答案（结构化记录，非业务工具执行）。参数包括tool、sku、quantity。工具枚举包括inventory.adjust_stock。所以如果用户想记录一个调整，他们应该使用record_answer并指定工具为inventory.adjust_stock。\n\n用户说“quantity change 40 pcs”，所以quantity是40 pcs。单位是pcs。因此参数应为tool: \"inventory.adjust_stock\", sku: \"SKU-5519\", quantity: {value:40, unit:\"pcs\"}。\n\n等等，工具枚举中包含inventory.adjust_stock。所以正确的函数调用是record_answer并带上这些参数。让我确认必填字段：tool、sku、quantity（value和unit）。是的，所有必填字段都存在。\n\n所以工具调用应为record_answer并带上这些参数。\n</think>\n\n<function name=\"record_answer\"><param name=\"tool\">inventory.adjust_stock</param><param name=\"sku\">SKU-5519</param><param name=\"quantity\">{\"value\": 40, \"unit\": \"pcs\"}</param></function>",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 352,
+     "tokens_evaluated": 401,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"tool\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31) | (\"<param name=\\\"\" \"sku\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31) | (\"<param name=\\\"\" \"quantity\" \"\\\">\") tool-0-arg-2-schema \"</param>\") space)* space \"</function>\"\ntool-0-arg-2-schema ::= \"{\" space tool-0-arg-2-schema-value-kv \",\" space tool-0-arg-2-schema-unit-kv space \"}\"\ntool-0-arg-2-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-0-arg-2-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-0-arg-2-schema-unit\ntool-0-arg-2-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tool\": {\"type\": \"string\", \"enum\": [\"inventory.check_stock\", \"inventory.adjust_stock\", \"inventory.reserve_stock\", \"warehouse.locate_bin\", \"receiving.log_arrival\", \"picking.create_task\", \"reports.export_snapshot\", \"alerts.raise_low_stock\"]}, \"sku\": {\"type\": \"string\"}, \"quantity\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}}, \"required\": [\"tool\", \"sku\", \"quantity\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\nItem SKU-5519: quantity change 40 pcs.\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 752,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 401,
+      "prompt_ms": 64.346,
+      "prompt_per_token_ms": 0.1604638403990025,
+      "prompt_per_second": 6231.933608926739,
+      "predicted_n": 352,
+      "predicted_ms": 1948.433,
+      "predicted_per_token_ms": 5.551091168091168,
+      "predicted_per_second": 180.14476248349314
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 401,
+     "prompt_ms": 64.346,
+     "prompt_per_token_ms": 0.1604638403990025,
+     "prompt_per_second": 6231.933608926739,
+     "predicted_n": 352,
+     "predicted_ms": 1948.433,
+     "predicted_per_token_ms": 5.551091168091168,
+     "predicted_per_second": 180.14476248349314
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.031
+  }
+ ]
+}

@@ -1,0 +1,99 @@
+{
+  "scope": "Installed MiniCPM assets, baseline binaries and GPU counter availability. No inference.",
+  "utc": "2026-11-25T22:43:47Z",
+  "cpu": "AMD RYZEN AI MAX+ PRO 395 w/ Radeon 8060S      ",
+  "os": "Microsoft Windows 11 专业版",
+  "build": "26200",
+  "os_reported_physical_memory_bytes": 102838439936,
+  "installed_memory_bytes": 137438953472,
+  "gpu": [
+    {
+      "Name": "AMD Radeon(TM) 8060S Graphics",
+      "DriverVersion": "32.0.22018.5"
+    },
+    {
+      "Name": "Microsoft Remote Display Adapter",
+      "DriverVersion": "10.0.26100.9818"
+    }
+  ],
+  "gpu_engine_counter_instances": 392,
+  "backends": [
+    {
+      "backend": "cpu",
+      "sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "expected_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "devices": [],
+      "command": "--list-devices",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "backend": "vulkan",
+      "sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "expected_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "devices": [
+        "Vulkan0: AMD Radeon(TM) 8060S Graphics (111227 MiB, 105666 MiB free)"
+      ],
+      "command": "--list-devices",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "backend": "rocm",
+      "sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "expected_sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+      "devices": [
+        "ROCm0: AMD Radeon(TM) 8060S Graphics (91612 MiB, 91452 MiB free)"
+      ],
+      "command": "--list-devices",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "files": [
+    {
+      "repo": "OpenBMB/MiniCPM5-2B-GGUF",
+      "revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+      "file": "MiniCPM5-2B-F16.gguf",
+      "sha256": "0ffba3682a853295566b98bc38c0ab755d6b2d91b994bc031ed727a08cfcdf25",
+      "status": "PASS"
+    },
+    {
+      "repo": "OpenBMB/MiniCPM5-2B-GGUF",
+      "revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+      "file": "MiniCPM5-2B-Q4_K_M.gguf",
+      "sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+      "status": "PASS"
+    },
+    {
+      "repo": "OpenBMB/MiniCPM5-2B-GGUF",
+      "revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+      "file": "MiniCPM5-2B-Q8_0.gguf",
+      "sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+      "status": "PASS"
+    },
+    {
+      "repo": "OpenBMB/MiniCPM5-2B",
+      "revision": "4e7a94716d4526da493d68962f475390e852954b",
+      "file": "chat_template.jinja",
+      "sha256": "bc1f78ef8a86b6bdf64a056cf89dd0ac506db4f198ab363d85168e2500ab44dd",
+      "status": "PASS"
+    },
+    {
+      "repo": "OpenBMB/MiniCPM5-2B",
+      "revision": "4e7a94716d4526da493d68962f475390e852954b",
+      "file": "tokenizer.json",
+      "sha256": "3e065a558a034185fe299917b398685c1facd0169a9eea1e629eb30c171fed81",
+      "status": "PASS"
+    },
+    {
+      "repo": "OpenBMB/MiniCPM5-2B",
+      "revision": "4e7a94716d4526da493d68962f475390e852954b",
+      "file": "tokenizer_config.json",
+      "sha256": "e9b1064649e771d7a8e15637c68b2d2749724877ba3648bd74a4ece31c26303b",
+      "status": "PASS"
+    }
+  ],
+  "sdk": "0.1.24",
+  "inference_status": "NOT_RUN"
+}

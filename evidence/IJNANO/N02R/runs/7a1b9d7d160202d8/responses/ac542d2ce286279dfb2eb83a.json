@@ -1,0 +1,154 @@
+{
+ "trial_id": "ac542d2ce286279dfb2eb83a",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to produce a \"full action: tool and all arguments.\" The user gave a message: \"商品 TRK-11298：数量变动 350.0 USD。 Available tools: ... 生成完整动作：工具与全部参数。\" This looks like a request to generate a full action: tool and all arguments. Possibly they want to know which tool to use and what arguments to pass for the given scenario. The scenario: \"商品 TRK-11298：数量变动 350.0 USD。\" That is Chinese: \"Goods TRK-11298: quantity change 350.0 USD.\" Or \"Item TRK-11298: quantity change 350.0 USD.\" The user might be asking to produce a full action: tool and all arguments. But we need to interpret what exactly is being asked. The user says: \"商品 TRK-11298：数量变动 350.0 USD。 Available tools: ... 生成完整动作：工具与全部参数。\" This is likely a prompt from a system that expects the assistant to output a \"full action\" meaning a tool call with arguments. The user gave a scenario: \"商品 TRK-11298：数量变动 350.0 USD。\" That might be a message from a user about a shipment or something. The available tools are listed. The assistant must produce the full action: tool and all arguments. So we need to decide which tool to use based on the scenario. The scenario: \"商品 TRK-11298：数量变动 350.0 USD。\" That could be a quantity change of 350.0 USD for item TRK-11298. But the tools are about logistics: trace shipment, reroute shipment, estimate delivery, validate address, declare customs value, generate label, list courier rates, open escalation case. None of these directly relate to \"quantity change\" or \"price change\". However, maybe the scenario is about a shipment with tracking number TRK-11298? The user says \"商品 TRK-11298：数量变动 350.0 USD。\" Could be a message from a user about a shipment: \"Item TRK-11298: quantity change 350.0 USD.\" But the tools include \"customs.declare_value\" which takes tracking_no and amount. That might be relevant: if there's a value change for customs declaration. Or \"labels.generate\" for generating a label. Or \"logistics.estimate_delivery\". The user might be asking to produce a full action for a given scenario. But the prompt is ambiguous. Let's read carefully: \"商品 TRK-11298：数量变动 350.0 USD。 Available tools: ... 生成完整动作：工具与全部参数。\" This is likely a test: the user provides a scenario and asks to generate the full action (i.e., which tool to call and what arguments). The scenario: \"商品 TRK-11298：数量变动 350.0 USD。\" That could be a message from a user about a shipment with tracking number TRK-11298, and the quantity changed by 350.0 USD? Or maybe it's a price change. The tools include \"customs.declare_value\" which declares customs value for a shipment. That might be used if the value changed. The amount is 350.0 USD. So perhaps the user wants to declare a customs value of 350.0 USD for tracking number TRK-11298. That seems plausible: \"商品 TRK-11298：数量变动 350.0 USD。\" Could be \"Item TRK-11298: quantity change 350.0 USD.\" But the tool \"customs.declare_value\" takes tracking_no and amount. So we could call that with tracking_no = \"TRK-11298\" and amount = 350.0. But the scenario says \"数量变动 350.0 USD\" which is \"quantity change 350.0 USD\". That might be a change in quantity, not value. However, the tool \"labels.generate\" takes order_id. Not sure. The user might be expecting a specific tool. Let's think: The user might be a logistics agent who receives a message: \"商品 TRK-11298：数量变动 350.0 USD。\" They need to take action. Which tool? Possibly \"customs.declare_value\" because it's about value. But the message says \"数量变动\" (quantity change) and \"350.0 USD\" (350.0 USD). That could be a change in the value of the goods? Or maybe it's a price change. The tools don't have a \"update quantity\" tool. So maybe the user wants to declare the new value for customs. The tool \"customs.declare_value\" is for declaring customs value. So the action would be to call customs.declare_value with tracking_no = \"TRK-11298\" and amount = 350.0. That seems the most direct. Alternatively, \""
+      }
+     }
+    ],
+    "created": 1795795129,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 210,
+     "total_tokens": 1234,
+     "prompt_tokens_details": {
+      "cached_tokens": 209
+     }
+    },
+    "id": "chatcmpl-aAICMJEsEQjQfW5bfLJHifhXGIwaDwov",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to produce a \"full action: tool and all arguments.\" The user gave a message: \"商品 TRK-11298：数量变动 350.0 USD。 Available tools: ... 生成完整动作：工具与全部参数。\" This looks like a request to generate a full action: tool and all arguments. Possibly they want to know which tool to use and what arguments to pass for the given scenario. The scenario: \"商品 TRK-11298：数量变动 350.0 USD。\" That is Chinese: \"Goods TRK-11298: quantity change 350.0 USD.\" Or \"Item TRK-11298: quantity change 350.0 USD.\" The user might be asking to produce a full action: tool and all arguments. But we need to interpret what exactly is being asked. The user says: \"商品 TRK-11298：数量变动 350.0 USD。 Available tools: ... 生成完整动作：工具与全部参数。\" This is likely a prompt from a system that expects the assistant to output a \"full action\" meaning a tool call with arguments. The user gave a scenario: \"商品 TRK-11298：数量变动 350.0 USD。\" That might be a message from a user about a shipment or something. The available tools are listed. The assistant must produce the full action: tool and all arguments. So we need to decide which tool to use based on the scenario. The scenario: \"商品 TRK-11298：数量变动 350.0 USD。\" That could be a quantity change of 350.0 USD for item TRK-11298. But the tools are about logistics: trace shipment, reroute shipment, estimate delivery, validate address, declare customs value, generate label, list courier rates, open escalation case. None of these directly relate to \"quantity change\" or \"price change\". However, maybe the scenario is about a shipment with tracking number TRK-11298? The user says \"商品 TRK-11298：数量变动 350.0 USD。\" Could be a message from a user about a shipment: \"Item TRK-11298: quantity change 350.0 USD.\" But the tools include \"customs.declare_value\" which takes tracking_no and amount. That might be relevant: if there's a value change for customs declaration. Or \"labels.generate\" for generating a label. Or \"logistics.estimate_delivery\". The user might be asking to produce a full action for a given scenario. But the prompt is ambiguous. Let's read carefully: \"商品 TRK-11298：数量变动 350.0 USD。 Available tools: ... 生成完整动作：工具与全部参数。\" This is likely a test: the user provides a scenario and asks to generate the full action (i.e., which tool to call and what arguments). The scenario: \"商品 TRK-11298：数量变动 350.0 USD。\" That could be a message from a user about a shipment with tracking number TRK-11298, and the quantity changed by 350.0 USD? Or maybe it's a price change. The tools include \"customs.declare_value\" which declares customs value for a shipment. That might be used if the value changed. The amount is 350.0 USD. So perhaps the user wants to declare a customs value of 350.0 USD for tracking number TRK-11298. That seems plausible: \"商品 TRK-11298：数量变动 350.0 USD。\" Could be \"Item TRK-11298: quantity change 350.0 USD.\" But the tool \"customs.declare_value\" takes tracking_no and amount. So we could call that with tracking_no = \"TRK-11298\" and amount = 350.0. But the scenario says \"数量变动 350.0 USD\" which is \"quantity change 350.0 USD\". That might be a change in quantity, not value. However, the tool \"labels.generate\" takes order_id. Not sure. The user might be expecting a specific tool. Let's think: The user might be a logistics agent who receives a message: \"商品 TRK-11298：数量变动 350.0 USD。\" They need to take action. Which tool? Possibly \"customs.declare_value\" because it's about value. But the message says \"数量变动\" (quantity change) and \"350.0 USD\" (350.0 USD). That could be a change in the value of the goods? Or maybe it's a price change. The tools don't have a \"update quantity\" tool. So maybe the user wants to declare the new value for customs. The tool \"customs.declare_value\" is for declaring customs value. So the action would be to call customs.declare_value with tracking_no = \"TRK-11298\" and amount = 350.0. That seems the most direct. Alternatively, \"",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 210,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "char ::= [^\"\\\\\\x7F\\x00-\\x1F] | [\\\\] ([\"\\\\bfnrt] | \"u\" [0-9a-fA-F]{4})\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nresponse-format ::= \"{\" space response-format-tool-kv \",\" space response-format-tracking-no-kv \",\" space response-format-quantity-kv space \"}\"\nresponse-format-quantity ::= \"{\" space response-format-quantity-value-kv \",\" space response-format-quantity-unit-kv space \"}\"\nresponse-format-quantity-kv ::= \"\\\"quantity\\\"\" space \":\" space response-format-quantity\nresponse-format-quantity-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\nresponse-format-quantity-unit-kv ::= \"\\\"unit\\\"\" space \":\" space response-format-quantity-unit\nresponse-format-quantity-value-kv ::= \"\\\"value\\\"\" space \":\" space number\nresponse-format-tool ::= (\"\\\"logistics.trace_shipment\\\"\" | \"\\\"logistics.reroute_shipment\\\"\" | \"\\\"logistics.estimate_delivery\\\"\" | \"\\\"addresses.validate\\\"\" | \"\\\"customs.declare_value\\\"\" | \"\\\"labels.generate\\\"\" | \"\\\"couriers.list_rates\\\"\" | \"\\\"escalations.open_case\\\"\")\nresponse-format-tool-kv ::= \"\\\"tool\\\"\" space \":\" space response-format-tool\nresponse-format-tracking-no-kv ::= \"\\\"tracking_no\\\"\" space \":\" space string\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nstring ::= \"\\\"\" char* \"\\\"\"\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n商品 TRK-11298：数量变动 350.0 USD。\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": false,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1233,
+     "timings": {
+      "cache_n": 209,
+      "prompt_n": 1,
+      "prompt_ms": 10.035,
+      "prompt_per_token_ms": 10.035,
+      "prompt_per_second": 99.6512207274539,
+      "predicted_n": 1024,
+      "predicted_ms": 5671.326,
+      "predicted_per_token_ms": 5.543818181818182,
+      "predicted_per_second": 180.3810960611328
+     }
+    },
+    "timings": {
+     "cache_n": 209,
+     "prompt_n": 1,
+     "prompt_ms": 10.035,
+     "prompt_per_token_ms": 10.035,
+     "prompt_per_second": 99.6512207274539,
+     "predicted_n": 1024,
+     "predicted_ms": 5671.326,
+     "predicted_per_token_ms": 5.543818181818182,
+     "predicted_per_second": 180.3810960611328
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.703
+  }
+ ]
+}

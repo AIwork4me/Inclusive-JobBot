@@ -1,0 +1,146 @@
+{
+ "trial_id": "50e3deb0703335dcb991bc24",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of text describing a policy decision scenario.\n    *   Content:\n        *   `策略 / policy: order age 47 days, policy limit 30.` (Strategy/Policy: order age 47 days, policy limit 30.)\n        *   `实况 / observation: n = 47.` (Reality/Observation: n = 47.)\n        *   `Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.` (Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.)\n    *   Task: Determine which branch applies (`Decide which branch applies`).\n\n2.  **Understand the Logic:**\n    *   **Policy:** The system wants to place an order (likely for a product or service) with an age of 47 days. The maximum allowed age is 30 days.\n    *   **Observation:** The current age is 47 days.\n    *   **Comparison:** Policy Limit (30) vs. Actual Age (47).\n    *   **Condition:** Is the actual"
+      }
+     }
+    ],
+    "created": 1795796325,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 256,
+     "prompt_tokens": 67,
+     "total_tokens": 323,
+     "prompt_tokens_details": {
+      "cached_tokens": 63
+     }
+    },
+    "id": "chatcmpl-PF27e640EEVLAJXM9sfq2vhm2E90T1Jp",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of text describing a policy decision scenario.\n    *   Content:\n        *   `策略 / policy: order age 47 days, policy limit 30.` (Strategy/Policy: order age 47 days, policy limit 30.)\n        *   `实况 / observation: n = 47.` (Reality/Observation: n = 47.)\n        *   `Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.` (Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.)\n    *   Task: Determine which branch applies (`Decide which branch applies`).\n\n2.  **Understand the Logic:**\n    *   **Policy:** The system wants to place an order (likely for a product or service) with an age of 47 days. The maximum allowed age is 30 days.\n    *   **Observation:** The current age is 47 days.\n    *   **Comparison:** Policy Limit (30) vs. Actual Age (47).\n    *   **Condition:** Is the actual",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 256,
+     "tokens_evaluated": 67,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 256,
+      "n_predict": 256,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n策略 / policy: order age 47 days, policy limit 30. 实况 / observation: n = 47.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 322,
+     "timings": {
+      "cache_n": 63,
+      "prompt_n": 4,
+      "prompt_ms": 19.405,
+      "prompt_per_token_ms": 4.85125,
+      "prompt_per_second": 206.1324400927596,
+      "predicted_n": 256,
+      "predicted_ms": 1225.932,
+      "predicted_per_token_ms": 4.807576470588235,
+      "predicted_per_second": 208.00501169722298
+     }
+    },
+    "timings": {
+     "cache_n": 63,
+     "prompt_n": 4,
+     "prompt_ms": 19.405,
+     "prompt_per_token_ms": 4.85125,
+     "prompt_per_second": 206.1324400927596,
+     "predicted_n": 256,
+     "predicted_ms": 1225.932,
+     "predicted_per_token_ms": 4.807576470588235,
+     "predicted_per_second": 208.00501169722298
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.25
+  }
+ ]
+}

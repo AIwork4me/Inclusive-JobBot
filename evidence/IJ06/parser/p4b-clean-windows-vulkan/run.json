@@ -1,0 +1,53 @@
+{
+  "fixture_version": "ij06-native-1.1.0",
+  "fixture_sha256": "f6d755d00f9e5e090d37be766f3a4e36bafcb38073e50061dd3c1c5175d8caf7",
+  "engine": {
+    "configuration": "P4-local-terminal-integrity",
+    "upstream_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+    "exe_sha256": "90ff43fd7185a36a34f187c1af7e90437510d3f4f6d3f2c1d62455dc4b746123",
+    "patch_sha256": [
+      "3cb17791d4305adfc51401af5289090bab1c6db4d4a0f05fff86eb0635a597b7",
+      "6d4f209bb5c4a3209d0616b8cb5e728fe4014a6f594979cdc9b622c95d951bc6"
+    ],
+    "compiled_backend": "Dynamic b12359 GPU plugin with patched candidate core",
+    "runtime_dll_sha256": {
+      "ggml-base.dll": "40a55be0e5d04a885df84a1aad5bee28f74945872dd3c5f065b04fc52054cf02",
+      "ggml-cpu.dll": "5a82e879d3b28fd1626f56e68b0f11cc9fbef402b8891435c256c42758b37d95",
+      "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+      "ggml.dll": "e7a1847354cd3e734518521f60773979fdfb1c2298d43af90951e3a743f8b3fe",
+      "llama-common.dll": "f29dfd96123959b13405adaafcbc33cfb0a8327c2682606b35b7ec735a0d7fcb",
+      "llama-server-impl.dll": "328040e1020dbdd3129dc48da511a3bab35cf3e9a3534a599d4dfa48b2c078b1",
+      "llama.dll": "b1421b4b1594f6a7b5441a19b09f501068a4235a7aaaf2b4e82d997f31eea665",
+      "mtmd.dll": "4ba668f30a6a93cfdbcfcf1d2646193f41ef5c15086205a58883ad0b70c7d520"
+    }
+  },
+  "server": {
+    "backend": "vulkan",
+    "gpu": {
+      "device": "Vulkan0",
+      "name": "AMD Radeon(TM) 8060S Graphics",
+      "architecture": "gfx1151"
+    },
+    "model_alias": "minicpm5-2b",
+    "model_sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+    "layers_offloaded": 43,
+    "modelscope_id": "OpenBMB/MiniCPM5-2B-GGUF",
+    "modelscope_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+    "chat_template_sha256": "6e54652d84d698ebb3b7b2172204b6eeafd7f27533e006c8c1ebf8e743a7fd99"
+  },
+  "git": {
+    "commit": "fa50525ebf99fff98149746c05fadc472c8462ec",
+    "dirty": false
+  },
+  "runner_sha256": "0e269c3bf57c63485a9893972f76a5aae89ebb3e9175bee005cfeb9ea84554fc",
+  "eos_token_id": 1,
+  "evidence_type": "fixed-output native and wire fixtures; no business execution",
+  "run_id": "ij06-wire-3b43dc9913c1417fb0c330d32fdaa57f",
+  "started_utc": "2026-11-24T10:00:05+00:00",
+  "sessions": [
+    {
+      "pid": 23952,
+      "started_utc": "2026-11-24T09:59:57.0892491Z"
+    }
+  ]
+}

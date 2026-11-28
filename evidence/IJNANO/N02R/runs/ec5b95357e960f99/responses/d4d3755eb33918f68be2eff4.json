@@ -1,0 +1,146 @@
+{
+ "trial_id": "d4d3755eb33918f68be2eff4",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A status update for a task or project.\n    *   Goal: TRK-73002 delivered.\n    *   Observation: carrier reports delivered, photo on file.\n    *   Allowed Decisions: stop, continue.\n    *   Task: Decide whether to \"stop\" or \"continue\".\n\n2.  **Interpret the Context:**\n    *   This looks like a workflow or project management system (possibly related to logistics, delivery tracking, or a specific internal tool like a \"TRK\" tracker).\n    *   \"TRK-73002 delivered\" indicates the goal has been achieved.\n    *   \"carrier reports delivered, photo on file\" confirms the physical evidence and documentation are in place.\n    *   The goal is \"delivered\". The observation confirms the status is \"delivered\".\n\n3.  **Evaluate the Decision:**\n    *   If the goal is \"TRK-73002 delivered\", and the observation confirms it is delivered, the task is complete.\n    *   Usually, when a goal is met, the workflow stops. Continuing would imply the goal isn't met or needs further action, which contradicts the \"delivered\" status.\n    *   Therefore, the appropriate action is to stop the process.\n\n4.  **Formulate the Output:**\n    *   The user asks to decide between \"stop\" or \"continue\".\n    *   Based on the logic above, the answer is \"stop\".\n\n5.  **Final Check:**\n    *   Goal: Delivered.\n    *   Status: Delivered.\n    *   Action: Stop.\n\n6.  **Construct Response:**\n    *   Direct answer: stop.\n    *   Reasoning (optional but helpful): The goal has been achieved.\n\n    *Wait, looking at the prompt structure:*\n    \"目标 / goal: goal: TRK-73002 delivered. 当前观测 / observation: carrier reports delivered, photo on file. Allowed decisions: stop, continue. 决定 stop 还是 continue。/ Decide stop or continue.\"\n\n    The prompt is asking me to make the decision.\n\n    Decision: stop.\n\n    Reasoning: The goal (TRK-73002 delivered) has been achieved, and the observation confirms the delivery status with documentation. No further action is needed.\n\n    Output should be concise.\n\n    *Self-Correction/Refinement:* In some contexts, \"continue\" might mean \"verify further\" or \"update system\", but given the explicit \"delivered\" status and \"photo on file\", stopping is the standard closure action.\n\n    Final decision: stop.\n\n    Wait, is there any nuance? Sometimes in automated systems, if the goal is met, you stop. If the goal is met but needs verification, you continue. Here, \"photo on file\" suggests verification is done. So stop is correct.\n\n    Let's output the decision clearly.\n\n    **Decision:** stop.\n\n    **Reason:** The goal has been achieved (delivered) and documentation is present.\n\n    **Output:** stop.\n\n    Wait, I should check if this is a specific prompt from a dataset (like a classification task). Usually, these tasks expect a single word or short phrase.\n\n    Let's provide the answer directly.\n\n    **Answer:** stop.\n\n    **Reasoning:** The goal (TRK-73002 delivered) is confirmed by the observation (carrier reports delivered, photo on file). Since the objective is met, the process should be terminated.\n\n    Okay, I will output \"stop\".\n\n    Wait, looking at the prompt again: \"决定 stop 还是 continue。\" (Decide stop or continue.)\n    I need to output the decision.\n\n    Decision: stop.\n\n    Why? Because the goal is \"delivered\" and the observation confirms it. There is no need to continue.\n\n    Final check: Is there any reason to continue? Maybe to update the system? But usually, \"delivered\" means the task is done. So stop.\n\n    Okay, ready to generate response.\n\n    **Plan:**\n    1. State the decision clearly.\n    2. Briefly explain why (Goal met).\n\n    Actually, looking at the instruction \"决定 stop 还是 continue\", a direct answer is best.\n\n    **Decision:** stop.\n\n    **Reason:** The goal has been achieved.\n\n    Okay, I will write the response.\n\n    Wait, I need to make sure I don't add extra fluff if it's a classification task. But usually, a bit of explanation is good.\n\n    Let's go with:\n    决定：stop\n    理由："
+      }
+     }
+    ],
+    "created": 1795798856,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 61,
+     "total_tokens": 1085,
+     "prompt_tokens_details": {
+      "cached_tokens": 57
+     }
+    },
+    "id": "chatcmpl-yhmgsQSbGHjGP7akvWXM62Z01dUQQ7dA",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A status update for a task or project.\n    *   Goal: TRK-73002 delivered.\n    *   Observation: carrier reports delivered, photo on file.\n    *   Allowed Decisions: stop, continue.\n    *   Task: Decide whether to \"stop\" or \"continue\".\n\n2.  **Interpret the Context:**\n    *   This looks like a workflow or project management system (possibly related to logistics, delivery tracking, or a specific internal tool like a \"TRK\" tracker).\n    *   \"TRK-73002 delivered\" indicates the goal has been achieved.\n    *   \"carrier reports delivered, photo on file\" confirms the physical evidence and documentation are in place.\n    *   The goal is \"delivered\". The observation confirms the status is \"delivered\".\n\n3.  **Evaluate the Decision:**\n    *   If the goal is \"TRK-73002 delivered\", and the observation confirms it is delivered, the task is complete.\n    *   Usually, when a goal is met, the workflow stops. Continuing would imply the goal isn't met or needs further action, which contradicts the \"delivered\" status.\n    *   Therefore, the appropriate action is to stop the process.\n\n4.  **Formulate the Output:**\n    *   The user asks to decide between \"stop\" or \"continue\".\n    *   Based on the logic above, the answer is \"stop\".\n\n5.  **Final Check:**\n    *   Goal: Delivered.\n    *   Status: Delivered.\n    *   Action: Stop.\n\n6.  **Construct Response:**\n    *   Direct answer: stop.\n    *   Reasoning (optional but helpful): The goal has been achieved.\n\n    *Wait, looking at the prompt structure:*\n    \"目标 / goal: goal: TRK-73002 delivered. 当前观测 / observation: carrier reports delivered, photo on file. Allowed decisions: stop, continue. 决定 stop 还是 continue。/ Decide stop or continue.\"\n\n    The prompt is asking me to make the decision.\n\n    Decision: stop.\n\n    Reasoning: The goal (TRK-73002 delivered) has been achieved, and the observation confirms the delivery status with documentation. No further action is needed.\n\n    Output should be concise.\n\n    *Self-Correction/Refinement:* In some contexts, \"continue\" might mean \"verify further\" or \"update system\", but given the explicit \"delivered\" status and \"photo on file\", stopping is the standard closure action.\n\n    Final decision: stop.\n\n    Wait, is there any nuance? Sometimes in automated systems, if the goal is met, you stop. If the goal is met but needs verification, you continue. Here, \"photo on file\" suggests verification is done. So stop is correct.\n\n    Let's output the decision clearly.\n\n    **Decision:** stop.\n\n    **Reason:** The goal has been achieved (delivered) and documentation is present.\n\n    **Output:** stop.\n\n    Wait, I should check if this is a specific prompt from a dataset (like a classification task). Usually, these tasks expect a single word or short phrase.\n\n    Let's provide the answer directly.\n\n    **Answer:** stop.\n\n    **Reasoning:** The goal (TRK-73002 delivered) is confirmed by the observation (carrier reports delivered, photo on file). Since the objective is met, the process should be terminated.\n\n    Okay, I will output \"stop\".\n\n    Wait, looking at the prompt again: \"决定 stop 还是 continue。\" (Decide stop or continue.)\n    I need to output the decision.\n\n    Decision: stop.\n\n    Why? Because the goal is \"delivered\" and the observation confirms it. There is no need to continue.\n\n    Final check: Is there any reason to continue? Maybe to update the system? But usually, \"delivered\" means the task is done. So stop.\n\n    Okay, ready to generate response.\n\n    **Plan:**\n    1. State the decision clearly.\n    2. Briefly explain why (Goal met).\n\n    Actually, looking at the instruction \"决定 stop 还是 continue\", a direct answer is best.\n\n    **Decision:** stop.\n\n    **Reason:** The goal has been achieved.\n\n    Okay, I will write the response.\n\n    Wait, I need to make sure I don't add extra fluff if it's a classification task. But usually, a bit of explanation is good.\n\n    Let's go with:\n    决定：stop\n    理由：",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 61,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-decision-kv space \"}\"\nresponse-format-decision ::= (\"\\\"stop\\\"\" | \"\\\"continue\\\"\")\nresponse-format-decision-kv ::= \"\\\"decision\\\"\" space \":\" space response-format-decision\nroot ::= \"<|im_start|>assistant\\n\" (\"<think>\" space until-1 (\"\\n</think>\" | \"</think>\" | ))? space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-1 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<] until-1\nuntil-1-01 ::= | [\\n] until-1-01 | [<] until-1-02 | [^\\n<] until-1\nuntil-1-02 ::= | [\\n] until-1-01 | [/] until-1-03 | [<] until-1-10 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-03 ::= | [\\n] until-1-01 | [t] until-1-04 | [<] until-1-10 | [^\\n<t] until-1\nuntil-1-04 ::= | [\\n] until-1-01 | [h] until-1-05 | [<] until-1-10 | [^\\n<h] until-1\nuntil-1-05 ::= | [\\n] until-1-01 | [i] until-1-06 | [<] until-1-10 | [^\\n<i] until-1\nuntil-1-06 ::= | [\\n] until-1-01 | [n] until-1-07 | [<] until-1-10 | [^\\n<n] until-1\nuntil-1-07 ::= | [\\n] until-1-01 | [k] until-1-08 | [<] until-1-10 | [^\\n<k] until-1\nuntil-1-08 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-10 ::= | [\\n] until-1-01 | [<] until-1-10 | [/] until-1-11 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-11 ::= | [\\n] until-1-01 | [<] until-1-10 | [t] until-1-12 | [^\\n<t] until-1\nuntil-1-12 ::= | [\\n] until-1-01 | [<] until-1-10 | [h] until-1-13 | [^\\n<h] until-1\nuntil-1-13 ::= | [\\n] until-1-01 | [<] until-1-10 | [i] until-1-14 | [^\\n<i] until-1\nuntil-1-14 ::= | [\\n] until-1-01 | [<] until-1-10 | [n] until-1-15 | [^\\n<n] until-1\nuntil-1-15 ::= | [\\n] until-1-01 | [<] until-1-10 | [k] until-1-16 | [^\\n<k] until-1\nuntil-1-16 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-18 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-19 | [^\\n<o] until-1\nuntil-1-19 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-20 | [^\\n<o] until-1\nuntil-1-20 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-21 | [^\\n<l] until-1\nuntil-1-21 ::= | [\\n] until-1-01 | [<] until-1-10 | [_] until-1-22 | [^\\n<_] until-1\nuntil-1-22 ::= | [\\n] until-1-01 | [<] until-1-10 | [c] until-1-23 | [^\\n<c] until-1\nuntil-1-23 ::= | [\\n] until-1-01 | [<] until-1-10 | [a] until-1-24 | [^\\n<a] until-1\nuntil-1-24 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-25 | [^\\n<l] until-1\nuntil-1-25 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-26 | [^\\n<l] until-1\nuntil-1-26 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n目标 / goal: goal: TRK-73002 delivered. 当前观测 / observation: carrier reports delivered, photo on file.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1084,
+     "timings": {
+      "cache_n": 57,
+      "prompt_n": 4,
+      "prompt_ms": 21.641,
+      "prompt_per_token_ms": 5.41025,
+      "prompt_per_second": 184.83434222078463,
+      "predicted_n": 1024,
+      "predicted_ms": 5032.079,
+      "predicted_per_token_ms": 4.918943304007819,
+      "predicted_per_second": 203.29569547695894
+     }
+    },
+    "timings": {
+     "cache_n": 57,
+     "prompt_n": 4,
+     "prompt_ms": 21.641,
+     "prompt_per_token_ms": 5.41025,
+     "prompt_per_second": 184.83434222078463,
+     "predicted_n": 1024,
+     "predicted_ms": 5032.079,
+     "predicted_per_token_ms": 4.918943304007819,
+     "predicted_per_second": 203.29569547695894
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.094
+  }
+ ]
+}

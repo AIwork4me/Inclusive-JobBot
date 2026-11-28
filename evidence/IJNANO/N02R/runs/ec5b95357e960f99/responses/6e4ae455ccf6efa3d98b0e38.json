@@ -1,0 +1,148 @@
+{
+ "trial_id": "6e4ae455ccf6efa3d98b0e38",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "stop",
+       "reasoning_content": "We need to parse the user's request. The user says:\n\n\"目标 / goal: arrival logged for TRK-88771. 当前观测 / observation: receiving record created and acknowledged.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.\"\n\nThis appears to be a system prompt or a decision-making scenario. The user is asking us to decide whether to stop or continue. The context: \"arrival logged for TRK-88771\" and \"receiving record created and acknowledged.\" Allowed decisions: stop, continue. The user asks \"Decide stop or continue.\"\n\nWe need to output a decision: either \"stop\" or \"continue\". The user is likely testing our ability to follow instructions. The system might be a simulation of a tracking system or something. The user says \"目标 / goal: arrival logged for TRK-88771.\" That suggests that an arrival has been logged for a track ID TRK-88771. \"当前观测 / observation: receiving record created and acknowledged.\" That suggests we are receiving a record that has been created and acknowledged. Allowed decisions: stop, continue. So we need to decide whether to stop or continue.\n\nGiven that the arrival is logged and the record is acknowledged, perhaps we should stop? Or continue? The instruction is ambiguous. But the user is asking us to decide. In many such scenarios, if the goal is achieved (arrival logged), we might stop. But the observation says we are receiving a record, so maybe we should continue to process more records. However, the allowed decisions are stop or continue. The user might be expecting a specific answer based on some hidden logic. Since this is a language model, we need to infer the correct decision. Possibly the system is a simulation of a flight tracking or something. The goal is arrival logged for TRK-88771. The observation is receiving record created and acknowledged. That might be a normal operation. The decision could be \"continue\" because we are still receiving records. But the goal is logged, so maybe we should stop processing? The user didn't provide more context. This might be a test of the model's ability to follow the instruction: \"Decide stop or continue.\" The model should output either \"stop\" or \"continue\". I think the safest is to output \"continue\" because the observation indicates we are still receiving records, and the goal is logged but we might need to continue monitoring. However, the user might have a specific expected answer. Since the user is in Chinese, maybe they want a Chinese answer? The prompt says \"决定 stop 还是 continue。 / Decide stop or continue.\" So they want a decision. I'll output \"continue\" as a default. But let's think: In many decision trees, if the goal is achieved, you stop. The goal is \"arrival logged for TRK-88771.\" That is a goal. So if the goal is logged, then the goal is achieved. So we should stop. The observation is just receiving a record, but the goal is already logged. So stop. I'll go with \"stop\". However, the observation says \"receiving record created and acknowledged.\" That might be a new record, but the goal is already logged. So we might stop. I'll decide to stop. But I'm not sure. The user might be testing the model's ability to output the exact decision. Since the instruction is \"Decide stop or continue.\" I'll output \"stop\". I'll provide a concise answer.\n"
+      }
+     }
+    ],
+    "created": 1795797178,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 726,
+     "prompt_tokens": 58,
+     "total_tokens": 784,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-tENStG67UEY7CNi1GcSR4Rpfyo3leOo6",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request. The user says:\n\n\"目标 / goal: arrival logged for TRK-88771. 当前观测 / observation: receiving record created and acknowledged.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.\"\n\nThis appears to be a system prompt or a decision-making scenario. The user is asking us to decide whether to stop or continue. The context: \"arrival logged for TRK-88771\" and \"receiving record created and acknowledged.\" Allowed decisions: stop, continue. The user asks \"Decide stop or continue.\"\n\nWe need to output a decision: either \"stop\" or \"continue\". The user is likely testing our ability to follow instructions. The system might be a simulation of a tracking system or something. The user says \"目标 / goal: arrival logged for TRK-88771.\" That suggests that an arrival has been logged for a track ID TRK-88771. \"当前观测 / observation: receiving record created and acknowledged.\" That suggests we are receiving a record that has been created and acknowledged. Allowed decisions: stop, continue. So we need to decide whether to stop or continue.\n\nGiven that the arrival is logged and the record is acknowledged, perhaps we should stop? Or continue? The instruction is ambiguous. But the user is asking us to decide. In many such scenarios, if the goal is achieved (arrival logged), we might stop. But the observation says we are receiving a record, so maybe we should continue to process more records. However, the allowed decisions are stop or continue. The user might be expecting a specific answer based on some hidden logic. Since this is a language model, we need to infer the correct decision. Possibly the system is a simulation of a flight tracking or something. The goal is arrival logged for TRK-88771. The observation is receiving record created and acknowledged. That might be a normal operation. The decision could be \"continue\" because we are still receiving records. But the goal is logged, so maybe we should stop processing? The user didn't provide more context. This might be a test of the model's ability to follow the instruction: \"Decide stop or continue.\" The model should output either \"stop\" or \"continue\". I think the safest is to output \"continue\" because the observation indicates we are still receiving records, and the goal is logged but we might need to continue monitoring. However, the user might have a specific expected answer. Since the user is in Chinese, maybe they want a Chinese answer? The prompt says \"决定 stop 还是 continue。 / Decide stop or continue.\" So they want a decision. I'll output \"continue\" as a default. But let's think: In many decision trees, if the goal is achieved, you stop. The goal is \"arrival logged for TRK-88771.\" That is a goal. So if the goal is logged, then the goal is achieved. So we should stop. The observation is just receiving a record, but the goal is already logged. So stop. I'll go with \"stop\". However, the observation says \"receiving record created and acknowledged.\" That might be a new record, but the goal is already logged. So we might stop. I'll decide to stop. But I'm not sure. The user might be testing the model's ability to output the exact decision. Since the instruction is \"Decide stop or continue.\" I'll output \"stop\". I'll provide a concise answer.\n</think>\n\nstop",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 726,
+     "tokens_evaluated": 58,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n目标 / goal: goal: arrival logged for TRK-88771. 当前观测 / observation: receiving record created and acknowledged.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 783,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 58,
+      "prompt_ms": 28.292,
+      "prompt_per_token_ms": 0.48779310344827587,
+      "prompt_per_second": 2050.0494839530606,
+      "predicted_n": 726,
+      "predicted_ms": 3969.017,
+      "predicted_per_token_ms": 5.474506206896551,
+      "predicted_per_second": 182.66487646689342
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 58,
+     "prompt_ms": 28.292,
+     "prompt_per_token_ms": 0.48779310344827587,
+     "prompt_per_second": 2050.0494839530606,
+     "predicted_n": 726,
+     "predicted_ms": 3969.017,
+     "predicted_per_token_ms": 5.474506206896551,
+     "predicted_per_second": 182.66487646689342
+    }
+   },
+   "http_error": null,
+   "latency_s": 4.015
+  }
+ ]
+}

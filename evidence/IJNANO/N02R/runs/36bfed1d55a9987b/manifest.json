@@ -1,0 +1,29 @@
+{
+ "experiment_id": "36bfed1d55a9987b",
+ "created_utc": "2026-11-27T13:27:27Z",
+ "identity_spec": "see controller._identity(); suite_hash=a4ad5a09cbc833fda533fa76f15ba7a485d56d6cc5af19c8e49544eb79d154fd",
+ "engine": {
+  "binary": "runtime/llama-cpp/vulkan/llama-server.exe",
+  "sha256": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995",
+  "pinned_build": "b12359 (commit b1b770d90)"
+ },
+ "lease": "benchmarks/root_cause/gpu_lease.py physical_gpu() (host-wide named mutex)",
+ "models": {
+  "S1": {
+   "path": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf",
+   "alias": "minicpm5-2b",
+   "sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078"
+  },
+  "S2": {
+   "path": "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf",
+   "alias": "lfm3-1.7b",
+   "sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6"
+  },
+  "S3": {
+   "path": "models/ij_sdk/Qwen3.5-2B-GGUF/Qwen3.5-2B-Q8_0.gguf",
+   "alias": "qwen3.5-2b",
+   "sha256": "1b04acba824817554f4ce23639bc8495ff70453b8fcb047900c731521021f2c1"
+  }
+ },
+ "phase": "main"
+}

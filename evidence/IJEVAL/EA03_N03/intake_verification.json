@@ -1,0 +1,61 @@
+{
+ "schema": "ijeval.ea03_n03.intake_verification",
+ "schema_version": 1,
+ "generated_by": "scripts/ij_eval_assurance/ea03_n03_intake.py",
+ "pinned_ij_nano_revision": "d23de5abe596e43743a5a2c7437ccd1b5e7de7f9",
+ "ijnano_worktree_modified": true,
+ "ijnano_modification_detail": "at intake time: one UNTRACKED new file (families_b.py, Batch B preparation by the IJ-NANO lane); ALL committed dataset artifacts consumed here are identical to the pinned revision",
+ "all_checks_passed": true,
+ "checks": {
+  "pinned_revision": "d23de5abe596e43743a5a2c7437ccd1b5e7de7f9",
+  "sibling_head_equals_pinned": true,
+  "public_digest": "93c585660b756bcaa2c52f960aa276abcf12b0991103bf488cadc64c61ae99d9",
+  "public_digest_matches_manifest": true,
+  "public_digest_matches_order": true,
+  "counts": {
+   "total": 240,
+   "splits": {
+    "development": 160,
+    "confirmation": 80
+   },
+   "per_primitive": {
+    "C01": 30,
+    "C02": 30,
+    "C03": 30,
+    "C04": 30,
+    "C05": 30,
+    "C06": 30,
+    "C07": 30,
+    "C08": 30
+   },
+   "languages": {
+    "en": 120,
+    "zh": 120
+   }
+  },
+  "structure_ok": true,
+  "dev_expectations_digest": "55ff68f7468e779f1ead4cf113ed03d1a459449b1195094480a8cd3cd40fae0e",
+  "dev_expectations_matches_manifest": true,
+  "dev_expectations_rows": 160,
+  "protected_confirmation": {
+   "exists": true,
+   "contents_read_by_eae": false,
+   "recorded_confirmation_expectations_digest": "576faa6198ac9c9a407d7ccb128c7619b55b07810a7b7d580031d9c8a280f1bc",
+   "protected_manifest_records_expectations_sha256": "6cb8c3c79af20cd64179db15386e807d52068670924c3889ab11d176a84c5af1",
+   "recorded_confirmation_roster_case_count": 80,
+   "isolation_boundary": "directory separation + git exclusion + hash-only committed manifests (single-user OS, no OS-level sandbox — strong isolation NOT claimed, per IJ-NANO limitations.md #7); EAE consumes only committed public artifacts and hash records",
+   "raw_file_digest_matches_manifest": true,
+   "digest_field_definitions_differ_by_design": "build_manifest.confirmation_expectations_digest is the CANONICAL digest (expected_digest() over [{case_id, expected, alternatives}]); confirmation_protected_manifest.expectations_sha256 is the RAW-FILE-BYTES digest (_sha256_file). Both are recorded; the raw-file form is the one independently verifiable without parsing answer contents."
+  },
+  "taxonomy_sha256_prefix": "cb800bce",
+  "taxonomy_matches_contract_pin": true,
+  "handoff_package": {
+   "limitations.md": "87aaab909bd4098bf175f69af1520f27eb2b90f528e7d9cc860aaa697b2d165c",
+   "mutation_targets.md": "37f435f6ebf10c58f96fb16b87ddb44f0dd38d105268bd87fc2bddb94ef9e4b0",
+   "oracle_requirements.md": "b765e65c2d84000c15182031329f6b4322030a6dff444dfd344ffe38e139f1db",
+   "package.json": "24d5d23fa878701ff9cba55590271bbffecb08e51ef1ec7ad29b2a2db409e10a",
+   "parser_semantics.md": "427f0cb770028e4e411f87ecc0bcaa6a26f4b52572872fd45dee2c885e640497"
+  }
+ },
+ "scope_disclaimer": "Intake verification only: confirms the pinned package identity and structure. NOT an EA03 qualification of case semantics; the IJ-NANO verification report is NOT treated as independent EAE qualification (order section 1). EA03 independent oracle work follows the handoff oracle_requirements.md contract."
+}

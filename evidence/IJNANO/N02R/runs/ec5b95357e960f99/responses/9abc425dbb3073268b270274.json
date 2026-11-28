@@ -1,0 +1,146 @@
+{
+ "trial_id": "9abc425dbb3073268b270274",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's request.\n\nThe user says: \"可选动作 / available actions:\nA1. 改址：修改 TRK-40219 的收件地址 / change the address for TRK-40219\nA2. 加急：把 TRK-40219 升级为加急配送 / upgrade TRK-40219 to express\nA3. 拦截：尝试拦截 TRK-40219 / attempt to intercept TRK-40219\nA4. 重发：为 ORD-7781 重新发货 / reship ORD-7781\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户拒收，要求把 {trk} 退回发件人。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The user wants to know which available action corresponds to \"Customer rejected, request to return {trk} to sender\". So we need to map that scenario to one of the actions A1-A6.\n\nWe have options:\n\n- A1: Change address for TRK-40219.\n- A2: Upgrade TRK-40219 to express.\n- A3: Attempt to intercept TRK-40219.\n- A4: Reship ORD-7781 (maybe not relevant).\n- A5: Note only, no action.\n- A6: Open escalation case.\n\nThe scenario: \"客户拒收，要求把 {trk} 退回发件人。\" Means \"Customer rejected it, asks to return {trk} to the sender.\" So we need to return (refund?) or reship? Usually if a customer rejects an order and wants it returned to the sender, that might be \"reject\" or \"return\". Among actions: A4 is \"重发：为 ORD-7781 重新发货 / reship ORD-7781\". That's about reshipping an order. Not exactly returning.\n\nA3 is \"拦截：尝试拦截 TRK-40219 / attempt to intercept TRK-40219\" - maybe intercept means stop delivery? Not sure.\n\nA6: open escalation case.\n\nBut we need to find which action corresponds to \"return to sender\". Possibly A5 (note only, no action) is not correct. Let's think about typical shipping actions: change address, upgrade to express, intercept shipment, reship order, note only, open escalation. Returning a package might be \"reject\" or \"return\", but none of the options directly mention return. However maybe A3 \"attempt to intercept TRK-40219\" could mean stop it and send back? Or A1 change address is not relevant.\n\nWe need to infer from context: The user gave an example earlier about TRK-40219, ORD-7781 etc. They ask: \"客户拒收，要求把 {trk} 退回发件人。\" So we have a tracking number (TRK-40219?) and order ID? Possibly they want to return the item to sender. The available actions include A4 reship for ORD-7781, but not return.\n\nMaybe \"A5: only note, no action\" is used when you need to just record that it's rejected without taking any action? But the request says \"要求把 {trk} 退回发件人\" i.e., they want to return it. That implies an action like \"return\" or \"reject\". None of the listed actions mention returning.\n\nLet's re-evaluate each:\n\n- A1: Change address for TRK-40219.\n- A2: Upgrade to express for TRK-40219.\n- A3: Attempt to intercept TRK-40219.\n- A4: Reship ORD-7781 (i.e., send again).\n- A5: Note only, no action.\n- A6: Open escalation case.\n\nGiven the scenario is a rejection and they want it returned. Possibly \"attempt to intercept\" might be used to stop delivery and get it back? Or maybe \"open an escalation case\" would be appropriate for a customer complaint about rejecting shipment, requiring return. But not sure.\n\nWe need to pick one of the allowed labels: A1, A2, A3, A4, A5, A6.\n\nLet's think about typical shipping operations: If a customer rejects a package before it is delivered, you might want to \"intercept\" or \"return\". Option A3 says \"attempt to intercept TRK-40219 / attempt to intercept TRK-40219\". Intercept could mean stop the shipment and possibly return. So maybe"
+      }
+     }
+    ],
+    "created": 1795799335,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 206,
+     "total_tokens": 1230,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-vSV6YJO8Xhtj99uSx0OgqUN2JR62MrmE",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request.\n\nThe user says: \"可选动作 / available actions:\nA1. 改址：修改 TRK-40219 的收件地址 / change the address for TRK-40219\nA2. 加急：把 TRK-40219 升级为加急配送 / upgrade TRK-40219 to express\nA3. 拦截：尝试拦截 TRK-40219 / attempt to intercept TRK-40219\nA4. 重发：为 ORD-7781 重新发货 / reship ORD-7781\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户拒收，要求把 {trk} 退回发件人。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The user wants to know which available action corresponds to \"Customer rejected, request to return {trk} to sender\". So we need to map that scenario to one of the actions A1-A6.\n\nWe have options:\n\n- A1: Change address for TRK-40219.\n- A2: Upgrade TRK-40219 to express.\n- A3: Attempt to intercept TRK-40219.\n- A4: Reship ORD-7781 (maybe not relevant).\n- A5: Note only, no action.\n- A6: Open escalation case.\n\nThe scenario: \"客户拒收，要求把 {trk} 退回发件人。\" Means \"Customer rejected it, asks to return {trk} to the sender.\" So we need to return (refund?) or reship? Usually if a customer rejects an order and wants it returned to the sender, that might be \"reject\" or \"return\". Among actions: A4 is \"重发：为 ORD-7781 重新发货 / reship ORD-7781\". That's about reshipping an order. Not exactly returning.\n\nA3 is \"拦截：尝试拦截 TRK-40219 / attempt to intercept TRK-40219\" - maybe intercept means stop delivery? Not sure.\n\nA6: open escalation case.\n\nBut we need to find which action corresponds to \"return to sender\". Possibly A5 (note only, no action) is not correct. Let's think about typical shipping actions: change address, upgrade to express, intercept shipment, reship order, note only, open escalation. Returning a package might be \"reject\" or \"return\", but none of the options directly mention return. However maybe A3 \"attempt to intercept TRK-40219\" could mean stop it and send back? Or A1 change address is not relevant.\n\nWe need to infer from context: The user gave an example earlier about TRK-40219, ORD-7781 etc. They ask: \"客户拒收，要求把 {trk} 退回发件人。\" So we have a tracking number (TRK-40219?) and order ID? Possibly they want to return the item to sender. The available actions include A4 reship for ORD-7781, but not return.\n\nMaybe \"A5: only note, no action\" is used when you need to just record that it's rejected without taking any action? But the request says \"要求把 {trk} 退回发件人\" i.e., they want to return it. That implies an action like \"return\" or \"reject\". None of the listed actions mention returning.\n\nLet's re-evaluate each:\n\n- A1: Change address for TRK-40219.\n- A2: Upgrade to express for TRK-40219.\n- A3: Attempt to intercept TRK-40219.\n- A4: Reship ORD-7781 (i.e., send again).\n- A5: Note only, no action.\n- A6: Open escalation case.\n\nGiven the scenario is a rejection and they want it returned. Possibly \"attempt to intercept\" might be used to stop delivery and get it back? Or maybe \"open an escalation case\" would be appropriate for a customer complaint about rejecting shipment, requiring return. But not sure.\n\nWe need to pick one of the allowed labels: A1, A2, A3, A4, A5, A6.\n\nLet's think about typical shipping operations: If a customer rejects a package before it is delivered, you might want to \"intercept\" or \"return\". Option A3 says \"attempt to intercept TRK-40219 / attempt to intercept TRK-40219\". Intercept could mean stop the shipment and possibly return. So maybe",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 206,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n可选动作 / available actions:\nA1. 改址：修改 TRK-40219 的收件地址 / change the address for TRK-40219\nA2. 加急：把 TRK-40219 升级为加急配送 / upgrade TRK-40219 to express\nA3. 拦截：尝试拦截 TRK-40219 / attempt to intercept TRK-40219\nA4. 重发：为 ORD-7781 重新发货 / reship ORD-7781\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户拒收，要求把 {trk} 退回发件人。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1229,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 206,
+      "prompt_ms": 46.299,
+      "prompt_per_token_ms": 0.22475242718446603,
+      "prompt_per_second": 4449.340158534741,
+      "predicted_n": 1024,
+      "predicted_ms": 5962.21,
+      "predicted_per_token_ms": 5.828162267839687,
+      "predicted_per_second": 171.58067226749813
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 206,
+     "prompt_ms": 46.299,
+     "prompt_per_token_ms": 0.22475242718446603,
+     "prompt_per_second": 4449.340158534741,
+     "predicted_n": 1024,
+     "predicted_ms": 5962.21,
+     "predicted_per_token_ms": 5.828162267839687,
+     "predicted_per_second": 171.58067226749813
+    }
+   },
+   "http_error": null,
+   "latency_s": 6.0
+  }
+ ]
+}

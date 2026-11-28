@@ -1,0 +1,42 @@
+{
+ "schema": "ijeval.auth2b.release.v1",
+ "status": "EAE-SIDE-RELEASED (physical execution by the IJ-NANO owner at the pinned revision)",
+ "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-B-v1",
+ "auth_level": "AUTH-2",
+ "scope": {
+  "slots": 480,
+  "models": [
+   "MiniCPM5-2B",
+   "LFM3-1.7B",
+   "Qwen3.5-2B"
+  ],
+  "dev_cases": 160,
+  "roster_digest": "e9a5a352996e594b79fb4820b6f647712d6a31574635e3c5a4d95fba34164ec3",
+  "dataset_digest": "eb5a34ee8cbfb47a9ff295494abdd47900cf48a6dd5327ef99864437a1be8c3f",
+  "primitives": [
+   "C09",
+   "C10",
+   "C11",
+   "C12",
+   "C13",
+   "C14",
+   "C15",
+   "C16"
+  ],
+  "primitives_qualified": 8,
+  "progressive_note": "all 8 Batch B primitives qualified -> full 480-slot Batch B dev scope; narrower preregistered scopes remain permissible"
+ },
+ "eae_contract_revision": "1.1.1",
+ "authorization_checksum": "fc4cdb2c0d36f189dd9f0249edbba2310a5b957f3ecd40b99af8a1c8d2a9133d",
+ "certificate_ids": [
+  "512efb617a9cb4c8",
+  "bd41edfb6fd7c004"
+ ],
+ "shared_core_gate": "N03_SHARED_EVALUATION_ASSURANCE_CORE_GO",
+ "dispatch_limits": {
+  "max_trials": 480
+ },
+ "confirmation_status": "BLOCKED (AUTH-3 requires frozen model identities/policies + confirmation roster + verified holdout separation; not registered)",
+ "batch_note": "independent Batch B qualification — granted from Batch B evidence only, never from the Batch A certificate",
+ "generated_utc": "2026-11-28T04:51:56Z"
+}

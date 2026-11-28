@@ -1,0 +1,146 @@
+{
+ "trial_id": "039cc551ec5dddc28e56749c",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of text describing a policy decision scenario.\n    *   Content:\n        *   `策略 / policy: order age 47 days, policy limit 30.` (Strategy/Policy: order age 47 days, policy limit 30.)\n        *   `实况 / observation: n = 47.` (Reality/Observation: n = 47.)\n        *   `Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.` (Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.)\n    *   Task: Determine which branch applies (`Decide which branch applies`).\n\n2.  **Understand the Logic:**\n    *   **Policy:** The system wants to place an order (likely for a product or service) with an age of 47 days. The maximum allowed age is 30 days.\n    *   **Observation:** The current age is 47 days.\n    *   **Comparison:** Policy Limit (30) vs. Actual Age (47).\n    *   **Condition:** Is the actual age within the policy limit?\n        *   47 > 30.\n        *   The order is *not* within the policy limit.\n    *   **Allowed Branches:**\n        *   `auto_approve`: If the action is allowed without manager approval.\n        *   `requires_manager_approval`: If the action needs manager approval.\n        *   `reject_out_of_policy`: If the action violates the policy.\n\n3.  **Evaluate the Decision:**\n    *   Since the order age (47) exceeds the policy limit (30), the action is out of policy.\n    *   Therefore, the system should not approve it automatically.\n    *   It should not require manager approval (unless the policy explicitly says \"if out of policy, manager approval is needed\", but the standard classification for \"out of policy\" is `reject_out_of_policy`).\n    *   The most direct and correct classification for violating a policy limit is `reject_out_of_policy`.\n\n4.  **Formulate the Output:**\n    *   The user wants to know which branch applies.\n    *   Based on the logic: 47 > 30 -> Out of Policy -> `reject_out"
+      }
+     }
+    ],
+    "created": 1795796333,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 512,
+     "prompt_tokens": 67,
+     "total_tokens": 579,
+     "prompt_tokens_details": {
+      "cached_tokens": 63
+     }
+    },
+    "id": "chatcmpl-1Tew6J4vDanoESrfQD1KVdEAhZUGsiks",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of text describing a policy decision scenario.\n    *   Content:\n        *   `策略 / policy: order age 47 days, policy limit 30.` (Strategy/Policy: order age 47 days, policy limit 30.)\n        *   `实况 / observation: n = 47.` (Reality/Observation: n = 47.)\n        *   `Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.` (Allowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.)\n    *   Task: Determine which branch applies (`Decide which branch applies`).\n\n2.  **Understand the Logic:**\n    *   **Policy:** The system wants to place an order (likely for a product or service) with an age of 47 days. The maximum allowed age is 30 days.\n    *   **Observation:** The current age is 47 days.\n    *   **Comparison:** Policy Limit (30) vs. Actual Age (47).\n    *   **Condition:** Is the actual age within the policy limit?\n        *   47 > 30.\n        *   The order is *not* within the policy limit.\n    *   **Allowed Branches:**\n        *   `auto_approve`: If the action is allowed without manager approval.\n        *   `requires_manager_approval`: If the action needs manager approval.\n        *   `reject_out_of_policy`: If the action violates the policy.\n\n3.  **Evaluate the Decision:**\n    *   Since the order age (47) exceeds the policy limit (30), the action is out of policy.\n    *   Therefore, the system should not approve it automatically.\n    *   It should not require manager approval (unless the policy explicitly says \"if out of policy, manager approval is needed\", but the standard classification for \"out of policy\" is `reject_out_of_policy`).\n    *   The most direct and correct classification for violating a policy limit is `reject_out_of_policy`.\n\n4.  **Formulate the Output:**\n    *   The user wants to know which branch applies.\n    *   Based on the logic: 47 > 30 -> Out of Policy -> `reject_out",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 512,
+     "tokens_evaluated": 67,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 512,
+      "n_predict": 512,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-branch-kv space \"}\"\nresponse-format-branch ::= (\"\\\"auto_approve\\\"\" | \"\\\"requires_manager_approval\\\"\" | \"\\\"reject_out_of_policy\\\"\")\nresponse-format-branch-kv ::= \"\\\"branch\\\"\" space \":\" space response-format-branch\nroot ::= \"<|im_start|>assistant\\n\" (\"<think>\" space until-1 (\"\\n</think>\" | \"</think>\" | ))? space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-1 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<] until-1\nuntil-1-01 ::= | [\\n] until-1-01 | [<] until-1-02 | [^\\n<] until-1\nuntil-1-02 ::= | [\\n] until-1-01 | [/] until-1-03 | [<] until-1-10 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-03 ::= | [\\n] until-1-01 | [t] until-1-04 | [<] until-1-10 | [^\\n<t] until-1\nuntil-1-04 ::= | [\\n] until-1-01 | [h] until-1-05 | [<] until-1-10 | [^\\n<h] until-1\nuntil-1-05 ::= | [\\n] until-1-01 | [i] until-1-06 | [<] until-1-10 | [^\\n<i] until-1\nuntil-1-06 ::= | [\\n] until-1-01 | [n] until-1-07 | [<] until-1-10 | [^\\n<n] until-1\nuntil-1-07 ::= | [\\n] until-1-01 | [k] until-1-08 | [<] until-1-10 | [^\\n<k] until-1\nuntil-1-08 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-10 ::= | [\\n] until-1-01 | [<] until-1-10 | [/] until-1-11 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-11 ::= | [\\n] until-1-01 | [<] until-1-10 | [t] until-1-12 | [^\\n<t] until-1\nuntil-1-12 ::= | [\\n] until-1-01 | [<] until-1-10 | [h] until-1-13 | [^\\n<h] until-1\nuntil-1-13 ::= | [\\n] until-1-01 | [<] until-1-10 | [i] until-1-14 | [^\\n<i] until-1\nuntil-1-14 ::= | [\\n] until-1-01 | [<] until-1-10 | [n] until-1-15 | [^\\n<n] until-1\nuntil-1-15 ::= | [\\n] until-1-01 | [<] until-1-10 | [k] until-1-16 | [^\\n<k] until-1\nuntil-1-16 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-18 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-19 | [^\\n<o] until-1\nuntil-1-19 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-20 | [^\\n<o] until-1\nuntil-1-20 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-21 | [^\\n<l] until-1\nuntil-1-21 ::= | [\\n] until-1-01 | [<] until-1-10 | [_] until-1-22 | [^\\n<_] until-1\nuntil-1-22 ::= | [\\n] until-1-01 | [<] until-1-10 | [c] until-1-23 | [^\\n<c] until-1\nuntil-1-23 ::= | [\\n] until-1-01 | [<] until-1-10 | [a] until-1-24 | [^\\n<a] until-1\nuntil-1-24 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-25 | [^\\n<l] until-1\nuntil-1-25 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-26 | [^\\n<l] until-1\nuntil-1-26 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n策略 / policy: order age 47 days, policy limit 30. 实况 / observation: n = 47.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 578,
+     "timings": {
+      "cache_n": 63,
+      "prompt_n": 4,
+      "prompt_ms": 22.091,
+      "prompt_per_token_ms": 5.52275,
+      "prompt_per_second": 181.06921370693948,
+      "predicted_n": 512,
+      "predicted_ms": 2497.504,
+      "predicted_per_token_ms": 4.8874833659491195,
+      "predicted_per_second": 204.60427691006703
+     }
+    },
+    "timings": {
+     "cache_n": 63,
+     "prompt_n": 4,
+     "prompt_ms": 22.091,
+     "prompt_per_token_ms": 5.52275,
+     "prompt_per_second": 181.06921370693948,
+     "predicted_n": 512,
+     "predicted_ms": 2497.504,
+     "predicted_per_token_ms": 4.8874833659491195,
+     "predicted_per_second": 204.60427691006703
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.531
+  }
+ ]
+}

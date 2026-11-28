@@ -1,0 +1,389 @@
+{
+ "schema": "ijeval.catastrophe_pilot.v1",
+ "generated_utc": "2026-11-28T03:41:54Z",
+ "scope": "CPU-only integrated pilot (order section 4); NOT the EA14 stress campaign",
+ "rows": [
+  {
+   "scenario": "N02R dictionary unpacking",
+   "authorization": "ISSUED",
+   "detected": true,
+   "mechanism": "dual-path disagreement",
+   "latency_trials": 11,
+   "dispatched_after_activation": 15,
+   "quarantined": 5,
+   "publication": "BLOCKED_CRITICAL_NOT_EVALUABLE",
+   "publication_note": "",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "ISSUED",
+    "preflight": true,
+    "seal": false,
+    "detection": {
+     "detected": true,
+     "mechanism": "dual-path disagreement",
+     "latency_trials": 11
+    },
+    "dispatched_after_activation": 15,
+    "quarantined": 5,
+    "publication": "BLOCKED_CRITICAL_NOT_EVALUABLE",
+    "publication_error": null,
+    "counts": {
+     "CORRECT": 20,
+     "NOT_EVALUABLE": 5
+    }
+   }
+  },
+  {
+   "scenario": "exception masking",
+   "authorization": "ISSUED",
+   "detected": true,
+   "mechanism": "software-error class",
+   "latency_trials": 1,
+   "dispatched_after_activation": 15,
+   "quarantined": 15,
+   "publication": "BLOCKED_CRITICAL_NOT_EVALUABLE",
+   "publication_note": "",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "ISSUED",
+    "preflight": true,
+    "seal": false,
+    "detection": {
+     "detected": true,
+     "mechanism": "software-error class",
+     "latency_trials": 1
+    },
+    "dispatched_after_activation": 15,
+    "quarantined": 15,
+    "publication": "BLOCKED_CRITICAL_NOT_EVALUABLE",
+    "publication_error": null,
+    "verdict": "CONTAINED",
+    "counts": {
+     "CORRECT": 10,
+     "PARSER_SOFTWARE_ERROR": 15
+    }
+   }
+  },
+  {
+   "scenario": "false-positive scoring",
+   "authorization": "ISSUED",
+   "detected": true,
+   "mechanism": "canary (C01)",
+   "latency_trials": 15,
+   "dispatched_after_activation": 15,
+   "quarantined": 0,
+   "publication": "BLOCKED_INCOMPLETE_ROSTER",
+   "publication_note": "",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "ISSUED",
+    "preflight": true,
+    "seal": false,
+    "detection": {
+     "detected": true,
+     "mechanism": "canary (C01)",
+     "latency_trials": 15
+    },
+    "dispatched_after_activation": 15,
+    "quarantined": 0,
+    "publication": "BLOCKED_INCOMPLETE_ROSTER",
+    "publication_error": null,
+    "counts": {
+     "CORRECT": 25
+    }
+   }
+  },
+  {
+   "scenario": "ground-truth corruption",
+   "authorization": "ISSUED",
+   "detected": true,
+   "mechanism": "dual-path disagreement",
+   "latency_trials": 1,
+   "dispatched_after_activation": 50,
+   "quarantined": 1,
+   "publication": "BLOCKED_CRITICAL_NOT_EVALUABLE",
+   "publication_note": "",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "ISSUED",
+    "preflight": true,
+    "seal": true,
+    "detection": {
+     "detected": true,
+     "mechanism": "dual-path disagreement",
+     "latency_trials": 1
+    },
+    "dispatched_after_activation": 50,
+    "quarantined": 1,
+    "publication": "BLOCKED_CRITICAL_NOT_EVALUABLE",
+    "publication_error": null,
+    "counts": {
+     "CORRECT": 57,
+     "NOT_EVALUABLE": 1,
+     "EMPTY_OUTPUT": 2
+    }
+   }
+  },
+  {
+   "scenario": "unauthorized fields dropped",
+   "authorization": "ISSUED",
+   "detected": true,
+   "mechanism": "canary (C02)",
+   "latency_trials": 15,
+   "dispatched_after_activation": 15,
+   "quarantined": 0,
+   "publication": "BLOCKED_INCOMPLETE_ROSTER",
+   "publication_note": "",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "ISSUED",
+    "preflight": true,
+    "seal": false,
+    "detection": {
+     "detected": true,
+     "mechanism": "canary (C02)",
+     "latency_trials": 15
+    },
+    "dispatched_after_activation": 15,
+    "quarantined": 0,
+    "publication": "BLOCKED_INCOMPLETE_ROSTER",
+    "publication_error": null,
+    "counts": {
+     "CORRECT": 25
+    }
+   }
+  },
+  {
+   "scenario": "evidence forgery (artifact tamper)",
+   "authorization": "ISSUED",
+   "detected": true,
+   "mechanism": "publication evidence-integrity boundary",
+   "latency_trials": null,
+   "dispatched_after_activation": 50,
+   "quarantined": 0,
+   "publication": "BLOCKED_EVIDENCE_INTEGRITY",
+   "publication_note": "",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "ISSUED",
+    "preflight": true,
+    "seal": true,
+    "detection": {
+     "detected": false,
+     "mechanism": null,
+     "latency_trials": null
+    },
+    "dispatched_after_activation": 50,
+    "quarantined": 0,
+    "publication": "BLOCKED_EVIDENCE_INTEGRITY",
+    "publication_error": null,
+    "counts": {
+     "CORRECT": 58,
+     "EMPTY_OUTPUT": 2
+    }
+   }
+  },
+  {
+   "scenario": "qualification issuance without tests",
+   "authorization": "REFUSED: implementation file missing: nonexistent.json",
+   "detected": true,
+   "mechanism": "issuance refusal",
+   "latency_trials": null,
+   "dispatched_after_activation": 0,
+   "quarantined": 0,
+   "publication": "n/a",
+   "publication_note": "publication verdict shown is the CLEAN panel's; the fault targets the authorization boundary",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "REFUSED: implementation file missing: nonexistent.json",
+    "publication": "n/a",
+    "counts": {}
+   }
+  },
+  {
+   "scenario": "authorization level mismatch",
+   "authorization": "REFUSED: evidence authorizes purpose 'AUTH-1'; authorization at 'AUTH-2' refused (purpose",
+   "detected": true,
+   "mechanism": "issuance refusal",
+   "latency_trials": null,
+   "dispatched_after_activation": 0,
+   "quarantined": 0,
+   "publication": "n/a",
+   "publication_note": "publication verdict shown is the CLEAN panel's; the fault targets the authorization boundary",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "REFUSED: evidence authorizes purpose 'AUTH-1'; authorization at 'AUTH-2' refused (purpose",
+    "publication": "n/a",
+    "counts": {}
+   }
+  },
+  {
+   "scenario": "stale authorization",
+   "authorization": "STALE REFUSED: stale authorization: the registered execution evidence was replaced after issuan",
+   "detected": true,
+   "mechanism": "issuance refusal",
+   "latency_trials": null,
+   "dispatched_after_activation": 0,
+   "quarantined": 0,
+   "publication": "ALLOWED",
+   "publication_note": "publication verdict shown is the CLEAN panel's; the fault targets the authorization boundary",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "STALE REFUSED: stale authorization: the registered execution evidence was replaced after issuan",
+    "preflight": true,
+    "seal": true,
+    "detection": {
+     "detected": false,
+     "mechanism": null,
+     "latency_trials": null
+    },
+    "dispatched_after_activation": 0,
+    "quarantined": 0,
+    "publication": "ALLOWED",
+    "publication_error": null,
+    "counts": {
+     "CORRECT": 58,
+     "EMPTY_OUTPUT": 2
+    }
+   }
+  },
+  {
+   "scenario": "revocation bypass",
+   "authorization": "ISSUED",
+   "detected": true,
+   "mechanism": "revocation refusal",
+   "latency_trials": null,
+   "dispatched_after_activation": 0,
+   "quarantined": 0,
+   "publication": "ALLOWED",
+   "publication_note": "",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "ISSUED",
+    "preflight": true,
+    "seal": true,
+    "detection": {
+     "detected": false,
+     "mechanism": null,
+     "latency_trials": null
+    },
+    "dispatched_after_activation": 0,
+    "quarantined": 0,
+    "publication": "ALLOWED",
+    "publication_error": null,
+    "post_revocation": "REFUSED: qualification 'e3edb3e00009e4b1' revoked; dispatch refused (authoritative state)",
+    "counts": {
+     "CORRECT": 58,
+     "EMPTY_OUTPUT": 2
+    }
+   }
+  },
+  {
+   "scenario": "direct analyzer bypass",
+   "authorization": "ISSUED",
+   "detected": true,
+   "mechanism": "untrusted-store refusal",
+   "latency_trials": null,
+   "dispatched_after_activation": 50,
+   "quarantined": 0,
+   "publication": "ALLOWED",
+   "publication_note": "",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "ISSUED",
+    "preflight": true,
+    "seal": true,
+    "detection": {
+     "detected": false,
+     "mechanism": null,
+     "latency_trials": null
+    },
+    "dispatched_after_activation": 50,
+    "quarantined": 0,
+    "publication": "ALLOWED",
+    "publication_error": null,
+    "bypass": {
+     "formal_aggregation_with_untrusted_store": "REFUSED: qualified analyzer requires a TRUSTED certificate store",
+     "publication": "ALLOWED"
+    },
+    "counts": {
+     "CORRECT": 58,
+     "EMPTY_OUTPUT": 2
+    }
+   }
+  },
+  {
+   "scenario": "missing artifact",
+   "authorization": "ISSUED",
+   "detected": true,
+   "mechanism": "verify/tamper",
+   "latency_trials": null,
+   "dispatched_after_activation": 50,
+   "quarantined": 0,
+   "publication": "BLOCKED_EVIDENCE_INTEGRITY",
+   "publication_note": "",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "ISSUED",
+    "preflight": true,
+    "seal": true,
+    "detection": {
+     "detected": false,
+     "mechanism": null,
+     "latency_trials": null
+    },
+    "dispatched_after_activation": 50,
+    "quarantined": 0,
+    "publication": "BLOCKED_EVIDENCE_INTEGRITY",
+    "publication_error": null,
+    "verify_problems": [
+     "n03-C02-project-d06|synthetic-cpu|chat: artifact file missing"
+    ],
+    "counts": {
+     "CORRECT": 58,
+     "EMPTY_OUTPUT": 2
+    }
+   }
+  },
+  {
+   "scenario": "duplicate artifact",
+   "authorization": "ISSUED",
+   "detected": true,
+   "mechanism": "duplicate-trial rejection",
+   "latency_trials": null,
+   "dispatched_after_activation": 50,
+   "quarantined": 0,
+   "publication": "ALLOWED",
+   "publication_note": "",
+   "recovery": "controls remain permanent regressions",
+   "raw": {
+    "auth": "ISSUED",
+    "preflight": true,
+    "seal": true,
+    "detection": {
+     "detected": false,
+     "mechanism": null,
+     "latency_trials": null
+    },
+    "dispatched_after_activation": 50,
+    "quarantined": 0,
+    "publication": "ALLOWED",
+    "publication_error": null,
+    "duplicate": {
+     "classification": "DUPLICATE_TRIAL",
+     "trials_before": 60,
+     "trials_after": 60
+    },
+    "counts": {
+     "CORRECT": 58,
+     "EMPTY_OUTPUT": 2
+    }
+   }
+  }
+ ],
+ "summary": {
+  "scenarios": 13,
+  "detected_or_contained": 13,
+  "escapes": []
+ }
+}

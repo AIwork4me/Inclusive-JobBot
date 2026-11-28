@@ -1,0 +1,24 @@
+{
+ "schema_version": 1,
+ "arm": "b9",
+ "checked_utc": "2026-11-27T05:45:56Z",
+ "python": "3.12.10",
+ "packages": {
+  "pocketflow": "0.0.3"
+ },
+ "support_tier": "custom-adapter",
+ "checks": {
+  "c3_tool_roundtrip": {
+   "status": "PASS",
+   "final_output": "订单 PO-2026-0001 的总金额为 17420.5 元。"
+  },
+  "c2_chat": {
+   "status": "PASS"
+  },
+  "c1_connect": {
+   "status": "PASS"
+  }
+ },
+ "notes": "PocketFlow provides Node/Flow only; the LLM utility, tool plumbing and loop are OUR reference implementation (disclosed per mission 6.4). Conformance therefore measures PocketFlow's graph mechanics, not its model support.",
+ "wire": []
+}

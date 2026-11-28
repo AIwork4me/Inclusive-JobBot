@@ -1,0 +1,146 @@
+{
+ "trial_id": "f7755dd5a98f5bd22b6995e0",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of a decision-making process, likely from a reinforcement learning or policy-based agent system (like a trading bot, risk management system, or similar).\n    *   Data:\n        *   `policy`: order age 30 days, policy limit 30.\n        *   `observation`: n = 30.\n        *   `Allowed branches`: auto_approve, requires_manager_approval, reject_out_of_policy.\n    *   Task: Decide which branch applies (`Decide which branch applies`).\n\n2.  **Understand the Context:**\n    *   This looks like a reinforcement learning (RL) or decision tree scenario where an agent needs to make a decision based on a policy and an observation.\n    *   `policy`: \"order age 30 days, policy limit 30\". This implies a constraint or a rule.\n        *   \"order age 30 days\": This likely means the order has been placed or is being considered for 30 days.\n        *   \"policy limit 30\": This likely means the maximum allowed number of orders or the maximum age of an order is 30 days.\n    *   `observation`: `n = 30`. This is the count of something (likely orders or days) observed so far.\n    *   `Allowed branches`: The possible actions the agent can take.\n\n3.  **Evaluate the Condition:**\n    *   The policy says \"order age 30 days\". This suggests a specific condition or a target state.\n    *   The observation says `n = 30`.\n    *   Usually, in these types of problems (like trading or resource allocation), there's a threshold check.\n    *   If the observation `n` (count of orders/days) equals the policy limit (30), what happens?\n    *   Let's interpret \"order age 30 days\" as a constraint. If the current state is `n=30`, does it mean the order is exactly 30 days old? Or does it mean the limit is reached?\n    *   Wait, the text says \"policy: order age 30 days, policy limit 30\". This looks like a specific rule definition.\n    *   If `n = 30`, and the policy limit is 30, does this mean the policy is *exceeded* or *met*?\n    *   Usually, if `n` (observation) matches the limit, it might trigger a specific action.\n    *   However, let's look at the standard logic for these types of classification tasks.\n    *   Scenario A: The agent is trying to place an order.\n    *   Scenario B: The agent is checking if an order is valid.\n    *   Let's look at the phrase \"order age 30 days\". This sounds like a specific condition.\n    *   If `n = 30`, and the policy limit is 30.\n    *   Is the condition met?\n    *   If the observation `n` is exactly the limit, often it means the limit is reached.\n    *   If the limit is reached, the agent might need to `reject_out_of_policy` (if it's too late) or `requires_manager_approval` (if it needs human intervention).\n    *   However, there's a specific phrasing: \"order age 30 days\". This might mean the *order* is 30 days old.\n    *   If the observation `n` is 30, and the policy limit is 30.\n    *   Let's consider the logic of \"order age\". If an order is 30 days old, and the limit is 30 days.\n    *   Usually, if `n` (observation) equals the limit, it might be a boundary case.\n    *   Let's look at the \"Allowed branches\".\n    *   `auto_approve`: If everything is fine.\n    *   `requires_manager_approval`: If human intervention is needed.\n    *   `reject_out_of_policy`: If the action violates the policy.\n\n    *   Hypothesis 1: The policy is \"order age 30 days\". This means the order must be within 30 days.\n    *   Hypothesis 2: The observation `n=30` means the count of orders is 30.\n    *   Hypothesis 3: The policy limit is 30.\n    *   If `n` (observation) equals the policy limit (30), does it mean the policy is violated? Or is it the limit?\n    *   If the policy limit is 30"
+      }
+     }
+    ],
+    "created": 1795794717,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 67,
+     "total_tokens": 1091,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-UrZiJcrI7f5OGqf3ZIcLN35wdb20nDvj",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of a decision-making process, likely from a reinforcement learning or policy-based agent system (like a trading bot, risk management system, or similar).\n    *   Data:\n        *   `policy`: order age 30 days, policy limit 30.\n        *   `observation`: n = 30.\n        *   `Allowed branches`: auto_approve, requires_manager_approval, reject_out_of_policy.\n    *   Task: Decide which branch applies (`Decide which branch applies`).\n\n2.  **Understand the Context:**\n    *   This looks like a reinforcement learning (RL) or decision tree scenario where an agent needs to make a decision based on a policy and an observation.\n    *   `policy`: \"order age 30 days, policy limit 30\". This implies a constraint or a rule.\n        *   \"order age 30 days\": This likely means the order has been placed or is being considered for 30 days.\n        *   \"policy limit 30\": This likely means the maximum allowed number of orders or the maximum age of an order is 30 days.\n    *   `observation`: `n = 30`. This is the count of something (likely orders or days) observed so far.\n    *   `Allowed branches`: The possible actions the agent can take.\n\n3.  **Evaluate the Condition:**\n    *   The policy says \"order age 30 days\". This suggests a specific condition or a target state.\n    *   The observation says `n = 30`.\n    *   Usually, in these types of problems (like trading or resource allocation), there's a threshold check.\n    *   If the observation `n` (count of orders/days) equals the policy limit (30), what happens?\n    *   Let's interpret \"order age 30 days\" as a constraint. If the current state is `n=30`, does it mean the order is exactly 30 days old? Or does it mean the limit is reached?\n    *   Wait, the text says \"policy: order age 30 days, policy limit 30\". This looks like a specific rule definition.\n    *   If `n = 30`, and the policy limit is 30, does this mean the policy is *exceeded* or *met*?\n    *   Usually, if `n` (observation) matches the limit, it might trigger a specific action.\n    *   However, let's look at the standard logic for these types of classification tasks.\n    *   Scenario A: The agent is trying to place an order.\n    *   Scenario B: The agent is checking if an order is valid.\n    *   Let's look at the phrase \"order age 30 days\". This sounds like a specific condition.\n    *   If `n = 30`, and the policy limit is 30.\n    *   Is the condition met?\n    *   If the observation `n` is exactly the limit, often it means the limit is reached.\n    *   If the limit is reached, the agent might need to `reject_out_of_policy` (if it's too late) or `requires_manager_approval` (if it needs human intervention).\n    *   However, there's a specific phrasing: \"order age 30 days\". This might mean the *order* is 30 days old.\n    *   If the observation `n` is 30, and the policy limit is 30.\n    *   Let's consider the logic of \"order age\". If an order is 30 days old, and the limit is 30 days.\n    *   Usually, if `n` (observation) equals the limit, it might be a boundary case.\n    *   Let's look at the \"Allowed branches\".\n    *   `auto_approve`: If everything is fine.\n    *   `requires_manager_approval`: If human intervention is needed.\n    *   `reject_out_of_policy`: If the action violates the policy.\n\n    *   Hypothesis 1: The policy is \"order age 30 days\". This means the order must be within 30 days.\n    *   Hypothesis 2: The observation `n=30` means the count of orders is 30.\n    *   Hypothesis 3: The policy limit is 30.\n    *   If `n` (observation) equals the policy limit (30), does it mean the policy is violated? Or is it the limit?\n    *   If the policy limit is 30",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 67,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n策略 / policy: order age 30 days, policy limit 30. 实况 / observation: n = 30.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1090,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 67,
+      "prompt_ms": 35.186,
+      "prompt_per_token_ms": 0.5251641791044777,
+      "prompt_per_second": 1904.166429830046,
+      "predicted_n": 1024,
+      "predicted_ms": 4964.347,
+      "predicted_per_token_ms": 4.852734115347018,
+      "predicted_per_second": 206.06939845260618
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 67,
+     "prompt_ms": 35.186,
+     "prompt_per_token_ms": 0.5251641791044777,
+     "prompt_per_second": 1904.166429830046,
+     "predicted_n": 1024,
+     "predicted_ms": 4964.347,
+     "predicted_per_token_ms": 4.852734115347018,
+     "predicted_per_second": 206.06939845260618
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.016
+  }
+ ]
+}

@@ -1,0 +1,146 @@
+{
+ "trial_id": "bd9e328d238a77121ffdefb0",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "A2",
+       "reasoning_content": "We need to parse the user's request.\n\nThe user says: \"可选动作 / available actions:\nA1. 换货：为客户 ORD-1042 创建换货单 / exchange the item on ORD-1042\nA2. 退款：为 ORD-1042 提交退款 / submit a refund for ORD-1042\nA3. 仅道歉并关闭工单 / apologize and close the ticket\nA4. 升级人工客服 / escalate to a human agent\nA5. 查询物流轨迹 / trace the shipment\nA6. 发送延迟通知 / send a delay notification\n\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户 {cust} 的订单 {order} 收到后有破损，要求退钱。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The user wants to know which available action corresponds to \"customer's order received after it has damage, request refund\". So we need to choose from A1-A6. Options:\n\n- A1: exchange item on ORD-1042.\n- A2: submit a refund for ORD-1042.\n- A3: apologize and close ticket.\n- A4: escalate to human agent.\n- A5: trace shipment.\n- A6: send delay notification.\n\nThe scenario: \"客户 {cust} 的订单 {order} 收到后有破损，要求退钱。\" Means the customer's order received after it arrived has damage, they want a refund. So we need to submit a refund for that order. That is action A2 (refund). Possibly also apologize and close ticket? But the request explicitly: \"要求退钱\" i.e., require refund. The primary action is to submit a refund. Usually you'd do both apology and refund, but given allowed actions we need to pick one label only. The most direct is A2.\n\nThus answer: \"A2\". Ensure just the label.\n\nHence final output: A2."
+      }
+     }
+    ],
+    "created": 1795796085,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 445,
+     "prompt_tokens": 192,
+     "total_tokens": 637,
+     "prompt_tokens_details": {
+      "cached_tokens": 1
+     }
+    },
+    "id": "chatcmpl-0n4q6CJDafTlzsy7cdzCNLE90MXB5iWz",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request.\n\nThe user says: \"可选动作 / available actions:\nA1. 换货：为客户 ORD-1042 创建换货单 / exchange the item on ORD-1042\nA2. 退款：为 ORD-1042 提交退款 / submit a refund for ORD-1042\nA3. 仅道歉并关闭工单 / apologize and close the ticket\nA4. 升级人工客服 / escalate to a human agent\nA5. 查询物流轨迹 / trace the shipment\nA6. 发送延迟通知 / send a delay notification\n\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户 {cust} 的订单 {order} 收到后有破损，要求退钱。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The user wants to know which available action corresponds to \"customer's order received after it has damage, request refund\". So we need to choose from A1-A6. Options:\n\n- A1: exchange item on ORD-1042.\n- A2: submit a refund for ORD-1042.\n- A3: apologize and close ticket.\n- A4: escalate to human agent.\n- A5: trace shipment.\n- A6: send delay notification.\n\nThe scenario: \"客户 {cust} 的订单 {order} 收到后有破损，要求退钱。\" Means the customer's order received after it arrived has damage, they want a refund. So we need to submit a refund for that order. That is action A2 (refund). Possibly also apologize and close ticket? But the request explicitly: \"要求退钱\" i.e., require refund. The primary action is to submit a refund. Usually you'd do both apology and refund, but given allowed actions we need to pick one label only. The most direct is A2.\n\nThus answer: \"A2\". Ensure just the label.\n\nHence final output: A2.</think>A2",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 445,
+     "tokens_evaluated": 192,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 512,
+      "n_predict": 512,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n可选动作 / available actions:\nA1. 换货：为客户 ORD-1042 创建换货单 / exchange the item on ORD-1042\nA2. 退款：为 ORD-1042 提交退款 / submit a refund for ORD-1042\nA3. 仅道歉并关闭工单 / apologize and close the ticket\nA4. 升级人工客服 / escalate to a human agent\nA5. 查询物流轨迹 / trace the shipment\nA6. 发送延迟通知 / send a delay notification\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户 {cust} 的订单 {order} 收到后有破损，要求退钱。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 636,
+     "timings": {
+      "cache_n": 1,
+      "prompt_n": 191,
+      "prompt_ms": 34.75,
+      "prompt_per_token_ms": 0.18193717277486912,
+      "prompt_per_second": 5496.402877697841,
+      "predicted_n": 445,
+      "predicted_ms": 2581.722,
+      "predicted_per_token_ms": 5.81468918918919,
+      "predicted_per_second": 171.97823778083
+     }
+    },
+    "timings": {
+     "cache_n": 1,
+     "prompt_n": 191,
+     "prompt_ms": 34.75,
+     "prompt_per_token_ms": 0.18193717277486912,
+     "prompt_per_second": 5496.402877697841,
+     "predicted_n": 445,
+     "predicted_ms": 2581.722,
+     "predicted_per_token_ms": 5.81468918918919,
+     "predicted_per_second": 171.97823778083
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.625
+  }
+ ]
+}

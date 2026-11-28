@@ -1,0 +1,146 @@
+{
+ "trial_id": "565780a03c88b84c49216ff2",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of text describing a product (TRK-11298) with a quantity change of 350.0 USD.\n    *   Available Tools: A list of logistics-related tools (trace_shipment, reroute_shipment, estimate_delivery, validate_address, declare_value, generate_label, list_rates, open_case).\n    *   Task: Generate a \"complete action\" including tools and all arguments based on the provided context.\n    *   Language: Chinese (implied by the input text).\n\n2.  **Analyze the Context:**\n    *   Product ID: TRK-11298\n    *   Change: Quantity 变动 350.0 USD (Quantity change of 350.0 USD).\n    *   Implicit Need: The user likely wants to know how to handle this change, or perhaps they want to process a shipment related to this product. However, the prompt asks to \"Generate complete action: tool and all arguments\" based on the provided tools and context.\n    *   Missing Information: The prompt doesn't specify *which* tool to use or *what* action to take. It just gives the context and the tools.\n    *   Interpretation: Usually, when a user provides a product ID and a quantity change, they might be asking to track the shipment, estimate delivery, or handle customs. However, without a specific goal (e.g., \"I need to track this shipment\"), I need to infer the most logical next step or acknowledge the ambiguity.\n    *   Wait, looking closely at the prompt structure: It looks like a system instruction or a task definition where I need to act as an agent. The user says \"Generate complete action: tool and all arguments.\"\n    *   Is there a specific action implied? The text \"商品 TRK-11298：数量变动 350.0 USD\" looks like a log entry or a status update.\n    *   If I am an AI assistant, I should probably ask for clarification or choose the most relevant tool based on common scenarios.\n    *   However, often in these types of prompts, the user wants me to simulate a workflow or pick the most appropriate tool to handle the \"quantity change\" aspect.\n    *   Let's look at the tools again:\n        *   `logistics.trace_shipment`: Trace shipment.\n        *   `logistics.reroute_shipment`: Reroute shipment.\n        *   `logistics.estimate_delivery`: Estimate delivery.\n        *   `addresses.validate`: Validate address.\n        *   `customs.declare_value`: Declare customs value.\n        *   `labels.generate`: Generate label.\n        *   `couriers.list_rates`: List courier rates.\n        *   `escalations.open_case`: Open escalation case.\n    *   The most relevant tool for a \"quantity change\" (350.0 USD) in a logistics context is often `logistics.estimate_delivery` (to see if it affects delivery) or `logistics.trace_shipment` (to see the current status).\n    *   However, the prompt asks to \"Generate complete action: tool and all arguments.\" It implies I should pick one tool and fill in the parameters based on the context.\n    *   Context: \"商品 TRK-11298：数量变动 350.0 USD\". This sounds like a customs declaration or a shipping update.\n    *   If I assume the user wants to process this shipment, `logistics.estimate_delivery` is a good candidate to see the impact.\n    *   But wait, there's a specific instruction: \"生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n    *   I need to decide which tool to use. Since the input is just a status update, I should probably choose the most logical one to demonstrate the action.\n    *   Actually, looking at the structure, this looks like a prompt for a system to execute a task. Since I am an AI, I cannot actually execute the tools (I don't have a backend). I need to output the *code* or the *instruction* that would be sent to the tool.\n    *   Wait, the prompt says \"Available tools: ...\". It looks like I need to select one of these tools and generate the JSON/Command format for it.\n    *   Which one?\n        *   If the user is asking about the quantity change, `logistics.estimate_delivery` is often used to check if the quantity change affects the delivery estimate.\n        *   `logistics.trace_shipment` is also good.\n        *   `customs.declare_value` is relevant if the quantity"
+      }
+     }
+    ],
+    "created": 1795795234,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 218,
+     "total_tokens": 1242,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-cXH09IR8vjdZgnh9W6FJLUa3Mkin8QYY",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A snippet of text describing a product (TRK-11298) with a quantity change of 350.0 USD.\n    *   Available Tools: A list of logistics-related tools (trace_shipment, reroute_shipment, estimate_delivery, validate_address, declare_value, generate_label, list_rates, open_case).\n    *   Task: Generate a \"complete action\" including tools and all arguments based on the provided context.\n    *   Language: Chinese (implied by the input text).\n\n2.  **Analyze the Context:**\n    *   Product ID: TRK-11298\n    *   Change: Quantity 变动 350.0 USD (Quantity change of 350.0 USD).\n    *   Implicit Need: The user likely wants to know how to handle this change, or perhaps they want to process a shipment related to this product. However, the prompt asks to \"Generate complete action: tool and all arguments\" based on the provided tools and context.\n    *   Missing Information: The prompt doesn't specify *which* tool to use or *what* action to take. It just gives the context and the tools.\n    *   Interpretation: Usually, when a user provides a product ID and a quantity change, they might be asking to track the shipment, estimate delivery, or handle customs. However, without a specific goal (e.g., \"I need to track this shipment\"), I need to infer the most logical next step or acknowledge the ambiguity.\n    *   Wait, looking closely at the prompt structure: It looks like a system instruction or a task definition where I need to act as an agent. The user says \"Generate complete action: tool and all arguments.\"\n    *   Is there a specific action implied? The text \"商品 TRK-11298：数量变动 350.0 USD\" looks like a log entry or a status update.\n    *   If I am an AI assistant, I should probably ask for clarification or choose the most relevant tool based on common scenarios.\n    *   However, often in these types of prompts, the user wants me to simulate a workflow or pick the most appropriate tool to handle the \"quantity change\" aspect.\n    *   Let's look at the tools again:\n        *   `logistics.trace_shipment`: Trace shipment.\n        *   `logistics.reroute_shipment`: Reroute shipment.\n        *   `logistics.estimate_delivery`: Estimate delivery.\n        *   `addresses.validate`: Validate address.\n        *   `customs.declare_value`: Declare customs value.\n        *   `labels.generate`: Generate label.\n        *   `couriers.list_rates`: List courier rates.\n        *   `escalations.open_case`: Open escalation case.\n    *   The most relevant tool for a \"quantity change\" (350.0 USD) in a logistics context is often `logistics.estimate_delivery` (to see if it affects delivery) or `logistics.trace_shipment` (to see the current status).\n    *   However, the prompt asks to \"Generate complete action: tool and all arguments.\" It implies I should pick one tool and fill in the parameters based on the context.\n    *   Context: \"商品 TRK-11298：数量变动 350.0 USD\". This sounds like a customs declaration or a shipping update.\n    *   If I assume the user wants to process this shipment, `logistics.estimate_delivery` is a good candidate to see the impact.\n    *   But wait, there's a specific instruction: \"生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n    *   I need to decide which tool to use. Since the input is just a status update, I should probably choose the most logical one to demonstrate the action.\n    *   Actually, looking at the structure, this looks like a prompt for a system to execute a task. Since I am an AI, I cannot actually execute the tools (I don't have a backend). I need to output the *code* or the *instruction* that would be sent to the tool.\n    *   Wait, the prompt says \"Available tools: ...\". It looks like I need to select one of these tools and generate the JSON/Command format for it.\n    *   Which one?\n        *   If the user is asking about the quantity change, `logistics.estimate_delivery` is often used to check if the quantity change affects the delivery estimate.\n        *   `logistics.trace_shipment` is also good.\n        *   `customs.declare_value` is relevant if the quantity",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 218,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n商品 TRK-11298：数量变动 350.0 USD。\nAvailable tools:\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- logistics.reroute_shipment: 改派物流 / reroute a shipment (params: tracking_no)\n- logistics.estimate_delivery: 预估送达 / estimate delivery (params: tracking_no)\n- addresses.validate: 校验地址 / validate an address (params: address_id)\n- customs.declare_value: 申报价值 / declare customs value (params: tracking_no, amount)\n- labels.generate: 生成面单 / generate a label (params: order_id)\n- couriers.list_rates: 查询运费 / list courier rates (params: zone)\n- escalations.open_case: 开升级单 / open an escalation case (params: tracking_no)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1241,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 218,
+      "prompt_ms": 50.232,
+      "prompt_per_token_ms": 0.23042201834862386,
+      "prompt_per_second": 4339.863035515209,
+      "predicted_n": 1024,
+      "predicted_ms": 4959.628,
+      "predicted_per_token_ms": 4.848121212121212,
+      "predicted_per_second": 206.2654699102433
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 218,
+     "prompt_ms": 50.232,
+     "prompt_per_token_ms": 0.23042201834862386,
+     "prompt_per_second": 4339.863035515209,
+     "predicted_n": 1024,
+     "predicted_ms": 4959.628,
+     "predicted_per_token_ms": 4.848121212121212,
+     "predicted_per_second": 206.2654699102433
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.031
+  }
+ ]
+}

@@ -1,0 +1,148 @@
+{
+ "trial_id": "da27dd577bc9c31a78154d92",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "TRK-73002",
+       "reasoning_content": "We need to answer with the argument value only. The context says: tracking_no = TRK-73002. So the answer should be TRK-73002.\n"
+      }
+     }
+    ],
+    "created": 1795793548,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 42,
+     "prompt_tokens": 86,
+     "total_tokens": 128,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-6mLOgEvmpmUr8Mj7hvz0sCGn1q7dbtop",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to answer with the argument value only. The context says: tracking_no = TRK-73002. So the answer should be TRK-73002.\n</think>\n\nTRK-73002",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 42,
+     "tokens_evaluated": 86,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n上下文 / context: tracking_no = TRK-73002. 工具已选定: logistics.trace_shipment. / Tool already chosen: logistics.trace_shipment.\nThe answer is the value of the slot 'tracking_no' (type entity).\nTrack the parcel; the number is in the context. 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 127,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 86,
+      "prompt_ms": 30.013,
+      "prompt_per_token_ms": 0.3489883720930233,
+      "prompt_per_second": 2865.42498250758,
+      "predicted_n": 42,
+      "predicted_ms": 223.043,
+      "predicted_per_token_ms": 5.440073170731708,
+      "predicted_per_second": 183.82105692624293
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 86,
+     "prompt_ms": 30.013,
+     "prompt_per_token_ms": 0.3489883720930233,
+     "prompt_per_second": 2865.42498250758,
+     "predicted_n": 42,
+     "predicted_ms": 223.043,
+     "predicted_per_token_ms": 5.440073170731708,
+     "predicted_per_second": 183.82105692624293
+    }
+   },
+   "http_error": null,
+   "latency_s": 0.25
+  }
+ ]
+}

@@ -1,0 +1,632 @@
+# N06A-R red run (audited source f3d5817, before repairs)
+# command: python -I -m unittest discover -s tests/ij_nano -p 'test_na_*.py' -t .
+# date: 2026-11-27T12:09:51Z
+
+test_commit_does_not_alias_draft_into_store (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_commit_does_not_alias_draft_into_store) ... FAIL
+test_concurrent_calls_serialized_not_interleaved (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_concurrent_calls_serialized_not_interleaved) ... ok
+test_handler_cannot_reach_store_object (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_handler_cannot_reach_store_object) ... FAIL
+test_handler_exception_leaves_nested_dicts_intact (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_handler_exception_leaves_nested_dicts_intact) ... FAIL
+test_handler_exception_leaves_nested_lists_intact (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_handler_exception_leaves_nested_lists_intact) ... FAIL
+test_invalid_commit_and_double_commit_rejected (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_invalid_commit_and_double_commit_rejected) ... ok
+test_multiple_entities_isolated_on_rollback (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_multiple_entities_isolated_on_rollback) ... FAIL
+test_cross_trial_rows_rejected (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_cross_trial_rows_rejected) ... FAIL
+test_dangling_parent_rejected_on_restore (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_dangling_parent_rejected_on_restore) ... FAIL
+test_duplicate_event_id_rejected_on_restore (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_duplicate_event_id_rejected_on_restore) ... ERROR
+test_invalid_stage_rejected_on_restore (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_invalid_stage_rejected_on_restore) ... ok
+test_parent_reassignment_detected (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_parent_reassignment_detected) ... FAIL
+test_payload_mutation_through_nested_reference (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_payload_mutation_through_nested_reference) ... FAIL
+test_seal_digest_anchors_external_manifest (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_seal_digest_anchors_external_manifest) ... FAIL
+test_timestamp_tampering_detected (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_timestamp_tampering_detected) ... FAIL
+test_truncation_detected_against_seal (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_truncation_detected_against_seal) ... ERROR
+tests.ij_nano.test_na_d03_checkpoint (unittest.loader._FailedTest.tests.ij_nano.test_na_d03_checkpoint) ... ERROR
+test_no_concurrent_reservation_race (tests.ij_nano.test_na_d04_budget.TestAtomicReservation.test_no_concurrent_reservation_race) ... ok
+test_negative_spec_rejected (tests.ij_nano.test_na_d04_budget.TestNoBypass.test_negative_spec_rejected) ... FAIL
+test_negative_units_rejected (tests.ij_nano.test_na_d04_budget.TestNoBypass.test_negative_units_rejected) ... ok
+test_no_retry_when_retry_budget_exhausted (tests.ij_nano.test_na_d04_budget.TestNoBypass.test_no_retry_when_retry_budget_exhausted) ... ok
+test_zero_unit_reservation_rejected (tests.ij_nano.test_na_d04_budget.TestNoBypass.test_zero_unit_reservation_rejected) ... FAIL
+test_max_tokens_bound_to_remaining_budget (tests.ij_nano.test_na_d04_budget.TestRequestBinding.test_max_tokens_bound_to_remaining_budget) ... ERROR
+test_overrun_cannot_double_charge_below_zero (tests.ij_nano.test_na_d04_budget.TestRequestBinding.test_overrun_cannot_double_charge_below_zero) ... ERROR
+test_attempt_count_never_refunded (tests.ij_nano.test_na_d04_budget.TestSettlement.test_attempt_count_never_refunded) ... ERROR
+test_reservation_states_distinguished (tests.ij_nano.test_na_d04_budget.TestSettlement.test_reservation_states_distinguished) ... ERROR
+test_settle_overrun_charged (tests.ij_nano.test_na_d04_budget.TestSettlement.test_settle_overrun_charged) ... ERROR
+test_settle_releases_unused_reservation (tests.ij_nano.test_na_d04_budget.TestSettlement.test_settle_releases_unused_reservation) ... ERROR
+test_unknown_usage_conservatively_charged (tests.ij_nano.test_na_d04_budget.TestSettlement.test_unknown_usage_conservatively_charged) ... ERROR
+test_authorized_source_stage_accepted (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_authorized_source_stage_accepted) ... ERROR
+test_bool_is_not_integer_fact (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_bool_is_not_integer_fact) ... ERROR
+test_cross_trial_source_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_cross_trial_source_rejected) ... ERROR
+test_data_type_mismatch_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_data_type_mismatch_rejected) ... ERROR
+test_empty_entity_or_property_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_empty_entity_or_property_rejected) ... ERROR
+test_fake_source_id_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_fake_source_id_rejected) ... ERROR
+test_invalid_unit_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_invalid_unit_rejected) ... ERROR
+test_nested_value_not_stored_by_reference (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_nested_value_not_stored_by_reference) ... ERROR
+test_no_log_bound_facts_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_no_log_bound_facts_rejected) ... FAIL
+test_unauthorized_source_stage_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_unauthorized_source_stage_rejected) ... ERROR
+test_cancelled_before_dispatch_denied (tests.ij_nano.test_na_d06_epoch_cancel.TestCancellationProtection.test_cancelled_before_dispatch_denied) ... ERROR
+test_cancelled_during_handler_commits_nothing (tests.ij_nano.test_na_d06_epoch_cancel.TestCancellationProtection.test_cancelled_during_handler_commits_nothing) ... ERROR
+test_deadline_expired_before_dispatch_denied (tests.ij_nano.test_na_d06_epoch_cancel.TestDeadlineProtection.test_deadline_expired_before_dispatch_denied) ... ERROR
+test_deadline_expired_during_handler_commits_nothing (tests.ij_nano.test_na_d06_epoch_cancel.TestDeadlineProtection.test_deadline_expired_during_handler_commits_nothing) ... ERROR
+test_delayed_handler_completing_after_reset_commits_nothing (tests.ij_nano.test_na_d06_epoch_cancel.TestEpochProtection.test_delayed_handler_completing_after_reset_commits_nothing) ... ERROR
+test_epoch_mismatch_denied_before_dispatch (tests.ij_nano.test_na_d06_epoch_cancel.TestEpochProtection.test_epoch_mismatch_denied_before_dispatch) ... ERROR
+test_epoch_recheck_happens_before_commit (tests.ij_nano.test_na_d06_epoch_cancel.TestEpochProtection.test_epoch_recheck_happens_before_commit) ... ERROR
+test_non_reversible_requires_approval_by_contract (tests.ij_nano.test_na_d06_epoch_cancel.TestNonReversibleActions.test_non_reversible_requires_approval_by_contract) ... ERROR
+test_non_reversible_with_approval_accepted (tests.ij_nano.test_na_d06_epoch_cancel.TestNonReversibleActions.test_non_reversible_with_approval_accepted) ... ERROR
+test_approval_bound_to_canonical_arguments (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_bound_to_canonical_arguments) ... ERROR
+test_approval_bound_to_tool (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_bound_to_tool) ... ERROR
+test_approval_expiry_enforced (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_expiry_enforced) ... ERROR
+test_approval_not_yet_expired_accepted (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_not_yet_expired_accepted) ... ERROR
+test_key_ordering_is_canonicalized (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_key_ordering_is_canonicalized) ... ERROR
+test_duplicate_request_returns_recorded_effect (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_duplicate_request_returns_recorded_effect) ... ERROR
+test_duplicate_while_in_flight_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_duplicate_while_in_flight_denied) ... ERROR
+test_idempotency_survives_restart_via_checkpoint_binding (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_idempotency_survives_restart_via_checkpoint_binding) ... ERROR
+test_missing_mandatory_effect_key_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_missing_mandatory_effect_key_denied) ... ERROR
+test_same_effect_key_different_arguments_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_same_effect_key_different_arguments_denied) ... ERROR
+test_same_effect_key_different_tool_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_same_effect_key_different_tool_denied) ... FAIL
+tests.ij_nano.test_na_d08_schema (unittest.loader._FailedTest.tests.ij_nano.test_na_d08_schema) ... ERROR
+
+======================================================================
+ERROR: test_duplicate_event_id_rejected_on_restore (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_duplicate_event_id_rejected_on_restore)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d02_events.py", line 103, in test_duplicate_event_id_rejected_on_restore
+    rebuild(rows, "t1")
+  File "<worktree>\tests\ij_nano\test_na_d02_events.py", line 34, in rebuild
+    r["hash"] = hashlib.sha256(
+                ^^^^^^^^^^^^^^^
+TypeError: Strings must be encoded before hashing
+
+======================================================================
+ERROR: test_truncation_detected_against_seal (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_truncation_detected_against_seal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d02_events.py", line 114, in test_truncation_detected_against_seal
+    self.assertFalse(restored.verify_against_seal(seal))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'EventLog' object has no attribute 'verify_against_seal'
+
+======================================================================
+ERROR: tests.ij_nano.test_na_d03_checkpoint (unittest.loader._FailedTest.tests.ij_nano.test_na_d03_checkpoint)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.ij_nano.test_na_d03_checkpoint
+Traceback (most recent call last):
+  File "<python-install>\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python-install>\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "<worktree>\tests\ij_nano\test_na_d03_checkpoint.py", line 18, in <module>
+    from nanoagent.core.checkpoint import Checkpoint, CheckpointInvalid  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ImportError: cannot import name 'CheckpointInvalid' from 'nanoagent.core.checkpoint' (<worktree>\src\nanoagent\core\checkpoint.py)
+
+
+======================================================================
+ERROR: test_max_tokens_bound_to_remaining_budget (tests.ij_nano.test_na_d04_budget.TestRequestBinding.test_max_tokens_bound_to_remaining_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d04_budget.py", line 114, in test_max_tokens_bound_to_remaining_budget
+    r.settle(75)
+    ^^^^^^^^
+AttributeError: 'Reservation' object has no attribute 'settle'
+
+======================================================================
+ERROR: test_overrun_cannot_double_charge_below_zero (tests.ij_nano.test_na_d04_budget.TestRequestBinding.test_overrun_cannot_double_charge_below_zero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d04_budget.py", line 122, in test_overrun_cannot_double_charge_below_zero
+    r.settle(14)      # overrun beyond cap is charged, remaining floors at 0
+    ^^^^^^^^
+AttributeError: 'Reservation' object has no attribute 'settle'
+
+======================================================================
+ERROR: test_attempt_count_never_refunded (tests.ij_nano.test_na_d04_budget.TestSettlement.test_attempt_count_never_refunded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d04_budget.py", line 94, in test_attempt_count_never_refunded
+    r.settle(0)
+    ^^^^^^^^
+AttributeError: 'Reservation' object has no attribute 'settle'
+
+======================================================================
+ERROR: test_reservation_states_distinguished (tests.ij_nano.test_na_d04_budget.TestSettlement.test_reservation_states_distinguished)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d04_budget.py", line 100, in test_reservation_states_distinguished
+    self.assertEqual(r.state, "reserved")
+                     ^^^^^^^
+AttributeError: 'Reservation' object has no attribute 'state'
+
+======================================================================
+ERROR: test_settle_overrun_charged (tests.ij_nano.test_na_d04_budget.TestSettlement.test_settle_overrun_charged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d04_budget.py", line 80, in test_settle_overrun_charged
+    r.settle(80)
+    ^^^^^^^^
+AttributeError: 'Reservation' object has no attribute 'settle'
+
+======================================================================
+ERROR: test_settle_releases_unused_reservation (tests.ij_nano.test_na_d04_budget.TestSettlement.test_settle_releases_unused_reservation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d04_budget.py", line 74, in test_settle_releases_unused_reservation
+    r.settle(12)
+    ^^^^^^^^
+AttributeError: 'Reservation' object has no attribute 'settle'
+
+======================================================================
+ERROR: test_unknown_usage_conservatively_charged (tests.ij_nano.test_na_d04_budget.TestSettlement.test_unknown_usage_conservatively_charged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d04_budget.py", line 87, in test_unknown_usage_conservatively_charged
+    r.settle_unknown()
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'Reservation' object has no attribute 'settle_unknown'
+
+======================================================================
+ERROR: test_authorized_source_stage_accepted (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_authorized_source_stage_accepted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 59, in test_authorized_source_stage_accepted
+    s, log = session_with_log()
+             ^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 20, in session_with_log
+    s = Session(trial_id=trial, event_log=log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Session.__init__() got an unexpected keyword argument 'trial_id'
+
+======================================================================
+ERROR: test_bool_is_not_integer_fact (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_bool_is_not_integer_fact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 76, in test_bool_is_not_integer_fact
+    s, log = session_with_log()
+             ^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 20, in session_with_log
+    s = Session(trial_id=trial, event_log=log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Session.__init__() got an unexpected keyword argument 'trial_id'
+
+======================================================================
+ERROR: test_cross_trial_source_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_cross_trial_source_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 40, in test_cross_trial_source_rejected
+    s1, log1 = session_with_log("trial-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 20, in session_with_log
+    s = Session(trial_id=trial, event_log=log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Session.__init__() got an unexpected keyword argument 'trial_id'
+
+======================================================================
+ERROR: test_data_type_mismatch_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_data_type_mismatch_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 67, in test_data_type_mismatch_rejected
+    s, log = session_with_log()
+             ^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 20, in session_with_log
+    s = Session(trial_id=trial, event_log=log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Session.__init__() got an unexpected keyword argument 'trial_id'
+
+======================================================================
+ERROR: test_empty_entity_or_property_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_empty_entity_or_property_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 93, in test_empty_entity_or_property_rejected
+    s, log = session_with_log()
+             ^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 20, in session_with_log
+    s = Session(trial_id=trial, event_log=log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Session.__init__() got an unexpected keyword argument 'trial_id'
+
+======================================================================
+ERROR: test_fake_source_id_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_fake_source_id_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 32, in test_fake_source_id_rejected
+    s, log = session_with_log()
+             ^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 20, in session_with_log
+    s = Session(trial_id=trial, event_log=log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Session.__init__() got an unexpected keyword argument 'trial_id'
+
+======================================================================
+ERROR: test_invalid_unit_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_invalid_unit_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 84, in test_invalid_unit_rejected
+    s, log = session_with_log()
+             ^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 20, in session_with_log
+    s = Session(trial_id=trial, event_log=log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Session.__init__() got an unexpected keyword argument 'trial_id'
+
+======================================================================
+ERROR: test_nested_value_not_stored_by_reference (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_nested_value_not_stored_by_reference)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 107, in test_nested_value_not_stored_by_reference
+    s, log = session_with_log()
+             ^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 20, in session_with_log
+    s = Session(trial_id=trial, event_log=log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Session.__init__() got an unexpected keyword argument 'trial_id'
+
+======================================================================
+ERROR: test_unauthorized_source_stage_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_unauthorized_source_stage_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 51, in test_unauthorized_source_stage_rejected
+    s, log = session_with_log()
+             ^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 20, in session_with_log
+    s = Session(trial_id=trial, event_log=log)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Session.__init__() got an unexpected keyword argument 'trial_id'
+
+======================================================================
+ERROR: test_cancelled_before_dispatch_denied (tests.ij_nano.test_na_d06_epoch_cancel.TestCancellationProtection.test_cancelled_before_dispatch_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 84, in test_cancelled_before_dispatch_denied
+    gw.call("update_order", {"order_id": "PO-1"}, call_key="c1", cancel=tok)
+TypeError: SafeToolGateway.call() got an unexpected keyword argument 'cancel'
+
+======================================================================
+ERROR: test_cancelled_during_handler_commits_nothing (tests.ij_nano.test_na_d06_epoch_cancel.TestCancellationProtection.test_cancelled_during_handler_commits_nothing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 94, in test_cancelled_during_handler_commits_nothing
+    gw.call("update_order", {"order_id": "PO-1"}, call_key="c1", cancel=tok)
+TypeError: SafeToolGateway.call() got an unexpected keyword argument 'cancel'
+
+======================================================================
+ERROR: test_deadline_expired_before_dispatch_denied (tests.ij_nano.test_na_d06_epoch_cancel.TestDeadlineProtection.test_deadline_expired_before_dispatch_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 109, in test_deadline_expired_before_dispatch_denied
+    gw.call("update_order", {"order_id": "PO-1"}, call_key="c1",
+TypeError: SafeToolGateway.call() got an unexpected keyword argument 'deadline_check'
+
+======================================================================
+ERROR: test_deadline_expired_during_handler_commits_nothing (tests.ij_nano.test_na_d06_epoch_cancel.TestDeadlineProtection.test_deadline_expired_during_handler_commits_nothing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 123, in test_deadline_expired_during_handler_commits_nothing
+    gw.call("update_order", {"order_id": "PO-1"}, call_key="c1",
+TypeError: SafeToolGateway.call() got an unexpected keyword argument 'deadline_check'
+
+======================================================================
+ERROR: test_delayed_handler_completing_after_reset_commits_nothing (tests.ij_nano.test_na_d06_epoch_cancel.TestEpochProtection.test_delayed_handler_completing_after_reset_commits_nothing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 55, in test_delayed_handler_completing_after_reset_commits_nothing
+    gw.call("update_order", {"order_id": "PO-1"}, call_key="c1",
+TypeError: SafeToolGateway.call() got an unexpected keyword argument 'state_epoch'
+
+======================================================================
+ERROR: test_epoch_mismatch_denied_before_dispatch (tests.ij_nano.test_na_d06_epoch_cancel.TestEpochProtection.test_epoch_mismatch_denied_before_dispatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 44, in test_epoch_mismatch_denied_before_dispatch
+    gw.call("update_order", {"order_id": "PO-1"}, call_key="c1",
+TypeError: SafeToolGateway.call() got an unexpected keyword argument 'state_epoch'
+
+======================================================================
+ERROR: test_epoch_recheck_happens_before_commit (tests.ij_nano.test_na_d06_epoch_cancel.TestEpochProtection.test_epoch_recheck_happens_before_commit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 71, in test_epoch_recheck_happens_before_commit
+    gw.call("update_order", {"order_id": "PO-1"}, call_key="c1",
+TypeError: SafeToolGateway.call() got an unexpected keyword argument 'state_epoch'
+
+======================================================================
+ERROR: test_non_reversible_requires_approval_by_contract (tests.ij_nano.test_na_d06_epoch_cancel.TestNonReversibleActions.test_non_reversible_requires_approval_by_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 134, in test_non_reversible_requires_approval_by_contract
+    spec(name="send_payment", non_reversible=True)   # no approval
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 24, in spec
+    return ToolSpec(
+           ^^^^^^^^^
+TypeError: ToolSpec.__init__() got an unexpected keyword argument 'non_reversible'
+
+======================================================================
+ERROR: test_non_reversible_with_approval_accepted (tests.ij_nano.test_na_d06_epoch_cancel.TestNonReversibleActions.test_non_reversible_with_approval_accepted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 137, in test_non_reversible_with_approval_accepted
+    t = spec(name="send_payment", non_reversible=True, requires_approval=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d06_epoch_cancel.py", line 24, in spec
+    return ToolSpec(
+           ^^^^^^^^^
+TypeError: ToolSpec.__init__() got an unexpected keyword argument 'non_reversible'
+
+======================================================================
+ERROR: test_approval_bound_to_canonical_arguments (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_bound_to_canonical_arguments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 55, in test_approval_bound_to_canonical_arguments
+    gw = gateway(t)
+         ^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 36, in gateway
+    gw = SafeToolGateway({tool.name: tool}, store=store, now=now)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SafeToolGateway.__init__() got an unexpected keyword argument 'now'
+
+======================================================================
+ERROR: test_approval_bound_to_tool (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_bound_to_tool)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 45, in test_approval_bound_to_tool
+    gw = gateway(t)
+         ^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 36, in gateway
+    gw = SafeToolGateway({tool.name: tool}, store=store, now=now)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SafeToolGateway.__init__() got an unexpected keyword argument 'now'
+
+======================================================================
+ERROR: test_approval_expiry_enforced (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_expiry_enforced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 74, in test_approval_expiry_enforced
+    gw = gateway(t, now=lambda: 1000.0)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 36, in gateway
+    gw = SafeToolGateway({tool.name: tool}, store=store, now=now)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SafeToolGateway.__init__() got an unexpected keyword argument 'now'
+
+======================================================================
+ERROR: test_approval_not_yet_expired_accepted (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_not_yet_expired_accepted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 83, in test_approval_not_yet_expired_accepted
+    gw = gateway(t, now=lambda: 1000.0)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 36, in gateway
+    gw = SafeToolGateway({tool.name: tool}, store=store, now=now)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SafeToolGateway.__init__() got an unexpected keyword argument 'now'
+
+======================================================================
+ERROR: test_key_ordering_is_canonicalized (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_key_ordering_is_canonicalized)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 65, in test_key_ordering_is_canonicalized
+    gw = gateway(t)
+         ^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 36, in gateway
+    gw = SafeToolGateway({tool.name: tool}, store=store, now=now)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SafeToolGateway.__init__() got an unexpected keyword argument 'now'
+
+======================================================================
+ERROR: test_duplicate_request_returns_recorded_effect (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_duplicate_request_returns_recorded_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 124, in test_duplicate_request_returns_recorded_effect
+    gw = gateway(t)
+         ^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 36, in gateway
+    gw = SafeToolGateway({tool.name: tool}, store=store, now=now)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SafeToolGateway.__init__() got an unexpected keyword argument 'now'
+
+======================================================================
+ERROR: test_duplicate_while_in_flight_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_duplicate_while_in_flight_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 143, in test_duplicate_while_in_flight_denied
+    gw = gateway(t)
+         ^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 36, in gateway
+    gw = SafeToolGateway({tool.name: tool}, store=store, now=now)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SafeToolGateway.__init__() got an unexpected keyword argument 'now'
+
+======================================================================
+ERROR: test_idempotency_survives_restart_via_checkpoint_binding (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_idempotency_survives_restart_via_checkpoint_binding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 168, in test_idempotency_survives_restart_via_checkpoint_binding
+    gw = gateway(t)
+         ^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 36, in gateway
+    gw = SafeToolGateway({tool.name: tool}, store=store, now=now)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SafeToolGateway.__init__() got an unexpected keyword argument 'now'
+
+======================================================================
+ERROR: test_missing_mandatory_effect_key_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_missing_mandatory_effect_key_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 94, in test_missing_mandatory_effect_key_denied
+    gw = gateway(t)
+         ^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 36, in gateway
+    gw = SafeToolGateway({tool.name: tool}, store=store, now=now)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SafeToolGateway.__init__() got an unexpected keyword argument 'now'
+
+======================================================================
+ERROR: test_same_effect_key_different_arguments_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_same_effect_key_different_arguments_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 102, in test_same_effect_key_different_arguments_denied
+    gw = gateway(t)
+         ^^^^^^^^^^
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 36, in gateway
+    gw = SafeToolGateway({tool.name: tool}, store=store, now=now)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SafeToolGateway.__init__() got an unexpected keyword argument 'now'
+
+======================================================================
+ERROR: tests.ij_nano.test_na_d08_schema (unittest.loader._FailedTest.tests.ij_nano.test_na_d08_schema)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.ij_nano.test_na_d08_schema
+Traceback (most recent call last):
+  File "<python-install>\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python-install>\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "<worktree>\tests\ij_nano\test_na_d08_schema.py", line 16, in <module>
+    from nanoagent.gateway.schema import (validate_args,  # noqa: E402
+ImportError: cannot import name 'validate_tool_schema' from 'nanoagent.gateway.schema' (<worktree>\src\nanoagent\gateway\schema.py)
+
+
+======================================================================
+FAIL: test_commit_does_not_alias_draft_into_store (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_commit_does_not_alias_draft_into_store)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d01_transaction.py", line 93, in test_commit_does_not_alias_draft_into_store
+    self.assertEqual(store["orders"]["PO-1"]["status"], "paid")
+AssertionError: 'mutated-after-commit' != 'paid'
+- mutated-after-commit
++ paid
+
+
+======================================================================
+FAIL: test_handler_cannot_reach_store_object (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_handler_cannot_reach_store_object)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d01_transaction.py", line 107, in test_handler_cannot_reach_store_object
+    self.assertFalse(seen["nested_shared"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_handler_exception_leaves_nested_dicts_intact (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_handler_exception_leaves_nested_dicts_intact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d01_transaction.py", line 50, in test_handler_exception_leaves_nested_dicts_intact
+    self.assertEqual(store["orders"]["PO-1"]["status"], "new")
+AssertionError: 'corrupted' != 'new'
+- corrupted
++ new
+
+
+======================================================================
+FAIL: test_handler_exception_leaves_nested_lists_intact (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_handler_exception_leaves_nested_lists_intact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d01_transaction.py", line 62, in test_handler_exception_leaves_nested_lists_intact
+    self.assertEqual(store["customer"]["C-9"]["tags"], ["vip"])
+AssertionError: Lists differ: ['vip', 'hacked'] != ['vip']
+
+First list contains 1 additional elements.
+First extra element 1:
+'hacked'
+
+- ['vip', 'hacked']
++ ['vip']
+
+======================================================================
+FAIL: test_multiple_entities_isolated_on_rollback (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_multiple_entities_isolated_on_rollback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d01_transaction.py", line 75, in test_multiple_entities_isolated_on_rollback
+    self.assertEqual(store["orders"]["PO-1"]["status"], "new")
+AssertionError: 'x' != 'new'
+- x
++ new
+
+
+======================================================================
+FAIL: test_cross_trial_rows_rejected (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_cross_trial_rows_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d02_events.py", line 81, in test_cross_trial_rows_rejected
+    self.assertFalse(mixed.verify())
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_dangling_parent_rejected_on_restore (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_dangling_parent_rejected_on_restore)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d02_events.py", line 74, in test_dangling_parent_rejected_on_restore
+    with self.assertRaises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_parent_reassignment_detected (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_parent_reassignment_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d02_events.py", line 55, in test_parent_reassignment_detected
+    self.assertFalse(forged.verify())
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_payload_mutation_through_nested_reference (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_payload_mutation_through_nested_reference)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d02_events.py", line 124, in test_payload_mutation_through_nested_reference
+    self.assertEqual(ev.payload["outer"]["inner"], 1)
+AssertionError: 999 != 1
+
+======================================================================
+FAIL: test_seal_digest_anchors_external_manifest (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_seal_digest_anchors_external_manifest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d02_events.py", line 131, in test_seal_digest_anchors_external_manifest
+    self.assertEqual(len(seal.get("digest", "")), 64)
+AssertionError: 0 != 64
+
+======================================================================
+FAIL: test_timestamp_tampering_detected (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_timestamp_tampering_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d02_events.py", line 64, in test_timestamp_tampering_detected
+    self.assertFalse(forged.verify())
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_negative_spec_rejected (tests.ij_nano.test_na_d04_budget.TestNoBypass.test_negative_spec_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d04_budget.py", line 41, in test_negative_spec_rejected
+    with self.assertRaises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_zero_unit_reservation_rejected (tests.ij_nano.test_na_d04_budget.TestNoBypass.test_zero_unit_reservation_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d04_budget.py", line 35, in test_zero_unit_reservation_rejected
+    with self.assertRaises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_no_log_bound_facts_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_no_log_bound_facts_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d05_provenance.py", line 121, in test_no_log_bound_facts_rejected
+    with self.assertRaises(UnverifiedSourceError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: UnverifiedSourceError not raised
+
+======================================================================
+FAIL: test_same_effect_key_different_tool_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_same_effect_key_different_tool_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<worktree>\tests\ij_nano\test_na_d07_approval_idem.py", line 117, in test_same_effect_key_different_tool_denied
+    with self.assertRaises(GatewayDenial) as cm:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: GatewayDenial not raised
+
+----------------------------------------------------------------------
+Ran 60 tests in 0.019s
+
+FAILED (failures=15, errors=39)

@@ -1,0 +1,146 @@
+{
+ "trial_id": "f59a58e90a715eafa2c9d401",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "A6",
+       "reasoning_content": "We need to parse the user's request.\n\nThe user says: \"可选动作 / available actions:\nA1. 改址：修改 TRK-11298 的收件地址 / change the address for TRK-11298\nA2. 加急：把 TRK-11298 升级为加急配送 / upgrade TRK-11298 to express\nA3. 拦截：尝试拦截 TRK-11298 / attempt to intercept TRK-11298\nA4. 重发：为 ORD-9014 重新发货 / reship ORD-9014\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n包裹 {trk} 已经延误超过一周且承运商无响应。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The user describes a scenario: \"Package {trk} has been delayed over one week and carrier is unresponsive. Only answer the action number.\" So we need to choose which available action corresponds to this situation.\n\nWe have options:\n\n- A1: Change address for TRK-11298.\n- A2: Upgrade TRK-11298 to express (expedite).\n- A3: Attempt to intercept TRK-11298.\n- A4: Reship ORD-9014.\n- A5: Note only, no action.\n- A6: Open an escalation case.\n\nGiven the scenario: \"包裹 {trk} 已经延误超过一周且承运商无响应。\" Means \"Package TRK-11298 has been delayed over a week and the carrier is unresponsive.\" So we need to decide which action would be appropriate. Usually, if a package is significantly delayed and carrier not responding, you might want to open an escalation case (A6) or attempt to intercept? Let's think.\n\nOption A2: upgrade to express - maybe to speed up delivery but doesn't address unresponsiveness. Option A3: intercept - try to block it? Not likely. Option A1: change address - not relevant. Option A4: reship ORD-9014 - unrelated. Option A5: note only, no action.\n\nThus the most appropriate is probably \"open an escalation case\" (A6) because carrier unresponsive and delay > a week suggests need to involve support/escalate. So answer should be \"A6\". However we must check if there's any nuance: The user says \"可选动作 / available actions:\" then lists them, but also includes A4 about ORD-9014 reship, which is unrelated. So likely the correct action for a delayed package with no carrier response is to open an escalation case (A6). Also maybe \"attempt to intercept\" could be used if you want to stop it? But usually you'd contact carrier or file claim.\n\nThus answer: A6.\n\nWe need to output only the action label, i.e., \"A6\". Ensure no extra text."
+      }
+     }
+    ],
+    "created": 1795800108,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 674,
+     "prompt_tokens": 210,
+     "total_tokens": 884,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-USfWRW35mn1D5eBSN4XCDu4Jz9DJU9yd",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request.\n\nThe user says: \"可选动作 / available actions:\nA1. 改址：修改 TRK-11298 的收件地址 / change the address for TRK-11298\nA2. 加急：把 TRK-11298 升级为加急配送 / upgrade TRK-11298 to express\nA3. 拦截：尝试拦截 TRK-11298 / attempt to intercept TRK-11298\nA4. 重发：为 ORD-9014 重新发货 / reship ORD-9014\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n包裹 {trk} 已经延误超过一周且承运商无响应。 只回答动作编号。 / Answer with the action label only.\"\n\nInterpretation: The user describes a scenario: \"Package {trk} has been delayed over one week and carrier is unresponsive. Only answer the action number.\" So we need to choose which available action corresponds to this situation.\n\nWe have options:\n\n- A1: Change address for TRK-11298.\n- A2: Upgrade TRK-11298 to express (expedite).\n- A3: Attempt to intercept TRK-11298.\n- A4: Reship ORD-9014.\n- A5: Note only, no action.\n- A6: Open an escalation case.\n\nGiven the scenario: \"包裹 {trk} 已经延误超过一周且承运商无响应。\" Means \"Package TRK-11298 has been delayed over a week and the carrier is unresponsive.\" So we need to decide which action would be appropriate. Usually, if a package is significantly delayed and carrier not responding, you might want to open an escalation case (A6) or attempt to intercept? Let's think.\n\nOption A2: upgrade to express - maybe to speed up delivery but doesn't address unresponsiveness. Option A3: intercept - try to block it? Not likely. Option A1: change address - not relevant. Option A4: reship ORD-9014 - unrelated. Option A5: note only, no action.\n\nThus the most appropriate is probably \"open an escalation case\" (A6) because carrier unresponsive and delay > a week suggests need to involve support/escalate. So answer should be \"A6\". However we must check if there's any nuance: The user says \"可选动作 / available actions:\" then lists them, but also includes A4 about ORD-9014 reship, which is unrelated. So likely the correct action for a delayed package with no carrier response is to open an escalation case (A6). Also maybe \"attempt to intercept\" could be used if you want to stop it? But usually you'd contact carrier or file claim.\n\nThus answer: A6.\n\nWe need to output only the action label, i.e., \"A6\". Ensure no extra text.</think>A6",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 674,
+     "tokens_evaluated": 210,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n可选动作 / available actions:\nA1. 改址：修改 TRK-11298 的收件地址 / change the address for TRK-11298\nA2. 加急：把 TRK-11298 升级为加急配送 / upgrade TRK-11298 to express\nA3. 拦截：尝试拦截 TRK-11298 / attempt to intercept TRK-11298\nA4. 重发：为 ORD-9014 重新发货 / reship ORD-9014\nA5. 仅备注，不操作 / note only, no action\nA6. 开升级单 / open an escalation case\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n包裹 {trk} 已经延误超过一周且承运商无响应。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 883,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 210,
+      "prompt_ms": 47.673,
+      "prompt_per_token_ms": 0.22701428571428572,
+      "prompt_per_second": 4405.009124661758,
+      "predicted_n": 674,
+      "predicted_ms": 3910.194,
+      "predicted_per_token_ms": 5.810095096582467,
+      "predicted_per_second": 172.11422246568839
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 210,
+     "prompt_ms": 47.673,
+     "prompt_per_token_ms": 0.22701428571428572,
+     "prompt_per_second": 4405.009124661758,
+     "predicted_n": 674,
+     "predicted_ms": 3910.194,
+     "predicted_per_token_ms": 5.810095096582467,
+     "predicted_per_second": 172.11422246568839
+    }
+   },
+   "http_error": null,
+   "latency_s": 3.953
+  }
+ ]
+}

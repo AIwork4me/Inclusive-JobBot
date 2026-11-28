@@ -1,0 +1,75 @@
+{
+ "schema": "ijeval.ea02r.defect_ledger",
+ "schema_version": 1,
+ "generated": "2026-11-28",
+ "audited_head": "3fff13535e52bd0fd9929c1ef82fd0b4208ac5a4",
+ "addendum": "docs/IJEVAL_MISSION_ORDER_EA02R.md",
+ "reproduction_evidence": {
+  "red": "evidence/IJEVAL/EA02R/red_reproduction.json (generated at audited HEAD before hardening; preserved)",
+  "green": "evidence/IJEVAL/EA02R/green_reproduction.json (post-hardening rerun)",
+  "state_space": "evidence/IJEVAL/EA02R/state_space_results.json (9,312 combos, 24/24 invariants, 0 escapes, 0 false rejections, 44/44 malformed rejected)"
+ },
+ "defects": [
+  {
+   "defect_id": "EA-D01",
+   "title": "Qualification and eligibility bypass",
+   "red_observation": "REVOKED / UNQUALIFIED / PENDING results all remained eligible_for_semantic_statistics==True; PENDING + ELIGIBLE publication escaped the validator entirely (violations==[])",
+   "root_cause": "single eligibility function with no qualification dimension; validator qualification rule covered only UNQUALIFIED/REVOKED; eligibility consulted a caller-provided enum at best",
+   "repair": "five eligibility authorities (diagnostics / semantic statistics / business statistics / formal publication / reward); formal authorities require an actual QualificationCertificate from a CertificateStore bound by scope AND dataset/parser/evaluator identity against record provenance; certificate is the authority, explicit record REVOKED always blocks; no store -> fail closed; structured EligibilityDecision reasons",
+   "regression": "test_contract_validator.TestEligibilityAuthorities (9 tests incl. revoked-certificate and identity-mismatch fail-closed)",
+   "status": "REPAIRED_GREEN"
+  },
+  {
+   "defect_id": "EA-D02",
+   "title": "Unsafe Boolean coercion in legacy conversion",
+   "red_observation": "from_legacy_boolean('False') -> CORRECT (string truthiness inversion), None -> INCORRECT, 0/1/[]/[1] -> coerced verdicts, unknown failure class 'TOTALLY_NEW_CLASS' -> ordinary INCORRECT",
+   "root_cause": "bool(x) coercion of the verdict field; unknown failure classes fell through to the ordinary branch",
+   "repair": "type(x) is bool enforced in from_legacy_boolean AND EvaluationResult.evaluated(); complete legacy-schema validation (contradictory metadata: replay_error/transport_error alongside True verdict, http_ok alongside transport error; unknown failure classes raise LegacyContractError); adapter maps contract errors to a separately classified NOT_EVALUABLE record; to_legacy_boolean validates the complete record first",
+   "regression": "test_legacy_and_n02rr_adapter (non-boolean table, contradiction table, unknown-class, export-validates); state-space malformed injections 44/44",
+   "status": "REPAIRED_GREEN"
+  },
+  {
+   "defect_id": "EA-D03",
+   "title": "Illegal evaluation state combinations escaping",
+   "red_observation": "MODEL_OUTPUT_INVALID+CORRECT, NOT_EVALUABLE+ELIGIBLE, PENDING+ELIGIBLE, business-PASS+EVALUATOR_ERROR, business-PASS+safety-NOT_VERIFIED all escaped (violations==[]); string/int enum substitution accepted with zero violations",
+   "root_cause": "validator rule coverage gaps; dataclass accepted arbitrary types for enum fields",
+   "repair": "new validator rules (5 classes) + strict runtime type validation in EvaluationResult.__post_init__ raising ContractTypeError; cognitive/business invariants separated (business rules fire only for business verdicts != NOT_APPLICABLE)",
+   "regression": "systematic state-space battery: exhaustive 4 blocks (9,312 combinations) against an INDEPENDENTLY authored 24-rule model (never calls the validator under test): 0 escapes, 0 false rejections, all 24 invariants exercised, 44/44 malformed type injections rejected; tests/ij_eval_assurance/test_state_space.py makes it permanent",
+   "status": "REPAIRED_GREEN"
+  },
+  {
+   "defect_id": "EA-D04",
+   "title": "Evidence trusted by default; provenance unverified",
+   "red_observation": "default EvidenceIntegrity.VERIFIED - a record constructed without evidence got VERIFIED trust; provenance completeness == several nonempty strings",
+   "root_cause": "default trust instead of default skepticism",
+   "repair": "default evidence UNVERIFIED; VerifiedEvidence envelope (versioned) produced ONLY by verify_evidence() after actual checks (artifact sha256 match, strict schema validation, trial identity, evaluator identity; basis field distinguishes direct vs qualified-loader transfer); validator cross-checks envelope identity against record provenance so caller dicts cannot overwrite verified identity; decisive verdicts require VERIFIED evidence + envelope",
+   "regression": "test_contract_validator (envelope rules), state-space block 4 (R10-R15), adapter without-sha stays UNVERIFIED",
+   "status": "REPAIRED_GREEN"
+  },
+  {
+   "defect_id": "EA-D05",
+   "title": "No formal Analyzer boundary",
+   "red_observation": "no qualified aggregation path existed; the historical analyzer reads Booleans directly (EA00 R3: injected corpus 870/2184 -> 871/2186)",
+   "repair": "src/eval_assurance/statistics/boundary.py aggregate_semantic: consumes ONLY typed EvaluationResult records (no Boolean/dict entry point - such inputs are quarantined); validates every record through the central validator; classifies qualified / not_evaluable / quarantined / canary; formal publication fail-closed without certificate; historical analyzer marked DIAGNOSTIC-ONLY in its docstring (behavior unchanged, sealed artifacts preserved)",
+   "regression": "test_boundary.TestEA00CorruptionRegression against the ACTUAL aggregation entry point: sealed 2,184 + 2 injected -> 870 correct preserved, 2 NOT_EVALUABLE reported separately, 871/2186 structurally unreachable, formal publication BLOCKED_NO_CERTIFICATE_BOUND without cert and ALLOWED with cert, sealed corpus file hash unchanged",
+   "status": "REPAIRED_GREEN"
+  },
+  {
+   "defect_id": "EA-D06",
+   "title": "Publication process gate exit-status masking",
+   "red_observation": "live reproduction: direct publish_check exit 1 (BLOCKED) vs shell-pipelined exit 0 - pipe_masks_block==true",
+   "root_cause": "shell pipeline returns the LAST command's status; operator discipline is not a control",
+   "repair": "scripts/ij_eval_assurance/pubgate.py: argv-list subprocess (no shell, no pipeline), exit code captured directly, verdict parsed from finding counts (never exit code alone), malformed/truncated output fails closed, staged-content identity bound before/after the check (post-check change fails), auditable receipt per run, commit subcommand refuses while BLOCKED",
+   "regression": "test_pubgate: 6 injected failure modes (nonzero exit, zero-exit-with-findings, truncated, empty, mid-check staging change, missing/corrupt/incomplete receipt) all fail closed; pipe-masking regression pinned live",
+   "status": "REPAIRED_GREEN"
+  }
+ ],
+ "residual_limitations": [
+  "CertificateStore is in-memory + optional JSON persistence; the complete certificate lifecycle (EA17) including signed receipts, scope hierarchies and CI enforcement is future work - formal eligibility therefore fails closed, which is the intended posture until then",
+  "verify_evidence basis='n02rr_validated_loader_transfer' transfers a verification result already performed by the qualified N02RR loader rather than re-hashing bytes; direct re-verification is used when the envelope is built at load time",
+  "state-space coverage is exhaustive over the four declared blocks (9,312 combos) plus 44 malformed-type injections, not over the full cross-product of all dimensions (approx 3M); higher-order interactions outside the blocks are covered by the validator's rule-at-a-time structure and the independent model agreement",
+  "pubgate does not install git hooks or remote branch protection (out of authorized scope without permission); it is the reproducible local gate entry point and receipt authority"
+ ],
+ "gate": "EA02R_EVALUATION_CONTRACT_INVARIANTS_GO",
+ "gate_status": "GRANTED (scope: evaluation-contract invariants EA-D01..EA-D06; NOT a claim that the assurance system as a whole is qualified)"
+}

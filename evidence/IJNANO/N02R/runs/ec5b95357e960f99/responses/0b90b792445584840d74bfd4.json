@@ -1,0 +1,152 @@
+{
+ "trial_id": "0b90b792445584840d74bfd4",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's request. The user says: \"Item TRK-73002: quantity change 99.0 EUR. 生成完整动作：工具与全部参数。\" This appears to be about an item with tracking number TRK-73002 and a quantity change of 99.0 EUR. They want the full action using tools and all parameters.\n\nWe need to figure out which tool(s) correspond to this request. The available tools include various logistics functions: trace_shipment, reroute_shipment, estimate_delivery, validate_address, declare_value, generate_label, list_rates, escalations.open_case. None of these directly mention \"quantity change\". However, there is `customs.declare_value` which deals with declaring customs value (amount). The user mentions quantity change 99.0 EUR. Possibly they want to update the declared value? Or maybe it's about changing quantity and currency.\n\nLet me re-read: \"Item TRK-73002: quantity change 99.0 EUR.\" This could mean that for item with tracking number TRK-73002, there is a quantity change of 99.0 EUR. But quantity in what unit? Usually quantity is number of items, not monetary value. However, they specify EUR, which is currency. So maybe it's about declaring the customs value as 99.0 EUR for item TRK-73002.\n\nLooking at `customs.declare_value` tool: parameters are tracking_no and amount (object with value and unit). The description: \"申报价值 / declare customs value\". It requires tracking_no and amount. So we could use that to declare the value of 99.0 EUR for tracking number TRK-73002.\n\nBut also there is `logistics.trace_shipment`, `logistics.reroute_shipment`, etc. The phrase \"quantity change\" might be a typo or misphrasing. Could it be about changing quantity? There's no direct tool for updating quantity. Maybe they want to reroute or trace? Not sure.\n\nLet's examine the context: The user says \"生成完整动作：工具与全部参数。\" which translates to \"Generate complete action: tool and all parameters.\" So we need to produce a full set of tool calls with arguments.\n\nGiven only one piece of info: Item TRK-73002, quantity change 99.0 EUR. I think the most relevant is `customs.declare_value` because it involves declaring value (amount) in currency. The parameter structure for `customs.declare_value`:\n- tracking_no: string\n- amount: object with properties value (number) and unit (string, enum includes \"CNY\", \"USD\", \"EUR\", etc.)\n\nSo we can set tracking_no = \"TRK-73002\", amount = {value: 99.0, unit: \"EUR\"}.\n\nBut wait, the user said \"quantity change\". Could it be that they want to update quantity? There's no tool for updating quantity explicitly. Maybe `logistics.trace_shipment` or something else? Let's search memory of tools again:\n\n- logistics.trace_shipment(tracking_no)\n- logistics.reroute_shipment(tracking_no)\n- logistics.estimate_delivery(tracking_no)\n- addresses.validate(address_id)\n- customs.declare_value(tracking_no, amount)\n- labels.generate(order_id)\n- couriers.list_rates(zone)\n- escalations.open_case(tracking_no)\n\nNone mention quantity. So likely \"quantity change\" is a mistake and they mean \"value change\" or \"amount\". Or maybe it's about declaring the value of 99.0 EUR for that item.\n\nThus, I'll assume we need to call `customs.declare_value` with tracking_no TRK-73002 and amount {value: 99.0, unit: \"EUR\"}.\n\nBut let's double-check if there is any other tool that might involve quantity. The `labels.generate` uses order_id, not relevant. `couriers.list_rates` requires zone. Not relevant.\n\nTherefore, I'll proceed with `customs.declare_value`.\n\nHowever, the user said \"生成完整动作：工具与全部参数。\" which implies we need to output all tool calls and their arguments. Possibly there might be multiple steps? For example, after declaring value, maybe they want to trace shipment or estimate delivery? But not specified.\n\nGiven only one clear piece of data, I'll just do that.\n\nLet's construct the call:\n\n{\n \"name\": \"customs.declare_value\",\n \"arguments\": {\n   \"tracking_no\": \"TRK-73002\",\n   \"amount\": {\n     \"value\": 99.0,\n     \"unit\": \"EUR\"\n   }\n }\n}\n\nBut note: The `customs.declare_value` function signature in the tool list is:\n\n{\n \"name\":"
+      }
+     }
+    ],
+    "created": 1795798412,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 597,
+     "total_tokens": 1621,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-U1mUluKOZVvlTtNPmdXMEjAqNtgVCju5",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request. The user says: \"Item TRK-73002: quantity change 99.0 EUR. 生成完整动作：工具与全部参数。\" This appears to be about an item with tracking number TRK-73002 and a quantity change of 99.0 EUR. They want the full action using tools and all parameters.\n\nWe need to figure out which tool(s) correspond to this request. The available tools include various logistics functions: trace_shipment, reroute_shipment, estimate_delivery, validate_address, declare_value, generate_label, list_rates, escalations.open_case. None of these directly mention \"quantity change\". However, there is `customs.declare_value` which deals with declaring customs value (amount). The user mentions quantity change 99.0 EUR. Possibly they want to update the declared value? Or maybe it's about changing quantity and currency.\n\nLet me re-read: \"Item TRK-73002: quantity change 99.0 EUR.\" This could mean that for item with tracking number TRK-73002, there is a quantity change of 99.0 EUR. But quantity in what unit? Usually quantity is number of items, not monetary value. However, they specify EUR, which is currency. So maybe it's about declaring the customs value as 99.0 EUR for item TRK-73002.\n\nLooking at `customs.declare_value` tool: parameters are tracking_no and amount (object with value and unit). The description: \"申报价值 / declare customs value\". It requires tracking_no and amount. So we could use that to declare the value of 99.0 EUR for tracking number TRK-73002.\n\nBut also there is `logistics.trace_shipment`, `logistics.reroute_shipment`, etc. The phrase \"quantity change\" might be a typo or misphrasing. Could it be about changing quantity? There's no direct tool for updating quantity. Maybe they want to reroute or trace? Not sure.\n\nLet's examine the context: The user says \"生成完整动作：工具与全部参数。\" which translates to \"Generate complete action: tool and all parameters.\" So we need to produce a full set of tool calls with arguments.\n\nGiven only one piece of info: Item TRK-73002, quantity change 99.0 EUR. I think the most relevant is `customs.declare_value` because it involves declaring value (amount) in currency. The parameter structure for `customs.declare_value`:\n- tracking_no: string\n- amount: object with properties value (number) and unit (string, enum includes \"CNY\", \"USD\", \"EUR\", etc.)\n\nSo we can set tracking_no = \"TRK-73002\", amount = {value: 99.0, unit: \"EUR\"}.\n\nBut wait, the user said \"quantity change\". Could it be that they want to update quantity? There's no tool for updating quantity explicitly. Maybe `logistics.trace_shipment` or something else? Let's search memory of tools again:\n\n- logistics.trace_shipment(tracking_no)\n- logistics.reroute_shipment(tracking_no)\n- logistics.estimate_delivery(tracking_no)\n- addresses.validate(address_id)\n- customs.declare_value(tracking_no, amount)\n- labels.generate(order_id)\n- couriers.list_rates(zone)\n- escalations.open_case(tracking_no)\n\nNone mention quantity. So likely \"quantity change\" is a mistake and they mean \"value change\" or \"amount\". Or maybe it's about declaring the value of 99.0 EUR for that item.\n\nThus, I'll assume we need to call `customs.declare_value` with tracking_no TRK-73002 and amount {value: 99.0, unit: \"EUR\"}.\n\nBut let's double-check if there is any other tool that might involve quantity. The `labels.generate` uses order_id, not relevant. `couriers.list_rates` requires zone. Not relevant.\n\nTherefore, I'll proceed with `customs.declare_value`.\n\nHowever, the user said \"生成完整动作：工具与全部参数。\" which implies we need to output all tool calls and their arguments. Possibly there might be multiple steps? For example, after declaring value, maybe they want to trace shipment or estimate delivery? But not specified.\n\nGiven only one clear piece of data, I'll just do that.\n\nLet's construct the call:\n\n{\n \"name\": \"customs.declare_value\",\n \"arguments\": {\n   \"tracking_no\": \"TRK-73002\",\n   \"amount\": {\n     \"value\": 99.0,\n     \"unit\": \"EUR\"\n   }\n }\n}\n\nBut note: The `customs.declare_value` function signature in the tool list is:\n\n{\n \"name\":",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 597,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"logistics.trace_shipment\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-1 ::= (\"<function=\" \"logistics.reroute_shipment\" \">\\n\") (tool-1-arg-0) \"</function>\\n\"\ntool-1-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-2 ::= (\"<function=\" \"logistics.estimate_delivery\" \">\\n\") (tool-2-arg-0) \"</function>\\n\"\ntool-2-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-3 ::= (\"<function=\" \"addresses.validate\" \">\\n\") (tool-3-arg-0) \"</function>\\n\"\ntool-3-arg-0 ::= (\"<parameter=\" \"address_id\" \">\\n\") xml-arg-string\ntool-4 ::= (\"<function=\" \"customs.declare_value\" \">\\n\") tool-4-args-3 \"</function>\\n\"\ntool-4-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-4-arg-1 ::= (\"<parameter=\" \"amount\" \">\\n\") tool-4-arg-1-schema \"\\n</parameter>\\n\"\ntool-4-arg-1-schema ::= \"{\" space tool-4-arg-1-schema-value-kv \",\" space tool-4-arg-1-schema-unit-kv space \"}\"\ntool-4-arg-1-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-4-arg-1-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-4-arg-1-schema-unit\ntool-4-arg-1-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-4-args-1 ::= tool-4-arg-0\ntool-4-args-2 ::= tool-4-arg-1\ntool-4-args-3 ::= tool-4-arg-0 tool-4-args-2 | tool-4-arg-1 tool-4-args-1\ntool-5 ::= (\"<function=\" \"labels.generate\" \">\\n\") (tool-5-arg-0) \"</function>\\n\"\ntool-5-arg-0 ::= (\"<parameter=\" \"order_id\" \">\\n\") xml-arg-string\ntool-6 ::= (\"<function=\" \"couriers.list_rates\" \">\\n\") (tool-6-arg-0) \"</function>\\n\"\ntool-6-arg-0 ::= (\"<parameter=\" \"zone\" \">\\n\") xml-arg-string\ntool-7 ::= (\"<function=\" \"escalations.open_case\" \">\\n\") (tool-7-arg-0) \"</function>\\n\"\ntool-7-arg-0 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0 | tool-1 | tool-2 | tool-3 | tool-4 | tool-5 | tool-6 | tool-7) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"logistics.trace_shipment\", \"description\": \"追踪物流 / trace a shipment\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}\n{\"name\": \"logistics.reroute_shipment\", \"description\": \"改派物流 / reroute a shipment\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}\n{\"name\": \"logistics.estimate_delivery\", \"description\": \"预估送达 / estimate delivery\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}\n{\"name\": \"addresses.validate\", \"description\": \"校验地址 / validate an address\", \"parameters\": {\"type\": \"object\", \"properties\": {\"address_id\": {\"type\": \"string\"}}, \"required\": [\"address_id\"], \"additionalProperties\": false}}\n{\"name\": \"customs.declare_value\", \"description\": \"申报价值 / declare customs value\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}, \"amount\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}}, \"required\": [\"tracking_no\", \"amount\"], \"additionalProperties\": false}}\n{\"name\": \"labels.generate\", \"description\": \"生成面单 / generate a label\", \"parameters\": {\"type\": \"object\", \"properties\": {\"order_id\": {\"type\": \"string\"}}, \"required\": [\"order_id\"], \"additionalProperties\": false}}\n{\"name\": \"couriers.list_rates\", \"description\": \"查询运费 / list courier rates\", \"parameters\": {\"type\": \"object\", \"properties\": {\"zone\": {\"type\": \"string\"}}, \"required\": [\"zone\"], \"additionalProperties\": false}}\n{\"name\": \"escalations.open_case\", \"description\": \"开升级单 / open an escalation case\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tracking_no\": {\"type\": \"string\"}}, \"required\": [\"tracking_no\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\nItem TRK-73002: quantity change 99.0 EUR.\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1620,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 597,
+      "prompt_ms": 84.536,
+      "prompt_per_token_ms": 0.14160134003350083,
+      "prompt_per_second": 7062.080060565913,
+      "predicted_n": 1024,
+      "predicted_ms": 5984.464,
+      "predicted_per_token_ms": 5.849915933528837,
+      "predicted_per_second": 170.9426274433266
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 597,
+     "prompt_ms": 84.536,
+     "prompt_per_token_ms": 0.14160134003350083,
+     "prompt_per_second": 7062.080060565913,
+     "predicted_n": 1024,
+     "predicted_ms": 5984.464,
+     "predicted_per_token_ms": 5.849915933528837,
+     "predicted_per_second": 170.9426274433266
+    }
+   },
+   "http_error": null,
+   "latency_s": 6.078
+  }
+ ]
+}

@@ -1,0 +1,162 @@
+{
+  "run_id": "ij07-competitive-tcv2-a877042ff6a645adb82034deaeade318",
+  "evidence_class": "local_model",
+  "scope": "single competitive TC-V2 trajectory",
+  "configuration": {
+    "candidate": "B",
+    "track": "controlled",
+    "backend": "vulkan",
+    "gpu": {
+      "name": "AMD Radeon(TM) 8060S Graphics",
+      "device": "Vulkan0",
+      "architecture": "gfx1151"
+    },
+    "model": {
+      "official_model_id": "LiquidAI/LFM3-1.7B",
+      "runtime_repo": "LiquidAI/LFM3-1.7B-GGUF",
+      "runtime_revision": "1cea5e3e72a50bd4aed8525478d95ed970219d12",
+      "filename": "LFM3-1.7B-Q8_0.gguf",
+      "model_sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+      "quantization": "Q8_0",
+      "upstream_config": {
+        "chat_template.jinja": "f45005c50cd2a97329722bf3a2dee9f16c04cdf825a589b280fb7e99e6827818",
+        "config.json": "8c6ae8b8f6d88c87cfb98cf4b5e34e943d0ee07e24215c4121b3159a46e1399d",
+        "config_fields": {
+          "architectures": [
+            "Lfm3ForCausalLM"
+          ],
+          "auto_map": {
+            "AutoConfig": "configuration_lfm3.Lfm3Config",
+            "AutoModel": "modeling_lfm3.Lfm3Model",
+            "AutoModelForCausalLM": "modeling_lfm3.Lfm3ForCausalLM"
+          },
+          "max_position_embeddings": 262144,
+          "model_type": "lfm3",
+          "vocab_size": 128000
+        },
+        "tokenizer_config.json": "bf028f813efc6137bc07ed045cafe71820df9a5e26a38e39954706ed1e30a457"
+      }
+    },
+    "engine": {
+      "profile": "p4b-tool-choice-validation-generation-observer-vulkan",
+      "build": "b12359-b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+      "layers": 25,
+      "exe_sha256": "9ed4473e7c31d8ce225ee6ec8b33f88ea9a51e7381bb08e899bd71fc15cfb9a8",
+      "dll_sha256": {
+        "ggml-base.dll": "4339e84ea0c80e201942822d1a672f534b232cb6ff85a4ded05030f15189bb6c",
+        "ggml-cpu.dll": "4e4ea2a0b8d23d4c92e17b6b90d322845c7ba09a4924632998ac20ad4d013699",
+        "ggml-vulkan.dll": "9cc0d9416bf032caa58af66fc7fe700e35a476b74cab94fcb45e08f4eca8213c",
+        "ggml.dll": "0bdf96aa6428fe3715ea7441ca9147bf826c902a36ffe308faab92989c83ed0d",
+        "llama-common.dll": "e7573a81ba8fc85bfe77797e643e05e7f6895d94c29e8301861460337ebbb30a",
+        "llama-server-impl.dll": "f19ed08afaa34b40173b200df9b495d2ce5d916ea390ad74a7902edd9dcc9659",
+        "llama.dll": "2a95306c880544fc5992c754cd38080a8a2d03a406076c153ad4284289b93bbf",
+        "mtmd.dll": "73dad5e36dd5204640b3e43d5a390a06bfe2479d5fff40ac177c37c3b1dccc3e"
+      }
+    },
+    "template": {
+      "selection": "gguf_embedded",
+      "sha256": "48ab0f7e16b7e5bf7751c5c1f9a011ff4b36bf1bbed0790a1cea2aec89295d3b",
+      "embedded_sha256": "f45005c50cd2a97329722bf3a2dee9f16c04cdf825a589b280fb7e99e6827818"
+    },
+    "provenance": {
+      "candidate_config_sha256": "6b17a9ed8459cf54855701446e4fd7d2e6d97b108b947b3f9054fadfcb5b1076",
+      "model_passport_sha256": "34a63c46a5e7102f2f6a89f019f636f2155bd064af623b8c2f9f3a1c3466b41c",
+      "strict_admission_sha256": "37cd3abfdb746826f6b0a8177374667ffc63c5451906caec62d12d82c37af81a",
+      "admission_run_id": "ij07-admission-7c979758654d471a8148336151e1496d"
+    },
+    "budgets": {
+      "version": "IJ07-TCV2-Controlled-1",
+      "context_tokens": 8192,
+      "model_turns": 7,
+      "completion_tokens_per_turn": 768,
+      "tool_calls_per_turn": 16,
+      "tool_calls_per_case": 112,
+      "wall_clock_seconds_per_case": 180,
+      "temperature": 0,
+      "parallel_tool_calls": true,
+      "thinking": "frozen_case_requirement",
+      "cache_prompt": false
+    },
+    "source_observer_requested": true,
+    "git": {
+      "commit": "9d031fe95622bed88588f1c11a13d073748b26bf",
+      "dirty": false
+    },
+    "sdk_installed": "0.1.24",
+    "sdk_used": false,
+    "code_sha256": {
+      "benchmarks/competitive_slm/tc_v2_candidate.py": "3aadace0496628af5855c5914f9af2a13d5492b5bea3bdb2d07160a0f558618e",
+      "benchmarks/root_cause/generation_capture.py": "682ca9ab2743eb68f893f6c3889ce0bfff928375b01317f8a0b0e3671daed8ca",
+      "benchmarks/root_cause/historical_replay.py": "6168dc40bc75476980a330973494962837b97e696014aa7aaed05d91d2a4b0b2",
+      "benchmarks/tool_calling_v2/evaluator.py": "10f0b0e698ec26d1d3607c6b0ed2acd03ff8de8d31cd20ef0326ad505afc3c87",
+      "benchmarks/tool_calling_v2/holdout/dataset.py": "d6d850de4f9cdcf86f4e498ce636216a3b7f791b3405bf29b12f6aa71c445e34",
+      "benchmarks/tool_calling_v2/holdout/host.py": "28009f83d67455b7bc94fd4589cc6a3298354cfc1f6e1ebd5e3606977b449a4d",
+      "benchmarks/tool_calling_v2/holdout/oracle.py": "fff94227b68ea27d1cbb7a17f10fe2d0764d215d57da3d8581e3837a6eebe0ae",
+      "benchmarks/tool_calling_v2/holdout/qualify.py": "44e156376415fbfc3525190697d742d6b730049ddd5a39139fc1e461ee09ec04",
+      "benchmarks/tool_calling_v2/holdout/runner.py": "a77a950d6d9f59926e38b5391c7073819d66049c54c3c51a0d041fcfc52504ee",
+      "benchmarks/tool_calling_v2/holdout/templates.py": "1ae891701117692d16dbe961be3a203888527d4b737508ac35220c4c69f62b8c",
+      "benchmarks/tool_calling_v2/legacy_oracle.py": "6c5f780982456b6aebf597fbd12080dd363ea554689b1c9689999e31ad18a898",
+      "benchmarks/tool_calling_v2/oracle.py": "1968241f5b08d6151fc77ab28ff4982cca2b2e079eb4b7cb4bd9b503244cca3b",
+      "benchmarks/tool_calling_v2/parser/run_wire.py": "0e269c3bf57c63485a9893972f76a5aae89ebb3e9175bee005cfeb9ea84554fc",
+      "benchmarks/tool_calling_v2/persisted.py": "d263bd07b7fe3f04f057048875130f10ed3f64fece6e636494351096437394a2",
+      "benchmarks/tool_calling_v2/rescore.py": "b84a056884364ea29840659aafe8448262a46abcd8cba46c0b249d9a01aa8897",
+      "scripts/tools/verify_ij06_evidence.py": "2fb08ac5c17dfa70f5e8f76647d934bf8c9e866a95795e1177de18da993b439a",
+      "scripts/windows/common.ps1": "7d1c4375c66dc257336ed3f21ec39cb3acae388a36e3373d5903689638402c52",
+      "scripts/windows/sample_gpu_counters.ps1": "f5611fb0c9f6a5e720d5d13ba77100a8854f128e22e4aa4825a8dfc6367001fe",
+      "src/business_tools/__init__.py": "039d5e0776678ab63ff4ab18ec671ad2833b236647fd4c34321339cd2fcbb2ee",
+      "src/business_tools/handlers.py": "8e88c32ac948844d7f540b1aabba4babd874706be5fb2f8c1dce16db9e3937c1",
+      "src/business_tools/store.py": "2df5b706d9ce63a476c46afd2c0819c3d53e0dedf31a19eba413207b99d7774c",
+      "src/model_gateway/__init__.py": "dfa984fc3da9c32754f0085f6dfb0543c0dc7c98285da6bf1c228c1050fead71",
+      "src/model_gateway/authorization.py": "8badc2ae17ad0221ca6d819c8427e6d1fc1ec3126ea287ea16c32471e9146710",
+      "src/model_gateway/base.py": "bdc018cb711a4a6be4cf1b765f0024345d2a046bfc6a799240c78c6ef9ab2c5f",
+      "src/model_gateway/capabilities.py": "82c8e76308f6f44831beaecdaa666e858d141e2c925317462d89c7962247db53",
+      "src/model_gateway/errors.py": "45bdfa84ad94d513c41f1913cc281cdc945cf75753bda9358b4c12aa925adc28",
+      "src/model_gateway/execution_policy.py": "3e3fdfed86797bc02959ec7e4b0dd0b566ef2841ebf5a60cf622199bb8b3093f",
+      "src/model_gateway/llama_cpp_backend.py": "c69871efdd629d88834e710879f2f445766e12658724f028c7068f6df4ad9bc0",
+      "src/model_gateway/metrics.py": "e413bd1c3bcb89db2be90d2fb707fb5662d1f4c2980adc3c10e167ab7b9ee6d2",
+      "src/model_gateway/openai_protocol.py": "a42e035c0cdf1ec743e7313696cffe5e4b7feb8558cdd152b2bcd0f4acab012a",
+      "src/model_gateway/streaming.py": "f2b2c5d2cbdea4adad4c2d83199e28915d6ef7c6fcc2c207f7865981563b5a58",
+      "src/model_gateway/strict_json.py": "1e819ea444a012442b69c99cab65ee91a1b5129c54fd1d96da908c60a1961190",
+      "src/model_gateway/tool_validation.py": "593dc1d75b8bce4e98ff293c32fc22581206f114f9b3ee8ba7ad9332bb032c33"
+    },
+    "patch_sha256": {
+      "patches/ij07/llama-b12359-explicit-tool-choice.patch": "18f9c78ce5e900957bb53134bb9acafaee1e01058bae6056d55c63fc180a763f",
+      "patches/ij07/llama-b12359-generation-observer.patch": "b09a4b23da7c26418547db258940091d2458be1fe03a97328f90c91684db8805",
+      "benchmarks/tool_calling_v2/parser/minicpm5-native-json-lexical.patch": "6d4f209bb5c4a3209d0616b8cb5e728fe4014a6f594979cdc9b622c95d951bc6",
+      "benchmarks/tool_calling_v2/parser/minicpm5-terminal-integrity.patch": "3cb17791d4305adfc51401af5289090bab1c6db4d4a0f05fff86eb0635a597b7"
+    },
+    "dataset_sha256": "3cb578ba7cfc4c1e65fe196f0cb4ec2613aa7f59b19b480c0f34648c85f09628",
+    "dataset_manifest_sha256": "7aaecb54c2ed916a02ff096cf1862d549cb20ebe5b1a62de186f43148c554b80",
+    "controls_sha256": "e8dbdc67fc2aad421687ecad4ec994410a317f69384ffedbd261abc7e75b27c6"
+  },
+  "configuration_sha256": "f8b6f74b467b66345511b5023e0f32aa4394026ba3a52a6add4276a99b7a056c",
+  "run_configuration": {
+    "arm_configuration_sha256": "f8b6f74b467b66345511b5023e0f32aa4394026ba3a52a6add4276a99b7a056c",
+    "trial": {
+      "case_id": "TCV2-D-0001",
+      "split": "dev",
+      "stream": false,
+      "seed": 47,
+      "repeat_index": null,
+      "phase": "first",
+      "attempt": 1,
+      "dataset_sha256": "3cb578ba7cfc4c1e65fe196f0cb4ec2613aa7f59b19b480c0f34648c85f09628",
+      "pairing_sha256": "caeb34f04d7fed4a0998c893b661183b411ae47d9c6e1a9b1057f27e64db9385",
+      "manifest_sha256": "7aaecb54c2ed916a02ff096cf1862d549cb20ebe5b1a62de186f43148c554b80"
+    },
+    "port": 8102
+  },
+  "run_configuration_sha256": "72a6f0154164f7db347f6e107da200c56a4cd719e9ad555aac37d838eced4f06",
+  "started_utc": "2026-11-24T14:46:24+00:00",
+  "status": "PASS",
+  "gpu_execution_status": "PASS",
+  "source_capture_status": "PASS",
+  "gpu_artifacts_sha256": {
+    "launch": "869a946abb8a6cf2012a1678e53306a12a065f0f1810701e48e24717c15fa758",
+    "counters": "7238b12df3727c48a9d44025b0fdddd5a9b6628a39dc5de7ce395793617ec452",
+    "boot": "f4854cd483d3a0ae5aa297cde7fd7f7cc3c799db19c1496525169c89d71f7fe0"
+  },
+  "generation_trace_sha256": "f3e5beecb01a0a5f0b4a3017b99ffdea7bbbb9ef970c01e921822158e9a6b1c1",
+  "result_sha256": "76453b555882cd1867d0c06c7da766a19a2b588b200316d15b6df89c607f4a23",
+  "finished_utc": "2026-11-24T14:46:30+00:00"
+}

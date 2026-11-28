@@ -1,0 +1,146 @@
+{
+ "trial_id": "271a30d4ac3a41918bc8c0f0",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: An order ORD-1042 with amount 120.0 CNY and reason \"damaged_item\".\n    *   Available Tools: A list of functions for orders, refunds, customers, logistics, inventory, notifications.\n    *   Task: Generate the \"full action\" including tools and all arguments based on the provided information.\n    *   Language: Chinese (implied by the input).\n\n2.  **Determine the Intent:**\n    *   The user provides an order ID and details (amount, reason).\n    *   The context suggests a refund scenario (reason: damaged_item).\n    *   The goal is likely to submit a refund for this order.\n    *   However, I need to check if the order exists first (though the prompt implies I should act on it).\n    *   Looking at the available tools, `orders.lookup_order` is the first step to verify the order exists and get details.\n    *   Then, `refunds.submit` is the action to take.\n    *   Wait, the prompt asks to \"Generate complete action: tool and all arguments.\" based"
+      }
+     }
+    ],
+    "created": 1795796231,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 256,
+     "prompt_tokens": 219,
+     "total_tokens": 475,
+     "prompt_tokens_details": {
+      "cached_tokens": 215
+     }
+    },
+    "id": "chatcmpl-HCd4ZCcC8QhADEBcqdsDhYxUoeXZbsiI",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: An order ORD-1042 with amount 120.0 CNY and reason \"damaged_item\".\n    *   Available Tools: A list of functions for orders, refunds, customers, logistics, inventory, notifications.\n    *   Task: Generate the \"full action\" including tools and all arguments based on the provided information.\n    *   Language: Chinese (implied by the input).\n\n2.  **Determine the Intent:**\n    *   The user provides an order ID and details (amount, reason).\n    *   The context suggests a refund scenario (reason: damaged_item).\n    *   The goal is likely to submit a refund for this order.\n    *   However, I need to check if the order exists first (though the prompt implies I should act on it).\n    *   Looking at the available tools, `orders.lookup_order` is the first step to verify the order exists and get details.\n    *   Then, `refunds.submit` is the action to take.\n    *   Wait, the prompt asks to \"Generate complete action: tool and all arguments.\" based",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 256,
+     "tokens_evaluated": 219,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 256,
+      "n_predict": 256,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n订单 ORD-1042：金额 120.0 CNY，原因 damaged_item。\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 474,
+     "timings": {
+      "cache_n": 215,
+      "prompt_n": 4,
+      "prompt_ms": 21.451,
+      "prompt_per_token_ms": 5.36275,
+      "prompt_per_second": 186.47149317048155,
+      "predicted_n": 256,
+      "predicted_ms": 1238.771,
+      "predicted_per_token_ms": 4.857925490196078,
+      "predicted_per_second": 205.84918439324136
+     }
+    },
+    "timings": {
+     "cache_n": 215,
+     "prompt_n": 4,
+     "prompt_ms": 21.451,
+     "prompt_per_token_ms": 5.36275,
+     "prompt_per_second": 186.47149317048155,
+     "predicted_n": 256,
+     "predicted_ms": 1238.771,
+     "predicted_per_token_ms": 4.857925490196078,
+     "predicted_per_second": 205.84918439324136
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.266
+  }
+ ]
+}

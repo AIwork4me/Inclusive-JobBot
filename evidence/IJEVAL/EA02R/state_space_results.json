@@ -1,0 +1,49 @@
+{
+ "schema": "ijeval.ea02r.state_space",
+ "independent_rule_model": "model_illegal() in this script (authored from the specification, never calls the validator under test)",
+ "blocks": {
+  "cognitive_core": "exhaustive execution x pipeline x parser x verdict x qualification x publication (8,640)",
+  "business_block": "exhaustive business x safety x world x pipeline (192)",
+  "evaluator_block": "exhaustive evaluator x disagreement x pipeline x verdict (216)",
+  "malformed_types": "field-substitution injections (constructor must raise ContractTypeError)"
+ },
+ "results": {
+  "generated": 9312,
+  "model_legal": 2958,
+  "model_illegal": 6354,
+  "rule_firing_counts": {
+   "R23_qualification_vs_eligible": 2160,
+   "R18_undecidable_vs_eligible": 1440,
+   "R02_model_invalid_vs_correct": 540,
+   "R03_unsupported_vs_decisive": 1080,
+   "R04_parser_error_vs_decisive": 1080,
+   "R05_parser_error_needs_error_pipeline": 240,
+   "R01_pipeline_vs_decisive": 3936,
+   "R16_execution_vs_decisive": 2592,
+   "R17_canary_vs_eligible": 576,
+   "R22_business_pass_pipeline": 12,
+   "R19_business_pass_world": 16,
+   "R20_business_pass_safety_violation": 6,
+   "R21_business_pass_safety_unverified": 6,
+   "R08_disagreement_pipeline": 128,
+   "R09_disagreement_vs_qualified": 72,
+   "R06_evaluator_error_vs_decisive": 36,
+   "R07_evaluator_error_pipeline": 64,
+   "R12_decisive_needs_verified_evidence": 288,
+   "R24_safety_violation_vs_eligible": 60,
+   "R13_marker_vs_decisive": 180,
+   "R15_decisive_needs_provenance": 180,
+   "R10_verified_needs_envelope": 48,
+   "R11_verified_envelope_identity": 24,
+   "R14_rejected_vs_decisive": 72
+  },
+  "escapes": [],
+  "false_rejections": [],
+  "malformed_injections": 44,
+  "malformed_rejected": 44
+ },
+ "declared_invariants": 24,
+ "invariants_exercised": 24,
+ "escapes": 0,
+ "false_rejections": 0
+}

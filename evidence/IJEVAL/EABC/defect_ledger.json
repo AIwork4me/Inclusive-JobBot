@@ -1,0 +1,51 @@
+{
+ "schema": "ijeval.eabc.defect_ledger",
+ "schema_version": 1,
+ "generated": "2026-11-28",
+ "audited_head": "99639262e22ed5b59b42f28983c916f8b887b8b8",
+ "addendum": "docs/IJEVAL_MISSION_ORDER_WAVE_BC.md (sections 2, 3, 8, 9)",
+ "reproduction_evidence": {
+  "red": "evidence/IJEVAL/EABC/red_reproduction.json",
+  "green": "evidence/IJEVAL/EABC/green_reproduction.json",
+  "permanent_battery": "tests/ij_eval_assurance/test_wavebc_hardening.py (21 tests)"
+ },
+ "defects": [
+  {
+   "defect_id": "EA-R01",
+   "title": "Evidence-bound certificate issuance",
+   "red_observation": "arbitrary caller-created CertificateStore + issue() authorized formal eligibility with empty evidence_ref, empty reference identity, and reference == production; certificates carried zero digest bindings",
+   "repair": "QualificationAuthority is the only trusted issuance path: verifies mandatory gate evidence (all implementation files exist + non-empty, actual sha256 digests computed from bytes, reference oracle must differ from production evaluator, evidence files required); certificates bind 8 implementation digests + replay contract + protocol + evidence refs + limitations; arbitrary stores are untrusted and never authorize; validate_certificate rejects incomplete/incompatible certificates; registries carry a self-checksum",
+   "trust_boundary": "in-process Python cannot defend against a malicious caller that forges the trusted=True flag or monkeypatches the authority; the enforced boundary is against ACCIDENTAL misuse and untrusted data. No cryptographic signatures, no remote enforcement (not implemented, not claimed). Full lifecycle (signed receipts, scope hierarchies) is EA17.",
+   "regression": "test_wavebc_hardening.TestEAR01TrustedIssuance (6 tests)",
+   "status": "REPAIRED_GREEN"
+  },
+  {
+   "defect_id": "EA-R02",
+   "title": "Verified evidence must establish actual provenance",
+   "red_observation": "'banana' accepted as SHA256; 63-char digest accepted; identical untrusted digest pair accepted with basis 'no bytes were ever read'; VerifiedEvidence directly constructible; envelope identity dict mutable ('hacked')",
+   "repair": "strict 64-hex digest syntax (validate_sha256_digest); VerifiedEvidence + VerificationReceipt require a private creation key (direct construction raises PermissionError); identity/verification_checks exposed as read-only mappings over defensive copies; VerificationReceipts hash the artifact's actual bytes and bind trial+experiment identity (mismatch fails closed); the N02RR adapter now consumes receipts instead of caller-supplied digest strings; three evidence classes documented (claimed / actually-verified / qualified transfer)",
+   "regression": "test_wavebc_hardening.TestEAR02EvidenceProvenance (7 tests) + adapter tests",
+   "status": "REPAIRED_GREEN"
+  },
+  {
+   "defect_id": "EA-R03",
+   "title": "Formal publication boundary hardening",
+   "red_observation": "empty, unrelated and revoked-only certificate stores all produced ALLOWED; zero qualified rows produced ALLOWED; critical NOT_EVALUABLE rows did not block; no roster, no duplicate detection, no scope enforcement",
+   "repair": "publication requires a trusted store with a currently-valid certificate FOR THE REQUESTED SCOPE (BLOCKED_SCOPE_NOT_CERTIFIED otherwise); zero qualified rows blocked; critical NOT_EVALUABLE (error pipeline / rejected evidence / evidence-invalid markers) blocks the scope; duplicate trial identities quarantined; planned-roster reconciliation reports every slot with missing slots blocking unless an explicit partial scope is declared (scope_declaration='partial', never full closure); conditional accuracy and evaluation coverage reported separately",
+   "regression": "test_wavebc_hardening.TestEAR03PublicationBoundary (4 tests) + test_boundary rework (EA00 regression phases updated: contaminated scope now BLOCKED_CRITICAL_NOT_EVALUABLE; sealed-only scope ALLOWED with exact roster; partial scope explicit)",
+   "status": "REPAIRED_GREEN"
+  },
+  {
+   "defect_id": "EA-R04",
+   "title": "Qualification revocation and time-of-check integrity",
+   "red_observation": "aggregation report survived post-aggregation revocation (ALLOWED persisted); records mutable after validation; reissuing an equivalent certificate was immediately valid; corrupted registry crashed with an uncontrolled JSONDecodeError",
+   "repair": "immutable checksummed QualificationSnapshot; publish_report rechecks snapshot currency AND per-certificate validity at publication time (revocation between aggregation and publication raises and downgrades the report); durable revocation history persisted atomically (temp + os.replace) with registry self-checksum (corrupt/tampered registries fail closed with CertificateError); reissuing a revoked binding requires requalified=True with fresh gate evidence; store mutations synchronized under an RLock",
+   "residual": "EvaluationResult remains a mutable dataclass by design (records are working objects); the boundary re-validates every record at aggregation and binds publication to the snapshot, which is the enforced time-of-check seam. Concurrency tests use threads where applicable; multi-process mutual exclusion is documented as EA17 scope.",
+   "regression": "test_wavebc_hardening.TestEAR04RevocationTimeOfCheck (4 tests)",
+   "status": "REPAIRED_GREEN"
+  }
+ ],
+ "gate": null,
+ "note": "These four repairs are hardening WITHIN EA05-EA08/EA10-EA11 scopes per the addendum; they do not by themselves grant any Wave B gate. Wave B proper (EA03-EA08 independent semantic qualification) proceeds on top of this trusted boundary.",
+ "test_totals": {"ij_eval_assurance": "95/95 OK", "ij_nano": "213/213 OK"}
+}

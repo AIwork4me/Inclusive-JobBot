@@ -1,0 +1,36 @@
+[
+  {
+    "case_id": "MT-01-062",
+    "executed_synthetic_calls": 17,
+    "findings": [
+      {
+        "code": "F12_FINAL_ANSWER_ERROR",
+        "detail": "structured answer differs from independent expectations"
+      }
+    ],
+    "prompt_tokens_identical": true,
+    "raw_pre_parser_bytes_identical": true,
+    "sampled_tokens_identical": true,
+    "status": "FAIL",
+    "wire_protocol": "PASS"
+  },
+  {
+    "case_id": "MT-03-061",
+    "executed_synthetic_calls": 18,
+    "findings": [
+      {
+        "code": "F12_FINAL_ANSWER_ERROR",
+        "detail": "empty final answer"
+      },
+      {
+        "code": "F02_MODEL_TOOL_SELECTION_ERROR",
+        "detail": "tool proposal budget exceeded"
+      }
+    ],
+    "prompt_tokens_identical": true,
+    "raw_pre_parser_bytes_identical": true,
+    "sampled_tokens_identical": true,
+    "status": "FAIL",
+    "wire_protocol": "PASS"
+  }
+]

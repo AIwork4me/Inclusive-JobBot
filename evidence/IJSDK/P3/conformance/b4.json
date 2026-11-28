@@ -1,0 +1,24 @@
+{
+ "schema_version": 1,
+ "arm": "b4",
+ "checked_utc": "2026-11-27T05:44:56Z",
+ "python": "3.12.10",
+ "packages": {
+  "smolagents": "1.26.0"
+ },
+ "support_tier": "sdk-native",
+ "checks": {
+  "c3_tool_roundtrip": {
+   "status": "PASS",
+   "final_output": "17420.5"
+  },
+  "c2_chat": {
+   "status": "PASS"
+  },
+  "c1_connect": {
+   "status": "PASS"
+  }
+ },
+ "notes": "OpenAIServerModel(flatten_messages_as_text=True) per smolagents #908; mode=b4; CodeAgent runs an in-process Python executor - P3 security gate requires containment before formal runs",
+ "wire": []
+}

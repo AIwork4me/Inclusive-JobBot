@@ -1,0 +1,136 @@
+# N06A-R green run (after repairs)
+# command: python -I -m unittest discover -s tests/ij_nano -t .
+# date: 2026-11-27T12:19:11Z
+
+test_absolute_monotonic_deadline (tests.ij_nano.test_budget.TestBudget.test_absolute_monotonic_deadline) ... ok
+test_attempts_counted_at_reservation_time (tests.ij_nano.test_budget.TestBudget.test_attempts_counted_at_reservation_time) ... ok
+test_corrective_retries_bounded_separately (tests.ij_nano.test_budget.TestBudget.test_corrective_retries_bounded_separately) ... ok
+test_deadline_is_absolute_not_sliding (tests.ij_nano.test_budget.TestBudget.test_deadline_is_absolute_not_sliding) ... ok
+test_failed_call_is_charged (tests.ij_nano.test_budget.TestBudget.test_failed_call_is_charged) ... ok
+test_overuse_charged_beyond_reservation (tests.ij_nano.test_budget.TestBudget.test_overuse_charged_beyond_reservation) ... ok
+test_per_request_view_shows_real_remaining (tests.ij_nano.test_budget.TestBudget.test_per_request_view_shows_real_remaining) ... ok
+test_reserve_beyond_remaining_refused (tests.ij_nano.test_budget.TestBudget.test_reserve_beyond_remaining_refused) ... ok
+test_snapshot_is_a_copy (tests.ij_nano.test_budget.TestBudget.test_snapshot_is_a_copy) ... ok
+test_tool_deadline_capped_by_task_deadline (tests.ij_nano.test_budget.TestBudget.test_tool_deadline_capped_by_task_deadline) ... ok
+test_decoded_response_and_token_ids_are_distinct_stages (tests.ij_nano.test_events.TestEventLog.test_decoded_response_and_token_ids_are_distinct_stages) ... ok
+test_reordering_detected (tests.ij_nano.test_events.TestEventLog.test_reordering_detected) ... ok
+test_restore_rejects_broken_chain (tests.ij_nano.test_events.TestEventLog.test_restore_rejects_broken_chain) ... ok
+test_resume_safe_sequence_after_restore (tests.ij_nano.test_events.TestEventLog.test_resume_safe_sequence_after_restore) ... ok
+test_seal_blocks_appends (tests.ij_nano.test_events.TestEventLog.test_seal_blocks_appends) ... ok
+test_sequence_and_chain_verify (tests.ij_nano.test_events.TestEventLog.test_sequence_and_chain_verify) ... ok
+test_tampering_detected (tests.ij_nano.test_events.TestEventLog.test_tampering_detected) ... ok
+test_unknown_stage_rejected (tests.ij_nano.test_events.TestEventLog.test_unknown_stage_rejected) ... ok
+test_audit_records_every_decision (tests.ij_nano.test_gateway.TestGatewayOrdering.test_audit_records_every_decision) ... ok
+test_bad_arguments_denied_at_stage_2 (tests.ij_nano.test_gateway.TestGatewayOrdering.test_bad_arguments_denied_at_stage_2) ... ok
+test_fault_cannot_grant_permission (tests.ij_nano.test_gateway.TestGatewayOrdering.test_fault_cannot_grant_permission) ... ok
+test_handler_failure_rolls_back_draft (tests.ij_nano.test_gateway.TestGatewayOrdering.test_handler_failure_rolls_back_draft) ... ok
+test_idempotency_prevents_duplicate_effects (tests.ij_nano.test_gateway.TestGatewayOrdering.test_idempotency_prevents_duplicate_effects) ... ok
+test_preconditions_and_approval (tests.ij_nano.test_gateway.TestGatewayOrdering.test_preconditions_and_approval) ... ok
+test_unauthorized_denied_at_stage_3 (tests.ij_nano.test_gateway.TestGatewayOrdering.test_unauthorized_denied_at_stage_3) ... ok
+test_unknown_tool_denied_at_stage_1 (tests.ij_nano.test_gateway.TestGatewayOrdering.test_unknown_tool_denied_at_stage_1) ... ok
+test_enum_and_bool_strictness (tests.ij_nano.test_gateway.TestSchema.test_enum_and_bool_strictness) ... ok
+test_nested_validation (tests.ij_nano.test_gateway.TestSchema.test_nested_validation) ... ok
+test_unsupported_type_fails_closed (tests.ij_nano.test_gateway.TestSchema.test_unsupported_type_fails_closed) ... ok
+test_commit_does_not_alias_draft_into_store (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_commit_does_not_alias_draft_into_store) ... ok
+test_concurrent_calls_serialized_not_interleaved (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_concurrent_calls_serialized_not_interleaved) ... ok
+test_handler_cannot_reach_store_object (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_handler_cannot_reach_store_object) ... ok
+test_handler_exception_leaves_nested_dicts_intact (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_handler_exception_leaves_nested_dicts_intact) ... ok
+test_handler_exception_leaves_nested_lists_intact (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_handler_exception_leaves_nested_lists_intact) ... ok
+test_invalid_commit_and_double_commit_rejected (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_invalid_commit_and_double_commit_rejected) ... ok
+test_multiple_entities_isolated_on_rollback (tests.ij_nano.test_na_d01_transaction.TestNestedIsolation.test_multiple_entities_isolated_on_rollback) ... ok
+test_cross_trial_rows_rejected (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_cross_trial_rows_rejected) ... ok
+test_dangling_parent_rejected_on_restore (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_dangling_parent_rejected_on_restore) ... ok
+test_duplicate_event_id_rejected_on_restore (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_duplicate_event_id_rejected_on_restore) ... ok
+test_invalid_stage_rejected_on_restore (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_invalid_stage_rejected_on_restore) ... ok
+test_parent_reassignment_detected (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_parent_reassignment_detected) ... ok
+test_payload_mutation_through_nested_reference (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_payload_mutation_through_nested_reference) ... ok
+test_seal_digest_anchors_external_manifest (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_seal_digest_anchors_external_manifest) ... ok
+test_timestamp_tampering_detected (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_timestamp_tampering_detected) ... ok
+test_truncation_detected_against_seal (tests.ij_nano.test_na_d02_events.TestIntegrityEnvelope.test_truncation_detected_against_seal) ... ok
+test_interrupted_publication_never_loads_half (tests.ij_nano.test_na_d03_checkpoint.TestAtomicPublication.test_interrupted_publication_never_loads_half) ... <worktree>\tests\ij_nano\test_na_d03_checkpoint.py:157: ResourceWarning: unclosed file <_io.BufferedReader name='<temp>/cp.json'>
+  good = open(path, "rb").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_save_replaces_previous_publication_atomically (tests.ij_nano.test_na_d03_checkpoint.TestAtomicPublication.test_save_replaces_previous_publication_atomically) ... ok
+test_integrity_hash_covers_every_field (tests.ij_nano.test_na_d03_checkpoint.TestCheckpointBinding.test_integrity_hash_covers_every_field) ... ok
+test_restore_rejects_budget_spec_swap (tests.ij_nano.test_na_d03_checkpoint.TestCheckpointBinding.test_restore_rejects_budget_spec_swap) ... ok
+test_restore_rejects_event_truncation (tests.ij_nano.test_na_d03_checkpoint.TestCheckpointBinding.test_restore_rejects_event_truncation) ... ok
+test_restore_rejects_state_epoch_mismatch (tests.ij_nano.test_na_d03_checkpoint.TestCheckpointBinding.test_restore_rejects_state_epoch_mismatch) ... ok
+test_restore_rejects_tampered_checkpoint (tests.ij_nano.test_na_d03_checkpoint.TestCheckpointBinding.test_restore_rejects_tampered_checkpoint) ... ok
+test_restore_rejects_wrong_experiment_identity (tests.ij_nano.test_na_d03_checkpoint.TestCheckpointBinding.test_restore_rejects_wrong_experiment_identity) ... ok
+test_budget_counters_recovered_exactly (tests.ij_nano.test_na_d03_checkpoint.TestDeadlineSurvival.test_budget_counters_recovered_exactly) ... ok
+test_deadline_survives_restart_without_new_budget (tests.ij_nano.test_na_d03_checkpoint.TestDeadlineSurvival.test_deadline_survives_restart_without_new_budget) ... ok
+test_executable_state_recovered (tests.ij_nano.test_na_d03_checkpoint.TestDeadlineSurvival.test_executable_state_recovered) ... ok
+test_no_concurrent_reservation_race (tests.ij_nano.test_na_d04_budget.TestAtomicReservation.test_no_concurrent_reservation_race) ... ok
+test_negative_spec_rejected (tests.ij_nano.test_na_d04_budget.TestNoBypass.test_negative_spec_rejected) ... ok
+test_negative_units_rejected (tests.ij_nano.test_na_d04_budget.TestNoBypass.test_negative_units_rejected) ... ok
+test_no_retry_when_retry_budget_exhausted (tests.ij_nano.test_na_d04_budget.TestNoBypass.test_no_retry_when_retry_budget_exhausted) ... ok
+test_zero_unit_reservation_rejected (tests.ij_nano.test_na_d04_budget.TestNoBypass.test_zero_unit_reservation_rejected) ... ok
+test_max_tokens_bound_to_remaining_budget (tests.ij_nano.test_na_d04_budget.TestRequestBinding.test_max_tokens_bound_to_remaining_budget) ... ok
+test_overrun_cannot_double_charge_below_zero (tests.ij_nano.test_na_d04_budget.TestRequestBinding.test_overrun_cannot_double_charge_below_zero) ... ok
+test_attempt_count_never_refunded (tests.ij_nano.test_na_d04_budget.TestSettlement.test_attempt_count_never_refunded) ... ok
+test_reservation_states_distinguished (tests.ij_nano.test_na_d04_budget.TestSettlement.test_reservation_states_distinguished) ... ok
+test_settle_overrun_charged (tests.ij_nano.test_na_d04_budget.TestSettlement.test_settle_overrun_charged) ... ok
+test_settle_releases_unused_reservation (tests.ij_nano.test_na_d04_budget.TestSettlement.test_settle_releases_unused_reservation) ... ok
+test_unknown_usage_conservatively_charged (tests.ij_nano.test_na_d04_budget.TestSettlement.test_unknown_usage_conservatively_charged) ... ok
+test_authorized_source_stage_accepted (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_authorized_source_stage_accepted) ... ok
+test_bool_is_not_integer_fact (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_bool_is_not_integer_fact) ... ok
+test_cross_trial_source_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_cross_trial_source_rejected) ... ok
+test_data_type_mismatch_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_data_type_mismatch_rejected) ... ok
+test_empty_entity_or_property_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_empty_entity_or_property_rejected) ... ok
+test_fake_source_id_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_fake_source_id_rejected) ... ok
+test_invalid_unit_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_invalid_unit_rejected) ... ok
+test_nested_value_not_stored_by_reference (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_nested_value_not_stored_by_reference) ... ok
+test_no_log_bound_facts_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_no_log_bound_facts_rejected) ... ok
+test_unauthorized_source_stage_rejected (tests.ij_nano.test_na_d05_provenance.TestProvenance.test_unauthorized_source_stage_rejected) ... ok
+test_cancelled_before_dispatch_denied (tests.ij_nano.test_na_d06_epoch_cancel.TestCancellationProtection.test_cancelled_before_dispatch_denied) ... ok
+test_cancelled_during_handler_commits_nothing (tests.ij_nano.test_na_d06_epoch_cancel.TestCancellationProtection.test_cancelled_during_handler_commits_nothing) ... ok
+test_deadline_expired_before_dispatch_denied (tests.ij_nano.test_na_d06_epoch_cancel.TestDeadlineProtection.test_deadline_expired_before_dispatch_denied) ... ok
+test_deadline_expired_during_handler_commits_nothing (tests.ij_nano.test_na_d06_epoch_cancel.TestDeadlineProtection.test_deadline_expired_during_handler_commits_nothing) ... ok
+test_delayed_handler_completing_after_reset_commits_nothing (tests.ij_nano.test_na_d06_epoch_cancel.TestEpochProtection.test_delayed_handler_completing_after_reset_commits_nothing) ... ok
+test_epoch_mismatch_denied_before_dispatch (tests.ij_nano.test_na_d06_epoch_cancel.TestEpochProtection.test_epoch_mismatch_denied_before_dispatch) ... ok
+test_epoch_recheck_happens_before_commit (tests.ij_nano.test_na_d06_epoch_cancel.TestEpochProtection.test_epoch_recheck_happens_before_commit) ... ok
+test_non_reversible_requires_approval_by_contract (tests.ij_nano.test_na_d06_epoch_cancel.TestNonReversibleActions.test_non_reversible_requires_approval_by_contract) ... ok
+test_non_reversible_with_approval_accepted (tests.ij_nano.test_na_d06_epoch_cancel.TestNonReversibleActions.test_non_reversible_with_approval_accepted) ... ok
+test_approval_bound_to_canonical_arguments (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_bound_to_canonical_arguments) ... ok
+test_approval_bound_to_tool (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_bound_to_tool) ... ok
+test_approval_expiry_enforced (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_expiry_enforced) ... ok
+test_approval_not_yet_expired_accepted (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_approval_not_yet_expired_accepted) ... ok
+test_key_ordering_is_canonicalized (tests.ij_nano.test_na_d07_approval_idem.TestApprovalBinding.test_key_ordering_is_canonicalized) ... ok
+test_duplicate_request_returns_recorded_effect (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_duplicate_request_returns_recorded_effect) ... ok
+test_duplicate_while_in_flight_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_duplicate_while_in_flight_denied) ... ok
+test_idempotency_survives_restart_via_checkpoint_binding (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_idempotency_survives_restart_via_checkpoint_binding) ... ok
+test_missing_mandatory_effect_key_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_missing_mandatory_effect_key_denied) ... ok
+test_same_effect_key_different_arguments_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_same_effect_key_different_arguments_denied) ... ok
+test_same_effect_key_different_tool_denied (tests.ij_nano.test_na_d07_approval_idem.TestIdempotencyBinding.test_same_effect_key_different_tool_denied) ... ok
+test_array_items_and_bounds (tests.ij_nano.test_na_d08_schema.TestArraysAndNesting.test_array_items_and_bounds) ... ok
+test_deep_nesting (tests.ij_nano.test_na_d08_schema.TestArraysAndNesting.test_deep_nesting) ... ok
+test_unknown_properties_when_open (tests.ij_nano.test_na_d08_schema.TestArraysAndNesting.test_unknown_properties_when_open) ... ok
+test_exclusive_bounds_enforced (tests.ij_nano.test_na_d08_schema.TestNumericBounds.test_exclusive_bounds_enforced) ... ok
+test_maximum_enforced (tests.ij_nano.test_na_d08_schema.TestNumericBounds.test_maximum_enforced) ... ok
+test_minimum_enforced (tests.ij_nano.test_na_d08_schema.TestNumericBounds.test_minimum_enforced) ... ok
+test_non_finite_numbers_rejected (tests.ij_nano.test_na_d08_schema.TestNumericBounds.test_non_finite_numbers_rejected) ... ok
+test_gateway_validates_schemas_at_registration (tests.ij_nano.test_na_d08_schema.TestRegistrationStrictness.test_gateway_validates_schemas_at_registration) ... ok
+test_invalid_schema_definition_rejected (tests.ij_nano.test_na_d08_schema.TestRegistrationStrictness.test_invalid_schema_definition_rejected) ... ok
+test_unsupported_keyword_rejected_at_registration (tests.ij_nano.test_na_d08_schema.TestRegistrationStrictness.test_unsupported_keyword_rejected_at_registration) ... ok
+test_valid_schema_accepted (tests.ij_nano.test_na_d08_schema.TestRegistrationStrictness.test_valid_schema_accepted) ... ok
+test_length_enforced (tests.ij_nano.test_na_d08_schema.TestStringConstraints.test_length_enforced) ... ok
+test_pattern_enforced (tests.ij_nano.test_na_d08_schema.TestStringConstraints.test_pattern_enforced) ... ok
+test_cancellation_cooperative (tests.ij_nano.test_state_checkpoint.TestCheckpoint.test_cancellation_cooperative) ... ok
+test_checkpoint_detects_count_tampering (tests.ij_nano.test_state_checkpoint.TestCheckpoint.test_checkpoint_detects_count_tampering) ... ok
+test_checkpoint_restore_rejects_tampering (tests.ij_nano.test_state_checkpoint.TestCheckpoint.test_checkpoint_restore_rejects_tampering) ... ok
+test_checkpoint_round_trip_and_resume (tests.ij_nano.test_state_checkpoint.TestCheckpoint.test_checkpoint_round_trip_and_resume) ... ok
+test_complete_reset_no_cross_trial_residue (tests.ij_nano.test_state_checkpoint.TestState.test_complete_reset_no_cross_trial_residue) ... ok
+test_epoch_abort_rejects_late_writes (tests.ij_nano.test_state_checkpoint.TestState.test_epoch_abort_rejects_late_writes) ... ok
+test_fact_versioning_and_scope_invalidation (tests.ij_nano.test_state_checkpoint.TestState.test_fact_versioning_and_scope_invalidation) ... ok
+test_generated_text_cannot_write_facts (tests.ij_nano.test_state_checkpoint.TestState.test_generated_text_cannot_write_facts) ... ok
+
+----------------------------------------------------------------------
+Ran 119 tests in 0.050s
+
+OK
+
+# IJ-SDK regression (must be unaffected): 2026-11-27T12:19:12Z
+Ran 93 tests in 13.856s
+
+OK

@@ -1,0 +1,154 @@
+{
+ "trial_id": "604d73101b0d5742185e061a",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "{\"action\": \"A1\"}",
+       "reasoning_content": "We need to answer with the action label only. The user says: \"库存系统显示 {sku} 只剩 2 件，低于安全线。 只回答动作编号。 / Answer with the action label only.\" So we need to choose an action from the list that makes sense given the situation: inventory shows {sku} has only 2 items left, below safety line. The actions: A1. 补货 (restock), A2. 冻结 (freeze outbound), A3. 盘点 (count), A4. 转仓 (transfer to backup warehouse), A5. 忽略该告警 (ignore alert), A6. 上报主管 (notify supervisor). The situation is low inventory, below safety line. Likely the appropriate action is to restock (A1) or notify supervisor (A6) or ignore alert? The instruction says \"只回答动作编号\" and \"Answer with the action label only.\" So we need to output just the label, e.g., \"A1\". Which one is most appropriate? The system shows low stock, below safety line. The actions available: restock, freeze outbound, count, transfer to backup, ignore alert, notify supervisor."
+      }
+     }
+    ],
+    "created": 1795795302,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 285,
+     "prompt_tokens": 207,
+     "total_tokens": 492,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-mnlFOzh9sVi5OksQ5gAHs5zkC26IzlY7",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to answer with the action label only. The user says: \"库存系统显示 {sku} 只剩 2 件，低于安全线。 只回答动作编号。 / Answer with the action label only.\" So we need to choose an action from the list that makes sense given the situation: inventory shows {sku} has only 2 items left, below safety line. The actions: A1. 补货 (restock), A2. 冻结 (freeze outbound), A3. 盘点 (count), A4. 转仓 (transfer to backup warehouse), A5. 忽略该告警 (ignore alert), A6. 上报主管 (notify supervisor). The situation is low inventory, below safety line. Likely the appropriate action is to restock (A1) or notify supervisor (A6) or ignore alert? The instruction says \"只回答动作编号\" and \"Answer with the action label only.\" So we need to output just the label, e.g., \"A1\". Which one is most appropriate? The system shows low stock, below safety line. The actions available: restock, freeze outbound, count, transfer to backup, ignore alert, notify supervisor.</think>\n\n                    {\"action\": \"A1\"}",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 285,
+     "tokens_evaluated": 207,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "json-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nresponse-format ::= \"{\" space response-format-action-kv space \"}\"\nresponse-format-action ::= (\"\\\"A1\\\"\" | \"\\\"A2\\\"\" | \"\\\"A3\\\"\" | \"\\\"A4\\\"\" | \"\\\"A5\\\"\" | \"\\\"A6\\\"\")\nresponse-format-action-kv ::= \"\\\"action\\\"\" space \":\" space response-format-action\nroot ::= \"<|im_start|>assistant\\n\" \"<think>\" space until-2 space \"</think>\" space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nuntil-2 ::= | [<] until-2-01 | [^<] until-2\nuntil-2-01 ::= | [<] until-2-01 | [/] until-2-02 | [^/<] until-2\nuntil-2-02 ::= | [<] until-2-01 | [t] until-2-03 | [^<t] until-2\nuntil-2-03 ::= | [<] until-2-01 | [h] until-2-04 | [^<h] until-2\nuntil-2-04 ::= | [<] until-2-01 | [i] until-2-05 | [^<i] until-2\nuntil-2-05 ::= | [<] until-2-01 | [n] until-2-06 | [^<n] until-2\nuntil-2-06 ::= | [<] until-2-01 | [k] until-2-07 | [^<k] until-2\nuntil-2-07 ::= | [<] until-2-01 | [^<>] until-2\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n可选动作 / available actions:\nA1. 补货：为 SKU-2210 下补货单 / create a restock order for SKU-2210\nA2. 冻结：暂停 SKU-2210 的出库 / freeze outbound of SKU-2210\nA3. 盘点：安排 BIN-F9 的盘点 / schedule a count of BIN-F9\nA4. 转仓：把 SKU-2210 调往备用仓 / transfer SKU-2210 to the backup warehouse\nA5. 忽略该告警 / ignore the alert\nA6. 上报主管 / notify the supervisor\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n库存系统显示 {sku} 只剩 2 件，低于安全线。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 491,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 207,
+      "prompt_ms": 46.674,
+      "prompt_per_token_ms": 0.2254782608695652,
+      "prompt_per_second": 4435.017354415735,
+      "predicted_n": 285,
+      "predicted_ms": 1731.096,
+      "predicted_per_token_ms": 6.095408450704225,
+      "predicted_per_second": 164.05791475458324
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 207,
+     "prompt_ms": 46.674,
+     "prompt_per_token_ms": 0.2254782608695652,
+     "prompt_per_second": 4435.017354415735,
+     "predicted_n": 285,
+     "predicted_ms": 1731.096,
+     "predicted_per_token_ms": 6.095408450704225,
+     "predicted_per_second": 164.05791475458324
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.797
+  }
+ ]
+}

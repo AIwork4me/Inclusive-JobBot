@@ -1,0 +1,148 @@
+{
+ "trial_id": "f2d60d6f0d235a59f5a2c879",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "stop",
+       "reasoning_content": "We need to parse the user's request. The user says:\n\n\"目标 / goal: goal: refund submitted for ORD-1042. 当前观测 / observation: refund submitted and confirmation R-5521 issued.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.\"\n\nSo the user is giving a scenario: goal is to refund submitted for ORD-1042. Observation: refund submitted and confirmation R-5521 issued. Allowed decisions: stop, continue. They ask: decide stop or continue.\n\nWe need to decide whether to stop or continue. This seems like a decision tree or a process. The observation indicates that the refund has been submitted and a confirmation has been issued. So the goal is achieved? The goal is \"refund submitted for ORD-1042\". The observation says \"refund submitted and confirmation R-5521 issued.\" That suggests the refund has been submitted and confirmed. So the goal is achieved. In such cases, we might decide to stop. However, the allowed decisions are stop or continue. The user might be asking for a decision in a system that processes refunds. If the refund is submitted and confirmed, maybe we should stop processing further steps? Or continue? The context is unclear. But typically, if the goal is achieved, we would stop. The observation says \"refund submitted and confirmation R-5521 issued.\" That indicates the refund process is complete. So I'd say stop.\n\nBut we need to be careful: The user might be testing a decision logic. The instruction says: \"目标 / goal: goal: refund submitted for ORD-1042. 当前观测 / observation: refund submitted and confirmation R-5521 issued. Allowed decisions: stop, continue. 决定 stop 还是 continue。 / Decide stop or continue.\" So it's a simple decision: given that the refund is submitted and confirmed, what should we do? Probably stop. Because the goal is achieved. So answer: stop.\n\nBut we need to output in Chinese? The user wrote in Chinese. The instruction says: \"Decide stop or continue.\" So we can answer in Chinese: \"stop\" or \"continue\". Probably we should output the decision. The system might expect a JSON or something? The user didn't specify format. The conversation is a single turn. We need to provide the decision. I'll output \"stop\". But let's think: maybe the system is a refund processing system that needs to continue monitoring? However, the observation says confirmation issued, so the refund is done. So stop.\n\nThus, final answer: stop.\n"
+      }
+     }
+    ],
+    "created": 1795792568,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 541,
+     "prompt_tokens": 61,
+     "total_tokens": 602,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-toBuv9iyugSvq0TaliI2ZhkWUdVzCJN1",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request. The user says:\n\n\"目标 / goal: goal: refund submitted for ORD-1042. 当前观测 / observation: refund submitted and confirmation R-5521 issued.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.\"\n\nSo the user is giving a scenario: goal is to refund submitted for ORD-1042. Observation: refund submitted and confirmation R-5521 issued. Allowed decisions: stop, continue. They ask: decide stop or continue.\n\nWe need to decide whether to stop or continue. This seems like a decision tree or a process. The observation indicates that the refund has been submitted and a confirmation has been issued. So the goal is achieved? The goal is \"refund submitted for ORD-1042\". The observation says \"refund submitted and confirmation R-5521 issued.\" That suggests the refund has been submitted and confirmed. So the goal is achieved. In such cases, we might decide to stop. However, the allowed decisions are stop or continue. The user might be asking for a decision in a system that processes refunds. If the refund is submitted and confirmed, maybe we should stop processing further steps? Or continue? The context is unclear. But typically, if the goal is achieved, we would stop. The observation says \"refund submitted and confirmation R-5521 issued.\" That indicates the refund process is complete. So I'd say stop.\n\nBut we need to be careful: The user might be testing a decision logic. The instruction says: \"目标 / goal: goal: refund submitted for ORD-1042. 当前观测 / observation: refund submitted and confirmation R-5521 issued. Allowed decisions: stop, continue. 决定 stop 还是 continue。 / Decide stop or continue.\" So it's a simple decision: given that the refund is submitted and confirmed, what should we do? Probably stop. Because the goal is achieved. So answer: stop.\n\nBut we need to output in Chinese? The user wrote in Chinese. The instruction says: \"Decide stop or continue.\" So we can answer in Chinese: \"stop\" or \"continue\". Probably we should output the decision. The system might expect a JSON or something? The user didn't specify format. The conversation is a single turn. We need to provide the decision. I'll output \"stop\". But let's think: maybe the system is a refund processing system that needs to continue monitoring? However, the observation says confirmation issued, so the refund is done. So stop.\n\nThus, final answer: stop.\n</think>\n\nstop",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 541,
+     "tokens_evaluated": 61,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n目标 / goal: goal: refund submitted for ORD-1042. 当前观测 / observation: refund submitted and confirmation R-5521 issued.\nAllowed decisions: stop, continue.\n决定 stop 还是 continue。 / Decide stop or continue.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 601,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 61,
+      "prompt_ms": 28.64,
+      "prompt_per_token_ms": 0.4695081967213115,
+      "prompt_per_second": 2129.8882681564246,
+      "predicted_n": 541,
+      "predicted_ms": 2942.316,
+      "predicted_per_token_ms": 5.448733333333333,
+      "predicted_per_second": 183.528893565477
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 61,
+     "prompt_ms": 28.64,
+     "prompt_per_token_ms": 0.4695081967213115,
+     "prompt_per_second": 2129.8882681564246,
+     "predicted_n": 541,
+     "predicted_ms": 2942.316,
+     "predicted_per_token_ms": 5.448733333333333,
+     "predicted_per_second": 183.528893565477
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.985
+  }
+ ]
+}

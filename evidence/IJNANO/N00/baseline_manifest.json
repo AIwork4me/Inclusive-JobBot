@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "mission": "IJ-NANO-1.0",
+  "mission_id": "IJ-NANO-1.0",
+  "mission_title": "SLM-native Agentic Runtime Co-design & Capability-driven Harness Optimization",
+  "generated_utc": "2026-11-27T09:46:53Z",
+  "purpose": "Frozen repository and research baseline for IJ-NANO-1.0. Every value below was read from the live remote (GitHub API), the local main clone or the sibling IJ-SDK worktree on 2026-11-27. Local workstation paths and identities are withheld; see AGENTS.md and scripts/tools/scan_sensitive.py.",
+  "repository": {
+    "url": "https://github.com/AIwork4me/Inclusive-JobBot",
+    "account": "AIwork4me",
+    "default_branch": "codex/ij0-tool-calling",
+    "default_branch_head": "0592c319ab34",
+    "remote_query_transport": "gh api (raw git fetch to github.com reset connections twice during this audit; gh api succeeded on every call)"
+  },
+  "mission_order_historical_anchors": {
+    "pr6_head": {
+      "anchor": "06f25ab50db9e8ef074d9fb804de3191d7eadb98",
+      "status": "STILL_CURRENT",
+      "verified_utc": "2026-11-27T09:41Z"
+    },
+    "pr8_head": {
+      "anchor": "71660fbb885d2ee9cdf73c37293ea6f616d86947",
+      "status": "SUPERSEDED_BUT_PRESERVED",
+      "note": "PR #8 advanced past the anchor via IJ-SDK-1.1 P4A checkpoint 1 (3ee1f3d, 839b744, 56c6c74). The anchor remains reachable in history. 71660fb is the IJ-SDK-1.1 P0R integrity-audit commit referenced by the mission order's dependency constraints."
+    },
+    "pr8_frozen_source": {
+      "anchor": "fe56f324daf4ae106908e0d0a0f16967afc9c463",
+      "status": "UNCHANGED",
+      "note": "MISSION_STATE_IJSDK.json still records fe56f324 as the frozen source of the IJ-SDK research branch."
+    },
+    "unreported_at_order_time": {
+      "pr9": "PR #9 (codex/ij-slm-1.0, IJ-SLM-1.0) existed and advanced during 2026-11-27 but is not mentioned by the mission order. It is audited below as a first-class dependency."
+    }
+  },
+  "prior_mission_activity": {
+    "pr6": {
+      "number": 6,
+      "state": "OPEN",
+      "draft": true,
+      "title": "IJ-0.7.1 Atlas | baseline audit and benchmark validity controls",
+      "branch": "mission/ij-0.7.1-jobbot-agentic-capability-atlas-v1",
+      "head_at_audit": "06f25ab50db9e8ef074d9fb804de3191d7eadb98",
+      "updated_utc": "2026-11-27T05:37:10Z",
+      "tracking_issue": 5
+    },
+    "pr8": {
+      "number": 8,
+      "state": "OPEN",
+      "draft": true,
+      "title": "IJ-SDK-1.0 | Cross-SDK Agentic Capability Benchmark for 2B-class SLMs",
+      "branch": "mission/ij-sdk-1.0-cross-sdk-agentic-benchmark",
+      "head_at_audit": "56c6c74bf7216eb9cf65be4056c8db1964d23b05",
+      "updated_utc": "2026-11-27T07:56:13Z",
+      "tracking_issue": 7,
+      "worker_state": "idle; recovery state in MISSION_STATE_IJSDK.json says 'stopped by the operator' at P4A checkpoint 1; nothing running; all work committed and pushed",
+      "sub_mission": "IJ-SDK-1.1 - Benchmark Integrity Hardening & Cross-SDK Physical Qualification",
+      "formal_gpu_matrix_authorized": false
+    },
+    "pr9": {
+      "number": 9,
+      "state": "OPEN",
+      "draft": true,
+      "title": "IJ-SLM-1.0 | 2B-class Agentic Capability Atlas",
+      "branch": "codex/ij-slm-1.0",
+      "head_at_audit": "350fb5297b8d4b10c72679607f7aa7917cabeacf",
+      "updated_utc": "2026-11-27T08:30:52Z",
+      "stacked_on": "PR #6 head 06f25ab5 (verified ancestor)",
+      "worker_state": "No local worktree on this workstation; pushes originate elsewhere. No llama-server/python processes running locally at audit time. Branch MISSION_STATE.json (de7b979, updated_utc 2026-11-27T03:46:37Z) records ij_slm_1_0.formal_trials_recorded=0 of 36,550 required, gpu_handoff=PASS, executed_priority_diagnostics=3. physical_progress.json at 350fb529 already records arm-A direct-runtime mechanical trial results (e.g. A/direct_first/all/first_pass_mechanical 149/166 PASS with Wilson intervals; semantic dimensions BLOCKED)."
+    },
+    "other_open_prs": [
+      {"number": 2, "branch": "mission/ij-0.6-root-cause-and-purpose-built-execution", "state": "OPEN", "draft": true},
+      {"number": 4, "branch": "mission/ij-0.7-agentic-capability-qualification", "state": "OPEN", "draft": true}
+    ],
+    "open_issues": [1, 3, 5, 7]
+  },
+  "gpu_lease_determination": {
+    "audit_utc": "2026-11-27T09:41Z",
+    "physical_gpu": "AMD Radeon RX 7900 XTX (gfx1100), 24 GB class, driver 32.0.21030.2001 - re-verified via Win32_VideoController during this audit and consistent with evidence/IJSDK/P1/environment.json",
+    "note_on_gfx1151": "AGENTS.md and HANDOFF.md on the default branch describe gfx1151 because they were written on the previous workstation. IJ-SDK P0 known-limitation L-01 already records that all prior gfx1151 GPU evidence does not transfer to this gfx1100 machine.",
+    "processes_running": "none (no llama-server, python or ollama processes at audit time)",
+    "lease_holder": "IJ-SLM-1.0 (PR #9)",
+    "lease_evidence": [
+      "PR #9 body: 'Gives MiniCPM5-2B, LFM3-1.7B and Qwen3.5-2B first access to the Radeon after frozen Q2 is sealed and the GPU handoff is verified.'",
+      "Branch commits: 'Seal all frozen Q2 Radeon trials and verify the GPU handoff' (d901091) and 'Bind the published Q2 closure and GPU handoff to release manifests' (06f25ab).",
+      "MISSION_STATE.json on the branch: gpu_handoff.status=PASS, successor=IJ-SLM-1.0, q2_only_default=true.",
+      "physical_progress.json at 350fb529 records executed arm-A trials."
+    ],
+    "ij_nano_policy": "IJ-NANO-1.0 respects the IJ-SLM-1.0 GPU priority. All IJ-NANO phases that require physical model inference stay BLOCKED until the lease is released or shared by explicit operator instruction. Literature research (N01), protocol design, dataset/evaluator design and pure-software development proceed without the GPU."
+  },
+  "ij_nano_isolation": {
+    "strategy": "stacked_branch_on_pr8_head",
+    "rationale": "The mission order names PR #6 and PR #8 as dependencies. PR #8's head contains the complete IJ-SDK asset line: digest-verified model manifest for S1/S2/S3/R1/R2, gfx1100 engine/backend qualification evidence (P1 PASS), admission smoke tooling, and the parent Atlas datasets (TC-V2, MULTITOOL-V1, AGENTIC-PLAN-V1, JOB-V1) inherited through frozen source fe56f324. The IJ-SLM branch (PR #9) carries newer Atlas assets but not the IJ-SDK assets, and is the active GPU-lease mission; it is documented as a coordination dependency instead of a source base. No rebase onto moving parents; no modification of PR #6, PR #8 or PR #9 branches.",
+    "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
+    "base_commit": "56c6c74bf7216eb9cf65be4056c8db1964d23b05",
+    "base_commit_is_pr8_head_at_audit": true,
+    "worktree": "<local-worktree-path-withheld> (dedicated worktree beside the main clone, following the existing IJSDK pattern)",
+    "parent_dependency": {
+      "pr6_via_ancestor": "fe56f324daf4ae106908e0d0a0f16967afc9c463 (PR #6 commit; ancestor of the base)",
+      "pr8_head": "56c6c74bf7216eb9cf65be4056c8db1964d23b05"
+    },
+    "ancestry_verified": [
+      "fe56f324 is an ancestor of 56c6c74 (PR #8 is stacked on PR #6 at its frozen source).",
+      "06f25ab (PR #6 current head) is NOT an ancestor of 56c6c74; the Atlas and IJ-SDK lines diverged after fe56f324.",
+      "06f25ab IS an ancestor of the IJ-SLM branch (PR #9 is stacked on PR #6's current head)."
+    ]
+  },
+  "physical_assets_verified": {
+    "source_of_truth": "models/ij_sdk/model_manifest.json at base commit 56c6c74b (IJ-SDK P0R/P2, live-verified SHA256 digests; weights live outside git on the workstation in the sibling IJ-SDK worktree)",
+    "models": [
+      {"id": "S1", "model_id": "OpenBMB/MiniCPM5-2B", "quantizations": {"Q8_0": "c5415f8989bf88a8...", "Q4_K_M": "ec2d5801640099e9..."}, "license": "apache-2.0", "admission_dev_score": "9/10 (dev-gen v1.0.1)"},
+      {"id": "S2", "model_id": "LiquidAI/LFM3-1.7B", "quantizations": {"Q8_0": "8f6b24182258205e...", "Q4_K_M": "3793e1e6e2266919..."}, "license": "LFM Open License v1.0 (commercial use only below USD 10M annual revenue; research use permitted)", "admission_dev_score": "9/10 (dev-gen v1.0.1)"},
+      {"id": "S3", "model_id": "Qwen/Qwen3.5-2B (community GGUF by unsloth; selected by preregistered rule from candidates S3a-S3d)", "quantizations": {"Q8_0": "1b04acba82481755..."}, "license": "apache-2.0 (model); community GGUF conversion identity recorded", "admission_dev_score": "9/10 (dev-gen v1.0.1)"},
+      {"id": "R1", "model_id": "Qwen/Qwen3-8B", "quantizations": {"Q8_0": "408b955510e19612..."}, "license": "apache-2.0", "role": "larger reference anchor"},
+      {"id": "R2", "model_id": "Qwen/Qwen3-14B", "quantizations": {"Q8_0": "recorded in models/ij_sdk/model_manifest.json"}, "license": "apache-2.0", "role": "larger reference anchor"}
+    ],
+    "digest_note": "Digest prefixes shown here for audit brevity; full SHA256 values and verified_utc fields live in models/ij_sdk/model_manifest.json, which is committed at the base commit. IJ-NANO re-verifies full digests against on-disk weights before its own first physical run (N02) and records fresh evidence; it never trusts this manifest as proof of current disk state.",
+    "engine": {
+      "name": "llama.cpp llama-server (official stable release)",
+      "release": "v1.0.0 -> build b12359",
+      "build_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+      "backends_installed": ["cpu", "vulkan", "rocm (+ rocm-libs wheels for gfx1100)"],
+      "qualification_status": "IJ-SDK P1 PASS on this gfx1100 machine: Vulkan primary (streaming/non-streaming byte parity), ROCm repaired via rocm-sdk-device-gfx1100==10.0.0, matched F-vulkan vs F-rocm 52/52 identical outputs"
+    }
+  },
+  "dataset_assets_inherited_via_fe56f324": {
+    "roster_verified_by": "IJ-SDK P0 baseline (PASS)",
+    "suites": [
+      {"name": "TC-V2", "cases": 500, "dev": 120},
+      {"name": "MULTITOOL-V1", "cases": 600, "diag": 6},
+      {"name": "AGENTIC-PLAN-V1", "worlds": 800, "trajectories": 1600, "note": "dual-track"},
+      {"name": "JOB-V1", "cases": 600}
+    ],
+    "status_note": "Legacy suites are usable as development/diagnostic material only; the mission order classifies them as NOT unseen holdout. IJ-NANO's formal holdout cohorts are new mission-specific datasets (N08)."
+  },
+  "environment_constraints_inherited": {
+    "open_blockers": ["B-004 long runs exceed one session", "B-005 no C++ toolchain", "B-006 no power meter (energy stays NOT_RUN)", "B-007 soak tests need machine awake", "B-008 original SDK checklist unavailable", "B-009 pinned native MiniCPM5 parser fails fixed fixtures"],
+    "network": "files.pythonhosted.org and raw.githubusercontent.com unreliable; github.com git transport intermittently resets; use gh api, Tsinghua PyPI mirror, scripts/tools/parallel_fetch.py (DECISIONS.md D-002)",
+    "status_vocabulary": "PASS / FAIL / BLOCKED / NOT_RUN only (D-008)"
+  }
+}

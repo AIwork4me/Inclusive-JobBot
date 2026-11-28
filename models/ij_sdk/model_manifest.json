@@ -1,0 +1,366 @@
+{
+ "schema_version": 1,
+ "mission": "IJ-SDK-1.0",
+ "generated_utc": "2026-11-27T13:10:00Z",
+ "source_policy": {
+  "allowed_hosts": [
+   "modelscope.cn"
+  ],
+  "huggingface_fallback": false,
+  "weights_committed_to_git": false,
+  "note": "Revisions are the repo HEAD observed at download time on 2026-11-27 (ModelScope commit API); GGUF files verified by size and SHA256 computed locally after download."
+ },
+ "candidates": [
+  {
+   "id": "S1",
+   "role": "mandatory project baseline",
+   "model_id": "OpenBMB/MiniCPM5-2B",
+   "gguf_repo": "OpenBMB/MiniCPM5-2B-GGUF",
+   "gguf_revision": "8cc1178b0a5cee98872ca3f2f88d49b3d3fa6f59",
+   "license": "apache-2.0",
+   "files": {
+    "Q8_0": {
+     "path": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf",
+     "size": 2679710688,
+     "sha256": "c5415f8989bf88a8288f1b55a3cc371af53c07b0faa220a63bd7a990cfaba078",
+     "verified": true
+    },
+    "Q4_K_M": {
+     "path": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q4_K_M.gguf",
+     "size": 1561318368,
+     "sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+     "verified": true
+    }
+   },
+   "admission": {
+    "dev_score": "9/10",
+    "evidence": "evidence/IJSDK/P2/admission/devgen101_S1.json",
+    "weaknesses": [
+     "invalid_argument_recovery"
+    ],
+    "generator": "dev-gen v1.0.1",
+    "dev_score_history": {
+     "dev-gen v1.0.0": "8/10"
+    },
+    "weaknesses_v1_0_0": [
+     "json_generation 10/12 valid (83%)",
+     "invalid_argument_recovery FAIL"
+    ],
+    "fail_families": [
+     "invalid_argument_recovery"
+    ],
+    "fail_families_v1_0_0": [
+     "json_generation",
+     "invalid_argument_recovery"
+    ]
+   }
+  },
+  {
+   "id": "S2",
+   "role": "mandatory competitive small model",
+   "model_id": "LiquidAI/LFM3-1.7B",
+   "gguf_repo": "LiquidAI/LFM3-1.7B-GGUF",
+   "gguf_revision_observed": "851a937b65db6267d9a7ebac77396f7ad6f302fe",
+   "license": "LFM Open License v1.0 (commercial use only below USD 10M annual revenue; research use permitted)",
+   "architecture": "Lfm3ForCausalLM tri-hybrid (13 gated short conv + 5 SWA + 6 global attention layers); llama.cpp b12359 native support VERIFIED (25/25 layers offloaded)",
+   "files": {
+    "Q8_0": {
+     "path": "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf",
+     "size": 1846238496,
+     "sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+     "verified": true
+    },
+    "Q4_K_M": {
+     "path": "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q4_K_M.gguf",
+     "size": 1099627808,
+     "sha256": "3793e1e6e2266919d6e015287221b41100175a98eddaba92e111aed3b05c93c4",
+     "verified": true
+    }
+   },
+   "admission": {
+    "dev_score": "9/10",
+    "evidence": "evidence/IJSDK/P2/admission/devgen101_S2.json",
+    "weaknesses": [
+     "context_handling"
+    ],
+    "generator": "dev-gen v1.0.1",
+    "dev_score_history": {
+     "dev-gen v1.0.0": "8/10"
+    },
+    "weaknesses_v1_0_0": [
+     "json_generation 0/12 valid (free-form JSON unparseable)",
+     "context_handling FAIL at >3000-token needle"
+    ],
+    "fail_families": [
+     "context_handling"
+    ],
+    "fail_families_v1_0_0": [
+     "json_generation",
+     "context_handling"
+    ]
+   }
+  },
+  {
+   "id": "S3a",
+   "role": "S3 candidate",
+   "model_id": "Qwen/Qwen3-1.7B",
+   "gguf_repo": "Qwen/Qwen3-1.7B-GGUF",
+   "gguf_revision_observed": "cdd105fbd3a69efc373ba5d0451f71335630920a",
+   "license": "apache-2.0",
+   "files": {
+    "Q8_0": {
+     "path": "models/ij_sdk/Qwen3-1.7B-GGUF/Qwen3-1.7B-Q8_0.gguf",
+     "size": 1834426016,
+     "sha256": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+     "verified": true
+    }
+   },
+   "admission": {
+    "dev_score": "7/10",
+    "evidence": "evidence/IJSDK/P2/admission/devgen101_S3a_qwen3_1_7b.json",
+    "weaknesses": [
+     "multiple_sequential_tools",
+     "structured_output",
+     "invalid_argument_recovery"
+    ],
+    "generator": "dev-gen v1.0.1",
+    "dev_score_history": {
+     "dev-gen v1.0.0": "7/10"
+    },
+    "weaknesses_v1_0_0": [
+     "multiple_sequential_tools 0/6",
+     "structured_output FAIL",
+     "invalid_argument_recovery FAIL"
+    ],
+    "fail_families": [
+     "multiple_sequential_tools",
+     "structured_output",
+     "invalid_argument_recovery"
+    ],
+    "fail_families_v1_0_0": [
+     "multiple_sequential_tools",
+     "structured_output",
+     "invalid_argument_recovery"
+    ]
+   }
+  },
+  {
+   "id": "S3b",
+   "role": "S3 candidate",
+   "model_id": "ibm-granite/granite-4.0-1b",
+   "gguf_repo": "ibm-granite/granite-4.0-1b-GGUF",
+   "gguf_revision_observed": "cb8fb8a36ba148eb63a2e3b4c05497971ceb818d",
+   "license": "apache-2.0",
+   "status": "verified",
+   "file_expected_at_download": {
+    "name": "granite-4.0-1b-Q8_0.gguf",
+    "size": 1737791232
+   },
+   "files": {
+    "Q8_0": {
+     "path": "models/ij_sdk/granite-4.0-1b-GGUF/granite-4.0-1b-Q8_0.gguf",
+     "size": 1737791232,
+     "sha256": "0660c20c3d3d3672b90f0468f62dc128a82a6e3ee2ec05d310d242969be06140",
+     "verified": true,
+     "verified_utc": "2026-11-27T06:55:53Z",
+     "verified_by": "P0R live SHA256 (evidence/IJSDK/P0R/baseline_reconciliation.json)"
+    }
+   },
+   "admission": {
+    "dev_score": "8/10",
+    "generator": "dev-gen v1.0.1",
+    "evidence": "evidence/IJSDK/P2/admission/devgen101_S3b_granite_4_0_1b.json",
+    "dev_score_history": {
+     "dev-gen v1.0.0": "7/10"
+    },
+    "weaknesses": [
+     "basic_instruction",
+     "invalid_argument_recovery"
+    ],
+    "token_accounting": "not collected",
+    "fail_families": [
+     "basic_instruction",
+     "invalid_argument_recovery"
+    ],
+    "fail_families_v1_0_0": [
+     "basic_instruction",
+     "json_generation",
+     "invalid_argument_recovery"
+    ]
+   }
+  },
+  {
+   "id": "S3c",
+   "role": "S3 candidate",
+   "model_id": "HuggingFaceTB/SmolLM3-3B (via ggml-org official conversion)",
+   "gguf_repo": "ggml-org/SmolLM3-3B-GGUF",
+   "gguf_revision_observed": "19d6c287c7dd2438bb3e97107bbbae86d9a29951",
+   "license": "apache-2.0",
+   "status": "verified",
+   "file_expected_at_download": {
+    "name": "SmolLM3-Q8_0.gguf",
+    "size": 3275574624
+   },
+   "files": {
+    "Q8_0": {
+     "path": "models/ij_sdk/SmolLM3-3B-GGUF/SmolLM3-Q8_0.gguf",
+     "size": 3275574624,
+     "sha256": "8aa8cc74656137174a1988d993b00828e65a86fd68773412b632a75aa1373248",
+     "verified": true,
+     "verified_utc": "2026-11-27T06:55:53Z",
+     "verified_by": "P0R live SHA256 (evidence/IJSDK/P0R/baseline_reconciliation.json)"
+    }
+   },
+   "admission": {
+    "dev_score": "5/10",
+    "generator": "dev-gen v1.0.0 (not rerun under v1.0.1)",
+    "evidence": "evidence/IJSDK/P2/admission/S3c_smollm3_3b.json",
+    "weaknesses": [
+     "json_generation",
+     "single_tool_invocation",
+     "tool_result_continuation",
+     "multiple_sequential_tools",
+     "invalid_argument_recovery"
+    ],
+    "token_accounting": "not collected",
+    "fail_families": [
+     "json_generation",
+     "single_tool_invocation",
+     "tool_result_continuation",
+     "multiple_sequential_tools",
+     "invalid_argument_recovery"
+    ],
+    "fail_families_v1_0_0": [
+     "json_generation",
+     "single_tool_invocation",
+     "tool_result_continuation",
+     "multiple_sequential_tools",
+     "invalid_argument_recovery"
+    ]
+   }
+  },
+  {
+   "id": "S3d",
+   "role": "S3 candidate",
+   "model_id": "Qwen/Qwen3.5-2B (community GGUF by unsloth)",
+   "gguf_repo": "unsloth/Qwen3.5-2B-GGUF",
+   "gguf_revision_observed": "90057e31161eb95cc0bc1413c4f53b44de9b49c8",
+   "license": "apache-2.0 (model); community GGUF conversion",
+   "note": "No official Qwen GGUF published for Qwen3.5-2B at observation time; community conversion used and recorded as such. Multimodal model (2B LM + vision encoder) - text path only for this benchmark.",
+   "status": "verified",
+   "file_expected_at_download": {
+    "name": "Qwen3.5-2B-Q8_0.gguf",
+    "size": 2012012800
+   },
+   "files": {
+    "Q8_0": {
+     "path": "models/ij_sdk/Qwen3.5-2B-GGUF/Qwen3.5-2B-Q8_0.gguf",
+     "size": 2012012800,
+     "sha256": "1b04acba824817554f4ce23639bc8495ff70453b8fcb047900c731521021f2c1",
+     "verified": true,
+     "verified_utc": "2026-11-27T06:55:53Z",
+     "verified_by": "P0R live SHA256 (evidence/IJSDK/P0R/baseline_reconciliation.json)"
+    }
+   },
+   "selected_as": "S3 (preregistered development rule, dev-gen v1.0.1)",
+   "admission": {
+    "dev_score": "9/10",
+    "generator": "dev-gen v1.0.1",
+    "evidence": "evidence/IJSDK/P2/admission/devgen101_S3d_qwen3_5_2b.json",
+    "dev_score_history": {
+     "dev-gen v1.0.0": "8/10"
+    },
+    "weaknesses": [
+     "invalid_argument_recovery"
+    ],
+    "fail_families": [
+     "invalid_argument_recovery"
+    ],
+    "fail_families_v1_0_0": [
+     "json_generation",
+     "invalid_argument_recovery"
+    ]
+   }
+  }
+ ],
+ "references": [
+  {
+   "id": "R1",
+   "role": "reference ~7-8B (comparison anchor only)",
+   "model_id": "Qwen/Qwen3-8B",
+   "gguf_repo": "Qwen/Qwen3-8B-GGUF",
+   "gguf_revision": "9837f991e156bf8135941d367244c34de5807b73 (pinned, matches configs/qwen3_8b_reference.json)",
+   "license": "apache-2.0",
+   "status": "verified",
+   "file_expected_at_download": {
+    "name": "Qwen3-8B-Q8_0.gguf",
+    "size": 8709518112,
+    "sha256_from_prior_project": "408b955510e196121c1c375201744783b5c9a43c7956d73fc78df54c66e883d6"
+   },
+   "files": {
+    "Q8_0": {
+     "path": "models/ij_sdk/Qwen3-8B-GGUF/Qwen3-8B-Q8_0.gguf",
+     "size": 8709518112,
+     "sha256": "408b955510e196121c1c375201744783b5c9a43c7956d73fc78df54c66e883d6",
+     "verified": true,
+     "verified_utc": "2026-11-27T06:55:53Z",
+     "verified_by": "P0R live SHA256 (evidence/IJSDK/P0R/baseline_reconciliation.json)"
+    }
+   },
+   "admission": {
+    "dev_score": "9/10",
+    "generator": "dev-gen v1.0.1",
+    "evidence": "evidence/IJSDK/P2/admission/devgen101_R1_qwen3_8b.json",
+    "dev_score_history": {
+     "dev-gen v1.0.0": "8/10"
+    },
+    "weaknesses": [
+     "invalid_argument_recovery"
+    ],
+    "fail_families": [
+     "invalid_argument_recovery"
+    ],
+    "fail_families_v1_0_0": [
+     "json_generation",
+     "invalid_argument_recovery"
+    ]
+   }
+  },
+  {
+   "id": "R2",
+   "role": "reference ~12-14B (comparison anchor only)",
+   "model_id": "Qwen/Qwen3-14B",
+   "gguf_repo": "Qwen/Qwen3-14B-GGUF",
+   "license": "apache-2.0",
+   "status": "verified",
+   "files": {
+    "Q8_0": {
+     "path": "models/ij_sdk/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf",
+     "size": 15698533728,
+     "sha256": "a0dfe649137410b7d82f06a209240508e218f32f5b6fd81b69d6932160cfcd9d",
+     "verified": true,
+     "verified_utc": "2026-11-27T06:55:53Z",
+     "verified_by": "P0R live SHA256 (evidence/IJSDK/P0R/baseline_reconciliation.json)"
+    }
+   },
+   "gguf_revision": "4195fe4e5e948e7d4c63e2eaa672a3a8338b4b8b",
+   "gguf_revision_source": "atlas/benchmarks/pc_s_qwen3_14b.json (prior-project pin; byte-identical artifact)"
+  }
+ ],
+ "excluded": [
+  {
+   "model": "google/gemma-4-E2B-it",
+   "reason": "5.1B raw weights exceed the 1-3B class budget (2.3B effective params); community GGUF only; documented for completeness"
+  },
+  {
+   "model": "google/gemma-3-1b-it",
+   "reason": "no native function calling; custom Gemma license with redistribution restrictions"
+  },
+  {
+   "model": "ibm-granite/granite-4.0-micro",
+   "reason": "3.4B total MoE - borderline; kept as reserve if S3 admission needs a third non-MoE alternative"
+  }
+ ],
+ "reconciled_utc": "2026-11-27T06:55:53Z",
+ "reconciliation": "IJ-SDK-1.1 P0R: entries S3b/S3c/S3d/R1/R2 said 'downloading' although the files were on disk, and S3 (mandatory) had no SHA256 in this manifest. Every file was re-hashed from disk and matches the identity recorded in evidence/IJSDK/P2/admission or the prior-project pin. Admission scores now quote dev-gen v1.0.1 (the record of note); v1.0.0 values are preserved under dev_score_history."
+}

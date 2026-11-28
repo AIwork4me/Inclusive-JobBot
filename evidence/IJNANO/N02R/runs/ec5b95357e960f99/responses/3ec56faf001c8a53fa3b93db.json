@@ -1,0 +1,164 @@
+{
+ "trial_id": "3ec56faf001c8a53fa3b93db",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "好的，让我想想。用户提供了策略和实况，并希望我判断应走的分支。策略是延迟6小时，阈值为24。实况是n=6。\n\n首先，我需要理解这里的分支选项。工具中提到的分支有'reroute'、'hold_at_hub'、'continue_as_planned'。\n\n策略说延迟6小时，阈值24。实况n=6。等等，阈值是24，但实况是6。嗯，也许阈值是检查的点。如果实况n（6）小于阈值（24），那么可能继续？或者如果超过阈值则重定向？等等，策略说延迟6小时，所以也许如果n达到阈值，就延迟。但实况是6，阈值是24，所以6小于24。因此可能继续？或者策略是延迟6小时，所以如果n达到6，就延迟？等等，用户说策略是延迟6小时，阈值24。实况n=6。\n\n等等，也许阈值是触发延迟的点。如果实况n（6）小于阈值（24），那么不延迟？或者策略是延迟6小时，所以如果n达到6，就延迟。但阈值是24。嗯，也许阈值是检查的点。如果n >= 阈值，则延迟。但实况是6，阈值是24，所以6 <24，因此不延迟。但策略说延迟6小时。等等，也许策略是延迟6小时当n达到阈值。但实况是6，阈值是24，所以不触发延迟。但用户说策略是延迟6小时，阈值24。实况n=6。等等，也许阈值是24，所以如果n达到24，就延迟。但实况是6，所以不延迟。但策略说延迟6小时。嗯，也许我理解错了。\n\n等等，工具中的分支是'reroute'、'hold_at_hub'、'continue_as_planned'。所以如果实况n=6，阈值24，那么由于6 <24，继续作为计划执行？或者如果n达到阈值，则重定向。等等，策略说延迟6小时，所以也许如果n达到6，就延迟。但阈值是24。等等，也许阈值是24，所以如果n >=24，则延迟。但实况是6，所以不延迟。但策略说延迟6小时。嗯，也许策略是延迟6小时当n达到阈值。但实况是6，阈值是24，所以不触发延迟。但用户说策略是延迟6小时，阈值24。实况n=6。等等，也许阈值是24，所以如果n达到24，就延迟。但实况是6，所以不延迟。因此继续作为计划执行？或者策略是延迟6小时，所以如果n=6，就延迟。但阈值是24。嗯，这令人困惑。\n\n等等，也许策略是延迟6小时当n达到阈值。但实况是6，阈值是24，所以不触发延迟。因此继续作为计划执行。但策略说延迟6小时。等等，也许阈值是24，所以如果n >=24，则延迟。但实况是6，所以不延迟。因此继续作为计划执行。但用户说策略是延迟6小时，阈值24。实况n=6。等等，也许阈值是24，所以如果n=6，就延迟6小时？但阈值是24。嗯，也许阈值是24，所以如果n达到24，就延迟6小时。但实况是6，所以不延迟。因此继续作为计划执行。\n\n或者，也许策略是延迟6小时当n达到6，但阈值是24。等等，用户可能在这里有笔误，但根据给出的信息，策略是延迟6小时，阈值24。实况n=6。所以如果阈值是24，那么6小于24，所以不触发延迟。因此继续作为计划执行。但策略说延迟6小时。等等，也许阈值是24，所以如果n >=24，则延迟6小时。但实况是6，所以不延迟。因此继续作为计划执行。\n\n或者，也许阈值是24，所以如果n=6，就延迟6小时。但阈值是24。嗯，这不清楚。但根据工具的分支选项，如果实况n=6，阈值24，那么由于6 <24，继续作为计划执行。所以分支是'continue_as_planned'。\n\n等等，但策略说延迟6小时。也许策略是延迟6小时当n达到阈值。但实况是6，阈值是24，所以不触发延迟。因此继续作为计划执行。所以正确的分支是'continue_as_planned'。\n",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"branch\":\"continue_as_planned\"}"
+         },
+         "id": "CUmG3aKpOlLUA9ZKjkihlD0UoU2pSyAi"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795799441,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 929,
+     "prompt_tokens": 276,
+     "total_tokens": 1205,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-adJwp2wi5NAk6zhiL2I4alKYtEiA3pvN",
+    "__verbose": {
+     "index": 0,
+     "content": "好的，让我想想。用户提供了策略和实况，并希望我判断应走的分支。策略是延迟6小时，阈值为24。实况是n=6。\n\n首先，我需要理解这里的分支选项。工具中提到的分支有'reroute'、'hold_at_hub'、'continue_as_planned'。\n\n策略说延迟6小时，阈值24。实况n=6。等等，阈值是24，但实况是6。嗯，也许阈值是检查的点。如果实况n（6）小于阈值（24），那么可能继续？或者如果超过阈值则重定向？等等，策略说延迟6小时，所以也许如果n达到阈值，就延迟。但实况是6，阈值是24，所以6小于24。因此可能继续？或者策略是延迟6小时，所以如果n达到6，就延迟？等等，用户说策略是延迟6小时，阈值24。实况n=6。\n\n等等，也许阈值是触发延迟的点。如果实况n（6）小于阈值（24），那么不延迟？或者策略是延迟6小时，所以如果n达到6，就延迟。但阈值是24。嗯，也许阈值是检查的点。如果n >= 阈值，则延迟。但实况是6，阈值是24，所以6 <24，因此不延迟。但策略说延迟6小时。等等，也许策略是延迟6小时当n达到阈值。但实况是6，阈值是24，所以不触发延迟。但用户说策略是延迟6小时，阈值24。实况n=6。等等，也许阈值是24，所以如果n达到24，就延迟。但实况是6，所以不延迟。但策略说延迟6小时。嗯，也许我理解错了。\n\n等等，工具中的分支是'reroute'、'hold_at_hub'、'continue_as_planned'。所以如果实况n=6，阈值24，那么由于6 <24，继续作为计划执行？或者如果n达到阈值，则重定向。等等，策略说延迟6小时，所以也许如果n达到6，就延迟。但阈值是24。等等，也许阈值是24，所以如果n >=24，则延迟。但实况是6，所以不延迟。但策略说延迟6小时。嗯，也许策略是延迟6小时当n达到阈值。但实况是6，阈值是24，所以不触发延迟。但用户说策略是延迟6小时，阈值24。实况n=6。等等，也许阈值是24，所以如果n达到24，就延迟。但实况是6，所以不延迟。因此继续作为计划执行？或者策略是延迟6小时，所以如果n=6，就延迟。但阈值是24。嗯，这令人困惑。\n\n等等，也许策略是延迟6小时当n达到阈值。但实况是6，阈值是24，所以不触发延迟。因此继续作为计划执行。但策略说延迟6小时。等等，也许阈值是24，所以如果n >=24，则延迟。但实况是6，所以不延迟。因此继续作为计划执行。但用户说策略是延迟6小时，阈值24。实况n=6。等等，也许阈值是24，所以如果n=6，就延迟6小时？但阈值是24。嗯，也许阈值是24，所以如果n达到24，就延迟6小时。但实况是6，所以不延迟。因此继续作为计划执行。\n\n或者，也许策略是延迟6小时当n达到6，但阈值是24。等等，用户可能在这里有笔误，但根据给出的信息，策略是延迟6小时，阈值24。实况n=6。所以如果阈值是24，那么6小于24，所以不触发延迟。因此继续作为计划执行。但策略说延迟6小时。等等，也许阈值是24，所以如果n >=24，则延迟6小时。但实况是6，所以不延迟。因此继续作为计划执行。\n\n或者，也许阈值是24，所以如果n=6，就延迟6小时。但阈值是24。嗯，这不清楚。但根据工具的分支选项，如果实况n=6，阈值24，那么由于6 <24，继续作为计划执行。所以分支是'continue_as_planned'。\n\n等等，但策略说延迟6小时。也许策略是延迟6小时当n达到阈值。但实况是6，阈值是24，所以不触发延迟。因此继续作为计划执行。所以正确的分支是'continue_as_planned'。\n</think>\n\n<function name=\"record_answer\"><param name=\"branch\">continue_as_planned</param></function>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 929,
+     "tokens_evaluated": 276,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-17 ::= [\\]] ac-17-01 | [^\\]] ac-17\nac-17-01 ::= [\\]] ac-17-02 | [^\\]] ac-17\nac-17-02 ::= [>] | [\\]] ac-17-02 | [^>\\]] ac-17\nac-31 ::= [<] ac-31-01 | [^<] ac-31\nac-31-01 ::= [<] ac-31-01 | [/] ac-31-02 | [^/<] ac-31\nac-31-02 ::= [<] ac-31-01 | [p] ac-31-03 | [^<p] ac-31\nac-31-03 ::= [<] ac-31-01 | [a] ac-31-04 | [^<a] ac-31\nac-31-04 ::= [<] ac-31-01 | [r] ac-31-05 | [^<r] ac-31\nac-31-05 ::= [<] ac-31-01 | [a] ac-31-06 | [^<a] ac-31\nac-31-06 ::= [<] ac-31-01 | [m] ac-31-07 | [^<m] ac-31\nac-31-07 ::= [>] | [<] ac-31-01 | [^<>] ac-31\nroot ::= tool-call\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function name=\\\"\" \"record_answer\" \"\\\">\") space (((\"<param name=\\\"\" \"branch\" \"\\\">\") (\"<![CDATA[\" ac-17 \"</param>\" | ac-31)) space)* space \"</function>\"\ntool-call ::= ((tool-0) space)+\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<function",
+        "token": 18
+       }
+      ],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>system\n# Tools\n\nYou are provided with function signatures within <tools></tools> XML tags:\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"branch\": {\"type\": \"string\", \"enum\": [\"reroute\", \"hold_at_hub\", \"continue_as_planned\"]}}, \"required\": [\"branch\"], \"additionalProperties\": false}}}\n</tools>\n\nTool usage guidelines:\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any <function ... </function>.\n- When calling a function, return an XML object within <function ... </function> using:\n<function name=\"function-name\"><param name=\"param-name\">param-value</param></function>\n- param-value may be multi-line. If it contains <, & or newline characters, wrap it in a CDATA block: <param name=\"param-name\"><![CDATA[...multi-line value...]]></param><|im_end|>\n<|im_start|>user\n策略 / policy: delay 6 hours, threshold 24. 实况 / observation: n = 6.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 1204,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 276,
+      "prompt_ms": 53.587,
+      "prompt_per_token_ms": 0.19415579710144928,
+      "prompt_per_second": 5150.502920484446,
+      "predicted_n": 929,
+      "predicted_ms": 5107.169,
+      "predicted_per_token_ms": 5.503414870689655,
+      "predicted_per_second": 181.7053635781389
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 276,
+     "prompt_ms": 53.587,
+     "prompt_per_token_ms": 0.19415579710144928,
+     "prompt_per_second": 5150.502920484446,
+     "predicted_n": 929,
+     "predicted_ms": 5107.169,
+     "predicted_per_token_ms": 5.503414870689655,
+     "predicted_per_second": 181.7053635781389
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.172
+  }
+ ]
+}

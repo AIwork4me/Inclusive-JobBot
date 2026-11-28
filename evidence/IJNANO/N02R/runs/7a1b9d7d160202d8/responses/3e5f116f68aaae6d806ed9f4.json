@@ -1,0 +1,146 @@
+{
+ "trial_id": "3e5f116f68aaae6d806ed9f4",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "receiving.log_arrival",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A known order (ORD-9014, C-128, SKU-2210, TRK-11298) and a statement \"到货了，shipment TRK-11298，登记入库。\" (Arrived, shipment TRK-11298, register arrival).\n    *   Available Tools: A list of inventory and warehouse management tools.\n    *   Constraint: Answer with the tool name only.\n\n2.  **Identify the Action:**\n    *   The user states that the shipment has arrived (\"到货了\") and the shipment number is TRK-11298.\n    *   The action required is \"登记入库\" (register arrival/record arrival).\n    *   Looking at the available tools, there is a specific tool for this: `receiving.log_arrival`.\n    *   The parameters for `receiving.log_arrival` are `shipment_no`.\n    *   The input shipment number is TRK-11298.\n\n3.  **Select the Tool:**\n    *   `inventory.check_stock`: Not needed, stock is already known to be available (implied by arrival).\n    *   `inventory.adjust_stock`: Not needed, this is for adjusting quantity, not registering arrival.\n    *   `inventory.reserve_stock`: Not needed.\n    *   `warehouse.locate_bin`: Not needed, this is for locating a bin, not registering arrival.\n    *   `receiving.log_arrival`: Matches the action \"登记入库\" (log arrival).\n    *   `picking.create_task`: Not needed, this is for picking orders.\n    *   `reports.export_snapshot`: Not needed.\n    *   `alerts.raise_low_stock`: Not needed.\n\n4.  **Format the Output:**\n    *   The user requested \"只回答要调用的工具名\" (Answer with the tool name only).\n    *   Tool name: `receiving.log_arrival`.\n\n5.  **Final Check:**\n    *   Does `receiving.log_arrival` fit the context? Yes, it logs the arrival of a shipment.\n    *   Is the output format correct? Yes, just the name.\n\n6.  **Construct Output:**\n    receiving.log_arrival"
+      }
+     }
+    ],
+    "created": 1795794977,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 518,
+     "prompt_tokens": 243,
+     "total_tokens": 761,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-7Xa1X9dk7veVjY4eSE2CJ7pOWFuNqMwv",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A known order (ORD-9014, C-128, SKU-2210, TRK-11298) and a statement \"到货了，shipment TRK-11298，登记入库。\" (Arrived, shipment TRK-11298, register arrival).\n    *   Available Tools: A list of inventory and warehouse management tools.\n    *   Constraint: Answer with the tool name only.\n\n2.  **Identify the Action:**\n    *   The user states that the shipment has arrived (\"到货了\") and the shipment number is TRK-11298.\n    *   The action required is \"登记入库\" (register arrival/record arrival).\n    *   Looking at the available tools, there is a specific tool for this: `receiving.log_arrival`.\n    *   The parameters for `receiving.log_arrival` are `shipment_no`.\n    *   The input shipment number is TRK-11298.\n\n3.  **Select the Tool:**\n    *   `inventory.check_stock`: Not needed, stock is already known to be available (implied by arrival).\n    *   `inventory.adjust_stock`: Not needed, this is for adjusting quantity, not registering arrival.\n    *   `inventory.reserve_stock`: Not needed.\n    *   `warehouse.locate_bin`: Not needed, this is for locating a bin, not registering arrival.\n    *   `receiving.log_arrival`: Matches the action \"登记入库\" (log arrival).\n    *   `picking.create_task`: Not needed, this is for picking orders.\n    *   `reports.export_snapshot`: Not needed.\n    *   `alerts.raise_low_stock`: Not needed.\n\n4.  **Format the Output:**\n    *   The user requested \"只回答要调用的工具名\" (Answer with the tool name only).\n    *   Tool name: `receiving.log_arrival`.\n\n5.  **Final Check:**\n    *   Does `receiving.log_arrival` fit the context? Yes, it logs the arrival of a shipment.\n    *   Is the output format correct? Yes, just the name.\n\n6.  **Construct Output:**\n    receiving.log_arrival\n</think>\n\nreceiving.log_arrival",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 518,
+     "tokens_evaluated": 243,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n已知 / known: order ORD-9014, customer C-128, sku SKU-2210, tracking TRK-11298.\nAvailable tools:\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- inventory.adjust_stock: 调整库存 / adjust stock (params: sku, quantity)\n- inventory.reserve_stock: 预留库存 / reserve stock (params: sku, quantity)\n- warehouse.locate_bin: 定位货位 / locate a bin (params: bin_id)\n- receiving.log_arrival: 登记到货 / log an arrival (params: shipment_no)\n- picking.create_task: 创建拣货任务 / create a picking task (params: order_id)\n- reports.export_snapshot: 导出快照 / export a snapshot (params: zone)\n- alerts.raise_low_stock: 上报低库存 / raise a low-stock alert (params: sku)\n到货了， shipment TRK-11298，登记入库。 只回答要调用的工具名。 / Answer with the tool name only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 760,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 243,
+      "prompt_ms": 51.502,
+      "prompt_per_token_ms": 0.21194238683127573,
+      "prompt_per_second": 4718.263368412878,
+      "predicted_n": 518,
+      "predicted_ms": 2510.175,
+      "predicted_per_token_ms": 4.855270793036751,
+      "predicted_per_second": 205.9617357355563
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 243,
+     "prompt_ms": 51.502,
+     "prompt_per_token_ms": 0.21194238683127573,
+     "prompt_per_second": 4718.263368412878,
+     "predicted_n": 518,
+     "predicted_ms": 2510.175,
+     "predicted_per_token_ms": 4.855270793036751,
+     "predicted_per_second": 205.9617357355563
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.578
+  }
+ ]
+}

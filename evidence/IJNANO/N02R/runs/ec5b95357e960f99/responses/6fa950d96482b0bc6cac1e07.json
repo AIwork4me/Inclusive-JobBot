@@ -1,0 +1,146 @@
+{
+ "trial_id": "6fa950d96482b0bc6cac1e07",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's request. The user says:\n\n\"订单 ORD-7781：金额 15.0 CNY，原因 duplicate_charge。 Available tools: ...\"\n\nSo we need to generate a full action: tool and all parameters.\n\nGiven order ID ORD-7781, amount 15.0 CNY, reason duplicate_charge. We need to decide what actions to take. The problem statement doesn't explicitly say what to do with this order. Usually for duplicate charge, you might want to cancel the order or submit a refund. Let's see available tools:\n\n- orders.lookup_order: query order details (params: order_id)\n- orders.cancel_order: cancel an order (params: order_id)\n- orders.get_refund_eligibility: check refund eligibility (params: order_id)\n- refunds.submit: submit a refund (params: order_id, amount, reason)\n- customers.get_profile: get customer profile\n- logistics.trace_shipment: trace shipment\n- inventory.check_stock: check stock\n- notify.send_update: send notification\n\nWe need to produce \"完整动作：工具与全部参数。\" i.e., full action: tool and all arguments.\n\nThus we need to decide which tool(s) to call. For duplicate charge, typical steps: first maybe check refund eligibility? Or cancel order? Usually you might want to submit a refund for the duplicate amount. The reason is \"duplicate_charge\". So likely we should get refund eligibility and then submit refund with amount 15.0 CNY and reason duplicate_charge.\n\nBut also could be that they need to cancel the order entirely because it's duplicated, but maybe better to issue a refund of the extra charge? Let's think: The order ORD-7781 has amount 15.0 CNY, cause duplicate_charge. That suggests there was an order placed twice for same item/amount. So we might want to cancel one of them and refund the difference or just refund the entire? Usually you'd need to check if it's eligible for refund.\n\nThus steps:\n\n1. Use orders.lookup_order(order_id=\"ORD-7781\") to get details, maybe see status.\n2. Use orders.get_refund_eligibility(order_id=\"ORD-7781\") to see if can refund.\n3. If eligible, use refunds.submit(order_id=\"ORD-7781\", amount=15.0, reason=\"duplicate_charge\").\n\nBut we don't have actual data; we just need to generate the full action: tool and all arguments.\n\nThus I think we should produce a sequence of actions? The user says \"生成完整动作：工具与全部参数。\" Possibly they expect one or more calls. Let's read again:\n\n\"订单 ORD-7781：金额 15.0 CNY，原因 duplicate_charge。\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nThus we need to produce \"full action\" i.e., which tool(s) to call, with their parameters. Possibly they want us to decide the appropriate sequence of calls for this order.\n\nGiven typical duplicate charge scenario: We might first check refund eligibility. If eligible, submit a refund. Or maybe cancel and then refund? Let's see if there is any mention about \"duplicate_charge\" reason in refunds.submit. The parameter \"reason\" likely expects something like \"duplicate_charge\". So we can directly call refunds.submit with amount 15.0 and reason duplicate_charge.\n\nBut before submitting a refund, it might be prudent to check eligibility: orders.get_refund_eligibility(order_id=\"ORD-7781\").\n\nThus I'll propose:\n\nStep 1: orders.lookup_order(order_id=\"ORD-7781\") - to get order details (maybe needed for further steps).\nStep 2: orders.get_refund_eligibility(order_id=\"ORD-7781\").\nStep 3: If eligible, refunds.submit(order_id=\"ORD-7781\", amount=15.0, reason=\"duplicate_charge\").\n\nBut we"
+      }
+     }
+    ],
+    "created": 1795799203,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 223,
+     "total_tokens": 1247,
+     "prompt_tokens_details": {
+      "cached_tokens": 1
+     }
+    },
+    "id": "chatcmpl-BOVa7mRQya3ZYEt2chC6PlenCtWWkp8E",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's request. The user says:\n\n\"订单 ORD-7781：金额 15.0 CNY，原因 duplicate_charge。 Available tools: ...\"\n\nSo we need to generate a full action: tool and all parameters.\n\nGiven order ID ORD-7781, amount 15.0 CNY, reason duplicate_charge. We need to decide what actions to take. The problem statement doesn't explicitly say what to do with this order. Usually for duplicate charge, you might want to cancel the order or submit a refund. Let's see available tools:\n\n- orders.lookup_order: query order details (params: order_id)\n- orders.cancel_order: cancel an order (params: order_id)\n- orders.get_refund_eligibility: check refund eligibility (params: order_id)\n- refunds.submit: submit a refund (params: order_id, amount, reason)\n- customers.get_profile: get customer profile\n- logistics.trace_shipment: trace shipment\n- inventory.check_stock: check stock\n- notify.send_update: send notification\n\nWe need to produce \"完整动作：工具与全部参数。\" i.e., full action: tool and all arguments.\n\nThus we need to decide which tool(s) to call. For duplicate charge, typical steps: first maybe check refund eligibility? Or cancel order? Usually you might want to submit a refund for the duplicate amount. The reason is \"duplicate_charge\". So likely we should get refund eligibility and then submit refund with amount 15.0 CNY and reason duplicate_charge.\n\nBut also could be that they need to cancel the order entirely because it's duplicated, but maybe better to issue a refund of the extra charge? Let's think: The order ORD-7781 has amount 15.0 CNY, cause duplicate_charge. That suggests there was an order placed twice for same item/amount. So we might want to cancel one of them and refund the difference or just refund the entire? Usually you'd need to check if it's eligible for refund.\n\nThus steps:\n\n1. Use orders.lookup_order(order_id=\"ORD-7781\") to get details, maybe see status.\n2. Use orders.get_refund_eligibility(order_id=\"ORD-7781\") to see if can refund.\n3. If eligible, use refunds.submit(order_id=\"ORD-7781\", amount=15.0, reason=\"duplicate_charge\").\n\nBut we don't have actual data; we just need to generate the full action: tool and all arguments.\n\nThus I think we should produce a sequence of actions? The user says \"生成完整动作：工具与全部参数。\" Possibly they expect one or more calls. Let's read again:\n\n\"订单 ORD-7781：金额 15.0 CNY，原因 duplicate_charge。\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.\"\n\nThus we need to produce \"full action\" i.e., which tool(s) to call, with their parameters. Possibly they want us to decide the appropriate sequence of calls for this order.\n\nGiven typical duplicate charge scenario: We might first check refund eligibility. If eligible, submit a refund. Or maybe cancel and then refund? Let's see if there is any mention about \"duplicate_charge\" reason in refunds.submit. The parameter \"reason\" likely expects something like \"duplicate_charge\". So we can directly call refunds.submit with amount 15.0 and reason duplicate_charge.\n\nBut before submitting a refund, it might be prudent to check eligibility: orders.get_refund_eligibility(order_id=\"ORD-7781\").\n\nThus I'll propose:\n\nStep 1: orders.lookup_order(order_id=\"ORD-7781\") - to get order details (maybe needed for further steps).\nStep 2: orders.get_refund_eligibility(order_id=\"ORD-7781\").\nStep 3: If eligible, refunds.submit(order_id=\"ORD-7781\", amount=15.0, reason=\"duplicate_charge\").\n\nBut we",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 223,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "char ::= [^\"\\\\\\x7F\\x00-\\x1F] | [\\\\] ([\"\\\\bfnrt] | \"u\" [0-9a-fA-F]{4})\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nresponse-format ::= \"{\" space response-format-tool-kv \",\" space response-format-order-id-kv \",\" space response-format-amount-kv \",\" space response-format-reason-kv space \"}\"\nresponse-format-amount ::= \"{\" space response-format-amount-value-kv \",\" space response-format-amount-unit-kv space \"}\"\nresponse-format-amount-kv ::= \"\\\"amount\\\"\" space \":\" space response-format-amount\nresponse-format-amount-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\nresponse-format-amount-unit-kv ::= \"\\\"unit\\\"\" space \":\" space response-format-amount-unit\nresponse-format-amount-value-kv ::= \"\\\"value\\\"\" space \":\" space number\nresponse-format-order-id-kv ::= \"\\\"order_id\\\"\" space \":\" space string\nresponse-format-reason ::= (\"\\\"damaged_item\\\"\" | \"\\\"late_delivery\\\"\" | \"\\\"wrong_item\\\"\" | \"\\\"duplicate_charge\\\"\" | \"\\\"price_mismatch\\\"\")\nresponse-format-reason-kv ::= \"\\\"reason\\\"\" space \":\" space response-format-reason\nresponse-format-tool ::= (\"\\\"orders.lookup_order\\\"\" | \"\\\"orders.cancel_order\\\"\" | \"\\\"orders.get_refund_eligibility\\\"\" | \"\\\"refunds.submit\\\"\" | \"\\\"customers.get_profile\\\"\" | \"\\\"logistics.trace_shipment\\\"\" | \"\\\"inventory.check_stock\\\"\" | \"\\\"notify.send_update\\\"\")\nresponse-format-tool-kv ::= \"\\\"tool\\\"\" space \":\" space response-format-tool\nroot ::= \"<|im_start|>assistant\\n\" (\"<think>\" space until-1 (\"\\n</think>\" | \"</think>\" | ))? space response-format\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\nstring ::= \"\\\"\" char* \"\\\"\"\nuntil-1 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<] until-1\nuntil-1-01 ::= | [\\n] until-1-01 | [<] until-1-02 | [^\\n<] until-1\nuntil-1-02 ::= | [\\n] until-1-01 | [/] until-1-03 | [<] until-1-10 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-03 ::= | [\\n] until-1-01 | [t] until-1-04 | [<] until-1-10 | [^\\n<t] until-1\nuntil-1-04 ::= | [\\n] until-1-01 | [h] until-1-05 | [<] until-1-10 | [^\\n<h] until-1\nuntil-1-05 ::= | [\\n] until-1-01 | [i] until-1-06 | [<] until-1-10 | [^\\n<i] until-1\nuntil-1-06 ::= | [\\n] until-1-01 | [n] until-1-07 | [<] until-1-10 | [^\\n<n] until-1\nuntil-1-07 ::= | [\\n] until-1-01 | [k] until-1-08 | [<] until-1-10 | [^\\n<k] until-1\nuntil-1-08 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-10 ::= | [\\n] until-1-01 | [<] until-1-10 | [/] until-1-11 | [t] until-1-18 | [^\\n/<t] until-1\nuntil-1-11 ::= | [\\n] until-1-01 | [<] until-1-10 | [t] until-1-12 | [^\\n<t] until-1\nuntil-1-12 ::= | [\\n] until-1-01 | [<] until-1-10 | [h] until-1-13 | [^\\n<h] until-1\nuntil-1-13 ::= | [\\n] until-1-01 | [<] until-1-10 | [i] until-1-14 | [^\\n<i] until-1\nuntil-1-14 ::= | [\\n] until-1-01 | [<] until-1-10 | [n] until-1-15 | [^\\n<n] until-1\nuntil-1-15 ::= | [\\n] until-1-01 | [<] until-1-10 | [k] until-1-16 | [^\\n<k] until-1\nuntil-1-16 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\nuntil-1-18 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-19 | [^\\n<o] until-1\nuntil-1-19 ::= | [\\n] until-1-01 | [<] until-1-10 | [o] until-1-20 | [^\\n<o] until-1\nuntil-1-20 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-21 | [^\\n<l] until-1\nuntil-1-21 ::= | [\\n] until-1-01 | [<] until-1-10 | [_] until-1-22 | [^\\n<_] until-1\nuntil-1-22 ::= | [\\n] until-1-01 | [<] until-1-10 | [c] until-1-23 | [^\\n<c] until-1\nuntil-1-23 ::= | [\\n] until-1-01 | [<] until-1-10 | [a] until-1-24 | [^\\n<a] until-1\nuntil-1-24 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-25 | [^\\n<l] until-1\nuntil-1-25 ::= | [\\n] until-1-01 | [<] until-1-10 | [l] until-1-26 | [^\\n<l] until-1\nuntil-1-26 ::= | [\\n] until-1-01 | [<] until-1-10 | [^\\n<>] until-1\n",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n订单 ORD-7781：金额 15.0 CNY，原因 duplicate_charge。\nAvailable tools:\n- orders.lookup_order: 查询订单详情 / look up an order (params: order_id)\n- orders.cancel_order: 取消订单 / cancel an order (params: order_id)\n- orders.get_refund_eligibility: 查询退款资格 / check refund eligibility (params: order_id)\n- refunds.submit: 提交退款 / submit a refund (params: order_id, amount, reason)\n- customers.get_profile: 查询客户档案 / get customer profile (params: customer_id)\n- logistics.trace_shipment: 追踪物流 / trace a shipment (params: tracking_no)\n- inventory.check_stock: 查询库存 / check stock (params: sku)\n- notify.send_update: 发送通知 / send a notification (params: customer_id)\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1246,
+     "timings": {
+      "cache_n": 1,
+      "prompt_n": 222,
+      "prompt_ms": 42.554,
+      "prompt_per_token_ms": 0.1916846846846847,
+      "prompt_per_second": 5216.900878883301,
+      "predicted_n": 1024,
+      "predicted_ms": 5972.227,
+      "predicted_per_token_ms": 5.837954056695992,
+      "predicted_per_second": 171.292886221505
+     }
+    },
+    "timings": {
+     "cache_n": 1,
+     "prompt_n": 222,
+     "prompt_ms": 42.554,
+     "prompt_per_token_ms": 0.1916846846846847,
+     "prompt_per_second": 5216.900878883301,
+     "predicted_n": 1024,
+     "predicted_ms": 5972.227,
+     "predicted_per_token_ms": 5.837954056695992,
+     "predicted_per_second": 171.292886221505
+    }
+   },
+   "http_error": null,
+   "latency_s": 6.016
+  }
+ ]
+}

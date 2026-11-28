@@ -1,0 +1,146 @@
+{
+ "trial_id": "e58f766f1c75baa87932d51a",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "A5",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of allowed actions (A1-A6) for a customer service scenario.\n    *   Customer Query: \"客户只问包裹到哪了，没有别的要求。\" (The customer only asks where the package is, no other requirements.)\n    *   Constraint: \"只回答动作编号。\" (Answer with the action label only.)\n    *   Goal: Select the most appropriate action label from A1-A6 based on the customer's query.\n\n2.  **Evaluate the Actions:**\n    *   A1. 换货：为客户 ORD-3319 创建换货单 / exchange the item on ORD-3319 (Not applicable, no request for exchange).\n    *   A2. 退款：为 ORD-3319 提交退款 / submit a refund for ORD-3319 (Not applicable, no request for refund).\n    *   A3. 仅道歉并关闭工单 / apologize and close the ticket (Not applicable, customer is asking about the package status).\n    *   A4. 升级人工客服 / escalate to a human agent (Not applicable, no request for escalation).\n    *   A5. 查询物流轨迹 / trace the shipment (Applicable, customer asks \"where is the package\").\n    *   A6. 发送延迟通知 / send a delay notification (Not applicable, no request for delay notification).\n\n3.  **Determine the Best Match:**\n    *   The customer's query is \"Where is the package?\" (包裹到哪了).\n    *   This directly corresponds to \"trace the shipment\" (查询物流轨迹).\n    *   Action Label: A5.\n\n4.  **Format the Output:**\n    *   Constraint: \"只回答动作编号。\" (Answer with the action label only.)\n    *   Output: A5\n\n5.  **Final Check:**\n    *   Does A5 match the intent? Yes.\n    *   Is the format correct? Yes.\n\n6.  **Construct Final Response:** A5"
+      }
+     }
+    ],
+    "created": 1795793864,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 464,
+     "prompt_tokens": 180,
+     "total_tokens": 644,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-zcwkmLvFRWDEQfWaeWqJtPcMSBt6ioMH",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A set of allowed actions (A1-A6) for a customer service scenario.\n    *   Customer Query: \"客户只问包裹到哪了，没有别的要求。\" (The customer only asks where the package is, no other requirements.)\n    *   Constraint: \"只回答动作编号。\" (Answer with the action label only.)\n    *   Goal: Select the most appropriate action label from A1-A6 based on the customer's query.\n\n2.  **Evaluate the Actions:**\n    *   A1. 换货：为客户 ORD-3319 创建换货单 / exchange the item on ORD-3319 (Not applicable, no request for exchange).\n    *   A2. 退款：为 ORD-3319 提交退款 / submit a refund for ORD-3319 (Not applicable, no request for refund).\n    *   A3. 仅道歉并关闭工单 / apologize and close the ticket (Not applicable, customer is asking about the package status).\n    *   A4. 升级人工客服 / escalate to a human agent (Not applicable, no request for escalation).\n    *   A5. 查询物流轨迹 / trace the shipment (Applicable, customer asks \"where is the package\").\n    *   A6. 发送延迟通知 / send a delay notification (Not applicable, no request for delay notification).\n\n3.  **Determine the Best Match:**\n    *   The customer's query is \"Where is the package?\" (包裹到哪了).\n    *   This directly corresponds to \"trace the shipment\" (查询物流轨迹).\n    *   Action Label: A5.\n\n4.  **Format the Output:**\n    *   Constraint: \"只回答动作编号。\" (Answer with the action label only.)\n    *   Output: A5\n\n5.  **Final Check:**\n    *   Does A5 match the intent? Yes.\n    *   Is the format correct? Yes.\n\n6.  **Construct Final Response:** A5\n</think>\n\nA5",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 464,
+     "tokens_evaluated": 180,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n可选动作 / available actions:\nA1. 换货：为客户 ORD-3319 创建换货单 / exchange the item on ORD-3319\nA2. 退款：为 ORD-3319 提交退款 / submit a refund for ORD-3319\nA3. 仅道歉并关闭工单 / apologize and close the ticket\nA4. 升级人工客服 / escalate to a human agent\nA5. 查询物流轨迹 / trace the shipment\nA6. 发送延迟通知 / send a delay notification\nAllowed action labels: A1, A2, A3, A4, A5, A6.\n客户只问包裹到哪了，没有别的要求。 只回答动作编号。 / Answer with the action label only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 643,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 180,
+      "prompt_ms": 46.285,
+      "prompt_per_token_ms": 0.25713888888888886,
+      "prompt_per_second": 3888.948903532462,
+      "predicted_n": 464,
+      "predicted_ms": 2236.959,
+      "predicted_per_token_ms": 4.831444924406047,
+      "predicted_per_second": 206.97741889770893
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 180,
+     "prompt_ms": 46.285,
+     "prompt_per_token_ms": 0.25713888888888886,
+     "prompt_per_second": 3888.948903532462,
+     "predicted_n": 464,
+     "predicted_ms": 2236.959,
+     "predicted_per_token_ms": 4.831444924406047,
+     "predicted_per_second": 206.97741889770893
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.296
+  }
+ ]
+}

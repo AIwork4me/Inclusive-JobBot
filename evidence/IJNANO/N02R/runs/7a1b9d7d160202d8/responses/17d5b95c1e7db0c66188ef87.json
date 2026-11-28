@@ -1,0 +1,146 @@
+{
+ "trial_id": "17d5b95c1e7db0c66188ef87",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "TRK-73002",
+       "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Context: `tracking_no = TRK-73002.`\n    *   Tool: `logistics.trace_shipment` (already chosen).\n    *   Task: Track the parcel; the number is in the context.\n    *   Output Requirement: Answer with the argument value *only* (只回答参数值).\n    *   Slot: `tracking_no` (type entity).\n\n2.  **Extract the Value:**\n    *   The context explicitly states `tracking_no = TRK-73002.`\n    *   The value to extract is `TRK-73002`.\n\n3.  **Format the Output:**\n    *   The instruction says \"只回答参数值\" (Answer with the argument value only).\n    *   So, I should output just the tracking number string.\n\n4.  **Final Check:**\n    *   Does the output contain any extra text? No.\n    *   Is the value correct based on the context? Yes.\n\n5.  **Construct Output:**\n    *   TRK-73002\n\n6.  **Refinement:** The prompt asks for \"只回答参数值\" (Answer with the argument value only). Sometimes this means just the value string.\n    *   Value: TRK-73002\n\n    Let's double-check the instruction \"只回答参数值\".\n    Context: `tracking_no = TRK-73002.`\n    Value: `TRK-73002`\n\n    Output: TRK-73002"
+      }
+     }
+    ],
+    "created": 1795793624,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 369,
+     "prompt_tokens": 89,
+     "total_tokens": 458,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-ivgjcMw72IRlrLrdpB60XbNhJuuthkgP",
+    "__verbose": {
+     "index": 0,
+     "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Context: `tracking_no = TRK-73002.`\n    *   Tool: `logistics.trace_shipment` (already chosen).\n    *   Task: Track the parcel; the number is in the context.\n    *   Output Requirement: Answer with the argument value *only* (只回答参数值).\n    *   Slot: `tracking_no` (type entity).\n\n2.  **Extract the Value:**\n    *   The context explicitly states `tracking_no = TRK-73002.`\n    *   The value to extract is `TRK-73002`.\n\n3.  **Format the Output:**\n    *   The instruction says \"只回答参数值\" (Answer with the argument value only).\n    *   So, I should output just the tracking number string.\n\n4.  **Final Check:**\n    *   Does the output contain any extra text? No.\n    *   Is the value correct based on the context? Yes.\n\n5.  **Construct Output:**\n    *   TRK-73002\n\n6.  **Refinement:** The prompt asks for \"只回答参数值\" (Answer with the argument value only). Sometimes this means just the value string.\n    *   Value: TRK-73002\n\n    Let's double-check the instruction \"只回答参数值\".\n    Context: `tracking_no = TRK-73002.`\n    Value: `TRK-73002`\n\n    Output: TRK-73002\n</think>\n\nTRK-73002",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 369,
+     "tokens_evaluated": 89,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>user\n上下文 / context: tracking_no = TRK-73002. 工具已选定: logistics.trace_shipment. / Tool already chosen: logistics.trace_shipment.\nThe answer is the value of the slot 'tracking_no' (type entity).\nTrack the parcel; the number is in the context. 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 457,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 89,
+      "prompt_ms": 37.499,
+      "prompt_per_token_ms": 0.4213370786516854,
+      "prompt_per_second": 2373.396623909971,
+      "predicted_n": 369,
+      "predicted_ms": 1787.137,
+      "predicted_per_token_ms": 4.856350543478261,
+      "predicted_per_second": 205.91594265017173
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 89,
+     "prompt_ms": 37.499,
+     "prompt_per_token_ms": 0.4213370786516854,
+     "prompt_per_second": 2373.396623909971,
+     "predicted_n": 369,
+     "predicted_ms": 1787.137,
+     "predicted_per_token_ms": 4.856350543478261,
+     "predicted_per_second": 205.91594265017173
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.828
+  }
+ ]
+}

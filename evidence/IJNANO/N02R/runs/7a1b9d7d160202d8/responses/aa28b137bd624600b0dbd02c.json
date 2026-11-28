@@ -1,0 +1,146 @@
+{
+ "trial_id": "aa28b137bd624600b0dbd02c",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to parse the user's query. It says:\n\n\"策略 / policy: order age 31 days, policy limit 30. 实况 / observation: n = 31.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.\"\n\nInterpretation: There's a policy about order age and policy limit. The policy says \"order age 31 days\" meaning maybe the order must be at least 31 days old? Or perhaps it's about the age of an order relative to some date? And \"policy limit 30\". Observation: n = 31. So we have a count n=31.\n\nWe need to decide which branch (auto_approve, requires_manager_approval, reject_out_of_policy) applies given these parameters.\n\nLet's decode:\n\n- Policy: order age 31 days, policy limit 30.\n- Observation: n = 31.\n\nProbably \"order age\" means the number of days since the order was placed? Or maybe it's about how old an order is. The policy says order age must be at least 31 days? But then there is a limit of 30 days? That seems contradictory: \"order age 31 days, policy limit 30.\" Could mean that for orders older than 31 days, the policy limit is 30 days? Or maybe it's about something else.\n\nLet's think typical business rules: There might be a rule that an order must be at least X days old before it can be processed. But \"policy limit\" could refer to maximum allowed age? Usually you have minimum and maximum ages for orders. For example, policy says \"order age 31 days\" meaning the order must be at least 31 days old (i.e., older than 31 days). And \"policy limit 30\" might mean that if it's more than 30 days? That doesn't make sense.\n\nAlternatively, maybe \"order age 31 days\" means the policy requires an order to have been placed for at least 31 days ago. The \"policy limit 30\" could be a maximum allowed age before something else triggers? Or perhaps it's about the number of days between creation and processing: if less than or equal to 30 days, auto-approve; if more than 30 days, require manager approval? But they gave n=31.\n\nLet’s parse: \"策略 / policy: order age 31 days, policy limit 30. 实况 / observation: n = 31.\" So maybe the policy is about \"order age\" and \"policy limit\". The observation says n = 31. Possibly n refers to number of days? Or something else.\n\nGiven typical classification tasks in such prompts (like from a policy decision tree), we have three allowed branches:\n\n- auto_approve: automatically approve.\n- requires_manager_approval: need manager approval.\n- reject_out_of_policy: reject because out of policy.\n\nWe need to decide which branch based on the given numbers.\n\nLet's hypothesize:\n\nPolicy: order age 31 days. Means that an order is considered \"old\" if it has been at least 31 days? Or maybe \"order age\" refers to how many days ago the order was placed, and we compare to policy limit of 30 days. If n = 31 (the observation), then the order's age is 31 days, which exceeds the limit of 30 days. So it's out of policy: need to reject or require manager approval? The allowed branches include \"reject_out_of_policy\". That seems plausible.\n\nThus if order age > policy limit (i.e., older than 30 days), then we should reject because it's beyond the allowed limit? Or maybe we need to check if it's less than or equal to limit: If n <= 30, auto_approve; else requires_manager_approval? But they gave \"reject_out_of_policy\" as a branch. So perhaps out-of-policy means something like violating the policy (e.g., order age is too short or too long). The phrase \"order age 31 days, policy limit 30.\" Could be that the policy says orders must be at least 31 days old to be valid? But then limit of 30 days would be contradictory. Let's think: maybe it's about \"order age\" meaning how many days after creation can you place an order? Or maybe it's about \"order age\" as in the number of days since the last order? Not sure.\n\nGiven typical policy definitions, I'd interpret:\n\n- \"order age 31 days\": The order must be at least 31 days old to be considered valid (i.e., a minimum age). So if an order is less than 31 days old, it's not yet eligible. But then \"policy limit 30\" might refer to the"
+      }
+     }
+    ],
+    "created": 1795795442,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 1024,
+     "prompt_tokens": 70,
+     "total_tokens": 1094,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-pXO8Cj2TRte5LUVgjEbT52930BAUWIk5",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to parse the user's query. It says:\n\n\"策略 / policy: order age 31 days, policy limit 30. 实况 / observation: n = 31.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.\"\n\nInterpretation: There's a policy about order age and policy limit. The policy says \"order age 31 days\" meaning maybe the order must be at least 31 days old? Or perhaps it's about the age of an order relative to some date? And \"policy limit 30\". Observation: n = 31. So we have a count n=31.\n\nWe need to decide which branch (auto_approve, requires_manager_approval, reject_out_of_policy) applies given these parameters.\n\nLet's decode:\n\n- Policy: order age 31 days, policy limit 30.\n- Observation: n = 31.\n\nProbably \"order age\" means the number of days since the order was placed? Or maybe it's about how old an order is. The policy says order age must be at least 31 days? But then there is a limit of 30 days? That seems contradictory: \"order age 31 days, policy limit 30.\" Could mean that for orders older than 31 days, the policy limit is 30 days? Or maybe it's about something else.\n\nLet's think typical business rules: There might be a rule that an order must be at least X days old before it can be processed. But \"policy limit\" could refer to maximum allowed age? Usually you have minimum and maximum ages for orders. For example, policy says \"order age 31 days\" meaning the order must be at least 31 days old (i.e., older than 31 days). And \"policy limit 30\" might mean that if it's more than 30 days? That doesn't make sense.\n\nAlternatively, maybe \"order age 31 days\" means the policy requires an order to have been placed for at least 31 days ago. The \"policy limit 30\" could be a maximum allowed age before something else triggers? Or perhaps it's about the number of days between creation and processing: if less than or equal to 30 days, auto-approve; if more than 30 days, require manager approval? But they gave n=31.\n\nLet’s parse: \"策略 / policy: order age 31 days, policy limit 30. 实况 / observation: n = 31.\" So maybe the policy is about \"order age\" and \"policy limit\". The observation says n = 31. Possibly n refers to number of days? Or something else.\n\nGiven typical classification tasks in such prompts (like from a policy decision tree), we have three allowed branches:\n\n- auto_approve: automatically approve.\n- requires_manager_approval: need manager approval.\n- reject_out_of_policy: reject because out of policy.\n\nWe need to decide which branch based on the given numbers.\n\nLet's hypothesize:\n\nPolicy: order age 31 days. Means that an order is considered \"old\" if it has been at least 31 days? Or maybe \"order age\" refers to how many days ago the order was placed, and we compare to policy limit of 30 days. If n = 31 (the observation), then the order's age is 31 days, which exceeds the limit of 30 days. So it's out of policy: need to reject or require manager approval? The allowed branches include \"reject_out_of_policy\". That seems plausible.\n\nThus if order age > policy limit (i.e., older than 30 days), then we should reject because it's beyond the allowed limit? Or maybe we need to check if it's less than or equal to limit: If n <= 30, auto_approve; else requires_manager_approval? But they gave \"reject_out_of_policy\" as a branch. So perhaps out-of-policy means something like violating the policy (e.g., order age is too short or too long). The phrase \"order age 31 days, policy limit 30.\" Could be that the policy says orders must be at least 31 days old to be valid? But then limit of 30 days would be contradictory. Let's think: maybe it's about \"order age\" meaning how many days after creation can you place an order? Or maybe it's about \"order age\" as in the number of days since the last order? Not sure.\n\nGiven typical policy definitions, I'd interpret:\n\n- \"order age 31 days\": The order must be at least 31 days old to be considered valid (i.e., a minimum age). So if an order is less than 31 days old, it's not yet eligible. But then \"policy limit 30\" might refer to the",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 1024,
+     "tokens_evaluated": 70,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>user\n策略 / policy: order age 31 days, policy limit 30. 实况 / observation: n = 31.\nAllowed branches: auto_approve, requires_manager_approval, reject_out_of_policy.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "limit",
+     "stopping_word": "",
+     "tokens_cached": 1093,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 70,
+      "prompt_ms": 33.932,
+      "prompt_per_token_ms": 0.4847428571428572,
+      "prompt_per_second": 2062.9494282683013,
+      "predicted_n": 1024,
+      "predicted_ms": 5927.631,
+      "predicted_per_token_ms": 5.794360703812317,
+      "predicted_per_second": 172.58159288255288
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 70,
+     "prompt_ms": 33.932,
+     "prompt_per_token_ms": 0.4847428571428572,
+     "prompt_per_second": 2062.9494282683013,
+     "predicted_n": 1024,
+     "predicted_ms": 5927.631,
+     "predicted_per_token_ms": 5.794360703812317,
+     "predicted_per_second": 172.58159288255288
+    }
+   },
+   "http_error": null,
+   "latency_s": 5.953
+  }
+ ]
+}

@@ -1,0 +1,148 @@
+{
+ "trial_id": "29930d0601512a8b39e67942",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "SKU-1001",
+       "reasoning_content": "We need to answer with the argument value only. The context says: \"sku = SKU-1001. 工具已选定: inventory.check_stock. / Tool already chosen: inventory.check_stock. The answer is the value of the slot 'sku' (type entity). How many units of the mentioned item remain? 只回答参数值。 / Answer with the argument value only.\"\n\nSo the answer should be the value of the slot 'sku', which is \"SKU-1001\". But the question is \"How many units of the mentioned item remain?\" The context says \"The answer is the value of the slot 'sku' (type entity).\" That seems contradictory. Possibly the system expects us to output the value of the slot 'sku', which is \"SKU-1001\". The instruction says \"只回答参数值。\" and \"Answer with the argument value only.\" So we should output \"SKU-1001\". However, the question is about remaining units. But the context explicitly says \"The answer is the value of the slot 'sku' (type entity).\" So we must follow that. So answer: SKU-1001.\n"
+      }
+     }
+    ],
+    "created": 1795795778,
+    "model": "minicpm5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 252,
+     "prompt_tokens": 82,
+     "total_tokens": 334,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-6o46ekLSeToZnhpKARUE07gRmLlEgxNE",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to answer with the argument value only. The context says: \"sku = SKU-1001. 工具已选定: inventory.check_stock. / Tool already chosen: inventory.check_stock. The answer is the value of the slot 'sku' (type entity). How many units of the mentioned item remain? 只回答参数值。 / Answer with the argument value only.\"\n\nSo the answer should be the value of the slot 'sku', which is \"SKU-1001\". But the question is \"How many units of the mentioned item remain?\" The context says \"The answer is the value of the slot 'sku' (type entity).\" That seems contradictory. Possibly the system expects us to output the value of the slot 'sku', which is \"SKU-1001\". The instruction says \"只回答参数值。\" and \"Answer with the argument value only.\" So we should output \"SKU-1001\". However, the question is about remaining units. But the context explicitly says \"The answer is the value of the slot 'sku' (type entity).\" So we must follow that. So answer: SKU-1001.\n</think>\n\nSKU-1001",
+     "tokens": [],
+     "id_slot": 1,
+     "stop": true,
+     "model": "minicpm5-2b",
+     "tokens_predicted": 252,
+     "tokens_evaluated": 82,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "",
+      "grammar_lazy": false,
+      "grammar_triggers": [],
+      "preserved_tokens": [
+       8,
+       9,
+       18,
+       19,
+       20,
+       21
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<s><|im_start|>user\n上下文 / context: sku = SKU-1001. 工具已选定: inventory.check_stock. / Tool already chosen: inventory.check_stock.\nThe answer is the value of the slot 'sku' (type entity).\nHow many units of the mentioned item remain? 只回答参数值。 / Answer with the argument value only.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 333,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 82,
+      "prompt_ms": 29.41,
+      "prompt_per_token_ms": 0.35865853658536584,
+      "prompt_per_second": 2788.1672900374024,
+      "predicted_n": 252,
+      "predicted_ms": 1380.637,
+      "predicted_per_token_ms": 5.500545816733068,
+      "predicted_per_second": 181.8001400802673
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 82,
+     "prompt_ms": 29.41,
+     "prompt_per_token_ms": 0.35865853658536584,
+     "prompt_per_second": 2788.1672900374024,
+     "predicted_n": 252,
+     "predicted_ms": 1380.637,
+     "predicted_per_token_ms": 5.500545816733068,
+     "predicted_per_second": 181.8001400802673
+    }
+   },
+   "http_error": null,
+   "latency_s": 1.422
+  }
+ ]
+}

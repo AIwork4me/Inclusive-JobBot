@@ -1,0 +1,162 @@
+{
+ "trial_id": "6afd64e3d8e2dd1e39aa2fc5",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "We need to determine the appropriate branch for a given scenario based on the policy and observation.\n\nPolicy: \"order age 31 days, policy limit 30.\" This likely means that there is an order (or something) with an age of 31 days, but the policy limit is 30 days. So it exceeds the limit by 1 day? Or maybe the rule is about order age vs policy limit.\n\nObservation: \"n = 31\". Probably n refers to the number of days or something else. Let's parse:\n\n- Strategy / policy: order age 31 days, policy limit 30.\n- Real-world observation (observation): n = 31.\n\nWe need to decide which branch applies using the tool `record_answer` with parameter `branch`. The branches are defined as:\n- \"auto_approve\"\n- \"requires_manager_approval\"\n- \"reject_out_of_policy\"\n\nGiven policy limit is 30 days, but order age is 31 days. So it's over the limit by 1 day. That likely means we need to reject or require manager approval? Let's think.\n\nIn typical compliance scenarios: If an order exceeds the policy limit (e.g., more than allowed), you might need to reject it out of policy, or maybe require manager approval for exceptions. The phrase \"order age 31 days\" suggests the order has been active for 31 days. Policy limit is 30 days, meaning orders should not exceed 30 days? Or perhaps there's a rule that if an order reaches 31 days, it must be rejected because it exceeds the policy limit of 30 days.\n\nGiven \"n = 31\", maybe n is the number of days since order creation or something. So observation says n=31, which matches the order age being 31 days. The policy limit is 30 days. Therefore, the order has exceeded its allowed duration by 1 day. This likely triggers a branch: \"reject_out_of_policy\" because it's out of policy.\n\nBut let's examine the tool `record_answer` parameters: It requires `branch`. So we need to choose one of those three strings.\n\nThus, I think the correct branch is \"reject_out_of_policy\". However, we should double-check if there's any nuance. The phrase \"order age 31 days\" might mean that an order was placed and has been active for 31 days. Policy limit 30 means maybe orders can only be valid for up to 30 days; after that they need manager approval or something. But the observation n=31 indicates it's exactly one day over.\n\nGiven typical policy enforcement: If a record exceeds its allowed period, you might need to reject it outright (reject_out_of_policy) because it violates the limit. Or maybe \"requires_manager_approval\" for exceptions? The tool names suggest:\n- auto_approve: automatically approve.\n- requires_manager_approval: needs manager sign-off.\n- reject_out_of_policy: reject due to policy violation.\n\nSince 31 > 30, it's out of policy limit. So I'd go with \"reject_out_of_policy\".\n\nThus, call `record_answer` with branch \"reject_out_of_policy\".",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"branch\":\"reject_out_of_policy\"}"
+         },
+         "id": "sRuOgYJhHvxDSCwlVWbBLjwg3CDrX7Ja"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795795464,
+    "model": "lfm3-1.7b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 688,
+     "prompt_tokens": 140,
+     "total_tokens": 828,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-dA97qZoA2qdnN0iwq5kejusgOw4eK7jM",
+    "__verbose": {
+     "index": 0,
+     "content": "We need to determine the appropriate branch for a given scenario based on the policy and observation.\n\nPolicy: \"order age 31 days, policy limit 30.\" This likely means that there is an order (or something) with an age of 31 days, but the policy limit is 30 days. So it exceeds the limit by 1 day? Or maybe the rule is about order age vs policy limit.\n\nObservation: \"n = 31\". Probably n refers to the number of days or something else. Let's parse:\n\n- Strategy / policy: order age 31 days, policy limit 30.\n- Real-world observation (observation): n = 31.\n\nWe need to decide which branch applies using the tool `record_answer` with parameter `branch`. The branches are defined as:\n- \"auto_approve\"\n- \"requires_manager_approval\"\n- \"reject_out_of_policy\"\n\nGiven policy limit is 30 days, but order age is 31 days. So it's over the limit by 1 day. That likely means we need to reject or require manager approval? Let's think.\n\nIn typical compliance scenarios: If an order exceeds the policy limit (e.g., more than allowed), you might need to reject it out of policy, or maybe require manager approval for exceptions. The phrase \"order age 31 days\" suggests the order has been active for 31 days. Policy limit is 30 days, meaning orders should not exceed 30 days? Or perhaps there's a rule that if an order reaches 31 days, it must be rejected because it exceeds the policy limit of 30 days.\n\nGiven \"n = 31\", maybe n is the number of days since order creation or something. So observation says n=31, which matches the order age being 31 days. The policy limit is 30 days. Therefore, the order has exceeded its allowed duration by 1 day. This likely triggers a branch: \"reject_out_of_policy\" because it's out of policy.\n\nBut let's examine the tool `record_answer` parameters: It requires `branch`. So we need to choose one of those three strings.\n\nThus, I think the correct branch is \"reject_out_of_policy\". However, we should double-check if there's any nuance. The phrase \"order age 31 days\" might mean that an order was placed and has been active for 31 days. Policy limit 30 means maybe orders can only be valid for up to 30 days; after that they need manager approval or something. But the observation n=31 indicates it's exactly one day over.\n\nGiven typical policy enforcement: If a record exceeds its allowed period, you might need to reject it outright (reject_out_of_policy) because it violates the limit. Or maybe \"requires_manager_approval\" for exceptions? The tool names suggest:\n- auto_approve: automatically approve.\n- requires_manager_approval: needs manager sign-off.\n- reject_out_of_policy: reject due to policy violation.\n\nSince 31 > 30, it's out of policy limit. So I'd go with \"reject_out_of_policy\".\n\nThus, call `record_answer` with branch \"reject_out_of_policy\".</think><tool_call>\n<function=record_answer>\n<parameter=branch>\nreject_out_of_policy\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 3,
+     "stop": true,
+     "model": "lfm3-1.7b",
+     "tokens_predicted": 688,
+     "tokens_evaluated": 140,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 50,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.100000023841858,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") (tool-0-arg-0) \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"branch\" \">\\n\") xml-arg-string\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 125019
+       }
+      ],
+      "preserved_tokens": [
+       124901,
+       124902,
+       125019,
+       125020
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|startoftext|><|im_start|>system\n<tools>\n{\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"branch\": {\"type\": \"string\", \"enum\": [\"auto_approve\", \"requires_manager_approval\", \"reject_out_of_policy\"]}}, \"required\": [\"branch\"], \"additionalProperties\": false}}\n</tools><|im_end|>\n<|im_start|>user\n策略 / policy: order age 31 days, policy limit 30. 实况 / observation: n = 31.\n判断应走的分支。 / Decide which branch applies.<|im_end|>\n<|im_start|>assistant\n<think>",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 827,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 140,
+      "prompt_ms": 42.333,
+      "prompt_per_token_ms": 0.30237857142857144,
+      "prompt_per_second": 3307.1126544303497,
+      "predicted_n": 688,
+      "predicted_ms": 4025.743,
+      "predicted_per_token_ms": 5.859887918486172,
+      "predicted_per_second": 170.651728140619
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 140,
+     "prompt_ms": 42.333,
+     "prompt_per_token_ms": 0.30237857142857144,
+     "prompt_per_second": 3307.1126544303497,
+     "predicted_n": 688,
+     "predicted_ms": 4025.743,
+     "predicted_per_token_ms": 5.859887918486172,
+     "predicted_per_second": 170.651728140619
+    }
+   },
+   "http_error": null,
+   "latency_s": 4.078
+  }
+ ]
+}

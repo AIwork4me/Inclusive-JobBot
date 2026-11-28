@@ -1,0 +1,88 @@
+{
+  "ledger_rows": 2880,
+  "planning_failure_signatures": {
+    "primary/A": {
+      "ORACLE_REJECTED": 240,
+      "PROPOSAL_REJECTED": 560
+    },
+    "primary/P": {
+      "INITIAL_PLAN_REJECTED": 800
+    },
+    "repeat/A": {
+      "ORACLE_REJECTED": 153,
+      "PROPOSAL_REJECTED": 327
+    },
+    "repeat/P": {
+      "INITIAL_PLAN_REJECTED": 480
+    }
+  },
+  "planning_layered_scores": {
+    "primary/A": {
+      "business_outcome/FAIL": 800,
+      "business_state_match/FAIL": 180,
+      "business_state_match/PASS": 620,
+      "execution_correctness/FAIL": 610,
+      "execution_correctness/NOT_APPLICABLE": 110,
+      "execution_correctness/PASS": 80,
+      "final_output_protocol/FAIL": 171,
+      "final_output_protocol/NOT_RUN": 560,
+      "final_output_protocol/PASS": 69,
+      "goal_understanding/FAIL": 100,
+      "goal_understanding/NOT_APPLICABLE": 700,
+      "initial_plan_protocol/NOT_APPLICABLE": 800,
+      "plan_executability/NOT_APPLICABLE": 800,
+      "safety/PASS": 800,
+      "semantic_correctness/FAIL": 240,
+      "semantic_correctness/NOT_RUN": 560,
+      "strict_end_to_end/FAIL": 800
+    },
+    "primary/P": {
+      "business_outcome/FAIL": 800,
+      "business_state_match/FAIL": 180,
+      "business_state_match/PASS": 620,
+      "execution_correctness/FAIL": 690,
+      "execution_correctness/NOT_APPLICABLE": 110,
+      "final_output_protocol/NOT_RUN": 800,
+      "goal_understanding/FAIL": 800,
+      "initial_plan_protocol/FAIL": 800,
+      "plan_executability/FAIL": 800,
+      "safety/PASS": 800,
+      "semantic_correctness/NOT_RUN": 800,
+      "strict_end_to_end/FAIL": 800
+    },
+    "repeat/A": {
+      "business_outcome/FAIL": 480,
+      "business_state_match/FAIL": 96,
+      "business_state_match/PASS": 384,
+      "execution_correctness/FAIL": 360,
+      "execution_correctness/NOT_APPLICABLE": 72,
+      "execution_correctness/PASS": 48,
+      "final_output_protocol/FAIL": 105,
+      "final_output_protocol/NOT_RUN": 327,
+      "final_output_protocol/PASS": 48,
+      "goal_understanding/FAIL": 60,
+      "goal_understanding/NOT_APPLICABLE": 420,
+      "initial_plan_protocol/NOT_APPLICABLE": 480,
+      "plan_executability/NOT_APPLICABLE": 480,
+      "safety/PASS": 480,
+      "semantic_correctness/FAIL": 153,
+      "semantic_correctness/NOT_RUN": 327,
+      "strict_end_to_end/FAIL": 480
+    },
+    "repeat/P": {
+      "business_outcome/FAIL": 480,
+      "business_state_match/FAIL": 96,
+      "business_state_match/PASS": 384,
+      "execution_correctness/FAIL": 408,
+      "execution_correctness/NOT_APPLICABLE": 72,
+      "final_output_protocol/NOT_RUN": 480,
+      "goal_understanding/FAIL": 480,
+      "initial_plan_protocol/FAIL": 480,
+      "plan_executability/FAIL": 480,
+      "safety/PASS": 480,
+      "semantic_correctness/NOT_RUN": 480,
+      "strict_end_to_end/FAIL": 480
+    }
+  },
+  "scope": "RC-01 planning and RC-02 quote diagnostics"
+}

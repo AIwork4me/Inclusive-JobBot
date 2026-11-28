@@ -1,0 +1,162 @@
+{
+ "trial_id": "6822780c7b17978374f93498",
+ "stages": [
+  {
+   "stage": 1,
+   "path": "/v1/chat/completions",
+   "http": {
+    "choices": [
+     {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+       "role": "assistant",
+       "content": "",
+       "reasoning_content": "用户想要记录一个物品数量的变化，具体是物品TRK-73002，数量从99.0 EUR。\n\n我需要查看record_answer工具的参数：\n- tool: 工具类型，从[\"logistics.trace_shipment\", \"logistics.reroute_shipment\", \"logistics.estimate_delivery\", \"addresses.validate\", \"customs.declare_value\", \"labels.generate\", \"couriers.list_rates\", \"escalations.open_case\"]中选择\n- tracking_no: 追踪号，这里是\"TRK-73002\"\n- quantity: 数量，需要包含value和unit\n\n用户说\"quantity change 99.0 EUR\"，这意味着数量变化是99.0欧元。我需要确定quantity参数的格式。根据参数定义，quantity是一个对象，包含value和unit，其中value是数字，unit是货币单位（CNY, USD, EUR, pcs, kg）。\n\n由于用户提到的是EUR，我应该使用EUR作为货币单位。但是quantity参数的value应该是一个数字，而unit是货币单位。\n\n让我构造这个参数：\n- value: 99.0\n- unit: \"EUR\"\n\n现在我需要选择一个合适的工具。由于这是关于物品数量变化的，可能涉及到物流追踪或估计配送。但用户没有明确说明具体要做什么操作。\n\n考虑到这是一个数量变化，可能涉及到物流追踪。我选择\"logistics.trace_shipment\"作为工具。\n\n让我构造完整的参数：\n- tool: \"logistics.trace_shipment\"\n- tracking_no: \"TRK-73002\"\n- quantity: {\"value\": 99.0, \"unit\": \"EUR\"}\n\n等等，我需要再仔细看看用户的要求。用户说\"quantity change 99.0 EUR\"，这可能意味着数量变化是99.0欧元。但quantity参数的格式是{\"value\": number, \"unit\": \"currency\"}，所以value应该是99.0，unit应该是\"EUR\"。\n\n让我生成完整的动作。",
+       "tool_calls": [
+        {
+         "type": "function",
+         "function": {
+          "name": "record_answer",
+          "arguments": "{\"tool\":\"logistics.trace_shipment\",\"tracking_no\":\"TRK-73002\",\"quantity\":{\"value\": 99.0, \"unit\": \"EUR\"}}"
+         },
+         "id": "rsY18mnRrG1qWY4qve0Dp6PW7OoilCjk"
+        }
+       ]
+      }
+     }
+    ],
+    "created": 1795798464,
+    "model": "qwen3.5-2b",
+    "system_fingerprint": "b12359-b1b770d90",
+    "object": "chat.completion",
+    "usage": {
+     "completion_tokens": 499,
+     "prompt_tokens": 456,
+     "total_tokens": 955,
+     "prompt_tokens_details": {
+      "cached_tokens": 0
+     }
+    },
+    "id": "chatcmpl-OgheXioeGo14RXTTwcBQwwOf1xKXbCE7",
+    "__verbose": {
+     "index": 0,
+     "content": "用户想要记录一个物品数量的变化，具体是物品TRK-73002，数量从99.0 EUR。\n\n我需要查看record_answer工具的参数：\n- tool: 工具类型，从[\"logistics.trace_shipment\", \"logistics.reroute_shipment\", \"logistics.estimate_delivery\", \"addresses.validate\", \"customs.declare_value\", \"labels.generate\", \"couriers.list_rates\", \"escalations.open_case\"]中选择\n- tracking_no: 追踪号，这里是\"TRK-73002\"\n- quantity: 数量，需要包含value和unit\n\n用户说\"quantity change 99.0 EUR\"，这意味着数量变化是99.0欧元。我需要确定quantity参数的格式。根据参数定义，quantity是一个对象，包含value和unit，其中value是数字，unit是货币单位（CNY, USD, EUR, pcs, kg）。\n\n由于用户提到的是EUR，我应该使用EUR作为货币单位。但是quantity参数的value应该是一个数字，而unit是货币单位。\n\n让我构造这个参数：\n- value: 99.0\n- unit: \"EUR\"\n\n现在我需要选择一个合适的工具。由于这是关于物品数量变化的，可能涉及到物流追踪或估计配送。但用户没有明确说明具体要做什么操作。\n\n考虑到这是一个数量变化，可能涉及到物流追踪。我选择\"logistics.trace_shipment\"作为工具。\n\n让我构造完整的参数：\n- tool: \"logistics.trace_shipment\"\n- tracking_no: \"TRK-73002\"\n- quantity: {\"value\": 99.0, \"unit\": \"EUR\"}\n\n等等，我需要再仔细看看用户的要求。用户说\"quantity change 99.0 EUR\"，这可能意味着数量变化是99.0欧元。但quantity参数的格式是{\"value\": number, \"unit\": \"currency\"}，所以value应该是99.0，unit应该是\"EUR\"。\n\n让我生成完整的动作。\n</think>\n\n<tool_call>\n<function=record_answer>\n<parameter=tool>\nlogistics.trace_shipment\n</parameter>\n<parameter=tracking_no>\nTRK-73002\n</parameter>\n<parameter=quantity>\n{\"value\": 99.0, \"unit\": \"EUR\"}\n</parameter>\n</function>\n</tool_call>",
+     "tokens": [],
+     "id_slot": 0,
+     "stop": true,
+     "model": "qwen3.5-2b",
+     "tokens_predicted": 499,
+     "tokens_evaluated": 456,
+     "generation_settings": {
+      "seed": 42,
+      "temperature": 0.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 40,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dry_sequence_breakers": [
+       "\n",
+       ":",
+       "\"",
+       "*"
+      ],
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "stop": [],
+      "max_tokens": 1024,
+      "n_predict": 1024,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "logit_bias": [],
+      "n_probs": 0,
+      "min_keep": 0,
+      "grammar": "ac-28 ::= [\\n] ac-28-01 | [^\\n] ac-28\nac-28-01 ::= [\\n] ac-28-01 | [<] ac-28-02 | [^\\n<] ac-28\nac-28-02 ::= [\\n] ac-28-01 | [/] ac-28-03 | [^\\n/] ac-28\nac-28-03 ::= [\\n] ac-28-01 | [p] ac-28-04 | [^\\np] ac-28\nac-28-04 ::= [\\n] ac-28-01 | [a] ac-28-05 | [^\\na] ac-28\nac-28-05 ::= [\\n] ac-28-01 | [r] ac-28-06 | [^\\nr] ac-28\nac-28-06 ::= [\\n] ac-28-01 | [a] ac-28-07 | [^\\na] ac-28\nac-28-07 ::= [\\n] ac-28-01 | [m] ac-28-08 | [^\\nm] ac-28\nac-28-08 ::= [\\n] ac-28-01 | [e] ac-28-09 | [^\\ne] ac-28\nac-28-09 ::= [\\n] ac-28-01 | [t] ac-28-10 | [^\\nt] ac-28\nac-28-10 ::= [\\n] ac-28-01 | [e] ac-28-11 | [^\\ne] ac-28\nac-28-11 ::= [\\n] ac-28-01 | [r] ac-28-12 | [^\\nr] ac-28\nac-28-12 ::= [\\n] ac-28-01 | [>] ac-28-13 | [^\\n>] ac-28\nac-28-13 ::= [\\n] | [^\\n] ac-28\ndecimal-part ::= [0-9]{1,16}\nintegral-part ::= [0] | [1-9] [0-9]{0,15}\njson-array ::= \"[\" space (\"]\" | json-value (space \",\" space json-value)* space \"]\")\njson-bool ::= \"true\" | \"false\"\njson-null ::= \"null\"\njson-number ::= \"-\"? (\"0\" | [1-9] [0-9]*) (\".\" [0-9]+)? ((\"e\" | \"E\") [+-]? [0-9]+)?\njson-object ::= \"{\" space (\"}\" | json-string space \":\" space json-value (space \",\" space json-string space \":\" space json-value)* space \"}\")\njson-string ::= \"\\\"\" ( [^\"\\\\] | \"\\\\\" ( [\"\\\\/ bfnrt] | \"u\" [0-9a-fA-F]{4} ) )* \"\\\"\"\njson-value ::= json-object | json-array | json-string | json-number | json-bool | json-null\nnumber ::= (\"-\"? integral-part) (\".\" decimal-part)? ([eE] [-+]? integral-part)?\nroot ::= tool-call-root\nspace ::= | \" \" | \"\\n\"{1,2} [ \\t]{0,20}\ntool-0 ::= (\"<function=\" \"record_answer\" \">\\n\") tool-0-args-7 \"</function>\\n\"\ntool-0-arg-0 ::= (\"<parameter=\" \"tool\" \">\\n\") xml-arg-string\ntool-0-arg-1 ::= (\"<parameter=\" \"tracking_no\" \">\\n\") xml-arg-string\ntool-0-arg-2 ::= (\"<parameter=\" \"quantity\" \">\\n\") tool-0-arg-2-schema \"\\n</parameter>\\n\"\ntool-0-arg-2-schema ::= \"{\" space tool-0-arg-2-schema-value-kv \",\" space tool-0-arg-2-schema-unit-kv space \"}\"\ntool-0-arg-2-schema-unit ::= (\"\\\"CNY\\\"\" | \"\\\"USD\\\"\" | \"\\\"EUR\\\"\" | \"\\\"pcs\\\"\" | \"\\\"kg\\\"\")\ntool-0-arg-2-schema-unit-kv ::= \"\\\"unit\\\"\" space \":\" space tool-0-arg-2-schema-unit\ntool-0-arg-2-schema-value-kv ::= \"\\\"value\\\"\" space \":\" space number\ntool-0-args-1 ::= tool-0-arg-0\ntool-0-args-2 ::= tool-0-arg-1\ntool-0-args-3 ::= tool-0-arg-0 tool-0-args-2 | tool-0-arg-1 tool-0-args-1\ntool-0-args-4 ::= tool-0-arg-2\ntool-0-args-5 ::= tool-0-arg-0 tool-0-args-4 | tool-0-arg-2 tool-0-args-1\ntool-0-args-6 ::= tool-0-arg-1 tool-0-args-4 | tool-0-arg-2 tool-0-args-2\ntool-0-args-7 ::= tool-0-arg-0 tool-0-args-6 | tool-0-arg-1 tool-0-args-5 | tool-0-arg-2 tool-0-args-3\ntool-call ::= \"<tool_call>\\n\" (tool-0) \"</tool_call>\" space\ntool-call-root ::= (tool-call tool-call*)?\nxml-arg-string ::= ac-28\n",
+      "grammar_lazy": true,
+      "grammar_triggers": [
+       {
+        "type": 0,
+        "value": "<tool_call>",
+        "token": 248058
+       }
+      ],
+      "preserved_tokens": [
+       248058,
+       248059,
+       248068,
+       248069
+      ],
+      "chat_format": "peg-native",
+      "reasoning_format": "deepseek",
+      "reasoning_in_content": false,
+      "generation_prompt": "<|im_start|>assistant\n<think>\n",
+      "samplers": [
+       "penalties",
+       "dry",
+       "top_n_sigma",
+       "top_k",
+       "typ_p",
+       "top_p",
+       "min_p",
+       "xtc",
+       "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+     },
+     "prompt": "<|im_start|>system\n# Tools\n\nYou have access to the following functions:\n\n<tools>\n{\"type\": \"function\", \"function\": {\"name\": \"record_answer\", \"description\": \"Record the chosen answer (structured answer recording, not business tool execution).\", \"parameters\": {\"type\": \"object\", \"properties\": {\"tool\": {\"type\": \"string\", \"enum\": [\"logistics.trace_shipment\", \"logistics.reroute_shipment\", \"logistics.estimate_delivery\", \"addresses.validate\", \"customs.declare_value\", \"labels.generate\", \"couriers.list_rates\", \"escalations.open_case\"]}, \"tracking_no\": {\"type\": \"string\"}, \"quantity\": {\"type\": \"object\", \"properties\": {\"value\": {\"type\": \"number\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"CNY\", \"USD\", \"EUR\", \"pcs\", \"kg\"]}}, \"required\": [\"value\", \"unit\"], \"additionalProperties\": false}}, \"required\": [\"tool\", \"tracking_no\", \"quantity\"], \"additionalProperties\": false}}}\n</tools>\n\nIf you choose to call a function ONLY reply in the following format with NO suffix:\n\n<tool_call>\n<function=example_function_name>\n<parameter=example_parameter_1>\nvalue_1\n</parameter>\n<parameter=example_parameter_2>\nThis is the value for the second parameter\nthat can span\nmultiple lines\n</parameter>\n</function>\n</tool_call>\n\n<IMPORTANT>\nReminder:\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\n- Required parameters MUST be specified\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\n</IMPORTANT><|im_end|>\n<|im_start|>user\nItem TRK-73002: quantity change 99.0 EUR.\n生成完整动作：工具与全部参数。 / Produce the full action: tool and all arguments.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+     "has_new_line": true,
+     "truncated": false,
+     "stop_type": "eos",
+     "stopping_word": "",
+     "tokens_cached": 954,
+     "timings": {
+      "cache_n": 0,
+      "prompt_n": 456,
+      "prompt_ms": 76.669,
+      "prompt_per_token_ms": 0.16813377192982457,
+      "prompt_per_second": 5947.645071671732,
+      "predicted_n": 499,
+      "predicted_ms": 2412.996,
+      "predicted_per_token_ms": 4.845373493975904,
+      "predicted_per_second": 206.3824390923151
+     }
+    },
+    "timings": {
+     "cache_n": 0,
+     "prompt_n": 456,
+     "prompt_ms": 76.669,
+     "prompt_per_token_ms": 0.16813377192982457,
+     "prompt_per_second": 5947.645071671732,
+     "predicted_n": 499,
+     "predicted_ms": 2412.996,
+     "predicted_per_token_ms": 4.845373493975904,
+     "predicted_per_second": 206.3824390923151
+    }
+   },
+   "http_error": null,
+   "latency_s": 2.516
+  }
+ ]
+}

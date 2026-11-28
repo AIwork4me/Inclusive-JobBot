@@ -1,0 +1,57 @@
+{
+  "version": "AEVE-Q2-D1-development",
+  "split": "development",
+  "candidates": {
+    "J": {
+      "family": "Qwen",
+      "model": "Qwen/Qwen3-14B",
+      "revision": "4195fe4e5e948e7d4c63e2eaa672a3a8338b4b8b",
+      "sha256": "a0dfe649137410b7d82f06a209240508e218f32f5b6fd81b69d6932160cfcd9d",
+      "asset": ".tools/models/Qwen3-14B-GGUF/Qwen3-14B-Q8_0.gguf",
+      "runtime_admission": "evidence/IJ072/model_identity/admission/J/report.json"
+    },
+    "G": {
+      "family": "Gemma",
+      "model": "google/gemma-4-E2B-it",
+      "revision": "a46a64bc56bba8e20162f2468221aeda036256bb",
+      "sha256": "c36d5e6be0d91124d8b995f5ad4e1ab0d307f6d95cdd08308820350dbd96ad15",
+      "asset": ".scratch/ij07-worktree/.runtime/ij07-candidates/ggml-org__gemma-4-E2B-it-GGUF/gemma-4-E2B-it-Q8_0.gguf",
+      "runtime_admission": "evidence/IJ07/model_identity/admission_strict/G/report.json"
+    },
+    "F": {
+      "family": "Mistral",
+      "model": "mistralai/Ministral-3-3B-Instruct-2512-GGUF",
+      "revision": "8a62a23584077309cab4b18ef2f4bea8da1ebd86",
+      "sha256": "8c2b72eb5861304fcfd5e82f1eddd6efa4115737f4239fd216a028a8852413ef",
+      "asset": ".scratch/ij07-worktree/.runtime/ij07-candidates/mistralai__Ministral-3-3B-Instruct-2512-GGUF/Ministral-3-3B-Instruct-2512-Q8_0.gguf",
+      "runtime_admission": "evidence/IJ07/model_identity/admission_strict/F/report.json"
+    },
+    "B": {
+      "family": "LFM",
+      "model": "LiquidAI/LFM3-1.7B",
+      "revision": "1cea5e3e72a50bd4aed8525478d95ed970219d12",
+      "sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+      "asset": ".scratch/ij07-worktree/.runtime/ij07-candidates/LiquidAI__LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf",
+      "runtime_admission": "evidence/IJ07/model_identity/admission_strict/B/report.json"
+    },
+    "E": {
+      "family": "Granite",
+      "model": "ibm-granite/granite-4.2-3b",
+      "revision": "6727e826b4dc33e41c36771129bb22226237e8ab",
+      "sha256": "fbe986738041418e26de9e123ba740cb654931f85bf572a71bd01f9e6b85e53d",
+      "asset": ".scratch/ij07-worktree/.runtime/ij07-candidates/ibm-granite__granite-4.2-3b-GGUF/granite-4.2-3b-Q8_0.gguf",
+      "runtime_admission": "evidence/IJ07/model_identity/admission_strict/E/report.json"
+    }
+  },
+  "order": [
+    "J",
+    "G",
+    "F",
+    "B",
+    "E"
+  ],
+  "context_tokens": 8192,
+  "backend": "vulkan",
+  "quantization": "Q8_0",
+  "subject_family": "no-model"
+}
