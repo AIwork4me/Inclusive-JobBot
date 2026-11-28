@@ -1,0 +1,46 @@
+{
+ "schema_version": "2.0.0",
+ "generation": 2,
+ "certificates": [
+  {
+   "scope": "semantic",
+   "dataset_id": "n03-batch-a-dev160@d23de5a",
+   "parser_version": "eval_assurance.production.parser@1",
+   "evaluator_version": "eval_assurance.production.evaluator@1",
+   "reference_evaluator_version": "eval_assurance.reference.oracle@v2+formfill-pair-fix",
+   "issued_utc": "2026-11-28T03:35:42Z",
+   "certificate_id": "512efb617a9cb4c8",
+   "dataset_sha256": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+   "task_contract_sha256": "427f0cb770028e4e411f87ecc0bcaa6a26f4b52572872fd45dee2c885e640497",
+   "parser_sha256": "85e7312b983c2a3666e8b166e1b366c6de29e8919538f972ca91b0ed9b20d158",
+   "interpreter_sha256": "2411b89474f917d226eea733b01247cfd8c5d2526ed3320e8c7b0d23cfb8e33f",
+   "evaluator_sha256": "f2d20832f66c8e34d8880e216ffd6473dfc8ab9dda1ae3ba3077a8c9c85470ed",
+   "reference_oracle_sha256": "7cf463ce27c56e569c6bd836f9dcc42278ca119bc1607150773d7e0b281f76c0",
+   "witness_suite_sha256": "0a1dd0fbcccc02251b21bc0c0b07e4329fdf1cdb2d4f8051ed29e403c10d044e",
+   "mutation_sha256": "d35fe12b2e1961d8c41f33c06de7609c214a2aa740aa68b31d094d5d0a649008",
+   "replay_contract": "content-addressed artifact replay (dualpath.DualPathSession.replay)",
+   "protocol": "cpu-dualpath-qualification:N03_BATCH_A_DEV_CPU_DUALPATH",
+   "evidence_refs": [
+    "evidence\\IJEVAL\\EA03_N03\\gt_mutation_coverage_dev160.json",
+    "evidence\\IJEVAL\\EA03_N03\\ground_truth_qualification_dev160_v2.json",
+    "evidence\\IJEVAL\\EA03_N03\\reconciliation_dev160.json",
+    "evidence\\IJEVAL\\EA03_N03\\response_witnesses.json",
+    "evidence\\IJEVAL\\EA03_N03\\ea08_end_to_end.json",
+    "evidence\\IJEVAL\\EA03_N03\\rule_coverage_matrix.json",
+    "evidence\\IJEVAL\\EA03_N03\\dualpath_reconciliation.json",
+    "evidence\\IJEVAL\\EA03_N03\\intake_verification.json"
+   ],
+   "limitations": "CPU software qualification of the dual-path evaluation stack on pinned Batch A dev inputs. NOT a physical-runner qualification, NOT confirmation-split coverage, and NOT all-32 cognitive qualification (Batch A C01-C08 dev scope only). Disclosed common-mode risks: shared pinned spec authorship for production+reference legs; two equivalent mutants on the current dataset (P14/E05, justified); formatting cases with empty-truth line lists cannot score CORRECT.",
+   "revoked_utc": "2026-11-28T04:04:08Z"
+  }
+ ],
+ "revocations": [
+  {
+   "certificate_id": "512efb617a9cb4c8",
+   "binding_key": "semantic|n03-batch-a-dev160@d23de5a|eval_assurance.production.parser@1|eval_assurance.production.evaluator@1",
+   "revoked_utc": "2026-11-28T04:04:08Z",
+   "reason": "drill"
+  }
+ ],
+ "checksum": "b1208ea9fda894c4b2696dda566db0418a96793112c2cf4d4429c29a413af986"
+}

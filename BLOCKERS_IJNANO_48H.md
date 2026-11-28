@@ -50,6 +50,33 @@ IJN-B-003 OPEN, IJN-B-004 OPEN) remain owned as recorded in
 - Note: 960 confirmation slots are reported BLOCKED/NOT_RUN unless all
   order §5 conditions hold within the campaign. Never weakened.
 
+## 48H-B-006 Production certificate 512efb617a9cb4c8 revoked by the EAE consumer-verification drill at 3cdd066
+
+- Priority: P0 — blocks ALL physical dispatch (E0 smoke + E1 Batch A)
+- Status: OPEN
+- Owner: IJEVAL session (PR #13) — requalification-only recovery
+  (new authoritative generation + passing canary per their EA10/EA14
+  design); this lane NEVER un-revokes or reissues on the EAE side.
+- Found: 2026-11-28 ~05:00Z, consumer-side bootstrap verification.
+- Evidence: pinned registry generation 2 carries `revoked_utc
+  2026-11-28T04:04:08Z` reason "drill" (the AUTH-2 post-release
+  consumer-verification revocation drill durably revoked the
+  production certificate and that state was committed as 3cdd066);
+  `evidence/IJEVAL/AUTH2/authoritative_state.json` records the same
+  revocation. The AUTH-1/AUTH-2 authorizations (checksums 4a09f525… /
+  a22bcc68…) were issued at 03:45/04:03Z, BEFORE the drill, and remain
+  historically valid releases; fresh issuance from the pinned revision
+  correctly fails closed ("no applicable certificates").
+- Consumer-side verification: `tests/ij_nano/test_n03h_bootstrap.py`
+  (pin digest verification + tamper refusal + fail-closed refusal +
+  dual-path witness sweep 108/108 + renderer contracts). Issuance-path
+  tests auto-activate when a requalified pin lands.
+- Coordination: note posted on Issue #10; this campaign polls the
+  IJEVAL remote at safe checkpoints and re-pins + re-verifies +
+  re-authorizes the moment a requalification release is published.
+- Independent work continues meanwhile (E3 CPU-side task acquisition
+  study, adapter asset pinning, controller hardening).
+
 ## 48H-B-005 IJEVAL worktree strictly read-only for this lane
 
 - Priority: standing constraint

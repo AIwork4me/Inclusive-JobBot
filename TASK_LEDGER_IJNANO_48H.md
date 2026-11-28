@@ -21,10 +21,11 @@ Clock: started 2026-11-28T04:34:00Z, deadline 2026-11-30T04:34:00Z
 
 | Phase | Task | Progress | Status | Evidence |
 |---|---|---|---|---|
-| P1 | EAE pinned snapshot at 3cdd066 (git archive into repo; digest manifest) | not started | PENDING | planned `runtime/eae_pin/` |
-| P1 | EAE bootstrap: register trusted ExecutionEvidence from digest-verified pinned artifacts; re-pin `EAEExecutionAuthorizationProvider`; consumer-side fail-closed verification of AUTH-1 + AUTH-2 (checksum + scope + validate_against + revocation drill) | not started | PENDING | planned `benchmarks/ij_nano/n03h/` |
-| P1 | Host-wide GPU lease acquired; fresh identity hashes (weights, engine, dlls, Vulkan device); llama-server session admission with netstat socket-PID ownership and GPU offload evidence | not started | PENDING | planned `evidence/IJNANO/N03H/admission/` |
-| P1 | Physical transport adapter + campaign controller extending the N03 runner (plan/status/preflight/qualify/run-next-authorized-block/pause/resume/quarantine/replay/verify/analyze/publish/finalize; persistent queue; balanced blocks; dispatch limits) | not started | PENDING | planned `benchmarks/ij_nano/n03h/` |
+| P1 | EAE pinned snapshot at 3cdd066 (git archive of committed objects; 84-file digest manifest; dataset/expectations/roster/contract digests match the release bindings) | done | PASS | `runtime/eae_pin/3cdd066/` + `PIN_MANIFEST.json` |
+| P1 | EAE bootstrap module: fail-closed pin verification (tamper refused), trusted ExecutionEvidence registration replicating the release scripts byte-for-byte, real-consumer provider re-pin | done | PASS (registration) / BLOCKED at issuance (48H-B-006) | `benchmarks/ij_nano/n03h/eae.py` |
+| P1 | Consumer-side fail-closed verification: the pinned registry's drill revocation correctly refuses fresh issuance ("no applicable certificates"); 108/108 Batch A witnesses through the pinned dual-path; duplicate-identity rejection; renderer contracts; 276/276 suite | done | PASS | `tests/ij_nano/test_n03h_bootstrap.py` |
+| P1 | Physical transport adapter + campaign controller (balanced blocks w/ model rotation, dispatch limits, per-dispatch revocation recheck, canary scheduler + persistent breaker, GPU lease, exact resume, seal/verify/replay) | done (software) | PASS (AUTH-0 scope; awaiting authorization to dispatch) | `benchmarks/ij_nano/n03h/{transport,campaign}.py` |
+| P1 | Host-wide GPU lease + fresh admission hashes + llama-server session admission | not started | PENDING (dispatches with E0) | planned `runs/n03h/*/admission.json` |
 
 ## E0 — AUTH-1 physical smoke (48 slots)
 
