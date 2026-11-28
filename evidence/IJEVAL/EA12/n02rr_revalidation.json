@@ -1,0 +1,96 @@
+{
+ "schema": "ijeval.ea12.n02rr_revalidation.v1",
+ "generated_utc": "2026-11-28T03:52:16Z",
+ "sealed_inputs": {
+  "replay_id": "6701a6a6a08b34d9",
+  "rows": 2184,
+  "manifest": "evidence/IJNANO/N02RR/manifest.json"
+ },
+ "independent_recount": {
+  "semantic_pass_corrected_verdict_true": 870,
+  "historical_claim_for_reference_only": 870,
+  "forced_agreement": false,
+  "note": "the recount uses corrected.verdict is True; the historical 870 figure is preserved as history and NOT forced"
+ },
+ "change_classification_recomputed": {
+  "rows_checked": 2184,
+  "mismatches": 308
+ },
+ "typed_reclassification": {
+  "CORRECT": 870,
+  "INCORRECT": 1314
+ },
+ "boundary_reaggregation": {
+  "records": 2184,
+  "formal_publication": "BLOCKED_QUARANTINED",
+  "qualified_eligible": 0,
+  "formal_counts_zero_expected": true
+ },
+ "unsupported_scope_honest_accounting": {
+  "no_independent_semantic_oracle_for_n02rr_families": [
+   "tool_selection",
+   "structured_action",
+   "slot_extraction",
+   "enumerated_action",
+   "conditional_branch",
+   "stop_continue"
+  ],
+  "what_is_independently_validated": [
+   "record structure + parsability",
+   "typed-contract legality of corrected records",
+   "change-classification consistency (recomputed)",
+   "seal/source identity fields present",
+   "boundary eligibility (certificate-gated: all diagnostics-only)"
+  ],
+  "unreachable_or_unclassifiable_rows": 0
+ },
+ "granularity_finding": {
+  "description": "rows where the independent rule (outcome identity = verdict+parser_output+failure_reasons, published era vs corrected) disagrees with the stored class are verdict-preserving parser-recovery corrections (published PARSE_INVALID / parser_output=None -> rescore recovers parser_output and a real semantic evaluation, verdict unchanged) stored as TELEMETRY_CORRECTED",
+  "impact": "verdict statistics unaffected (verdict unchanged on every such row); the formal boundary keeps the whole scope diagnostics-only (no N02RR-scope certificate exists)",
+  "classification": "classification-granularity inconsistency, not corruption"
+ },
+ "problems": [
+  "3204272bdaa45a030e01ec26: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "952053ae861e8eb98731c086: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "5315742da088bde67b13682f: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "ec79fbfc1daf1c4c3ec3b836: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "6d521e8078e39f856771c84e: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "50e1b94d0495b32d4a271271: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "dfae8c4f859bbb66b5b9fd6e: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "60c7c7c7f44182e69e76830a: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "064f58566abe8a4cc218b560: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "e553dc1c4edf5e2e581cc2ad: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "b79380ff387ebb0a56b8ce4d: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "36ee5a4a5d183c29e753ba12: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "764f93d8711256fa810df59a: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "bb4919d05b4a2d23a7e5837c: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "29d9eb2c601768913893b3b2: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "6d1cf1a03ea8e118a3fde392: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "19d5af87645f2d2de707998e: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "5e75ca2fba9cc41be66d68f8: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "61482ca7d50f7f12e755d5bd: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "92b18336d0df89bfe3bfaff8: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "62741b923ab02b30170d4957: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "bd5456ac70e7fd5d7d3932e4: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "719b7e21efceefd15a77335c: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "d5442bf491f93f93c780fba3: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "b8ee1e7dd522bdacf449332d: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "d9f96d8b1430fda080012f22: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "614fe449bef6e313ce730847: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "2f0b2de9e88d569527aef13e: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "14aecb841ca11bf7d7ef4ebe: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "5e75ce799f16e07613f83261: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "7771f1a8fe20c0a7525e914b: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "b1e3233b56c0ab1e1a6b9a0c: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "868c058c95bac58fa9107978: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "ad87288582002d51ce10607b: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "7af0a56df6266c1c88d91671: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "9fe9415c237a40b39f0a36f4: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "2935c16fcd66a5eb71cc95e0: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "7258d7a938ea6756239d07e1: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "e5f7d8503094cdf2829aef28: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'",
+  "577c2ac61d2459244d4c4f83: stored change_classification 'TELEMETRY_CORRECTED' != recomputed 'CORRECTED_FALSE_NEGATIVE'"
+ ],
+ "problem_count": 308,
+ "verdict": "PASS_WITH_FINDINGS"
+}

@@ -65,3 +65,10 @@
 | ExecutionAuthorization | issued, checksum 4a09f5253a3aaa16…, serialized to evidence |
 | Acceptance artifact | AUTH-1-scoped ACCEPTED with EA12/EA14/EA13/EA18 explicitly remaining for AUTH-2 |
 | IJE-B-002 jsonschema | RESOLVED: hash-verified requirements.lock install; 316/316 full-repo |
+
+## 2026-11-28 — EA12 + EA13
+
+| item | result |
+| --- | --- |
+| EA12 N02RR revalidation | PASS_WITH_FINDINGS: 2,184/2,184 slots accounted; independent semantic recount 870 passes (matches history without forcing); source-vs-corrected verdict consistency 0 mismatches; formal boundary keeps scope diagnostics-only; FINDING: 308 verdict-preserving parser-recovery corrections stored as TELEMETRY_CORRECTED (classification granularity, not corruption; statistics unaffected); unsupported scope honestly accounted (no EAE oracle for N02RR task families) |
+| EA13 primitive qualification | 8/8 QUALIFIED (C01-C08, Batch A dev scope, CPU protocol); development evidence does NOT qualify protected confirmation |
