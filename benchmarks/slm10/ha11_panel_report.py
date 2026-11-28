@@ -16,6 +16,7 @@ from .ha11_panel import (CORRECTED, DIRECT, ORIGINAL, WEIGHTS, build_plan, load_
                          verify_batch)
 from .tc_capability_metrics import RATE_COUNTS, event_rate
 from .tc_capability_replay import VERDICTS, assess, read_wire
+from .tc_dashboard import percentile
 from .tc_five_model_report import SCOPED, compare_paths, metric_outcome, repeat_status
 from .tc_priority_milestone import SEALED_COMPONENTS, metric_cell
 from .tc_v3 import FIRST_SEED, REPEAT_SEEDS
@@ -125,9 +126,13 @@ def summarize(rows):
     costs = {}
     for field in COST_FIELDS:
         values = [row["cost"][field] for row in rows if row["cost"][field] is not None]
+        successes = [row["cost"][field] for row in rows if row["metrics"]["SCOPED_COMPLETION"] == "PASS"
+                     and row["cost"][field] is not None]
         costs[field] = {
             "observations": len(values), "total": sum(values) if values else None,
             "per_success": round(sum(values) / denominator, 4) if denominator and len(values) == len(rows) else None,
+            "attempt_percentiles": percentile(values),
+            "successful_trajectory_percentiles": percentile(successes),
         }
     report = {"observed": len(rows), "metric_counts": totals, "cost": costs}
     for field in (*VERDICTS, "EXACT_TOOL_ARGUMENT_MULTISET", "SCOPED_COMPLETION"):
@@ -189,6 +194,7 @@ def replay(suite, folder, *, paired_rows=None, through_batches=None):
         seal = verify_batch(path, batch, freeze)
         seals.append({"run_id": seal["run_id"], "seal_sha256": digest(path / "seal.json"),
                       "git_sha": seal["git_sha"], "batch_sha256": seal["batch_sha256"],
+                      "weight": seal["weights"],
                       "adapter_sha256": seal["adapter"]["sha256"] if seal["adapter"] else None,
                       "artifacts": seal["artifacts"], "runtime": seal["runtime"], "base": seal["base"],
                       "handoff_sha256": seal["handoff_sha256"],
@@ -233,10 +239,18 @@ def replay(suite, folder, *, paired_rows=None, through_batches=None):
                 interactions[key] = estimate([(cells[weight, CORRECTED], 1), (cells[weight, control], -1),
                                               (cells["Original", CORRECTED], -1), (cells["Original", control], 1)])
     atlas = None if suite == "transfer" else atlas_views(cells, [slot for batch in batches for slot in batch], cases)
+    resources = {weight: percentile([seal["peak_gpu_committed_bytes"] for seal in seals
+                                     if seal["weight"] == weight and seal["peak_gpu_committed_bytes"] is not None])
+                 for weight in WEIGHTS}
+    base_peak = resources["Original"]["p50"]
+    for resource in resources.values():
+        peak = resource["p50"]
+        resource["median_peak_bytes_delta_vs_original"] = peak - base_peak if None not in (peak, base_peak) else None
     return freeze | {"executed": done, "unexecuted": freeze["planned"] - done,
                      "coverage": "PASS" if done == freeze["planned"] else "BLOCKED",
                      "batch_seals": seals, "arms": arms, "weight_gains": weight_gains,
-                     "runtime_gains": runtime_gains, "interactions": interactions, "compatibility_atlas": atlas}
+                     "runtime_gains": runtime_gains, "interactions": interactions, "compatibility_atlas": atlas,
+                     "peak_gpu_committed_bytes": resources}
 
 
 def main():
