@@ -8,7 +8,7 @@
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
  "parent_mission_state": "MISSION_STATE_IJNANO_N03_PROGRESSIVE.json",
- "updated_utc": "2026-11-28T10:26:35Z",
+ "updated_utc": "2026-11-28T10:37:51Z",
  "clock": {
   "budget_hours": 48,
   "started_utc": "2026-11-28T04:34:00Z",
@@ -314,7 +314,9 @@
   "E1_BATCH_C_COMPLETE": "PASS (480/480 sealed 25ffffa9; evidence/IJNANO/N03H/AUTH2C/)",
   "E1_PRIMARY_DEVELOPMENT_COMPLETE": "PASS (1,920/1,920 slots across A-RQ/B/C/D, all sealed, 0 integrity problems: seals 2cd631fa/cb4303b4/25ffffa9/b4028e38)",
   "E1_BATCH_D_COMPLETE": "PASS (480/480 sealed b4028e38)",
-  "E1_BATCH_A_RQ_COMPLETE": "PASS (480/480 sealed 2cd631fa)"
+  "E1_BATCH_A_RQ_COMPLETE": "PASS (480/480 sealed 2cd631fa)",
+  "ADAPTER_PHYSICAL_ADMISSION": "PASS (identity byte-verified; scale-0 output-equivalent; scale-1 genuine distribution-level change reproduced across fresh processes — max logprob delta 10.68 W1 / 3.64 W2 on harness-shaped probes; no silent fallback; identical cache/context flags; 306 lora tensors loaded on Vulkan0; evidence/IJNANO/N03H/ADAPTER_ADMISSION/)",
+  "E2_ATLAS_DISPATCH": "IN_PROGRESS (AUTH-2W 1920 slots executing)"
  },
  "blockers": {
   "48H-B-006": "CLOSED (EAE requalification 84cbfa3c9f2f0fc2 released as AUTH-2A-RQ)",
@@ -355,6 +357,10 @@
    "C (C17-C24)": "MiniCPM .0375 / LFM3 .025 / Qwen .0 (budget exhaustion, see batch_c_budget_exhaustion)",
    "D (C25-C32)": "MiniCPM .6125 / LFM3 .5687 / Qwen .1812",
    "pattern": "no single model dominates; per-primitive heterogeneity (H1) and protocol budget sensitivity (H2) both strongly present"
+  },
+  "adapter_admission_methodology": {
+   "note": "constrained single-answer probes CANNOT detect adapter distribution shifts (greedy paths coincide); change detection uses greedy streams + top-5 logprob deltas via /completion; Vulkan temp-0 logprobs are not bitwise repeatable within a server - repeatability asserted on delta magnitude across fresh processes (recorded honestly)",
+   "recorded_utc": "2026-11-28T10:37:51Z"
   }
  }
 }

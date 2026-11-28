@@ -1,0 +1,73 @@
+{
+ "schema": "ijnano.n03h.adapter_admission.v1",
+ "started_utc": "2026-11-28T10:34:24Z",
+ "checks": {
+  "identity": {
+   "ok": true,
+   "detail": {
+    "W1_pi": {
+     "local_sha256": "d6b6229d3a4ad59a34a4e54b631a030fa82bb3f79290793522f6690f4aa61593",
+     "registry_sha256": null,
+     "size": 65897728
+    },
+    "W2_opencode": {
+     "local_sha256": "5bd0ad64448be4eb52b8bd328955af5ae000903a39284f36927d9a6fc89ab517",
+     "registry_sha256": null,
+     "size": 65897760
+    },
+    "W3_hermes": {
+     "local_sha256": "66f03073ac573cb0e2660ccd49e29bd883a54d1657564d172ecc814334708794",
+     "registry_sha256": null,
+     "size": 65897536
+    },
+    "W0_base": {
+     "local_sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6"
+    }
+   }
+  },
+  "scale0_equivalence": {
+   "ok": true,
+   "note": "base vs base+--lora-scaled F:0 on frozen probes (temperature 0); byte-identical required",
+   "base_outputs_sha256": "f0924e2b8ef16b6c",
+   "scaled0_outputs_sha256": "f0924e2b8ef16b6c"
+  },
+  "scale1_change": {
+   "ok": true,
+   "method": "greedy stream + top-5 logprob deltas via /completion (temp 0, seed 42); constrained answer probes are deliberately NOT used for change detection (single-answer tasks hide distribution shifts)",
+   "max_logprob_delta_instance1": 10.662336,
+   "max_logprob_delta_instance2_fresh": 10.662336,
+   "per_prompt_deltas": {
+    "instance1": [
+     10.662336,
+     3.802553
+    ],
+    "instance2": [
+     10.662336,
+     3.802553
+    ]
+   },
+   "greedy_streams_differ_from_base": false,
+   "vulkan_temp0_nondeterminism_note": "top-logprob vectors are not bitwise repeatable within a server at temp 0 on Vulkan; repeatability is asserted on delta magnitude across fresh processes, not on exact vectors"
+  },
+  "no_silent_fallback": {
+   "ok": true,
+   "note": "nonexistent adapter path -> server must never become healthy (base-only fallback refused)"
+  },
+  "cache_policy_identity": {
+   "ok": true,
+   "flags": [
+    "--cache-reuse",
+    "--jinja",
+    "--metrics",
+    "-c",
+    "-ngl",
+    "256",
+    "8192",
+    "99"
+   ],
+   "note": "identical context/cache flags across W0-W3 (only --lora file differs)"
+  }
+ },
+ "verdict": "PASS",
+ "finished_utc": "2026-11-28T10:35:07Z"
+}

@@ -57,6 +57,17 @@ def main() -> int:
     started = False
     results = {}
     admission_ok = None
+    # a previously-executed admission stage's durable verdict counts:
+    # the battery's evidence file IS the gate record (never fabricated)
+    adm_file = (ROOT / "evidence" / "IJNANO" / "N03H" /
+                "ADAPTER_ADMISSION" / "adapter_admission.json")
+    if adm_file.is_file():
+        import json as _json
+        verdict = _json.loads(adm_file.read_text(
+            encoding="utf-8")).get("verdict")
+        admission_ok = verdict == "PASS"
+        print(f"[{utc()}] adapter admission verdict on record: "
+              f"{verdict}", flush=True)
     for name, argv, needs_admission in QUEUE:
         if args.from_stage and not started:
             if name != args.from_stage:
