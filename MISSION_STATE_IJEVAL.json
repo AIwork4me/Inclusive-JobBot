@@ -2,8 +2,8 @@
  "schema_version": 1,
  "mission": "IJ-EVAL-ASSURANCE-1.0",
  "mission_title": "Systemic Evaluation Integrity & Continuous Self-verification (Evaluation Assurance Engine, EAE)",
- "updated_utc": "2026-11-28T15:20:00Z",
- "current_phase": "EA03 N03 Batch A: intake VERIFIED; independent oracles next (handoff oracle_requirements.md is the spec)",
+ "updated_utc": "2026-11-28T17:00:00Z",
+ "current_phase": "EA03 ground-truth qualification DONE (dev160); obligation B response evaluation next",
  "mission_order": "docs/IJEVAL_MISSION_ORDER.md",
  "tracking_issue": 12,
  "draft_pr": 13,
@@ -130,6 +130,39 @@
    ],
    "gate": null,
    "gate_status": "N/A (integration contract, not a qualification gate)"
+  },
+  "EA03_N03_GT": {
+   "title": "Independent ground-truth qualification (oracle obligation A)",
+   "status": "DONE for the 160 development cases",
+   "deliverables": [
+    "src/eval_assurance/reference/oracle.py (no IJ-NANO imports; test-enforced)",
+    "evidence/IJEVAL/EA03_N03/ground_truth_qualification_dev160.json",
+    "tests/ij_eval_assurance/test_reference_oracle.py (pinned numbers)"
+   ],
+   "results": {
+    "VALID": 133,
+    "NOT_ESTABLISHED": 27,
+    "INVALID": 0,
+    "AMBIGUOUS": 0,
+    "per_primitive": {
+     "C01": "15V/5NE",
+     "C02": "20V",
+     "C03": "6V/14NE",
+     "C04": "20V",
+     "C05": "20V",
+     "C06": "20V",
+     "C07": "12V/8NE",
+     "C08": "20V"
+    }
+   },
+   "notes": [
+    "C02/C04/C05/C06/C08 fully independently confirmed 20/20 (recomputation from public payloads / construction-record algebra)",
+    "C03 formfill+oneedit and weak-evidence C01/C07 cases honestly NOT_ESTABLISHED (adjudication list in evidence) - nothing removed",
+    "zero dataset defects found -> no correction requests to IJ-NANO",
+    "80 protected confirmation cases NOT qualified (public recomputability not claimed; needs trusted protected handoff)"
+   ],
+   "gate": "EA03_DATASET_QUALIFICATION_GO",
+   "gate_status": "NOT_GRANTED yet (obligation B response evaluation + witnesses/mutation pending; dev ground truth qualified)"
   }
  },
  "final_verdicts": {},

@@ -41,11 +41,13 @@
    "name": "reference_oracle",
    "module": "eval_assurance.reference.oracle",
    "symbols": [
-    "ReferenceOracle"
+    "validate_ground_truth",
+    "GroundTruthVerdict",
+    "GroundTruthResult"
    ],
-   "status": "PLANNED",
-   "notes": "EA03/EA05: independently authored truth tables/assertions derived from task specifications; MUST NOT import production comparators; unresolved disagreement -> ORACLE_DISAGREEMENT",
-   "implementation_sha256": null
+   "status": "PARTIAL",
+   "notes": "obligation A (ground-truth qualification) IMPLEMENTED and run over the 160 dev cases (133 VALID / 27 NOT_ESTABLISHED / 0 INVALID at pinned d23de5a; pinned by test_reference_oracle.py); obligation B (response evaluation) pending; imports no production comparators",
+   "implementation_sha256": "beceb9e40351335e0ecba7981af68aa2f280af167cdae326c5b2faadbb8f0875"
   },
   {
    "section": "evidence_envelopes",
@@ -150,8 +152,8 @@
  ],
  "by_status": {
   "IMPLEMENTED": 8,
-  "PARTIAL": 1,
-  "PLANNED": 2
+  "PARTIAL": 2,
+  "PLANNED": 1
  },
  "n03_batch_a": {
   "primitives": "C01-C08",

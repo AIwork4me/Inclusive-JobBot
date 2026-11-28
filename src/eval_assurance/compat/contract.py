@@ -61,11 +61,14 @@ REGISTRY: tuple[Interface, ...] = (
               "typed results and receipts, never raw strings"),
     # -- independent oracle interfaces --------------------------------------
     Interface("oracle_interfaces", "reference_oracle",
-              "eval_assurance.reference.oracle", ("ReferenceOracle",),
-              "PLANNED",
-              "EA03/EA05: independently authored truth tables/assertions "
-              "derived from task specifications; MUST NOT import production "
-              "comparators; unresolved disagreement -> ORACLE_DISAGREEMENT"),
+              "eval_assurance.reference.oracle",
+              ("validate_ground_truth", "GroundTruthVerdict",
+               "GroundTruthResult"), "PARTIAL",
+              "obligation A (ground-truth qualification) IMPLEMENTED and "
+              "run over the 160 dev cases (133 VALID / 27 NOT_ESTABLISHED "
+              "/ 0 INVALID at pinned d23de5a; pinned by "
+              "test_reference_oracle.py); obligation B (response "
+              "evaluation) pending; imports no production comparators"),
     # -- evidence envelopes --------------------------------------------------
     Interface("evidence_envelopes", "verified_evidence",
               "eval_assurance.contracts.core",
