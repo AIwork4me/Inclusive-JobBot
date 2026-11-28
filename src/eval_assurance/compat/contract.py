@@ -14,7 +14,7 @@ from __future__ import annotations
 import importlib
 from dataclasses import dataclass
 
-CONTRACT_VERSION = "1.0.0"
+CONTRACT_VERSION = "1.1.0"
 
 #: N03 Batch A intake target (read-only pin; owned by the IJ-NANO mission —
 #: EAE consumes, never rebuilds): C01-C08 taxonomy contracts frozen at
@@ -25,7 +25,10 @@ N03_BATCH_A = {
     "protected_confirmation_cases": 80,
     "taxonomy_digest_prefix": "cb800bce",
     "taxonomy_owner": "IJ-NANO PR #11 (evaluation/ij_nano/n03/taxonomy.json)",
-    "intake_status": "PLANNED",       # EA03 consumes the pinned package
+    "intake_status": "VERIFIED",      # EA02R intake: all digest checks
+    #                                     passed at pinned d23de5a
+    #                                     (evidence/IJEVAL/EA03_N03/
+    #                                     intake_verification.json)
     "confirmation_protection": (
         "confirmation expectations are consumed only by the trusted "
         "qualification path (reference oracle + certificate issuance); "
@@ -62,13 +65,22 @@ REGISTRY: tuple[Interface, ...] = (
     # -- independent oracle interfaces --------------------------------------
     Interface("oracle_interfaces", "reference_oracle",
               "eval_assurance.reference.oracle",
-              ("validate_ground_truth", "GroundTruthVerdict",
-               "GroundTruthResult"), "PARTIAL",
-              "obligation A (ground-truth qualification) IMPLEMENTED and "
-              "run over the 160 dev cases (133 VALID / 27 NOT_ESTABLISHED "
-              "/ 0 INVALID at pinned d23de5a; pinned by "
-              "test_reference_oracle.py); obligation B (response "
-              "evaluation) pending; imports no production comparators"),
+              ("validate_ground_truth", "evaluate_response",
+               "GroundTruthVerdict", "GroundTruthResult",
+               "ResponseVerdict"), "IMPLEMENTED",
+              "obligation A (ground-truth qualification) and obligation B "
+              "(reference-path response evaluation, independent "
+              "interpreter in eval_assurance.reference.interpreter) "
+              "IMPLEMENTED over the pinned Batch A snapshot: 160/160 dev "
+              "VALID, 597/597 mutations detected, 38/38 GT-D probes, "
+              "40/40 response witnesses; imports no production "
+              "comparators"),
+    Interface("parser_interfaces", "reference_interpreter",
+              "eval_assurance.reference.interpreter",
+              ("parse_response",), "IMPLEMENTED",
+              "independently authored minimum parser semantics of the "
+              "pinned handoff (parser_semantics.md @ d23de5a); reference "
+              "leg of the dual-path evaluation"),
     # -- evidence envelopes --------------------------------------------------
     Interface("evidence_envelopes", "verified_evidence",
               "eval_assurance.contracts.core",
@@ -94,12 +106,24 @@ REGISTRY: tuple[Interface, ...] = (
                "QualificationSnapshot"), "IMPLEMENTED",
               "trusted-flag + registry checksum; durable revocation; "
               "reissue requires requalified=True"),
-    # -- runner authorization ---------------------------------------------------
-    Interface("runner_authorization", "runner_authorization",
+    # -- runner authorization (v1.1.0 split) ---------------------------------
+    Interface("runner_authorization", "execution_authorization",
+              "eval_assurance.compat.execution_authorization",
+              ("ExecutionAuthorization", "ExecutionEvidence",
+               "issue_execution_authorization",
+               "recheck_execution_authorization"), "IMPLEMENTED",
+              "PRE-DISPATCH contract (schema 1.1.0): binds qualification "
+              "evidence (scope, digests, certificates, shared-core "
+              "acceptance, canary/circuit-breaker readiness, revocation, "
+              "dispatch limits); NEVER depends on experiment results — "
+              "consumed by the IJ-NANO runner at a pinned IJEVAL "
+              "revision; fail-closed with no registered evidence"),
+    Interface("runner_authorization", "publication_authorization",
               "eval_assurance.compat.authorization",
               ("RunnerAuthorization", "authorize_runner"), "IMPLEMENTED",
-              "machine-readable, scope-bound authorization objects; a bare "
-              "PASS string or certificate object authorizes nothing"),
+              "POST-EXECUTION contract (schema 1.0.0, unchanged "
+              "semantics): consumes a qualified AggregationReport; NOT a "
+              "pre-dispatch requirement (v1.1.0 separation)"),
     # -- canary integration -------------------------------------------------------
     Interface("canary_integration", "canary_scheduler",
               "eval_assurance.canary.scheduler", ("CanaryScheduler",),

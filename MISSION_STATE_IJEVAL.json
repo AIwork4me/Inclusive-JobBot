@@ -2,8 +2,8 @@
  "schema_version": 1,
  "mission": "IJ-EVAL-ASSURANCE-1.0",
  "mission_title": "Systemic Evaluation Integrity & Continuous Self-verification (Evaluation Assurance Engine, EAE)",
- "updated_utc": "2026-11-28T17:00:00Z",
- "current_phase": "EA03 ground-truth qualification DONE (dev160); obligation B response evaluation next",
+ "updated_utc": "2026-11-28T23:30:00Z",
+ "current_phase": "EA03 obligation A v2 (full-field independent semantic derivation GT-D01..GT-D05: 160/160 dev VALID, 597/597 mutations detected, 38/38 probes) + obligation B reference path (interpreter + 40/40 witnesses) DONE; compat v1.1.0 Execution/Publication split with 16/16 bypass controls and real consumer integration DONE; EA09-EA18 chain + ExecutionEvidence registration remain before any AUTH-1",
  "mission_order": "docs/IJEVAL_MISSION_ORDER.md",
  "tracking_issue": 12,
  "draft_pr": 13,
@@ -186,5 +186,12 @@
   "recomputable_truth": "C03/C04/C05/C06/C08 derivable from public payloads (true dual-path)",
   "construction_authored": "C01/C02/C07 require EAE adjudication/rule-table re-derivation; disagreements -> NOT_EVALUABLE per order section 2",
   "next": "src/eval_assurance/reference/oracle.py per handoff oracle_requirements.md + dual-path runner + disagreement ledger; then ExecutionAuthorization/PublicationAuthorization split (compat v1.1.0)"
- }
+ },
+ "milestones": [
+  {
+   "date": "2026-11-28",
+   "commit": "(this commit)",
+   "summary": "GT-D01..GT-D05 closed: C02 full-field derivation (partial->NOT_ESTABLISHED), C04 instruction-authoritative constraints (anti-circular), C03 formfill/formatting recovered (sequence vs set), C06 inclusion+exclusion bilingual + undeclared-tie AMBIGUOUS, C08 public objective/description derivation; C01/C07 rule tables extended with negation vetoes. Corrected qualification 160/160 VALID (prior 133/27 preserved as immutable history, reconciled case-by-case, 0 silent removals, 0 dataset defects -> 0 correction requests). Obligation B: independent interpreter + evaluate_response; unestablished truth -> NOT_EVALUABLE; software errors never model failures. Compat v1.1.0: execution_authorization module, contract registry updated, 16/16 bypass controls with real IJ-NANO consumer integration; fail-closed until ExecutionEvidence registered (shared-core EA09-EA14 pending)."
+  }
+ ]
 }

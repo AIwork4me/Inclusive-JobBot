@@ -16,3 +16,15 @@
 | N03 Batch A intake verification | DONE | `evidence/IJEVAL/EA03_N03/intake_verification.json` | pinned d23de5a; canonical public digest 93c58566 verified; 240/160/80 structure verified; protected manifest digest-verified without content access |
 | EA03 independent oracles C01–C08 | PENDING | `src/eval_assurance/reference/oracle.py` (spec: IJNANO handoff/batch_a/oracle_requirements.md) | C03-C08 recomputable; C01/C02/C07 adjudication; disagreement -> NOT_EVALUABLE |
 | Execution/Publication authorization split | PENDING | compat v1.1.0 | 16 bypass controls per order section 6 |
+
+## 2026-11-28 — EA03-A v2 / EA05-B reference / compat v1.1.0 (DONE)
+
+| item | result |
+| --- | --- |
+| GT-D01..GT-D05 probes | 38/38 detected |
+| Corrected qualification (dev 160) | 160 VALID / 0 INVALID / 0 AMBIGUOUS / 0 NOT_ESTABLISHED |
+| Mutation battery classes A-F | 597 applicable, 0 escapes |
+| Reconciliation vs historical 133/27 | 27 NE->VALID, 0 silent removals, 0 correction requests |
+| Obligation B witnesses | 40/40 (positive/negative/empty/software-error) |
+| Authorization bypass controls | 16/16 incl. real consumer integration |
+| Tests | ij_eval_assurance 150/150; repo 306/307 (1 pre-existing env failure) |

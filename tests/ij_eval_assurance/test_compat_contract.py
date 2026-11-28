@@ -112,7 +112,7 @@ class TestContractConformance(unittest.TestCase):
         self.assertEqual(N03_BATCH_A["primitives"], "C01-C08")
         self.assertEqual(N03_BATCH_A["development_cases"], 160)
         self.assertEqual(N03_BATCH_A["protected_confirmation_cases"], 80)
-        self.assertEqual(N03_BATCH_A["intake_status"], "PLANNED")
+        self.assertEqual(N03_BATCH_A["intake_status"], "VERIFIED")
 
 
 class TestRunnerAuthorization(unittest.TestCase):

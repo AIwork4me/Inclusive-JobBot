@@ -1,6 +1,36 @@
 # HANDOFF — IJ-EVAL-ASSURANCE-1.0
 
-## Where things stand (2026-11-28, EA02-R complete)
+## Where things stand (2026-11-28, EA03-A v2 + EA05-B + compat v1.1.0)
+## 2026-11-28 addendum — EA03 obligation A v2 + obligation B + compat v1.1.0
+
+- **GT-D01..GT-D05 closed** (order section 1): oracle rewritten with
+  full-field independent semantic derivation. C02 partial validation is
+  NOT_ESTABLISHED (never VALID); C04 constraints/sort parsed from the
+  PUBLIC instruction (stored metadata cross-checked, coupled corruption
+  detected); C03 formfill/formatting independently derived
+  (sequence != set); C06 inclusion AND exclusion parsed bilingually,
+  undeclared ties AMBIGUOUS; C08 required tags from the public
+  objective + registry tags from public tool descriptions.
+- **Corrected qualification: 160/160 dev VALID** (prior 133/27 kept as
+  immutable history; reconciliation_dev160.json case-by-case, 0 silent
+  removals, 0 INVALID -> 0 dataset defects, 0 correction requests).
+- **Mutation coverage**: 597 controls (classes A-F), 0 escapes; 38/38
+  GT-D probes; M-C01a..M-C08b targets in the permanent regression
+  corpus.
+- **Obligation B reference path**: independent interpreter
+  (parser_semantics contract), evaluate_response with NOT_EVALUABLE on
+  unestablished truth, EMPTY_OUTPUT its own class, software errors
+  never model failures; 40/40 integrated witnesses.
+- **Compat v1.1.0**: ExecutionAuthorization (pre-dispatch, no results
+  dependency) split from RunnerAuthorization (publication-side 1.0.0,
+  unchanged); 16/16 mandatory bypass controls INCLUDING real IJ-NANO
+  consumer integration; fail-closed until ExecutionEvidence is
+  registered (EA09-EA14 shared-core chain pending). Integration
+  instructions: docs/IJEVAL_EXECUTION_AUTHORIZATION_v1_1_0.md.
+- Tests: ij_eval_assurance 150/150 (1 env-skip); full repo 306/307 (1
+  pre-existing jsonschema import failure, environment, not code).
+
+## Prior state (2026-11-28, EA02-R complete)
 
 Branch `mission/ij-eval-assurance-1.0-systemic-evaluation-integrity`
 (worktree `<worktrees>/IJEVAL`). Issue #12, Draft PR #13.
