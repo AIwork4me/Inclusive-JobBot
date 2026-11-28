@@ -1,0 +1,68 @@
+--- a/tools/server/server-task.h
++++ b/tools/server/server-task.h
+@@ -75,6 +75,7 @@
+ };
+ 
+ struct task_params {
++    std::string ijslm_rendered_prompt;
+     bool stream          = false;
+     bool include_usage   = false;
+     bool cache_prompt    = true; // remember the prompt to avoid reprocessing all prompt
+--- a/tools/server/server-context.cpp
++++ b/tools/server/server-context.cpp
+@@ -324,6 +324,7 @@
+     std::string  debug_generated_text;
+     llama_tokens generated_tokens;
+     std::string ij07_sampled_bytes;
++    llama_tokens ijslm_sampled_tokens;
+     size_t n_sent_text = 0; // number of sent text character (i.e. handle partial UTF-8 on streaming)
+ 
+     std::vector<completion_token_output> generated_token_probs;
+@@ -443,6 +444,7 @@
+         }
+         generated_tokens.clear();
+         ij07_sampled_bytes.clear();
++        ijslm_sampled_tokens.clear();
+         generated_token_probs.clear();
+         json_schema = json();
+ 
+@@ -2150,8 +2152,9 @@
+         slot.sampled = result.tok;
+ 
+         slot.generated.append(token_str, result.tok);
+-        if (!ij07_trace_path.empty() && slot.task->params.return_tokens) {
++        if (!ij07_trace_path.empty()) {
+             slot.ij07_sampled_bytes += token_str;
++            slot.ijslm_sampled_tokens.push_back(result.tok);
+         }
+         if (slot.task->params.return_tokens) {
+             slot.generated_tokens.push_back(result.tok);
+@@ -2415,7 +2418,7 @@
+ 
+     void send_final_response(server_slot & slot) {
+         // Loopback diagnostic only. Observe the generation before JSON/SSE formatting.
+-        if (!ij07_trace_path.empty() && slot.task->params.return_tokens) {
++        if (!ij07_trace_path.empty()) {
+             const auto exact_bytes = [](const std::string & bytes) {
+                 static constexpr char hex[] = "0123456789abcdef";
+                 std::string encoded;
+@@ -2429,7 +2432,8 @@
+             const json trace = {
+                 {"completion_id", slot.task->params.oaicompat_cmpl_id},
+                 {"prompt_token_ids", slot.task->tokens.get_tokens()},
+-                {"sampled_token_ids", slot.generated_tokens},
++                {"sampled_token_ids", slot.ijslm_sampled_tokens},
++                {"rendered_prompt", slot.task->params.ijslm_rendered_prompt},
+                 {"sampled_bytes_hex", exact_bytes(slot.ij07_sampled_bytes)},
+                 {"pre_parser_bytes_hex", exact_bytes(slot.generated.text)},
+                 {"generation_settings", slot.task->params.to_json()},
+@@ -5437,6 +5441,9 @@
+                     meta->logit_bias_eog,
+                     data);
+ 
++            if (prompt.is_string() && getenv("LLAMA_IJ07_TRACE_PATH")) {
++                task.params.ijslm_rendered_prompt = prompt.get<std::string>();
++            }
+             task.apply_chat_session(chat_session);
+ 
+             task.id_slot = json_value(data, "id_slot", -1);

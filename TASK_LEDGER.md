@@ -1,5 +1,150 @@
 # Task Ledger
 
+## LFM3-HA-1.1
+
+| Stage | Status | Evidence |
+|---|---|---|
+| M0 resume audit | PASS | Local/remote review SHA matched. Portable admission and 8,250-trial seals replayed. Base, all adapter files, runtime and SDK were rehashed. The host lease and handoff matched with controllers idle. |
+| M1 SDK retry setting isolation | PASS | A real SDK with scripted loopback provider changed its initial choice from `none` to `auto` when only output retry changed from 0 to 1. The serializer branch in the native harness remains BLOCKED on its source. [Probe evidence](evidence/IJSLM/lfm3-ha-1.1/sdk-retry-probe.json) |
+| M1 phase policy and M2 typed binder software | PASS | 22 software controls in `test_phase_tool_policy.py` and `test_lossless_callback.py`. Historic Extension certificate replay passed. |
+| M1 four-profile Radeon capture coverage | PASS | 40 new trajectories, all 81 requests linked to native generation, 18/18 phase-aware callbacks bound. The corrected arm scored 6/10 exact execution and 5/10 termination. [Replayed evidence](evidence/IJSLM/lfm3-ha-1.1/action-phase-retest.json) |
+| M2 same-byte archive replay | PASS | The five historic first responses were replayed against the real pinned SDK and scripted terminal provider. Every proposed integer tool call bound and reached its synthetic sandbox. |
+| M2 five Extension Radeon replays | PASS | All five executed on Radeon and 21/21 callbacks bound. Scoped outcomes were four FAIL and one BLOCKED. [Physical replay](evidence/IJSLM/lfm3-ha-1.1/extension-radeon.json) |
+| M3 cache factorial physical coverage | PASS | All 16 cells carry Radeon proof. Four-token numerical repeatability and native unknown-ID rejection are FAIL. [Cache and routing](reports/LFM3_HA_CACHE_AND_ROUTING_ROOT_CAUSE.md) |
+| M3 ShortConv slot-state reader | PASS | Eight software controls validate the packed-token header and checkpoint appendix. Ten already captured default/Original snapshots were recovered and verified from the native files after a report encoding error. |
+| M3 ShortConv physical capture and replay | PASS | All 16 Radeon cells, 208 live-state saves and 32 unchanged consecutive-observer comparisons verified. Same-prefix tensor equality failed in all 32 weight/setting/prefix groups. [Tensor replay](evidence/IJSLM/lfm3-ha-1.1/shortconv-state-panel.json) |
+| M3 native rejection candidate patch | PASS | The CPU-only build passed all 22 local HTTP and unchanged-route controls. Radeon qualification of the candidate remains NOT_RUN. [Candidate build](evidence/IJSLM/lfm3-ha-1.1/native-routing-candidate-build.json) · [CPU HTTP controls](evidence/IJSLM/lfm3-ha-1.1/native-routing-candidate-controls.json) |
+| M3 guarded SDK request isolation | PASS | Software tests reject a cross-session route and an aborted route before either can reach the scripted provider. The fixed route rejects alias, scale and duplicate-key tampering. |
+| M4 transfer registration | PASS | Software replay preserves the 480 development slots and adds 240 corrected-runtime slots. No panel trajectories had executed at registration. |
+| M4 initial transfer diagnostic budget check | FAIL | The raw SDK emitted 65,535 tokens versus Direct's 768. The 270 sealed diagnostic observations remain available. The new matched panel checks every effective forwarded request. [Transfer report](reports/LFM3_HA_720_TRANSFER_REPORT.md) |
+| M4 first matched period | PASS | 180 of 720 trajectories sealed and replayed with matched provider controls. All four weights and three runtimes are represented. [Checkpoint](evidence/IJSLM/lfm3-ha-1.1/transfer-checkpoint-180.json) |
+| M4 matched transfer physical coverage | PASS | 720/720 sealed and replayed. Pi gained 15.5 percentage points on adjudicated phase-aware pairs against Original. The comparison is development scoped. [Full paired replay](evidence/IJSLM/lfm3-ha-1.1/transfer-panel.json) |
+| M5 TC-V3 compatibility registration | PASS | Each of four weights has 500 Direct, 500 SDK first, 500 SDK streaming and 150 repeats with a new Original arm. |
+| M5 SDK first and repeat transport admission | PASS | Twelve Radeon development captures and exact replay. [Transport receipt](evidence/IJSLM/lfm3-ha-1.1/tc-transport-admission.json) |
+| M5 supplemental replay measures | PASS | Six regression controls and a 144-trial sealed replay verified split callback-binding counts, matched positive and negative transitions, and original Atlas stratum and pair coverage. |
+| M5 full compatibility panel | PASS | 6,600/6,600 physical trials over 200 sealed batches. Scoped outcomes are 3,906 PASS, 2,571 FAIL and 123 BLOCKED. Pi gained 9.30 points in SDK first and fell 4.88 points in Direct on adjudicated pairs. [Full Atlas](evidence/IJSLM/lfm3-ha-1.1/tc-compatibility-panel.json) · [Paired archive](evidence/IJSLM/lfm3-ha-1.1/tc-compatibility-matched-trials.jsonl.gz) |
+| M6 and M7 formal qualification | BLOCKED | Independent review, issuer and dispatcher dependencies remain open. |
+| M8 exact author reproduction | BLOCKED | Historical task roster, digests and isolation remain open. |
+| M8 public author dashboard metadata | PASS | The LFM3 snapshot contains 40 checkpoint aggregates per harness. The snapshot has no task-level evaluation records. [Dashboard receipt](evidence/IJSLM/lfm3-ha-1.1/author-dashboard-observation.json) |
+| M8 public recipe source and roster reconstruction | PASS | Traced LFM3's explicit 0.1 override of the shared 0.3 reward default. Recovered 40 pinned Repo2RLEnvs IDs and 150 SmolDataEnvs IDs from a historically inferred revision. Exact execution receipts remain BLOCKED. [Source and roster audit](evidence/IJSLM/lfm3-ha-1.1/author-recipe-audit.json) |
+| M9 DX-M2 physical qualification | NOT_RUN | Target hardware unavailable. |
+| M9 NanoAgent handoff | PASS | Phase, binder, route, cache and profiler contracts and scoped acceptance evidence. All 720 paired records can be imported from the portable archive. [Consumer handoff](reports/LFM3_HA_NANOAGENT_HANDOFF.md) |
+| M9 CPU artifact packaging | PASS | Verified F16 merges and Q8_0 and Q4_K_M outputs for all three adapters. CPU tensor samples matched 4,131 values exactly. [Artifact identities](evidence/IJSLM/lfm3-ha-1.1/high-precision-merge-artifacts.json) |
+
+## LFM3-HA-1.0 supplemental qualification
+
+| Task | Status | Evidence and scope |
+|---|---|---|
+| Startup and M0 methodology audit | PASS | [Upstream report](reports/LFM3_HA01_UPSTREAM_RESEARCH.md). Exact author-run reconstruction inputs remain BLOCKED. |
+| M1 base local identity and three adapter asset bundles | PASS | Pinned GGUF and PEFT identities, base SHA256, tensor shapes and converted values. [Registry](atlas/slm/v1.0/lfm3-harness-adapters/MODEL_ADAPTER_REGISTRY.json) |
+| M1 admission numerical comparison software | PASS | Native probability validation and fixed-prefix equivalence, intervention and repeat controls. |
+| M1 default-cache repeatability diagnostic | FAIL | Same-prefix native probabilities varied on the Original control. Raw captures retained locally. |
+| M1 fixed adapter routing boundary | PASS | Software guards reject wrong aliases and adapter overrides. The native ungated endpoint accepts unknown numeric IDs. |
+| M1 independent numerical and physical admission | PASS | All three adapters pass the fixed, cache-disabled guarded profile. [Radeon report](reports/LFM3_HA01_RADEON_ADMISSION.md) |
+| M2 author-harness reproduction | BLOCKED | Exact historical roster, pinned harness identities and an isolated execution environment remain open. [Reproduction status](reports/LFM3_HA_UPSTREAM_REPRODUCTION.md) |
+| M3 60-case candidate freeze | PASS | 480 trial slots registered. Scope qualification and physical dispatch remain BLOCKED pending action/callback verification. [Transfer scope](reports/LFM3_HA_CROSS_HARNESS_TRANSFER.md) |
+| M3 known SDK callback issue isolated | PASS | Two archived B first replies reproduced integral-number transport changes. Both raw claim checks FAIL, both trial-local witness checks PASS. Real SDK with scripted provider, zero physical trials. |
+| M3 action-phase preflight | FAIL | 30 local Radeon controls. Direct execution process 10/10 PASS, Original SDK 1/10, tool-choice-only SDK 9/10. No attribution to M3 or core slots. |
+| M12 NanoAgent evidence exchange | PASS | Scoped adapter admission and rejected runtime profiles are available to PR #11. NanoAgent execution remains NOT_RUN. [Handoff](atlas/slm/v1.0/lfm3-harness-adapters/NANOAGENT_ENGINEERING_HANDOFF.md) |
+| M9 and M10 design artifacts | PASS | DX-M2 deployment requirements and JobBot-native A/B design drafted. Physical portability and training readiness remain NOT_RUN. |
+| M4 through M12 physical experiments | NOT_RUN | Gates, planned scope and prerequisites are recorded in the admission contract. |
+
+## IJ-SLM-1.1 continuation
+
+| Task | Status | Evidence and scope |
+|---|---|---|
+| M0 baseline reconciliation | PASS | Checked remote, exact startup CI, live Radeon lease, assets and local sealed queue. [Resume audit](reports/SLM11_RESUME_AUDIT.md) |
+| Three-model priority measurement replay | PASS | Reconstructed 4,950 A/B/D trial outcomes from 141 portable Radeon seals. [Milestone](atlas/slm/v1.0/milestones/tc-priority/README.md) |
+| M2 priority datasheet replay | PASS | Local and independent hosted GitHub Windows/Linux checkouts reproduced the figures at `5c507f22ec5b00a66d8fb4edfd728aa3920cf60b`. The workstation remote clone remains pending. |
+| M5 schema, mapping and acceptance contract | PASS | TC-V3-scoped exchange. Interventions remain HYPOTHESIS and the matched NanoAgent experiment remains NOT_RUN. [Handoff](atlas/slm/v1.0/nanoagent-handoff/NANOAGENT_ENGINEERING_HANDOFF.md) |
+| M5 evidence replay | PASS | Local and hosted GitHub Windows/Linux checkouts verified the handoff and 141 published seal digests at the publication SHA. NanoAgent physical acceptance remains NOT_RUN. |
+| AG-11 owner instructions and offline controls | PASS | [Owner procedure](AG11_OWNER_ACTION_REQUIRED.md). Physical collector capture and independent review remain BLOCKED. |
+| M4 L5 alternate denial repair | PASS | Software replay covered all original 500 L5 worlds and 200 new alternate-denial variants. [Candidate 0.3](atlas/slm/v1.0/planning-v2-source-candidate-0.3/manifest.json) |
+| M4 L6 stage provenance | PASS | Software assessment binds observed audit, public action and captured draft state. Formal scope and physical database verification remain BLOCKED. |
+| M4 human blind review | NOT_RUN | Project engineering prepared 600 MULTITOOL cases and 800 Planning cases. Independent reviewer assignment, observations and credential issuance are pending. [Reviewer inputs and procedure](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md) |
+| TC-V3 F physical coverage | PASS | All 1,650 frozen F captures verified and published. The full core publication contains 8,250 trials. D25 remains BLOCKED. |
+| TC-V3 G Radeon admission | PASS | Nine development traces with verified model, runtime and transport evidence. The frozen G cohort completed and has 1,650 published seals. [Gemma admission](reports/SLM11_GEMMA4_RADEON_ADMISSION.md) |
+| M4 cross-level partition and proposed world allocation | PASS | Candidate 0.4 preserves 800 cases and the 20,800 proposed slots, with 2,500 software worlds. Old L1 lookup recovered none of 800 previously predictable values. Physical and semantic qualification remain open. [Candidate](atlas/slm/v1.0/planning-v2-source-candidate-0.4/manifest.json) |
+| M1 five-model matrix software replay | PASS | All 8,250 planned slots are reported with applicability and observation denominators. All five models completed their frozen physical cohorts. [Report](atlas/slm/v1.0/tc-five-model-report.json) |
+| M4 independent review intake verification | PASS | Packet, submission digest, scenario completeness and duplicate controls are checked in software. Human review, reconciliation and issuer pin registration remain outstanding. |
+| M3 output contract normalization replay | PASS | 1,596 output-contract opportunities on sealed D/F evidence with proved facts. Exact answer payload retained. Physical treatment and overhead remain NOT_RUN. [Guide](reports/SLM10_CAPABILITY_COMPENSATION_GUIDE.md) |
+| M3 P0-E reopened transaction proof | PASS | Separate read-only SQLite connection reconciles persisted draft, scope, decision, release and audit state. Physical preflight remains NOT_RUN. [Plan and evidence boundaries](reports/SLM10_P0E_PHYSICAL_PREFLIGHT.md) |
+| Evidence and blind-review integrity follow-up | PASS | Standalone report readers check raw seal payloads. Planning uses case-only first-phase inputs and a separately released scenario supplement bound to the first-phase digest. Repeat seed counts use no pooled Wilson interval. Software compares L6 callback provenance and provider delivery separately. |
+| P0-A five-model closure | PASS | 8,250 physical executions and 8,250 strict BLOCKED. The 28,300 remaining core slots are complex capabilities. [Five-model milestone](atlas/slm/v1.0/milestones/tc-five-model/README.md) |
+| Supplemental model preflight | PASS | Reverified local Gemma Q8_0. Candidate preparation accepts explicit active/total counts, checks file digest, and records zero frozen attribution. [Preparation guide](docs/SLM11_LOCAL_MODEL_PREPARATION.md) |
+| P0-B scheduled capture coverage | PASS | LFM3 24/24, P0-E 42/42, SDK Extension 15/15. The LFM3 finding is indeterminate. P0-E scoped scores are 8 PASS and 34 BLOCKED. Extension scores are 10 FAIL and 5 BLOCKED. [Evidence and scopes](reports/SLM11_PHYSICAL_FOLLOWUP.md) |
+| P0-D NanoAgent five-model exchange | PASS | All five model baselines and matched costs, repeat and streaming, old R0–R7 contract, raw seals and compensation scope digests. The three-model V1.0.0 exchange is preserved. [V1.1.0](atlas/slm/v1.0/nanoagent-handoff/v1.1.0/README.md) |
+| P0-C independent release intake | PASS | Legal path templates and signed receipts, reconciliation, issuer scope and runner-binding guard are software-checked. Formal dispatch remains BLOCKED pending authenticated external receipts, credential issuance and a registered physical launcher. [Workflow](atlas/slm/v1.0/release-review/RELEASE_WORKFLOW.md) |
+| P0-B independent output compensation design | PASS | Preregistered commensurate D/F SDK terminal-only experiments use four arms and score after execution. The physical intervention is a separate zero-core track. [Experiment](reports/SLM11_ONLINE_COMPENSATION.md) |
+
+| P0-B Qwen3.5 and Ministral physical interventions | PASS | Verified 192 synthetic SDK terminal-output trials and 216 provider requests from the two original captures. Grammar lost two correct Qwen outcomes. Host normalization and grammar each gained 12 usable Ministral outcomes. Zero core attribution. [Replay and results](reports/SLM11_ONLINE_COMPENSATION.md) |
+| P0-B Windows SDK loopback control | PASS | The pinned SDK fixture passed on the workstation. The hosted test checks for the optional SDK. Hosted archive replay uses the separate SDK-free verifier. |
+| P0-B MiniCPM5 independent repeat and termination retest | NOT_RUN | Separate intervention, guard negative controls and endpoint scope documented. New cohort and runtime integration remain pending. [Retest contract](reports/SLM11_MINICPM5_REPEAT_TERMINATION.md) |
+| P0-B portable verifier offline replay | PASS | Hosted-style replay verifies all 81 captured trials with the live Antigravity SDK unavailable. Observer identity comes from the sealed control. |
+
+## IJ-SLM-1.0 baseline
+
+| Continuation | Status | Evidence |
+|---|---|---|
+| P0-A priority execution coverage | PASS | Verified 4,950 of 4,950 Radeon A/B/D attempts. Original strict verdicts stay BLOCKED. [Paired capability report](reports/SLM10_PRIORITY_TC_V3_CAPABILITIES.md) |
+| P0-A F admission | PASS | Verified native generation and SDK callbacks. 648 formal F trials are published. Its queue remains active. [Runtime admissions](evidence/IJSLM/tc-v3-admissions/manifest.json) |
+| P0-A G admission | NOT_RUN | G follows the F segment of the shared controller. |
+| P0-C SQLite transport software | PASS | Draft, readback, trusted approval, denial, stale scope and invalid grants exercised through Direct and an actual SDK harness with a scripted provider. Candidate release and physical qualification are separate. |
+| P0-D runtime attribution and read batching software | PASS | DIRECT_NATIVE, SDK_NATIVE and SDK_MATCHED_CONTEXT have distinct capture identities. Serial remains the default. Registered independent reads can share a completion in the parallel control. SDK_SPECIALIZED is reserved for a registered intervention. Malformed decimal arguments are rejected before callback release. |
+| P0-D world allocation and assessment software | PASS | 20,800 trial slots share one selected world per case. 1,500 counterfactual worlds remain unrun. Scoped read-only measurement and strict release have independent credential checks. [Allocation](atlas/slm/v1.0/planning-v2-world-allocation/manifest.json) |
+| P0-D third-role automated source review | FAIL | All 300 repaired worlds replayed. The review found alternate-denial coverage and L6 source provenance defects, plus cross-level fixture reuse. Human-independent review remains NOT_RUN. [Source audit](reports/SLM10_PLANNING_V2_THIRD_ROLE_REVIEW.md) |
+| P0-B LFM3 paired interval software | PASS | The fixed twelve-pair comparator reports intervals only from eligible paired evidence. Physical remains NOT_RUN. |
+| P0-C independent read-only release binding | PASS | Software tests bind candidate 0.3, exact trial identity and separate independent credentials to the read-only scope. Actual release remains BLOCKED. |
+| P0-D source provenance and L5 repair controls | PASS | Supplemental validation rejects 200 coordinated draft-input forgeries. The unfrozen L5 repair passes 200 alternate-denial probes and preserves the 500 original L5 worlds. The original source and formal gate remain unchanged. [Audit](atlas/slm/v1.0/planning-v2-source-release-audit/manifest.json) |
+| P0-E independent preflight | NOT_RUN | Seven developer controls and two runtime profiles per model use a separate Radeon runner. The workstation schedule places the preflight after F/G and the LFM3 holdout. Its physical observations carry zero core attribution. |
+| P0-F AG-11 owner capture | BLOCKED | Collector and offline review prepared and tested. A real owner-authorized collection is pending. [Owner instructions](docs/AG11_OWNER_INSTRUCTIONS.md) |
+
+
+| Task | Status | Evidence and scope |
+|---|---|---|
+| P0-B causal slot reconciliation | PASS | Sealed replay confirms 513 A0–A5 observations, 144 control observations, 10 BLOCKED and 17 NOT_RUN. The paired adapter analyzer retains the original dispositions. |
+| P0-B LFM3 compact-result holdout | NOT_RUN | Twelve preregistered pairs are queued behind the active frozen Radeon controller. The replay analyzer has simulated transport coverage and reports zero physical attribution before a capture. |
+| P0-C MULTITOOL balance and controls | PASS | Candidates 0.2 and 0.3 each replay 600 cases. Each has 120 per action band, 75 per category and 200 per language. The original candidate remains replayable. |
+| P0-C independent content qualification | BLOCKED | Candidate 0.2 failed content review. An independent recheck of 0.3 passed the branch, order and scope probes. Independent business expectations and release review are open. [Review](reports/SLM10_MULTITOOL_V2_CONTENT_REVIEW.md) |
+| P0-D persisted synthetic sandbox | PASS | SQLite software witnesses cover trusted draft-version authorization, denial, idempotent commits, rollback, audit, scope changes and session isolation. Stateful and higher-risk physical scope release remains BLOCKED. |
+| P0-E MULTITOOL statistics replay | PASS | The candidate roster resolves 7,500 planned slots. The software distinguishes action count, DAG depth, model requests and user turns, with stratified Wilson intervals and repeat stability. Physical results remain NOT_RUN and maximum verified depth remains BLOCKED. |
+| P0-F Planning source candidate software | PASS | Candidate 0.2 replays 800 public cases and 2,300 synthetic worlds. It covers the revised-scope fallback, late check denial and missing approval grant found in the initial review. Formal Freeze remains NOT_RUN. [Review](reports/SLM10_PLANNING_V2_SOURCE_REVIEW.md) |
+| P0-G Planning matched executor interface | PASS | Four local Direct and SDK paths, model-authored plans and callbacks exercised with scripted providers. Assessment runs after execution. Real Radeon transport, persisted sandbox binding and D12/D23/D24/D25 qualification are pending. |
+
+The complete diagnostic case panel covered 90 model–task combinations. It yielded 513 physical A0–A5 observations, 144 physical SDK and Guard controls, 10 BLOCKED slots and 17 NOT_RUN slots. All 27 scheduled waves have verified atomic seals. The separate LFM3 holdout has a pinned 24-trajectory SDK entry point with physical execution NOT_RUN. MULTITOOL-V2 has 600 original candidate cases and 12 passed software controls. The independent Planning V2 verifier preserves 20,800 planned slots and awaits its source bundle. The NPU deployment requirements define separate hardware and runtime admission. [Causal coverage](evidence/IJSLM/sdk-causal/ablation-coverage.json) · [LFM3 holdout](atlas/slm/v1.0/sdk-adapter-lfm3-holdout.json) · [Planning roster](docs/SLM10_PLANNING_ROSTER.md) · [NPU requirements](reports/SLM10_NPU_DEPLOYMENT_REQUIREMENTS.md)
+
+TC-V3 capability replay assessed 2,250 portable physical seals and exported five-model passports, a matched quality/resource Pareto view and four distinct outcome cost denominators. The original D25 remained BLOCKED on all rows. Six opt-in adapter components passed software and archived-request controls. Extension v0.2 passed four 18–21 boundary controls, nine scoped controls and five independent workflow witnesses. Extension and new adapter physical execution remain NOT_RUN. [Capability map](reports/SLM10_TOOL_CALLING_FULL_REPORT.md) · [Adapter qualification](reports/SLM10_ADAPTER_QUALIFICATION.md) · [Extension certificate](evidence/IJSLM/sdk-extension/qualification.json)
+
+Interleaved diagnostic recovery now checks the registered wave and artifact digests before sealing. Software controls covered cross-worktree identities, missing terminal captures and modified artifacts. The causal replay inventories all 720 planned arm slots, including 410 physical A0–A5 observations and 126 physical controls. F and G admission remain NOT_RUN. [Causal coverage](evidence/IJSLM/sdk-causal/ablation-coverage.json) · [F/G admission replay](evidence/IJSLM/tc-v3-admissions/manifest.json)
+
+Qwen3.5 completed the bounded SSE SDK retest on Radeon. The same 602,124 bytes failed the original 512 KiB cumulative check and passed the revised limit with a valid stop. An earlier length-terminated capture remained rejected. [Positive transport control](evidence/IJSLM/sdk-causal/transport-v1-1/report.json)
+
+The scheduled TC-V3 controller calls the additional F and G queue after all 4,950 priority captures verify. Both additional pinned weight files are present. Independent development evidence gates each candidate's physical dispatch. The priority seal gate correctly returned BLOCKED during the software check.
+
+TCV3-EXT/0.1 freezes new workflow families with nested arguments, multi-entity tools, distractors and a legal same-argument retry. The separate action-instance verifier passed eight synthetic controls for the accessibility-route graph. Physical extension execution and full suite admission remain NOT_RUN. [Independent extension](atlas/slm/v1.0/sdk-extension/manifest.json)
+
+The three Radeon candidates completed the SDK causal development pilot. Frozen scores remain in each sealed record. The versioned offline metrics, raw diagnostic evidence and experiment configuration are linked from the SDK capability loss report.
+
+The frozen queue continued during the SDK loss investigation. SDK causal ablation version 1.0 freezes independent development inputs and records the complete SDK control, Direct baseline, same-request replay, three single-factor comparisons, compact SDK and an independent bounded read guard. The version 1.0 offline evaluator keeps formal TC-V3 scores and independently records proposal, callback, delivery, answer and termination evidence. Physical diagnostic results remain NOT_RUN at this source seal.
+
+The interactive Planning development runner adds Plan-first and Acting-first SDK paths, live tools, an independent user update and terminal business checks. The sandbox phase and out-of-scope controls passed software replay. The first interactive Radeon run failed all four development cells. The Acting-first SDK provider asked for tool_choice=none, and both Plan-first plans failed replay. The revised run selected auto during execution and recovered ten real Acting-first SDK callbacks. Neither Acting-first mode completed the business task. Both Plan-first proposals failed the existing oracle checks. [Two execution rounds](evidence/IJSLM/planning-development/manifest.json)
+
+The formal TC-V3 dashboard records 5,598 executed physical trials against the 36,550-trial core plan. Its counts and scoped results replay from published session seals. [Formal dashboard](atlas/slm/v1.0/physical_progress.json)
+
+The continuation adds opt-in SDK request correlation and a bounded diagnostic SSE replay profile. The original 512 KiB aggregate decoder limit stays the default. A software loopback regression exercises rejection capture and same-byte acceptance under the explicit diagnostic limit. The observer build and its on/off Radeon development controls have their own runner. Formal TC-V3 trials remain NOT_RUN.
+
+The initial observer build failed the properties probe with HTTP 500 after a partial incremental C++ rebuild. The replacement build recompiled every server translation unit and has separately pinned launcher and server DLL digests. The original failures are retained as development startup diagnostics.
+
+TC-V3 has a byte-identified 30-task development split and 500-task holdout across ten families. The fixed roster reserves 8,250 trials across five models and identifies the priority 4,950-trial subset. The real SDK and Direct development runner uses a shared provider tool contract. The SDK provider-JSON arm delivers its validated JSON to the SDK as SSE and records both wire representations. Suite qualification and formal dispatch remain BLOCKED. [Dataset manifest](atlas/slm/v1.0/tc-v3/manifest.json)
+
+Three Radeon candidates sealed nine development trajectories each. All 71 development model requests linked to native generation and both SDK tracks recorded real callbacks per candidate. Nine TC-V3 mechanical components passed their scoped software qualification. Native protocol semantics, persisted state, conditional planning and strict end-to-end assessment remain BLOCKED. The separate recoverable priority queue accepts the frozen roster and verifies the development and qualification manifests before dispatch. [Physical controls](evidence/IJSLM/p0/manifest.json) · [Qualification](evidence/IJSLM/qualification/tc-v3-mechanical.json)
+
+All three priority models completed Radeon and real Antigravity SDK admission diagnostics under the same verified host GPU handoff. The report includes captured Direct/SDK plan-first comparisons, passed and failed SDK probes, and preserved interrupted runs. All 12 Direct planning completions were matched to native traces. SDK native pre-parser capture remains NOT_RUN. No diagnostic is counted in the formal core denominator. [Radeon admission diagnostics](reports/SLM10_RADEON_ADMISSION_DIAGNOSTICS.md)
+
+The first admission diagnostic exposed a preflight path that prevented controlled reproduction of MiniCPM5's historical failed admission and an SDK capture serializer that could not preserve Decimal values. Diagnostic revision 2 uses the existing identity and GPU checks, records exact numbers and retains prior interrupted run IDs. Formal admission remains NOT_RUN.
+
+
+The independent worktree preserves the 36,550-trial core allocation and references pinned IJ-SDK-1.0 and IJ-0.7.3 assets. Registry software tests cover exact identity, duplicate reservations and conflicting physical origins. SDK case captures retain raw local files and publish separately identified redacted copies after verifying each evidence file and Radeon handoff identity. Software controls verify that unqualified proof replay stays BLOCKED and redacted output cannot carry private token encodings. Independent mechanical scope qualification, formal GPU admission and core trial execution remain NOT_RUN. [SLM baseline](reports/SLM10_BASELINE_AUDIT.md) The Radeon admission runner additionally preserves four matched Direct/SDK plan-first diagnostics on a legacy roster.
 ## IJ-0.7.3 GPU handoff
 
 The release verification manifests include the completed Q2 captures and handoff source files. The frozen experimental protocol is byte-identical to the reviewed baseline.

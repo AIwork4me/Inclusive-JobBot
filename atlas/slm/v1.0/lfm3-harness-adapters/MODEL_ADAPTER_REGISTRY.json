@@ -1,0 +1,294 @@
+{
+  "adapters": {
+    "HA-H": {
+      "alpha": 64,
+      "artifacts": {
+        "LFM3-1.7B-harbor-hermes-lora-F16.gguf": {
+          "git_blob_id": "2af24e45ed6f820e3eb1fdde104b1189a7e8fa4a",
+          "local_asset": ".tools/models/lfm3-harness-adapters/hermes/LFM3-1.7B-harbor-hermes-lora-F16.gguf",
+          "repo": "harness-hub/LFM3-1.7B-hermes-GGUF",
+          "revision": "02e1c45a1e96cb0a802fe3a98146c6ff7b866de9",
+          "sha256": "66f03073ac573cb0e2660ccd49e29bd883a54d1657564d172ecc814334708794",
+          "size_bytes": 65897536
+        },
+        "adapter_config.json": {
+          "git_blob_id": "2239a4b4a3ed064e952fc8a67c7f2b6de7cdea0f",
+          "local_asset": ".tools/models/lfm3-harness-adapters/hermes/adapter_config.json",
+          "repo": "harness-hub/LFM3-1.7B-hermes",
+          "revision": "8d5c16bb28ef7aa630ac1f2981e4f72bb9399d43",
+          "sha256": "8440a6ace9ecadf9d1ade8b58c40b8a1c8656f314c34b8afbbe29f2bfefbdb5b",
+          "size_bytes": 1202
+        },
+        "adapter_model.safetensors": {
+          "git_blob_id": "557b78ba4db8d279db77cef2d1756cf21cc608e3",
+          "local_asset": ".tools/models/lfm3-harness-adapters/hermes/adapter_model.safetensors",
+          "repo": "harness-hub/LFM3-1.7B-hermes",
+          "revision": "8d5c16bb28ef7aa630ac1f2981e4f72bb9399d43",
+          "sha256": "602adba54927f350d09655993bbc79d9a3ffd97c406ddc852747fa9e07342a09",
+          "size_bytes": 131790920
+        }
+      },
+      "asset_identity": "PASS",
+      "conversion_value_comparison": {
+        "direct_f32_to_f16_bitwise_match": 306,
+        "tensors_differing_from_direct_cast": []
+      },
+      "gguf_metadata": {
+        "GGUF.kv_count": 21,
+        "GGUF.tensor_count": 306,
+        "GGUF.version": 3,
+        "adapter.lora.alpha": 64.0,
+        "adapter.type": "lora",
+        "general.architecture": "lfm3",
+        "general.base_model.0.name": "LFM3 1.7B",
+        "general.base_model.0.organization": "LiquidAI",
+        "general.base_model.0.repo_url": "https://huggingface.co/LiquidAI/LFM3-1.7B",
+        "general.base_model.count": 1,
+        "general.basename": "LFM3",
+        "general.dataset.0.name": "SmolDataEnvs Harbor Train",
+        "general.dataset.0.organization": "FineEnvs",
+        "general.dataset.0.repo_url": "https://huggingface.co/FineEnvs/SmolDataEnvs-harbor-train",
+        "general.dataset.count": 1,
+        "general.finetune": "hermes",
+        "general.license": "other",
+        "general.license.link": "https://huggingface.co/LiquidAI/LFM3-1.7B/blob/main/LICENSE",
+        "general.license.name": "lfm1.0",
+        "general.name": "LFM3 1.7B Hermes",
+        "general.quantization_version": 2,
+        "general.size_label": "1.7B",
+        "general.tags": [
+          "trl",
+          "grpo",
+          "async-grpo",
+          "lora",
+          "agents",
+          "harbor",
+          "openenv",
+          "hermes"
+        ],
+        "general.type": "adapter"
+      },
+      "harness": "hermes",
+      "license": "lfm1.0",
+      "parameters": 32937472,
+      "peft_base_revision": null,
+      "physical_admission": "NOT_RUN",
+      "rank": 32,
+      "static_base_shape_compatibility": "PASS",
+      "target_modules": [
+        "gate_proj",
+        "in_proj",
+        "k_proj",
+        "o_proj",
+        "out_proj",
+        "q_proj",
+        "v_proj",
+        "w1",
+        "w2",
+        "w3"
+      ]
+    },
+    "HA-O": {
+      "alpha": 64,
+      "artifacts": {
+        "LFM3-1.7B-harbor-opencode-lora-F16.gguf": {
+          "git_blob_id": "adc9eaa8d66a98c41747bcb7e126f6698eb4b7f1",
+          "local_asset": ".tools/models/lfm3-harness-adapters/opencode/LFM3-1.7B-harbor-opencode-lora-F16.gguf",
+          "repo": "harness-hub/LFM3-1.7B-opencode-GGUF",
+          "revision": "d8b61724660b96ff9033be6393b16b3404d00fc8",
+          "sha256": "5bd0ad64448be4eb52b8bd328955af5ae000903a39284f36927d9a6fc89ab517",
+          "size_bytes": 65897760
+        },
+        "adapter_config.json": {
+          "git_blob_id": "2eafc7e887beeedd4f5b1d967788d8740718c091",
+          "local_asset": ".tools/models/lfm3-harness-adapters/opencode/adapter_config.json",
+          "repo": "harness-hub/LFM3-1.7B-opencode",
+          "revision": "a10630d0bff34b1a77f258174392a16662256993",
+          "sha256": "c53768d7740938cceb5c54d682ef678f35e2bc0d9c84eb20d5dfbdf5c22bc443",
+          "size_bytes": 1202
+        },
+        "adapter_model.safetensors": {
+          "git_blob_id": "aab9272b505e2b818a00d5227e221a6c87677d29",
+          "local_asset": ".tools/models/lfm3-harness-adapters/opencode/adapter_model.safetensors",
+          "repo": "harness-hub/LFM3-1.7B-opencode",
+          "revision": "a10630d0bff34b1a77f258174392a16662256993",
+          "sha256": "ff7da0e6ee0749e8cbcca914e8e7cab9a557c50d4894cbbce858bb8dd2e9f618",
+          "size_bytes": 131790920
+        }
+      },
+      "asset_identity": "PASS",
+      "conversion_value_comparison": {
+        "direct_f32_to_f16_bitwise_match": 306,
+        "tensors_differing_from_direct_cast": []
+      },
+      "gguf_metadata": {
+        "GGUF.kv_count": 24,
+        "GGUF.tensor_count": 306,
+        "GGUF.version": 3,
+        "adapter.lora.alpha": 64.0,
+        "adapter.type": "lora",
+        "general.architecture": "lfm3",
+        "general.base_model.0.name": "LFM3 1.7B",
+        "general.base_model.0.organization": "LiquidAI",
+        "general.base_model.0.repo_url": "https://huggingface.co/LiquidAI/LFM3-1.7B",
+        "general.base_model.count": 1,
+        "general.basename": "LFM3",
+        "general.dataset.0.name": "SmolDataEnvs Harbor Train",
+        "general.dataset.0.organization": "FineEnvs",
+        "general.dataset.0.repo_url": "https://huggingface.co/FineEnvs/SmolDataEnvs-harbor-train",
+        "general.dataset.1.name": "Traj2Envs Rl",
+        "general.dataset.1.organization": "Harness Hub",
+        "general.dataset.1.repo_url": "https://huggingface.co/harness-hub/traj2envs-rl",
+        "general.dataset.count": 2,
+        "general.finetune": "opencode",
+        "general.license": "other",
+        "general.license.link": "https://huggingface.co/LiquidAI/LFM3-1.7B/blob/main/LICENSE",
+        "general.license.name": "lfm1.0",
+        "general.name": "LFM3 1.7B Opencode",
+        "general.quantization_version": 2,
+        "general.size_label": "1.7B",
+        "general.tags": [
+          "trl",
+          "grpo",
+          "async-grpo",
+          "lora",
+          "agents",
+          "harbor",
+          "openenv",
+          "opencode"
+        ],
+        "general.type": "adapter"
+      },
+      "harness": "opencode",
+      "license": "lfm1.0",
+      "parameters": 32937472,
+      "peft_base_revision": null,
+      "physical_admission": "NOT_RUN",
+      "rank": 32,
+      "static_base_shape_compatibility": "PASS",
+      "target_modules": [
+        "gate_proj",
+        "in_proj",
+        "k_proj",
+        "o_proj",
+        "out_proj",
+        "q_proj",
+        "v_proj",
+        "w1",
+        "w2",
+        "w3"
+      ]
+    },
+    "HA-P": {
+      "alpha": 64,
+      "artifacts": {
+        "LFM3-1.7B-harbor-pi-lora-F16.gguf": {
+          "git_blob_id": "f043523688aaac919d04c1c77a6fed8917c0a17b",
+          "local_asset": ".tools/models/lfm3-harness-adapters/pi/LFM3-1.7B-harbor-pi-lora-F16.gguf",
+          "repo": "harness-hub/LFM3-1.7B-pi-GGUF",
+          "revision": "48c0a7c8142dec363acbe202360d0b50619a5551",
+          "sha256": "d6b6229d3a4ad59a34a4e54b631a030fa82bb3f79290793522f6690f4aa61593",
+          "size_bytes": 65897728
+        },
+        "adapter_config.json": {
+          "git_blob_id": "6eee5b1562c582e31364b02865ee670a90e1d1e2",
+          "local_asset": ".tools/models/lfm3-harness-adapters/pi/adapter_config.json",
+          "repo": "harness-hub/LFM3-1.7B-pi",
+          "revision": "38c0d399de8f787aac77316586b3b2a1370e899a",
+          "sha256": "9dfff83724ffed1d9f0c74364776fd143f2ff399fc48d93fc0ec10a84b506a2e",
+          "size_bytes": 1202
+        },
+        "adapter_model.safetensors": {
+          "git_blob_id": "e1fb6713820b7c303f0aa9fbe846b05f2fdff924",
+          "local_asset": ".tools/models/lfm3-harness-adapters/pi/adapter_model.safetensors",
+          "repo": "harness-hub/LFM3-1.7B-pi",
+          "revision": "38c0d399de8f787aac77316586b3b2a1370e899a",
+          "sha256": "40e147149151301b6bb993f1c44ec19f08374275f1cfa48a1fceff0358009d20",
+          "size_bytes": 131790920
+        }
+      },
+      "asset_identity": "PASS",
+      "conversion_value_comparison": {
+        "direct_f32_to_f16_bitwise_match": 306,
+        "tensors_differing_from_direct_cast": []
+      },
+      "gguf_metadata": {
+        "GGUF.kv_count": 24,
+        "GGUF.tensor_count": 306,
+        "GGUF.version": 3,
+        "adapter.lora.alpha": 64.0,
+        "adapter.type": "lora",
+        "general.architecture": "lfm3",
+        "general.base_model.0.name": "LFM3 1.7B",
+        "general.base_model.0.organization": "LiquidAI",
+        "general.base_model.0.repo_url": "https://huggingface.co/LiquidAI/LFM3-1.7B",
+        "general.base_model.count": 1,
+        "general.basename": "LFM3",
+        "general.dataset.0.name": "SmolDataEnvs Harbor Train",
+        "general.dataset.0.organization": "FineEnvs",
+        "general.dataset.0.repo_url": "https://huggingface.co/FineEnvs/SmolDataEnvs-harbor-train",
+        "general.dataset.1.name": "Traj2Envs Rl",
+        "general.dataset.1.organization": "Harness Hub",
+        "general.dataset.1.repo_url": "https://huggingface.co/harness-hub/traj2envs-rl",
+        "general.dataset.count": 2,
+        "general.finetune": "pi",
+        "general.license": "other",
+        "general.license.link": "https://huggingface.co/LiquidAI/LFM3-1.7B/blob/main/LICENSE",
+        "general.license.name": "lfm1.0",
+        "general.name": "LFM3 1.7B Pi",
+        "general.quantization_version": 2,
+        "general.size_label": "1.7B",
+        "general.tags": [
+          "trl",
+          "grpo",
+          "async-grpo",
+          "lora",
+          "agents",
+          "harbor",
+          "openenv",
+          "pi"
+        ],
+        "general.type": "adapter"
+      },
+      "harness": "pi",
+      "license": "lfm1.0",
+      "parameters": 32937472,
+      "peft_base_revision": null,
+      "physical_admission": "NOT_RUN",
+      "rank": 32,
+      "static_base_shape_compatibility": "PASS",
+      "target_modules": [
+        "gate_proj",
+        "in_proj",
+        "k_proj",
+        "o_proj",
+        "out_proj",
+        "q_proj",
+        "v_proj",
+        "w1",
+        "w2",
+        "w3"
+      ]
+    }
+  },
+  "base": {
+    "architecture": "lfm3",
+    "archived_publisher_identity": "evidence/IJ07/model_identity/B.json",
+    "asset": {
+      "expected_sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+      "filename": "LFM3-1.7B-Q8_0.gguf",
+      "observed_sha256": "8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6",
+      "repo": "LiquidAI/LFM3-1.7B-GGUF",
+      "revision": "1cea5e3e72a50bd4aed8525478d95ed970219d12",
+      "size": 1846238496,
+      "status": "PASS"
+    },
+    "full_precision_parameters": 1728801536,
+    "local_asset": ".scratch/ij07-worktree/.runtime/ij07-candidates/LiquidAI__LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf",
+    "model_id": "LiquidAI/LFM3-1.7B"
+  },
+  "base_local_identity": "PASS",
+  "core_trial_attribution": 0,
+  "mission": "LFM3-HA-1.0",
+  "tensor_inventory_sha256": "d5d5cb16341fca16a0c850609f6bca000f00bea44b2446365d333177c3381c4b"
+}

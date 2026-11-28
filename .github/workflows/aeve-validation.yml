@@ -16,8 +16,41 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m pip install pytest==9.2.0 jsonschema==4.26.0
+      - run: python -m pip install pytest==9.2.0 jsonschema==4.26.0 cryptography==50.0.2
       - run: python -m evaluation.aeve verify
+      - run: python -m benchmarks.slm10.tc_v3
+      - run: python -m benchmarks.slm10.mechanical_registry
+      - run: python -m benchmarks.slm10.p0_evidence
+      - run: python -m benchmarks.slm10.tc_dashboard
+      - run: python -m benchmarks.slm10.tc_admission_evidence
+      - run: python -m benchmarks.slm10.sdk_causal_report
+      - run: python -m benchmarks.slm10.sdk_ablation_summary
+      - run: python -m benchmarks.slm10.sdk_extension
+      - run: python -m benchmarks.slm10.sdk_extension_execution qualify --output evidence/IJSLM/sdk-extension/qualification.json --check
+      - run: python -m benchmarks.slm10.sdk_adapter_qualification --check
+      - run: python -m benchmarks.slm10.sdk_adapter_development
+      - run: python -m benchmarks.slm10.tc_capability_metrics --summary atlas/slm/v1.0/tc-capability-matrix.json --rows evidence/IJSLM/tc-capability/assessments.jsonl.gz --check
+      - run: python -m benchmarks.slm10.tc_atlas_views
+      - run: python -m benchmarks.slm10.tc_five_model_report
+      - run: python -m benchmarks.slm10.tc_five_model_milestone
+      - run: python -m benchmarks.slm10.tc_output_normalization
+      - run: python -m benchmarks.slm10.tc_priority_report
+      - run: python -m benchmarks.slm10.tc_priority_milestone
+      - run: python -m benchmarks.slm10.nanoagent_handoff
+      - run: python -m benchmarks.slm10.physical_followup
+      - run: python -m benchmarks.slm10.online_compensation_report
+      - run: python -m benchmarks.slm10.nanoagent_five_model_handoff
+      - run: python -m benchmarks.slm10.multitool_v2_candidate
+      - run: python -m benchmarks.slm10.multitool_v2_balanced
+      - run: python -m benchmarks.slm10.multitool_v2_revised
+      - run: python -m benchmarks.slm10.planning_roster
+      - run: python -m benchmarks.slm10.planning_source_candidate
+      - run: python -m benchmarks.slm10.planning_world_allocation
+      - run: python -m benchmarks.slm10.planning_source_release
+      - run: python -m benchmarks.slm10.planning_l5_candidate
+      - run: python -m benchmarks.slm10.planning_partition_candidate
+      - run: python -m benchmarks.slm10.blind_review_packets
+      - run: python -m pytest -q -o asyncio_mode= tests/regression/slm10/test_independent_release.py
       - run: python -m evaluation.aeve.report_qualification --replay evidence/IJ073/aeve/judge_qualification.json --output ${{ runner.temp }}/aeve-qualification.json
       - run: python -m evaluation.aeve.meta_evaluation --split qualification --replay evidence/IJ073/aeve/qualification_meta.json --output ${{ runner.temp }}/aeve-meta.json
       - run: python -m evaluation.aeve.q2_report --replay evidence/IJ073/aeve/q2_development.json --output ${{ runner.temp }}/aeve-q2-development.json

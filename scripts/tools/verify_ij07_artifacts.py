@@ -10,6 +10,9 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "reports/IJ07_ARTIFACT_MANIFEST.json"
+IJ07_ARCHIVE = "4b71a023dcdf150b3aea40bc7c8cb52ec6ccd717"
+LIVING_SOURCES = {"benchmarks/competitive_slm/tc_v2_candidate.py", "scripts/tools/verify_ij07_artifacts.py"}
+SLM_ONLY = "patches/ij07/llama-b12359-sdk-native-observer.patch"
 GLOBS = (
     "evidence/IJ07/**/*", "reports/IJ07_*.md", "benchmarks/agentic_planning_v1/**/*",
     "benchmarks/competitive_slm/**/*", "benchmarks/job_productivity_v1/holdout/**/*",
@@ -34,8 +37,13 @@ def manifest_bytes():
     for pattern in GLOBS:
         for file in ROOT.glob(pattern):
             relative = file.relative_to(ROOT)
-            if relative.as_posix() in indexed and file.is_file():
-                artifacts[relative.as_posix()] = {"sha256": sha256(file), "size": file.stat().st_size}
+            name = relative.as_posix()
+            if name in indexed and file.is_file() and name != SLM_ONLY:
+                if name in LIVING_SOURCES:
+                    data = subprocess.check_output(["git", "show", f"{IJ07_ARCHIVE}:{name}"], cwd=ROOT)
+                    artifacts[name] = {"sha256": hashlib.sha256(data).hexdigest(), "size": len(data)}
+                else:
+                    artifacts[name] = {"sha256": sha256(file), "size": file.stat().st_size}
     if not artifacts:
         raise ValueError("no IJ-0.7 files found")
     return (json.dumps({"schema_version": 1, "files": artifacts}, indent=2, sort_keys=True) + "\n").encode()

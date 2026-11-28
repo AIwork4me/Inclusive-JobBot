@@ -76,7 +76,7 @@ def read_json(path):
     return json.loads(path.read_bytes())
 
 
-def verify_runtime(candidate, model, engine_dir, *, root=ROOT):
+def verify_runtime(candidate, model, engine_dir, *, root=ROOT, require_prior_admission=True):
     """Hash local files and compare official, packaged and admitted identities."""
     if candidate not in CANDIDATES:
         raise ValueError("candidate is outside the GGUF Vulkan track")
@@ -111,8 +111,9 @@ def verify_runtime(candidate, model, engine_dir, *, root=ROOT):
         raise ValueError("candidate model asset is unverified")
     report = read_json(report_path)
     if (report.get("candidate") != candidate or report.get("model_id") != identity["official_model_id"]
-            or report.get("asset") != asset or report.get("status") != "PASS"
-            or report.get("requested_disable_thinking") is not True
+            or report.get("asset") != asset or report.get("requested_disable_thinking") is not True):
+        raise ValueError("prior Vulkan assessment does not match the candidate identity")
+    if require_prior_admission and (report.get("status") != "PASS"
             or any(report.get("gates", {}).get(gate) != "PASS" for gate in GATES)):
         raise ValueError("strict Vulkan admission did not pass for this candidate and identity")
     gpu = report["gpu"]
@@ -297,14 +298,14 @@ def server_environment():
             not key.upper().startswith(("LLAMA_ARG_", "GGML_BACKEND_PATH", "LLAMA_IJ07_TRACE_PATH"))}
 
 
-def verify_launch(launch, runtime):
+def verify_launch(launch, runtime, *, require_trace=True):
     if (launch["backend"] != "vulkan" or launch["owns_port"] is not True
             or launch["gpu"] != runtime["gpu"] or launch["build"] != runtime["engine"]["build"]
             or launch["template_sha256"] != runtime["template"]["sha256"]
             or launch["layers_offloaded"] != runtime["engine"]["layers"]
             or launch["layers_offloaded"] != launch["layers_total"]
             or launch["args"][launch["args"].index("--ctx-size") + 1] != str(BUDGETS["context_tokens"])
-            or not launch["trace_file"]):
+            or bool(launch["trace_file"]) is not require_trace):
         raise CaptureError("live Vulkan configuration differs from the pinned identity")
 
 

@@ -9,13 +9,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
+          persist-credentials: false
+      - name: Verify the independent GitHub checkout
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          test -f .git/config
+          git fsck --no-dangling --no-reflogs "$EXPECTED_HEAD"
+          git diff --exit-code "$EXPECTED_HEAD" --
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: python -m pip install pytest==9.2.0 jsonschema==4.26.0
       - run: python scripts/tools/scan_sensitive.py
       - run: python scripts/tools/verify_atlas_artifacts.py
+      - run: python -m benchmarks.slm10.verify_lfm3_ha
+        env:
+          PYTHONPATH: src
+      - run: python -m scripts.tools.verify_lfm3_ha11_manifest
       - run: python -m scripts.tools.ij073_verify
       - run: python scripts/tools/atlas_progress.py --check
       - run: python scripts/tools/atlas_reference_panel.py --check

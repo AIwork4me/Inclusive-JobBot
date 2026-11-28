@@ -1,0 +1,187 @@
+{
+  "core_trial_attribution": 0,
+  "evidence_class": "real Antigravity SDK with scripted local provider and archived first replies",
+  "git_sha": "67b67b74172802c3449e68b085ed7d2c796f599c",
+  "harness_sha256": "412556182ac2d9a719fba81101a534dfbc17800d13d3a19b59b710dbdbe4774b",
+  "method_sha256": {
+    "integer_witness": "62a8bad16857c86a6cd43e9d8a5f63395cf84149ed114645b8bc200d1d37046b",
+    "original": "cbe15f7f8a9cedec5059b590c2b88e0ff52c11ebf3b82db69752ebdafe42655e"
+  },
+  "physical_trials": 0,
+  "replays": {
+    "integer_witness": {
+      "private_summary_sha256": "b7bd5c7511023adb664a7cc84708a957dcb95eb56d43f727951870cc34082afd",
+      "results": [
+        {
+          "case_id": "EXT-H-RESCAN",
+          "execution_calls": 1,
+          "first_response_sha256": "8f9c0917f289713d484c752612bfd11242788cfe3c4401f8e8d0d4e0262a5133",
+          "observed": [
+            {
+              "expected": [
+                [
+                  "read_asset",
+                  {
+                    "filters": {
+                      "asset": "SCAN38",
+                      "profile": {
+                        "channels": [
+                          "red",
+                          "green"
+                        ],
+                        "lossless": true,
+                        "max_width": 2048
+                      }
+                    }
+                  }
+                ]
+              ],
+              "match": "PASS",
+              "received": {
+                "filters": {
+                  "asset": "SCAN38",
+                  "profile": {
+                    "channels": [
+                      "red",
+                      "green"
+                    ],
+                    "lossless": true,
+                    "max_width": 2048.0
+                  }
+                }
+              },
+              "tool": "read_asset"
+            }
+          ],
+          "provider_requests": 2,
+          "sdk_failure": null
+        },
+        {
+          "case_id": "EXT-H-LAYOUT",
+          "execution_calls": 1,
+          "first_response_sha256": "a519c72d3265fca0102d7c59fbfa6055cdaa9d3e9973fe2557aa36e96d9dcdfa",
+          "observed": [
+            {
+              "expected": [
+                [
+                  "check_layout",
+                  {
+                    "page": 7,
+                    "settings": {
+                      "pages": [
+                        "7"
+                      ],
+                      "reading_order": true
+                    }
+                  }
+                ]
+              ],
+              "match": "PASS",
+              "received": {
+                "page": 7.0,
+                "settings": {
+                  "pages": [
+                    "7"
+                  ],
+                  "reading_order": true
+                }
+              },
+              "tool": "check_layout"
+            }
+          ],
+          "provider_requests": 2,
+          "sdk_failure": null
+        }
+      ],
+      "run_id": "lfm3-ha-callback-replay-241bb7257c2f4bcc847558559e5487b4"
+    },
+    "original": {
+      "private_summary_sha256": "960816ef086d4756d87963189db1aa85d0a3e4027efa39153fe4adb1ce2ff093",
+      "results": [
+        {
+          "case_id": "EXT-H-RESCAN",
+          "execution_calls": 0,
+          "first_response_sha256": "8f9c0917f289713d484c752612bfd11242788cfe3c4401f8e8d0d4e0262a5133",
+          "observed": [
+            {
+              "expected": [
+                [
+                  "read_asset",
+                  {
+                    "filters": {
+                      "asset": "SCAN38",
+                      "profile": {
+                        "channels": [
+                          "red",
+                          "green"
+                        ],
+                        "lossless": true,
+                        "max_width": 2048
+                      }
+                    }
+                  }
+                ]
+              ],
+              "match": "FAIL",
+              "received": {
+                "filters": {
+                  "asset": "SCAN38",
+                  "profile": {
+                    "channels": [
+                      "red",
+                      "green"
+                    ],
+                    "lossless": true,
+                    "max_width": 2048.0
+                  }
+                }
+              },
+              "tool": "read_asset"
+            }
+          ],
+          "provider_requests": 2,
+          "sdk_failure": null
+        },
+        {
+          "case_id": "EXT-H-LAYOUT",
+          "execution_calls": 0,
+          "first_response_sha256": "a519c72d3265fca0102d7c59fbfa6055cdaa9d3e9973fe2557aa36e96d9dcdfa",
+          "observed": [
+            {
+              "expected": [
+                [
+                  "check_layout",
+                  {
+                    "page": 7,
+                    "settings": {
+                      "pages": [
+                        "7"
+                      ],
+                      "reading_order": true
+                    }
+                  }
+                ]
+              ],
+              "match": "FAIL",
+              "received": {
+                "page": 7.0,
+                "settings": {
+                  "pages": [
+                    "7"
+                  ],
+                  "reading_order": true
+                }
+              },
+              "tool": "check_layout"
+            }
+          ],
+          "provider_requests": 2,
+          "sdk_failure": null
+        }
+      ],
+      "run_id": "lfm3-ha-callback-replay-30045ffde86542b885d6cc207a37f192"
+    }
+  },
+  "scope": "SDK Extension B callback claim diagnostic only",
+  "sdk_version": "0.1.24"
+}

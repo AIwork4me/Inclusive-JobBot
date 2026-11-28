@@ -1,0 +1,23 @@
+{
+  "failures": [
+    {
+      "baseline_repeat": "FAIL",
+      "disposition": "Repeatability and post-intervention comparisons passed in the separate cache-disabled profile.",
+      "evidence_sha256": "5f22950c172a83e94a491cb0d9a08332743304a4a5054e674660cea935ea0aaa",
+      "id": "LFM3-HA-CACHE-REPEAT",
+      "run_id": "lfm3-ha-b8c9cbe311a44545aa738f299c846e80",
+      "scope": "runtime with default prompt cache and checkpoints",
+      "source_git_sha": "95f40e35b336378193e9a2a3c223cd390de0003e",
+      "status": "FAIL"
+    },
+    {
+      "disposition": "The guarded route rejected wrong model and adapter override requests before inference.",
+      "id": "LFM3-HA-UNKNOWN-ADAPTER",
+      "raw_http_status": 200,
+      "run_id": "lfm3-ha-7320c96a2aca44ef809d5a35bdec4eea",
+      "scope": "raw native per-request adapter routing",
+      "source_git_sha": "68117862d489b60d8dc3ed5d9d57490b1b4b05f3",
+      "status": "FAIL"
+    }
+  ]
+}

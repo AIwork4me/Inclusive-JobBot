@@ -1,0 +1,18 @@
+{
+  "run_id": "lfm3-ha11-native-route-cpu-10bd26169af44f90a8ff0d46e8830281",
+  "git_sha": "ed1763d76491e2c5da2c426019b9238f0e39c967",
+  "source_sha256": "16f828696917cdd5dfa72009849fdf2a89fa059937ca0699e1da0bd3c1037fc7",
+  "candidate_patch_sha256": "48b3e6bf7e96b0943230fd28c6dd63d2210074f25b7ad1fcce8dbf5e2e6e3361",
+  "upstream_commit": "b1b770d90d94cad9e9ea5b993bdbc383a522fb28",
+  "binary_sha256": {"ggml-base.dll":"467aa2f7344336841133e7614bef9a0214533473edddbbd0dd8e0b17bb5febd8","ggml-cpu.dll":"c210d522a5f55aa19a44f751a2ee554a72d861cffdb9b2291eed6b9a0baeef7f","ggml.dll":"ab94830329f3d8ae77a021e9a4e436bd56ab58e0e9b05569109316e1daece466","llama-common.dll":"3a98423804aa582dd827c965a4f0d347c9037a1948221bea6407ccad23c0472f","llama-server-impl.dll":"9ac85d81b00769829029c25db9ddbec8bf327d346e486e835899706c7d42c6b0","llama-server.exe":"cb0b9eb163dd982e4cee9ca695fe24e6e4e88bbd95f1a42f0e85f033a0ee755c","llama.dll":"978ca72544e8b92910d63aae2cc00b9b171789dfc2ba9b2e31bb392ff05755c1","mtmd.dll":"c1e22fd700f8d73ba429d73633a2d3aa3c0995eb945397bef3e2afb664d1ccef"},
+  "base": {"expected_sha256":"8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6","filename":"LFM3-1.7B-Q8_0.gguf","observed_sha256":"8f6b24182258205e9e01e21f1f24a1f208c1e8115578825d202ce39976af20b6","repo":"LiquidAI/LFM3-1.7B-GGUF","revision":"1cea5e3e72a50bd4aed8525478d95ed970219d12","size":1846238496,"status":"PASS"},
+  "adapter_sha256": "5bd0ad64448be4eb52b8bd328955af5ae000903a39284f36927d9a6fc89ab517",
+  "backend": "CPU",
+  "radeon_inference": "NOT_RUN",
+  "core_trial_attribution": 0,
+  "dataset_sha256": "0ecc9062b78d39c71fb4e6ec392b692dbc0ee1cb13604578f90aed37569261ac",
+  "controls": {"completion_negative":{"status":"PASS","http_status":400},"chat_negative":{"status":"PASS","http_status":400},"global_negative":{"status":"PASS","http_status":400},"global_unchanged_negative":{"status":"PASS"},"completion_out_of_range":{"status":"PASS","http_status":400},"chat_out_of_range":{"status":"PASS","http_status":400},"global_out_of_range":{"status":"PASS","http_status":400},"global_unchanged_out_of_range":{"status":"PASS"},"completion_upper_boundary":{"status":"PASS","http_status":400},"chat_upper_boundary":{"status":"PASS","http_status":400},"global_upper_boundary":{"status":"PASS","http_status":400},"global_unchanged_upper_boundary":{"status":"PASS"},"completion_mixed_known_and_unknown":{"status":"PASS","http_status":400},"chat_mixed_known_and_unknown":{"status":"PASS","http_status":400},"global_mixed_known_and_unknown":{"status":"PASS","http_status":400},"global_unchanged_mixed_known_and_unknown":{"status":"PASS"},"known_completion":{"status":"PASS","http_status":200},"known_chat":{"status":"PASS","http_status":200},"known_global_zero":{"status":"PASS","http_status":200},"global_applied_zero":{"status":"PASS"},"known_global_restore":{"status":"PASS","http_status":200},"restored_default":{"status":"PASS"}},
+  "engine_build": "b12359-b1b770d90",
+  "server_log_sha256": "b237c52890f7fbaa8b92e47910e90ab5a58680e79ccf8e0755b11d3029d044a2",
+  "cpu_http_controls": "PASS"
+}

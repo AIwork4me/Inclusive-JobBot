@@ -1,5 +1,39 @@
 # Blockers
 
+## LFM3-HA-1.1
+
+- **Native SDK source access.** Runtime engineering isolated the output-retry configuration trigger using the exact SDK and a scripted loopback provider. The public Python package serializes the retry config and launches the native harness. Review of the native OpenAI request-builder branch requires the corresponding `localharness` source.
+- **Extended cache and endpoint scope.** The physical factorial and ShortConv replay establish recurrent or numerical differences with the two cache controls disabled. Runtime engineering owns the residual diagnosis and Radeon qualification of the CPU-tested adapter-ID patch. The native loopback endpoint still lacks end-to-end session-access isolation. [Cache and routing](reports/LFM3_HA_CACHE_AND_ROUTING_ROOT_CAUSE.md)
+- **Physical and formal dispatch.** The 6,600 matched compatibility trials are complete. The GPU lease remains subject to the AG-11 owner window. Blind review, issuer credentials and registered dispatch remain prerequisites for formal complex work.
+- **Author run receipts and isolation.** The public recipe identifies the pinned 40-task repository roster and the reward override. The inferred SmolDataEnvs revision supplies 150 candidate IDs. Historical evaluation receipts and actual launch and environment identities are still needed for exact reproduction. Author tasks require verified isolation. [Upstream reproduction](reports/LFM3_HA_UPSTREAM_REPRODUCTION_1_1.md)
+
+## LFM3-HA-1.0
+
+- **Exact author-run reproduction inputs.** Benchmark engineering needs a traceable 150 + 40 task roster, historical task and image digests, per-harness source/plugin identities and an isolated reproduction environment. The author cards establish aggregate results and the documented split rule. The frozen base's historical GGUF publisher revision no longer resolves through the live endpoint observed at startup. Local bytes match the archived identity.
+- **M3 action and callback scope.** Runtime engineering owns positive and negative action-phase verification for the 60-case transfer roster. A physical preflight confirmed that Original SDK delivered tool-choice none on all ten opening requests. The single-field intervention recovered most callbacks but repeated a read in one case. The integer callback mismatch was independently reproduced with a scripted provider. [M3 scope](reports/LFM3_HA_CROSS_HARNESS_TRANSFER.md)
+- **Independent qualification and GPU schedule.** Formal complexity and business dispatch still depend on independent evaluator and dispatcher release. The AG-11 owner-authorized capture has priority over supplemental GPU work. Physical DX-M2 qualification requires access to the target hardware.
+- **Commercial deployment eligibility.** The deployment owner needs to establish applicable LFM Open License v1.0 commercial rights before production deployment. [License audit](reports/LFM3_HA01_UPSTREAM_RESEARCH.md)
+
+## IJ-SLM-1.1 release dependencies
+
+- **Independent benchmark review.** Benchmark engineering must assign reviewers independent of public, world and witness authoring. Use the [blind packets and verdict schema](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md). Freeze each independently derived expectation before comparing it with the candidate. A release issuer must pin the corresponding receipts and dispatch credentials to the reviewed candidate, runner, runtime, hardware and evaluator scope. The current two-phase Planning 0.4 packet covers the denial repair and the software partition controls. The issuer records independent path expectations before releasing scenario inputs. Independent semantic and content review remain pending. The registrar, reconciler and issuer supply their authentic signed receipts and scope bindings. Physical dispatch also requires a matched candidate launcher registration. [Release workflow](atlas/slm/v1.0/release-review/RELEASE_WORKFLOW.md)
+- **AG-11 collection.** The workstation owner runs the separately elevated collector after the physical schedule yields. The normal-token SDK diagnostic and replay commands are in [the owner action file](AG11_OWNER_ACTION_REQUIRED.md). Physical capture and independent review remain BLOCKED.
+
+
+## IJ-SLM-1.0 continuation
+
+- Mechanical qualification covers nine scoped TC-V3 components. D25, native parser semantics, affirmative authorization writes, persisted state and conditional planning lack the applicable independent credentials. Synthetic read-only physical dispatch uses the scoped TC-V3 gate.
+- AG-11 stays BLOCKED for all three priority models. Runtime engineering owns complete process-tree and egress observation. The published diagnostic provider endpoint is loopback. [P0 controls](evidence/IJSLM/p0/manifest.json)
+- The current workstation token cannot start the temporary Windows kernel network trace. The direct ETW session attempt returned access denied (HRESULT 0x80070005). The machine owner owns authorization for a temporary collector capable of attributing short-lived TCP and UDP events. [Microsoft ETW permissions](https://learn.microsoft.com/en-us/windows/win32/etw/controlling-event-tracing-sessions)
+- The minimum AG-11 operation is one owner-authorized, elevated ETW collector session. Start the kernel process and network capture before launching a dedicated local SDK run. Cover the SDK process tree through exit, check event loss and retain only the redacted TCP/UDP disposition and trace digest for publication. Stop the collector when the run ends. The owner procedure and tested offline replay are available in [the AG-11 instructions](docs/AG11_OWNER_INSTRUCTIONS.md). The project can also accept equivalent trusted process-tree isolation evidence. [Microsoft ETW permissions](https://learn.microsoft.com/en-us/windows/win32/etw/controlling-event-tracing-sessions)
+- The historical Qwen3.5 AG-02 ValueError remains UNVERIFIED. A new real SDK failure reproduced a different 512 KiB aggregate SSE limit and a same-byte replay isolated that failure. MiniCPM5 now calls the expected tool on both Direct modes in the matched controls. Its historical discrepancy remains open. [Root cause evidence](reports/SLM10_P0_EXECUTION.md)
+
+- The frozen TC-V3 controller and first scheduled diagnostic campaigns completed. The Radeon uses a single checked lease for the owner-assisted collector and subsequent independent compensation experiments. [Admission records](evidence/IJSLM/tc-v3-admissions/manifest.json) · [Adapter holdout](atlas/slm/v1.0/sdk-adapter-lfm3-holdout.json)
+
+- Formal MULTITOOL-V2 dispatch requires blind validation of the candidate partition, persisted write and approval witnesses, and physical SDK and Direct transport. Formal AGENTIC-PLAN-V2 requires the independent 800-case world and witness bundle, end-to-end runtime qualification and the D12/D23/D25 credentials. Benchmark and evaluation engineering own these gates. [MULTITOOL candidate](atlas/slm/v1.0/multitool-v2-candidate/manifest.json) · [Planning source bundle](docs/SLM10_PLANNING_ROSTER.md)
+
+- Planning candidate 0.2 remains release-blocked after the automated third-role review. The review found uncovered alternate-service denials, missing L6 provenance checks for staged action and assessment, and cross-level expected-value reuse. The existing 300 repaired worlds replay. Independent human review and a corrected candidate are still pending. [Third-role source audit](reports/SLM10_PLANNING_V2_THIRD_ROLE_REVIEW.md)
+
 ## IJ-0.7.3 frozen Q2 follow-up
 
 - Q2 energy and electricity cost remain NOT_RUN. The frozen captures measured request time, native inference time, tokens and process GPU memory. No power and tariff measurements are available.

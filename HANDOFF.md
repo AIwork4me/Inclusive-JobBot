@@ -1,5 +1,98 @@
 # Handoff
 
+## LFM3-HA-1.1 runtime and capability panels
+
+Continue Draft PR #9 in the linked `codex/ij-slm-1.0` worktree. Use the existing repository-local assets and GPU lease. The 40-case supplemental action preflight, five-case Extension replay, 16-cell cache factorial and full 720-case transfer panel have portable evidence. [Runtime closure](reports/LFM3_HA_RUNTIME_CAUSAL_CLOSURE.md) · [Transfer results](reports/LFM3_HA_720_TRANSFER_REPORT.md)
+
+The 6,600-trial compatibility queue completed with 200 seals under `ASSET_ROOT/.runtime/lfm3-harness-adapters/ha11-tc-compatibility`. The private freeze pins the exact execution source and roster. The public replay and paired archive bind each slot to the corresponding seal. The shared lease yields to the AG-11 owner procedure. [Compatibility track](reports/LFM3_HA_6600_TC_CAPABILITY_REPORT.md) · [Full paired records](evidence/IJSLM/lfm3-ha-1.1/tc-compatibility-matched-trials.jsonl.gz)
+
+Use `python -m benchmarks.slm10.ha11_panel_report` with the private capture folder to replay either panel. All supplemental evidence contributes zero to the original 36,550 core denominator. [Independent qualification](reports/LFM3_HA_INDEPENDENT_QUALIFICATION.md) · [NanoAgent handoff](reports/LFM3_HA_NANOAGENT_HANDOFF.md)
+
+The source-bound ShortConv reader collects serialized recurrent rows from the pinned Vulkan runtime with `python -m benchmarks.slm10.ha11_shortconv --assets ASSET_ROOT --output FRESH_PRIVATE_OUTPUT`. The slot-save endpoints are scoped to this synthetic diagnostic. The candidate adapter-ID patch has CPU-only HTTP controls in `scripts/tools/ha11_cpu_route_smoke.py`. [Cache and routing](reports/LFM3_HA_CACHE_AND_ROUTING_ROOT_CAUSE.md)
+
+## IJ-SLM-1.1 physical closure and release intake
+
+All 8,250 TC-V3 trial slots have verified Radeon seals. Preserve the four frozen execution paths and original strict BLOCKED results. Replay the complete milestone with `python -m benchmarks.slm10.tc_five_model_milestone` and the consumer exchange with `python -m benchmarks.slm10.nanoagent_five_model_handoff`. The first three-model exchange remains in the parent handoff directory. [Five-model milestone](atlas/slm/v1.0/milestones/tc-five-model/README.md) · [Consumer exchange](atlas/slm/v1.0/nanoagent-handoff/v1.1.0/README.md)
+
+The scheduled Radeon diagnostic captures have finished. Verify their public artifacts with `python -m benchmarks.slm10.physical_followup`. Physical execution coverage, scoped assessments and acceptance are distinct. The independent LFM3 result is indeterminate. P0-E and Extension carry genuine failures or unresolved scoped outcomes. [Diagnostic evidence](reports/SLM11_PHYSICAL_FOLLOWUP.md)
+
+The separate D/F terminal-only panel has 192 verified Radeon trials, 216 provider requests and zero core attribution. Replay with `python -m benchmarks.slm10.online_compensation_report`. MiniCPM5 repeat and termination physical retests remain pending. [D/F interventions](reports/SLM11_ONLINE_COMPENSATION.md) · [MiniCPM5 contract](reports/SLM11_MINICPM5_REPEAT_TERMINATION.md)
+
+MULTITOOL candidate 0.3 and Planning candidate 0.4 use the active independent-review packets. Use Planning `candidate-0.4-review-v3`. The independent registrar and issuer must supply authentic receipts and a matching runner registration before candidate dispatch. [Reviewer instructions](atlas/slm/v1.0/release-review/REVIEWER_INSTRUCTIONS.md) · [Release workflow](atlas/slm/v1.0/release-review/RELEASE_WORKFLOW.md)
+
+For work on local Gemma or a future model with separately verified active-parameter counts, start with `python -m benchmarks.slm10.local_model_preflight`. Supplemental model preparation carries zero frozen core attribution. [Local model preparation](docs/SLM11_LOCAL_MODEL_PREPARATION.md)
+
+AG-11 remains BLOCKED pending the owner-assisted capture and independent review. The collector gets an exclusive window on the shared Radeon through the existing owner procedure. [Owner instructions](AG11_OWNER_ACTION_REQUIRED.md)
+
+## IJ-SLM-1.0 TC-V3 physical queue
+
+Use the existing Draft PR #9 branch and its approved Radeon handoff. The priority queue uses the common workstation asset root at two levels above this linked worktree. Its private state and sealed batches live under that root in `.runtime/ij-slm-1.0/tc-v3-formal`. The published dashboard derives from verified portable seals. [Progress](atlas/slm/v1.0/physical_progress.md) · [P0 findings](reports/SLM10_P0_EXECUTION.md)
+
+Set `PYTHONPATH=.;src;benchmarks/tool_calling/runner` and use the pinned repository Python. Run `python -m benchmarks.slm10.tc_queue --assets ASSET_ROOT --progress` to replay local counts. Resume the same queue with `python -m benchmarks.slm10.tc_queue --assets ASSET_ROOT --candidate A --batch-size 36 --limit 36` and rotate A, B and D. The process lock prevents a second controller from reserving trials. The database rejects a different freeze, evaluator or runner. A reserved first attempt with no recoverable capture requires reconciliation before any additional attempt is attributed to its case.
+
+Publish completed batches with `python -m benchmarks.slm10.tc_dashboard --publish-from ASSET_ROOT/.runtime/ij-slm-1.0/tc-v3-formal/sealed`. Update the mission and ledger counts from its executed rows. Keep the portable evidence and the original private traces identified separately. D25 and AG-11 remain BLOCKED.
+
+Verify the complete three-model paired view with
+`python -m benchmarks.slm10.tc_priority_report`. The F/G controller reuses the
+same physical lease and separate candidate admissions. The AG-11 collector
+requires the machine owner's separately elevated console.
+[Paired report](reports/SLM10_PRIORITY_TC_V3_CAPABILITIES.md) ·
+[AG-11 owner instructions](docs/AG11_OWNER_INSTRUCTIONS.md)
+
+
+### Interleaved SDK experiments
+
+The interleaved Windows controller advances a frozen 36-trial formal batch before each eligible diagnostic wave. Diagnostic runs occupy the shared Radeon lease between batches. Use `scripts/windows/run_slm_sdk_causal_waves.ps1 -AssetsRoot ASSET_ROOT -Audit` to inspect scheduled wave evidence. After the original controller exits, use `-Resume` to adopt verified legacy reports and finish eligible waves from the same asset root. The successor controller uses a workstation-wide lock, a durable reservation and an atomic wave seal. It recovers a finalized private report after portable publication is interrupted. Existing attempts without a verified terminal capture require reconciliation before dispatch can continue. Preserve their original folders and traces.
+
+Replay the public offline metrics with the sdk_causal_report module and the measured interventions with sdk_ablation_summary. During publication, refresh both formal progress and offline metrics from the same sealed snapshot. The latter emits a disposition for all 540 A0–A5 slots and 180 SDK_CONTROL and GUARD slots. Publish F and G session seals using additional `--publish-from` arguments to tc_dashboard and replay their admission manifests with tc_admission_evidence. [SDK causal report](reports/SLM10_SDK_CAPABILITY_LOSS_ROOT_CAUSE.md) · [Experimental configuration](atlas/slm/v1.0/sdk-causal-experiment.json)
+
+### Independent adapter and Atlas tracks
+
+Audit the LFM3 compact-result holdout with `python -m benchmarks.slm10.sdk_adapter_development`. The physical entry point requires `--dispatch`, the common asset root and a fresh output directory. It refuses to start while the frozen controller is active. It runs 12 tasks in two arms and records zero core trial attribution. [Adapter development entry point](reports/SLM10_ADAPTER_DEVELOPMENT_ENTRY_POINT.md)
+
+Verify the typed Extension certificate with `python -m benchmarks.slm10.sdk_extension_execution qualify --output evidence/IJSLM/sdk-extension/qualification.json --check`. The `run` command takes a registered candidate, a split, the common assets, the same certificate and a fresh output directory. Physical runs use the shared Radeon lease. [Independent Extension](atlas/slm/v1.0/sdk-extension-v0.2/manifest.json)
+
+Replay the 600 MULTITOOL-V2 candidate witnesses with `python -m benchmarks.slm10.multitool_v2_candidate`. The current candidate exercises 2–20 actions in software. AGENTIC-PLAN-V2 has a bundle verifier and reserved allocation. Its formal roster requires an independently sourced public task and world bundle. [MULTITOOL candidate](atlas/slm/v1.0/multitool-v2-candidate/manifest.json) · [Planning bundle requirements](docs/SLM10_PLANNING_ROSTER.md)
+
+Replay the balanced MULTITOOL candidates with `python -m benchmarks.slm10.multitool_v2_balanced`
+and `python -m benchmarks.slm10.multitool_v2_revised`. Review the separately
+versioned content and business expectation audit before any release. The SQLite
+sandbox tests exercise drafts, out-of-band approval and denial, transaction
+rollback, scope changes, and isolation. Formal transport qualification is pending.
+[Content review](reports/SLM10_MULTITOOL_V2_CONTENT_REVIEW.md)
+
+The MULTITOOL statistics entry point is
+`python -m benchmarks.slm10.multitool_v2_statistics`. Its default replay
+verifies the reserved roster and leaves all 7,500 results NOT_RUN. It accepts
+registered candidate-development seals separately from the core ledger.
+
+Replay the role-separated 800-case Planning source candidate with
+`python -m benchmarks.slm10.planning_source_candidate`. The four-track matched
+executor takes a synthetic service interface and keeps world assessment
+offline. Physical runner registration, independent release review and the
+formal evaluator credentials are pending.
+[Source and dispatch requirements](docs/SLM10_PLANNING_ROSTER.md)
+
+Replay the supplemental identity freeze with `python -m benchmarks.slm10.planning_world_allocation`.
+The selected world is shared across the model, track and seed repetitions for
+each case. Independent scoped release requires its own pinned credentials.
+The priority development preflight roster can be inspected using
+`python -m benchmarks.slm10.p0e_radeon`. Its explicit dispatch path shares the
+Radeon lease and yields zero core-trial attribution. The workstation scheduler
+waits for the frozen F/G controller and the LFM3 holdout before dispatching
+A, B and D. Private output is under .runtime/ij-slm-1.0/p0e-radeon-v1 in
+the common asset root. A partial capture requires reconciliation before retry.
+
+
+Replay the LFM3 paired holdout analyzer with
+`python -m benchmarks.slm10.sdk_adapter_holdout_report`. After the Radeon
+experiment, supply `--report` with its verified portable report. The analyzer checks the blocked and unrun causal slots and reports
+paired 95% intervals when verified physical pairs are available.
+The workstation follow-up waits for the frozen controller to exit before
+dispatch, then writes the physical report and paired analysis under
+`.runtime/ij-slm-1.0/sdk-adapter-lfm3-holdout-physical-v1` in the common assets.
+Reconcile any partial output before starting a new holdout run.
+
 ## IJ-0.7.3 local evaluator
 
 Use `python -m evaluation.aeve.progress --write` to synchronize Atlas progress, MISSION_STATE and sealed Q2 coverage from a single archive snapshot. The progress check in CI compares the published tree with its sealed captures. The [Gold proof replay](reports/IJ073_GOLD_PROOF_QUALIFICATION.md) covers the original 45 reference defects and 81 alternative proofs. The [history matrix](evidence/IJ073/aeve/historical_route_matrix.json) records every family, dimension and risk scope. Q3 credentials are still required for any formal route.
