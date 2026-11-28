@@ -63,6 +63,28 @@ def verify_author_recipe(state):
             raise ValueError("Author recipe roster order, difficulty cut or historical status differs")
 
 
+def verify_runtime_followups(state):
+    shortconv = read("shortconv-state-panel.json")
+    cells = shortconv["cells"]
+    modes = [mode for cell in cells.values() for mode in cell["modes"].values()]
+    observed = sum(len(mode["states"]) for mode in modes)
+    if (len(cells) != state["m3_shortconv_physical_cells"] or len(modes) != len(cells) * 2
+            or observed != state["m3_shortconv_snapshots"] or observed != shortconv["local_native_snapshots_replayed"]
+            or shortconv["status"] != state["m3_shortconv_state_inspection"] or shortconv["core_trial_attribution"] != 0
+            or any(cell["gpu_execution"] != "PASS" for cell in cells.values())):
+        raise ValueError("ShortConv replay coverage or physical identity differs from mission state")
+    candidate = read("native-routing-candidate-controls.json")
+    build = read("native-routing-candidate-build.json")
+    if (candidate["cpu_http_controls"] != state["m3_native_id_candidate_cpu_http"]
+            or candidate["radeon_inference"] != state["m3_native_id_candidate_radeon"]
+            or candidate["backend"] != "CPU" or candidate["core_trial_attribution"] != 0
+            or candidate["binary_sha256"] != build["binary_sha256"]
+            or candidate["candidate_patch_sha256"] != build["candidate_patch_sha256"]
+            or len(candidate["controls"]) != 22
+            or any(control["status"] != "PASS" for control in candidate["controls"].values())):
+        raise ValueError("Native route CPU controls differ from the pinned candidate")
+
+
 def build():
     state = json.loads((ROOT / "MISSION_STATE.json").read_bytes())["lfm3_ha_1_1"]
     action = read("action-phase-retest.json")
@@ -73,6 +95,7 @@ def build():
     transfer = json.loads((ROOT / state["m4_evidence"]).read_bytes())
     compatibility = json.loads((ROOT / state["m5_evidence"]).read_bytes()) if state.get("m5_evidence") else None
     verify_author_recipe(state)
+    verify_runtime_followups(state)
     verify_paired_archive(transfer)
     if compatibility is not None:
         has_archive = verify_paired_archive(compatibility)
@@ -83,6 +106,12 @@ def build():
                 or len(compatibility["arms"]) != 16 or any(
                     arm["observed"] != arm["planned"] for arm in compatibility["arms"].values())):
             raise ValueError("Completed TC-V3 panel needs all 200 seals, 16 arms and its paired archive")
+        if compatibility["coverage"] == "PASS":
+            scoped = Counter()
+            for arm in compatibility["arms"].values():
+                scoped.update(arm["metric_counts"]["SCOPED_COMPLETION"])
+            if dict(scoped) != state["m5_scoped_outcomes"]:
+                raise ValueError("TC-V3 scoped dispositions differ from mission state")
     if (len(action["results"]) != state["m1_physical_retest_trials"]
             or len(extension["results"]) != 5 or len(cache["cells"]) != state["m3_cache_cells"]
             or len(transport["results"]) != state["m5_transport_diagnostic_trials"]

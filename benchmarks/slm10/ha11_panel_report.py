@@ -14,8 +14,8 @@ from evaluation.aeve.runtime import canonical, write_json
 
 from .ha11_panel import (CORRECTED, DIRECT, ORIGINAL, WEIGHTS, build_plan, load_inputs, require_effective_controls,
                          verify_batch)
-from .tc_capability_metrics import RATE_COUNTS, event_rate
-from .tc_capability_replay import VERDICTS, assess, read_wire
+from .tc_capability_metrics import RATE_COUNTS, event_rate, summarize_cell
+from .tc_capability_replay import VERDICTS, assess, final_object, read_wire
 from .tc_dashboard import percentile
 from .tc_five_model_report import compare_paths, repeat_status, summarize_stratum
 from .tc_priority_milestone import metric_cell
@@ -87,7 +87,22 @@ def typed_binding_evidence(turns, proposals, callbacks):
     return ("PASS" if expected else "NOT_RUN"), counts
 
 
-def trial_detail(trial, oracle, assessment, *, typed_callback):
+def clarification_outcome(answer, expected, turns, proposals, termination):
+    if proposals:
+        return "EXTRA_TOOL_PROPOSAL"
+    if termination == "PASS":
+        return "EXACT_NO_TOOL"
+    if termination != "FAIL":
+        return "UNRESOLVED"
+    if turns and "reply" in turns[-1] and turns[-1]["reply"].finish_reason == "stop":
+        parsed, _ = final_object(answer)
+        if (parsed is not None and parsed.keys() == expected.keys() and parsed != expected
+                and all(type(parsed[key]) is type(value) for key, value in expected.items())):
+            return "NONCANONICAL_VALUE"
+    return "OTHER_TERMINAL"
+
+
+def trial_detail(trial, oracle, assessment, *, typed_callback, clarification):
     turns, proposals = read_wire(trial, False)
     observed = Counter((entry["tool"], encode_state(entry["arguments"])) for entry in proposals)
     expected = Counter((entry["tool"], encode_state(entry["arguments"])) for entry in oracle["nodes"])
@@ -104,11 +119,14 @@ def trial_detail(trial, oracle, assessment, *, typed_callback):
                   else None for event in trial["wire"]]
         if native and all(type(value) is int and value >= 0 for value in native):
             telemetry[field] = sum(native)
-    return {
+    detail = {
         "metrics": assessment["metrics"] | {"EXACT_TOOL_ARGUMENT_MULTISET": arg_status,
                                            "SCOPED_COMPLETION": scoped_completion(assessment),
                                            "TYPED_CALLBACK_BINDING": binding_status},
         "typed_callback_counts": binding_counts,
+        "fact_outcomes": assessment["fact_outcomes"],
+        "provider_request_bindings": assessment["provider_request_bindings"],
+        "telemetry": telemetry,
         "proposals": len(proposals), "duplicate_proposals": counts["duplicate_proposals"],
         "redundant_executions": counts["redundant_executions"],
         "call_counts": counts, "sealed_status": "BLOCKED", "physical_execution": "PASS",
@@ -118,6 +136,10 @@ def trial_detail(trial, oracle, assessment, *, typed_callback):
         "cost": {field: executed if field == "executed_tools" else telemetry[field]
                  for field in COST_FIELDS},
     }
+    if clarification:
+        detail["clarification_outcome"] = clarification_outcome(
+            trial.get("answer"), oracle["answer"], turns, proposals, assessment["metrics"]["TERMINATION_CORRECTNESS"])
+    return detail
 
 
 def estimate(cells):
@@ -167,6 +189,8 @@ def summarize(rows):
         binding_counts.update(row["typed_callback_counts"])
     return report | {"event_rates": {key: event_rate(rows, *value) for key, value in RATE_COUNTS.items()},
                      "typed_callback_counts": dict(binding_counts),
+                     "clarification_outcomes": dict(Counter(row["clarification_outcome"] for row in rows
+                                                           if "clarification_outcome" in row)),
                      "failure_signatures": dict(Counter(row["failure_signature"] for row in rows))}
 
 
@@ -228,12 +252,13 @@ def replay(suite, folder, *, paired_rows=None, through_batches=None):
             ident = row["slot_id"]
             trial = json.loads((path / (ident + ".json")).read_bytes())
             require_effective_controls(trial, row)
-            _, _, oracle = cases[row["case_id"]]
+            public, _, oracle = cases[row["case_id"]]
             assessment = assess(trial, oracle, "BLOCKED")
             if assessment != row["assessment"] or row["trial_id"] != trial["trial_id"]:
                 raise ValueError("Trial assessment differs from its sealed trace")
             factor = row["profile"] if suite == "transfer" else row["track"]
-            detail = trial_detail(trial, oracle, assessment, typed_callback=row["profile"] == CORRECTED)
+            detail = trial_detail(trial, oracle, assessment, typed_callback=row["profile"] == CORRECTED,
+                                  clarification=public["family"] == "clarification")
             cells[row["weight"], factor][row["case_id"], row["seed"]] = detail
             if paired_rows is not None:
                 paired_rows.append({key: row[key] for key in
@@ -247,8 +272,11 @@ def replay(suite, folder, *, paired_rows=None, through_batches=None):
         "direct_first", "sdk_first", "sdk_streaming", "sdk_repeat")
     arms = {}
     for weight, mode in product(WEIGHTS, factors):
-        reports = summarize(list(cells[weight, mode].values()))
+        rows = list(cells[weight, mode].values())
+        reports = summarize(rows)
         planned = 60 if suite == "transfer" else (150 if mode == "sdk_repeat" else 500)
+        if suite == "tc-extension":
+            reports["atlas_cost_and_evidence"] = summarize_cell(rows)
         arms[f"{weight}/{mode}"] = reports | {"planned": planned,
                                              "unexecuted": planned - reports["observed"]}
     weight_gains = {f"{weight}/{mode}": estimate([(cells[weight, mode], 1), (cells["Original", mode], -1)])
@@ -273,6 +301,9 @@ def replay(suite, folder, *, paired_rows=None, through_batches=None):
                      "coverage": "PASS" if done == freeze["planned"] else "BLOCKED",
                      "batch_seals": seals, "arms": arms, "weight_gains": weight_gains,
                      "runtime_gains": runtime_gains, "interactions": interactions, "compatibility_atlas": atlas,
+                     "replay_sources": {name: digest(Path(__file__).with_name(name)) for name in (
+                         "ha11_panel_report.py", "tc_capability_replay.py", "tc_capability_metrics.py",
+                         "tc_five_model_report.py")},
                      "peak_gpu_committed_bytes": resources}
 
 

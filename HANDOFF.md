@@ -4,11 +4,11 @@
 
 Continue Draft PR #9 in the linked `codex/ij-slm-1.0` worktree. Use the existing repository-local assets and GPU lease. The 40-case supplemental action preflight, five-case Extension replay, 16-cell cache factorial and full 720-case transfer panel have portable evidence. [Runtime closure](reports/LFM3_HA_RUNTIME_CAUSAL_CLOSURE.md) · [Transfer results](reports/LFM3_HA_720_TRANSFER_REPORT.md)
 
-The active 6,600-case compatibility queue stores its freeze, reservations and seals under `ASSET_ROOT/.runtime/lfm3-harness-adapters/ha11-tc-compatibility`. The private freeze pins the exact source commit and roster. Reuse the pinned source and supply `--extension-admission ASSET_ROOT/.runtime/lfm3-harness-adapters/ha11-tc-transport-f21e959` when resuming. Verify sealed batches and reconcile any interrupted reservation before dispatching more trials. The shared lease yields to the AG-11 owner procedure. [Compatibility track](reports/LFM3_HA_6600_TC_CAPABILITY_REPORT.md)
+The 6,600-trial compatibility queue completed with 200 seals under `ASSET_ROOT/.runtime/lfm3-harness-adapters/ha11-tc-compatibility`. The private freeze pins the exact execution source and roster. The public replay and paired archive bind each slot to the corresponding seal. The shared lease yields to the AG-11 owner procedure. [Compatibility track](reports/LFM3_HA_6600_TC_CAPABILITY_REPORT.md) · [Full paired records](evidence/IJSLM/lfm3-ha-1.1/tc-compatibility-matched-trials.jsonl.gz)
 
 Use `python -m benchmarks.slm10.ha11_panel_report` with the private capture folder to replay either panel. All supplemental evidence contributes zero to the original 36,550 core denominator. [Independent qualification](reports/LFM3_HA_INDEPENDENT_QUALIFICATION.md) · [NanoAgent handoff](reports/LFM3_HA_NANOAGENT_HANDOFF.md)
 
-Once the compatibility queue yields the lease, the source-bound ShortConv reader can collect the serialized recurrent rows from the pinned Vulkan runtime with `python -m benchmarks.slm10.ha11_shortconv --assets ASSET_ROOT --output FRESH_PRIVATE_OUTPUT`. The slot-save endpoints are scoped to this synthetic diagnostic. Preserve the earlier cache factorial and its results. [Cache and routing](reports/LFM3_HA_CACHE_AND_ROUTING_ROOT_CAUSE.md)
+The source-bound ShortConv reader collects serialized recurrent rows from the pinned Vulkan runtime with `python -m benchmarks.slm10.ha11_shortconv --assets ASSET_ROOT --output FRESH_PRIVATE_OUTPUT`. The slot-save endpoints are scoped to this synthetic diagnostic. The candidate adapter-ID patch has CPU-only HTTP controls in `scripts/tools/ha11_cpu_route_smoke.py`. [Cache and routing](reports/LFM3_HA_CACHE_AND_ROUTING_ROOT_CAUSE.md)
 
 ## IJ-SLM-1.1 physical closure and release intake
 

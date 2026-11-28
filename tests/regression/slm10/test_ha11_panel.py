@@ -1,5 +1,6 @@
 from collections import Counter
 import json
+from types import SimpleNamespace
 import pytest
 
 from benchmarks.slm10.ha11_panel import plan, require_effective_controls
@@ -89,3 +90,14 @@ def test_matched_weight_effect_keeps_gains_losses_and_unresolved_pairs():
     assert comparison["adjudicated_pairs"] == 3
     assert comparison["shared_observed"] == 4
     assert comparison["difference_pp"] == 0
+
+
+def test_clarification_distinguishes_extra_action_and_noncanonical_answer():
+    group = ha11_panel_report.clarification_outcome
+    expected = {"ask": "reference"}
+    stopped = [{"reply": SimpleNamespace(finish_reason="stop")}]
+    assert group('{"ask":"reference"}', expected, stopped, [], "PASS") == "EXACT_NO_TOOL"
+    assert group('{"ask":"Please provide the reference."}', expected, stopped, [], "FAIL") == "NONCANONICAL_VALUE"
+    assert group('{"ask":"reference"}', expected, stopped, [{}], "FAIL") == "EXTRA_TOOL_PROPOSAL"
+    assert group('{"ask":"reference"}', expected, [{}], [], "BLOCKED") == "UNRESOLVED"
+    assert group("Please clarify.", expected, stopped, [], "FAIL") == "OTHER_TERMINAL"

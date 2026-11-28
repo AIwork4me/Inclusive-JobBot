@@ -1,6 +1,6 @@
 # LFM3-HA independent qualification
 
-**Independent qualification BLOCKED.** The final holdout is unopened. The proposed contract below needs an independent registrar, business witness authors and reviewers with no role in development scoring. It records 720 proposed tasks, 48 proposed independent families, zero physical trials and zero repeated seeds. The 60 transfer tasks and 500 TC-V3 compatibility tasks remain development inputs.
+**Independent qualification BLOCKED.** The final holdout is unopened. The proposed contract below needs an independent registrar, business witness authors and reviewers with no role in development scoring. It records 720 proposed tasks, 48 proposed independent families, zero physical trials and zero repeated seeds. The completed 720 transfer trajectories and 6,600 TC-V3 compatibility trajectories retain their supplemental scope. [Measured compatibility](LFM3_HA_6600_TC_CAPABILITY_REPORT.md)
 
 ## Proposed freeze
 
