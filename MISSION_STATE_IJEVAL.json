@@ -2,8 +2,8 @@
  "schema_version": 1,
  "mission": "IJ-EVAL-ASSURANCE-1.0",
  "mission_title": "Systemic Evaluation Integrity & Continuous Self-verification (Evaluation Assurance Engine, EAE)",
- "updated_utc": "2026-11-28T12:30:00Z",
- "current_phase": "EA03 (Wave B; EA-R01..R04 boundary hardening complete)",
+ "updated_utc": "2026-11-28T13:45:00Z",
+ "current_phase": "N03 critical path: compat contract v1.0.0 delivered; EA03 Wave B next",
  "mission_order": "docs/IJEVAL_MISSION_ORDER.md",
  "tracking_issue": 12,
  "draft_pr": 13,
@@ -112,6 +112,24 @@
    ],
    "gate": null,
    "gate_status": "N/A (hardening within EA05-EA08/EA10-EA11 scopes; no Wave B gate claimed)"
+  },
+  "COMPAT_V1": {
+   "title": "Versioned EAE-runner compatibility contract v1.0.0 (N03 coordination order)",
+   "status": "DONE",
+   "addendum": "docs/IJEVAL_MISSION_ORDER_N03_COORD.md",
+   "deliverables": [
+    "src/eval_assurance/compat/{contract,authorization}.py",
+    "evidence/IJEVAL/COMPAT/contract_v1.0.0.json (11 interfaces, per-interface implementation digests)",
+    "docs/IJEVAL_COMPATIBILITY_CONTRACT.md",
+    "tests/ij_eval_assurance/test_compat_contract.py (9 tests)"
+   ],
+   "key_results": [
+    "all 10 required contract sections covered (8 IMPLEMENTED / 1 PARTIAL / 2 PLANNED, honesty-enforced by conformance test)",
+    "RunnerAuthorization: machine-readable, checksummed, scope-bound runner authorization; PASS strings authorize nothing; revocation between aggregation and authorization fails closed",
+    "N03 Batch A intake declared (C01-C08, 160+80, taxonomy pinned cb800bce at IJ-NANO bae4c3d) - consume when the package lands, never rebuild"
+   ],
+   "gate": null,
+   "gate_status": "N/A (integration contract, not a qualification gate)"
   }
  },
  "final_verdicts": {},
@@ -124,5 +142,6 @@
   "worktree": "<worktrees>/IJEVAL (sibling of the IJNANO mission worktree and the read-only IJSDK weights worktree)",
   "recreate_junction": "cmd /c mklink /J runtime\\llama-cpp\\vulkan <worktrees>/IJNANO/runtime/llama-cpp/vulkan",
   "rerun_reproducer": "python -I scripts/ij_eval_assurance/ea00_n02rr_residual_repro.py"
- }
+ },
+ "single_writer": "IJEVAL worktree only; IJNANO owned by the concurrent IJ-NANO session (N03-B2 dataset build in progress); never modify IJNANO or its git index"
 }

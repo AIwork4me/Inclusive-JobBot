@@ -20,13 +20,16 @@ explainable and auditable, never silent.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from ..qualification import CertificateStore
 from .core import (EvaluationResult, EvaluationStatus, EvaluatorStatus,
                    EvidenceIntegrity, ExecutionStatus,
                    MANDATORY_PROVENANCE_KEYS, ParserStatus,
                    PublicationEligibility, QualificationStatus,
                    SafetyVerdict, SemanticVerdict, VerifiedEvidence)
+
+if TYPE_CHECKING:            # break the qualification<->contracts cycle
+    from ..qualification import CertificateStore
 
 
 @dataclass(frozen=True)

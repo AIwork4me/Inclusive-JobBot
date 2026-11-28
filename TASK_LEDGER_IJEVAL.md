@@ -12,4 +12,5 @@
 | EA02 typed evaluation contract | DONE (e2467f4) | `src/eval_assurance/contracts/` + adapters + `docs/IJEVAL_RESULT_CONTRACT.md` | 27/27 tests; ij_nano suite 213/213 OK; IJE-D001/D002 closed at interface |
 | EA02-R contract hardening (EA-D01..D06) | DONE | `reports/IJEVAL_02R_CONTRACT_HARDENING.md`, `evidence/IJEVAL/EA02R/` (red/green/state-space/defect ledger) | 68/68 + 213/213 tests; gate EA02R_EVALUATION_CONTRACT_INVARIANTS_GO granted; contract spec v1.1.0; pubgate replaces piped gate invocations |
 | Wave B/C boundary hardening (EA-R01..R04) | DONE | `reports/IJEVAL_WAVEBC_HARDENING.md`, `evidence/IJEVAL/EABC/` | 95/95 + 213/213; authority issuance, byte-verified receipts, hardened publication chain, snapshot recheck |
-| EA03 dataset qualification engine | PENDING | — | Wave B proper; N02R suite + N03 C01–C32 targets; issue through the trusted boundary |
+| N03 coordination: compatibility contract v1.0.0 | DONE | `docs/IJEVAL_COMPATIBILITY_CONTRACT.md`, `evidence/IJEVAL/COMPAT/contract_v1.0.0.json` | 11 interfaces / 10 sections; RunnerAuthorization machine-readable; conformance-enforced |
+| EA03 dataset qualification engine | PENDING | — | Wave B proper; N02RR families first; consume pinned IJ-NANO Batch A package when it lands (N03-B2 in progress in IJNANO) |
