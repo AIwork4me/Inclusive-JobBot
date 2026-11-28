@@ -8,7 +8,7 @@
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
  "parent_mission_state": "MISSION_STATE_IJNANO_N03_PROGRESSIVE.json",
- "updated_utc": "2026-11-28T05:43:33Z",
+ "updated_utc": "2026-11-28T06:26:13Z",
  "clock": {
   "budget_hours": 48,
   "started_utc": "2026-11-28T04:34:00Z",
@@ -310,7 +310,8 @@
   "IJNANO_48H_PHYSICAL_ADMISSION_VERIFIED": "GRANTED (probe: 3/3 servers full GPU offload, netstat PID ownership, template fingerprints, /metrics OK; identities match sealed N02R)",
   "E3_OFFICIAL_SOURCES_STUDY_FROZEN": "GRANTED (docs/IJNANO_48H_E3_OFFICIAL_SOURCES_STUDY.md)",
   "E1_BATCH_B_AUTHORIZED": "GRANTED (checksum-verified AUTH-2B consumption)",
-  "E1_BATCH_B_COMPLETE": "PASS (480/480 sealed cb4303b4; evidence/IJNANO/N03H/AUTH2B/)"
+  "E1_BATCH_B_COMPLETE": "PASS (480/480 sealed cb4303b4; evidence/IJNANO/N03H/AUTH2B/)",
+  "E1_BATCH_C_COMPLETE": "PASS (480/480 sealed 25ffffa9; evidence/IJNANO/N03H/AUTH2C/)"
  },
  "blockers": {
   "48H-B-006": "CLOSED (EAE requalification 84cbfa3c9f2f0fc2 released as AUTH-2A-RQ)",
@@ -336,5 +337,14 @@
   "7a3e8dc": "AUTH-2B (Batch B)",
   "a50c3c5": "AUTH-2C (Batch C)"
  },
- "timestamp_note": "all updated_utc values from here on are real clock reads; three earlier hand-written values (07:20/08:10/10:55Z) were written ahead of the actual clock (~05:4xZ) and are superseded by this note"
+ "timestamp_note": "all updated_utc values from here on are real clock reads; three earlier hand-written values (07:20/08:10/10:55Z) were written ahead of the actual clock (~05:4xZ) and are superseded by this note",
+ "findings": {
+  "batch_c_budget_exhaustion": {
+   "recorded_utc": "2026-11-28T06:26:13Z",
+   "fact": "Batch C (C17-C24, typed-world plan/replan/error-envelope primitives): accuracy LFM3 .025 / MiniCPM .0375 / Qwen .0; EMPTY_OUTPUT 51.9%/48.1%/94.4%",
+   "root_cause": "EVERY EMPTY trial carries finish_reason=length at exactly 1024 completion tokens with empty final content - the frozen 1024-token generation budget is exhausted by reasoning before any answer is emitted; hits ALL THREE models on plan-structured tasks (vs only S3 on classification-style tasks in Batch B)",
+   "classification": "genuine protocol/budget-sensitivity measurement (RQ2/H2), NOT an evaluation defect; dual-path EMPTY_OUTPUT discipline worked as designed",
+   "follow_up": "E6 reasoning-budget cohorts (blocked on scope release); T2 bounded-reasoning protocol variants are separate cohorts per the preregistration"
+  }
+ }
 }

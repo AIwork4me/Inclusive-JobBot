@@ -3,11 +3,15 @@
 Campaign clock: **2026-11-28T04:34:00Z → 2026-11-30T04:34:00Z** (48h,
 never restarted). Updated at publication checkpoints.
 
-## Current phase: PHYSICAL EXECUTION LIVE (checkpoint H+~4)
+## Current phase: PHYSICAL EXECUTION LIVE (checkpoint H+1.9)
 
-- **E1 Batch B (AUTH-2B, 480 slots) executing** — blocks 0-1 sealed
-  (120 trials, 120/120 offline dual-path replays match, seal
-  f1990515); remaining blocks dispatching now.
+- **E1 Batch B COMPLETE** (480/480, seal cb4303b4): LFM3 .625 /
+  MiniCPM .5875 / Qwen .0875 (S3 87.5% EMPTY, all finish=length).
+- **E1 Batch C COMPLETE** (480/480, seal 25ffffa9): LFM3 .025 /
+  MiniCPM .0375 / Qwen .0 — root-caused: EVERY EMPTY trial exhausts
+  the frozen 1024-token budget (finish=length, empty final content)
+  on plan-structured primitives; hits ALL models (RQ2 finding).
+- **E1 Batch D executing** (AUTH-2D).
 - **`N03_PHYSICAL_EVALUATION_INTEGRATION_GO` GRANTED** on the verified
   first-block evidence, including a production fault-recovery drill
   (controller canary-leg defect caught at preflight with zero trials

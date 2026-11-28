@@ -41,7 +41,7 @@ Clock: started 2026-11-28T04:34:00Z, deadline 2026-11-30T04:34:00Z
 |---|---|---|---|---|
 | E1-A | Batch A development 480 slots (3 models x 160 dev cases, chat protocol) under AUTH-2 | not started | PENDING (authorized after integration gate) | planned `evidence/IJNANO/N03H/E1A/` |
 | E1-B | Batch B development COMPLETE under AUTH-2B: 480/480 trials, 480 physical attempts, seal cb4303b4, 0 integrity problems; FINAL: LFM3-1.7B acc .625 / MiniCPM5-2B .5875 / Qwen3.5-2B .0875 (S3 87.5% EMPTY_OUTPUT - thinking exhausts the frozen 1024-token chat budget, finish=length); CN/EN 80/80 per model | done | PASS (sealed) | `runs/n03h/N03-AUTH2-DEVELOPMENT-BATCH-B-v1/`, `evidence/IJNANO/N03H/AUTH2B/` |
-| E1-C | Batch C development 480 slots under AUTH-2C (c90f234a @ a50c3c5) | executing | IN_PROGRESS (queue) | `runs/n03h/N03-AUTH2-DEVELOPMENT-BATCH-C-v1/` |
+| E1-C | Batch C COMPLETE under AUTH-2C: 480/480, seal 25ffffa9, 0 integrity problems; acc LFM3 .025 / MiniCPM .0375 / Qwen .0 — EVERY EMPTY trial finish=length @1024 tokens (budget exhaustion on plan-structured tasks across ALL models; RQ2 finding, root-caused) | done | PASS (sealed) | `runs/n03h/N03-AUTH2-DEVELOPMENT-BATCH-C-v1/`, `evidence/IJNANO/N03H/AUTH2C/` |
 | E1-D | Batch D development 480 slots under AUTH-2D (b71ab0d0 @ 9b0ba89) | queued | PENDING | `runs/n03h/N03-AUTH2-DEVELOPMENT-BATCH-D-v1/` |
 | E1-A-RQ | Batch A development 480 slots under requalified AUTH-2A-RQ (cf627b26 @ 18afcae; 48H-B-006 closed) | queued | PENDING | `runs/n03h/N03-AUTH2-DEVELOPMENT-BATCH-A-v2-RQ/` |
 | E2-W | Adapter atlas 1920 slots under AUTH-2W (a6b17c34 @ 18afcae; W1/W2/W3 x 640 dev cases, MultiLegSession) | queued after admission battery | PENDING | `runs/n03h/N03-AUTH2-ADAPTER-ATLAS-v1/` |
