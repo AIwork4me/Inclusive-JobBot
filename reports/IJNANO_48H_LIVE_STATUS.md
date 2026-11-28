@@ -3,7 +3,7 @@
 Campaign clock: **2026-11-28T04:34:00Z → 2026-11-30T04:34:00Z** (48h,
 never restarted). Updated at publication checkpoints.
 
-## Current phase: PHYSICAL EXECUTION LIVE (checkpoint H+1.9)
+## Current phase: PHYSICAL EXECUTION LIVE (checkpoint H+7.9)
 
 - **E1 Batch B COMPLETE** (480/480, seal cb4303b4): LFM3 .625 /
   MiniCPM .5875 / Qwen .0875 (S3 87.5% EMPTY, all finish=length).
@@ -11,7 +11,15 @@ never restarted). Updated at publication checkpoints.
   MiniCPM .0375 / Qwen .0 — root-caused: EVERY EMPTY trial exhausts
   the frozen 1024-token budget (finish=length, empty final content)
   on plan-structured primitives; hits ALL models (RQ2 finding).
-- **E1 Batch D executing** (AUTH-2D).
+- **E1 Batch D COMPLETE** (seal b4028e38) and **E1 Batch A-RQ
+  COMPLETE** (seal 2cd631fa): **E1 primary development complete —
+  1,920/1,920 slots, zero integrity problems.**
+- **Adapter admission battery PASS** (two real defect fixes on the
+  way: Windows path colon vs --lora-scaled; distribution-level scale-1
+  evidence via logprob deltas 10.68/3.64 reproduced across processes).
+- **E2 adapter atlas EXECUTING: 1,235/1,920** (412/412/411 balanced).
+  Interim paired vs W0: W1 +2.9pp (p=.012), W2 +1.5pp (ns),
+  W3 +4.9pp (p=.0002) — exploratory, finalizes at seal.
 - **`N03_PHYSICAL_EVALUATION_INTEGRATION_GO` GRANTED** on the verified
   first-block evidence, including a production fault-recovery drill
   (controller canary-leg defect caught at preflight with zero trials
