@@ -404,6 +404,13 @@ class Campaign:
                 tr.stop()
         return self.analyze()
 
+    def _model_order(self) -> list[str]:
+        order: list[str] = []
+        for s in self.roster_slots:
+            if s["model"] not in order:
+                order.append(s["model"])
+        return order
+
     def _trial_key(self, t: dict) -> str:
         return f"{t['case_id']}|{t['model']}|{t['protocol']}"
 
