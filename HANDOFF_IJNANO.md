@@ -77,14 +77,19 @@ missions' state files.
 ## 5. Next steps, in order (IJ-NANO-1.3S active 2026-11-28; N03 progressive)
 
 **IJ-NANO-1.3S is the active order** (`docs/IJNANO_MISSION_ORDER_V1_3S.md`,
-preregistered verbatim). Its execution plan is frozen:
+preregistered verbatim) with a continuation addendum received 2026-11-28
+(see `TASK_LEDGER_IJNANO.md` N03-D01..B5 section). Execution plan frozen:
 `docs/IJNANO_N03_PROGRESSIVE_EXECUTION_PLAN.md` +
-`MISSION_STATE_IJNANO_N03_PROGRESSIVE.json` (gate
-`N03_PROGRESSIVE_EXECUTION_PLAN_FROZEN`, granted 2026-11-28). AUTH-0
-CPU-only work is permitted immediately; anything needing the GPU waits for
-the EAE gates owned by PR #13. Do not write to the IJEVAL worktree while
-its own session is active (concurrent EA-R01..R04 hardening observed
-2026-11-28 ~07:45 +0800).
+`MISSION_STATE_IJNANO_N03_PROGRESSIVE.json`. AUTH-0 CPU-only; GPU waits for
+EAE gates owned by PR #13. **IJEVAL worktree is strictly read-only for this
+lane** (its session is intentional; coordinate only through immutable git
+revisions and GitHub). Batch A dataset (C01-C08, 240 cases) is BUILT and
+independently VERIFIED; slot accounting is roster-derived
+(`scripts/ij_nano/n03/slot_accounting.py`); the Batch A qualification
+handoff package for IJEVAL lives under
+`evaluation/ij_nano/n03/handoff/batch_a/`. Next: Batches B-D families
+(C09-C32), then the runner + authorization controller (B4) and synthetic
+end-to-end (B5).
 
 IJ-NANO-1.2R delivered the offline-rescore integrity recovery: the N02R
 rescore loader defect (all 1,397 rescored rows of `ec5b95357e960f99`

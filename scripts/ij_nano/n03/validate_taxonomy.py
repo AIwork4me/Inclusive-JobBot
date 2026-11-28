@@ -46,6 +46,8 @@ ISOLATION_LABELS = {"isolated_capability", "diagnostic_isolation",
 
 def _errors(doc: dict, schema: dict) -> list[str]:
     errs: list[str] = []
+    if doc.get("schema") != "ij_nano.n03.taxonomy.v1":
+        errs.append(f"schema tag mismatch: {doc.get('schema')!r}")
     primitives = doc.get("primitives")
     if not isinstance(primitives, dict) or len(primitives) != 32:
         errs.append(f"primitives: expected 32 entries, got "
@@ -134,8 +136,6 @@ def main() -> int:
         print(f"TAXONOMY INVALID: unreadable {e}", file=sys.stderr)
         return 1
     errs = _errors(doc, schema)
-    if doc.get("schema") != "ij_nano.n03.taxonomy.v1":
-        errs.append(f"schema tag mismatch: {doc.get('schema')!r}")
     if errs:
         for e in errs:
             print(f"TAXONOMY INVALID: {e}", file=sys.stderr)

@@ -27,14 +27,20 @@ def main() -> int:
     prims = state["primitives"]
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
+    # slot accounting comes from the roster-derived manifest (N03-D01),
+    # never from hand-maintained state fields
+    slot_path = ROOT / "evidence" / "IJNANO" / "N03" / "dataset" / \
+        "slot_manifest.json"
+    slots = json.loads(slot_path.read_text(encoding="utf-8")) if \
+        slot_path.is_file() else None
+    per_prim_slots = (slots or {}).get("per_primitive", {})
+
     n = len(prims)
     eng_ready = sum(1 for p in prims.values()
                     if p["development_authorization"] == "AUTHORIZED")
-    planned_dev = sum(p["slots_planned_dev"] for p in prims.values())
-    planned_conf = sum(p["slots_planned_conf"] for p in prims.values())
-    exec_dev = sum(p["slots_executed_dev"] for p in prims.values())
-    exec_conf = sum(p["slots_executed_conf"] for p in prims.values())
-    qual_dev = sum(p["slots_qualified_dev"] for p in prims.values())
+    planned_dev = (slots or {}).get("totals", {}).get("dev_slots", 0)
+    planned_conf = (slots or {}).get("totals", {}).get("conf_slots", 0)
+    exec_dev = exec_conf = qual_dev = 0          # no runner yet (B4)
 
     lines = []
     a = lines.append
@@ -92,23 +98,24 @@ def main() -> int:
     a("")
     a("## Per-primitive matrix")
     a("")
-    a("| ID | Capability | Batch | Dataset | Cert | Dev auth | Conf auth | "
-      "Dev slots (exec/plan) | Conf slots (exec/plan) |")
+    a("| ID | Capability | Batch | Roster | Cert | Dev auth | Conf auth | "
+      "Dev slots (plan) | Conf slots (plan) |")
     a("|---|---|---|---|---|---|---|---|---|")
     for pid in sorted(prims):
         p = prims[pid]
-        ds = "frozen-contract" if pid in tax["primitives"] else "none"
+        roster = p.get("roster_status", "NOT_STARTED")
         cert = p["certificate_id"][:8] if p["certificate_id"] else "-"
-        a(f"| {pid} | {p['capability']} | {p['batch']} | {ds} | {cert} | "
-          f"{p['development_authorization']} | "
+        sp = per_prim_slots.get(pid, {})
+        a(f"| {pid} | {p['capability']} | {p['batch']} | {roster} | {cert} |"
+          f" {p['development_authorization']} | "
           f"{p['confirmation_authorization']} | "
-          f"{p['slots_executed_dev']}/{p['slots_planned_dev']} | "
-          f"{p['slots_executed_conf']}/{p['slots_planned_conf']} |")
+          f"{sp.get('dev_slots', '-')} | {sp.get('conf_slots', '-')} |")
     a("")
-    a(f"Planned primary slots: {planned_dev} dev + {planned_conf} "
-      f"confirmation = {planned_dev + planned_conf} "
-      f"(target {state['primary_budget']['total']}; three-model slot "
-      f"accounting begins at B4 runner integration).")
+    a(f"Planned primary slots (roster-derived): {planned_dev} dev + "
+      f"{planned_conf} confirmation = {planned_dev + planned_conf} "
+      f"(target when complete "
+      f"{state['primary_budget']['total']}; executed/qualified accounting "
+      f"activates with the B4 runner).")
     a("")
     a("## Preserved blockers")
     a("")

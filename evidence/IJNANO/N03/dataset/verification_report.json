@@ -1,0 +1,18 @@
+{
+ "schema": "ij_nano.n03.dataset.verification_report.v1",
+ "result": "PASS",
+ "public_cases": 240,
+ "development_expectations": 160,
+ "confirmation_expectations_verified": 80,
+ "truth_rederivations": 240,
+ "mutation_battery": {
+  "detected": 240,
+  "escaped": 0
+ },
+ "problems": [],
+ "limitations": [
+  "C01/C02/C07 truth is construction-authored; independence is dual-implementation (separately coded rule tables) plus the mutation battery, not public recomputation",
+  "family-level entity disjointness across splits is enforced at family granularity (world/entity pool reuse across primitives is permitted and tracked for clustering)"
+ ],
+ "public_digest": "93c585660b756bcaa2c52f960aa276abcf12b0991103bf488cadc64c61ae99d9"
+}

@@ -1,6 +1,6 @@
 # N03 Progressive Status
 
-Generated 2026-11-27T23:58:26Z from `MISSION_STATE_IJNANO_N03_PROGRESSIVE.json` (deterministic render of the machine state; do not hand-edit).
+Generated 2026-11-28T01:21:32Z from `MISSION_STATE_IJNANO_N03_PROGRESSIVE.json` (deterministic render of the machine state; do not hand-edit).
 
 - Mission order: `docs/IJNANO_MISSION_ORDER_V1_3S.md` (SHA256 `c447831de2c4683c...`)
 - Execution plan: `docs/IJNANO_N03_PROGRESSIVE_EXECUTION_PLAN.md`
@@ -20,7 +20,7 @@ Generated 2026-11-27T23:58:26Z from `MISSION_STATE_IJNANO_N03_PROGRESSIVE.json` 
 |---|---|
 | `N03_PROGRESSIVE_EXECUTION_PLAN_FROZEN` | GRANTED |
 | `N03_TAXONOMY_CONTRACTS_FROZEN` | GRANTED |
-| `N03_DATASET_FROZEN` | PENDING |
+| `N03_DATASET_FROZEN` | PENDING (Batch A built+verified; Batches B-D outstanding) |
 | `N03_DATASET_VERIFIED` | PENDING |
 | `N03_DATASET_AND_RUNNER_PREPARATION_READY` | PENDING |
 | `N03_SHARED_EVALUATION_ASSURANCE_CORE_GO` | PENDING (owned by IJEVAL PR #13) |
@@ -51,46 +51,46 @@ No single blended progress percentage is reported.
 
 ## Per-primitive matrix
 
-| ID | Capability | Batch | Dataset | Cert | Dev auth | Conf auth | Dev slots (exec/plan) | Conf slots (exec/plan) |
+| ID | Capability | Batch | Roster | Cert | Dev auth | Conf auth | Dev slots (plan) | Conf slots (plan) |
 |---|---|---|---|---|---|---|---|---|
-| C01 | Intent classification | A | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C02 | Goal extraction | A | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C03 | Single instruction understanding | A | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C04 | Multiple constraint understanding | A | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C05 | Boolean decision | A | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C06 | Enumerated choice | A | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C07 | Natural-language action selection | A | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C08 | Tool-name selection | A | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C09 | JSON structural generation | B | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C10 | Nested schema generation | B | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C11 | Compact DSL generation | B | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C12 | Slot extraction | B | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C13 | Entity reference resolution | B | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C14 | Numerical extraction | B | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C15 | Unit and currency understanding | B | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C16 | Tool result comprehension | B | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C17 | State interpretation | C | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C18 | Action dependency recognition | C | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C19 | Short-horizon planning | C | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C20 | Conditional branching | C | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C21 | Dynamic replanning | C | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C22 | Error recognition | C | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C23 | Argument correction | C | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C24 | Alternative action recovery | C | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C25 | Stop versus continue decision | D | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C26 | Clarification decision | D | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C27 | Escalation decision | D | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C28 | Context interference resistance | D | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C29 | Instruction ambiguity robustness | D | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C30 | Multilingual semantic consistency | D | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C31 | Grounded answer generation | D | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
-| C32 | Uncertainty and abstention behavior | D | frozen-contract | - | BLOCKED | BLOCKED | 0/30 | 0/15 |
+| C01 | Intent classification | A | BUILT_VERIFIED | - | BLOCKED | BLOCKED | 60 | 30 |
+| C02 | Goal extraction | A | BUILT_VERIFIED | - | BLOCKED | BLOCKED | 60 | 30 |
+| C03 | Single instruction understanding | A | BUILT_VERIFIED | - | BLOCKED | BLOCKED | 60 | 30 |
+| C04 | Multiple constraint understanding | A | BUILT_VERIFIED | - | BLOCKED | BLOCKED | 60 | 30 |
+| C05 | Boolean decision | A | BUILT_VERIFIED | - | BLOCKED | BLOCKED | 60 | 30 |
+| C06 | Enumerated choice | A | BUILT_VERIFIED | - | BLOCKED | BLOCKED | 60 | 30 |
+| C07 | Natural-language action selection | A | BUILT_VERIFIED | - | BLOCKED | BLOCKED | 60 | 30 |
+| C08 | Tool-name selection | A | BUILT_VERIFIED | - | BLOCKED | BLOCKED | 60 | 30 |
+| C09 | JSON structural generation | B | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C10 | Nested schema generation | B | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C11 | Compact DSL generation | B | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C12 | Slot extraction | B | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C13 | Entity reference resolution | B | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C14 | Numerical extraction | B | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C15 | Unit and currency understanding | B | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C16 | Tool result comprehension | B | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C17 | State interpretation | C | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C18 | Action dependency recognition | C | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C19 | Short-horizon planning | C | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C20 | Conditional branching | C | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C21 | Dynamic replanning | C | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C22 | Error recognition | C | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C23 | Argument correction | C | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C24 | Alternative action recovery | C | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C25 | Stop versus continue decision | D | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C26 | Clarification decision | D | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C27 | Escalation decision | D | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C28 | Context interference resistance | D | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C29 | Instruction ambiguity robustness | D | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C30 | Multilingual semantic consistency | D | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C31 | Grounded answer generation | D | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
+| C32 | Uncertainty and abstention behavior | D | NOT_STARTED | - | BLOCKED | BLOCKED | - | - |
 
-Planned primary slots: 960 dev + 480 confirmation = 1440 (target 2880; three-model slot accounting begins at B4 runner integration).
+Planned primary slots (roster-derived): 480 dev + 240 confirmation = 720 (target when complete 2880; executed/qualified accounting activates with the B4 runner).
 
 ## Preserved blockers
 
 - IJE-B-004: OPEN (IJ-SDK D01-D03, owned by that mission)
 - IJN-B-002: OPEN narrowed (formal business claims only)
 
-Next task: N03-B2 dataset build (AUTH-0)
+Next task: N03-B2 Batches B/C/D families (C09-C32)
