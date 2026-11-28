@@ -36,7 +36,8 @@ def _issuable(scope: str) -> bool:
 class TestPinVerification(unittest.TestCase):
     def test_pin_verifies_against_manifest(self):
         report = eae_mod.verify_pin()
-        self.assertEqual(report["files_verified"], 84)
+        self.assertEqual(report["files_verified"], 125)
+        self.assertEqual(eae_mod.CURRENT_PIN_REV, "7a3e8dc")
 
     def test_pin_tamper_refused(self):
         pin = eae_mod.PIN / "evidence" / "IJEVAL" / "AUTH1" / "release.json"
@@ -51,19 +52,20 @@ class TestPinVerification(unittest.TestCase):
 
 
 class TestFailClosedRevokedRegistry(unittest.TestCase):
-    """The published 3cdd066 registry carries the drill revocation:
-    registration must refuse (no applicable certificates), never
-    downgrade, never bypass."""
+    """Batch A scopes stay blocked at the current pin: certificate
+    512efb617a9cb4c8 is revoked (drill, 3cdd066), so a fresh Batch A
+    issuance can never reproduce the released checksums — bootstrap
+    refuses (never downgrades, never cites the Batch B certificate)."""
 
-    def test_auth1_registration_refused_by_revoked_certificate(self):
+    def test_auth1_scope_refused(self):
         with self.assertRaises(Exception) as cm:
             eae_mod.bootstrap("AUTH-1")
-        self.assertIn("no applicable certificates", str(cm.exception))
+        self.assertIn("checksum mismatch", str(cm.exception))
 
-    def test_auth2_registration_refused_by_revoked_certificate(self):
+    def test_auth2_scope_refused(self):
         with self.assertRaises(Exception) as cm:
             eae_mod.bootstrap("AUTH-2")
-        self.assertIn("no applicable certificates", str(cm.exception))
+        self.assertIn("checksum mismatch", str(cm.exception))
 
     def test_revocation_is_durably_recorded_in_pin(self):
         reg = json.loads((eae_mod.PIN / "evidence" / "IJEVAL" / "EA03_N03"
@@ -79,8 +81,70 @@ class TestFailClosedRevokedRegistry(unittest.TestCase):
                             for r in state["revocations"]))
 
 
+class TestAuth2BIssuance(unittest.TestCase):
+    """Batch B (C09-C16) AUTH-2 scope released at 7a3e8dc: the real
+    consumer must reproduce the released authorization exactly."""
+
+    def test_auth2b_issued_and_matches_released_checksum(self):
+        bt = eae_mod.bootstrap("AUTH-2B")
+        ident = bt["identity"]
+        self.assertEqual(ident["experiment_id"],
+                         "N03-AUTH2-DEVELOPMENT-BATCH-B-v1")
+        req = RunRequest(
+            experiment_id=ident["experiment_id"],
+            dataset_digest=ident["dataset_digest"],
+            roster_digest=ident["roster_digest"],
+            primitives=frozenset(ident["primitives"]),
+            protocols=frozenset(ident["protocols"]),
+            models=frozenset(ident["models"]),
+            eae_revision=ident["eae_revision"],
+            auth_level=ident["auth_level"])
+        auth = bt["gate"].authorize_physical(req)
+        self.assertEqual(auth.qualifying_class, "EAE")
+        self.assertEqual(
+            auth.checksum,
+            "fc4cdb2c0d36f189dd9f0249edbba2310a5b957f3ecd40b99af8a1c8d2a9133d")
+        validate_against(auth, req)
+        # scope boundaries: Batch A primitives refused, foreign roster
+        # refused
+        PinnedRefusal = bt["contract"].AuthorizationError
+        with self.assertRaises(PinnedRefusal):
+            bt["gate"].authorize_physical(
+                req.__class__(**{**req.__dict__,
+                                 "primitives": frozenset({"C01"})}))
+        with self.assertRaises(PinnedRefusal):
+            bt["gate"].authorize_physical(
+                req.__class__(**{**req.__dict__, "roster_digest": "0" * 64}))
+
+    def test_batch_b_witnesses_through_session_adapter(self):
+        from benchmarks.ij_nano.n03h.session_b import make_session
+        bt = eae_mod.bootstrap("AUTH-2B")
+        sess = make_session("b", ROOT / ".scratch" / "48h" /
+                            "test_session_b")
+        checks = 0
+        for w in bt["witnesses"]:
+            case = bt["cases_by_id"][w["case_id"]]
+            exp = bt["expectations"][w["case_id"]]
+            res = sess.run_trial(case, exp, w["raw"],
+                                 model=f"wb-{w['witness_id']}")
+            self.assertEqual(res.classification, w["expected"],
+                             f"witness {w['witness_id']} misclassified")
+            checks += 1
+        self.assertGreater(checks, 100)
+        # duplicate identity rejected
+        w = bt["witnesses"][0]
+        again = sess.run_trial(bt["cases_by_id"][w["case_id"]],
+                               bt["expectations"][w["case_id"]],
+                               w["raw"], model=f"wb-{w['witness_id']}")
+        self.assertEqual(again.classification, "DUPLICATE_TRIAL")
+
+    def test_runtime_state_isolated_from_pin(self):
+        eae_mod.bootstrap("AUTH-2B")
+        eae_mod.verify_pin()          # pin stays digest-pristine
+
+
 @unittest.skipUnless(_issuable("AUTH-1"),
-                     "certificate revoked at pin 3cdd066 (drill); "
+                     "Batch A certificate revoked (drill at 3cdd066); "
                      "activates on a requalified pin")
 class TestBootstrapAndAuthorization(unittest.TestCase):
     @classmethod

@@ -1,0 +1,400 @@
+{
+ "schema": "ijeval.wavebb.production_mutation_campaign.v1",
+ "scope": "Batch B production-logic faults (parser surface + evaluator comparator), detected via dual-path classification flip vs the clean suite",
+ "summary": {
+  "faults": 14,
+  "detected": 12,
+  "escapes": 0
+ },
+ "faults": [
+  {
+   "fault": "B-P01_duplicate_keys_accepted",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C09-order-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C09-profile-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C10-orgchart-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C10-shipment-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C12-booking-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C12-shipping-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C13-contacts-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C13-devices-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C14-finance-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C14-metrics-dup",
+     "kind": "negative-dup-key",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 12
+  },
+  {
+   "fault": "B-P02_fences_not_stripped",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C09-order-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C09-profile-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C10-orgchart-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C10-shipment-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C11-batchops-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C11-robot-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C12-booking-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C12-shipping-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C13-contacts-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C13-devices-posf",
+     "kind": "positive-fenced",
+     "clean": "CORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 16
+  },
+  {
+   "fault": "B-P03_case_insensitive_dsl",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C11-batchops-b0-lowercased a",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C11-robot-b0-lowercased a",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "B-P04_string_numbers_coerced",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C14-finance-b0-string-typed",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C14-metrics-b0-string-typed",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "B-P05_extra_fields_tolerated",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C09-order-b0-undeclared f",
+     "kind": "negative-extra-field",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C09-profile-b0-undeclared f",
+     "kind": "negative-extra-field",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C12-booking-b0-undeclared f",
+     "kind": "negative-extra-field",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C12-shipping-b0-undeclared f",
+     "kind": "negative-extra-field",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "B-P06_arity_not_checked",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C11-batchops-b1-missing argu",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    },
+    {
+     "witness_id": "C11-robot-b1-missing argu",
+     "kind": "negative-malformed",
+     "clean": "INVALID_OUTPUT",
+     "faulty": "INCORRECT"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "B-E01_subset_field_match",
+   "verdict": "EQUIVALENT",
+   "detected": false,
+   "equivalent_justification": "parser_b enforces exact schema key sets on C09/C12 before a PARSE_OK reaches the evaluator (missing/undeclared fields are INVALID_OUTPUT), so an evaluator-side subset comparator can never observe a key-set difference on a parse that reaches it. Control stays active for parsers without schema enforcement.",
+   "detections": [],
+   "detection_count": 0
+  },
+  {
+   "fault": "B-E02_document_scalars_only",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C10-orgchart-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C10-shipment-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "B-E04_type_loose_compare",
+   "verdict": "EQUIVALENT",
+   "detected": false,
+   "equivalent_justification": "parser_b enforces declared leaf types on C09/C12 and rejects string-typed numbers on C14/C15 at the parse boundary, so str()-coerced comparator equality never sees a type-mismatched OK parse. Control stays active for parsers without type enforcement.",
+   "detections": [],
+   "detection_count": 0
+  },
+  {
+   "fault": "B-E05_any_candidate_ok",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C13-contacts-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C13-devices-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "B-E06_value_tolerance_1",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C14-finance-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C14-metrics-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C15-currency-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C15-units-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 4
+  },
+  {
+   "fault": "B-E07_unit_ignored",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C15-currency-b1-unit mutated",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C15-units-b1-unit mutated",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "B-E08_substring_answer",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C16-ledger-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C16-orderstatus-wrong",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  },
+  {
+   "fault": "B-E09_program_order_ignored",
+   "verdict": "DETECTED",
+   "detected": true,
+   "equivalent_justification": "",
+   "detections": [
+    {
+     "witness_id": "C11-batchops-b2-program line",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    },
+    {
+     "witness_id": "C11-robot-b2-program line",
+     "kind": "negative-wrong",
+     "clean": "INCORRECT",
+     "faulty": "NOT_EVALUABLE"
+    }
+   ],
+   "detection_count": 2
+  }
+ ],
+ "generated_utc": "2026-11-28T04:42:36Z"
+}

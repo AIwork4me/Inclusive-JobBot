@@ -84,10 +84,10 @@ class Campaign:
         authorization; run/seal/verify trigger the fail-closed path."""
         if self._eae is None:
             self._eae = eae_mod.bootstrap(self.scope)
-            ea = self._eae["modules"]
-            self.session = ea["DualPathSession"](self.workdir)
+            from benchmarks.ij_nano.n03h.session_b import make_session
+            self.session = make_session(self._eae["legs"], self.workdir)
             self.session.load()          # exact dual-path resume
-            self.canary = ea["canary"].CanaryScheduler(
+            self.canary = self._eae["modules"]["canary"].CanaryScheduler(
                 self._eae["witnesses"], breaker=self.breaker,
                 expectations=self._eae["expectations"],
                 cases_by_id=self._eae["cases_by_id"])

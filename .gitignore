@@ -15,6 +15,10 @@ dist/
 *.part
 .writer.lock
 
+# Physical campaign run workdirs stay local; sealed digests and redacted
+# selections are committed under evidence/IJNANO/N03H/.
+runs/
+
 # Model weights are never committed; only the manifests that describe them.
 # A directory ignored by "models/*" must be re-included before a file inside it
 # can be, which is why the IJ-SDK passport needed its own two lines.

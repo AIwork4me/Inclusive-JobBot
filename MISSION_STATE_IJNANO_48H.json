@@ -8,8 +8,7 @@
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
  "parent_mission_state": "MISSION_STATE_IJNANO_N03_PROGRESSIVE.json",
- "updated_utc": "2026-11-28T04:34:00Z",
-
+ "updated_utc": "2026-11-28T06:10:00Z",
  "clock": {
   "budget_hours": 48,
   "started_utc": "2026-11-28T04:34:00Z",
@@ -22,13 +21,12 @@
    "at H+48 produce the final available evidence-backed report; never declare completion from time-budget expiration alone"
   ]
  },
-
  "reconciliation": {
   "verified_utc": "2026-11-28T04:20:00Z",
   "ij_nano_local_head": "58aa7908e5d1868af1385a4d0cea549e6b1d58a4",
   "ij_nano_remote_head": "58aa7908e5d1868af1385a4d0cea549e6b1d58a4",
   "ijeval_local_head": "3cdd066d685d5d9a824af60f2189d7ded612d735",
-  "ijeval_remote_head": "3cdd066d685d5d9a824af60f2189d7ded612d735",
+  "ijeval_remote_head": "7a3e8dc64dfb0a677fe4aa53c33f81b0d01e72d6",
   "ijslm_remote_head": "79a805e1c450fc358d92b83a79c37dadd5cc5762",
   "eae_compat_contract": "v1.1.1",
   "eae_releases_consumed": {
@@ -48,7 +46,16 @@
    },
    "certificate_ref": "512efb617a9cb4c8",
    "scope": "models [MiniCPM5-2B, LFM3-1.7B, Qwen3.5-2B] x primitives C01-C08 x protocol chat; development split only",
-   "confirmation": "AUTH-3 BLOCKED by design (not registered)"
+   "confirmation": "AUTH-3 BLOCKED by design (not registered)",
+   "AUTH-2B": {
+    "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-B-v1",
+    "authorization_checksum": "fc4cdb2c0d36f189dd9f0249edbba2310a5b957f3ecd40b99af8a1c8d2a9133d",
+    "roster_digest": "e9a5a352996e594b79fb4820b6f647712d6a31574635e3c5a4d95fba34164ec3",
+    "dataset_digest": "eb5a34ee8cbfb47a9ff295494abdd47900cf48a6dd5327ef99864437a1be8c3f",
+    "certificate": "bd41edfb6fd7c004 (Batch B, scope=semantic)",
+    "max_trials": 480,
+    "released_utc": "2026-11-28 (bffce5a)"
+   }
   },
   "dataset_reconciliation": {
    "pinned_batch_a_public_sha256": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
@@ -59,11 +66,15 @@
    "gpu": "AMD Radeon RX 7900 XTX (gfx1100), driver 32.0.21030.2001",
    "engine_exe_sha256_observed": "38c5affb81c9a8f88f5538c7d11bc445e13bc46a2c6eda05694b8b31a8d45995 (matches sealed N02R run 7a1b9d7d160202d8)",
    "llama_cpp_pin": "b12359 (pinned engine; any change is a separate experimental identity)",
-   "weights_present": ["S1 MiniCPM5-2B Q8_0", "S2 LFM3-1.7B Q8_0", "S3 Qwen3.5-2B Q8_0"],
+   "weights_present": [
+    "S1 MiniCPM5-2B Q8_0",
+    "S2 LFM3-1.7B Q8_0",
+    "S3 Qwen3.5-2B Q8_0"
+   ],
    "no_llama_server_running_at_init": true
-  }
+  },
+  "eae_current_pin": "runtime/eae_pin/7a3e8dc (125 files, digest manifest; runtime-mutable EAE state copied to runs/n03h/_eae_state/ on first use so the pin stays pristine)"
  },
-
  "lfm3_ha_evidence_reconciliation": {
   "source_revision": "79a805e (PR #9 codex/ij-slm-1.0)",
   "manifest": "evidence/IJSLM/lfm3-ha-1.1/manifest.json",
@@ -79,9 +90,16 @@
   },
   "reuse_decision": "IJ-SLM hardware is Radeon 8060S gfx1151 on a different host and a different qualification scope: the 720-panel is a SEPARATE COMPARATIVE COHORT, never pooled or paired with this campaign's evidence; reusable as preregistered priors/hypotheses only; the 720-slot panel is NOT duplicated"
  },
-
- "research_questions": ["RQ1 cognitive capability", "RQ2 protocol sensitivity", "RQ3 harness adapter effects", "RQ4 HF native reproduction", "RQ5 cross-harness transfer", "RQ6 runtime+adapter co-design", "RQ7 learnability / post-training candidates", "RQ8 commercial trade-off configuration"],
-
+ "research_questions": [
+  "RQ1 cognitive capability",
+  "RQ2 protocol sensitivity",
+  "RQ3 harness adapter effects",
+  "RQ4 HF native reproduction",
+  "RQ5 cross-harness transfer",
+  "RQ6 runtime+adapter co-design",
+  "RQ7 learnability / post-training candidates",
+  "RQ8 commercial trade-off configuration"
+ ],
  "preregistered_hypotheses": {
   "H1": "Per-primitive capability profiles of S1/S2/S3 are materially heterogeneous (primitive x model interaction != additive); no model dominates all 32 primitives.",
   "H2": "A nontrivial fraction of chat-protocol failures is structural/protocol-induced (EMPTY_OUTPUT, INVALID_OUTPUT, format mismatch) rather than semantic INCORRECT; these are separable at trial level.",
@@ -92,52 +110,81 @@
   "H7": "Learnability classes (0/8, 1-7/8, 8/8 success) partition dev tasks; a material subset of 0/8 failures is protocol/runtime-addressable rather than capability absence.",
   "H8": "The accuracy-vs-latency/tokens Pareto frontier admits no single dominant configuration across all axes; the best trade-off depends on workload family."
  },
-
  "experiment_register": {
   "E0_physical_smoke": {
-   "priority": "P0", "authorization": "AUTH-1 (released)",
-   "nominal_slots": 48, "status": "AUTHORIZED_PENDING_PHYSICAL_ADMISSION",
+   "priority": "P0",
+   "authorization": "AUTH-1 (released)",
+   "nominal_slots": 48,
+   "status": "AUTHORIZED_PENDING_PHYSICAL_ADMISSION",
    "experiment_id": "N03-AUTH1-DIAGNOSTIC-PANEL-v1",
    "gate_before_formal": "N03_PHYSICAL_EVALUATION_INTEGRATION_GO"
   },
   "E1_batch_a": {
-   "priority": "P0", "authorization": "AUTH-2 (released)",
-   "nominal_slots": 480, "status": "AUTHORIZED_PENDING_SMOKE_COMPLETION",
+   "priority": "P0",
+   "authorization": "AUTH-2 (released)",
+   "nominal_slots": 480,
+   "status": "AUTHORIZED_PENDING_SMOKE_COMPLETION",
    "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-A-v1"
   },
   "E1_batches_bcd": {
-   "priority": "P0", "authorization": "pending IJEVAL EA13 extension releases",
-   "nominal_slots": 1440, "status": "BLOCKED_PENDING_EAE_SCOPE"
+   "priority": "P0",
+   "authorization": "pending IJEVAL EA13 extension releases",
+   "nominal_slots": 1440,
+   "status": "SPLIT: Batch B AUTHORIZED (E1_batch_b); Batches C/D BLOCKED pending IJEVAL releases"
   },
   "E1_confirmation": {
-   "priority": "-", "authorization": "AUTH-3 (BLOCKED by design)",
-   "nominal_slots": 960, "status": "BLOCKED"
+   "priority": "-",
+   "authorization": "AUTH-3 (BLOCKED by design)",
+   "nominal_slots": 960,
+   "status": "BLOCKED"
   },
   "E2_adapter_cognitive_atlas": {
-   "priority": "P0 after E1", "authorization": "pending IJEVAL adapter-scope release",
-    "nominal_slots": 2560, "incremental_after_W0_reuse": 1920, "status": "BLOCKED_PENDING_SCOPE_AND_ASSETS"
+   "priority": "P0 after E1",
+   "authorization": "pending IJEVAL adapter-scope release",
+   "nominal_slots": 2560,
+   "incremental_after_W0_reuse": 1920,
+   "status": "BLOCKED_PENDING_SCOPE_AND_ASSETS"
   },
   "E3_native_harness_reproduction": {
-   "priority": "P0 (parallel CPU prep)", "authorization": "pending task acquisition + sandbox + verifier qualification",
-   "nominal_episodes": 1140, "status": "BLOCKED_PENDING_ASSETS; CPU-side study/acquisition starts immediately"
+   "priority": "P0 (parallel CPU prep)",
+   "authorization": "pending task acquisition + sandbox + verifier qualification",
+   "nominal_episodes": 1140,
+   "status": "BLOCKED_PENDING_ASSETS; CPU-side study/acquisition starts immediately"
   },
   "E4_cross_harness_transfer": {
-   "priority": "P1", "nominal_episodes": 720, "status": "BLOCKED_PENDING_E3_AND_SCOPE"
+   "priority": "P1",
+   "nominal_episodes": 720,
+   "status": "BLOCKED_PENDING_E3_AND_SCOPE"
   },
   "E5_runtime_adapter_factorial": {
-   "priority": "P1", "nominal_episodes": 480, "status": "BLOCKED_PENDING_SCOPE_AND_RUNTIME"
+   "priority": "P1",
+   "nominal_episodes": 480,
+   "status": "BLOCKED_PENDING_SCOPE_AND_RUNTIME"
   },
   "E6_reasoning_budget_and_reference": {
-   "priority": "P1", "nominal_slots": {"reasoning_budget": 1080, "larger_model_reference": 320}, "status": "BLOCKED_PENDING_SCOPE"
+   "priority": "P1",
+   "nominal_slots": {
+    "reasoning_budget": 1080,
+    "larger_model_reference": 320
+   },
+   "status": "BLOCKED_PENDING_SCOPE"
   },
   "E7_learnability": {
-   "priority": "P1", "nominal_slots": 1440, "status": "BLOCKED_PENDING_SCOPE"
+   "priority": "P1",
+   "nominal_slots": 1440,
+   "status": "BLOCKED_PENDING_SCOPE"
   },
   "E8_multiadapter_crossjob_stability": {
-   "priority": "P2", "status": "NOT_RUN"
+   "priority": "P2",
+   "status": "NOT_RUN"
+  },
+  "E1_batch_b": {
+   "priority": "P0",
+   "authorization": "AUTH-2B (released, checksum reproduced by real consumer)",
+   "nominal_slots": 480,
+   "status": "AUTHORIZED_FIRST_BLOCK_VERIFICATION"
   }
  },
-
  "weight_configurations": {
   "W0": "LFM3-1.7B original Q8_0",
   "W1": "W0 + official Pi F16 GGUF LoRA",
@@ -145,22 +192,58 @@
   "W3": "W0 + official Hermes F16 GGUF LoRA",
   "admission_requirements": "scale-0 numerical equivalence with W0; scale-1 genuine repeatable change; correct adapter selection per request; no silent fallback; unknown adapter ID rejected at gateway; no state leakage across trials; identical cache policy across compared configurations; fixed-adapter isolated server processes preferred (prior cache/repeatability limitations)"
  },
-
  "balanced_execution_policy": [
   "rotate weight/harness order where practical for matched experiments",
   "start long episodes with balanced matched task blocks of ~10-20 tasks per applicable arm before expanding to full roster",
   "never finish one arm in full while leaving matched arms entirely unexecuted",
   "scheduler consumes real authorization+qualification state; blocked scopes are never dispatched"
  ],
-
  "metrics": {
-  "quality": ["first-pass semantic correctness", "end-to-end task completion", "structural validity", "recovery success", "goal predicate success", "false completion", "unsafe/unauthorized action rate"],
-  "efficiency": ["model calls", "tool proposals/executions/redundant", "agent turns", "human interaction turns (kept separate)", "generated tokens", "reasoning tokens", "tool-result context length"],
-  "performance": ["TTFT where available", "decode tokens/s", "end-to-end latency", "P50/P95/P99 where sample size supports", "memory", "GPU utilization", "resource cost per successful task"],
-  "integrity": ["planned logical slots", "applicable slots", "actual physical attempts", "reused qualified evidence", "qualified evaluable outcomes", "NOT_EVALUABLE", "quarantined", "BLOCKED", "NOT_RUN", "missing telemetry", "canary counts"],
-  "rules": ["unavailable telemetry never reported as zero", "decode throughput never conflated with business task completion speed"]
+  "quality": [
+   "first-pass semantic correctness",
+   "end-to-end task completion",
+   "structural validity",
+   "recovery success",
+   "goal predicate success",
+   "false completion",
+   "unsafe/unauthorized action rate"
+  ],
+  "efficiency": [
+   "model calls",
+   "tool proposals/executions/redundant",
+   "agent turns",
+   "human interaction turns (kept separate)",
+   "generated tokens",
+   "reasoning tokens",
+   "tool-result context length"
+  ],
+  "performance": [
+   "TTFT where available",
+   "decode tokens/s",
+   "end-to-end latency",
+   "P50/P95/P99 where sample size supports",
+   "memory",
+   "GPU utilization",
+   "resource cost per successful task"
+  ],
+  "integrity": [
+   "planned logical slots",
+   "applicable slots",
+   "actual physical attempts",
+   "reused qualified evidence",
+   "qualified evaluable outcomes",
+   "NOT_EVALUABLE",
+   "quarantined",
+   "BLOCKED",
+   "NOT_RUN",
+   "missing telemetry",
+   "canary counts"
+  ],
+  "rules": [
+   "unavailable telemetry never reported as zero",
+   "decode throughput never conflated with business task completion speed"
+  ]
  },
-
  "analysis_methods": [
   "paired task-level comparisons (McNemar exact) with Newcombe confidence intervals",
   "effect sizes and paired wins/losses with exact comparison denominators",
@@ -169,7 +252,6 @@
   "exploratory vs confirmation kept separate; equivalence never claimed from overlapping marginal CIs",
   "software-bucket outcomes (parser/evaluator errors, evidence, duplicates, canaries, NOT_EVALUABLE) never enter model statistics"
  ],
-
  "resume_semantics": {
   "clock": "read started_utc from this file; NEVER re-derive or restart",
   "runner": "resume from runner_state.json in the campaign workdir; completed trial identities are exact-resume keys",
@@ -177,15 +259,12 @@
   "clean_slate": "campaign workdirs are fresh at campaign start (stale breaker state from crashed prior runs must never silently suppress re-runs)",
   "unique_identities": "experiment ids bind experiment+roster+identity; physical attempts carry content-addressed artifacts"
  },
-
  "confirmation_protection": "inherited unchanged from MISSION_STATE_IJNANO_N03_PROGRESSIVE.json; AUTH-3 conditions not met within this campaign so far -> confirmation scope reported BLOCKED, protection never weakened to complete the roster",
-
  "publication_checkpoints": {
   "gate": "scripts/tools/publish_check.py --staged (fail-closed, finding-count) before every commit; absolute local paths redacted from evidence",
   "cadence": "after meaningful milestones and at bounded periodic checkpoints; verify remote HEAD after push; no merge, no force-push",
   "live_status": "reports/IJNANO_48H_LIVE_STATUS.md continuously updated"
  },
-
  "gates": {
   "IJNANO_48H_PREREGISTERED": "GRANTED (this file + verbatim order + ledgers committed)",
   "N03_PHYSICAL_EVALUATION_INTEGRATION_GO": "PENDING (E0 evidence)",
@@ -193,6 +272,16 @@
   "E1_BATCH_A_COMPLETE": "PENDING",
   "E2_ADAPTER_ATLAS_GO": "PENDING",
   "E3_REPRODUCTION_GO": "PENDING",
-  "CAMPAIGN_FINALIZED": "PENDING"
+  "CAMPAIGN_FINALIZED": "PENDING",
+  "IJNANO_48H_PHYSICAL_ADMISSION_VERIFIED": "GRANTED (probe: 3/3 servers full GPU offload, netstat PID ownership, template fingerprints, /metrics OK; identities match sealed N02R)",
+  "E3_OFFICIAL_SOURCES_STUDY_FROZEN": "GRANTED (docs/IJNANO_48H_E3_OFFICIAL_SOURCES_STUDY.md)",
+  "E1_BATCH_B_AUTHORIZED": "GRANTED (checksum-verified AUTH-2B consumption)"
+ },
+ "blockers": {
+  "48H-B-006": "NARROWED to Batch A scopes (AUTH-1 diagnostic + AUTH-2 Batch A): certificate 512efb617a9cb4c8 remains revoked; fresh Batch A issuance cites the Batch B certificate and is REFUSED by the release-checksum gate (never cross-batch). Batch B unblocked via bd41edfb6fd7c004.",
+  "see": "BLOCKERS_IJNANO_48H.md"
+ },
+ "decisions": {
+  "integration_verification": "AUTH-1 48-slot smoke is unavailable (48H-B-006). The AUTH-2B release explicitly permits narrower preregistered scopes: the campaign executes AUTH-2B block 0 (60 trials: 20 cases x 3 models, per-case model rotation) as the PHYSICAL INTEGRATION VERIFICATION checkpoint - run, stop, verify (seal + canaries + dual-path replay + evidence completeness + telemetry capture), and only then grant N03_PHYSICAL_EVALUATION_INTEGRATION_GO and continue the remaining 420 slots. A defect found at verification quarantines affected scope per order section 14. Recorded 2026-11-28T06:10Z."
  }
 }

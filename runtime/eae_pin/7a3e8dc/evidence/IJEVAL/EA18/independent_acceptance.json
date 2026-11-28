@@ -1,0 +1,92 @@
+{
+ "schema": "ijeval.ea18.independent_acceptance.v1",
+ "generated_utc": "2026-11-28T04:03:05Z",
+ "attempts": [
+  {
+   "attempt": "forged authorization JSON (checksum recompute on mutated payload)",
+   "outcome": "REFUSED",
+   "refused": true
+  },
+  {
+   "attempt": "reused authorization for a different experiment",
+   "outcome": "REFUSED",
+   "refused": true
+  },
+  {
+   "attempt": "authorization after durable revocation (fresh process state)",
+   "outcome": "REFUSED",
+   "refused": true
+  },
+  {
+   "attempt": "direct publication bypass (aggregation without certificates)",
+   "outcome": "REFUSED",
+   "refused": true
+  },
+  {
+   "attempt": "certificate-less formal aggregation",
+   "outcome": "REFUSED",
+   "refused": true
+  },
+  {
+   "attempt": "hand-forged ExecutionEvidence dataclass registration",
+   "outcome": "REFUSED-at-issuance (unbacked certificates never in a trusted authority store)",
+   "refused": true
+  },
+  {
+   "attempt": "tampered breaker state file (forced CLOSED)",
+   "outcome": "REFUSED (checksum mismatch keeps dispatch suspended)",
+   "refused": true
+  },
+  {
+   "attempt": "missing-evidence sentinel passed off as empty output",
+   "outcome": "REFUSED",
+   "refused": true
+  },
+  {
+   "attempt": "canary window hiding (early passing family clears window)",
+   "outcome": "REFUSED",
+   "refused": true
+  }
+ ],
+ "dependencies": {
+  "evidence": {
+   "waveB_witnesses": {
+    "total": 116,
+    "passed": 116,
+    "failed": 0
+   },
+   "waveB_mutations": {
+    "faults": 20,
+    "detected": 18,
+    "equivalent": 2,
+    "escapes": []
+   },
+   "waveB_ea08": {
+    "controls": 6,
+    "passed": 6
+   },
+   "catastrophe_pilot": {
+    "scenarios": 13,
+    "detected_or_contained": 13,
+    "escapes": []
+   },
+   "ea12": "PASS_WITH_FINDINGS",
+   "ea13": {
+    "qualified": 8,
+    "total": 8
+   },
+   "ea14": "GO"
+  },
+  "ok": {
+   "waveB_witnesses": true,
+   "waveB_mutations": true,
+   "waveB_ea08": true,
+   "catastrophe_pilot": true,
+   "ea12": true,
+   "ea13": true,
+   "ea14": true
+  }
+ },
+ "gate": "N03_SHARED_EVALUATION_ASSURANCE_CORE_GO",
+ "gate_blocked_reasons": []
+}

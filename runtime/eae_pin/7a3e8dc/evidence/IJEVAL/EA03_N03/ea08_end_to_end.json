@@ -1,0 +1,58 @@
+{
+ "schema": "ijeval.ea03_n03.ea08_end_to_end.v1",
+ "generated_utc": "2026-11-28T03:23:35Z",
+ "controls": [
+  {
+   "control": "X04_duplicate_trial_rejection",
+   "result": "PASS",
+   "detail": {
+    "counts": {
+     "CORRECT": 1
+    },
+    "quarantined_attempts": 1,
+    "note": "duplicate attempts are quarantined and never enter the trial denominator; the original record is preserved"
+   }
+  },
+  {
+   "control": "X05_resume_exactness",
+   "result": "PASS",
+   "detail": {
+    "trials": 24,
+    "duplicates_rejected": 12
+   }
+  },
+  {
+   "control": "X06_offline_replay_agreement",
+   "result": "PASS",
+   "detail": {
+    "replayed": 24
+   }
+  },
+  {
+   "control": "X03_artifact_tamper_detection",
+   "result": "PASS",
+   "detail": [
+    "n03-C01-helpdesk-d00|rp|rp-C01-helpdesk-pos: artifact hash mismatch (tampered after capture)"
+   ]
+  },
+  {
+   "control": "X07_missing_vs_empty_distinction",
+   "result": "PASS",
+   "detail": {
+    "missing": "MISSING_EVIDENCE"
+   }
+  },
+  {
+   "control": "X01X02_verification_receipts",
+   "result": "PASS",
+   "detail": {
+    "cross_trial_reuse": "REJECTED",
+    "forged_digest": "REJECTED"
+   }
+  }
+ ],
+ "summary": {
+  "controls": 6,
+  "passed": 6
+ }
+}

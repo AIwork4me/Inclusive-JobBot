@@ -27,7 +27,7 @@ Clock: started 2026-11-28T04:34:00Z, deadline 2026-11-30T04:34:00Z
 | P1 | Physical transport adapter + campaign controller (balanced blocks w/ model rotation, dispatch limits, per-dispatch revocation recheck, canary scheduler + persistent breaker, GPU lease, exact resume, seal/verify/replay) | done (software) | PASS (AUTH-0 scope; awaiting authorization to dispatch) | `benchmarks/ij_nano/n03h/{transport,campaign}.py` |
 | P1 | Host-wide GPU lease + fresh admission hashes + llama-server session admission | not started | PENDING (dispatches with E0) | planned `runs/n03h/*/admission.json` |
 
-## E0 — AUTH-1 physical smoke (48 slots)
+## E0 — AUTH-1 physical smoke (48 slots) — BLOCKED (48H-B-006), superseded by AUTH-2B first-block verification
 
 | Phase | Task | Progress | Status | Evidence |
 |---|---|---|---|---|
@@ -40,7 +40,8 @@ Clock: started 2026-11-28T04:34:00Z, deadline 2026-11-30T04:34:00Z
 | Phase | Task | Progress | Status | Evidence |
 |---|---|---|---|---|
 | E1-A | Batch A development 480 slots (3 models x 160 dev cases, chat protocol) under AUTH-2 | not started | PENDING (authorized after integration gate) | planned `evidence/IJNANO/N03H/E1A/` |
-| E1-BCD | Batches B/C/D development 1440 slots | not started | BLOCKED (pending IJEVAL EA13 extension releases) | — |
+| E1-B | Batch B development 480 slots (C09-C16, chat, S1/S2/S3) under AUTH-2B | block 0 authorized | AUTHORIZED (checksum fc4cdb2c reproduced by real consumer; first-block integration verification per state decision) | `runs/n03h/N03-AUTH2-DEVELOPMENT-BATCH-B-v1/` |
+| E1-CD | Batches C/D development 960 slots | not started | BLOCKED (pending IJEVAL EA13-C/D releases) | — |
 | E1-CONF | Protected confirmation 960 slots | not started | BLOCKED (AUTH-3 not registered; protection never weakened) | — |
 
 ## E2–E8 — see mission state experiment register
@@ -49,3 +50,10 @@ All P0/P1/P2 experiment scopes beyond E1-A are BLOCKED pending their
 specific qualification releases and/or asset acquisition; CPU-side
 preparation (E3 official task study, adapter asset pinning) proceeds
 where independently executable. Rows are added when each scope activates.
+
+## P2 — Adapter asset pinning (W1-W3)
+
+| Phase | Task | Progress | Status | Evidence |
+|---|---|---|---|---|
+| P2 | Official Pi/OpenCode/Hermes F16 GGUF LoRAs acquired + digest-verified (sha256 == upstream LFS == ModelScope mirrors); rank/alpha/targets/license/training-data pinned; acquisition-endpoint deviation (hf-mirror; HF unreachable) documented | done | PASS | `evaluation/ij_nano/n03h/adapter_assets.json`, weights at `models/adapters/` (gitignored) |
+| P2 | E3 official-sources study frozen (published deltas, task-set identities, verifier methodology, fidelity classification, Qwen super-adapter method) | done | PASS | `docs/IJNANO_48H_E3_OFFICIAL_SOURCES_STUDY.md` |

@@ -5,7 +5,12 @@ Inherited mission blockers (IJN-B-001 CLOSED, IJN-B-002 OPEN-narrowed,
 IJN-B-003 OPEN, IJN-B-004 OPEN) remain owned as recorded in
 `BLOCKERS_IJNANO.md`.
 
-## 48H-B-001 Batches B/C/D cognitive families not yet EAE-qualified
+## 48H-B-001 Batches C/D cognitive families not yet EAE-qualified (Batch B RELEASED)
+
+- Batch B (C09-C16) AUTH-2B released 2026-11-28 (bffce5a): certificate
+  bd41edfb6fd7c004, 480-slot roster, checksum fc4cdb2c reproduced by
+  the real consumer. Batch C/D remain pending.
+
 
 - Priority: P0 for E1 completion (1,440 primary slots)
 - Status: OPEN
@@ -52,7 +57,7 @@ IJN-B-003 OPEN, IJN-B-004 OPEN) remain owned as recorded in
 
 ## 48H-B-006 Production certificate 512efb617a9cb4c8 revoked by the EAE consumer-verification drill at 3cdd066
 
-- Priority: P0 — blocks ALL physical dispatch (E0 smoke + E1 Batch A)
+- Priority: P0 — blocks Batch A physical scopes only (E0 smoke + E1 Batch A); Batch B unblocked
 - Status: OPEN
 - Owner: IJEVAL session (PR #13) — requalification-only recovery
   (new authoritative generation + passing canary per their EA10/EA14
