@@ -61,6 +61,16 @@ def sha256_file(p: pathlib.Path) -> str:
     return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
 
 
+def import_pin_module(dotted: str):
+    """Import a module from the pinned snapshot (path-only; no evidence
+    registration). For containment components usable pre-authorization."""
+    src_str = str(PIN_SRC)
+    if src_str not in sys.path:
+        sys.path.insert(0, src_str)
+    import importlib
+    return importlib.import_module(dotted)
+
+
 def verify_pin() -> dict:
     """Fail-closed: recompute every pinned-file digest against
     PIN_MANIFEST.json; any mismatch/absence refuses integration."""

@@ -24,7 +24,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[3]
 # frozen sampling identity (matches the qualified N02R decoding identity)
 SAMPLING = {"temperature": 0, "seed": 42, "max_tokens": 1024}
 CONTEXT_FLAGS = ["-c", "8192", "-ngl", "99", "--jinja",
-                 "--cache-reuse", "256"]
+                 "--cache-reuse", "256", "--metrics"]
 REQUEST_TIMEOUT_S = 600
 
 

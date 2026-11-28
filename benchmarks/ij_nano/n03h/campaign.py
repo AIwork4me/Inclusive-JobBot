@@ -53,31 +53,45 @@ class Campaign:
                  weights_root: pathlib.Path | None = None,
                  port_base: int = 8230):
         self.scope = scope
-        self.eae = eae_mod.bootstrap(scope)
-        ident = self.eae["identity"]
-        self.experiment_id = ident["experiment_id"]
+        sc = eae_mod.SCOPES[scope]
+        self.experiment_id = sc["experiment_id"]
         self.workdir = workdir or (RUNS / self.experiment_id)
         self.weights_root = pathlib.Path(weights_root) if weights_root \
             else (ROOT.parent / "IJSDK")
         self.port_base = port_base
         self.workdir.mkdir(parents=True, exist_ok=True)
         (self.workdir / "server").mkdir(exist_ok=True)
-
-        ea = self.eae["modules"]
-        self.session = ea["DualPathSession"](self.workdir)
-        self.breaker = ea["CircuitBreaker"](self.workdir / "cb.json")
-        self.canary = ea["canary"].CanaryScheduler(
-            self.eae["witnesses"], breaker=self.breaker,
-            expectations=self.eae["expectations"],
-            cases_by_id=self.eae["cases_by_id"])
+        self._eae = None
 
         roster = json.loads(
-            self.eae["roster_file"].read_text(encoding="utf-8"))
+            sc["roster_file"].read_text(encoding="utf-8"))
         self.roster_slots = roster["slots"]
-        self.dispatch_budget = ident["dispatch_limits"]["max_trials"]
+        self.dispatch_budget = len(self.roster_slots)
         self.state = self._load_state()
-        self.session.load()          # exact dual-path resume
-        self.breaker.reload()        # persistent containment state
+        # containment state is always live (restart-safe breaker), even
+        # before any authorization exists. A workdir without a breaker
+        # file is a CLEAN SLATE (order §15); an existing file is
+        # reloaded (never silently discarded).
+        _Breaker = eae_mod.import_pin_module(
+            "eval_assurance.breaker").CircuitBreaker
+        self.breaker = _Breaker(self.workdir / "cb.json")
+        if (self.workdir / "cb.json").is_file():
+            self.breaker.reload()
+
+    @property
+    def eae(self):
+        """Lazy trusted-EAE bootstrap: admission/plan/status need no
+        authorization; run/seal/verify trigger the fail-closed path."""
+        if self._eae is None:
+            self._eae = eae_mod.bootstrap(self.scope)
+            ea = self._eae["modules"]
+            self.session = ea["DualPathSession"](self.workdir)
+            self.session.load()          # exact dual-path resume
+            self.canary = ea["canary"].CanaryScheduler(
+                self._eae["witnesses"], breaker=self.breaker,
+                expectations=self._eae["expectations"],
+                cases_by_id=self._eae["cases_by_id"])
+        return self._eae
 
     # -- persistent controller state --------------------------------------
     def _state_path(self) -> pathlib.Path:
@@ -124,8 +138,26 @@ class Campaign:
         return blocks
 
     # -- admission ----------------------------------------------------------
+    @staticmethod
+    def _gpu_identity_robust() -> dict:
+        """gpu_identity with locale-tolerant decoding (the N02R helper's
+        text=True reader can crash on non-UTF8 console output)."""
+        import subprocess
+        try:
+            r = subprocess.run(
+                ["powershell", "-NoProfile", "-Command",
+                 "Get-CimInstance Win32_VideoController | Where-Object "
+                 "{$_.Name -like '*AMD Radeon*'} | Select-Object -First 1 "
+                 "| ConvertTo-Json"],
+                capture_output=True, timeout=30)
+            j = json.loads(r.stdout.decode("utf-8", "replace"))
+            return {"name": j.get("Name"), "driver": j.get("DriverVersion"),
+                    "pnp_device_id": j.get("PNPDeviceID")}
+        except Exception as e:                    # noqa: BLE001
+            return {"error": f"UNAVAILABLE: {str(e)[:120]}"}
+
     def admission(self) -> dict:
-        from benchmarks.ij_nano.n02r.controller_v2 import gpu_identity
+        gpu = self._gpu_identity_robust()
         engine_dir = ROOT / "runtime" / "llama-cpp" / "vulkan"
         weights = {}
         for model, rel in WEIGHTS.items():
@@ -137,7 +169,7 @@ class Campaign:
         adm = {
             "schema": "ijnano.n03h.admission.v1",
             "experiment_id": self.experiment_id,
-            "gpu": gpu_identity(),
+            "gpu": gpu,
             "engine": {
                 "exe_sha256": eae_mod.sha256_file(
                     engine_dir / "llama-server.exe"),
@@ -146,12 +178,61 @@ class Campaign:
             },
             "weights": weights,
             "chat_renderer_sha256": renderer_digest(),
-            "eae_pin": self.eae["pin_report"],
+            "eae_pin": eae_mod.verify_pin(),
             "verified_utc": utc(),
         }
         (self.workdir / "admission.json").write_text(
             json.dumps(adm, indent=1, ensure_ascii=False), encoding="utf-8")
         return adm
+
+    # -- physical admission probe (order section 3.1; NO trials) ----------
+    def admission_probe(self) -> dict:
+        """Start each model server briefly under the GPU lease, capture
+        health/netstat ownership/offload/template fingerprint/metrics
+        availability, then stop. This is runtime admission evidence —
+        no benchmark trial is dispatched and no model output is
+        recorded as evidence."""
+        probe = {"schema": "ijnano.n03h.admission_probe.v1",
+                 "experiment_id": self.experiment_id,
+                 "probed_utc": utc(), "models": {}}
+        for model in MODEL_SLOTS:
+            weights = (self.weights_root / WEIGHTS[model]).resolve()
+            if not weights.is_file():
+                probe["models"][model] = {"status": "WEIGHTS_MISSING"}
+                continue
+            port = self.port_base + MODEL_SLOTS.index(model)
+            tr = ChatTransport(model, weights, port,
+                               self.workdir / "server" / model)
+            try:
+                info = tr.start()
+                probe["models"][model] = {
+                    "status": "OK",
+                    "health": info["health"],
+                    "offload": info.get("offload"),
+                    "template_fingerprint": info["template_fingerprint"],
+                }
+            except Exception as e:                  # noqa: BLE001
+                probe["models"][model] = {"status": "FAILED",
+                                          "error": str(e)[:400]}
+                try:
+                    tr.stop()
+                except Exception:                   # noqa: BLE001
+                    pass
+                continue
+            try:
+                import urllib.request
+                with urllib.request.urlopen(tr.base + "/metrics",
+                                            timeout=10) as r:
+                    probe["models"][model]["metrics_endpoint"] = \
+                        "OK" if r.status == 200 else f"HTTP {r.status}"
+            except Exception as e:                  # noqa: BLE001
+                probe["models"][model]["metrics_endpoint"] = \
+                    f"NOT_CAPTURED ({str(e)[:80]})"
+            tr.stop()
+        (self.workdir / "admission_probe.json").write_text(
+            json.dumps(probe, indent=1, ensure_ascii=False),
+            encoding="utf-8")
+        return probe
 
     # -- authorization ------------------------------------------------------
     def request(self) -> RunRequest:
@@ -181,29 +262,36 @@ class Campaign:
         results = self.canary.preflight()
         self._require_healthy(results, "preflight")
         blocks_run = 0
-        for block in plan:
-            if self.state.get("paused"):
-                break
-            if max_blocks is not None and blocks_run >= max_blocks:
-                break
-            if all(self._trial_key(t) in self.state["completed_trial_ids"]
-                   for t in block["trials"]):
+        transports: dict[str, ChatTransport] = {}
+        try:
+            for block in plan:
+                if self.state.get("paused"):
+                    break
+                if max_blocks is not None and blocks_run >= max_blocks:
+                    break
+                if all(self._trial_key(t) in
+                       self.state["completed_trial_ids"]
+                       for t in block["trials"]):
+                    self.state["blocks_done"] = max(
+                        self.state["blocks_done"], block["block"] + 1)
+                    continue                  # exact resume
+                self._run_block(block, transports)
+                blocks_run += 1
                 self.state["blocks_done"] = max(
                     self.state["blocks_done"], block["block"] + 1)
-                continue                      # exact resume
-            self._run_block(block)
-            blocks_run += 1
-            self.state["blocks_done"] = max(
-                self.state["blocks_done"], block["block"] + 1)
-            self.save()
+                self._sample_server_health(transports)
+                self.save()
+        finally:
+            for tr in transports.values():
+                tr.stop()
         return self.analyze()
 
     def _trial_key(self, t: dict) -> str:
         return f"{t['case_id']}|{t['model']}|{t['protocol']}"
 
-    def _run_block(self, block: dict) -> None:
+    def _run_block(self, block: dict,
+                   transports: dict[str, ChatTransport]) -> None:
         block_auth = self.authorize_block()
-        transports: dict[str, ChatTransport] = {}
         results_path = self.workdir / "results.jsonl"
         try:
             for t in block["trials"]:
@@ -272,9 +360,36 @@ class Campaign:
                 if canaries is not None:
                     self._require_healthy(canaries, f"post-{tid}")
         finally:
-            for tr in transports.values():
-                tr.stop()
+            pass                        # transports outlive the block
         self.save()
+
+    def _sample_server_health(self, transports: dict) -> None:
+        """Best-effort server-health telemetry between blocks (order
+        §12.3/§16): llama-server /metrics when the endpoint answers;
+        unavailable telemetry is recorded NOT_CAPTURED, never zero."""
+        row = {"sampled_utc": utc(), "servers": {}}
+        for model, tr in transports.items():
+            if not tr.started:
+                continue
+            try:
+                import urllib.request
+                with urllib.request.urlopen(tr.base + "/metrics",
+                                            timeout=10) as r:
+                    text = r.read().decode("utf-8", "replace")
+                keep = {}
+                for line in text.splitlines():
+                    if line.startswith(("#", "llamacpp:prompt")):
+                        continue
+                    if line.startswith("llamacpp:"):
+                        keep[line.split("{")[0]] = line.rsplit(" ", 1)[-1]
+                row["servers"][model] = keep
+            except Exception as e:               # noqa: BLE001
+                row["servers"][model] = {"metrics": "NOT_CAPTURED",
+                                         "error": str(e)[:120]}
+        if row["servers"]:
+            with open(self.workdir / "server_health.jsonl", "a",
+                      encoding="utf-8") as f:
+                f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
     def _start_transport(self, model: str) -> ChatTransport:
         weights = (self.weights_root / WEIGHTS[model]).resolve()
@@ -341,6 +456,7 @@ class Campaign:
         model_eval = sum(counts.get(c, 0) for c in MODEL_CLASSES)
         software = sum(counts.get(c, 0) for c in SOFTWARE_CLASSES)
         planned = len(self.roster_slots)
+        session = getattr(self, "session", None)
         return {
             "experiment_id": self.experiment_id,
             "scope": self.scope,
@@ -353,14 +469,16 @@ class Campaign:
             "by_primitive": by_primitive,
             "model_evaluable_outcomes": model_eval,
             "software_or_unresolvable": software,
-            "quarantined": len(self.session.quarantine),
-            "canary_controls": len(self.session.canary_controls),
-            "breaker_open": self.breaker.is_open(),
+            "quarantined": len(self.session.quarantine) if session
+            else self.state.get("quarantine_transport", 0),
+            "canary_controls": len(session.canary_controls) if session
+            else None,
+            "breaker_open": bool(self.breaker.is_open),
             "analyzed_utc": utc(),
         }
 
     def seal(self) -> dict:
-        if self.breaker.is_open():
+        if bool(self.breaker.is_open):
             return {"sealed": False,
                     "reason": "breaker open; evidence preserved unsealed"}
         canaries = self.canary.before_seal()
@@ -413,7 +531,8 @@ class Campaign:
 def main() -> int:
     ap = argparse.ArgumentParser("n03h campaign controller")
     ap.add_argument("command",
-                    choices=["plan", "status", "admission", "run",
+                    choices=["plan", "status", "admission",
+                             "admission-probe", "run",
                              "analyze", "seal", "verify", "pause"])
     ap.add_argument("--scope", default="AUTH-1",
                     choices=["AUTH-1", "AUTH-2"])
@@ -436,6 +555,11 @@ def main() -> int:
                "analysis": camp.analyze()}
     elif args.command == "admission":
         out = camp.admission()
+    elif args.command == "admission-probe":
+        from benchmarks.root_cause.gpu_lease import physical_gpu
+        with physical_gpu():        # host-wide GPU lease (N00R)
+            out = {"admission": camp.admission(),
+                   "probe": camp.admission_probe()}
     elif args.command == "run":
         from benchmarks.root_cause.gpu_lease import physical_gpu
         with physical_gpu():            # host-wide GPU lease (N00R)

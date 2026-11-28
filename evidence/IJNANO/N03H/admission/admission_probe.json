@@ -1,0 +1,52 @@
+{
+ "schema": "ijnano.n03h.admission_probe.v1",
+ "experiment_id": "N03-AUTH1-DIAGNOSTIC-PANEL-v1",
+ "probed_utc": "2026-11-28T04:51:44Z",
+ "models": {
+  "MiniCPM5-2B": {
+   "status": "OK",
+   "health": {
+    "socket_owner_pid_verified": 22264,
+    "health": {
+     "status": "ok"
+    }
+   },
+   "offload": "offloaded 43/43 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "c6d9cc994933f4163f6b1cf945d8c0db5b8c96f8c10a14c15974563fea917294",
+    "chars": 89
+   },
+   "metrics_endpoint": "OK"
+  },
+  "LFM3-1.7B": {
+   "status": "OK",
+   "health": {
+    "socket_owner_pid_verified": 12300,
+    "health": {
+     "status": "ok"
+    }
+   },
+   "offload": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "193ba47f4abc4df4410338994961fb45e1975832d9bee57d88217ea78ab0c0a7",
+    "chars": 100
+   },
+   "metrics_endpoint": "OK"
+  },
+  "Qwen3.5-2B": {
+   "status": "OK",
+   "health": {
+    "socket_owner_pid_verified": 13120,
+    "health": {
+     "status": "ok"
+    }
+   },
+   "offload": "offloaded 25/25 layers to GPU",
+   "template_fingerprint": {
+    "rendered_prompt_sha256": "1927cc83ade25061adb55da74d4ab30f14e83a76bd26bb196e5465646e3903cb",
+    "chars": 86
+   },
+   "metrics_endpoint": "OK"
+  }
+ }
+}
