@@ -98,7 +98,11 @@ _LEG_SUFFIX = {"a": "", "b": "_b", "c": "_c", "d": "_d"}
 
 def make_session(legs: str, workdir: pathlib.Path) -> DualPathSession:
     """Session factory: Batch A core legs -> pinned DualPathSession;
-    per-batch legs -> the LegDualPathSession routing adapter above."""
+    per-batch legs -> the LegDualPathSession routing adapter above;
+    "multi" -> the adapter-atlas MultiLegSession facade."""
+    if legs == "multi":
+        from benchmarks.ij_nano.n03h.session_multi import MultiLegSession
+        return MultiLegSession(workdir)
     suffix = _LEG_SUFFIX.get(legs)
     if suffix is None:
         raise ValueError(f"unknown legs {legs!r}")

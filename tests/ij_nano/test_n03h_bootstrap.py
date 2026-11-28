@@ -254,10 +254,12 @@ class TestDualPathAndRenderer(unittest.TestCase):
     def test_execution_plan_balanced_rotation(self):
         from benchmarks.ij_nano.n03h.campaign import Campaign
         camp = Campaign.__new__(Campaign)      # no bootstrap needed
+        models = ["m1", "m2", "m3"]
         camp.roster_slots = [
-            {"case_id": f"c{i:03d}"} for i in range(40)]
+            {"case_id": f"c{i:03d}",
+             "model": models[i % 3]} for i in range(120)]
         plan = camp.execution_plan()
-        self.assertEqual(len(plan), 2)         # 40 cases / 20 per block
+        self.assertEqual(len(plan), 6)         # 120 cases / 20 per block
         first = plan[0]["trials"]
         self.assertEqual(first[0]["case_id"], first[1]["case_id"])
         self.assertEqual(len({t["model"] for t in first[:3]}), 3)

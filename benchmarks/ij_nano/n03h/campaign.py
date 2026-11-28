@@ -34,6 +34,27 @@ WEIGHTS = {
         "models/ij_sdk/Qwen3.5-2B-GGUF/Qwen3.5-2B-Q8_0.gguf",
 }
 MODEL_SLOTS = ["MiniCPM5-2B", "LFM3-1.7B", "Qwen3.5-2B"]
+
+#: adapter weight configurations (AUTH-2W): base weights + fixed F16
+#: LoRA GGUF, isolated server process per configuration
+LFM3_BASE = "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf"
+ADAPTER_CONFIGS = {
+    "LFM3-1.7B+W1_pi": ("W1_pi", "pi"),
+    "LFM3-1.7B+W2_opencode": ("W2_opencode", "opencode"),
+    "LFM3-1.7B+W3_hermes": ("W3_hermes", "hermes"),
+}
+
+
+def resolve_model(model: str, weights_root: pathlib.Path) -> dict:
+    """Resolve a roster model identity to base weights (+ optional
+    fixed-adapter LoRA file) under the weights root."""
+    if model in ADAPTER_CONFIGS:
+        _, slug = ADAPTER_CONFIGS[model]
+        return {"base": (weights_root / LFM3_BASE).resolve(),
+                "lora": (ROOT / "models" / "adapters" /
+                         f"LFM3-1.7B-harbor-{slug}-lora-F16.gguf")}
+    return {"base": (weights_root / WEIGHTS[model]).resolve(),
+            "lora": None}
 BLOCK_CASES = 20          # balanced matched block (order section 13.3)
 MAX_TRANSPORT_RETRIES = 2
 CONSECUTIVE_TRANSPORT_BREAK = 3
@@ -63,8 +84,10 @@ class Campaign:
         (self.workdir / "server").mkdir(exist_ok=True)
         self._eae = None
 
+        ev_root = (eae_mod._pin_paths(sc["pin_rev"])["pin"]
+                   / "evidence" / "IJEVAL")
         roster = json.loads(
-            sc["roster_file"].read_text(encoding="utf-8"))
+            (ev_root / sc["roster_name"]).read_text(encoding="utf-8"))
         self.roster_slots = roster["slots"]
         self.dispatch_budget = len(self.roster_slots)
         self.state = self._load_state()
@@ -73,7 +96,8 @@ class Campaign:
         # file is a CLEAN SLATE (order §15); an existing file is
         # reloaded (never silently discarded).
         _Breaker = eae_mod.import_pin_module(
-            "eval_assurance.breaker").CircuitBreaker
+            "eval_assurance.breaker",
+            rev=sc["pin_rev"]).CircuitBreaker
         self.breaker = _Breaker(self.workdir / "cb.json")
         if (self.workdir / "cb.json").is_file():
             self.breaker.reload()
@@ -95,7 +119,81 @@ class Campaign:
             if legs:
                 self.canary.production_parser = legs["production_parser"]
                 self.canary.production_evaluator =                     legs["production_evaluator"]
+            if self._eae["legs"] == "multi":
+                self._build_multi_canaries()
         return self._eae
+
+    def _build_multi_canaries(self):
+        """Adapter-atlas canaries: four per-batch schedulers through the
+        REAL batch legs (the EAE adapter-scope qualification pattern).
+        All four must stay healthy at every checkpoint."""
+        import json as _json
+        bt = self._eae
+        canary_mod = bt["modules"]["canary"]
+        rev = bt["pin_report"]["pin_rev"]
+        ev_root = eae_mod._pin_paths(rev)["pin"] / "evidence" / "IJEVAL"
+        witness_files = {
+            "a": "EA03_N03/dualpath_witnesses.json",
+            "b": "EA03_N03/dualpath_witnesses_batch_b.json",
+            "c": "EA03_N03/dualpath_witnesses_batch_c.json",
+            "d": "EA03_N03/dualpath_witnesses_batch_d.json",
+        }
+        scheds = {}
+        for letter, rel in witness_files.items():
+            witnesses = _json.loads(
+                (ev_root / rel).read_text(encoding="utf-8"))["rows"]
+            witnesses = [w for w in witnesses
+                         if w["kind"] != "software-error"]
+            sched = canary_mod.CanaryScheduler(
+                witnesses, breaker=self.breaker,
+                expectations=bt["expectations"],
+                cases_by_id=bt["cases_by_id"])
+            import importlib
+            sfx = "" if letter == "a" else "_" + letter
+            pmod = importlib.import_module(
+                "eval_assurance.production.parser" + sfx)
+            emod = importlib.import_module(
+                "eval_assurance.production.evaluator" + sfx)
+            evcls = getattr(emod, "ProductionEvaluator"
+                            + (sfx[1].upper() if sfx else ""))
+            sched.production_parser = pmod.parse_response
+            sched.production_evaluator = evcls()
+            scheds[letter] = sched
+
+        class _MultiCanary:
+            def __init__(self, scheds):
+                self._scheds = scheds
+
+            def _sweep(self, fn, *a, **kw):
+                out = []
+                for sched in self._scheds.values():
+                    out.extend(fn(sched, *a, **kw) or [])
+                return out
+
+            def preflight(self):
+                return self._sweep(lambda s: s.preflight())
+
+            def run_canary_sweep(self):
+                return self._sweep(lambda s: s.run_canary_sweep())
+
+            def on_trial(self, tid):
+                results = None
+                for sched in self._scheds.values():
+                    r = sched.on_trial(tid)
+                    if r is not None:
+                        results = (results or []) + r
+                return results
+
+            def after_resume(self):
+                return self.run_canary_sweep()
+
+            def before_seal(self):
+                return self.run_canary_sweep()
+
+            def before_publication(self):
+                return self.run_canary_sweep()
+
+        self.canary = _MultiCanary(scheds)
 
     # -- persistent controller state --------------------------------------
     def _state_path(self) -> pathlib.Path:
@@ -129,16 +227,19 @@ class Campaign:
         case order, models rotated WITHIN each block (never one arm
         finished while matched arms are empty)."""
         case_order: list[str] = []
+        model_order: list[str] = []
         for s in self.roster_slots:
             if s["case_id"] not in case_order:
                 case_order.append(s["case_id"])
+            if s["model"] not in model_order:
+                model_order.append(s["model"])
         blocks = []
         for i in range(0, len(case_order), BLOCK_CASES):
             chunk = case_order[i:i + BLOCK_CASES]
             blocks.append(
                 {"block": len(blocks),
                  "trials": [{"case_id": c, "model": m, "protocol": "chat"}
-                            for c in chunk for m in MODEL_SLOTS]})
+                            for c in chunk for m in model_order]})
         return blocks
 
     # -- admission ----------------------------------------------------------
@@ -164,12 +265,23 @@ class Campaign:
         gpu = self._gpu_identity_robust()
         engine_dir = ROOT / "runtime" / "llama-cpp" / "vulkan"
         weights = {}
-        for model, rel in WEIGHTS.items():
-            p = (self.weights_root / rel).resolve()
-            weights[model] = {
-                "path": rel,
-                "size": p.stat().st_size if p.is_file() else None,
-                "sha256": eae_mod.sha256_file(p) if p.is_file() else None}
+        for model in self._model_order():
+            res = resolve_model(model, self.weights_root)
+            entry = {
+                "base_path": res["base"].relative_to(
+                    self.weights_root).as_posix()
+                if str(res["base"]).startswith(str(self.weights_root))
+                else str(res["base"].relative_to(ROOT)).replace("\\", "/"),
+                "base_size": res["base"].stat().st_size
+                if res["base"].is_file() else None,
+                "base_sha256": eae_mod.sha256_file(res["base"])
+                if res["base"].is_file() else None}
+            if res["lora"] is not None:
+                entry["lora_path"] = str(
+                    res["lora"].relative_to(ROOT)).replace("\\", "/")
+                entry["lora_size"] = res["lora"].stat().st_size                     if res["lora"].is_file() else None
+                entry["lora_sha256"] = eae_mod.sha256_file(res["lora"])                     if res["lora"].is_file() else None
+            weights[model] = entry
         adm = {
             "schema": "ijnano.n03h.admission.v1",
             "experiment_id": self.experiment_id,
@@ -199,14 +311,15 @@ class Campaign:
         probe = {"schema": "ijnano.n03h.admission_probe.v1",
                  "experiment_id": self.experiment_id,
                  "probed_utc": utc(), "models": {}}
-        for model in MODEL_SLOTS:
-            weights = (self.weights_root / WEIGHTS[model]).resolve()
-            if not weights.is_file():
+        for model in self._model_order():
+            res = resolve_model(model, self.weights_root)
+            if not res["base"].is_file():
                 probe["models"][model] = {"status": "WEIGHTS_MISSING"}
                 continue
-            port = self.port_base + MODEL_SLOTS.index(model)
-            tr = ChatTransport(model, weights, port,
-                               self.workdir / "server" / model)
+            port = self.port_base + self._model_order().index(model)
+            tr = ChatTransport(model, res["base"], port,
+                               self.workdir / "server" / model,
+                               lora_file=res["lora"])
             try:
                 info = tr.start()
                 probe["models"][model] = {
@@ -398,10 +511,12 @@ class Campaign:
                 f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
     def _start_transport(self, model: str) -> ChatTransport:
-        weights = (self.weights_root / WEIGHTS[model]).resolve()
-        port = self.port_base + MODEL_SLOTS.index(model)
-        tr = ChatTransport(model, weights, port,
-                           self.workdir / "server" / model)
+        res = resolve_model(model, self.weights_root)
+        port = self.port_base + (list(self._model_order()) or
+                                 MODEL_SLOTS).index(model)
+        tr = ChatTransport(model, res["base"], port,
+                           self.workdir / "server" / model,
+                           lora_file=res["lora"])
         info = tr.start()
         (self.workdir / "server" / model / "session.json").write_text(
             json.dumps({"started_utc": utc(), **info}, indent=1,
@@ -542,7 +657,8 @@ def main() -> int:
                              "admission-probe", "run",
                              "analyze", "seal", "verify", "pause"])
     ap.add_argument("--scope", default="AUTH-1",
-                    choices=["AUTH-1", "AUTH-2", "AUTH-2B", "AUTH-2C"])
+                    choices=["AUTH-1", "AUTH-2", "AUTH-2B", "AUTH-2C",
+                             "AUTH-2D", "AUTH-2A-RQ", "AUTH-2W"])
     ap.add_argument("--workdir", default=None)
     ap.add_argument("--weights-root", default=None)
     ap.add_argument("--max-blocks", type=int, default=None)

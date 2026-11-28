@@ -1,0 +1,33 @@
+{
+ "schema": "ijeval.adapter_scope.acceptance.v1",
+ "verdict": "ACCEPTED",
+ "basis": {
+  "prerequisite_releases": [
+   {
+    "batch": "A-RQ",
+    "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-A-v2-RQ",
+    "checksum": "cf627b26a5f47706639d5df77c20cd7913d7081f59ff05338d2e03e2f6e4d2c7"
+   },
+   {
+    "batch": "B",
+    "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-B-v1",
+    "checksum": "fc4cdb2c0d36f189dd9f0249edbba2310a5b957f3ecd40b99af8a1c8d2a9133d"
+   },
+   {
+    "batch": "C",
+    "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-C-v1",
+    "checksum": "c90f234af01db24a2c73796db505e25c7ae68c1afd66f0fd4a21954088b9d29f"
+   },
+   {
+    "batch": "D",
+    "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-D-v1",
+    "checksum": "b71ab0d0ee3d307b8fdb0c71d6bdd55d45e82a946170040a0d957675c3f9926d"
+   }
+  ],
+  "identity_registry": "identity_registry.json (W0 byte-verified; W1-W3 manifest-anchored)",
+  "canary": "full-roster sweep through the four real batch legs (passed)",
+  "breaker": "restart-safe, requalification-only (passed)"
+ },
+ "scope_limits": "development split only; evaluation stack is model-agnostic (verdicts depend only on responses + public payloads); PHYSICAL ADMISSION of the adapters (scale-0/1 equivalence, selection correctness, no silent fallback, isolated fixed-adapter processes, identical cache policy) remains the IJ-NANO lane's gate before dispatch — this release authorizes the evaluation scope, never the physical admission; adapter bytes byte-verify on the runner host at admission",
+ "verified_utc": "2026-11-28T05:25:26Z"
+}

@@ -1,0 +1,28 @@
+{
+ "schema": "ijeval.auth1.release.v1",
+ "status": "EAE-SIDE-RELEASED (physical execution by the IJ-NANO owner; GPU identity verification is theirs)",
+ "experiment": "N03-AUTH1-DIAGNOSTIC-PANEL-v1",
+ "auth_level": "AUTH-1",
+ "scope": {
+  "slots": 48,
+  "models": [
+   "MiniCPM5-2B",
+   "LFM3-1.7B",
+   "Qwen3.5-2B"
+  ],
+  "tasks_per_model": 16,
+  "roster_digest": "0a62c334e83b7c561e1959246251af77a8dc784dc513f8eaef4832f385c3b0bf",
+  "dataset_digest": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+  "roster_selection_rule": "first two dev cases per primitive, canonical pinned order"
+ },
+ "eae_contract_revision": "1.1.1",
+ "authorization_checksum": "4a09f5253a3aaa164720be30643aecf7a39aa7dbbd7a635066a7adc886135da6",
+ "certificate_ids": [
+  "512efb617a9cb4c8"
+ ],
+ "dispatch_limits": {
+  "max_trials": 48
+ },
+ "results_policy": "diagnostic only; must not enter formal capability rankings",
+ "generated_utc": "2026-11-28T03:45:21Z"
+}

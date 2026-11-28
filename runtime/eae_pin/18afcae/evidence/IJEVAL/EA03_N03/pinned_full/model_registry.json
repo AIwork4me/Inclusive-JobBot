@@ -1,0 +1,25 @@
+{
+ "schema": "ij_nano.n03.model_registry.v1",
+ "note": "Slot accounting derives from this registry x the frozen case roster; totals are never hand-maintained. Weight file hashes are bound per physical session at run time (identity binding is a runner concern, AGENTS.md); paths are weights-root-relative (default_weights_root()/IJNANO_WEIGHTS_ROOT).",
+ "primary_models": [
+  {"slot": "S1", "slug": "minicpm5-2b", "quant": "Q8_0",
+   "weights_path": "models/MiniCPM5-2B-GGUF/MiniCPM5-2B-Q8_0.gguf",
+   "source": "OpenBMB/MiniCPM5-2B-GGUF (models/model_manifest.json revision 8cc1178b)"},
+  {"slot": "S2", "slug": "lfm3-1.7b", "quant": "Q8_0",
+   "weights_path": "models/ij_sdk/LFM3-1.7B-GGUF/LFM3-1.7B-Q8_0.gguf",
+   "source": "pinned in benchmarks/ij_nano/n02r/controller_v2.py MODEL table"},
+  {"slot": "S3", "slug": "qwen3.5-2b", "quant": "Q8_0",
+   "weights_path": "models/ij_sdk/Qwen3.5-2B-GGUF/Qwen3.5-2B-Q8_0.gguf",
+   "source": "pinned in benchmarks/ij_nano/n02r/controller_v2.py MODEL table"}
+ ],
+ "s7c_reference_models": {
+  "status": "NOT_PINNED",
+  "note": "8B/14B reference identities are pinned from the IJSDK manifest when S7C is authorized; they never contribute to the 2,880 primary-slot denominator"
+ },
+ "slot_policy": {
+  "primary_slots_per_case": 3,
+  "primary_total_target": 2880,
+  "dev_cases_per_primitive": 20,
+  "conf_cases_per_primitive": 10
+ }
+}

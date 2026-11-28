@@ -1,0 +1,44 @@
+{
+ "schema": "ijeval.auth2d.release.v1",
+ "status": "EAE-SIDE-RELEASED (physical execution by the IJ-NANO owner at the pinned revision)",
+ "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-D-v1",
+ "auth_level": "AUTH-2",
+ "scope": {
+  "slots": 480,
+  "models": [
+   "MiniCPM5-2B",
+   "LFM3-1.7B",
+   "Qwen3.5-2B"
+  ],
+  "dev_cases": 160,
+  "roster_digest": "2a35127d0a16c138e00852eb8a59550e2c18fe382028fec53f3b7c3220b53863",
+  "dataset_digest": "eb5a34ee8cbfb47a9ff295494abdd47900cf48a6dd5327ef99864437a1be8c3f",
+  "primitives": [
+   "C25",
+   "C26",
+   "C27",
+   "C28",
+   "C29",
+   "C30",
+   "C31",
+   "C32"
+  ],
+  "primitives_qualified": 8,
+  "progressive_note": "all 8 Batch D primitives qualified -> full 480-slot Batch D dev scope; narrower preregistered scopes remain permissible"
+ },
+ "eae_contract_revision": "1.1.1",
+ "authorization_checksum": "b71ab0d0ee3d307b8fdb0c71d6bdd55d45e82a946170040a0d957675c3f9926d",
+ "certificate_ids": [
+  "512efb617a9cb4c8",
+  "bd41edfb6fd7c004",
+  "fb019eacee3f35d4",
+  "62faca682a25d6f0"
+ ],
+ "shared_core_gate": "N03_SHARED_EVALUATION_ASSURANCE_CORE_GO",
+ "dispatch_limits": {
+  "max_trials": 480
+ },
+ "confirmation_status": "BLOCKED (AUTH-3 requires frozen model identities/policies + confirmation roster + verified holdout separation; not registered)",
+ "batch_note": "independent Batch D qualification — granted from Batch D evidence only, never from the Batch A certificate",
+ "generated_utc": "2026-11-28T05:14:12Z"
+}

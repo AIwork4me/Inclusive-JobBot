@@ -1,0 +1,45 @@
+{
+ "schema": "ijeval.auth2a_rq.release.v1",
+ "status": "EAE-SIDE-RELEASED (requalification-only recovery of 48H-B-006; physical execution by the IJ-NANO owner at the pinned revision)",
+ "closes_blocker": "48H-B-006",
+ "experiment": "N03-AUTH2-DEVELOPMENT-BATCH-A-v2-RQ",
+ "auth_level": "AUTH-2",
+ "supersedes": "N03-AUTH2-DEVELOPMENT-BATCH-A-v1 (authorization a22bcc68b8e19974 issued against the now-revoked 512efb617a9cb4c8)",
+ "scope": {
+  "slots": 480,
+  "models": [
+   "MiniCPM5-2B",
+   "LFM3-1.7B",
+   "Qwen3.5-2B"
+  ],
+  "dev_cases": 160,
+  "roster_digest": "7adf74cd12c12093e1ed41de9da02143248c072ced398781a4e4e349d7469c58",
+  "dataset_digest": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+  "primitives": [
+   "C01",
+   "C02",
+   "C03",
+   "C04",
+   "C05",
+   "C06",
+   "C07",
+   "C08"
+  ],
+  "primitives_qualified": 8
+ },
+ "eae_contract_revision": "1.1.1",
+ "authorization_checksum": "cf627b26a5f47706639d5df77c20cd7913d7081f59ff05338d2e03e2f6e4d2c7",
+ "certificate_ids": [
+  "bd41edfb6fd7c004",
+  "fb019eacee3f35d4",
+  "62faca682a25d6f0",
+  "84cbfa3c9f2f0fc2"
+ ],
+ "revoked_predecessor_certificate": "512efb617a9cb4c8 (stays revoked, never un-revoked)",
+ "shared_core_gate": "N03_SHARED_EVALUATION_ASSURANCE_CORE_GO",
+ "dispatch_limits": {
+  "max_trials": 480
+ },
+ "confirmation_status": "BLOCKED (AUTH-3 not registered)",
+ "generated_utc": "2026-11-28T05:21:40Z"
+}

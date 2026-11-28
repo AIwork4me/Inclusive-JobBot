@@ -1,0 +1,72 @@
+{
+ "note": "issued for the diagnostic scope; consumer must verify checksum and recheck before every dispatch",
+ "authorization": {
+  "auth_level": "AUTH-1",
+  "certificate_ref": "512efb617a9cb4c8",
+  "checksum": "4a09f5253a3aaa164720be30643aecf7a39aa7dbbd7a635066a7adc886135da6",
+  "dataset_digest": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+  "eae_revision": "1.1.1",
+  "experiment_id": "N03-AUTH1-DIAGNOSTIC-PANEL-v1",
+  "issued_by": "eval_assurance.compat.execution_authorization",
+  "payload": {
+   "auth_purpose": "AUTH-1",
+   "canary_ready": true,
+   "certificate_digests": [
+    [
+     "512efb617a9cb4c8",
+     {
+      "dataset_sha256": "045cf42fdfe1a03f688dae939511912cdeb8c6756bc060d4303456e16687c7f4",
+      "evaluator_sha256": "f2d20832f66c8e34d8880e216ffd6473dfc8ab9dda1ae3ba3077a8c9c85470ed",
+      "interpreter_sha256": "2411b89474f917d226eea733b01247cfd8c5d2526ed3320e8c7b0d23cfb8e33f",
+      "mutation_sha256": "d35fe12b2e1961d8c41f33c06de7609c214a2aa740aa68b31d094d5d0a649008",
+      "parser_sha256": "85e7312b983c2a3666e8b166e1b366c6de29e8919538f972ca91b0ed9b20d158",
+      "reference_oracle_sha256": "7cf463ce27c56e569c6bd836f9dcc42278ca119bc1607150773d7e0b281f76c0",
+      "task_contract_sha256": "427f0cb770028e4e411f87ecc0bcaa6a26f4b52572872fd45dee2c885e640497",
+      "witness_suite_sha256": "0a1dd0fbcccc02251b21bc0c0b07e4329fdf1cdb2d4f8051ed29e403c10d044e"
+     }
+    ]
+   ],
+   "certificates": [
+    "512efb617a9cb4c8"
+   ],
+   "circuit_breaker_ready": true,
+   "confirmation_execution": false,
+   "dispatch_limits": {
+    "max_trials": 48
+   },
+   "ea13_scope_evidence": "",
+   "ea18_scope_evidence": "",
+   "evaluator_identity": "oracle@7cf463ce27c56e56",
+   "evidence_identity": "e6e36bf452b034ee7859f2b085fe84e26cfc37920e56a3a9481a71e69dc0dd90",
+   "experiment_binding": "N03-AUTH1-DIAGNOSTIC-PANEL-v1",
+   "results_dependency": "none",
+   "roster_split": "development",
+   "shared_core_acceptance": "ACCEPTED",
+   "shared_core_evidence_digest": "8f4fa69141e8361f1476f5ca72808f17e0ed6908213cc425621bc1d91ba1d025"
+  },
+  "qualifying_class": "EAE",
+  "roster_digest": "0a62c334e83b7c561e1959246251af77a8dc784dc513f8eaef4832f385c3b0bf",
+  "schema": "1.1.0",
+  "scope": {
+   "models": [
+    "LFM3-1.7B",
+    "MiniCPM5-2B",
+    "Qwen3.5-2B"
+   ],
+   "primitives": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08"
+   ],
+   "protocols": [
+    "chat"
+   ]
+  }
+ },
+ "issued_utc": "2026-11-28T03:45:21Z"
+}

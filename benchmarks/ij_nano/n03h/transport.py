@@ -68,11 +68,17 @@ class ChatTransport:
     request, and returns (content, telemetry)."""
 
     def __init__(self, model_alias: str, weights_path: pathlib.Path,
-                 port: int, workdir: pathlib.Path):
+                 port: int, workdir: pathlib.Path,
+                 lora_file: pathlib.Path | None = None):
         self.alias = model_alias
+        self.lora_file = lora_file
+        flags = list(CONTEXT_FLAGS)
+        if lora_file is not None:
+            # fixed-adapter isolated server process (order section 4.2)
+            flags += ["--lora", str(lora_file)]
         self.session = ServerSession(
             backend="vulkan", model=str(weights_path), alias=model_alias,
-            port=port, workdir=workdir, profile_flags=CONTEXT_FLAGS)
+            port=port, workdir=workdir, profile_flags=flags)
         self.base = f"http://127.0.0.1:{port}"
         self.started = False
 
@@ -82,6 +88,7 @@ class ChatTransport:
         self.started = True
         return {"health": health,
                 "offload": self.session.offload_line(),
+                "lora_active": bool(self.lora_file),
                 "template_fingerprint":
                     self.session.template_fingerprint(self.base)}
 

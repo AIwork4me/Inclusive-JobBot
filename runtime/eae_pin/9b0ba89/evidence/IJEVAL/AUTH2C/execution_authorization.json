@@ -1,0 +1,86 @@
+{
+ "note": "issued for the full Batch C development scope; consumer must verify checksum and recheck before every dispatch",
+ "authorization": {
+  "auth_level": "AUTH-2",
+  "certificate_ref": "bd41edfb6fd7c004",
+  "checksum": "c90f234af01db24a2c73796db505e25c7ae68c1afd66f0fd4a21954088b9d29f",
+  "dataset_digest": "eb5a34ee8cbfb47a9ff295494abdd47900cf48a6dd5327ef99864437a1be8c3f",
+  "eae_revision": "1.1.1",
+  "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-C-v1",
+  "issued_by": "eval_assurance.compat.execution_authorization",
+  "payload": {
+   "auth_purpose": "AUTH-2",
+   "canary_ready": true,
+   "certificate_digests": [
+    [
+     "bd41edfb6fd7c004",
+     {
+      "dataset_sha256": "eb5a34ee8cbfb47a9ff295494abdd47900cf48a6dd5327ef99864437a1be8c3f",
+      "evaluator_sha256": "006159c9bce394aa49c75dac16a7e85d0962dfb7a8e555e71bfc8de28f8d096d",
+      "interpreter_sha256": "84bff20e4fc3e1ad5e1e5d54bbb961cc23ed82abe608462caf74f2e72afff000",
+      "mutation_sha256": "68478655327de594c18491f9615469461cbb339bd61066fbf89f5c6aa1e4c9e2",
+      "parser_sha256": "aa2f26086a84b04470aad86c8c68099cfd0aa514a802b28dc17e7a7e9470fb64",
+      "reference_oracle_sha256": "31b4989d474db6ec27083536f3521d23f90359b87a39b8077e2c2a39aac31e82",
+      "task_contract_sha256": "f4b27e17ae05d790a91b9017056e61fd7278f2247951ea6e3bf0de5d16186229",
+      "witness_suite_sha256": "8b03113a28bb3cbbee4ea98613478da0bc119a74dcec99558238e23b10576fdc"
+     }
+    ],
+    [
+     "fb019eacee3f35d4",
+     {
+      "dataset_sha256": "eb5a34ee8cbfb47a9ff295494abdd47900cf48a6dd5327ef99864437a1be8c3f",
+      "evaluator_sha256": "c79936da180b849206e96f00a78742a31f5b133eaec526cd0b11ab58bfacd3f2",
+      "interpreter_sha256": "6d1ab26b50aa799052b205d69e194bb6c7314a61f4fed7cd650afbedf286456d",
+      "mutation_sha256": "cba22636fd40e7414b6d2a92764c36224319da553a1dc8183b1c53decbd440d4",
+      "parser_sha256": "68f60cb41280ee32edb7bb3e6723990f707bf729c4bfccdc910c591ae5a7a729",
+      "reference_oracle_sha256": "0a49f26ef2baec5a8abcd46e41c033e9e78bdbe7b4c44342c0ac205f6893f08a",
+      "task_contract_sha256": "27b5d879878a0a286a15c796f6ea058def8c55d72f635942d26c14dff2c458f4",
+      "witness_suite_sha256": "56e8da96b8af150b75085965650ad07ae12218c21a424c9c0c0638e4c8de75dd"
+     }
+    ]
+   ],
+   "certificates": [
+    "bd41edfb6fd7c004",
+    "fb019eacee3f35d4"
+   ],
+   "circuit_breaker_ready": true,
+   "confirmation_execution": false,
+   "dispatch_limits": {
+    "max_trials": 480
+   },
+   "ea13_scope_evidence": "51a422b8d4d400f91d48e245d6e52d78eb5670af2109339fee1793613d609b46",
+   "ea18_scope_evidence": "7afb3cc848f6bcede0e56b914348a0a5664b66b18088c81de626688868ca8a25",
+   "evaluator_identity": "oracle@0a49f26ef2baec5a",
+   "evidence_identity": "bba820939368b460784eb93ca17a0b5cad5cf880019ed14e72504a1af876487e",
+   "experiment_binding": "N03-AUTH2-DEVELOPMENT-BATCH-C-v1",
+   "results_dependency": "none",
+   "roster_split": "development",
+   "shared_core_acceptance": "ACCEPTED",
+   "shared_core_evidence_digest": "697ebf34ac6bbebdc126c7ff8aeb8a13f76d64984ead4c1203f6bde5cd988a6d"
+  },
+  "qualifying_class": "EAE",
+  "roster_digest": "961810d20e784ac5ba23db1a6b63016c8051b56a7f5b94d49a03ccc4b85ca4ba",
+  "schema": "1.1.0",
+  "scope": {
+   "models": [
+    "LFM3-1.7B",
+    "MiniCPM5-2B",
+    "Qwen3.5-2B"
+   ],
+   "primitives": [
+    "C17",
+    "C18",
+    "C19",
+    "C20",
+    "C21",
+    "C22",
+    "C23",
+    "C24"
+   ],
+   "protocols": [
+    "chat"
+   ]
+  }
+ },
+ "issued_utc": "2026-11-28T05:04:57Z"
+}

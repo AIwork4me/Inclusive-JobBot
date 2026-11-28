@@ -28,6 +28,8 @@ PIN_REVS = {
     "3cdd066": "EAE @ 3cdd06d685d5d9a824af60f2189d7ded612d735 (historical: AUTH-1/AUTH-2 Batch A releases; cert 512efb617a9cb4c8 revoked by drill)",
     "7a3e8dc": "EAE @ 7a3e8dc64dfb0a677fe4aa53c33f81b0d01e72d6 (AUTH-2B Batch B release bffce5a)",
     "a50c3c5": "EAE @ a50c3c5ceb8d1ca4979d00a8e8faa310ea24842e (AUTH-2C Batch C release 2094238)",
+    "18afcae": "EAE @ 18afcae (AUTH-2A-RQ requalification + AUTH-2W adapter scope)",
+    "9b0ba89": "EAE @ 9b0ba89 (AUTH-2D Batch D release commit)",
 }
 #: default pin for module-level constants (Batch A pinned data exists
 #: at every revision; SCOPES carry their own pin_rev)
@@ -63,6 +65,8 @@ MODELS = ["MiniCPM5-2B", "LFM3-1.7B", "Qwen3.5-2B"]
 PRIMITIVES_BATCH_A = [f"C{i:02d}" for i in range(1, 9)]
 PRIMITIVES_BATCH_B = [f"C{i:02d}" for i in range(9, 17)]
 PRIMITIVES_BATCH_C = [f"C{i:02d}" for i in range(17, 25)]
+PRIMITIVES_BATCH_D = [f"C{i:02d}" for i in range(25, 33)]
+PRIMITIVES_ALL = [f"C{i:02d}" for i in range(1, 33)]
 
 SCOPES = {
     "AUTH-1": {
@@ -133,6 +137,61 @@ SCOPES = {
         "ea13_scope_name": "EA13C/primitive_qualification_batch_c.json",
         "ea18_scope_name": "EA18/independent_acceptance.json",
     },
+    "AUTH-2A-RQ": {
+        "pin_rev": "18afcae",
+        "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-A-v2-RQ",
+        "auth_level": "AUTH-2",
+        "primitives": PRIMITIVES_BATCH_A,
+        "roster_name": "AUTH2A_RQ/development_roster_480.json",
+        "dataset": "pinned",
+        "acceptance_name": "AUTH2A_RQ/auth2a_rq_shared_core_acceptance.json",
+        "canary_name": "AUTH2A_RQ/canary_integration.json",
+        "breaker_name": "AUTH2A_RQ/breaker_drill.json",
+        "state_name": "AUTH2A_RQ/authoritative_state.json",
+        "witness_name": "EA03_N03/dualpath_witnesses.json",
+        "mutation_name": "EA03_N03/production_mutation_campaign.json",
+        "legs": "a",
+        "ea13_scope_name": "EA13/primitive_qualification.json",
+        "ea18_scope_name": "EA18/independent_acceptance.json",
+    },
+    "AUTH-2D": {
+        "pin_rev": "9b0ba89",
+        "experiment_id": "N03-AUTH2-DEVELOPMENT-BATCH-D-v1",
+        "auth_level": "AUTH-2",
+        "primitives": PRIMITIVES_BATCH_D,
+        "roster_name": "AUTH2D/development_roster_480.json",
+        "dataset": "pinned_full",
+        "acceptance_name": "AUTH2D/auth2d_shared_core_acceptance.json",
+        "canary_name": "AUTH2D/canary_integration.json",
+        "breaker_name": "AUTH2D/breaker_drill.json",
+        "state_name": "AUTH2D/authoritative_state.json",
+        "witness_name": "EA03_N03/dualpath_witnesses_batch_d.json",
+        "mutation_name": "EA03_N03/production_mutation_campaign_batch_d.json",
+        "legs": "d",
+        "ea13_scope_name": "EA13D/primitive_qualification_batch_d.json",
+        "ea18_scope_name": "EA18/independent_acceptance.json",
+    },
+    "AUTH-2W": {
+        "pin_rev": "18afcae",
+        "experiment_id": "N03-AUTH2-ADAPTER-ATLAS-v1",
+        "auth_level": "AUTH-2",
+        "primitives": PRIMITIVES_ALL,
+        "models": ["LFM3-1.7B+W1_pi", "LFM3-1.7B+W2_opencode",
+                   "LFM3-1.7B+W3_hermes"],
+        "roster_name": "ADAPTER_SCOPE/adapter_dev_roster_1920.json",
+        "dataset": "pinned_full",
+        "acceptance_name": "ADAPTER_SCOPE/adapter_scope_acceptance.json",
+        "canary_name": "ADAPTER_SCOPE/canary_integration.json",
+        "breaker_name": "ADAPTER_SCOPE/breaker_drill.json",
+        "state_name": "ADAPTER_SCOPE/authoritative_state.json",
+        "witness_name": "EA03_N03/dualpath_witnesses_batch_b.json",
+        "mutation_name": "EA03_N03/production_mutation_campaign_batch_b.json",
+        "legs": "b",
+        "session_legs": "multi",
+        "leg_files_note": "registration digests bind the batch_b stack per the EAE release script; TRIAL evaluation and canaries dispatch per-primitive batch legs (session_legs=multi)",
+        "ea13_scope_name": "EA13B/primitive_qualification_batch_b.json",
+        "ea18_scope_name": "EA18/independent_acceptance.json",
+    },
 }
 
 #: expected authorization checksums per scope (from the EAE releases);
@@ -146,6 +205,9 @@ EXPECTED_CHECKSUMS = {
     "AUTH-2": "a22bcc68b8e199741227ce4360035292abd24103ecd1df7f0182413f1ee57ebc",
     "AUTH-2B": "fc4cdb2c0d36f189dd9f0249edbba2310a5b957f3ecd40b99af8a1c8d2a9133d",
     "AUTH-2C": "c90f234af01db24a2c73796db505e25c7ae68c1afd66f0fd4a21954088b9d29f",
+    "AUTH-2D": "b71ab0d0ee3d307b8fdb0c71d6bdd55d45e82a946170040a0d957675c3f9926d",
+    "AUTH-2A-RQ": "cf627b26a5f47706639d5df77c20cd7913d7081f59ff05338d2e03e2f6e4d2c7",
+    "AUTH-2W": "a6b17c34cbe8eb9fef57811b0b648e609c77eadd7090b3b4a13df798d5b14725",
 }
 
 
@@ -153,10 +215,20 @@ def sha256_file(p: pathlib.Path) -> str:
     return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
 
 
-def import_pin_module(dotted: str):
-    """Import a module from the pinned snapshot (path-only; no evidence
-    registration). For containment components usable pre-authorization."""
-    src_str = str(PIN_SRC)
+def import_pin_module(dotted: str, rev: str | None = None):
+    """Import a module from a pinned snapshot (path-only; no evidence
+    registration). Binds the process to that revision — the FIRST
+    eval_assurance import fixes the package __path__, so the guard is
+    identical to bootstrap's (cross-revision import refuses)."""
+    global _LOADED_PIN_REV
+    rev = rev or CURRENT_PIN_REV
+    if _LOADED_PIN_REV is not None and _LOADED_PIN_REV != rev:
+        raise RuntimeError(
+            f"this process already imported eval_assurance from pin "
+            f"{_LOADED_PIN_REV}; refusing to import {dotted!r} from pin "
+            f"{rev} (one EAE revision per process)")
+    _LOADED_PIN_REV = rev
+    src_str = str(ROOT / "runtime" / "eae_pin" / rev / "src")
     if src_str not in sys.path:
         sys.path.insert(0, src_str)
     import importlib
@@ -217,13 +289,8 @@ def bootstrap(scope: str):
     pin_report = verify_pin(rev)
     sys.dont_write_bytecode = True     # keep the pin dir source-only
 
-    # the pinned CONTRACT module for this scope's revision must win the
-    # import order (a previously-bootstrapped other revision's modules
-    # stay cached under their own names; the compat module identity is
-    # revision-pinned by the checksum gate below)
-    src_str = str(paths["pin_src"])
-    if src_str not in sys.path:
-        sys.path.insert(0, src_str)
+    # bind the process to this scope's revision (single-revision rule)
+    import_pin_module("eval_assurance", rev)
     import importlib
     canary_mod = importlib.import_module("eval_assurance.canary")
     AuthoritativeQualificationState = importlib.import_module(
@@ -263,7 +330,8 @@ def bootstrap(scope: str):
     store = CertificateStore.load_registry(registry_copy)
     state = AuthoritativeQualificationState(store, state_copy)
 
-    sfx = {"a": "", "b": "_b", "c": "_c", "d": "_d"}[sc["legs"]]
+    sfx = {"a": "", "b": "_b", "c": "_c", "d": "_d",
+           "multi": ""}[sc["legs"]]
     srcdir = paths["src"]
     parser_file = srcdir / "production" / f"parser{sfx}.py"
     evaluator_file = srcdir / "production" / f"evaluator{sfx}.py"
@@ -278,7 +346,7 @@ def bootstrap(scope: str):
         experiment_id=sc["experiment_id"],
         auth_purpose=sc["auth_level"],
         primitives=sc["primitives"],
-        protocols=["chat"], models=MODELS,
+        protocols=["chat"], models=sc.get("models", MODELS),
         dataset_file=dataset_file,
         roster_file=roster_file,
         parser_file=parser_file,
@@ -314,13 +382,14 @@ def bootstrap(scope: str):
                 dataset_digest=sha256_file(dataset_file),
                 roster_digest=sha256_file(roster_file),
                 primitives=sc["primitives"],
-                protocols=["chat"], models=MODELS,
+                protocols=["chat"],
+                models=sc.get("models", MODELS),
                 auth_level=sc["auth_level"],
                 eae_revision=execution_authorization.EAE_CONTRACT_REVISION)
         except Exception as e:                     # noqa: BLE001
             raise RuntimeError(
                 f"scope {scope} is not consumable at pin "
-                f"{CURRENT_PIN_REV}: fresh issuance failed fail-closed "
+                f"{rev}: fresh issuance failed fail-closed "
                 f"({e}); released checksum {released[:16]}… cannot be "
                 "reproduced (scope blocked at this revision)") from e
         if probe.checksum != released:
@@ -366,7 +435,7 @@ def bootstrap(scope: str):
         "state": state,
         "roster_file": roster_file,
         "dataset_file": dataset_file,
-        "legs": sc["legs"],
+        "legs": sc.get("session_legs", sc["legs"]),
         "expectations": exps,
         "cases_by_id": cases_by_id,
         "witnesses": [w for w in witnesses if w["kind"] != "software-error"],
@@ -383,7 +452,7 @@ def bootstrap(scope: str):
             "roster_digest": sha256_file(roster_file),
             "primitives": sc["primitives"],
             "protocols": ["chat"],
-            "models": MODELS,
+            "models": sc.get("models", MODELS),
             "eae_revision":
                 execution_authorization.EAE_CONTRACT_REVISION,
             "dispatch_limits": dispatch_limits,
