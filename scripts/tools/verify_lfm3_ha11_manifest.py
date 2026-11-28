@@ -45,6 +45,24 @@ def verify_paired_archive(report):
     return True
 
 
+def verify_author_recipe(state):
+    audit = read("author-recipe-audit.json")
+    if (audit["historical_task_runs_verified"] != state["m8_historical_task_runs_verified"]
+            or audit["core_trial_attribution"] != 0 or audit["physical_trials"] != 0
+            or audit["reward"]["static_override_trace"] != state["m8_public_recipe_static_trace"]):
+        raise ValueError("Author recipe evidence differs from its static-only disposition")
+    for suite, count in (("traj2envs", state["m8_pinned_recipe_repo2rlenvs_ids"]),
+                         ("smoldataenvs", state["m8_historical_snapshot_smoldataenvs_candidate_ids"])):
+        cohort = audit["recipe_rosters"][suite]
+        prefix = cohort["scanned_prefix"]
+        ids = [row["task_id"] for row in prefix]
+        eligible = [row["task_id"] for row in prefix if not cohort["difficulty_filter"]
+                    or row["difficulty"] in cohort["difficulty_filter"]]
+        if (len(eligible) != count or eligible != cohort["selected_task_ids"] or ids != sorted(set(ids))
+                or cohort["historical_run_roster_binding"] != "BLOCKED"):
+            raise ValueError("Author recipe roster order, difficulty cut or historical status differs")
+
+
 def build():
     state = json.loads((ROOT / "MISSION_STATE.json").read_bytes())["lfm3_ha_1_1"]
     action = read("action-phase-retest.json")
@@ -54,6 +72,7 @@ def build():
     merge = read("high-precision-merge-artifacts.json")
     transfer = json.loads((ROOT / state["m4_evidence"]).read_bytes())
     compatibility = json.loads((ROOT / state["m5_evidence"]).read_bytes()) if state.get("m5_evidence") else None
+    verify_author_recipe(state)
     verify_paired_archive(transfer)
     if compatibility is not None:
         has_archive = verify_paired_archive(compatibility)

@@ -25,6 +25,7 @@
 | M6 and M7 formal qualification | BLOCKED | Independent review, issuer and dispatcher dependencies remain open. |
 | M8 exact author reproduction | BLOCKED | Historical task roster, digests and isolation remain open. |
 | M8 public author dashboard metadata | PASS | The LFM3 snapshot contains 40 checkpoint aggregates per harness. The snapshot has no task-level evaluation records. [Dashboard receipt](evidence/IJSLM/lfm3-ha-1.1/author-dashboard-observation.json) |
+| M8 public recipe source and roster reconstruction | PASS | Traced LFM3's explicit 0.1 override of the shared 0.3 reward default. Recovered 40 pinned Repo2RLEnvs IDs and 150 SmolDataEnvs IDs from a historically inferred revision. Exact execution receipts remain BLOCKED. [Source and roster audit](evidence/IJSLM/lfm3-ha-1.1/author-recipe-audit.json) |
 | M9 DX-M2 physical qualification | NOT_RUN | Target hardware unavailable. |
 | M9 NanoAgent handoff | PASS | Phase, binder, route, cache and profiler contracts and scoped acceptance evidence. All 720 paired records can be imported from the portable archive. [Consumer handoff](reports/LFM3_HA_NANOAGENT_HANDOFF.md) |
 | M9 CPU artifact packaging | PASS | Verified F16 merges and Q8_0 and Q4_K_M outputs for all three adapters. CPU tensor samples matched 4,131 values exactly. [Artifact identities](evidence/IJSLM/lfm3-ha-1.1/high-precision-merge-artifacts.json) |

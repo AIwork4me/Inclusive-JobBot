@@ -18,7 +18,6 @@ from scripts.tools.verify_ij06_evidence import verify_gpu
 
 from . import ha11_cache as cache
 from . import lfm3_ha_admission as ha
-from .admission import git_head
 
 
 def read_shortconv(data, *, state_layers, block_count, width, prefix):
@@ -114,6 +113,7 @@ def measure(client, folder, mode, prompt, cached, adapted, layout):
 def run(assets, output, port):
     from gguf import GGUFReader
 
+    from .admission import git_head
     from .ha11_preflight import checked_runtime
 
     registry, pin, model, binary, _ = checked_runtime(assets)
