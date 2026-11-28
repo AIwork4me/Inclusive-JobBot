@@ -13,4 +13,6 @@
 | EA02-R contract hardening (EA-D01..D06) | DONE | `reports/IJEVAL_02R_CONTRACT_HARDENING.md`, `evidence/IJEVAL/EA02R/` (red/green/state-space/defect ledger) | 68/68 + 213/213 tests; gate EA02R_EVALUATION_CONTRACT_INVARIANTS_GO granted; contract spec v1.1.0; pubgate replaces piped gate invocations |
 | Wave B/C boundary hardening (EA-R01..R04) | DONE | `reports/IJEVAL_WAVEBC_HARDENING.md`, `evidence/IJEVAL/EABC/` | 95/95 + 213/213; authority issuance, byte-verified receipts, hardened publication chain, snapshot recheck |
 | N03 coordination: compatibility contract v1.0.0 | DONE | `docs/IJEVAL_COMPATIBILITY_CONTRACT.md`, `evidence/IJEVAL/COMPAT/contract_v1.0.0.json` | 11 interfaces / 10 sections; RunnerAuthorization machine-readable; conformance-enforced |
-| EA03 dataset qualification engine | PENDING | — | Wave B proper; N02RR families first; consume pinned IJ-NANO Batch A package when it lands (N03-B2 in progress in IJNANO) |
+| N03 Batch A intake verification | DONE | `evidence/IJEVAL/EA03_N03/intake_verification.json` | pinned d23de5a; canonical public digest 93c58566 verified; 240/160/80 structure verified; protected manifest digest-verified without content access |
+| EA03 independent oracles C01–C08 | PENDING | `src/eval_assurance/reference/oracle.py` (spec: IJNANO handoff/batch_a/oracle_requirements.md) | C03-C08 recomputable; C01/C02/C07 adjudication; disagreement -> NOT_EVALUABLE |
+| Execution/Publication authorization split | PENDING | compat v1.1.0 | 16 bypass controls per order section 6 |

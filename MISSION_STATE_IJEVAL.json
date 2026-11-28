@@ -2,8 +2,8 @@
  "schema_version": 1,
  "mission": "IJ-EVAL-ASSURANCE-1.0",
  "mission_title": "Systemic Evaluation Integrity & Continuous Self-verification (Evaluation Assurance Engine, EAE)",
- "updated_utc": "2026-11-28T13:45:00Z",
- "current_phase": "N03 critical path: compat contract v1.0.0 delivered; EA03 Wave B next",
+ "updated_utc": "2026-11-28T15:20:00Z",
+ "current_phase": "EA03 N03 Batch A: intake VERIFIED; independent oracles next (handoff oracle_requirements.md is the spec)",
  "mission_order": "docs/IJEVAL_MISSION_ORDER.md",
  "tracking_issue": 12,
  "draft_pr": 13,
@@ -143,5 +143,15 @@
   "recreate_junction": "cmd /c mklink /J runtime\\llama-cpp\\vulkan <worktrees>/IJNANO/runtime/llama-cpp/vulkan",
   "rerun_reproducer": "python -I scripts/ij_eval_assurance/ea00_n02rr_residual_repro.py"
  },
- "single_writer": "IJEVAL worktree only; IJNANO owned by the concurrent IJ-NANO session (N03-B2 dataset build in progress); never modify IJNANO or its git index"
+ "single_writer": "IJEVAL worktree only; IJNANO owned by the concurrent IJ-NANO session (N03-B2 dataset build in progress); never modify IJNANO or its git index",
+ "n03_batch_a_intake": {
+  "pinned_ij_nano_revision": "d23de5abe596e43743a5a2c7437ccd1b5e7de7f9",
+  "status": "INTAKE_VERIFIED (evidence/IJEVAL/EA03_N03/intake_verification.json)",
+  "public_digest": "93c585660b756bcaa2c52f960aa276abcf12b0991103bf488cadc64c61ae99d9 (canonical array form, verified)",
+  "structure": "240 cases / 160 dev / 80 protected confirmation / 30 per C01-C08 / 120 en / 120 zh",
+  "protected_isolation": "raw-file digest verified against hash-only committed manifest without parsing answer contents; isolation = directory separation + git exclusion + hash-only manifests (strong isolation NOT claimed per IJ-NANO limitations #7)",
+  "recomputable_truth": "C03/C04/C05/C06/C08 derivable from public payloads (true dual-path)",
+  "construction_authored": "C01/C02/C07 require EAE adjudication/rule-table re-derivation; disagreements -> NOT_EVALUABLE per order section 2",
+  "next": "src/eval_assurance/reference/oracle.py per handoff oracle_requirements.md + dual-path runner + disagreement ledger; then ExecutionAuthorization/PublicationAuthorization split (compat v1.1.0)"
+ }
 }
