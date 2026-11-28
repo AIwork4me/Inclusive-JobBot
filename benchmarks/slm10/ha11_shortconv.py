@@ -105,8 +105,8 @@ def compare_states(left, right):
         identical = row == other
         pairs = zip(iter_unpack("<f", row), iter_unpack("<f", other), strict=True)
         absolute = [0.0] if identical else [abs(a - b) for (a,), (b,) in pairs]
-        differences[layer] = {"byte_identical": identical, "max_abs_delta": max(absolute),
-                              "mean_abs_delta": sum(absolute) / len(absolute)}
+        differences[str(layer)] = {"byte_identical": identical, "max_abs_delta": max(absolute),
+                                   "mean_abs_delta": sum(absolute) / len(absolute)}
     return {"byte_identical_layers": sum(item["byte_identical"] for item in differences.values()),
             "total_layers": len(differences), "layers": differences}
 
@@ -124,7 +124,7 @@ def snapshot(client, folder, name, probe, layout):
         raise ValueError("Native save receipt differs from the snapshot")
     return rows, state | {"snapshot_sha256": sha256(data).hexdigest(), "snapshot_size": len(data),
                           "sampled_tokens": probe["tokens"], "tokens_cached": probe["tokens_cached"],
-                          "layer_sha256": {layer: sha256(row).hexdigest() for layer, row in rows.items()}}
+                          "layer_sha256": {str(layer): sha256(row).hexdigest() for layer, row in rows.items()}}
 
 
 def measure(client, folder, mode, prompt, cached, adapted, layout):
@@ -151,7 +151,7 @@ def measure(client, folder, mode, prompt, cached, adapted, layout):
             for first, second in contrasts}}
 
 
-def run(assets, output, port):
+def run(assets, output, port, recovered_default=None):
     from gguf import GGUFReader
 
     from .admission import git_head
@@ -176,8 +176,20 @@ def run(assets, output, port):
               "dataset_sha256": fingerprint({"prompts": cache.PROMPTS, "prompt_index": 0,
                                              "unrelated": "Unrelated isolated session. " + cache.DISTRACTOR}),
               "core_trial_attribution": 0, "status": "BLOCKED", "cells": {}}
+    if recovered_default is not None:
+        recovered = json.loads(recovered_default.read_bytes())
+        if (recovered["gpu_execution"] != "PASS" or recovered["weight"] != "Original"
+                or recovered["factor"] != "default" or recovered["dataset_sha256"] != report["dataset_sha256"]
+                or recovered["handoff_sha256"] != report["handoff_sha256"]
+                or recovered["base_sha256"] != report["base"]["expected_sha256"]
+                or recovered["binary_sha256"] != pin["binary_sha256"]
+                or set(recovered["modes"]) != set(cache.PROMPTS)):
+            raise ValueError("Recovered default/original state differs from the probe identity")
+        report["cells"]["default-Original"] = recovered
     for factor, weight in product(cache.FACTORS, cache.WEIGHTS):
         name = factor + "-" + weight
+        if name in report["cells"]:
+            continue
         folder = output / name
         folder.mkdir()
         spec = None
@@ -195,7 +207,7 @@ def run(assets, output, port):
                 zero = result["states"]["scale_zero"]
                 result["scale_zero_vs_original"] = {
                     "same_saved_tokens": base["token_sha256"] == zero["token_sha256"],
-                    "byte_identical_layers": sum(base["layer_sha256"][layer] == zero["layer_sha256"][layer]
+                    "byte_identical_layers": sum(base["layer_sha256"][str(layer)] == zero["layer_sha256"][str(layer)]
                                                  for layer in state_layers),
                     "total_layers": len(state_layers),
                 }
@@ -203,6 +215,7 @@ def run(assets, output, port):
         write_evidence(launch_file, launch)
         physical = verify_gpu({"gpu_launch": launch_file, "gpu_counters": counters}, "vulkan")
         report["cells"][name] = {"gpu_execution": ha.verdict(physical), "weight": weight, "factor": factor,
+                                 "execution_git_sha": report["git_sha"],
                                  "adapter_sha256": spec["sha256"] if spec else None, "modes": modes,
                                  "launch_sha256": digest(launch_file), "gpu_counters_sha256": digest(counters),
                                  "server_log_sha256": digest(folder / "server.log")}
@@ -222,8 +235,9 @@ def main():
     parser.add_argument("--assets", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--port", type=int, default=18757)
+    parser.add_argument("--recovered-default", type=Path)
     args = parser.parse_args()
-    report = run(args.assets.resolve(strict=True), args.output.resolve(), args.port)
+    report = run(args.assets.resolve(strict=True), args.output.resolve(), args.port, args.recovered_default)
     print(report["status"], len(report["cells"]))
 
 

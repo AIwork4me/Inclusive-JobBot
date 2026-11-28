@@ -45,6 +45,6 @@ def test_shortconv_state_reports_bit_and_numeric_differences_separately():
     observed = {1: pack("<2f", -0.0, 1.0), 2: pack("<2f", 1.0, 1.0)}
     result = compare_states(original, observed)
     assert result["byte_identical_layers"] == 0
-    assert result["layers"][1]["max_abs_delta"] == 0
-    assert result["layers"][2]["max_abs_delta"] == 3
-    assert result["layers"][2]["mean_abs_delta"] == 2
+    assert result["layers"]["1"]["max_abs_delta"] == 0
+    assert result["layers"]["2"]["max_abs_delta"] == 3
+    assert result["layers"]["2"]["mean_abs_delta"] == 2
