@@ -8,7 +8,8 @@ import subprocess
 from uuid import uuid4
 
 from audit import write_evidence
-from evaluation.aeve.archive import digest
+from evaluation.aeve.archive import check_text, digest
+from evaluation.aeve.runtime import canonical, write_json
 
 from .admission import git_head
 from .lfm3_ha_admission import ATLAS, pinned_file
@@ -107,13 +108,74 @@ def run(assets, bin_dir, output):
     return report
 
 
+def verify(assets, bin_dir, output):
+    import numpy as np
+
+    source = output / "report.json"
+    report = json.loads(source.read_bytes())
+    base = pinned_file(assets, BASE)
+    _, base_tensors = index(base)
+    registry = json.loads((ATLAS / "MODEL_ADAPTER_REGISTRY.json").read_bytes())
+    if (set(report["arms"]) != {"HA-O", "HA-P", "HA-H"}
+            or report["base"]["sha256"] != BASE["sha256"]
+            or any(digest(bin_dir / name) != sha for name, sha in report["tool_binary_sha256"].items())):
+        raise ValueError("CPU artifact lane identities differ")
+    for arm, row in report["arms"].items():
+        spec, = (info for key, info in registry["adapters"][arm]["artifacts"].items() if key.endswith(".gguf"))
+        adapter = pinned_file(assets, spec)
+        adapter_reader, factors = index(adapter)
+        alpha = float(adapter_reader.get_field("adapter.lora.alpha").contents())
+        merged_path = output / row["merged"]["filename"]
+        _, merged = index(merged_path)
+        if (identity(adapter) != row["adapter"] or identity(merged_path) != row["merged"]
+                or digest(output / f"{arm}-merge.log") != row["merge_log_sha256"]
+                or set(row["quantized"]) != set(FORMATS)):
+            raise ValueError("Merged or adapter artifact seal differs")
+        for quant, entry in row["quantized"].items():
+            file = output / entry["filename"]
+            if any(entry[key] != value for key, value in identity(file).items()):
+                raise ValueError("Quantized artifact seal differs")
+            if digest(output / f"{arm}-{quant}.log") != entry["log_sha256"]:
+                raise ValueError("Quantization evidence differs")
+
+        checked = exact = within = 0
+        for name, tensor in factors.items():
+            if not name.endswith(".lora_a"):
+                continue
+            target = name.removesuffix(".lora_a")
+            a, b = tensor.data, factors[target + ".lora_b"].data
+            original, actual = base_tensors[target].data, merged[target].data
+            rows = [0, b.shape[0] // 2, b.shape[0] - 1]
+            cols = [0, a.shape[1] // 2, a.shape[1] - 1]
+            expected = (original[np.ix_(rows, cols)].astype(np.float32) +
+                        b[rows, :].astype(np.float32) @ a[:, cols].astype(np.float32)
+                        * (alpha / a.shape[0] if alpha else 1.0)).astype(actual.dtype)
+            got = actual[np.ix_(rows, cols)]
+            checked += got.size
+            exact += int(np.count_nonzero(got == expected))
+            lower = np.nextafter(expected, np.full_like(expected, -np.inf))
+            upper = np.nextafter(expected, np.full_like(expected, np.inf))
+            within += int(np.count_nonzero((got >= lower) & (got <= upper)))
+        row["independent_tensor_sample"] = {"checked_values": checked, "exact": exact,
+                                            "within_one_ulp": within,
+                                            "status": "PASS" if checked == within and checked else "FAIL"}
+    return report | {"private_report_sha256": digest(source), "artifact_replay": "PASS"}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--assets", required=True, type=Path)
     parser.add_argument("--binaries", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--publish", type=Path, help="Replay a completed CPU artifact directory")
     args = parser.parse_args()
-    result = run(args.assets.resolve(strict=True), args.binaries.resolve(strict=True), args.output.resolve())
+    inputs = (args.assets.resolve(strict=True), args.binaries.resolve(strict=True), args.output.resolve())
+    if args.publish:
+        result = verify(*inputs)
+        check_text(canonical(result))
+        write_json(args.publish, result)
+    else:
+        result = run(*inputs)
     print(result["run_id"])
 
 

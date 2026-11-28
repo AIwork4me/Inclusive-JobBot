@@ -157,12 +157,46 @@ def verified_cache(folder):
     return evidence, report
 
 
+def verified_legacy_budget(folder):
+    sources = []
+    limits = {}
+    for path in sorted(folder.glob("batch-*/seal.json")):
+        source = json.loads(path.read_bytes())
+        host = path.parent
+        if (source["gpu_execution"] != "PASS" or source.get("provider_contract") is not None
+                or any(digest(host / name) != value for name, value in source["artifacts"].items())
+                or not verify_gpu({"gpu_launch": host / "launch.json", "gpu_counters": host / "gpu.jsonl"}, "vulkan")):
+            raise ValueError("Historical budget diagnostic evidence differs")
+        for row in source["results"]:
+            capture_file = host / (row["slot_id"] + ".json")
+            if digest(capture_file) != row["capture_sha256"]:
+                raise ValueError("Historical budget diagnostic trace differs")
+            capture = json.loads(capture_file.read_bytes())
+            counts = limits.setdefault(row["profile"], Counter())
+            for event in capture["wire"]:
+                if "provider_request" in event:
+                    cap = json.loads(event["provider_request"]).get("max_completion_tokens")
+                    counts[str(cap)] += 1
+        sources.append({key: source[key] for key in
+                        ("run_id", "git_sha", "runtime", "base", "weights", "roster_sha256", "batch_sha256",
+                         "dataset_manifest_sha256", "handoff_sha256", "gpu_execution", "artifacts")}
+                       | {"seal_sha256": digest(path), "captured_trials": len(source["results"])})
+    count = sum(row["captured_trials"] for row in sources)
+    if count != 270 or "65535" not in limits.get("ORIGINAL_SDK", {}) or set(limits.get("DIRECT", {})) != {"768"}:
+        raise ValueError("Historical budget diagnostic did not reproduce the mismatch")
+    return {"replay": "PASS", "matched_provider_contract": "FAIL", "trials": count,
+            "registered_transfer_trials": 0, "formal_core_trials": 0,
+            "effective_max_completion_tokens": dict(limits), "seals": sources}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     inputs = parser.add_mutually_exclusive_group(required=True)
     inputs.add_argument("--preflight", type=Path)
     inputs.add_argument("--extension", type=Path)
     inputs.add_argument("--cache", type=Path)
+    inputs.add_argument("--legacy-budget", type=Path)
+    inputs.add_argument("--compatibility-admission", type=Path)
     parser.add_argument("--scripted", action="store_true")
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
@@ -173,12 +207,18 @@ def main():
         target = args.output.with_suffix(".json.gz")
         target.write_bytes(gzip.compress(data, mtime=0))
         evidence["portable_numeric_archive_sha256"] = digest(target)
+    elif args.legacy_budget:
+        evidence = verified_legacy_budget(args.legacy_budget)
+    elif args.compatibility_admission:
+        from .ha11_compatibility_admission import verify
+
+        evidence = verify(args.compatibility_admission)
     else:
         evidence = (verified_preflight(args.preflight) if args.preflight
                     else verified_extension(args.extension, scripted=args.scripted))
     check_text(canonical(evidence))
     write_json(args.output, evidence)
-    print(evidence["replay"], len(evidence["cells"] if args.cache else evidence["results"]))
+    print(evidence["replay"], len(evidence.get("cells", evidence.get("results", evidence.get("seals", [])))))
 
 
 if __name__ == "__main__":
