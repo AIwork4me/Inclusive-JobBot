@@ -64,8 +64,8 @@ def main() -> int:
         a(f"- **{name}**: {'ACTIVE' if lvl['active'] else 'inactive'}"
           f"{' (diagnostic only)' if lvl.get('diagnostic_only') else ''}")
     ctrl = state["authorization_levels"]["controller"]
-    a(f"- Authorization controller: `{ctrl['planned']}` — "
-      f"{ctrl['status']}")
+    ctrl_loc = ctrl.get("planned") or ctrl.get("implemented", "-")
+    a(f"- Authorization controller: `{ctrl_loc}` — {ctrl['status']}")
     a("")
     a("## Gates")
     a("")

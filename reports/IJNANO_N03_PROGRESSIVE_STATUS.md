@@ -1,6 +1,6 @@
 # N03 Progressive Status
 
-Generated 2026-11-28T01:38:06Z from `MISSION_STATE_IJNANO_N03_PROGRESSIVE.json` (deterministic render of the machine state; do not hand-edit).
+Generated 2026-11-28T01:50:18Z from `MISSION_STATE_IJNANO_N03_PROGRESSIVE.json` (deterministic render of the machine state; do not hand-edit).
 
 - Mission order: `docs/IJNANO_MISSION_ORDER_V1_3S.md` (SHA256 `c447831de2c4683c...`)
 - Execution plan: `docs/IJNANO_N03_PROGRESSIVE_EXECUTION_PLAN.md`
@@ -12,7 +12,7 @@ Generated 2026-11-28T01:38:06Z from `MISSION_STATE_IJNANO_N03_PROGRESSIVE.json` 
 - **AUTH-1_DIAGNOSTIC_SMOKE**: inactive (diagnostic only)
 - **AUTH-2_SCOPED_DEVELOPMENT_BENCHMARK**: inactive
 - **AUTH-3_SCOPED_CONFIRMATION_BENCHMARK**: inactive
-- Authorization controller: `benchmarks/ij_nano/n03/authorization.py` — NOT_IMPLEMENTED
+- Authorization controller: `benchmarks/ij_nano/n03/authorization.py` — IMPLEMENTED_FAIL_CLOSED
 
 ## Gates
 
@@ -93,4 +93,4 @@ Planned primary slots (roster-derived): 1920 dev + 960 confirmation = 2880 (targ
 - IJE-B-004: OPEN (IJ-SDK D01-D03, owned by that mission)
 - IJN-B-002: OPEN narrowed (formal business claims only)
 
-Next task: N03-B4 runner + authorization controller (AUTH-0)
+Next task: AUTH-1 blockers: EAE ExecutionAuthorization publication + EA03-EA11 qualifications (IJEVAL lane), then 48-slot diagnostic smoke

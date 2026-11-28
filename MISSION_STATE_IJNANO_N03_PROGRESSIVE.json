@@ -4,7 +4,7 @@
  "mission_title": "Assurance-Gated Progressive N03 Execution",
  "mission_order": "docs/IJNANO_MISSION_ORDER_V1_3S.md",
  "order_sha256": "c447831de2c4683c366fd0f7ae50ffda6d8660aea69961358d17900624d7e584",
- "updated_utc": "2026-11-28T11:30:00Z",
+ "updated_utc": "2026-11-28T12:30:00Z",
  "tracking_issue": 10,
  "draft_pr": 11,
  "research_branch": "mission/ij-nano-1.0-slm-native-agentic-runtime",
@@ -66,9 +66,10 @@
    ]
   },
   "controller": {
-   "planned": "benchmarks/ij_nano/n03/authorization.py",
-   "status": "NOT_IMPLEMENTED",
-   "note": "authorization decisions must be issued by this executable controller consuming EAE certificate state; until it exists nothing above AUTH-0 may be claimed"
+   "implemented": "benchmarks/ij_nano/n03/authorization.py",
+   "status": "IMPLEMENTED_FAIL_CLOSED",
+   "physical_dispatch": "refuses everything until the EAE lane publishes its ExecutionAuthorization contract (PublicationAuthorization-side authorize_runner() is NOT a pre-dispatch gate; no fabricated AggregationReport, no dummy qualified counts)",
+   "test_doubles": "qualifying_class=TEST_DOUBLE; structurally rejected by the physical gate"
   }
  },
  "gates": {
@@ -907,7 +908,7 @@
   "regression": "python -I -m unittest discover -s tests/ij_nano -t .",
   "publish_gate": "python -I scripts/tools/publish_check.py --staged",
   "gpu_lease": "python benchmarks/root_cause/gpu_lease.py",
-  "next_task": "N03-B4 runner + authorization controller (AUTH-0)"
+  "next_task": "AUTH-1 blockers: EAE ExecutionAuthorization publication + EA03-EA11 qualifications (IJEVAL lane), then 48-slot diagnostic smoke"
  },
  "taxonomy": {
   "path": "evaluation/ij_nano/n03/taxonomy.json",
@@ -939,5 +940,22 @@
    "confirmation": 320,
    "verification": "960/960 truth re-derivations; mutation battery 960/960 detected, 0 escaped; leakage clean"
   }
+ },
+ "runner": {
+  "implemented": "benchmarks/ij_nano/n03/runner.py",
+  "operations": [
+   "preflight",
+   "freeze",
+   "authorization",
+   "run",
+   "pause (stop_after)",
+   "resume (persist/load)",
+   "quarantine",
+   "replay",
+   "verify",
+   "analyze",
+   "publish (DIAGNOSTIC_ONLY under AUTH-0)"
+  ],
+  "synthetic_integration": "12 fault scenarios + 10 physical-boundary negative controls, 263/263 tests"
  }
 }
