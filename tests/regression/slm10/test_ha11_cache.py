@@ -1,6 +1,7 @@
 import pytest
 
 from benchmarks.slm10.ha11_cache import FACTORS, cache_flags, classify_unknown, same_numerics
+from benchmarks.slm10 import ha11_cache
 
 
 def test_cache_factors_change_one_flag_at_a_time():
@@ -27,3 +28,11 @@ def test_unknown_route_is_compared_to_both_explicit_scales(unknown, expected):
 def test_indistinguishable_scales_are_not_classified_as_scale_zero():
     probes = [sample(12, -0.3)]
     assert classify_unknown(probes, probes, probes) == "INDETERMINATE"
+
+
+def test_sampled_token_is_retained_when_raw_ranking_has_a_different_first_token():
+    probabilities = [{"id": 8, "top_logprobs": [{"id": n, "logprob": -1.0 - n} for n in range(32)]}]
+    data = {"tokens": [8], "completion_probabilities": probabilities}
+    tokens, logprobs = ha11_cache.read_native_scores(data)
+    assert tokens == [8]
+    assert logprobs[0][0] == (0, -1.0)

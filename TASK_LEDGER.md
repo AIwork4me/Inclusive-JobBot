@@ -9,9 +9,10 @@
 | M1 phase policy and M2 typed binder software | PASS | 22 software controls in `test_phase_tool_policy.py` and `test_lossless_callback.py`. Historic Extension certificate replay passed. |
 | M1 four-profile Radeon capture coverage | PASS | 40 new trajectories, all 81 requests linked to native generation, 18/18 phase-aware callbacks bound. The corrected arm scored 6/10 exact execution and 5/10 termination. [Replayed evidence](evidence/IJSLM/lfm3-ha-1.1/action-phase-retest.json) |
 | M2 same-byte archive replay | PASS | The five historic first responses were replayed against the real pinned SDK and scripted terminal provider. Every proposed integer tool call bound and reached its synthetic sandbox. |
-| M2 five Extension Radeon replays | NOT_RUN | Original model-specific records preserved. |
-| M3 cache and routing factorial | NOT_RUN | Fixed guarded admission preserved. |
-| M4 and M5 capability panels | BLOCKED | Executor qualification remains pending. Zero of 720 and zero of 6,600 executed. |
+| M2 five Extension Radeon replays | PASS | All five executed on Radeon and 21/21 callbacks bound. Scoped outcomes were four FAIL and one BLOCKED. [Physical replay](evidence/IJSLM/lfm3-ha-1.1/extension-radeon.json) |
+| M3 cache and routing factorial | BLOCKED | An interrupted, unsealed capture exposed that the sampled token can differ from the raw top-ranked token. The numerical recorder now retains both. Fixed guarded admission preserved. |
+| M4 transfer registration | PASS | Software replay preserves the 480 development slots and adds 240 corrected-runtime slots. No panel trajectories had executed at registration. |
+| M5 TC-V3 compatibility registration | PASS | Each of four weights has 500 Direct, 500 SDK first, 500 SDK streaming and 150 repeats with a new Original arm. Physical first/repeat compatibility admission remains pending. |
 | M6 and M7 formal qualification | BLOCKED | Independent review, issuer and dispatcher dependencies remain open. |
 | M8 exact author reproduction | BLOCKED | Historical task roster, digests and isolation remain open. |
 | M9 DX-M2 physical qualification | NOT_RUN | Target hardware unavailable. |

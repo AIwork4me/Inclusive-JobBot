@@ -53,25 +53,31 @@ def checked_runtime(assets):
     return registry, pin, model, engine / "llama-server.exe", harness
 
 
-def trial(client, public, world, profile, trial_id, target, harness):
+def trial(client, public, world, profile, trial_id, target, harness, *, seed=FIRST_SEED, track=None):
     if world["external_approval"] is not None or not set(public["tools"]) <= tc.TOOLS.keys():
         raise ValueError("Preflight requires the synthetic deny-write sandbox")
     sandbox = tc.Sandbox(public, world)
     before = sandbox.snapshot()
     if profile == DIRECT:
-        result = tc.direct_trial(client, ha.ALIAS, public, sandbox, trial_id, seed=FIRST_SEED)
+        result = tc.direct_trial(client, ha.ALIAS, public, sandbox, trial_id, seed=seed)
         track = "direct_first"
     else:
-        track = "sdk_streaming"
+        controls = None
+        if track is not None:
+            stream = track in {"sdk_streaming", "sdk_repeat"}
+            controls = tc.provider_profile(stream, seed)
+            if stream:
+                controls["stream_options"] = {"include_usage": True}
+        track = track or "sdk_streaming"
         result = asyncio.run(execute_sdk(
             client, ha.ALIAS, tc.public_tools(public), sandbox.allowed_tools - {"commit_release"},
             lambda proposal, turn, wire: sandbox.execute(proposal, turn, wire[turn]),
             public["prompt"], CONFIG["system"], trial_id, target, harness, profile=profile,
             model_budget=CONFIG["max_model_calls"], tool_budget=CONFIG["max_tool_calls"],
-            token_budget=CONFIG["max_completion_tokens"],
+            token_budget=CONFIG["max_completion_tokens"], provider_controls=controls,
         ))
     return result | {"trial_id": trial_id, "case_id": public["case_id"], "track": track,
-                     "seed": FIRST_SEED, "calls": sandbox.calls, "before": before, "after": sandbox.snapshot()}
+                     "seed": seed, "calls": sandbox.calls, "before": before, "after": sandbox.snapshot()}
 
 
 def run(assets, output, port):

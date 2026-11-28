@@ -50,6 +50,21 @@ def classify_unknown(observed, zero, one):
              (True, True): "INDETERMINATE", (False, False): "OTHER"}[zero_match, one_match]
 
 
+def read_native_scores(reply):
+    probabilities = reply["completion_probabilities"]
+    tokens = [entry["id"] for entry in probabilities]
+    if not tokens or tokens != reply["tokens"] or any(type(token) is not int or token < 0 for token in tokens):
+        raise ValueError("Native token sequence is missing or inconsistent")
+    # The sampling chain can choose a token other than the top pre-sampling token.
+    scores = []
+    for entry in probabilities:
+        top = entry["top_logprobs"]
+        if not top:
+            raise ValueError("Native log-probability ranking is missing")
+        scores.append(ha.numeric_row({"completion_probabilities": [entry | {"id": top[0]["id"]}]}))
+    return tokens, scores
+
+
 def sample(client, prompt, cached, scale=None, adapter_id=0):
     status, _, raw = client.post("/tokenize", {"content": prompt, "add_special": True})
     if status != 200:
@@ -65,12 +80,9 @@ def sample(client, prompt, cached, scale=None, adapter_id=0):
     if status != 200:
         return {"http_status": status, "response_sha256": fingerprint(raw.hex())}
     reply = json.loads(raw)
-    probabilities = reply["completion_probabilities"]
-    tokens = [entry["id"] for entry in probabilities]
-    if not tokens:
-        raise ValueError("Native token sequence is missing")
+    tokens, logprobs = read_native_scores(reply)
     return {"http_status": status, "prefix": prefix, "tokens": tokens,
-            "logprobs": [ha.numeric_row({"completion_probabilities": [entry]}) for entry in probabilities],
+            "logprobs": logprobs,
             "timings": reply["timings"], "tokens_cached": reply["tokens_cached"]}
 
 
